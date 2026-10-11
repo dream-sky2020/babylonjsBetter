@@ -1,0 +1,5027 @@
+{
+  "presetKey": "artist-loafbrr-showcase-sci-fi",
+  "name": "Loafbrr · SciFi · 115模型 · 模型 0.96 MiB + 贴图 2.27 MiB · 合计 3.24 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-scifi-0",
+      "name": "SciFi 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-scifi-1",
+      "name": "SciFi 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 45
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-81c857354b151d50-stand",
+      "name": "Cont_Barrel展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-98b4ab9b13418491-stand",
+      "name": "Cont_Barrel_static展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-caaf9d1991385655-stand",
+      "name": "Cont_Box展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d83f0a9df9ce969b-stand",
+      "name": "Cont_Box_Static展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dea4703737dbc780-stand",
+      "name": "Cont_Chest展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f82a52b093d1a8b0-stand",
+      "name": "Cont_Chest_Static展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d7022f2f609ee865-stand",
+      "name": "Cont_DisplayCase_1展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cbb271bc48904a8d-stand",
+      "name": "Cont_DisplayCase_2展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e490f223b10f5c38-stand",
+      "name": "Cont_Locker展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-219c279958e6a81d-stand",
+      "name": "Cont_Locker_Static展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-02748efbf47eeb8c-stand",
+      "name": "Cont_LockerGroup_Static展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-be1ec98010c0e847-stand",
+      "name": "Door_Fram展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5dd4bea15bed729d-stand",
+      "name": "Door_Hallway展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b10aceb16f9b7a26-stand",
+      "name": "Door_MTN_Frame展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7785371899b7898c-stand",
+      "name": "Furn_Chair展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-262877cbaea7560a-stand",
+      "name": "Furn_Couch展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-04cb369bf58595d8-stand",
+      "name": "Furn_Stool展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-22834bf5ae741063-stand",
+      "name": "Furn_Table_1展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8d5b560bdb3778fa-stand",
+      "name": "Furn_Table_2展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e5148ee0c94b4b99-stand",
+      "name": "Panel_Camera展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-150bc1bfad4583eb-stand",
+      "name": "Panel_CardSlider展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-741d19531bbc4391-stand",
+      "name": "Panel_Keypad展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-178e6568501a5a03-stand",
+      "name": "Panel_Light展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a630682643432784-stand",
+      "name": "Panel_Switch展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9139543c699e4b6d-stand",
+      "name": "Post_Thin展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f446c7b7c2ae8f45-stand",
+      "name": "Post_Weird展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-327e0899de392a4f-stand",
+      "name": "Post_Wide展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-494ed4fd17dd83ba-stand",
+      "name": "Room__5_Cross展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6c89b3ddbceba79f-stand",
+      "name": "Room_1展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9b6c1736a1012928-stand",
+      "name": "Room_1_LowCeiling展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c243a8d6e4836988-stand",
+      "name": "Room_2展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7c52216d462f7295-stand",
+      "name": "Room_2_LowCeiling展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9a50c6beef63df11-stand",
+      "name": "Room_3展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2cf0ef8f4f3a9bca-stand",
+      "name": "Room_3_LowCeiling展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-26b571da8029818d-stand",
+      "name": "Room_4_T展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-61941ae579667e98-stand",
+      "name": "Room_4_T_LowCeiling展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-81eb3cf62d6e9413-stand",
+      "name": "Room_5_Cross_LowCeiling展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f168635001566fe5-stand",
+      "name": "Room_Stairs展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5290cfd19e63d12f-stand",
+      "name": "Room_Stairs_LowCeiling展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2322662bb63a830d-stand",
+      "name": "Stickers_0展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e00c5baa2b5bf252-stand",
+      "name": "Stickers_1展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5a684f5527c817a6-stand",
+      "name": "Stickers_2展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2507d67a031dd9ae-stand",
+      "name": "Stickers_3展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-65ff39b2312ad4ca-stand",
+      "name": "Stickers_4展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4a2ed82aea3e715e-stand",
+      "name": "Stickers_5展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-92fd8883dc99f6de-stand",
+      "name": "Stickers_6展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8309df82b3b65526-stand",
+      "name": "Stickers_7展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4d68e683ecce293d-stand",
+      "name": "Stickers_8展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f2cdd00e1ee8a1c5-stand",
+      "name": "Stickers_9展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fec82cc1b5659d41-stand",
+      "name": "Stickers_A展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-62c91c09b69c38ad-stand",
+      "name": "Stickers_Arrow展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7ae802aeb532fdf5-stand",
+      "name": "Stickers_B展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2b71c6da203e77fb-stand",
+      "name": "Stickers_C展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4f6d2eb682daa256-stand",
+      "name": "Stickers_Caution展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0ecdcc8fa2d1ef83-stand",
+      "name": "Stickers_Cross展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0d04f532015d2d75-stand",
+      "name": "Stickers_D展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aa6ded521cad655b-stand",
+      "name": "Stickers_E展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-075dd894b22a7cf4-stand",
+      "name": "Stickers_Elec展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a91f0954f20a4c96-stand",
+      "name": "Stickers_Enter展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7726f5a98bdb2ce2-stand",
+      "name": "Stickers_Exit展台",
+      "parentId": "transform:category-scifi-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b23f0f449cdfe068-stand",
+      "name": "Stickers_Fire展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4cac6cb80ece7c75-stand",
+      "name": "Stickers_Gears展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5c1ebacc19ea4f82-stand",
+      "name": "Stickers_LightStrip展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a95a0b00d59b0ad1-stand",
+      "name": "Stickers_Line展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2f1ae43a558f306b-stand",
+      "name": "Stickers_PaintStrip展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0e24c7420d804a58-stand",
+      "name": "Tool_CrowBar展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b31cd435b0674022-stand",
+      "name": "Tool_Spanner展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-33c561881e6b1d7a-stand",
+      "name": "Tool_ToolBox展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7ab28b1af707c3ff-stand",
+      "name": "Tool_Tray展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1e7b6655094a97ec-stand",
+      "name": "Wall_Corner_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b29d09766d1bbe5d-stand",
+      "name": "Wall_Corner_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-61c724a789b7d0f0-stand",
+      "name": "Wall_Corner_2展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5cc56b77000361eb-stand",
+      "name": "Wall_CornerDoor_A_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0639c0e6fb944354-stand",
+      "name": "Wall_CornerDoor_B_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-693e1564684a0839-stand",
+      "name": "Wall_CornerDoor_C_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-6294b65db83ef726-stand",
+      "name": "Wall_DoorCorner_A_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a58c9db0de4f9d1f-stand",
+      "name": "Wall_DoorCorner_B_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1474c2c7be7b613c-stand",
+      "name": "Wall_DoorCorner_C_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-786d57aecf94d25d-stand",
+      "name": "Wall_DoorEntrance展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-747df255ab259341-stand",
+      "name": "Wall_DoorEntrance_End_A_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b4f26eae2f6d7eca-stand",
+      "name": "Wall_DoorEntrance_End_A_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-be83f4f2dedc24e3-stand",
+      "name": "Wall_DoorEntrance_End_A_2展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-223cc91d51a83070-stand",
+      "name": "Wall_DoorEntrance_End_B_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-79289f9d4165d2b5-stand",
+      "name": "Wall_DoorEntrance_End_B_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-46c55d5e1a8d144b-stand",
+      "name": "Wall_DoorEntrance_End_B_2展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4b08b36cf14e8557-stand",
+      "name": "Wall_DoorEntrance_End_C展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9ebac8bc7b3f9cb1-stand",
+      "name": "Wall_Hallway_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-389a4252ce0ef7c7-stand",
+      "name": "Wall_Hallway_2展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0494907e7b3ed35b-stand",
+      "name": "Wall_Hallway_End_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7b29de8002e9fafe-stand",
+      "name": "Wall_Hallway_End_2展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8eaf3bfc15fde883-stand",
+      "name": "Wall_MTNDoor展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-23ae68a946e9d05c-stand",
+      "name": "Wall_MTNDoor_End_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-81dbb7ae4cb79466-stand",
+      "name": "Wall_MTNDoor_End_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-52cc931d69b2d41b-stand",
+      "name": "Wall_MTNDoor_End_2展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-716c4eebc17b8900-stand",
+      "name": "Wall_MTNDoorCorner_A_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f8076f0f5c009240-stand",
+      "name": "Wall_MTNDoorCorner_A_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a15430d5ce67d0e6-stand",
+      "name": "Wall_MTNDoorCorner_B_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-479a2f47ba77392b-stand",
+      "name": "Wall_MTNDoorCorner_B_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-09a887a9660f9659-stand",
+      "name": "Wall_MTNDoorCorner_C_1展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b775ca956f0e0d66-stand",
+      "name": "Wall_MTNDoorCorner_C_1_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a33af75fb17d1150-stand",
+      "name": "Wall_Window展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-daddfa792980f59d-stand",
+      "name": "Wall_Window_A展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2daf592dacc507f4-stand",
+      "name": "Wall_Window_B展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-aeaf2a2cfb7801f9-stand",
+      "name": "Wall_WindowCorner_1_A展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3036e69de5d73e24-stand",
+      "name": "Wall_WindowCorner_1_A_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2e8169f05d6c478c-stand",
+      "name": "Wall_WindowCorner_1_B展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-746b40ec852c703c-stand",
+      "name": "Wall_WindowCorner_1_B_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-eee75b8b257bd021-stand",
+      "name": "Wall_WindowCorner_2_A展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ffa9e00e64bd07fe-stand",
+      "name": "Wall_WindowCorner_2_A_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5639d846999fa448-stand",
+      "name": "Wall_WindowCorner_2_B展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-58cd8b3a4778efb5-stand",
+      "name": "Wall_WindowCorner_2_B_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3caea46d8c376115-stand",
+      "name": "Wall_WindowCorner_3_A展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e57455b9f92fbd2c-stand",
+      "name": "Wall_WindowCorner_3_AF展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f58dc2ab6b313f7b-stand",
+      "name": "Wall_WindowCorner_3_B展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ff6000ddd516d90e-stand",
+      "name": "Wall_WindowCorner_3_B_F展台",
+      "parentId": "transform:category-scifi-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-81c857354b151d50",
+      "name": "SciFi · Cont_Barrel · 模型 0.03 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_Barrel.glb",
+      "position": [
+        -22,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.04684895,
+        2.04684895,
+        2.04684895
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-98b4ab9b13418491",
+      "name": "SciFi · Cont_Barrel_static · 模型 0.02 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_Barrel_static.glb",
+      "position": [
+        -18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.04684904,
+        2.04684904,
+        2.04684904
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-caaf9d1991385655",
+      "name": "SciFi · Cont_Box · 模型 0.02 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_Box.glb",
+      "position": [
+        -14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.80672404,
+        2.80672404,
+        2.80672404
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d83f0a9df9ce969b",
+      "name": "SciFi · Cont_Box_Static · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_Box_Static.glb",
+      "position": [
+        -9.99999975,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.80672404,
+        2.80672404,
+        2.80672404
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dea4703737dbc780",
+      "name": "SciFi · Cont_Chest · 模型 0.02 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_Chest.glb",
+      "position": [
+        -6,
+        0,
+        19.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09015074,
+        2.09015074,
+        2.09015074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f82a52b093d1a8b0",
+      "name": "SciFi · Cont_Chest_Static · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_Chest_Static.glb",
+      "position": [
+        -1.99999988,
+        0,
+        19.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09015056,
+        2.09015056,
+        2.09015056
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d7022f2f609ee865",
+      "name": "SciFi · Cont_DisplayCase_1 · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_DisplayCase_1.glb",
+      "position": [
+        -22,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.96904029,
+        0.96904029,
+        0.96904029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cbb271bc48904a8d",
+      "name": "SciFi · Cont_DisplayCase_2 · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_DisplayCase_2.glb",
+      "position": [
+        -18,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16854812,
+        1.16854812,
+        1.16854812
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e490f223b10f5c38",
+      "name": "SciFi · Cont_Locker · 模型 0.02 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_Locker.glb",
+      "position": [
+        -14.00000027,
+        -1e-8,
+        16.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999975,
+        1.39999975,
+        1.39999975
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-219c279958e6a81d",
+      "name": "SciFi · Cont_Locker_Static · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_Locker_Static.glb",
+      "position": [
+        -10,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-02748efbf47eeb8c",
+      "name": "SciFi · Cont_LockerGroup_Static · 模型 0.04 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Cont_LockerGroup_Static.glb",
+      "position": [
+        -6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.96342007,
+        0.96342007,
+        0.96342007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-be1ec98010c0e847",
+      "name": "SciFi · Door_Fram · 模型 0.02 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Door_Fram.glb",
+      "position": [
+        -1.99999799,
+        0,
+        15.99999866
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8629777,
+        0.8629777,
+        0.8629777
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5dd4bea15bed729d",
+      "name": "SciFi · Door_Hallway · 模型 0.02 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Door_Hallway.glb",
+      "position": [
+        -22.00000028,
+        0,
+        12.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46361855,
+        0.46361855,
+        0.46361855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b10aceb16f9b7a26",
+      "name": "SciFi · Door_MTN_Frame · 模型 0.02 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Door_MTN_Frame.glb",
+      "position": [
+        -17.9999963,
+        0,
+        11.99999748
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4796205,
+        1.4796205,
+        1.4796205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7785371899b7898c",
+      "name": "SciFi · Furn_Chair · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Furn_Chair.glb",
+      "position": [
+        -13.99999994,
+        0,
+        11.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09563248,
+        2.09563248,
+        2.09563248
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-262877cbaea7560a",
+      "name": "SciFi · Furn_Couch · 模型 0.01 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Furn_Couch.glb",
+      "position": [
+        -10,
+        0,
+        11.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-04cb369bf58595d8",
+      "name": "SciFi · Furn_Stool · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Furn_Stool.glb",
+      "position": [
+        -6,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.40347537,
+        4.40347537,
+        4.40347537
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-22834bf5ae741063",
+      "name": "SciFi · Furn_Table_1 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Furn_Table_1.glb",
+      "position": [
+        -2.00000008,
+        0,
+        11.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31378827,
+        1.31378827,
+        1.31378827
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8d5b560bdb3778fa",
+      "name": "SciFi · Furn_Table_2 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Furn_Table_2.glb",
+      "position": [
+        -22,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.47470126,
+        2.47470126,
+        2.47470126
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e5148ee0c94b4b99",
+      "name": "SciFi · Panel_Camera · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Panel_Camera.glb",
+      "position": [
+        -18,
+        -5.7e-7,
+        7.99998431
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.52833319,
+        9.52833319,
+        9.52833319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-150bc1bfad4583eb",
+      "name": "SciFi · Panel_CardSlider · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Panel_CardSlider.glb",
+      "position": [
+        -14,
+        2.9e-7,
+        8.00000202
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.57851922,
+        9.57851922,
+        9.57851922
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-741d19531bbc4391",
+      "name": "SciFi · Panel_Keypad · 模型 0.02 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Panel_Keypad.glb",
+      "position": [
+        -10,
+        2.9e-7,
+        8.00001624
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.57851824,
+        9.57851824,
+        9.57851824
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-178e6568501a5a03",
+      "name": "SciFi · Panel_Light · 模型 0.00 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Panel_Light.glb",
+      "position": [
+        -6,
+        -1e-7,
+        8.00000142
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.60951705,
+        1.60951705,
+        1.60951705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a630682643432784",
+      "name": "SciFi · Panel_Switch · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Panel_Switch.glb",
+      "position": [
+        -2,
+        1.4e-7,
+        7.99998174
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.57851824,
+        9.57851824,
+        9.57851824
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9139543c699e4b6d",
+      "name": "SciFi · Post_Thin · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Post_Thin.glb",
+      "position": [
+        -21.99999971,
+        0,
+        4.00000049
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666667,
+        0.46666667,
+        0.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f446c7b7c2ae8f45",
+      "name": "SciFi · Post_Weird · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Post_Weird.glb",
+      "position": [
+        -18.00000124,
+        0,
+        3.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666667,
+        0.46666667,
+        0.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-327e0899de392a4f",
+      "name": "SciFi · Post_Wide · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Post_Wide.glb",
+      "position": [
+        -13.99999942,
+        0,
+        3.99999919
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666667,
+        0.46666667,
+        0.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-494ed4fd17dd83ba",
+      "name": "SciFi · Room__5_Cross · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room__5_Cross.glb",
+      "position": [
+        -10,
+        0,
+        4.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4666663,
+        0.4666663,
+        0.4666663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6c89b3ddbceba79f",
+      "name": "SciFi · Room_1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_1.glb",
+      "position": [
+        -6.00000006,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666661,
+        0.46666661,
+        0.46666661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b6c1736a1012928",
+      "name": "SciFi · Room_1_LowCeiling · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_1_LowCeiling.glb",
+      "position": [
+        -2.00000006,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666661,
+        0.46666661,
+        0.46666661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c243a8d6e4836988",
+      "name": "SciFi · Room_2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_2.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666663,
+        0.46666663,
+        0.46666663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7c52216d462f7295",
+      "name": "SciFi · Room_2_LowCeiling · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_2_LowCeiling.glb",
+      "position": [
+        -18,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666663,
+        0.46666663,
+        0.46666663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9a50c6beef63df11",
+      "name": "SciFi · Room_3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_3.glb",
+      "position": [
+        -13.99999994,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666661,
+        0.46666661,
+        0.46666661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2cf0ef8f4f3a9bca",
+      "name": "SciFi · Room_3_LowCeiling · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_3_LowCeiling.glb",
+      "position": [
+        -9.99999994,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666661,
+        0.46666661,
+        0.46666661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-26b571da8029818d",
+      "name": "SciFi · Room_4_T · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_4_T.glb",
+      "position": [
+        -6.00000006,
+        0,
+        -6e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4666665,
+        0.4666665,
+        0.4666665
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-61941ae579667e98",
+      "name": "SciFi · Room_4_T_LowCeiling · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_4_T_LowCeiling.glb",
+      "position": [
+        -2.00000006,
+        0,
+        -6e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4666665,
+        0.4666665,
+        0.4666665
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-81eb3cf62d6e9413",
+      "name": "SciFi · Room_5_Cross_LowCeiling · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_5_Cross_LowCeiling.glb",
+      "position": [
+        -22,
+        0,
+        -3.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4666663,
+        0.4666663,
+        0.4666663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f168635001566fe5",
+      "name": "SciFi · Room_Stairs · 模型 0.02 MiB · 贴图 0.30 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_Stairs.glb",
+      "position": [
+        -18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23333333,
+        0.23333333,
+        0.23333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5290cfd19e63d12f",
+      "name": "SciFi · Room_Stairs_LowCeiling · 模型 0.02 MiB · 贴图 0.30 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Room_Stairs_LowCeiling.glb",
+      "position": [
+        -14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26202866,
+        0.26202866,
+        0.26202866
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2322662bb63a830d",
+      "name": "SciFi · Stickers_0 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_0.glb",
+      "position": [
+        -10,
+        -4.6e-7,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.8873582,
+        3.8873582,
+        3.8873582
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e00c5baa2b5bf252",
+      "name": "SciFi · Stickers_1 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_1.glb",
+      "position": [
+        -6,
+        2.3e-7,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.89999958,
+        3.89999958,
+        3.89999958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5a684f5527c817a6",
+      "name": "SciFi · Stickers_2 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_2.glb",
+      "position": [
+        -2,
+        2.3e-7,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.89999958,
+        3.89999958,
+        3.89999958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2507d67a031dd9ae",
+      "name": "SciFi · Stickers_3 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_3.glb",
+      "position": [
+        -22,
+        2.3e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.89999958,
+        3.89999958,
+        3.89999958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-65ff39b2312ad4ca",
+      "name": "SciFi · Stickers_4 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_4.glb",
+      "position": [
+        -18,
+        3.4e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.77512522,
+        3.77512522,
+        3.77512522
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4a2ed82aea3e715e",
+      "name": "SciFi · Stickers_5 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_5.glb",
+      "position": [
+        -14,
+        1.2e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.90133305,
+        3.90133305,
+        3.90133305
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-92fd8883dc99f6de",
+      "name": "SciFi · Stickers_6 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_6.glb",
+      "position": [
+        -10,
+        1.2e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.90133272,
+        3.90133272,
+        3.90133272
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8309df82b3b65526",
+      "name": "SciFi · Stickers_7 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_7.glb",
+      "position": [
+        -6,
+        -1.2e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9013324,
+        3.9013324,
+        3.9013324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4d68e683ecce293d",
+      "name": "SciFi · Stickers_8 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_8.glb",
+      "position": [
+        -2,
+        -1.2e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9013324,
+        3.9013324,
+        3.9013324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f2cdd00e1ee8a1c5",
+      "name": "SciFi · Stickers_9 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_9.glb",
+      "position": [
+        -22,
+        -1.2e-7,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9013324,
+        3.9013324,
+        3.9013324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fec82cc1b5659d41",
+      "name": "SciFi · Stickers_A · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_A.glb",
+      "position": [
+        -18,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.883575,
+        3.883575,
+        3.883575
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-62c91c09b69c38ad",
+      "name": "SciFi · Stickers_Arrow · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Arrow.glb",
+      "position": [
+        -14,
+        1.7e-7,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.76663761,
+        3.76663761,
+        3.76663761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7ae802aeb532fdf5",
+      "name": "SciFi · Stickers_B · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_B.glb",
+      "position": [
+        -10,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.883575,
+        3.883575,
+        3.883575
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2b71c6da203e77fb",
+      "name": "SciFi · Stickers_C · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_C.glb",
+      "position": [
+        -6,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.883575,
+        3.883575,
+        3.883575
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4f6d2eb682daa256",
+      "name": "SciFi · Stickers_Caution · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Caution.glb",
+      "position": [
+        -2,
+        9e-8,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.00577669,
+        3.00577669,
+        3.00577669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0ecdcc8fa2d1ef83",
+      "name": "SciFi · Stickers_Cross · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Cross.glb",
+      "position": [
+        -22,
+        -1.6e-7,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.69024327,
+        2.69024327,
+        2.69024327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0d04f532015d2d75",
+      "name": "SciFi · Stickers_D · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_D.glb",
+      "position": [
+        -18,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.883575,
+        3.883575,
+        3.883575
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aa6ded521cad655b",
+      "name": "SciFi · Stickers_E · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_E.glb",
+      "position": [
+        -14,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.883575,
+        3.883575,
+        3.883575
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-075dd894b22a7cf4",
+      "name": "SciFi · Stickers_Elec · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Elec.glb",
+      "position": [
+        -10,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9968408,
+        2.9968408,
+        2.9968408
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a91f0954f20a4c96",
+      "name": "SciFi · Stickers_Enter · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Enter.glb",
+      "position": [
+        -6,
+        -1.5e-7,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.95329992,
+        4.95329992,
+        4.95329992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7726f5a98bdb2ce2",
+      "name": "SciFi · Stickers_Exit · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Exit.glb",
+      "position": [
+        -2,
+        -8e-8,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.55946942,
+        2.55946942,
+        2.55946942
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b23f0f449cdfe068",
+      "name": "SciFi · Stickers_Fire · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Fire.glb",
+      "position": [
+        2,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0030735,
+        3.0030735,
+        3.0030735
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4cac6cb80ece7c75",
+      "name": "SciFi · Stickers_Gears · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Gears.glb",
+      "position": [
+        6,
+        -2.6e-7,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.87096218,
+        2.87096218,
+        2.87096218
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5c1ebacc19ea4f82",
+      "name": "SciFi · Stickers_LightStrip · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_LightStrip.glb",
+      "position": [
+        10,
+        -1e-8,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46678237,
+        0.46678237,
+        0.46678237
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a95a0b00d59b0ad1",
+      "name": "SciFi · Stickers_Line · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_Line.glb",
+      "position": [
+        14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46678237,
+        0.46678237,
+        0.46678237
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2f1ae43a558f306b",
+      "name": "SciFi · Stickers_PaintStrip · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Stickers_PaintStrip.glb",
+      "position": [
+        18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46678237,
+        0.46678237,
+        0.46678237
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0e24c7420d804a58",
+      "name": "SciFi · Tool_CrowBar · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Tool_CrowBar.glb",
+      "position": [
+        21.99999999,
+        0,
+        20.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.80843473,
+        6.80843473,
+        6.80843473
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b31cd435b0674022",
+      "name": "SciFi · Tool_Spanner · 模型 0.01 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Tool_Spanner.glb",
+      "position": [
+        2.00000039,
+        -1.7e-7,
+        16.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.17957024,
+        11.17957024,
+        11.17957024
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-33c561881e6b1d7a",
+      "name": "SciFi · Tool_ToolBox · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Tool_ToolBox.glb",
+      "position": [
+        6,
+        1.3e-7,
+        15.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.34273881,
+        4.34273881,
+        4.34273881
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7ab28b1af707c3ff",
+      "name": "SciFi · Tool_Tray · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Tool_Tray.glb",
+      "position": [
+        10,
+        2.2e-7,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.33002117,
+        4.33002117,
+        4.33002117
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1e7b6655094a97ec",
+      "name": "SciFi · Wall_Corner_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Corner_1.glb",
+      "position": [
+        13.99999979,
+        0,
+        16.00000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076915,
+        0.43076915,
+        0.43076915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b29d09766d1bbe5d",
+      "name": "SciFi · Wall_Corner_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Corner_1_F.glb",
+      "position": [
+        18.00000021,
+        0,
+        16.00000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076915,
+        0.43076915,
+        0.43076915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-61c724a789b7d0f0",
+      "name": "SciFi · Wall_Corner_2 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Corner_2.glb",
+      "position": [
+        21.99999978,
+        0,
+        15.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666659,
+        0.46666659,
+        0.46666659
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5cc56b77000361eb",
+      "name": "SciFi · Wall_CornerDoor_A_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_CornerDoor_A_1_F.glb",
+      "position": [
+        1.99999995,
+        0,
+        11.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076893,
+        0.43076893,
+        0.43076893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0639c0e6fb944354",
+      "name": "SciFi · Wall_CornerDoor_B_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_CornerDoor_B_1_F.glb",
+      "position": [
+        6.00000031,
+        0,
+        11.99999949
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076907,
+        0.43076907,
+        0.43076907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-693e1564684a0839",
+      "name": "SciFi · Wall_CornerDoor_C_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_CornerDoor_C_1_F.glb",
+      "position": [
+        9.99999985,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076891,
+        0.43076891,
+        0.43076891
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6294b65db83ef726",
+      "name": "SciFi · Wall_DoorCorner_A_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorCorner_A_1.glb",
+      "position": [
+        14.00000005,
+        0,
+        11.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076893,
+        0.43076893,
+        0.43076893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a58c9db0de4f9d1f",
+      "name": "SciFi · Wall_DoorCorner_B_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorCorner_B_1.glb",
+      "position": [
+        17.99999969,
+        0,
+        11.99999949
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076907,
+        0.43076907,
+        0.43076907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1474c2c7be7b613c",
+      "name": "SciFi · Wall_DoorCorner_C_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorCorner_C_1.glb",
+      "position": [
+        22.00000015,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076891,
+        0.43076891,
+        0.43076891
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-786d57aecf94d25d",
+      "name": "SciFi · Wall_DoorEntrance · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorEntrance.glb",
+      "position": [
+        2,
+        0,
+        8.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4666663,
+        0.4666663,
+        0.4666663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-747df255ab259341",
+      "name": "SciFi · Wall_DoorEntrance_End_A_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorEntrance_End_A_1.glb",
+      "position": [
+        5.99999986,
+        0,
+        8.00000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999993,
+        0.39999993,
+        0.39999993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b4f26eae2f6d7eca",
+      "name": "SciFi · Wall_DoorEntrance_End_A_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorEntrance_End_A_1_F.glb",
+      "position": [
+        10.00000019,
+        0,
+        8.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999989,
+        0.39999989,
+        0.39999989
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-be83f4f2dedc24e3",
+      "name": "SciFi · Wall_DoorEntrance_End_A_2 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorEntrance_End_A_2.glb",
+      "position": [
+        14.00000033,
+        0,
+        8.00000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999985,
+        0.39999985,
+        0.39999985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-223cc91d51a83070",
+      "name": "SciFi · Wall_DoorEntrance_End_B_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorEntrance_End_B_1.glb",
+      "position": [
+        18.00000014,
+        0,
+        7.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3999998,
+        0.3999998,
+        0.3999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-79289f9d4165d2b5",
+      "name": "SciFi · Wall_DoorEntrance_End_B_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorEntrance_End_B_1_F.glb",
+      "position": [
+        21.99999986,
+        0,
+        7.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3999998,
+        0.3999998,
+        0.3999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-46c55d5e1a8d144b",
+      "name": "SciFi · Wall_DoorEntrance_End_B_2 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorEntrance_End_B_2.glb",
+      "position": [
+        1.99999995,
+        0,
+        3.99999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999982,
+        0.39999982,
+        0.39999982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4b08b36cf14e8557",
+      "name": "SciFi · Wall_DoorEntrance_End_C · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_DoorEntrance_End_C.glb",
+      "position": [
+        6.00000005,
+        0,
+        3.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999982,
+        0.39999982,
+        0.39999982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9ebac8bc7b3f9cb1",
+      "name": "SciFi · Wall_Hallway_1 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Hallway_1.glb",
+      "position": [
+        9.99999981,
+        0,
+        4.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999992,
+        0.39999992,
+        0.39999992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-389a4252ce0ef7c7",
+      "name": "SciFi · Wall_Hallway_2 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Hallway_2.glb",
+      "position": [
+        14.00000022,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666663,
+        0.46666663,
+        0.46666663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0494907e7b3ed35b",
+      "name": "SciFi · Wall_Hallway_End_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Hallway_End_1.glb",
+      "position": [
+        17.99999995,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999996,
+        0.39999996,
+        0.39999996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7b29de8002e9fafe",
+      "name": "SciFi · Wall_Hallway_End_2 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Hallway_End_2.glb",
+      "position": [
+        21.99999967,
+        0,
+        3.99999928
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666667,
+        0.46666667,
+        0.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8eaf3bfc15fde883",
+      "name": "SciFi · Wall_MTNDoor · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoor.glb",
+      "position": [
+        2.00000011,
+        0,
+        6.7e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666667,
+        0.46666667,
+        0.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-23ae68a946e9d05c",
+      "name": "SciFi · Wall_MTNDoor_End_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoor_End_1.glb",
+      "position": [
+        6.00000021,
+        0,
+        2.6e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076891,
+        0.43076891,
+        0.43076891
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-81dbb7ae4cb79466",
+      "name": "SciFi · Wall_MTNDoor_End_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoor_End_1_F.glb",
+      "position": [
+        10.00000036,
+        0,
+        -1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076904,
+        0.43076904,
+        0.43076904
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-52cc931d69b2d41b",
+      "name": "SciFi · Wall_MTNDoor_End_2 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoor_End_2.glb",
+      "position": [
+        14,
+        0,
+        0.0000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999984,
+        0.39999984,
+        0.39999984
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-716c4eebc17b8900",
+      "name": "SciFi · Wall_MTNDoorCorner_A_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoorCorner_A_1.glb",
+      "position": [
+        17.99999944,
+        0,
+        -5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076918,
+        0.43076918,
+        0.43076918
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f8076f0f5c009240",
+      "name": "SciFi · Wall_MTNDoorCorner_A_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoorCorner_A_1_F.glb",
+      "position": [
+        22.00000041,
+        0,
+        5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076921,
+        0.43076921,
+        0.43076921
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a15430d5ce67d0e6",
+      "name": "SciFi · Wall_MTNDoorCorner_B_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoorCorner_B_1.glb",
+      "position": [
+        1.99999995,
+        0,
+        -3.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076917,
+        0.43076917,
+        0.43076917
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-479a2f47ba77392b",
+      "name": "SciFi · Wall_MTNDoorCorner_B_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoorCorner_B_1_F.glb",
+      "position": [
+        5.99999995,
+        0,
+        -3.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43076915,
+        0.43076915,
+        0.43076915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-09a887a9660f9659",
+      "name": "SciFi · Wall_MTNDoorCorner_C_1 · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoorCorner_C_1.glb",
+      "position": [
+        10.00000017,
+        0,
+        -4.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666656,
+        0.46666656,
+        0.46666656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b775ca956f0e0d66",
+      "name": "SciFi · Wall_MTNDoorCorner_C_1_F · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_MTNDoorCorner_C_1_F.glb",
+      "position": [
+        13.99999983,
+        0,
+        -4.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666656,
+        0.46666656,
+        0.46666656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a33af75fb17d1150",
+      "name": "SciFi · Wall_Window · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Window.glb",
+      "position": [
+        18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46665947,
+        0.46665947,
+        0.46665947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-daddfa792980f59d",
+      "name": "SciFi · Wall_Window_A · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Window_A.glb",
+      "position": [
+        21.99999994,
+        0,
+        -3.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46665945,
+        0.46665945,
+        0.46665945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2daf592dacc507f4",
+      "name": "SciFi · Wall_Window_B · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_Window_B.glb",
+      "position": [
+        2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46665947,
+        0.46665947,
+        0.46665947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aeaf2a2cfb7801f9",
+      "name": "SciFi · Wall_WindowCorner_1_A · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_1_A.glb",
+      "position": [
+        5.99999859,
+        0,
+        -8.00000094
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39436371,
+        0.39436371,
+        0.39436371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3036e69de5d73e24",
+      "name": "SciFi · Wall_WindowCorner_1_A_F · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_1_A_F.glb",
+      "position": [
+        10.00000141,
+        0,
+        -8.00000094
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39436371,
+        0.39436371,
+        0.39436371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2e8169f05d6c478c",
+      "name": "SciFi · Wall_WindowCorner_1_B · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_1_B.glb",
+      "position": [
+        13.99999859,
+        0,
+        -7.99999925
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39436371,
+        0.39436371,
+        0.39436371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-746b40ec852c703c",
+      "name": "SciFi · Wall_WindowCorner_1_B_F · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_1_B_F.glb",
+      "position": [
+        18.00000141,
+        0,
+        -7.99999925
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39436371,
+        0.39436371,
+        0.39436371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eee75b8b257bd021",
+      "name": "SciFi · Wall_WindowCorner_2_A · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_2_A.glb",
+      "position": [
+        21.99999854,
+        0,
+        -8.00000085
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3943635,
+        0.3943635,
+        0.3943635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ffa9e00e64bd07fe",
+      "name": "SciFi · Wall_WindowCorner_2_A_F · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_2_A_F.glb",
+      "position": [
+        1.99999854,
+        0,
+        -12.00000094
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39436347,
+        0.39436347,
+        0.39436347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5639d846999fa448",
+      "name": "SciFi · Wall_WindowCorner_2_B · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_2_B.glb",
+      "position": [
+        6.0000015,
+        0,
+        -12.00000085
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3943635,
+        0.3943635,
+        0.3943635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-58cd8b3a4778efb5",
+      "name": "SciFi · Wall_WindowCorner_2_B_F · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_2_B_F.glb",
+      "position": [
+        9.9999985,
+        0,
+        -12.00000085
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3943635,
+        0.3943635,
+        0.3943635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3caea46d8c376115",
+      "name": "SciFi · Wall_WindowCorner_3_A · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_3_A.glb",
+      "position": [
+        13.99999955,
+        0,
+        -11.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41868853,
+        0.41868853,
+        0.41868853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e57455b9f92fbd2c",
+      "name": "SciFi · Wall_WindowCorner_3_AF · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_3_AF.glb",
+      "position": [
+        18.00000045,
+        0,
+        -11.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41868853,
+        0.41868853,
+        0.41868853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f58dc2ab6b313f7b",
+      "name": "SciFi · Wall_WindowCorner_3_B · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_3_B.glb",
+      "position": [
+        21.9999989,
+        0,
+        -11.99999885
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41868832,
+        0.41868832,
+        0.41868832
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ff6000ddd516d90e",
+      "name": "SciFi · Wall_WindowCorner_3_B_F · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-scifi-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SciFi/Wall_WindowCorner_3_B_F.glb",
+      "position": [
+        12.0000011,
+        0,
+        -15.99999885
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41868832,
+        0.41868832,
+        0.41868832
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

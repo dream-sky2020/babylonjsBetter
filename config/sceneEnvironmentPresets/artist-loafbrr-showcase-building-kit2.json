@@ -1,0 +1,588 @@
+{
+  "presetKey": "artist-loafbrr-showcase-building-kit2",
+  "name": "Loafbrr · BuildingKit2 · 12模型 · 模型 3.23 MiB + 贴图 1.47 MiB · 合计 4.70 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-buildingkit2-0",
+      "name": "BuildingKit2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 13
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-2a9d443ded14086b-stand",
+      "name": "Build1_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e258b9829cb4eb45-stand",
+      "name": "Build1_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a4be246a38c0480e-stand",
+      "name": "Build10_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-85ddd50c3a682804-stand",
+      "name": "Build11_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-edc23a9304d28959-stand",
+      "name": "Build2_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e15d076836261808-stand",
+      "name": "Build3_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-94965da49488e5e8-stand",
+      "name": "Build4_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b3821d59f47699dd-stand",
+      "name": "Build5_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-80d0696650182472-stand",
+      "name": "Build6_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0b25ac584755d2e0-stand",
+      "name": "Build7_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bb194dc7c3a1a458-stand",
+      "name": "Build8_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-be124898abdbbcf5-stand",
+      "name": "Build9_grp展台",
+      "parentId": "transform:category-buildingkit2-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-2a9d443ded14086b",
+      "name": "BuildingKit2 · Build1_grp · 模型 0.13 MiB · 贴图 0.60 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build1_grp_0d7d3c66.glb",
+      "position": [
+        -21.99999997,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2997134,
+        0.2997134,
+        0.2997134
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e258b9829cb4eb45",
+      "name": "BuildingKit2 · Build1_grp · 模型 0.13 MiB · 贴图 0.60 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build1_grp.glb",
+      "position": [
+        -17.99999997,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2997134,
+        0.2997134,
+        0.2997134
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a4be246a38c0480e",
+      "name": "BuildingKit2 · Build10_grp · 模型 0.21 MiB · 贴图 0.79 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build10_grp.glb",
+      "position": [
+        -14.00000001,
+        0,
+        3.9999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15300077,
+        0.15300077,
+        0.15300077
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-85ddd50c3a682804",
+      "name": "BuildingKit2 · Build11_grp · 模型 0.29 MiB · 贴图 0.69 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build11_grp.glb",
+      "position": [
+        -10.00000001,
+        0,
+        4.00000052
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1829998,
+        0.1829998,
+        0.1829998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-edc23a9304d28959",
+      "name": "BuildingKit2 · Build2_grp · 模型 0.44 MiB · 贴图 0.82 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build2_grp.glb",
+      "position": [
+        -6.00000018,
+        0,
+        4.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16720924,
+        0.16720924,
+        0.16720924
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e15d076836261808",
+      "name": "BuildingKit2 · Build3_grp · 模型 0.42 MiB · 贴图 0.69 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build3_grp.glb",
+      "position": [
+        -2.00000013,
+        0,
+        4.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1342916,
+        0.1342916,
+        0.1342916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-94965da49488e5e8",
+      "name": "BuildingKit2 · Build4_grp · 模型 0.08 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build4_grp.glb",
+      "position": [
+        -22.00000001,
+        0,
+        -0.00000106
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3435417,
+        0.3435417,
+        0.3435417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b3821d59f47699dd",
+      "name": "BuildingKit2 · Build5_grp · 模型 0.23 MiB · 贴图 0.49 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build5_grp.glb",
+      "position": [
+        -18,
+        0,
+        -1.5e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21538462,
+        0.21538462,
+        0.21538462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-80d0696650182472",
+      "name": "BuildingKit2 · Build6_grp · 模型 0.10 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build6_grp.glb",
+      "position": [
+        -13.99999991,
+        0,
+        2.8e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31111111,
+        0.31111111,
+        0.31111111
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0b25ac584755d2e0",
+      "name": "BuildingKit2 · Build7_grp · 模型 0.26 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build7_grp.glb",
+      "position": [
+        -10.00000017,
+        0,
+        1.9e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19999999,
+        0.19999999,
+        0.19999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bb194dc7c3a1a458",
+      "name": "BuildingKit2 · Build8_grp · 模型 0.56 MiB · 贴图 0.69 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build8_grp.glb",
+      "position": [
+        -6,
+        0,
+        3e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10575895,
+        0.10575895,
+        0.10575895
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-be124898abdbbcf5",
+      "name": "BuildingKit2 · Build9_grp · 模型 0.38 MiB · 贴图 0.69 MiB",
+      "parentId": "transform:category-buildingkit2-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2/Build9_grp.glb",
+      "position": [
+        -1.99999999,
+        0,
+        2.5e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13156938,
+        0.13156938,
+        0.13156938
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

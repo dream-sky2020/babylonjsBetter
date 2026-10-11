@@ -1,0 +1,383 @@
+{
+  "presetKey": "artist-keysrec-model-test",
+  "name": "Keysrec · 空调、手推车与纸箱（7 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-props",
+      "name": "空调与手推车",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-cardboard",
+      "name": "五种纸箱",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 32,
+        "height": 14
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "keysrec-761a3d0f64aadef4-stand",
+      "name": "空调展台",
+      "parentId": "transform:category-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "keysrec-57313765f1c3b8f5-stand",
+      "name": "独轮手推车展台",
+      "parentId": "transform:category-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "keysrec-f8a581a85a5fbeaa-stand",
+      "name": "封闭纸箱展台",
+      "parentId": "transform:category-cardboard",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        3,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "keysrec-6438e68ede587db7-stand",
+      "name": "展开纸箱 01展台",
+      "parentId": "transform:category-cardboard",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        7,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "keysrec-d994c892f6fbf099-stand",
+      "name": "展开纸箱 02展台",
+      "parentId": "transform:category-cardboard",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        11,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "keysrec-c023db8242972d08-stand",
+      "name": "展开纸箱 03展台",
+      "parentId": "transform:category-cardboard",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "keysrec-d14d890c2c97b4fb-stand",
+      "name": "展开纸箱 04展台",
+      "parentId": "transform:category-cardboard",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        9,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "keysrec-761a3d0f64aadef4",
+      "name": "空调",
+      "parentId": "transform:category-props",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Props/AirConditioner.glb",
+      "position": [
+        -10,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        139.49603373,
+        139.49603373,
+        139.49603373
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "keysrec-57313765f1c3b8f5",
+      "name": "独轮手推车",
+      "parentId": "transform:category-props",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Props/Wheelbarrow.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.81502508,
+        33.81502508,
+        33.81502508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "keysrec-f8a581a85a5fbeaa",
+      "name": "封闭纸箱",
+      "parentId": "transform:category-cardboard",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_close.glb",
+      "position": [
+        3,
+        0,
+        1.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.99999937,
+        6.99999937,
+        6.99999937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "keysrec-6438e68ede587db7",
+      "name": "展开纸箱 01",
+      "parentId": "transform:category-cardboard",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_open00.glb",
+      "position": [
+        7,
+        0,
+        2.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.08342279,
+        5.08342279,
+        5.08342279
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "keysrec-d994c892f6fbf099",
+      "name": "展开纸箱 02",
+      "parentId": "transform:category-cardboard",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_open01.glb",
+      "position": [
+        11,
+        0,
+        1.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.16669546,
+        5.16669546,
+        5.16669546
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "keysrec-c023db8242972d08",
+      "name": "展开纸箱 03",
+      "parentId": "transform:category-cardboard",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_open02.glb",
+      "position": [
+        5,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.99999937,
+        6.99999937,
+        6.99999937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "keysrec-d14d890c2c97b4fb",
+      "name": "展开纸箱 04",
+      "parentId": "transform:category-cardboard",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_open03.glb",
+      "position": [
+        9,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.86044902,
+        5.86044902,
+        5.86044902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

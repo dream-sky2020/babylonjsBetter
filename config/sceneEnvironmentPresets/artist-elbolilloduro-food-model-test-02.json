@@ -1,0 +1,7832 @@
+{
+  "presetKey": "artist-elbolilloduro-food-model-test-02",
+  "name": "Elbolilloduro · 餐饮、厨房与商店 2/8（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-burgerpiz",
+      "name": "BurgerPiz",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-cocina1",
+      "name": "Cocina1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-comida_low_poly",
+      "name": "Comida_low_poly",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 76
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-5ca8bff5bbedaea9-stand",
+      "name": "Tree_03_017展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-91a43e6d71f72555-stand",
+      "name": "Tree_03_018展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1a0ff3bf28008e03-stand",
+      "name": "Tree_03_020展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8fd25d0153b03f3e-stand",
+      "name": "Tree_03_021展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-230e7491dae0552a-stand",
+      "name": "Tree_03_023展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e32882dc6d6f93c5-stand",
+      "name": "Tree_03_024展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-006248dd8769b63e-stand",
+      "name": "Tree_03_026展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f290d69ee6b3219c-stand",
+      "name": "Tree_03_027展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6a729d4862670fe1-stand",
+      "name": "Tree_03_029展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-353d35ed1bc0ffc0-stand",
+      "name": "Tree_03_030展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-90a7f6fc0e953e0e-stand",
+      "name": "Tree_03_031展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-15a0526c7279ed17-stand",
+      "name": "Tree_03_032展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9c8c045820fc3c10-stand",
+      "name": "Tree_03_033展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-48d1bba34814c782-stand",
+      "name": "Tree_03_034展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5a0296c0de260c27-stand",
+      "name": "Tree_03_037展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1ab57217d9aff3b0-stand",
+      "name": "Tree_03_038展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a1cec20c62ac1f11-stand",
+      "name": "Tree_03_039展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-385d9d58e75b833e-stand",
+      "name": "Tree_03_040展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c403e91bb682a69-stand",
+      "name": "Tree_03_041展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-754b80cc771b1d60-stand",
+      "name": "Tree_03_042展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a9971d0f9d055017-stand",
+      "name": "Tree_03_044展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dc5ac295235d15aa-stand",
+      "name": "Tree_03_047展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-24ac94395b93b968-stand",
+      "name": "Tree_03_048展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a5924a7c987686be-stand",
+      "name": "Tree_03_049展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f7ce9da57cbcd79a-stand",
+      "name": "Tree_03_050展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6bcf749f3f6ea393-stand",
+      "name": "Tree_03_051展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-67bf6a0db7398346-stand",
+      "name": "Tree_03_052展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-828f8ce45d1abbff-stand",
+      "name": "Tree_03_053展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0686de6f9a4f6ab5-stand",
+      "name": "Tree_03_054展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-11e36229dba25052-stand",
+      "name": "Tree_03_055展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5a8f51fc283eec9b-stand",
+      "name": "Tree_03_056展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bf6c1bbd15986a1a-stand",
+      "name": "Tree_03_057展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c4b38d7835fbef07-stand",
+      "name": "Tree_03_060展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-94ead7b4a6214892-stand",
+      "name": "Tree_03_061展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6d0c0c943b2dcaa4-stand",
+      "name": "Tree_03_062展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-98fdc2b0bea3f99b-stand",
+      "name": "Tree_03_063展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-60d5c69c2b591b75-stand",
+      "name": "Tree_03_064展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-eb21fb87a7296d10-stand",
+      "name": "Tree_03_065展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e7c9ee531d250c3d-stand",
+      "name": "Tree_03_069展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-683a42e09b24495b-stand",
+      "name": "Tree_03_070展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2187e623130b3c7a-stand",
+      "name": "Tree_03_071展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0284aba133300072-stand",
+      "name": "Tree_03_072展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fb8a07dd6c4cc97a-stand",
+      "name": "Tree_03_073展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8f54b52ab5606c78-stand",
+      "name": "Tree_03_074展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-68d064719f23424e-stand",
+      "name": "Tree_03_075展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-263e0816ee81053a-stand",
+      "name": "Tree_03_078展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-54525825ca754b75-stand",
+      "name": "Tree_03_079展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3df42a4d1c7413b5-stand",
+      "name": "Tree_03_080展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-66141eaf45d17d53-stand",
+      "name": "Tree_03_081展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-05779f47216acc64-stand",
+      "name": "Tree_03_082展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ccef5df37032b592-stand",
+      "name": "Tree_03_083展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8261880876a84145-stand",
+      "name": "Tree_03_084展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f493b438d713d6ec-stand",
+      "name": "Tree_03_085展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d4be203b69da82e4-stand",
+      "name": "Tree_031展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0ae8de52d2449e11-stand",
+      "name": "Tumbler展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7e9b8ccd630a9011-stand",
+      "name": "Tumbler_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c038d838b11a7a1e-stand",
+      "name": "Tumbler_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2bc12073a58c3c7f-stand",
+      "name": "Tumbler_004展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ad6861e8c55f9dcb-stand",
+      "name": "urinary_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-762be985cb97d801-stand",
+      "name": "urinary_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0599cfc396195003-stand",
+      "name": "Ventilation展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b33874fd04a113b-stand",
+      "name": "Wall_W_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b1ff5ed9eacce9ca-stand",
+      "name": "Wall_W_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8de12031304fe218-stand",
+      "name": "Wall_W_009展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f34131ce5517f8a3-stand",
+      "name": "Wall_W_010展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0ba9f2f2afe85e50-stand",
+      "name": "Wall_W_D_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fc62970d1d9ecd38-stand",
+      "name": "Washbasin_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4767ea312792a3cc-stand",
+      "name": "Washbasin_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7553a7b610c46c89-stand",
+      "name": "Windows展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-235ed29ffc00628a-stand",
+      "name": "Windows_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4f512dbccbb877be-stand",
+      "name": "Windows_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-553a298b6e5fd68a-stand",
+      "name": "Windows_004展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a6a3aec063691eb1-stand",
+      "name": "Windows_005展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3097447b529a6fc5-stand",
+      "name": "Windows_Door展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ea6b465a748f169d-stand",
+      "name": "Windows_Door_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-439cff55406263f9-stand",
+      "name": "Windows_Door_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b45c0f4eefeee4d2-stand",
+      "name": "Windows_Door_005展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f739e871ab29a8fa-stand",
+      "name": "Windows_Frame展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c6e9a353c39ea2db-stand",
+      "name": "Windows_Frame_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-88751c6ac4aaa624-stand",
+      "name": "Windows_Frame_008展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5d2492fc4ac4e00c-stand",
+      "name": "Wood_Base展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-53ce9357f0274ee0-stand",
+      "name": "Wood_Base_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-50f9986528b197cf-stand",
+      "name": "WoodPlanksFloors0展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1ac70771cf34f35c-stand",
+      "name": "Olla1展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6338f310b78e7832-stand",
+      "name": "Olla2展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-14e1ccce1b645f03-stand",
+      "name": "Olla3展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c2367d47722dec4f-stand",
+      "name": "Olla4展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ed6d16bc0d96f09f-stand",
+      "name": "Olla5展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c7d52e5119ee99d6-stand",
+      "name": "Olla6展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2d5c1ae16fe022a6-stand",
+      "name": "Olla7展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6d9f7ced60bc4e69-stand",
+      "name": "Olla8展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-baaa811489a2b9a0-stand",
+      "name": "Olla9展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f81b4a26b482aaed-stand",
+      "name": "Sarten展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-11be02fbfa521c8c-stand",
+      "name": "Sarten2展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f29da97d6c5032f1-stand",
+      "name": "Sarten3展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dfd2e1be657c4cf2-stand",
+      "name": "Tapa展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7008f79790f8d49e-stand",
+      "name": "Tapa_10展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e019b904282c67e7-stand",
+      "name": "Tapa_11展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2379ac85651afd04-stand",
+      "name": "Tapa_12展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cedd1e924a3c2895-stand",
+      "name": "Tapa_2展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-20949f8cbc7e496f-stand",
+      "name": "Tapa_3展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8eba74c9a9ab98df-stand",
+      "name": "Tapa_4展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-fbc5e50609b79ba8-stand",
+      "name": "Tapa_5展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ce1633cef5ca5790-stand",
+      "name": "Tapa_6展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-90a62832dada6f59-stand",
+      "name": "Tapa_7展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9bf53ded6e106a66-stand",
+      "name": "Tapa_8展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ca292dffab99679f-stand",
+      "name": "Tapa_9展台",
+      "parentId": "transform:category-cocina1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9d84b678cb9383c3-stand",
+      "name": "Cube_017展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e61958f23d46f0d2-stand",
+      "name": "Cube_031展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-877d863cf7e885be-stand",
+      "name": "Cube_037展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-87d957564003be99-stand",
+      "name": "Cube_038展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d0531858e7e26a00-stand",
+      "name": "Cube_039展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ef3c65c77c207909-stand",
+      "name": "Cube_040展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5703e4d7d82f3c02-stand",
+      "name": "Cube_041展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-032befa0196ffba8-stand",
+      "name": "Cube_042展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-39593b95e3d9c458-stand",
+      "name": "Cube_057展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-42548c0404d433f7-stand",
+      "name": "Cube_058展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3056ae70fad6e0d3-stand",
+      "name": "Cube_059展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-60f91c2766df302d-stand",
+      "name": "Cube_060展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2a59de2ef8faf3dd-stand",
+      "name": "Cube_061展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ced8b937d7b0c908-stand",
+      "name": "Cube_062展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3da4f5f18a187ed8-stand",
+      "name": "Cube_063展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b32928e45645f968-stand",
+      "name": "Cube_064展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5b50878bbebd8351-stand",
+      "name": "Cube_065展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f16a5e947af70e0d-stand",
+      "name": "Cube_066展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a4592ee010a09faa-stand",
+      "name": "Cube_067展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f34c174079f81007-stand",
+      "name": "Cube_068展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-64980e20c8ceadb8-stand",
+      "name": "Cube_069展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3bdd08a0c1ab11d8-stand",
+      "name": "Cube_070展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-abd3f19a52197743-stand",
+      "name": "Cube_071展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8e438dacd860ba5e-stand",
+      "name": "Cube_072展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f6eea9acfc885227-stand",
+      "name": "Cube_073展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b55b557c3586c2ce-stand",
+      "name": "Cube_074展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-391ff5ab463810a5-stand",
+      "name": "Cube_082展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c07a5ee1fa15f4a1-stand",
+      "name": "Cube_083展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-704d3162e6383c49-stand",
+      "name": "Cube_084展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a86aa9a0532fa609-stand",
+      "name": "Cube_085展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3d740e66a56ee71d-stand",
+      "name": "Cube_086展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-10e89d2bcc06a4a8-stand",
+      "name": "Cube_087展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f4b3fa7e83075247-stand",
+      "name": "Cube_088展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1cd4a1caccad8b77-stand",
+      "name": "Cube_089展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fa77f2f9620d6bce-stand",
+      "name": "Cube_090展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8b77357a473da65f-stand",
+      "name": "Cube_091展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e704ed4b4e8161f0-stand",
+      "name": "Cube_092展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6b3f07ae4d355b8c-stand",
+      "name": "Cube_093展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-edc934e37d7ad343-stand",
+      "name": "Cube_094展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8828693ec58418dd-stand",
+      "name": "Cube_095展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3b48f4b114f56ea6-stand",
+      "name": "Cube_096展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-79722021b4fb32ed-stand",
+      "name": "Cube_097展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7101d271624782fc-stand",
+      "name": "Cube_098展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f4c38cf775c6bfe1-stand",
+      "name": "Cube_099展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f33f54a0db4bdb9c-stand",
+      "name": "Cube_100展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1c61e2698d68fea6-stand",
+      "name": "Cube_101展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ed297135cc8010c3-stand",
+      "name": "Cube_102展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-682ac638c302b3c0-stand",
+      "name": "Cube_103展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2a0eb1c73574bb51-stand",
+      "name": "Cube_104展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cc93eaa1c970ad82-stand",
+      "name": "Cube_105展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-370bd49a83e37dc2-stand",
+      "name": "Cube_106展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9a863949d11108a7-stand",
+      "name": "Cube_107展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-23dd9f35fa923226-stand",
+      "name": "Cube_108展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cde2ac11110799af-stand",
+      "name": "Cube_109展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ed6f0f891b56a3d0-stand",
+      "name": "Cube_110展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b1a98e247526d74-stand",
+      "name": "Cube_111展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a8f6c92deb61dcb0-stand",
+      "name": "Cube_112展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0d564ab1fa8b67c9-stand",
+      "name": "Cube_113展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8a0653c1e8f5d484-stand",
+      "name": "Cube_114展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e55fdebe605a77e1-stand",
+      "name": "Cylinder展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d2c1a12f0a23ff99-stand",
+      "name": "Cylinder_001展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-00f7b74f8dbed639-stand",
+      "name": "Cylinder_002展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9a76f8adb4c90d6a-stand",
+      "name": "Cylinder_003展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-914a0bfec62f7941-stand",
+      "name": "Cylinder_004展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fa4711fae2af39c1-stand",
+      "name": "Cylinder_005展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8b81779726089a47-stand",
+      "name": "Cylinder_006展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bc3004d393958556-stand",
+      "name": "Cylinder_007展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d632eb9d7c05ca54-stand",
+      "name": "Cylinder_008展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-88c284edda67ab1e-stand",
+      "name": "Cylinder_009展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-80538b708b3f5c15-stand",
+      "name": "Cylinder_010展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ac648723d720eb0e-stand",
+      "name": "Cylinder_011展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-59e420a4145e5cdb-stand",
+      "name": "Cylinder_012展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-68d1f948ed28081c-stand",
+      "name": "Cylinder_013展台",
+      "parentId": "transform:category-comida_low_poly",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-5ca8bff5bbedaea9",
+      "name": "BurgerPiz · Tree_03_017",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_017_aa8b738e.glb",
+      "position": [
+        -22,
+        0,
+        35.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4943672,
+        0.4943672,
+        0.4943672
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-91a43e6d71f72555",
+      "name": "BurgerPiz · Tree_03_018",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_018_e71e250f.glb",
+      "position": [
+        -18.00000064,
+        0,
+        35.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.52128459,
+        0.52128459,
+        0.52128459
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1a0ff3bf28008e03",
+      "name": "BurgerPiz · Tree_03_020",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_020_5767fdfc.glb",
+      "position": [
+        -14.00000015,
+        0,
+        35.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50885816,
+        0.50885816,
+        0.50885816
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8fd25d0153b03f3e",
+      "name": "BurgerPiz · Tree_03_021",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_021_410dd1c2.glb",
+      "position": [
+        -10.00000007,
+        0,
+        35.50000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68837682,
+        0.68837682,
+        0.68837682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-230e7491dae0552a",
+      "name": "BurgerPiz · Tree_03_023",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_023_6f2387d2.glb",
+      "position": [
+        -6,
+        0,
+        35.49999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5431231,
+        0.5431231,
+        0.5431231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e32882dc6d6f93c5",
+      "name": "BurgerPiz · Tree_03_024",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_024_72aac211.glb",
+      "position": [
+        -2.00000023,
+        0,
+        35.49999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56271415,
+        0.56271415,
+        0.56271415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-006248dd8769b63e",
+      "name": "BurgerPiz · Tree_03_026",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_026_3f76c574.glb",
+      "position": [
+        -21.99999999,
+        0,
+        31.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40664391,
+        0.40664391,
+        0.40664391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f290d69ee6b3219c",
+      "name": "BurgerPiz · Tree_03_027",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_027_8d43b279.glb",
+      "position": [
+        -18.00000005,
+        0,
+        31.5000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54968921,
+        0.54968921,
+        0.54968921
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6a729d4862670fe1",
+      "name": "BurgerPiz · Tree_03_029",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_029_56016253.glb",
+      "position": [
+        -14.00000021,
+        0,
+        31.49999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42720858,
+        0.42720858,
+        0.42720858
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-353d35ed1bc0ffc0",
+      "name": "BurgerPiz · Tree_03_030",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_030_44fc7b72.glb",
+      "position": [
+        -10,
+        0,
+        31.49999881
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67746655,
+        0.67746655,
+        0.67746655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-90a7f6fc0e953e0e",
+      "name": "BurgerPiz · Tree_03_031",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_031_88da863e.glb",
+      "position": [
+        -6.00000013,
+        0,
+        31.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33803862,
+        0.33803862,
+        0.33803862
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-15a0526c7279ed17",
+      "name": "BurgerPiz · Tree_03_032",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_032_f94514b9.glb",
+      "position": [
+        -1.99999994,
+        0,
+        31.50000063
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75111904,
+        0.75111904,
+        0.75111904
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9c8c045820fc3c10",
+      "name": "BurgerPiz · Tree_03_033",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_033_8f4bcb82.glb",
+      "position": [
+        -21.99999999,
+        0,
+        27.49999941
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4644437,
+        0.4644437,
+        0.4644437
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-48d1bba34814c782",
+      "name": "BurgerPiz · Tree_03_034",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_034_32c80ffe.glb",
+      "position": [
+        -17.99999992,
+        0,
+        27.50000061
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53323656,
+        0.53323656,
+        0.53323656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5a0296c0de260c27",
+      "name": "BurgerPiz · Tree_03_037",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_037_132e4c3b.glb",
+      "position": [
+        -14.00000103,
+        0,
+        27.49999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55261107,
+        0.55261107,
+        0.55261107
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ab57217d9aff3b0",
+      "name": "BurgerPiz · Tree_03_038",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_038_d1406ca8.glb",
+      "position": [
+        -9.99999997,
+        0,
+        27.5000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46060285,
+        0.46060285,
+        0.46060285
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a1cec20c62ac1f11",
+      "name": "BurgerPiz · Tree_03_039",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_039_af7c43ba.glb",
+      "position": [
+        -5.9999996,
+        0,
+        27.50000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4374007,
+        0.4374007,
+        0.4374007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-385d9d58e75b833e",
+      "name": "BurgerPiz · Tree_03_040",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_040_dd79de0c.glb",
+      "position": [
+        -1.9999996,
+        0,
+        27.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47699101,
+        0.47699101,
+        0.47699101
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c403e91bb682a69",
+      "name": "BurgerPiz · Tree_03_041",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_041_ed368e3e.glb",
+      "position": [
+        -21.99999983,
+        0,
+        23.49999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42793459,
+        0.42793459,
+        0.42793459
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-754b80cc771b1d60",
+      "name": "BurgerPiz · Tree_03_042",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_042_d6851c14.glb",
+      "position": [
+        -17.9999997,
+        0,
+        23.50000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48929759,
+        0.48929759,
+        0.48929759
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a9971d0f9d055017",
+      "name": "BurgerPiz · Tree_03_044",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_044_66905cfe.glb",
+      "position": [
+        -14.0000003,
+        0,
+        23.50000074
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5773774,
+        0.5773774,
+        0.5773774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dc5ac295235d15aa",
+      "name": "BurgerPiz · Tree_03_047",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_047_eb14819d.glb",
+      "position": [
+        -10.00000225,
+        0,
+        23.50000055
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76125121,
+        0.76125121,
+        0.76125121
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-24ac94395b93b968",
+      "name": "BurgerPiz · Tree_03_048",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_048_96017a45.glb",
+      "position": [
+        -5.99999843,
+        0,
+        23.50000076
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50376833,
+        0.50376833,
+        0.50376833
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a5924a7c987686be",
+      "name": "BurgerPiz · Tree_03_049",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_049_3e8fd8be.glb",
+      "position": [
+        -1.99999837,
+        0,
+        23.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47471154,
+        0.47471154,
+        0.47471154
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f7ce9da57cbcd79a",
+      "name": "BurgerPiz · Tree_03_050",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_050_f762d347.glb",
+      "position": [
+        -21.99999893,
+        0,
+        19.50000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43757736,
+        0.43757736,
+        0.43757736
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6bcf749f3f6ea393",
+      "name": "BurgerPiz · Tree_03_051",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_051_95bf9ac2.glb",
+      "position": [
+        -18.00000145,
+        0,
+        19.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4244668,
+        0.4244668,
+        0.4244668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-67bf6a0db7398346",
+      "name": "BurgerPiz · Tree_03_052",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_052_f2f0e6ad.glb",
+      "position": [
+        -13.99999921,
+        0,
+        19.50000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43145238,
+        0.43145238,
+        0.43145238
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-828f8ce45d1abbff",
+      "name": "BurgerPiz · Tree_03_053",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_053_e66afc5a.glb",
+      "position": [
+        -10.00000021,
+        0,
+        19.49999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39829091,
+        0.39829091,
+        0.39829091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0686de6f9a4f6ab5",
+      "name": "BurgerPiz · Tree_03_054",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_054_148a47c6.glb",
+      "position": [
+        -6.00000006,
+        0,
+        19.49999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51954091,
+        0.51954091,
+        0.51954091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-11e36229dba25052",
+      "name": "BurgerPiz · Tree_03_055",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_055_43f46e2b.glb",
+      "position": [
+        -2.00000054,
+        0,
+        19.50000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5563667,
+        0.5563667,
+        0.5563667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5a8f51fc283eec9b",
+      "name": "BurgerPiz · Tree_03_056",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_056_53e94a58.glb",
+      "position": [
+        -21.99999903,
+        0,
+        15.50000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37250301,
+        0.37250301,
+        0.37250301
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bf6c1bbd15986a1a",
+      "name": "BurgerPiz · Tree_03_057",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_057_4527f743.glb",
+      "position": [
+        -17.99999831,
+        0,
+        15.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50250327,
+        0.50250327,
+        0.50250327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c4b38d7835fbef07",
+      "name": "BurgerPiz · Tree_03_060",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_060_02cbc643.glb",
+      "position": [
+        -13.99999981,
+        0,
+        15.50000112
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37250307,
+        0.37250307,
+        0.37250307
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-94ead7b4a6214892",
+      "name": "BurgerPiz · Tree_03_061",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_061_a4771961.glb",
+      "position": [
+        -9.99999981,
+        0,
+        15.50000146
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3908842,
+        0.3908842,
+        0.3908842
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6d0c0c943b2dcaa4",
+      "name": "BurgerPiz · Tree_03_062",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_062_2e568142.glb",
+      "position": [
+        -5.99999973,
+        0,
+        15.49999938
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35907549,
+        0.35907549,
+        0.35907549
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-98fdc2b0bea3f99b",
+      "name": "BurgerPiz · Tree_03_063",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_063_ed0df1ae.glb",
+      "position": [
+        -2.00000056,
+        0,
+        15.50000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39806158,
+        0.39806158,
+        0.39806158
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-60d5c69c2b591b75",
+      "name": "BurgerPiz · Tree_03_064",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_064_c14b0e8c.glb",
+      "position": [
+        -22.00000018,
+        0,
+        11.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40735696,
+        0.40735696,
+        0.40735696
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eb21fb87a7296d10",
+      "name": "BurgerPiz · Tree_03_065",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_065_09157bb7.glb",
+      "position": [
+        -18.00000151,
+        0,
+        11.49999876
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54944917,
+        0.54944917,
+        0.54944917
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e7c9ee531d250c3d",
+      "name": "BurgerPiz · Tree_03_069",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_069_76e915be.glb",
+      "position": [
+        -13.99999853,
+        0,
+        11.49999886
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42558713,
+        0.42558713,
+        0.42558713
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-683a42e09b24495b",
+      "name": "BurgerPiz · Tree_03_070",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_070_65ba78dd.glb",
+      "position": [
+        -9.99999966,
+        0,
+        11.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45607599,
+        0.45607599,
+        0.45607599
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2187e623130b3c7a",
+      "name": "BurgerPiz · Tree_03_071",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_071_75bde18d.glb",
+      "position": [
+        -6.00000031,
+        0,
+        11.50000084
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4418301,
+        0.4418301,
+        0.4418301
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0284aba133300072",
+      "name": "BurgerPiz · Tree_03_072",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_072_fac561c2.glb",
+      "position": [
+        -1.99999992,
+        0,
+        11.5000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3383979,
+        0.3383979,
+        0.3383979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fb8a07dd6c4cc97a",
+      "name": "BurgerPiz · Tree_03_073",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_073_4beb8102.glb",
+      "position": [
+        -21.99999927,
+        -1e-8,
+        7.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42160981,
+        0.42160981,
+        0.42160981
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8f54b52ab5606c78",
+      "name": "BurgerPiz · Tree_03_074",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_074_56b4db40.glb",
+      "position": [
+        -18.00000246,
+        0,
+        7.50000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70559719,
+        0.70559719,
+        0.70559719
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-68d064719f23424e",
+      "name": "BurgerPiz · Tree_03_075",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_075_540eb424.glb",
+      "position": [
+        -13.99999834,
+        0,
+        7.50000095
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5032506,
+        0.5032506,
+        0.5032506
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-263e0816ee81053a",
+      "name": "BurgerPiz · Tree_03_078",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_078_81e73f3a.glb",
+      "position": [
+        -9.999998,
+        0,
+        7.49999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4369224,
+        0.4369224,
+        0.4369224
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-54525825ca754b75",
+      "name": "BurgerPiz · Tree_03_079",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_079_ca60763b.glb",
+      "position": [
+        -5.99999841,
+        0,
+        7.50000152
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5494933,
+        0.5494933,
+        0.5494933
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3df42a4d1c7413b5",
+      "name": "BurgerPiz · Tree_03_080",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_080_da235c0d.glb",
+      "position": [
+        -2.00000129,
+        0,
+        7.49999843
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55559911,
+        0.55559911,
+        0.55559911
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-66141eaf45d17d53",
+      "name": "BurgerPiz · Tree_03_081",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_081_969f73e0.glb",
+      "position": [
+        -22.00000134,
+        0,
+        3.49999858
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41780048,
+        0.41780048,
+        0.41780048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-05779f47216acc64",
+      "name": "BurgerPiz · Tree_03_082",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_082_af46e26d.glb",
+      "position": [
+        -18.0000016,
+        0,
+        3.49999845
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45128004,
+        0.45128004,
+        0.45128004
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ccef5df37032b592",
+      "name": "BurgerPiz · Tree_03_083",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_083_2fa856e3.glb",
+      "position": [
+        -14.0000001,
+        1e-8,
+        3.50000066
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39704204,
+        0.39704204,
+        0.39704204
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8261880876a84145",
+      "name": "BurgerPiz · Tree_03_084",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_084_3f718daa.glb",
+      "position": [
+        -9.99999985,
+        1e-8,
+        3.50000105
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42514966,
+        0.42514966,
+        0.42514966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f493b438d713d6ec",
+      "name": "BurgerPiz · Tree_03_085",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_085_b3d2b537.glb",
+      "position": [
+        -5.99999978,
+        0,
+        3.49999886
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45274844,
+        0.45274844,
+        0.45274844
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d4be203b69da82e4",
+      "name": "BurgerPiz · Tree_031",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_031_8bd3a789.glb",
+      "position": [
+        -1.9999998,
+        0,
+        3.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20647525,
+        0.20647525,
+        0.20647525
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0ae8de52d2449e11",
+      "name": "BurgerPiz · Tumbler",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tumbler_546f84e8.glb",
+      "position": [
+        -22,
+        -3.2e-7,
+        -0.49999631
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.43650636,
+        10.43650636,
+        10.43650636
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7e9b8ccd630a9011",
+      "name": "BurgerPiz · Tumbler_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tumbler_001_e8e53d9d.glb",
+      "position": [
+        -18,
+        4.7e-7,
+        -0.4999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.67922977,
+        9.67922977,
+        9.67922977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c038d838b11a7a1e",
+      "name": "BurgerPiz · Tumbler_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tumbler_002_b50d6ff9.glb",
+      "position": [
+        -14,
+        -4.4e-7,
+        -0.49999271
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.34685075,
+        20.34685075,
+        20.34685075
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2bc12073a58c3c7f",
+      "name": "BurgerPiz · Tumbler_004",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tumbler_004_524be283.glb",
+      "position": [
+        -10,
+        -3.7e-7,
+        -0.50000387
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.98348864,
+        10.98348864,
+        10.98348864
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ad6861e8c55f9dcb",
+      "name": "BurgerPiz · urinary_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/urinary_001_254c3329.glb",
+      "position": [
+        -6.00000058,
+        -7e-8,
+        -0.49999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.93631159,
+        2.93631159,
+        2.93631159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-762be985cb97d801",
+      "name": "BurgerPiz · urinary_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/urinary_003_272f584a.glb",
+      "position": [
+        -2.00000046,
+        3e-8,
+        -0.50000036
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.30575517,
+        2.30575517,
+        2.30575517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0599cfc396195003",
+      "name": "BurgerPiz · Ventilation",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Ventilation_8a2808f3.glb",
+      "position": [
+        -22,
+        1.3e-7,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.59425363,
+        3.59425363,
+        3.59425363
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b33874fd04a113b",
+      "name": "BurgerPiz · Wall_W_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Wall_W_001_71256b47.glb",
+      "position": [
+        -18.00000026,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98417431,
+        0.98417431,
+        0.98417431
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b1ff5ed9eacce9ca",
+      "name": "BurgerPiz · Wall_W_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Wall_W_002_83696a95.glb",
+      "position": [
+        -14.00000029,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98417431,
+        0.98417431,
+        0.98417431
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8de12031304fe218",
+      "name": "BurgerPiz · Wall_W_009",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Wall_W_009_9a2a7f6d.glb",
+      "position": [
+        -10.00000029,
+        0,
+        -4.50000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98417431,
+        0.98417431,
+        0.98417431
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f34131ce5517f8a3",
+      "name": "BurgerPiz · Wall_W_010",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Wall_W_010_4ff1056d.glb",
+      "position": [
+        -6.00000026,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98417431,
+        0.98417431,
+        0.98417431
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0ba9f2f2afe85e50",
+      "name": "BurgerPiz · Wall_W_D_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Wall_W_D_001_13bc383d.glb",
+      "position": [
+        -2,
+        0,
+        -4.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06317895,
+        1.06317895,
+        1.06317895
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fc62970d1d9ecd38",
+      "name": "BurgerPiz · Washbasin_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Washbasin_001_d3d75d82.glb",
+      "position": [
+        -21.99999984,
+        2e-8,
+        -8.50000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7910631,
+        0.7910631,
+        0.7910631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4767ea312792a3cc",
+      "name": "BurgerPiz · Washbasin_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Washbasin_003_0fb5c215.glb",
+      "position": [
+        -18.00000044,
+        -8e-8,
+        -8.49999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.16424743,
+        3.16424743,
+        3.16424743
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7553a7b610c46c89",
+      "name": "BurgerPiz · Windows",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_af0a6a52.glb",
+      "position": [
+        -14,
+        0,
+        -8.49999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29210644,
+        0.29210644,
+        0.29210644
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-235ed29ffc00628a",
+      "name": "BurgerPiz · Windows_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_001_45a29bc9.glb",
+      "position": [
+        -10,
+        0,
+        -8.49999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38485369,
+        0.38485369,
+        0.38485369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4f512dbccbb877be",
+      "name": "BurgerPiz · Windows_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_003_179bb687.glb",
+      "position": [
+        -6,
+        0,
+        -8.50000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.74502576,
+        0.74502576,
+        0.74502576
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-553a298b6e5fd68a",
+      "name": "BurgerPiz · Windows_004",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_004_352350e8.glb",
+      "position": [
+        -2.00000001,
+        -1.3e-7,
+        -8.50000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4542443,
+        2.4542443,
+        2.4542443
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a6a3aec063691eb1",
+      "name": "BurgerPiz · Windows_005",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_005_e1e46814.glb",
+      "position": [
+        -22.00000004,
+        -1.3e-7,
+        -12.50000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4542443,
+        2.4542443,
+        2.4542443
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3097447b529a6fc5",
+      "name": "BurgerPiz · Windows_Door",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_Door_fb90399a.glb",
+      "position": [
+        -17.99999972,
+        1e-8,
+        -12.50000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73282358,
+        0.73282358,
+        0.73282358
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ea6b465a748f169d",
+      "name": "BurgerPiz · Windows_Door_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_Door_001_f1f2b1f3.glb",
+      "position": [
+        -13.9999999,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07545567,
+        1.07545567,
+        1.07545567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-439cff55406263f9",
+      "name": "BurgerPiz · Windows_Door_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_Door_003_16e71fc7.glb",
+      "position": [
+        -9.99999978,
+        0,
+        -12.49999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07545567,
+        1.07545567,
+        1.07545567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b45c0f4eefeee4d2",
+      "name": "BurgerPiz · Windows_Door_005",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_Door_005_4a9bb7be.glb",
+      "position": [
+        -6.00000003,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07545567,
+        1.07545567,
+        1.07545567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f739e871ab29a8fa",
+      "name": "BurgerPiz · Windows_Frame",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_Frame_4a4edced.glb",
+      "position": [
+        -1.99999991,
+        0,
+        -12.50000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54155068,
+        0.54155068,
+        0.54155068
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c6e9a353c39ea2db",
+      "name": "BurgerPiz · Windows_Frame_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_Frame_001_c40e06cf.glb",
+      "position": [
+        -19.99999994,
+        0,
+        -16.4999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23497483,
+        1.23497483,
+        1.23497483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-88751c6ac4aaa624",
+      "name": "BurgerPiz · Windows_Frame_008",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Windows_Frame_008_db166bfa.glb",
+      "position": [
+        -16.00000009,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50615481,
+        1.50615481,
+        1.50615481
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5d2492fc4ac4e00c",
+      "name": "BurgerPiz · Wood_Base",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Wood_Base_4a32ba0d.glb",
+      "position": [
+        -11.99999999,
+        0,
+        -16.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30581299,
+        0.30581299,
+        0.30581299
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-53ce9357f0274ee0",
+      "name": "BurgerPiz · Wood_Base_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Wood_Base_001_b988b084.glb",
+      "position": [
+        -8.00000042,
+        2e-8,
+        -16.49999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.94244228,
+        1.94244228,
+        1.94244228
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-50f9986528b197cf",
+      "name": "BurgerPiz · WoodPlanksFloors0",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/WoodPlanksFloors0_cfcc86cd.glb",
+      "position": [
+        -4,
+        0,
+        -16.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04174389,
+        0.04174389,
+        0.04174389
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ac70771cf34f35c",
+      "name": "Cocina1 · Olla1",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla1_64d2fb7c.glb",
+      "position": [
+        1.99999989,
+        0,
+        35.50000043
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.81668967,
+        1.81668967,
+        1.81668967
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6338f310b78e7832",
+      "name": "Cocina1 · Olla2",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla2_efd32b49.glb",
+      "position": [
+        6,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.88851509,
+        1.88851509,
+        1.88851509
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-14e1ccce1b645f03",
+      "name": "Cocina1 · Olla3",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla3_438899b7.glb",
+      "position": [
+        9.99999994,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.14391686,
+        2.14391686,
+        2.14391686
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c2367d47722dec4f",
+      "name": "Cocina1 · Olla4",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla4_0e711454.glb",
+      "position": [
+        13.99999978,
+        0,
+        35.5000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.88041142,
+        1.88041142,
+        1.88041142
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed6d16bc0d96f09f",
+      "name": "Cocina1 · Olla5",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla5_bd940165.glb",
+      "position": [
+        18,
+        0,
+        35.5000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.88851509,
+        1.88851509,
+        1.88851509
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c7d52e5119ee99d6",
+      "name": "Cocina1 · Olla6",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla6_8774c89e.glb",
+      "position": [
+        21.99999994,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.14391686,
+        2.14391686,
+        2.14391686
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d5c1ae16fe022a6",
+      "name": "Cocina1 · Olla7",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla7_98453976.glb",
+      "position": [
+        1.99999975,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.12659355,
+        2.12659355,
+        2.12659355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6d9f7ced60bc4e69",
+      "name": "Cocina1 · Olla8",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla8_fe08e019.glb",
+      "position": [
+        6,
+        0,
+        31.5000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.88851509,
+        1.88851509,
+        1.88851509
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-baaa811489a2b9a0",
+      "name": "Cocina1 · Olla9",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Olla9_8ae73bc4.glb",
+      "position": [
+        9.99999994,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.14391686,
+        2.14391686,
+        2.14391686
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f81b4a26b482aaed",
+      "name": "Cocina1 · Sarten",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Sarten_45478936.glb",
+      "position": [
+        14,
+        0,
+        31.49999962
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57765542,
+        1.57765542,
+        1.57765542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-11be02fbfa521c8c",
+      "name": "Cocina1 · Sarten2",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Sarten2_cec3fb2d.glb",
+      "position": [
+        18,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57765542,
+        1.57765542,
+        1.57765542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f29da97d6c5032f1",
+      "name": "Cocina1 · Sarten3",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Sarten3_33b033de.glb",
+      "position": [
+        22,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57765542,
+        1.57765542,
+        1.57765542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dfd2e1be657c4cf2",
+      "name": "Cocina1 · Tapa",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_d83aff7f.glb",
+      "position": [
+        2,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.02132388,
+        4.02132388,
+        4.02132388
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7008f79790f8d49e",
+      "name": "Cocina1 · Tapa_10",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_10_18a639f6.glb",
+      "position": [
+        6,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.87094007,
+        2.87094007,
+        2.87094007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e019b904282c67e7",
+      "name": "Cocina1 · Tapa_11",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_11_551cc9aa.glb",
+      "position": [
+        10.00000006,
+        0,
+        27.50000192
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.02132371,
+        4.02132371,
+        4.02132371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2379ac85651afd04",
+      "name": "Cocina1 · Tapa_12",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_12_dda7e9b5.glb",
+      "position": [
+        13.99999985,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.17145448,
+        5.17145448,
+        5.17145448
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cedd1e924a3c2895",
+      "name": "Cocina1 · Tapa_2",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_2_5d6db8fc.glb",
+      "position": [
+        18,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.06492028,
+        3.06492028,
+        3.06492028
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-20949f8cbc7e496f",
+      "name": "Cocina1 · Tapa_3",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_3_36a4b591.glb",
+      "position": [
+        22.00000008,
+        0,
+        27.50000123
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.17145391,
+        5.17145391,
+        5.17145391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8eba74c9a9ab98df",
+      "name": "Cocina1 · Tapa_4",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_4_e9576d84.glb",
+      "position": [
+        2,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.87094007,
+        2.87094007,
+        2.87094007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fbc5e50609b79ba8",
+      "name": "Cocina1 · Tapa_5",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_5_f316a6fb.glb",
+      "position": [
+        6.00000037,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.06492108,
+        3.06492108,
+        3.06492108
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ce1633cef5ca5790",
+      "name": "Cocina1 · Tapa_6",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_6_b7296ce3.glb",
+      "position": [
+        10,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.87094007,
+        2.87094007,
+        2.87094007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-90a62832dada6f59",
+      "name": "Cocina1 · Tapa_7",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_7_0ff33890.glb",
+      "position": [
+        14.00000006,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.02131837,
+        4.02131837,
+        4.02131837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9bf53ded6e106a66",
+      "name": "Cocina1 · Tapa_8",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_8_f0b68455.glb",
+      "position": [
+        18,
+        0,
+        23.49999753
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.17144936,
+        5.17144936,
+        5.17144936
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ca292dffab99679f",
+      "name": "Cocina1 · Tapa_9",
+      "parentId": "transform:category-cocina1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Cocina1/Tapa_9_362d31f8.glb",
+      "position": [
+        22,
+        0,
+        23.50000146
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.06492028,
+        3.06492028,
+        3.06492028
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9d84b678cb9383c3",
+      "name": "Comida_low_poly · Cube_017",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_017_8cb90241.glb",
+      "position": [
+        2,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e61958f23d46f0d2",
+      "name": "Comida_low_poly · Cube_031",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_031_b06fa194.glb",
+      "position": [
+        5.99999983,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-877d863cf7e885be",
+      "name": "Comida_low_poly · Cube_037",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_037_8cefbd6b.glb",
+      "position": [
+        10,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-87d957564003be99",
+      "name": "Comida_low_poly · Cube_038",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_038_8a091f6f.glb",
+      "position": [
+        13.99999983,
+        0,
+        16.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d0531858e7e26a00",
+      "name": "Comida_low_poly · Cube_039",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_039_a3dcc5d8.glb",
+      "position": [
+        17.99999967,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ef3c65c77c207909",
+      "name": "Comida_low_poly · Cube_040",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_040_2db4b3cc.glb",
+      "position": [
+        21.99999981,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.63222893,
+        1.63222893,
+        1.63222893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5703e4d7d82f3c02",
+      "name": "Comida_low_poly · Cube_041",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_041_433aeb35.glb",
+      "position": [
+        2,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48047795,
+        1.48047795,
+        1.48047795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-032befa0196ffba8",
+      "name": "Comida_low_poly · Cube_042",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_042_74d70a0f.glb",
+      "position": [
+        6,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-39593b95e3d9c458",
+      "name": "Comida_low_poly · Cube_057",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_057_959ee28b.glb",
+      "position": [
+        10,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-42548c0404d433f7",
+      "name": "Comida_low_poly · Cube_058",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_058_fad5baf5.glb",
+      "position": [
+        14,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3056ae70fad6e0d3",
+      "name": "Comida_low_poly · Cube_059",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_059_3896f966.glb",
+      "position": [
+        18,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-60f91c2766df302d",
+      "name": "Comida_low_poly · Cube_060",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_060_2a4a052d.glb",
+      "position": [
+        22,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2a59de2ef8faf3dd",
+      "name": "Comida_low_poly · Cube_061",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_061_68f03b3a.glb",
+      "position": [
+        2,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ced8b937d7b0c908",
+      "name": "Comida_low_poly · Cube_062",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_062_eae03ac4.glb",
+      "position": [
+        6,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3da4f5f18a187ed8",
+      "name": "Comida_low_poly · Cube_063",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_063_04fe6180.glb",
+      "position": [
+        10,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b32928e45645f968",
+      "name": "Comida_low_poly · Cube_064",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_064_9afeba6c.glb",
+      "position": [
+        14,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5b50878bbebd8351",
+      "name": "Comida_low_poly · Cube_065",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_065_90228fd0.glb",
+      "position": [
+        18,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f16a5e947af70e0d",
+      "name": "Comida_low_poly · Cube_066",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_066_17df4214.glb",
+      "position": [
+        22,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a4592ee010a09faa",
+      "name": "Comida_low_poly · Cube_067",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_067_a60cbb02.glb",
+      "position": [
+        2,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48047795,
+        1.48047795,
+        1.48047795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f34c174079f81007",
+      "name": "Comida_low_poly · Cube_068",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_068_011e14ce.glb",
+      "position": [
+        6,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48047795,
+        1.48047795,
+        1.48047795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-64980e20c8ceadb8",
+      "name": "Comida_low_poly · Cube_069",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_069_56f1f69b.glb",
+      "position": [
+        10,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3bdd08a0c1ab11d8",
+      "name": "Comida_low_poly · Cube_070",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_070_f1da65cc.glb",
+      "position": [
+        14,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-abd3f19a52197743",
+      "name": "Comida_low_poly · Cube_071",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_071_9301316d.glb",
+      "position": [
+        18,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8e438dacd860ba5e",
+      "name": "Comida_low_poly · Cube_072",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_072_46c7bdf3.glb",
+      "position": [
+        22,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591462,
+        1.06591462,
+        1.06591462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f6eea9acfc885227",
+      "name": "Comida_low_poly · Cube_073",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_073_9588c74b.glb",
+      "position": [
+        2,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b55b557c3586c2ce",
+      "name": "Comida_low_poly · Cube_074",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_074_bc38df5f.glb",
+      "position": [
+        6,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06591501,
+        1.06591501,
+        1.06591501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-391ff5ab463810a5",
+      "name": "Comida_low_poly · Cube_082",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_082_23563371.glb",
+      "position": [
+        10,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c07a5ee1fa15f4a1",
+      "name": "Comida_low_poly · Cube_083",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_083_0815e511.glb",
+      "position": [
+        13.99999983,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-704d3162e6383c49",
+      "name": "Comida_low_poly · Cube_084",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_084_30b8d429.glb",
+      "position": [
+        18,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a86aa9a0532fa609",
+      "name": "Comida_low_poly · Cube_085",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_085_5c7e1742.glb",
+      "position": [
+        22,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3d740e66a56ee71d",
+      "name": "Comida_low_poly · Cube_086",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_086_ad8976c5.glb",
+      "position": [
+        2,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-10e89d2bcc06a4a8",
+      "name": "Comida_low_poly · Cube_087",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_087_9cdea578.glb",
+      "position": [
+        6,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f4b3fa7e83075247",
+      "name": "Comida_low_poly · Cube_088",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_088_632d2075.glb",
+      "position": [
+        10,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1cd4a1caccad8b77",
+      "name": "Comida_low_poly · Cube_089",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_089_e3c4966f.glb",
+      "position": [
+        14,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fa77f2f9620d6bce",
+      "name": "Comida_low_poly · Cube_090",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_090_0fbe9541.glb",
+      "position": [
+        18,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6951261,
+        0.6951261,
+        0.6951261
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8b77357a473da65f",
+      "name": "Comida_low_poly · Cube_091",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_091_b0c98c8d.glb",
+      "position": [
+        22,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76688412,
+        0.76688412,
+        0.76688412
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e704ed4b4e8161f0",
+      "name": "Comida_low_poly · Cube_092",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_092_0a12c9cb.glb",
+      "position": [
+        2,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.62710763,
+        1.62710763,
+        1.62710763
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6b3f07ae4d355b8c",
+      "name": "Comida_low_poly · Cube_093",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_093_0f2734e0.glb",
+      "position": [
+        6.0000001,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.62710752,
+        1.62710752,
+        1.62710752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-edc934e37d7ad343",
+      "name": "Comida_low_poly · Cube_094",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_094_7f5b307e.glb",
+      "position": [
+        10.0000001,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.62710752,
+        1.62710752,
+        1.62710752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8828693ec58418dd",
+      "name": "Comida_low_poly · Cube_095",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_095_4944d4b3.glb",
+      "position": [
+        14,
+        0,
+        -7.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3b48f4b114f56ea6",
+      "name": "Comida_low_poly · Cube_096",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_096_9b3696f9.glb",
+      "position": [
+        18,
+        0,
+        -7.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-79722021b4fb32ed",
+      "name": "Comida_low_poly · Cube_097",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_097_de777072.glb",
+      "position": [
+        22,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7101d271624782fc",
+      "name": "Comida_low_poly · Cube_098",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_098_73130839.glb",
+      "position": [
+        2,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f4c38cf775c6bfe1",
+      "name": "Comida_low_poly · Cube_099",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_099_782e8530.glb",
+      "position": [
+        6,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f33f54a0db4bdb9c",
+      "name": "Comida_low_poly · Cube_100",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_100_72657288.glb",
+      "position": [
+        10,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1c61e2698d68fea6",
+      "name": "Comida_low_poly · Cube_101",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_101_2ac5854f.glb",
+      "position": [
+        14,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed297135cc8010c3",
+      "name": "Comida_low_poly · Cube_102",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_102_376cc28d.glb",
+      "position": [
+        18,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-682ac638c302b3c0",
+      "name": "Comida_low_poly · Cube_103",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_103_646a90c0.glb",
+      "position": [
+        21.99999971,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2211024,
+        1.2211024,
+        1.2211024
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2a0eb1c73574bb51",
+      "name": "Comida_low_poly · Cube_104",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_104_042df4e5.glb",
+      "position": [
+        2,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86949314,
+        1.86949314,
+        1.86949314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cc93eaa1c970ad82",
+      "name": "Comida_low_poly · Cube_105",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_105_aa8cc2da.glb",
+      "position": [
+        6,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86949314,
+        1.86949314,
+        1.86949314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-370bd49a83e37dc2",
+      "name": "Comida_low_poly · Cube_106",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_106_2d135f6a.glb",
+      "position": [
+        10,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86949314,
+        1.86949314,
+        1.86949314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a863949d11108a7",
+      "name": "Comida_low_poly · Cube_107",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_107_582987f9.glb",
+      "position": [
+        14,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86949314,
+        1.86949314,
+        1.86949314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-23dd9f35fa923226",
+      "name": "Comida_low_poly · Cube_108",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_108_df15df13.glb",
+      "position": [
+        18,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.36845898,
+        2.36845898,
+        2.36845898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cde2ac11110799af",
+      "name": "Comida_low_poly · Cube_109",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_109_cd04d99d.glb",
+      "position": [
+        22,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73127845,
+        1.73127845,
+        1.73127845
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed6f0f891b56a3d0",
+      "name": "Comida_low_poly · Cube_110",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_110_672c6b98.glb",
+      "position": [
+        2,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.75651799,
+        1.75651799,
+        1.75651799
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b1a98e247526d74",
+      "name": "Comida_low_poly · Cube_111",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_111_023bc6bd.glb",
+      "position": [
+        6,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.51828692,
+        2.51828692,
+        2.51828692
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a8f6c92deb61dcb0",
+      "name": "Comida_low_poly · Cube_112",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_112_f0ab6d37.glb",
+      "position": [
+        10,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.36845898,
+        2.36845898,
+        2.36845898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0d564ab1fa8b67c9",
+      "name": "Comida_low_poly · Cube_113",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_113_9e76cc35.glb",
+      "position": [
+        14,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73127845,
+        1.73127845,
+        1.73127845
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8a0653c1e8f5d484",
+      "name": "Comida_low_poly · Cube_114",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cube_114_66ecab8a.glb",
+      "position": [
+        18,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.34836687,
+        2.34836687,
+        2.34836687
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e55fdebe605a77e1",
+      "name": "Comida_low_poly · Cylinder",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_f0fe1c8a.glb",
+      "position": [
+        22,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90476108,
+        0.90476108,
+        0.90476108
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d2c1a12f0a23ff99",
+      "name": "Comida_low_poly · Cylinder_001",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_001_f5bee287.glb",
+      "position": [
+        2,
+        0,
+        -23.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91307409,
+        0.91307409,
+        0.91307409
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-00f7b74f8dbed639",
+      "name": "Comida_low_poly · Cylinder_002",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_002_3b23c98d.glb",
+      "position": [
+        6.00000001,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.97205392,
+        0.97205392,
+        0.97205392
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a76f8adb4c90d6a",
+      "name": "Comida_low_poly · Cylinder_003",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_003_644780e7.glb",
+      "position": [
+        10,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90476108,
+        0.90476108,
+        0.90476108
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-914a0bfec62f7941",
+      "name": "Comida_low_poly · Cylinder_004",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_004_7a8c127a.glb",
+      "position": [
+        13.99999999,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.97205392,
+        0.97205392,
+        0.97205392
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fa4711fae2af39c1",
+      "name": "Comida_low_poly · Cylinder_005",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_005_e0f49f98.glb",
+      "position": [
+        18,
+        0,
+        -23.50000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.32154992,
+        1.32154992,
+        1.32154992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8b81779726089a47",
+      "name": "Comida_low_poly · Cylinder_006",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_006_41333c3b.glb",
+      "position": [
+        22,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88321683,
+        0.88321683,
+        0.88321683
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bc3004d393958556",
+      "name": "Comida_low_poly · Cylinder_007",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_007_586ceff4.glb",
+      "position": [
+        2,
+        0,
+        -27.50000067
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.80626983,
+        2.80626983,
+        2.80626983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d632eb9d7c05ca54",
+      "name": "Comida_low_poly · Cylinder_008",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_008_474c9ebd.glb",
+      "position": [
+        6,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43691453,
+        1.43691453,
+        1.43691453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-88c284edda67ab1e",
+      "name": "Comida_low_poly · Cylinder_009",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_009_abc86ae6.glb",
+      "position": [
+        10,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23093972,
+        1.23093972,
+        1.23093972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-80538b708b3f5c15",
+      "name": "Comida_low_poly · Cylinder_010",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_010_9080faa1.glb",
+      "position": [
+        14,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65815361,
+        1.65815361,
+        1.65815361
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ac648723d720eb0e",
+      "name": "Comida_low_poly · Cylinder_011",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_011_fb3e1f2a.glb",
+      "position": [
+        18,
+        0,
+        -27.50000057
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.41171475,
+        2.41171475,
+        2.41171475
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-59e420a4145e5cdb",
+      "name": "Comida_low_poly · Cylinder_012",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_012_2f3e737a.glb",
+      "position": [
+        22,
+        0,
+        -27.50000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.33399251,
+        1.33399251,
+        1.33399251
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-68d1f948ed28081c",
+      "name": "Comida_low_poly · Cylinder_013",
+      "parentId": "transform:category-comida_low_poly",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Comida_low_poly/Cylinder_013_13bd60fc.glb",
+      "position": [
+        12,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36626874,
+        1.36626874,
+        1.36626874
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { parseModelMaterialBindings } from '../model/material/modelMaterialBindings.ts';
 import type {
   SceneEnvironmentGeometry,
   SceneEnvironmentLight,
@@ -134,6 +135,7 @@ const parseModel = (value: unknown, path: string): SceneEnvironmentModel => {
     id: readString(value.id, `${path}.id`),
     name: readString(value.name, `${path}.name`),
     modelPath,
+    materialOverrides: parseModelMaterialBindings(value.materialOverrides),
     position: readVector3(value.position, `${path}.position`),
     rotation: value.rotation === undefined ? undefined : readVector3(value.rotation, `${path}.rotation`),
     scaling: value.scaling === undefined ? undefined : readVector3(value.scaling, `${path}.scaling`),

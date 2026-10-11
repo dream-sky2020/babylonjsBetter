@@ -1,3 +1,4 @@
+const { resolveRepoPath } = require('./electronWorkspace.cjs');
 /**
  * 以 file:// 打开构建产物，收集控制台报错与失败请求。
  * 用法：npm run verify:file

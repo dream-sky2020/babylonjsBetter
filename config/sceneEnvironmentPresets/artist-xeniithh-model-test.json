@@ -1,0 +1,122 @@
+{
+  "presetKey": "artist-xeniithh-model-test",
+  "name": "xeniithh · 模型展示（1 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "xeniithh-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "xeniithh-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "xeniithh-Tree",
+      "name": "树木套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "xeniithh-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 20,
+        "height": 14
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "xeniithh-Tree-zone",
+      "name": "树木套件分区",
+      "parentId": "transform:xeniithh-Tree",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "xeniithh-Tree-1-stand",
+      "name": "PSX 树展台",
+      "parentId": "transform:xeniithh-Tree",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    }
+  ],
+  "models": [
+    {
+      "id": "xeniithh-Tree-1",
+      "name": "PSX 树",
+      "parentId": "transform:xeniithh-Tree",
+      "modelPath": "resources/Model/GLB/artist_xeniithh/Tree/PSXTree.glb",
+      "position": [
+        -0.02199931,
+        0.13838996,
+        -0.037008
+      ],
+      "scaling": [
+        0.50545269,
+        0.50545269,
+        0.50545269
+      ]
+    }
+  ]
+}

@@ -6,12 +6,16 @@ import type {
   TransformNode
 } from '@babylonjs/core';
 import type { ModelTransparencyPolicy } from '@/core/model/material/applyModelMaterialPolicy.ts';
+import type { ModelMaterialBindings } from '../material/modelMaterialBindings.ts';
+import type { PreparedModelMaterials } from '../material/modelMaterialController.ts';
 import type { VisualDeformationMetadata } from '../../render-deformation/visualDeformationRegistry.ts';
 import type { ModelAssetProfile } from '@/core/model/types/model-asset-profile.types.ts';
 
 export type ModelFileFormat = 'glb' | 'gltf';
 
 export type CreateModelEntityOptions = {
+  materialOverrides?: ModelMaterialBindings;
+  signal?: AbortSignal;
   /** Attach before asynchronous preparation so staged scenes can keep models hidden. */
   parent?: TransformNode;
   /** Optional stable display identity; false excludes this model from visual deformation. */
@@ -27,6 +31,9 @@ export type CreateModelEntityOptions = {
 };
 
 export type ModelEntity = {
+  materialSlots: () => { gltfMaterialIndex: number; name: string; textures: Record<string, string | null> }[];
+  prepareMaterialBindings: (bindings?: ModelMaterialBindings, signal?: AbortSignal) => Promise<PreparedModelMaterials>;
+  updateMaterialBindings: (bindings?: ModelMaterialBindings, signal?: AbortSignal) => Promise<void>;
   root: TransformNode;
   /** 位于实例 root 下，仅承载模型资产级的统一缩放、旋转与原点修正。 */
   normalizationRoot: TransformNode;

@@ -1,0 +1,1652 @@
+{
+  "presetKey": "artist-philip-erd-halloween-model-test",
+  "name": "Philip Erd · 万圣节与墓地（39 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "philip-erd-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "philip-erd-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "philip-erd-Halloween",
+      "name": "万圣节与墓地",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "philip-erd-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 28
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-zone",
+      "name": "万圣节与墓地分区",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 32.5,
+        "height": 0.1,
+        "depth": 20.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#9c8172"
+    },
+    {
+      "id": "philip-erd-Halloween-1-stand",
+      "name": "bone_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-2-stand",
+      "name": "bone_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-3-stand",
+      "name": "burning_coal展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-4-stand",
+      "name": "candle_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-5-stand",
+      "name": "candle_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-6-stand",
+      "name": "candle_3展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-7-stand",
+      "name": "candle_4展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-8-stand",
+      "name": "coffin_base展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-9-stand",
+      "name": "coffin_lid_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-10-stand",
+      "name": "coffin_lid_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-11-stand",
+      "name": "couldron_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-12-stand",
+      "name": "couldron_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-13-stand",
+      "name": "couldron_stand展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-14-stand",
+      "name": "dirt_hill_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-15-stand",
+      "name": "dirt_hill_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-16-stand",
+      "name": "dirt_hill_3展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-17-stand",
+      "name": "fence_gate展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        0
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-18-stand",
+      "name": "fence_post展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        0
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-19-stand",
+      "name": "fence_section展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-20-stand",
+      "name": "fence_section_broken_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-21-stand",
+      "name": "fence_section_broken_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-22-stand",
+      "name": "fence_section_broken_3展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-23-stand",
+      "name": "gallow_base展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        0
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-24-stand",
+      "name": "gallow_rope展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        0
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-25-stand",
+      "name": "gallow_sling展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-26-stand",
+      "name": "lantern展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-27-stand",
+      "name": "pumpkin_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-28-stand",
+      "name": "pumpkin_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-29-stand",
+      "name": "pumpkin_3展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-30-stand",
+      "name": "tombstone_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-31-stand",
+      "name": "tombstone_1_broken展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-32-stand",
+      "name": "tombstone_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -4
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-33-stand",
+      "name": "tombstone_3展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-34-stand",
+      "name": "tombstone_4展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-35-stand",
+      "name": "tree_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-36-stand",
+      "name": "tree_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-37-stand",
+      "name": "wooden_cross_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-38-stand",
+      "name": "wooden_cross_2展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-39-stand",
+      "name": "wooden_cross_3展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "philip-erd-Halloween-1",
+      "name": "bone_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/bone_1.glb",
+      "position": [
+        -14.00000007,
+        0,
+        8
+      ],
+      "scaling": [
+        2.54306424,
+        2.54306424,
+        2.54306424
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-2",
+      "name": "bone_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/bone_2.glb",
+      "position": [
+        -10.00000007,
+        0,
+        8
+      ],
+      "scaling": [
+        2.68367643,
+        2.68367643,
+        2.68367643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-3",
+      "name": "burning_coal",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/burning_coal.glb",
+      "position": [
+        -6,
+        0,
+        8.00000022
+      ],
+      "scaling": [
+        3.66844946,
+        3.66844946,
+        3.66844946
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-4",
+      "name": "candle_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/candle_1.glb",
+      "position": [
+        -2,
+        0,
+        8
+      ],
+      "scaling": [
+        9.88654646,
+        9.88654646,
+        9.88654646
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-5",
+      "name": "candle_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/candle_2.glb",
+      "position": [
+        2,
+        0,
+        8
+      ],
+      "scaling": [
+        13.37093079,
+        13.37093079,
+        13.37093079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-6",
+      "name": "candle_3",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/candle_3.glb",
+      "position": [
+        6,
+        0,
+        8
+      ],
+      "scaling": [
+        7.08890157,
+        7.08890157,
+        7.08890157
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-7",
+      "name": "candle_4",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/candle_4.glb",
+      "position": [
+        9.99999907,
+        0,
+        8
+      ],
+      "scaling": [
+        6.55511624,
+        6.55511624,
+        6.55511624
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-8",
+      "name": "coffin_base",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/coffin_base.glb",
+      "position": [
+        14,
+        0,
+        8
+      ],
+      "scaling": [
+        1.104993,
+        1.104993,
+        1.104993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-9",
+      "name": "coffin_lid_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/coffin_lid_1.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "scaling": [
+        1.104993,
+        1.104993,
+        1.104993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-10",
+      "name": "coffin_lid_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/coffin_lid_2.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "scaling": [
+        1.104993,
+        1.104993,
+        1.104993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-11",
+      "name": "couldron_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/couldron_1.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "scaling": [
+        3.15735609,
+        3.15735609,
+        3.15735609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-12",
+      "name": "couldron_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/couldron_2.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "scaling": [
+        3.15735609,
+        3.15735609,
+        3.15735609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-13",
+      "name": "couldron_stand",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/couldron_stand.glb",
+      "position": [
+        2.00000004,
+        0,
+        4.00000004
+      ],
+      "scaling": [
+        2.91482919,
+        2.91482919,
+        2.91482919
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-14",
+      "name": "dirt_hill_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/dirt_hill_1.glb",
+      "position": [
+        6,
+        0,
+        4
+      ],
+      "scaling": [
+        2.44569345,
+        2.44569345,
+        2.44569345
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-15",
+      "name": "dirt_hill_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/dirt_hill_2.glb",
+      "position": [
+        10,
+        0,
+        4
+      ],
+      "scaling": [
+        2.44569345,
+        2.44569345,
+        2.44569345
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-16",
+      "name": "dirt_hill_3",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/dirt_hill_3.glb",
+      "position": [
+        14,
+        0,
+        4
+      ],
+      "scaling": [
+        1.00124978,
+        1.00124978,
+        1.00124978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-17",
+      "name": "fence_gate",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/fence_gate.glb",
+      "position": [
+        -14.00000122,
+        0,
+        0
+      ],
+      "scaling": [
+        0.77403631,
+        0.77403631,
+        0.77403631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-18",
+      "name": "fence_post",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/fence_post.glb",
+      "position": [
+        -10,
+        0,
+        0
+      ],
+      "scaling": [
+        0.77671795,
+        0.77671795,
+        0.77671795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-19",
+      "name": "fence_section",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section.glb",
+      "position": [
+        -6,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69956701,
+        0.69956701,
+        0.69956701
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-20",
+      "name": "fence_section_broken_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section_broken_1.glb",
+      "position": [
+        -2,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69976684,
+        0.69976684,
+        0.69976684
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-21",
+      "name": "fence_section_broken_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section_broken_2.glb",
+      "position": [
+        2,
+        0,
+        -2e-8
+      ],
+      "scaling": [
+        0.69956701,
+        0.69956701,
+        0.69956701
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-22",
+      "name": "fence_section_broken_3",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section_broken_3.glb",
+      "position": [
+        6,
+        0,
+        -8e-8
+      ],
+      "scaling": [
+        0.69976684,
+        0.69976684,
+        0.69976684
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-23",
+      "name": "gallow_base",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/gallow_base.glb",
+      "position": [
+        10.00000019,
+        0,
+        4e-8
+      ],
+      "scaling": [
+        0.65063437,
+        0.65063437,
+        0.65063437
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-24",
+      "name": "gallow_rope",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/gallow_rope.glb",
+      "position": [
+        13.99999997,
+        0,
+        6.1e-7
+      ],
+      "scaling": [
+        2.0539219,
+        2.0539219,
+        2.0539219
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-25",
+      "name": "gallow_sling",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/gallow_sling.glb",
+      "position": [
+        -14,
+        0,
+        -3.99999982
+      ],
+      "scaling": [
+        1.96170658,
+        1.96170658,
+        1.96170658
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-26",
+      "name": "lantern",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/lantern.glb",
+      "position": [
+        -10,
+        0,
+        -4
+      ],
+      "scaling": [
+        3.64794125,
+        3.64794125,
+        3.64794125
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-27",
+      "name": "pumpkin_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/pumpkin_1.glb",
+      "position": [
+        -5.99999801,
+        0,
+        -3.99999976
+      ],
+      "scaling": [
+        3.1838452,
+        3.1838452,
+        3.1838452
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-28",
+      "name": "pumpkin_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/pumpkin_2.glb",
+      "position": [
+        -2.00000005,
+        0,
+        -3.99999972
+      ],
+      "scaling": [
+        3.18080949,
+        3.18080949,
+        3.18080949
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-29",
+      "name": "pumpkin_3",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/pumpkin_3.glb",
+      "position": [
+        2.00000091,
+        0,
+        -4
+      ],
+      "scaling": [
+        3.06447202,
+        3.06447202,
+        3.06447202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-30",
+      "name": "tombstone_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_1.glb",
+      "position": [
+        6,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.05622752,
+        2.05622752,
+        2.05622752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-31",
+      "name": "tombstone_1_broken",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_1_broken.glb",
+      "position": [
+        9.9999995,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.08266737,
+        2.08266737,
+        2.08266737
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-32",
+      "name": "tombstone_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_2.glb",
+      "position": [
+        14,
+        0,
+        -4
+      ],
+      "scaling": [
+        1.90838333,
+        1.90838333,
+        1.90838333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-33",
+      "name": "tombstone_3",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_3.glb",
+      "position": [
+        -14,
+        0,
+        -8
+      ],
+      "scaling": [
+        1.90838333,
+        1.90838333,
+        1.90838333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-34",
+      "name": "tombstone_4",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_4.glb",
+      "position": [
+        -10.00000039,
+        0,
+        -8
+      ],
+      "scaling": [
+        2.03791049,
+        2.03791049,
+        2.03791049
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-35",
+      "name": "tree_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tree_1.glb",
+      "position": [
+        -6.0000002,
+        0,
+        -7.99999989
+      ],
+      "scaling": [
+        0.4788312,
+        0.4788312,
+        0.4788312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-36",
+      "name": "tree_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tree_2.glb",
+      "position": [
+        -1.99999979,
+        0,
+        -7.99999994
+      ],
+      "scaling": [
+        0.50178952,
+        0.50178952,
+        0.50178952
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-37",
+      "name": "wooden_cross_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/wooden_cross_1.glb",
+      "position": [
+        2,
+        0,
+        -7.99999996
+      ],
+      "scaling": [
+        2.74884176,
+        2.74884176,
+        2.74884176
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-38",
+      "name": "wooden_cross_2",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/wooden_cross_2.glb",
+      "position": [
+        6.00000008,
+        0,
+        -8.00000004
+      ],
+      "scaling": [
+        2.72621002,
+        2.72621002,
+        2.72621002
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-39",
+      "name": "wooden_cross_3",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/wooden_cross_3.glb",
+      "position": [
+        9.99999844,
+        0,
+        -8.00000009
+      ],
+      "scaling": [
+        2.74851555,
+        2.74851555,
+        2.74851555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

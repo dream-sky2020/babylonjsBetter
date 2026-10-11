@@ -1,0 +1,2222 @@
+{
+  "presetKey": "artist-loafbrr-showcase-stage",
+  "name": "Loafbrr · Stage · 50模型 · 模型 10.72 MiB + 贴图 0.05 MiB · 合计 10.76 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-stage-0",
+      "name": "Stage",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 41
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-5ea2e69e240a0597-stand",
+      "name": "Barrier展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-99a9ee3fad731182-stand",
+      "name": "Stage_A展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-16aa77857a75800d-stand",
+      "name": "Stage_A_Corner展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b1980704bdd485e6-stand",
+      "name": "Stage_A_Middle展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a0efbf7f496a95eb-stand",
+      "name": "Stage_A_Side展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-54abed4ed4f43dcc-stand",
+      "name": "Stage_B展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f6b71d2a38bdf494-stand",
+      "name": "Stage_B_Corner展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ee111addb4e37552-stand",
+      "name": "Stage_B_Corner_Flipped展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-54c5c2bb239905de-stand",
+      "name": "Stage_B_Middle展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6ea26924c84de9e7-stand",
+      "name": "Stage_B_SideLong展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d7d09d91f1cc2266-stand",
+      "name": "Stage_B_SideShort展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2479b9685bc808bb-stand",
+      "name": "Stage_Built_A展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fc7dc01e0b0f5ed0-stand",
+      "name": "Stage_Built_B展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9167054b82a23deb-stand",
+      "name": "Stage_Built_C展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6816c6ef537b3da2-stand",
+      "name": "Stage_Rails展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0fcf8ce994192af2-stand",
+      "name": "Stage_Rails_Middle展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-60fdc02550887a44-stand",
+      "name": "Stage_Rails_Side展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a4893498a4dd4e0f-stand",
+      "name": "Stage_Rails_Side_Flipped展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4e4bfb3c07bb17ac-stand",
+      "name": "Stage_Stairs_A展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a4ae5867cbcc1ee7-stand",
+      "name": "Stage_Stairs_B展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b92143e452b76205-stand",
+      "name": "Stage_Stairs_C展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9b48af0e9b4ee907-stand",
+      "name": "Stage_Support_A_2S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-20d123e8aa8acbb7-stand",
+      "name": "Stage_Support_A_3S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9eb1bf8a248c579f-stand",
+      "name": "Stage_Support_A_4S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7acf6bc93e1304d0-stand",
+      "name": "Stage_Support_A_Pillar展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a12bbf8424a54c3e-stand",
+      "name": "Stage_Support_A_Truss展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-50cb98b4690f79ad-stand",
+      "name": "Stage_Support_B_2S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6855be8c5a8159fe-stand",
+      "name": "Stage_Support_B_3S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6f8d00175841abf7-stand",
+      "name": "Stage_Support_B_4S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4da9d233a716f59b-stand",
+      "name": "Stage_Support_B_Pillar展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a6d9b90a48b4ab26-stand",
+      "name": "Stage_Support_B_Truss展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-617b03300d8c1223-stand",
+      "name": "Stage_Support_C_2S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-138c0756c64a2ad1-stand",
+      "name": "Stage_Support_C_3S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c31b9185665da139-stand",
+      "name": "Stage_Support_C_4S展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7a4695a3d7b17c3a-stand",
+      "name": "Stage_Support_C_Pillar展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e9a66f1113b14c4d-stand",
+      "name": "Stage_Support_C_Truss展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ca243e536bda4ea1-stand",
+      "name": "Truss_Beam展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2bfd70bde52b7220-stand",
+      "name": "Truss_Beam_Arc_A_Side展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cbb22f88408471b9-stand",
+      "name": "Truss_Beam_Arc_A_Side_Flipped展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ccf21cb39991b20d-stand",
+      "name": "Truss_Beam_Arc_A_Side_Middle展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-45d7c6f9450a6257-stand",
+      "name": "Truss_Beam_Arc_B_Middle展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-41bd891f8af0bbc4-stand",
+      "name": "Truss_Beam_Arc_B_Side展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6152ba67f458f8c8-stand",
+      "name": "Truss_Beam_Arc_B_Side_Flipped展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-658a5a7d39dd3f35-stand",
+      "name": "Truss_Beam_Arc_C_Middle展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b9047af16f737839-stand",
+      "name": "Truss_Beam_Arc_C_Side展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d1f247636b8af8fd-stand",
+      "name": "Truss_Beam_Arc_C_Side_Flipped展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4db7fc6dc45ed773-stand",
+      "name": "Truss_Beam_Corner_A展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-30527111466e6c99-stand",
+      "name": "Truss_Beam_Corner_Middle展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5f33bd7102c15884-stand",
+      "name": "Truss_Pillar展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9c5b4ca5c6df188e-stand",
+      "name": "Truss_Pillar_Base展台",
+      "parentId": "transform:category-stage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-5ea2e69e240a0597",
+      "name": "Stage · Barrier · 模型 0.03 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Barrier.glb",
+      "position": [
+        -22,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.38934269,
+        1.38934269,
+        1.38934269
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-99a9ee3fad731182",
+      "name": "Stage · Stage_A · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_A.glb",
+      "position": [
+        -18,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-16aa77857a75800d",
+      "name": "Stage · Stage_A_Corner · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_A_Corner.glb",
+      "position": [
+        -14,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b1980704bdd485e6",
+      "name": "Stage · Stage_A_Middle · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_A_Middle.glb",
+      "position": [
+        -10,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a0efbf7f496a95eb",
+      "name": "Stage · Stage_A_Side · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_A_Side.glb",
+      "position": [
+        -6,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-54abed4ed4f43dcc",
+      "name": "Stage · Stage_B · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_B.glb",
+      "position": [
+        -2,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f6b71d2a38bdf494",
+      "name": "Stage · Stage_B_Corner · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_B_Corner.glb",
+      "position": [
+        -22,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ee111addb4e37552",
+      "name": "Stage · Stage_B_Corner_Flipped · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_B_Corner_Flipped.glb",
+      "position": [
+        -18,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-54c5c2bb239905de",
+      "name": "Stage · Stage_B_Middle · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_B_Middle.glb",
+      "position": [
+        -14,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6ea26924c84de9e7",
+      "name": "Stage · Stage_B_SideLong · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_B_SideLong.glb",
+      "position": [
+        -10,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d7d09d91f1cc2266",
+      "name": "Stage · Stage_B_SideShort · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_B_SideShort.glb",
+      "position": [
+        -6,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2479b9685bc808bb",
+      "name": "Stage · Stage_Built_A · 模型 1.88 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Built_A.glb",
+      "position": [
+        -2,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55874894,
+        0.55874894,
+        0.55874894
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fc7dc01e0b0f5ed0",
+      "name": "Stage · Stage_Built_B · 模型 2.29 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Built_B.glb",
+      "position": [
+        -22,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3993613,
+        0.3993613,
+        0.3993613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9167054b82a23deb",
+      "name": "Stage · Stage_Built_C · 模型 3.55 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Built_C.glb",
+      "position": [
+        -18,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39936124,
+        0.39936124,
+        0.39936124
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6816c6ef537b3da2",
+      "name": "Stage · Stage_Rails · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Rails.glb",
+      "position": [
+        -14.00000001,
+        4e-8,
+        10.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.84884975,
+        2.84884975,
+        2.84884975
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0fcf8ce994192af2",
+      "name": "Stage · Stage_Rails_Middle · 模型 0.01 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Rails_Middle.glb",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.04055759,
+        5.04055759,
+        5.04055759
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-60fdc02550887a44",
+      "name": "Stage · Stage_Rails_Side · 模型 0.01 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Rails_Side.glb",
+      "position": [
+        -5.99999987,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.03787314,
+        5.03787314,
+        5.03787314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a4893498a4dd4e0f",
+      "name": "Stage · Stage_Rails_Side_Flipped · 模型 0.01 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Rails_Side_Flipped.glb",
+      "position": [
+        -1.99999997,
+        0,
+        10.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.04055542,
+        5.04055542,
+        5.04055542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e4bfb3c07bb17ac",
+      "name": "Stage · Stage_Stairs_A · 模型 0.05 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Stairs_A.glb",
+      "position": [
+        -22.00000024,
+        0,
+        5.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.71764541,
+        2.71764541,
+        2.71764541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a4ae5867cbcc1ee7",
+      "name": "Stage · Stage_Stairs_B · 模型 0.09 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Stairs_B.glb",
+      "position": [
+        -18.0000001,
+        0,
+        6.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6634904,
+        1.6634904,
+        1.6634904
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b92143e452b76205",
+      "name": "Stage · Stage_Stairs_C · 模型 0.13 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Stairs_C.glb",
+      "position": [
+        -13.99999997,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15190779,
+        1.15190779,
+        1.15190779
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b48af0e9b4ee907",
+      "name": "Stage · Stage_Support_A_2S · 模型 0.06 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_A_2S.glb",
+      "position": [
+        -9.99999984,
+        0,
+        5.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.65997114,
+        2.65997114,
+        2.65997114
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-20d123e8aa8acbb7",
+      "name": "Stage · Stage_Support_A_3S · 模型 0.12 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_A_3S.glb",
+      "position": [
+        -6.00000007,
+        0,
+        5.99999963
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.45522189,
+        2.45522189,
+        2.45522189
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9eb1bf8a248c579f",
+      "name": "Stage · Stage_Support_A_4S · 模型 0.19 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_A_4S.glb",
+      "position": [
+        -1.99999993,
+        0,
+        5.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.40970036,
+        2.40970036,
+        2.40970036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7acf6bc93e1304d0",
+      "name": "Stage · Stage_Support_A_Pillar · 模型 0.03 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_A_Pillar.glb",
+      "position": [
+        -22.00000017,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a12bbf8424a54c3e",
+      "name": "Stage · Stage_Support_A_Truss · 模型 0.02 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_A_Truss.glb",
+      "position": [
+        -17.99999996,
+        0,
+        1.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.96825332,
+        2.96825332,
+        2.96825332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-50cb98b4690f79ad",
+      "name": "Stage · Stage_Support_B_2S · 模型 0.06 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_B_2S.glb",
+      "position": [
+        -14.00000008,
+        0,
+        1.99999952
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.65997114,
+        2.65997114,
+        2.65997114
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6855be8c5a8159fe",
+      "name": "Stage · Stage_Support_B_3S · 模型 0.11 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_B_3S.glb",
+      "position": [
+        -9.99999993,
+        0,
+        1.99999963
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.45522189,
+        2.45522189,
+        2.45522189
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6f8d00175841abf7",
+      "name": "Stage · Stage_Support_B_4S · 模型 0.19 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_B_4S.glb",
+      "position": [
+        -6.00000007,
+        0,
+        1.9999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.40969937,
+        2.40969937,
+        2.40969937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4da9d233a716f59b",
+      "name": "Stage · Stage_Support_B_Pillar · 模型 0.03 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_B_Pillar.glb",
+      "position": [
+        -2.00000008,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a6d9b90a48b4ab26",
+      "name": "Stage · Stage_Support_B_Truss · 模型 0.02 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_B_Truss.glb",
+      "position": [
+        -21.99999996,
+        0,
+        -2.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.93736941,
+        2.93736941,
+        2.93736941
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-617b03300d8c1223",
+      "name": "Stage · Stage_Support_C_2S · 模型 0.08 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_C_2S.glb",
+      "position": [
+        -18.0000003,
+        0,
+        -1.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85785585,
+        1.85785585,
+        1.85785585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-138c0756c64a2ad1",
+      "name": "Stage · Stage_Support_C_3S · 模型 0.14 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_C_3S.glb",
+      "position": [
+        -13.99999983,
+        0,
+        -1.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85785585,
+        1.85785585,
+        1.85785585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c31b9185665da139",
+      "name": "Stage · Stage_Support_C_4S · 模型 0.24 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_C_4S.glb",
+      "position": [
+        -10.00000006,
+        0,
+        -1.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85785585,
+        1.85785585,
+        1.85785585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7a4695a3d7b17c3a",
+      "name": "Stage · Stage_Support_C_Pillar · 模型 0.04 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_C_Pillar.glb",
+      "position": [
+        -6.00000006,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e9a66f1113b14c4d",
+      "name": "Stage · Stage_Support_C_Truss · 模型 0.02 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Stage_Support_C_Truss.glb",
+      "position": [
+        -1.99999997,
+        0,
+        -2.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0629571,
+        2.0629571,
+        2.0629571
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ca243e536bda4ea1",
+      "name": "Stage · Truss_Beam · 模型 0.02 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam.glb",
+      "position": [
+        -22,
+        -4e-8,
+        -6.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2bfd70bde52b7220",
+      "name": "Stage · Truss_Beam_Arc_A_Side · 模型 0.16 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_A_Side.glb",
+      "position": [
+        -18,
+        5e-8,
+        -6.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999995,
+        0.39999995,
+        0.39999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cbb22f88408471b9",
+      "name": "Stage · Truss_Beam_Arc_A_Side_Flipped · 模型 0.16 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_A_Side_Flipped.glb",
+      "position": [
+        -14,
+        5e-8,
+        -5.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999995,
+        0.39999995,
+        0.39999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ccf21cb39991b20d",
+      "name": "Stage · Truss_Beam_Arc_A_Side_Middle · 模型 0.16 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_A_Side_Middle.glb",
+      "position": [
+        -10,
+        5e-8,
+        -5.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999995,
+        0.39999995,
+        0.39999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-45d7c6f9450a6257",
+      "name": "Stage · Truss_Beam_Arc_B_Middle · 模型 0.11 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_B_Middle.glb",
+      "position": [
+        -6,
+        5e-8,
+        -5.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999997,
+        0.39999997,
+        0.39999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-41bd891f8af0bbc4",
+      "name": "Stage · Truss_Beam_Arc_B_Side · 模型 0.11 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_B_Side.glb",
+      "position": [
+        -2,
+        5e-8,
+        -5.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999997,
+        0.39999997,
+        0.39999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6152ba67f458f8c8",
+      "name": "Stage · Truss_Beam_Arc_B_Side_Flipped · 模型 0.11 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_B_Side_Flipped.glb",
+      "position": [
+        -22,
+        5e-8,
+        -9.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39999997,
+        0.39999997,
+        0.39999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-658a5a7d39dd3f35",
+      "name": "Stage · Truss_Beam_Arc_C_Middle · 模型 0.10 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_C_Middle.glb",
+      "position": [
+        -18,
+        7e-8,
+        -9.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55999995,
+        0.55999995,
+        0.55999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b9047af16f737839",
+      "name": "Stage · Truss_Beam_Arc_C_Side · 模型 0.10 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_C_Side.glb",
+      "position": [
+        -14,
+        7e-8,
+        -9.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55999995,
+        0.55999995,
+        0.55999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d1f247636b8af8fd",
+      "name": "Stage · Truss_Beam_Arc_C_Side_Flipped · 模型 0.10 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Arc_C_Side_Flipped.glb",
+      "position": [
+        -10,
+        7e-8,
+        -9.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55999995,
+        0.55999995,
+        0.55999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4db7fc6dc45ed773",
+      "name": "Stage · Truss_Beam_Corner_A · 模型 0.04 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Corner_A.glb",
+      "position": [
+        -6,
+        -1.7e-7,
+        -10.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.59999666,
+        5.59999666,
+        5.59999666
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-30527111466e6c99",
+      "name": "Stage · Truss_Beam_Corner_Middle · 模型 0.03 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Beam_Corner_Middle.glb",
+      "position": [
+        -2,
+        -1.7e-7,
+        -10.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.59999666,
+        5.59999666,
+        5.59999666
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5f33bd7102c15884",
+      "name": "Stage · Truss_Pillar · 模型 0.02 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Pillar.glb",
+      "position": [
+        -14.00000003,
+        0,
+        -14.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9c5b4ca5c6df188e",
+      "name": "Stage · Truss_Pillar_Base · 模型 0.02 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-stage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Stage/Truss_Pillar_Base.glb",
+      "position": [
+        -10,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

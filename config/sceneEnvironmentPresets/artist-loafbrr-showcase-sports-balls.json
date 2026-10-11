@@ -1,0 +1,373 @@
+{
+  "presetKey": "artist-loafbrr-showcase-sports-balls",
+  "name": "Loafbrr · SportsBalls · 7模型 · 模型 0.09 MiB + 贴图 0.67 MiB · 合计 0.76 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-sportsballs-0",
+      "name": "SportsBalls",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 13
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-16947cc4b852b69f-stand",
+      "name": "Baseball_Ball展台",
+      "parentId": "transform:category-sportsballs-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-41daed918366ea46-stand",
+      "name": "BasketBall_Ball展台",
+      "parentId": "transform:category-sportsballs-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d4b7bf242eed16e8-stand",
+      "name": "Dodgeball_ball展台",
+      "parentId": "transform:category-sportsballs-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c9d671b934eea1ca-stand",
+      "name": "FootBall_Ball展台",
+      "parentId": "transform:category-sportsballs-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f47590196ef400c0-stand",
+      "name": "Golf_Ball展台",
+      "parentId": "transform:category-sportsballs-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b9072991c09af320-stand",
+      "name": "Tennis_Ball展台",
+      "parentId": "transform:category-sportsballs-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c69eda532a4b5278-stand",
+      "name": "VolleyBall_Ball展台",
+      "parentId": "transform:category-sportsballs-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-16947cc4b852b69f",
+      "name": "SportsBalls · Baseball_Ball · 模型 0.01 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-sportsballs-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SportsBalls/Baseball_Ball.glb",
+      "position": [
+        -22,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        41.79104374,
+        41.79104374,
+        41.79104374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-41daed918366ea46",
+      "name": "SportsBalls · BasketBall_Ball · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-sportsballs-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SportsBalls/BasketBall_Ball.glb",
+      "position": [
+        -18,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.3333325,
+        9.3333325,
+        9.3333325
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d4b7bf242eed16e8",
+      "name": "SportsBalls · Dodgeball_ball · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-sportsballs-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SportsBalls/Dodgeball_ball.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.72727193,
+        12.72727193,
+        12.72727193
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c9d671b934eea1ca",
+      "name": "SportsBalls · FootBall_Ball · 模型 0.01 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-sportsballs-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SportsBalls/FootBall_Ball.glb",
+      "position": [
+        -10.00000007,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.99999943,
+        9.99999943,
+        9.99999943
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f47590196ef400c0",
+      "name": "SportsBalls · Golf_Ball · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-sportsballs-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SportsBalls/Golf_Ball.glb",
+      "position": [
+        -6.00000006,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        65.60450009,
+        65.60450009,
+        65.60450009
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b9072991c09af320",
+      "name": "SportsBalls · Tennis_Ball · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-sportsballs-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SportsBalls/Tennis_Ball.glb",
+      "position": [
+        -2.00000008,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        40.81632715,
+        40.81632715,
+        40.81632715
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c69eda532a4b5278",
+      "name": "SportsBalls · VolleyBall_Ball · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-sportsballs-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/SportsBalls/VolleyBall_Ball.glb",
+      "position": [
+        -12.00000004,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.29032243,
+        11.29032243,
+        11.29032243
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

@@ -1,0 +1,1591 @@
+{
+  "presetKey": "artist-retrovandal-model-test",
+  "name": "Retrovandal · 动物玩具、BMX 与飞船（8 款，29 展示实例）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "retrovandal-toys",
+      "name": "retrovandal · 动物玩具",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "retrovandal-vehicles",
+      "name": "retrovandal · BMX 自行车",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft",
+      "name": "retrovandal · 飞船",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 28
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "retrovandal-toys-bear-stand",
+      "name": "Bear展台",
+      "parentId": "transform:retrovandal-toys",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-toys-bunny-stand",
+      "name": "Bunny展台",
+      "parentId": "transform:retrovandal-toys",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-toys-monkey-stand",
+      "name": "Monkey展台",
+      "parentId": "transform:retrovandal-toys",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-toys-penguin-stand",
+      "name": "Penguin展台",
+      "parentId": "transform:retrovandal-toys",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-toys-pig-stand",
+      "name": "Pig展台",
+      "parentId": "transform:retrovandal-toys",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-toys-sheep-stand",
+      "name": "Sheep展台",
+      "parentId": "transform:retrovandal-toys",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-vehicles-bmx-stand",
+      "name": "BMX展台",
+      "parentId": "transform:retrovandal-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter-stand",
+      "name": "Fighter展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_cinfa-stand",
+      "name": "Fighter_cinfa展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_crono782-stand",
+      "name": "Fighter_crono782展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_cubik-stand",
+      "name": "Fighter_cubik展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_freelancer-stand",
+      "name": "Fighter_freelancer展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_idolknight-stand",
+      "name": "Fighter_idolknight展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_jodomatis-stand",
+      "name": "Fighter_jodomatis展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_kaoskiwi-stand",
+      "name": "Fighter_kaoskiwi展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld1-stand",
+      "name": "Fighter_krulspeld1展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld2-stand",
+      "name": "Fighter_krulspeld2展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld3-stand",
+      "name": "Fighter_krulspeld3展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld4-stand",
+      "name": "Fighter_krulspeld4展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld5-stand",
+      "name": "Fighter_krulspeld5展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_lordshadow-stand",
+      "name": "Fighter_lordshadow展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_nmt3000-stand",
+      "name": "Fighter_NMT3000展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_pyschicparrot-stand",
+      "name": "Fighter_pyschicparrot展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_robin-stand",
+      "name": "Fighter_robin展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_shadee-stand",
+      "name": "Fighter_shadee展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_snaz12-stand",
+      "name": "Fighter_snaz12展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_snazf1-stand",
+      "name": "Fighter_snazf1展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_thor-stand",
+      "name": "Fighter_thor展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_wilko-stand",
+      "name": "Fighter_wilko展台",
+      "parentId": "transform:retrovandal-spacecraft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -7.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "retrovandal-toys-bear",
+      "name": "retrovandal · Bear",
+      "parentId": "transform:retrovandal-toys",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Toys/Bear.glb",
+      "position": [
+        -22,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        1.48241342,
+        1.48241342,
+        1.48241342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "retrovandal-toys-bunny",
+      "name": "retrovandal · Bunny",
+      "parentId": "transform:retrovandal-toys",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Toys/Bunny.glb",
+      "position": [
+        -18,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        1.48270155,
+        1.48270155,
+        1.48270155
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "retrovandal-toys-monkey",
+      "name": "retrovandal · Monkey",
+      "parentId": "transform:retrovandal-toys",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Toys/Monkey.glb",
+      "position": [
+        -14,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        1.48458363,
+        1.48458363,
+        1.48458363
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "retrovandal-toys-penguin",
+      "name": "retrovandal · Penguin",
+      "parentId": "transform:retrovandal-toys",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Toys/Penguin.glb",
+      "position": [
+        -10,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        1.29453271,
+        1.29453271,
+        1.29453271
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "retrovandal-toys-pig",
+      "name": "retrovandal · Pig",
+      "parentId": "transform:retrovandal-toys",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Toys/Pig.glb",
+      "position": [
+        -6,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        1.48748897,
+        1.48748897,
+        1.48748897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "retrovandal-toys-sheep",
+      "name": "retrovandal · Sheep",
+      "parentId": "transform:retrovandal-toys",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Toys/Sheep.glb",
+      "position": [
+        -2,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        1.45407473,
+        1.45407473,
+        1.45407473
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "retrovandal-vehicles-bmx",
+      "name": "retrovandal · BMX",
+      "parentId": "transform:retrovandal-vehicles",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Vehicles/BMX.glb",
+      "position": [
+        12,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65055396,
+        0.65055396,
+        0.65055396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter",
+      "name": "retrovandal · Fighter",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -22,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_cinfa",
+      "name": "retrovandal · Fighter_cinfa",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -18,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/4acbaf5a25765e6226b03fa587d6b9b04a69bc7ff284fe7e221e5720face1e11.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_crono782",
+      "name": "retrovandal · Fighter_crono782",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -14,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/812796c7aed8baf077ff3ce588f33d5f9715cec0ac7716c26689787ba1786126.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_cubik",
+      "name": "retrovandal · Fighter_cubik",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -10,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/711d6c6eb85d79cf2b73e4dea979eaea9a498bd6de0995f0039ba6bf84176590.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_freelancer",
+      "name": "retrovandal · Fighter_freelancer",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -6,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/ea881dc5de6e3c457f30ec501d2a8c610e497cf0cfd62075d8ffabcac9135b55.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_idolknight",
+      "name": "retrovandal · Fighter_idolknight",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -2,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/7dbd65e5cbbe1860e7192c864e15f7e58611fd05dd25c92cf32384bbe08745e9.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_jodomatis",
+      "name": "retrovandal · Fighter_jodomatis",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -22,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/08900329c73099e9bd377717277e624bf8d64e476cdfe9f3650f5a6670c389dc.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_kaoskiwi",
+      "name": "retrovandal · Fighter_kaoskiwi",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -18,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/6f39a9293d9e3740f44d85a01845eb4e0651a527793b54056c7b20da16ca9f96.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld1",
+      "name": "retrovandal · Fighter_krulspeld1",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -14,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/f50f0a1d200ec650804f1bb027df2d7d169cd0bf86af7b8295e2712499104caa.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld2",
+      "name": "retrovandal · Fighter_krulspeld2",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -10,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/d278bdcafa50c0ad7d9248fa9be0f64161762399b2a807ef41d3805fe8022ce4.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld3",
+      "name": "retrovandal · Fighter_krulspeld3",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -6,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/dd986c3ab5377ad322c799e6391a45adde6bcbed29977d090ed44681c5465c42.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld4",
+      "name": "retrovandal · Fighter_krulspeld4",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -2,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/a7efe124907b6f640f36a0afe8f5ade00a339c8907bfdad303f04000311706e0.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_krulspeld5",
+      "name": "retrovandal · Fighter_krulspeld5",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -22,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/865640e3de586c5c90b2f6729997b2b85a55a476c5d0343ad64e3a089915cfc6.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_lordshadow",
+      "name": "retrovandal · Fighter_lordshadow",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -18,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/6672e75791a38bb04ae6ece169a0ea1c0d9d101214e043fb9f32d45c1aeccc05.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_nmt3000",
+      "name": "retrovandal · Fighter_NMT3000",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -14,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/f23c2c495810a23c8ca809f253fa2e5438e3eb9fda1078e6e099db3fa344c462.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_pyschicparrot",
+      "name": "retrovandal · Fighter_pyschicparrot",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -10,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/15d508a9ff469ca4ce97ffeef429b24cada37a2a4461dad85ed8205303d8de31.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_robin",
+      "name": "retrovandal · Fighter_robin",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -6,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/41142bdba12ba0e232d30fd765bf6395aae11c38fbbd70882af4166f24b678ad.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_shadee",
+      "name": "retrovandal · Fighter_shadee",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -2,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/12c02e2380bec64c6b162e2ae33f10ec8c262e5639a8fab81ed20535aa751b6c.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_snaz12",
+      "name": "retrovandal · Fighter_snaz12",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -18,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/33f07c39ae7d2a8aa2ebe5be4e7ec8db0445fddffa2d18de53aef9f248622cad.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_snazf1",
+      "name": "retrovandal · Fighter_snazf1",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -14,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/a09ac7827a40a7bdee544c7a0f1f38f9ffa593790a54464387dfdd324344ea82.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_thor",
+      "name": "retrovandal · Fighter_thor",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -10,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/772f08966520e097fd10c4db087eb77643a917963472188a6dfba416275aac39.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "retrovandal-spacecraft-fighter_wilko",
+      "name": "retrovandal · Fighter_wilko",
+      "parentId": "transform:retrovandal-spacecraft",
+      "modelPath": "resources/Model/GLB/artist_retrovandal/Spacecraft/Fighter.glb",
+      "position": [
+        -6,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69813905,
+        5.69813905,
+        5.69813905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_retrovandal/ba5cfa36495dd5db98d8e3709645d1460c7af2bcbc765cd0064bd5a26a6e9441.jpg"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

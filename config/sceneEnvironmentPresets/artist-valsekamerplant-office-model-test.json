@@ -1,0 +1,8192 @@
+{
+  "presetKey": "artist-valsekamerplant-office-model-test",
+  "name": "Valsekamerplant · 办公 · 家具、设备与杂物（180 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "valse-ambient",
+      "name": "柔和展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.25,
+          1,
+          0.2
+        ],
+        "groundColor": "#66737f"
+      }
+    },
+    {
+      "id": "valse-key",
+      "name": "暖色展示主光",
+      "intensity": 0.8,
+      "color": "#fff2df",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -20,
+          30,
+          -20
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "valse-office",
+      "name": "办公 · 家具、设备与杂物",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "valse-ground",
+      "name": "办公 · 家具、设备与杂物展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 60,
+        "height": 56
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-zone",
+      "name": "办公 · 家具、设备与杂物展示分区",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 57,
+        "height": 0.1,
+        "depth": 53
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#627789"
+    },
+    {
+      "id": "valse-office-001-stand",
+      "name": "OFFICE/book_things/book_case.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-002-stand",
+      "name": "OFFICE/book_things/book_case_small.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-003-stand",
+      "name": "OFFICE/book_things/book_case_with_back.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-004-stand",
+      "name": "OFFICE/book_things/book_case_with_back_Small.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-005-stand",
+      "name": "OFFICE/book_things/books.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-006-stand",
+      "name": "OFFICE/book_things/books_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-007-stand",
+      "name": "OFFICE/book_things/books_alt2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-008-stand",
+      "name": "OFFICE/book_things/file_binder.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-009-stand",
+      "name": "OFFICE/book_things/file_binder_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-010-stand",
+      "name": "OFFICE/book_things/file_binder_alt2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-011-stand",
+      "name": "OFFICE/book_things/file_binder_alt3.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-012-stand",
+      "name": "OFFICE/book_things/file_binder_alt4.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-013-stand",
+      "name": "OFFICE/book_things/file_binder_alt5.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-014-stand",
+      "name": "OFFICE/carpet_floor/floor 2x1.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-015-stand",
+      "name": "OFFICE/carpet_floor/floor_1x1.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-016-stand",
+      "name": "OFFICE/carpet_floor/floor_2x2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-017-stand",
+      "name": "OFFICE/carpet_floor/floor_3x3.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-018-stand",
+      "name": "OFFICE/carpet_floor/floor_corner.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-019-stand",
+      "name": "OFFICE/carpet_floor/floor_corner_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-020-stand",
+      "name": "OFFICE/carpet_floor/floor_corner_round.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-021-stand",
+      "name": "OFFICE/carpet_floor/floor_corner_round_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-022-stand",
+      "name": "OFFICE/chairs/conference_chair.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-023-stand",
+      "name": "OFFICE/chairs/conference_chair_black.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-024-stand",
+      "name": "OFFICE/chairs/conference_chair_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-025-stand",
+      "name": "OFFICE/chairs/conference_chair_grey.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-026-stand",
+      "name": "OFFICE/chairs/office_chair_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-027-stand",
+      "name": "OFFICE/chairs/office_chair_black.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-028-stand",
+      "name": "OFFICE/chairs/office_chair_black_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-029-stand",
+      "name": "OFFICE/chairs/office_chair_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-030-stand",
+      "name": "OFFICE/chairs/office_chair_blue_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-031-stand",
+      "name": "OFFICE/chairs/office_chair_fancy.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-032-stand",
+      "name": "OFFICE/chairs/office_chair_grey.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-033-stand",
+      "name": "OFFICE/chairs/office_chair_grey_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-034-stand",
+      "name": "OFFICE/chairs/office_chair_orange.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-035-stand",
+      "name": "OFFICE/computers/TV.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-036-stand",
+      "name": "OFFICE/computers/computer_keyboard.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-037-stand",
+      "name": "OFFICE/computers/computer_monitor.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-038-stand",
+      "name": "OFFICE/computers/computer_mouse.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-039-stand",
+      "name": "OFFICE/computers/computer_tower.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-040-stand",
+      "name": "OFFICE/computers/computer_tower_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-041-stand",
+      "name": "OFFICE/computers/desktop_brick.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-042-stand",
+      "name": "OFFICE/computers/horizontal_desktop.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-043-stand",
+      "name": "OFFICE/couches/armchair_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-044-stand",
+      "name": "OFFICE/couches/armchair_green.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-045-stand",
+      "name": "OFFICE/couches/armchair_pattern.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-046-stand",
+      "name": "OFFICE/couches/armchair_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-047-stand",
+      "name": "OFFICE/couches/beanbag_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-048-stand",
+      "name": "OFFICE/couches/beanbag_green.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-049-stand",
+      "name": "OFFICE/couches/beanbag_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-050-stand",
+      "name": "OFFICE/couches/couch_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-051-stand",
+      "name": "OFFICE/couches/couch_green.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-052-stand",
+      "name": "OFFICE/couches/couch_large_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-053-stand",
+      "name": "OFFICE/couches/couch_large_green.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-054-stand",
+      "name": "OFFICE/couches/couch_large_pattern.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-055-stand",
+      "name": "OFFICE/couches/couch_large_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-056-stand",
+      "name": "OFFICE/couches/couch_pattern.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-057-stand",
+      "name": "OFFICE/couches/couch_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-058-stand",
+      "name": "OFFICE/desks/conference_desk.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-059-stand",
+      "name": "OFFICE/desks/conference_desk_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-060-stand",
+      "name": "OFFICE/desks/conference_desk_squared.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-061-stand",
+      "name": "OFFICE/desks/conference_desk_squared_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-062-stand",
+      "name": "OFFICE/desks/desk1.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-063-stand",
+      "name": "OFFICE/desks/desk1_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-064-stand",
+      "name": "OFFICE/desks/desk1_alt2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-065-stand",
+      "name": "OFFICE/desks/desk1_alt2_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-066-stand",
+      "name": "OFFICE/desks/desk1_alt3.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-067-stand",
+      "name": "OFFICE/desks/desk1_alt3_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-068-stand",
+      "name": "OFFICE/desks/desk1_alt4.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-069-stand",
+      "name": "OFFICE/desks/desk1_alt4_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-070-stand",
+      "name": "OFFICE/desks/desk1_alt_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-071-stand",
+      "name": "OFFICE/desks/desk1_corner.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-072-stand",
+      "name": "OFFICE/desks/desk1_corner_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-073-stand",
+      "name": "OFFICE/desks/desk1_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-074-stand",
+      "name": "OFFICE/desks/desk2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-075-stand",
+      "name": "OFFICE/desks/desk2_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-076-stand",
+      "name": "OFFICE/desks/desk2_alt2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-077-stand",
+      "name": "OFFICE/desks/desk2_alt2_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-078-stand",
+      "name": "OFFICE/desks/desk2_alt3.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-079-stand",
+      "name": "OFFICE/desks/desk2_alt3_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-080-stand",
+      "name": "OFFICE/desks/desk2_alt4.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-081-stand",
+      "name": "OFFICE/desks/desk2_alt4_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-082-stand",
+      "name": "OFFICE/desks/desk2_alt_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-083-stand",
+      "name": "OFFICE/desks/desk2_corner.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-084-stand",
+      "name": "OFFICE/desks/desk2_corner_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-085-stand",
+      "name": "OFFICE/desks/desk2_weathered.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-086-stand",
+      "name": "OFFICE/dividers/divider_black.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-087-stand",
+      "name": "OFFICE/dividers/divider_black_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-088-stand",
+      "name": "OFFICE/dividers/divider_black_blue_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-089-stand",
+      "name": "OFFICE/dividers/divider_black_blue_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-090-stand",
+      "name": "OFFICE/dividers/divider_black_blue_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-091-stand",
+      "name": "OFFICE/dividers/divider_black_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-092-stand",
+      "name": "OFFICE/dividers/divider_black_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-093-stand",
+      "name": "OFFICE/dividers/divider_black_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-094-stand",
+      "name": "OFFICE/dividers/divider_black_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-095-stand",
+      "name": "OFFICE/dividers/divider_black_red_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-096-stand",
+      "name": "OFFICE/dividers/divider_black_red_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-097-stand",
+      "name": "OFFICE/dividers/divider_black_red_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-098-stand",
+      "name": "OFFICE/dividers/divider_full_c.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        0
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-099-stand",
+      "name": "OFFICE/dividers/divider_full_c_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-100-stand",
+      "name": "OFFICE/dividers/divider_full_c_desk.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-101-stand",
+      "name": "OFFICE/dividers/divider_full_c_desk_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-102-stand",
+      "name": "OFFICE/dividers/divider_full_c_desk_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-103-stand",
+      "name": "OFFICE/dividers/divider_full_c_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-104-stand",
+      "name": "OFFICE/dividers/divider_full_h.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-105-stand",
+      "name": "OFFICE/dividers/divider_full_h_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-106-stand",
+      "name": "OFFICE/dividers/divider_full_h_desk.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-107-stand",
+      "name": "OFFICE/dividers/divider_full_h_lue_desk.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-108-stand",
+      "name": "OFFICE/dividers/divider_full_h_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-109-stand",
+      "name": "OFFICE/dividers/divider_full_h_red_desk.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-110-stand",
+      "name": "OFFICE/dividers/divider_veneer.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-111-stand",
+      "name": "OFFICE/dividers/divider_veneer_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-112-stand",
+      "name": "OFFICE/dividers/divider_veneer_blue_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        4
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-113-stand",
+      "name": "OFFICE/dividers/divider_veneer_blue_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-114-stand",
+      "name": "OFFICE/dividers/divider_veneer_blue_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-115-stand",
+      "name": "OFFICE/dividers/divider_veneer_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-116-stand",
+      "name": "OFFICE/dividers/divider_veneer_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-117-stand",
+      "name": "OFFICE/dividers/divider_veneer_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-118-stand",
+      "name": "OFFICE/dividers/divider_veneer_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-119-stand",
+      "name": "OFFICE/dividers/divider_veneer_red_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-120-stand",
+      "name": "OFFICE/dividers/divider_veneer_red_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-121-stand",
+      "name": "OFFICE/dividers/divider_veneer_red_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-122-stand",
+      "name": "OFFICE/dividers/divider_wood.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-123-stand",
+      "name": "OFFICE/dividers/divider_wood_blue.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-124-stand",
+      "name": "OFFICE/dividers/divider_wood_blue_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-125-stand",
+      "name": "OFFICE/dividers/divider_wood_blue_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-126-stand",
+      "name": "OFFICE/dividers/divider_wood_blue_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        8
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-127-stand",
+      "name": "OFFICE/dividers/divider_wood_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-128-stand",
+      "name": "OFFICE/dividers/divider_wood_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-129-stand",
+      "name": "OFFICE/dividers/divider_wood_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-130-stand",
+      "name": "OFFICE/dividers/divider_wood_red.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-131-stand",
+      "name": "OFFICE/dividers/divider_wood_red_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-132-stand",
+      "name": "OFFICE/dividers/divider_wood_red_low.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-133-stand",
+      "name": "OFFICE/dividers/divider_wood_red_low_half.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-134-stand",
+      "name": "OFFICE/extras/circular_desklamp.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-135-stand",
+      "name": "OFFICE/extras/circular_desklamp_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-136-stand",
+      "name": "OFFICE/extras/coffee_machine.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-137-stand",
+      "name": "OFFICE/extras/desk_phone.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-138-stand",
+      "name": "OFFICE/extras/desk_phone_with_cable.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-139-stand",
+      "name": "OFFICE/extras/glass.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-140-stand",
+      "name": "OFFICE/extras/glass2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        12
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-141-stand",
+      "name": "OFFICE/extras/mug.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-142-stand",
+      "name": "OFFICE/extras/mug_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-143-stand",
+      "name": "OFFICE/extras/mug_alt2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-144-stand",
+      "name": "OFFICE/extras/mug_alt3.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-145-stand",
+      "name": "OFFICE/extras/square_desklamp.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-146-stand",
+      "name": "OFFICE/extras/square_desklamp_alt.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-147-stand",
+      "name": "OFFICE/extras/wall_clock.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-148-stand",
+      "name": "OFFICE/extras/water_cooler.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-149-stand",
+      "name": "OFFICE/extras/water_cooler_bottle.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-150-stand",
+      "name": "OFFICE/extras/water_cooler_bottle_attached.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-151-stand",
+      "name": "OFFICE/extras/whiteboard.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-152-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_large.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-153-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_large_open.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-154-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_large_shelf.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        16
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-155-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_large_shelf_fancy.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-156-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_larger.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-157-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_larger_open.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-158-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_largest.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-159-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_largest_open.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-160-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_small.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-161-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_small_open.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-162-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_small_shelf.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-163-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_small_shelf_fancy.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-164-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_small_with_shelfs.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-165-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_smaller.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-166-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_smaller_open.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-167-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_smaller_with_shelfs.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-168-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_smallest.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        20
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-169-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_smallest_open.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-170-stand",
+      "name": "OFFICE/file_cabinets/file_cabinet_smallest_with_shelfs.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-171-stand",
+      "name": "OFFICE/stationary/elastic_ball.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-172-stand",
+      "name": "OFFICE/stationary/paper_single_sheet.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-173-stand",
+      "name": "OFFICE/stationary/paper_stack.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-174-stand",
+      "name": "OFFICE/stationary/paper_stack_large.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-175-stand",
+      "name": "OFFICE/stationary/pen.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-176-stand",
+      "name": "OFFICE/stationary/pen2.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-177-stand",
+      "name": "OFFICE/stationary/pen3.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-178-stand",
+      "name": "OFFICE/stationary/pen4.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-179-stand",
+      "name": "OFFICE/stationary/pen5.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-180-stand",
+      "name": "OFFICE/stationary/pen6.glb 展台",
+      "parentId": "transform:valse-office",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        24
+      ],
+      "color": "#627789",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "valse-office-001",
+      "name": "OFFICE/book_things/book_case.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/book_case.glb",
+      "position": [
+        -26,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-002",
+      "name": "OFFICE/book_things/book_case_small.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/book_case_small.glb",
+      "position": [
+        -22,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-003",
+      "name": "OFFICE/book_things/book_case_with_back.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/book_case_with_back.glb",
+      "position": [
+        -18,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-004",
+      "name": "OFFICE/book_things/book_case_with_back_Small.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/book_case_with_back_Small.glb",
+      "position": [
+        -14,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-005",
+      "name": "OFFICE/book_things/books.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/books.glb",
+      "position": [
+        -10,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.7526032,
+        3.7526032,
+        3.7526032
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-006",
+      "name": "OFFICE/book_things/books_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/books_alt.glb",
+      "position": [
+        -4.0521817,
+        -2e-7,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.1359987,
+        7.1359987,
+        7.1359987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-007",
+      "name": "OFFICE/book_things/books_alt2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/books_alt2.glb",
+      "position": [
+        -2,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.287564,
+        5.287564,
+        5.287564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-008",
+      "name": "OFFICE/book_things/file_binder.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/file_binder.glb",
+      "position": [
+        2,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.598745,
+        6.598745,
+        6.598745
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-009",
+      "name": "OFFICE/book_things/file_binder_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/file_binder_alt.glb",
+      "position": [
+        5.9957789,
+        0.0009232,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.5976528,
+        6.5976528,
+        6.5976528
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-010",
+      "name": "OFFICE/book_things/file_binder_alt2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/file_binder_alt2.glb",
+      "position": [
+        10,
+        -1e-7,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.6143148,
+        6.6143148,
+        6.6143148
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-011",
+      "name": "OFFICE/book_things/file_binder_alt3.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/file_binder_alt3.glb",
+      "position": [
+        14,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.6279752,
+        6.6279752,
+        6.6279752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-012",
+      "name": "OFFICE/book_things/file_binder_alt4.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/file_binder_alt4.glb",
+      "position": [
+        18,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.6279752,
+        6.6279752,
+        6.6279752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-013",
+      "name": "OFFICE/book_things/file_binder_alt5.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/book_things/file_binder_alt5.glb",
+      "position": [
+        22,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.6279752,
+        6.6279752,
+        6.6279752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-014",
+      "name": "OFFICE/carpet_floor/floor 2x1.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/carpet_floor/floor 2x1.glb",
+      "position": [
+        26.6999997,
+        0,
+        -22.6000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3999999,
+        1.3999999,
+        1.3999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-015",
+      "name": "OFFICE/carpet_floor/floor_1x1.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/carpet_floor/floor_1x1.glb",
+      "position": [
+        -24.6,
+        0,
+        -18.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-016",
+      "name": "OFFICE/carpet_floor/floor_2x2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/carpet_floor/floor_2x2.glb",
+      "position": [
+        -20.6,
+        0,
+        -18.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-017",
+      "name": "OFFICE/carpet_floor/floor_3x3.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/carpet_floor/floor_3x3.glb",
+      "position": [
+        -16.6,
+        0,
+        -18.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-018",
+      "name": "OFFICE/carpet_floor/floor_corner.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/carpet_floor/floor_corner.glb",
+      "position": [
+        -12.6000001,
+        0,
+        -18.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-019",
+      "name": "OFFICE/carpet_floor/floor_corner_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/carpet_floor/floor_corner_half.glb",
+      "position": [
+        -8.6,
+        0,
+        -18.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-020",
+      "name": "OFFICE/carpet_floor/floor_corner_round.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/carpet_floor/floor_corner_round.glb",
+      "position": [
+        -4.6000001,
+        0,
+        -18.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-021",
+      "name": "OFFICE/carpet_floor/floor_corner_round_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/carpet_floor/floor_corner_round_half.glb",
+      "position": [
+        -0.6,
+        0,
+        -18.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-022",
+      "name": "OFFICE/chairs/conference_chair.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/conference_chair.glb",
+      "position": [
+        2,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7620136,
+        2.7620136,
+        2.7620136
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-023",
+      "name": "OFFICE/chairs/conference_chair_black.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/conference_chair_black.glb",
+      "position": [
+        6,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7620136,
+        2.7620136,
+        2.7620136
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-024",
+      "name": "OFFICE/chairs/conference_chair_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/conference_chair_blue.glb",
+      "position": [
+        10,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7620136,
+        2.7620136,
+        2.7620136
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-025",
+      "name": "OFFICE/chairs/conference_chair_grey.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/conference_chair_grey.glb",
+      "position": [
+        14,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7620136,
+        2.7620136,
+        2.7620136
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-026",
+      "name": "OFFICE/chairs/office_chair_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_alt.glb",
+      "position": [
+        18.093413,
+        0.3791203,
+        -19.9853703
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5474837,
+        2.5474837,
+        2.5474837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-027",
+      "name": "OFFICE/chairs/office_chair_black.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_black.glb",
+      "position": [
+        22.0150731,
+        0.4287265,
+        -20.1071759
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5546726,
+        2.5546726,
+        2.5546726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-028",
+      "name": "OFFICE/chairs/office_chair_black_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_black_alt.glb",
+      "position": [
+        26.0146297,
+        0.3791203,
+        -20.093413
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5474837,
+        2.5474837,
+        2.5474837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-029",
+      "name": "OFFICE/chairs/office_chair_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_blue.glb",
+      "position": [
+        -25.9849269,
+        0.4287265,
+        -16.1071759
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5546726,
+        2.5546726,
+        2.5546726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-030",
+      "name": "OFFICE/chairs/office_chair_blue_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_blue_alt.glb",
+      "position": [
+        -22.0146297,
+        0.3791203,
+        -15.906587
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5474837,
+        2.5474837,
+        2.5474837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-031",
+      "name": "OFFICE/chairs/office_chair_fancy.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_fancy.glb",
+      "position": [
+        -17.9760897,
+        0.4719063,
+        -16.1061638
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4217872,
+        2.4217872,
+        2.4217872
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-032",
+      "name": "OFFICE/chairs/office_chair_grey.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_grey.glb",
+      "position": [
+        -13.9849269,
+        0.4287265,
+        -16.1071759
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5546726,
+        2.5546726,
+        2.5546726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-033",
+      "name": "OFFICE/chairs/office_chair_grey_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_grey_alt.glb",
+      "position": [
+        -10.093413,
+        0.3791203,
+        -16.0146297
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5474837,
+        2.5474837,
+        2.5474837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-034",
+      "name": "OFFICE/chairs/office_chair_orange.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/chairs/office_chair_orange.glb",
+      "position": [
+        -5.9848913,
+        0.4297386,
+        -16.1074289
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5607036,
+        2.5607036,
+        2.5607036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-035",
+      "name": "OFFICE/computers/TV.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/computers/TV.glb",
+      "position": [
+        -1.6451714,
+        -0.114844,
+        -15.8518347
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0679785,
+        3.0679785,
+        3.0679785
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-036",
+      "name": "OFFICE/computers/computer_keyboard.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/computers/computer_keyboard.glb",
+      "position": [
+        2,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.1007598,
+        4.1007598,
+        4.1007598
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-037",
+      "name": "OFFICE/computers/computer_monitor.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/computers/computer_monitor.glb",
+      "position": [
+        6,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.6495612,
+        4.6495612,
+        4.6495612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-038",
+      "name": "OFFICE/computers/computer_mouse.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/computers/computer_mouse.glb",
+      "position": [
+        10,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.7831084,
+        25.7831084,
+        25.7831084
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-039",
+      "name": "OFFICE/computers/computer_tower.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/computers/computer_tower.glb",
+      "position": [
+        14,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.5966702,
+        4.5966702,
+        4.5966702
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-040",
+      "name": "OFFICE/computers/computer_tower_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/computers/computer_tower_alt.glb",
+      "position": [
+        18,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.5966702,
+        4.5966702,
+        4.5966702
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-041",
+      "name": "OFFICE/computers/desktop_brick.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/computers/desktop_brick.glb",
+      "position": [
+        22,
+        0,
+        -16.0710062
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1500255,
+        3.1500255,
+        3.1500255
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-042",
+      "name": "OFFICE/computers/horizontal_desktop.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/computers/horizontal_desktop.glb",
+      "position": [
+        26,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.1149948,
+        4.1149948,
+        4.1149948
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-043",
+      "name": "OFFICE/couches/armchair_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/armchair_blue.glb",
+      "position": [
+        -26.0016035,
+        0,
+        -11.9306615
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0019304,
+        2.0019304,
+        2.0019304
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-044",
+      "name": "OFFICE/couches/armchair_green.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/armchair_green.glb",
+      "position": [
+        -22.0016035,
+        0,
+        -11.9306615
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0019304,
+        2.0019304,
+        2.0019304
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-045",
+      "name": "OFFICE/couches/armchair_pattern.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/armchair_pattern.glb",
+      "position": [
+        -18.0016035,
+        0,
+        -11.9306615
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0019304,
+        2.0019304,
+        2.0019304
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-046",
+      "name": "OFFICE/couches/armchair_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/armchair_red.glb",
+      "position": [
+        -14.0016035,
+        0,
+        -11.9306615
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0019304,
+        2.0019304,
+        2.0019304
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-047",
+      "name": "OFFICE/couches/beanbag_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/beanbag_blue.glb",
+      "position": [
+        -10.0002449,
+        -0.1500662,
+        -12.0048893
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5768357,
+        1.5768357,
+        1.5768357
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-048",
+      "name": "OFFICE/couches/beanbag_green.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/beanbag_green.glb",
+      "position": [
+        -6.0002449,
+        -0.1500662,
+        -12.0048893
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5768357,
+        1.5768357,
+        1.5768357
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-049",
+      "name": "OFFICE/couches/beanbag_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/beanbag_red.glb",
+      "position": [
+        -2.0002449,
+        -0.1500662,
+        -12.0048893
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5768357,
+        1.5768357,
+        1.5768357
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-050",
+      "name": "OFFICE/couches/couch_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/couch_blue.glb",
+      "position": [
+        2,
+        0,
+        -11.9567382
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2490482,
+        1.2490482,
+        1.2490482
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-051",
+      "name": "OFFICE/couches/couch_green.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/couch_green.glb",
+      "position": [
+        6,
+        0,
+        -11.9567382
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2490482,
+        1.2490482,
+        1.2490482
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-052",
+      "name": "OFFICE/couches/couch_large_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/couch_large_blue.glb",
+      "position": [
+        10,
+        0,
+        -11.9786047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8874565,
+        0.8874565,
+        0.8874565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-053",
+      "name": "OFFICE/couches/couch_large_green.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/couch_large_green.glb",
+      "position": [
+        14,
+        0,
+        -11.9786047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8874565,
+        0.8874565,
+        0.8874565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-054",
+      "name": "OFFICE/couches/couch_large_pattern.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/couch_large_pattern.glb",
+      "position": [
+        18,
+        0,
+        -11.9786047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8874565,
+        0.8874565,
+        0.8874565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-055",
+      "name": "OFFICE/couches/couch_large_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/couch_large_red.glb",
+      "position": [
+        22,
+        0,
+        -11.9786047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8874565,
+        0.8874565,
+        0.8874565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-056",
+      "name": "OFFICE/couches/couch_pattern.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/couch_pattern.glb",
+      "position": [
+        26,
+        0,
+        -11.9567382
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2490482,
+        1.2490482,
+        1.2490482
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-057",
+      "name": "OFFICE/couches/couch_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/couches/couch_red.glb",
+      "position": [
+        -26,
+        0,
+        -7.9567382
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2490482,
+        1.2490482,
+        1.2490482
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-058",
+      "name": "OFFICE/desks/conference_desk.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/conference_desk.glb",
+      "position": [
+        -22,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5629033,
+        0.5629033,
+        0.5629033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-059",
+      "name": "OFFICE/desks/conference_desk_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/conference_desk_alt.glb",
+      "position": [
+        -18,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5629035,
+        0.5629035,
+        0.5629035
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-060",
+      "name": "OFFICE/desks/conference_desk_squared.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/conference_desk_squared.glb",
+      "position": [
+        -14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6687882,
+        0.6687882,
+        0.6687882
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-061",
+      "name": "OFFICE/desks/conference_desk_squared_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/conference_desk_squared_alt.glb",
+      "position": [
+        -10,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6708649,
+        0.6708649,
+        0.6708649
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-062",
+      "name": "OFFICE/desks/desk1.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1.glb",
+      "position": [
+        -6,
+        3e-7,
+        -7.9934861
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2697312,
+        1.2697312,
+        1.2697312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-063",
+      "name": "OFFICE/desks/desk1_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_alt.glb",
+      "position": [
+        -2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-064",
+      "name": "OFFICE/desks/desk1_alt2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_alt2.glb",
+      "position": [
+        2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-065",
+      "name": "OFFICE/desks/desk1_alt2_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_alt2_weathered.glb",
+      "position": [
+        6,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-066",
+      "name": "OFFICE/desks/desk1_alt3.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_alt3.glb",
+      "position": [
+        10,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-067",
+      "name": "OFFICE/desks/desk1_alt3_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_alt3_weathered.glb",
+      "position": [
+        14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-068",
+      "name": "OFFICE/desks/desk1_alt4.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_alt4.glb",
+      "position": [
+        18,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-069",
+      "name": "OFFICE/desks/desk1_alt4_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_alt4_weathered.glb",
+      "position": [
+        22,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-070",
+      "name": "OFFICE/desks/desk1_alt_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_alt_weathered.glb",
+      "position": [
+        26,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2697312,
+        1.2697312,
+        1.2697312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-071",
+      "name": "OFFICE/desks/desk1_corner.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_corner.glb",
+      "position": [
+        -26.0552643,
+        0,
+        -3.9951649
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0838105,
+        1.0838105,
+        1.0838105
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-072",
+      "name": "OFFICE/desks/desk1_corner_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_corner_weathered.glb",
+      "position": [
+        -22,
+        0,
+        -4.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2727268,
+        1.2727268,
+        1.2727268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-073",
+      "name": "OFFICE/desks/desk1_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk1_weathered.glb",
+      "position": [
+        -18,
+        3e-7,
+        -3.9966469
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2697309,
+        1.2697309,
+        1.2697309
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-074",
+      "name": "OFFICE/desks/desk2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2.glb",
+      "position": [
+        -14,
+        3e-7,
+        -3.9966471
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2697312,
+        1.2697312,
+        1.2697312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-075",
+      "name": "OFFICE/desks/desk2_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_alt.glb",
+      "position": [
+        -10,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-076",
+      "name": "OFFICE/desks/desk2_alt2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_alt2.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-077",
+      "name": "OFFICE/desks/desk2_alt2_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_alt2_weathered.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-078",
+      "name": "OFFICE/desks/desk2_alt3.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_alt3.glb",
+      "position": [
+        2,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-079",
+      "name": "OFFICE/desks/desk2_alt3_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_alt3_weathered.glb",
+      "position": [
+        6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-080",
+      "name": "OFFICE/desks/desk2_alt4.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_alt4.glb",
+      "position": [
+        10,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-081",
+      "name": "OFFICE/desks/desk2_alt4_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_alt4_weathered.glb",
+      "position": [
+        14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-082",
+      "name": "OFFICE/desks/desk2_alt_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_alt_weathered.glb",
+      "position": [
+        18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1696972,
+        1.1696972,
+        1.1696972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-083",
+      "name": "OFFICE/desks/desk2_corner.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_corner.glb",
+      "position": [
+        22,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2666588,
+        1.2666588,
+        1.2666588
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-084",
+      "name": "OFFICE/desks/desk2_corner_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_corner_weathered.glb",
+      "position": [
+        26,
+        0,
+        -4.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2727268,
+        1.2727268,
+        1.2727268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-085",
+      "name": "OFFICE/desks/desk2_weathered.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/desks/desk2_weathered.glb",
+      "position": [
+        -26,
+        1e-7,
+        0.003353
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2697311,
+        1.2697311,
+        1.2697311
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-086",
+      "name": "OFFICE/dividers/divider_black.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black.glb",
+      "position": [
+        -22,
+        0,
+        -0.0392626
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-087",
+      "name": "OFFICE/dividers/divider_black_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_blue.glb",
+      "position": [
+        -18,
+        0,
+        -0.0392626
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-088",
+      "name": "OFFICE/dividers/divider_black_blue_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_blue_half.glb",
+      "position": [
+        -14,
+        0,
+        -0.0480636
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-089",
+      "name": "OFFICE/dividers/divider_black_blue_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_blue_low.glb",
+      "position": [
+        -10,
+        0,
+        -0.0392626
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-090",
+      "name": "OFFICE/dividers/divider_black_blue_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_blue_low_half.glb",
+      "position": [
+        -6,
+        0,
+        -0.0579313
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-091",
+      "name": "OFFICE/dividers/divider_black_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_half.glb",
+      "position": [
+        -2,
+        0,
+        -0.0480636
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-092",
+      "name": "OFFICE/dividers/divider_black_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_low.glb",
+      "position": [
+        2,
+        0,
+        -0.0392626
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-093",
+      "name": "OFFICE/dividers/divider_black_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_low_half.glb",
+      "position": [
+        6,
+        0,
+        -0.0579313
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-094",
+      "name": "OFFICE/dividers/divider_black_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_red.glb",
+      "position": [
+        10,
+        0,
+        -0.0392626
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-095",
+      "name": "OFFICE/dividers/divider_black_red_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_red_half.glb",
+      "position": [
+        14,
+        0,
+        -0.0480636
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-096",
+      "name": "OFFICE/dividers/divider_black_red_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_red_low.glb",
+      "position": [
+        18,
+        0,
+        -0.0392626
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-097",
+      "name": "OFFICE/dividers/divider_black_red_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_black_red_low_half.glb",
+      "position": [
+        22,
+        0,
+        -0.0579313
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-098",
+      "name": "OFFICE/dividers/divider_full_c.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_c.glb",
+      "position": [
+        25.9933553,
+        0.000023,
+        -0.6630787
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9377631,
+        0.9377631,
+        0.9377631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-099",
+      "name": "OFFICE/dividers/divider_full_c_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_c_blue.glb",
+      "position": [
+        -26.0066447,
+        0.000023,
+        3.3369213
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9377631,
+        0.9377631,
+        0.9377631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-100",
+      "name": "OFFICE/dividers/divider_full_c_desk.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_c_desk.glb",
+      "position": [
+        -22.0066447,
+        0.000023,
+        3.3369213
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9377631,
+        0.9377631,
+        0.9377631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-101",
+      "name": "OFFICE/dividers/divider_full_c_desk_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_c_desk_blue.glb",
+      "position": [
+        -18.0066447,
+        0.000023,
+        3.3369213
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9377631,
+        0.9377631,
+        0.9377631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-102",
+      "name": "OFFICE/dividers/divider_full_c_desk_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_c_desk_red.glb",
+      "position": [
+        -14.0066447,
+        0.000023,
+        3.3369213
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9377631,
+        0.9377631,
+        0.9377631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-103",
+      "name": "OFFICE/dividers/divider_full_c_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_c_red.glb",
+      "position": [
+        -10.0066447,
+        0.000023,
+        3.3369213
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9377631,
+        0.9377631,
+        0.9377631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-104",
+      "name": "OFFICE/dividers/divider_full_h.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_h.glb",
+      "position": [
+        -6.0066134,
+        0.0000229,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-105",
+      "name": "OFFICE/dividers/divider_full_h_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_h_blue.glb",
+      "position": [
+        -2.0066134,
+        0.0000229,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-106",
+      "name": "OFFICE/dividers/divider_full_h_desk.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_h_desk.glb",
+      "position": [
+        1.9933866,
+        0.0000229,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-107",
+      "name": "OFFICE/dividers/divider_full_h_lue_desk.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_h_lue_desk.glb",
+      "position": [
+        5.9933866,
+        0.0000229,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-108",
+      "name": "OFFICE/dividers/divider_full_h_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_h_red.glb",
+      "position": [
+        9.9933866,
+        0.0000229,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-109",
+      "name": "OFFICE/dividers/divider_full_h_red_desk.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_full_h_red_desk.glb",
+      "position": [
+        13.9933866,
+        0.0000229,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-110",
+      "name": "OFFICE/dividers/divider_veneer.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer.glb",
+      "position": [
+        18,
+        0,
+        3.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-111",
+      "name": "OFFICE/dividers/divider_veneer_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_blue.glb",
+      "position": [
+        22,
+        0,
+        3.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-112",
+      "name": "OFFICE/dividers/divider_veneer_blue_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_blue_half.glb",
+      "position": [
+        26,
+        0,
+        3.9519364
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-113",
+      "name": "OFFICE/dividers/divider_veneer_blue_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_blue_low.glb",
+      "position": [
+        -26,
+        0,
+        7.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-114",
+      "name": "OFFICE/dividers/divider_veneer_blue_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_blue_low_half.glb",
+      "position": [
+        -22,
+        0,
+        7.9420687
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-115",
+      "name": "OFFICE/dividers/divider_veneer_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_half.glb",
+      "position": [
+        -18,
+        0,
+        7.9519364
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-116",
+      "name": "OFFICE/dividers/divider_veneer_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_low.glb",
+      "position": [
+        -14,
+        0,
+        7.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-117",
+      "name": "OFFICE/dividers/divider_veneer_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_low_half.glb",
+      "position": [
+        -10,
+        0,
+        7.9420687
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-118",
+      "name": "OFFICE/dividers/divider_veneer_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_red.glb",
+      "position": [
+        -6,
+        0,
+        7.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-119",
+      "name": "OFFICE/dividers/divider_veneer_red_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_red_half.glb",
+      "position": [
+        -2,
+        0,
+        7.9519364
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-120",
+      "name": "OFFICE/dividers/divider_veneer_red_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_red_low.glb",
+      "position": [
+        2,
+        0,
+        7.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-121",
+      "name": "OFFICE/dividers/divider_veneer_red_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_veneer_red_low_half.glb",
+      "position": [
+        6,
+        0,
+        7.9420687
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-122",
+      "name": "OFFICE/dividers/divider_wood.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood.glb",
+      "position": [
+        10,
+        0,
+        7.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-123",
+      "name": "OFFICE/dividers/divider_wood_blue.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_blue.glb",
+      "position": [
+        14,
+        0,
+        7.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-124",
+      "name": "OFFICE/dividers/divider_wood_blue_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_blue_half.glb",
+      "position": [
+        18,
+        0,
+        7.9519364
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-125",
+      "name": "OFFICE/dividers/divider_wood_blue_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_blue_low.glb",
+      "position": [
+        22,
+        0,
+        7.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-126",
+      "name": "OFFICE/dividers/divider_wood_blue_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_blue_low_half.glb",
+      "position": [
+        26,
+        0,
+        7.9420687
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-127",
+      "name": "OFFICE/dividers/divider_wood_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_half.glb",
+      "position": [
+        -26,
+        0,
+        11.9519364
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-128",
+      "name": "OFFICE/dividers/divider_wood_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_low.glb",
+      "position": [
+        -22,
+        0,
+        11.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-129",
+      "name": "OFFICE/dividers/divider_wood_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_low_half.glb",
+      "position": [
+        -18,
+        0,
+        11.9420687
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-130",
+      "name": "OFFICE/dividers/divider_wood_red.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_red.glb",
+      "position": [
+        -14,
+        0,
+        11.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-131",
+      "name": "OFFICE/dividers/divider_wood_red_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_red_half.glb",
+      "position": [
+        -10,
+        0,
+        11.9519364
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-132",
+      "name": "OFFICE/dividers/divider_wood_red_low.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_red_low.glb",
+      "position": [
+        -6,
+        0,
+        11.9607374
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9149151,
+        0.9149151,
+        0.9149151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-133",
+      "name": "OFFICE/dividers/divider_wood_red_low_half.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/dividers/divider_wood_red_low_half.glb",
+      "position": [
+        -2,
+        0,
+        11.9420687
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3499401,
+        1.3499401,
+        1.3499401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-134",
+      "name": "OFFICE/extras/circular_desklamp.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/circular_desklamp.glb",
+      "position": [
+        2,
+        0,
+        11.5076183
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.4369712,
+        7.4369712,
+        7.4369712
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-135",
+      "name": "OFFICE/extras/circular_desklamp_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/circular_desklamp_alt.glb",
+      "position": [
+        6,
+        0,
+        11.5308419
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.4375158,
+        7.4375158,
+        7.4375158
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-136",
+      "name": "OFFICE/extras/coffee_machine.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/coffee_machine.glb",
+      "position": [
+        10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3182845,
+        1.3182845,
+        1.3182845
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-137",
+      "name": "OFFICE/extras/desk_phone.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/desk_phone.glb",
+      "position": [
+        14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.4134419,
+        8.4134419,
+        8.4134419
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-138",
+      "name": "OFFICE/extras/desk_phone_with_cable.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/desk_phone_with_cable.glb",
+      "position": [
+        18,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.0603007,
+        7.0603007,
+        7.0603007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-139",
+      "name": "OFFICE/extras/glass.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/glass.glb",
+      "position": [
+        22,
+        1.3057577,
+        12.1128832
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.8875498,
+        16.8875498,
+        16.8875498
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-140",
+      "name": "OFFICE/extras/glass2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/glass2.glb",
+      "position": [
+        26,
+        1.3057577,
+        12.1128832
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.8875498,
+        16.8875498,
+        16.8875498
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-141",
+      "name": "OFFICE/extras/mug.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/mug.glb",
+      "position": [
+        -25.8290563,
+        0,
+        15.9287494
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.1476422,
+        20.1476422,
+        20.1476422
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-142",
+      "name": "OFFICE/extras/mug_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/mug_alt.glb",
+      "position": [
+        -21.8290563,
+        0,
+        15.9287494
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.1476422,
+        20.1476422,
+        20.1476422
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-143",
+      "name": "OFFICE/extras/mug_alt2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/mug_alt2.glb",
+      "position": [
+        -17.8290563,
+        0,
+        15.9287494
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.1476422,
+        20.1476422,
+        20.1476422
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-144",
+      "name": "OFFICE/extras/mug_alt3.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/mug_alt3.glb",
+      "position": [
+        -13.8290563,
+        0,
+        15.9287494
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.1476536,
+        20.1476536,
+        20.1476536
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-145",
+      "name": "OFFICE/extras/square_desklamp.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/square_desklamp.glb",
+      "position": [
+        -10,
+        0,
+        15.6289446
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.0709526,
+        8.0709526,
+        8.0709526
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-146",
+      "name": "OFFICE/extras/square_desklamp_alt.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/square_desklamp_alt.glb",
+      "position": [
+        -6,
+        0,
+        15.6306859
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.0709526,
+        8.0709526,
+        8.0709526
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-147",
+      "name": "OFFICE/extras/wall_clock.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/wall_clock.glb",
+      "position": [
+        -2,
+        1.4,
+        16.0786288
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.6341466,
+        4.6341466,
+        4.6341466
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-148",
+      "name": "OFFICE/extras/water_cooler.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/water_cooler.glb",
+      "position": [
+        2,
+        0,
+        15.979015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0053166,
+        2.0053166,
+        2.0053166
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-149",
+      "name": "OFFICE/extras/water_cooler_bottle.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/water_cooler_bottle.glb",
+      "position": [
+        6,
+        0.1445512,
+        15.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.4651981,
+        5.4651981,
+        5.4651981
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-150",
+      "name": "OFFICE/extras/water_cooler_bottle_attached.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/water_cooler_bottle_attached.glb",
+      "position": [
+        10,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5138012,
+        1.5138012,
+        1.5138012
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-151",
+      "name": "OFFICE/extras/whiteboard.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/extras/whiteboard.glb",
+      "position": [
+        14,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0911694,
+        1.0911694,
+        1.0911694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-152",
+      "name": "OFFICE/file_cabinets/file_cabinet_large.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_large.glb",
+      "position": [
+        18.0158741,
+        0,
+        15.8301509
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9437441,
+        1.9437441,
+        1.9437441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-153",
+      "name": "OFFICE/file_cabinets/file_cabinet_large_open.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_large_open.glb",
+      "position": [
+        21.9842353,
+        0,
+        16.1686782
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9303449,
+        1.9303449,
+        1.9303449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-154",
+      "name": "OFFICE/file_cabinets/file_cabinet_large_shelf.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_large_shelf.glb",
+      "position": [
+        26.9448009,
+        0,
+        16.1614736
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9590511,
+        1.9590511,
+        1.9590511
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-155",
+      "name": "OFFICE/file_cabinets/file_cabinet_large_shelf_fancy.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_large_shelf_fancy.glb",
+      "position": [
+        -25.0551991,
+        0,
+        20.1672779
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9590511,
+        1.9590511,
+        1.9590511
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-156",
+      "name": "OFFICE/file_cabinets/file_cabinet_larger.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_larger.glb",
+      "position": [
+        -22.0158742,
+        0,
+        20.1698491
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9437442,
+        1.9437442,
+        1.9437442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-157",
+      "name": "OFFICE/file_cabinets/file_cabinet_larger_open.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_larger_open.glb",
+      "position": [
+        -18.0157647,
+        0,
+        20.1686782
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9303449,
+        1.9303449,
+        1.9303449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-158",
+      "name": "OFFICE/file_cabinets/file_cabinet_largest.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_largest.glb",
+      "position": [
+        -14.0158741,
+        0,
+        20.1698491
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9437448,
+        1.9437448,
+        1.9437448
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-159",
+      "name": "OFFICE/file_cabinets/file_cabinet_largest_open.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_largest_open.glb",
+      "position": [
+        -10.0157647,
+        0,
+        20.1686782
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9303449,
+        1.9303449,
+        1.9303449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-160",
+      "name": "OFFICE/file_cabinets/file_cabinet_small.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_small.glb",
+      "position": [
+        -6,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9878139,
+        1.9878139,
+        1.9878139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-161",
+      "name": "OFFICE/file_cabinets/file_cabinet_small_open.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_small_open.glb",
+      "position": [
+        -2,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9878139,
+        1.9878139,
+        1.9878139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-162",
+      "name": "OFFICE/file_cabinets/file_cabinet_small_shelf.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_small_shelf.glb",
+      "position": [
+        2,
+        1e-7,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.344038,
+        5.344038,
+        5.344038
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-163",
+      "name": "OFFICE/file_cabinets/file_cabinet_small_shelf_fancy.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_small_shelf_fancy.glb",
+      "position": [
+        6,
+        1e-7,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.344038,
+        5.344038,
+        5.344038
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-164",
+      "name": "OFFICE/file_cabinets/file_cabinet_small_with_shelfs.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_small_with_shelfs.glb",
+      "position": [
+        9.9999998,
+        0.0200396,
+        19.7565642
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0039114,
+        2.0039114,
+        2.0039114
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-165",
+      "name": "OFFICE/file_cabinets/file_cabinet_smaller.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_smaller.glb",
+      "position": [
+        14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6684855,
+        2.6684855,
+        2.6684855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-166",
+      "name": "OFFICE/file_cabinets/file_cabinet_smaller_open.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_smaller_open.glb",
+      "position": [
+        18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6684855,
+        2.6684855,
+        2.6684855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-167",
+      "name": "OFFICE/file_cabinets/file_cabinet_smaller_with_shelfs.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_smaller_with_shelfs.glb",
+      "position": [
+        22,
+        0,
+        19.7976993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6684855,
+        2.6684855,
+        2.6684855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-168",
+      "name": "OFFICE/file_cabinets/file_cabinet_smallest.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_smallest.glb",
+      "position": [
+        26,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9635804,
+        3.9635804,
+        3.9635804
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-169",
+      "name": "OFFICE/file_cabinets/file_cabinet_smallest_open.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_smallest_open.glb",
+      "position": [
+        -26,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9635804,
+        3.9635804,
+        3.9635804
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-170",
+      "name": "OFFICE/file_cabinets/file_cabinet_smallest_with_shelfs.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/file_cabinets/file_cabinet_smallest_with_shelfs.glb",
+      "position": [
+        -22,
+        0,
+        23.7272452
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9635804,
+        3.9635804,
+        3.9635804
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-171",
+      "name": "OFFICE/stationary/elastic_ball.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/elastic_ball.glb",
+      "position": [
+        -17.9913483,
+        1.1585051,
+        23.9894854
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.7841805,
+        13.7841805,
+        13.7841805
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-172",
+      "name": "OFFICE/stationary/paper_single_sheet.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/paper_single_sheet.glb",
+      "position": [
+        -14.0252269,
+        1.1690391,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.2028262,
+        8.2028262,
+        8.2028262
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-173",
+      "name": "OFFICE/stationary/paper_stack.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/paper_stack.glb",
+      "position": [
+        -10,
+        0.0448284,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.325815,
+        6.325815,
+        6.325815
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-174",
+      "name": "OFFICE/stationary/paper_stack_large.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/paper_stack_large.glb",
+      "position": [
+        -6,
+        0.047138,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.6517201,
+        6.6517201,
+        6.6517201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-175",
+      "name": "OFFICE/stationary/pen.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/pen.glb",
+      "position": [
+        -2.0216572,
+        0.3894978,
+        23.8805283
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.2798725,
+        12.2798725,
+        12.2798725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-176",
+      "name": "OFFICE/stationary/pen2.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/pen2.glb",
+      "position": [
+        1.880395,
+        0.1193995,
+        24.0267918
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.3188451,
+        12.3188451,
+        12.3188451
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-177",
+      "name": "OFFICE/stationary/pen3.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/pen3.glb",
+      "position": [
+        5.8465481,
+        0.1203485,
+        23.9208532
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.4167778,
+        12.4167778,
+        12.4167778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-178",
+      "name": "OFFICE/stationary/pen4.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/pen4.glb",
+      "position": [
+        9.880395,
+        0.1193995,
+        24.0267918
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.3188451,
+        12.3188451,
+        12.3188451
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-179",
+      "name": "OFFICE/stationary/pen5.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/pen5.glb",
+      "position": [
+        13.880395,
+        0.1193995,
+        24.0267918
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.3188451,
+        12.3188451,
+        12.3188451
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-office-180",
+      "name": "OFFICE/stationary/pen6.glb",
+      "parentId": "transform:valse-office",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/OFFICE/OFFICE/stationary/pen6.glb",
+      "position": [
+        17.9588794,
+        0.1168691,
+        24.162548
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.0577754,
+        12.0577754,
+        12.0577754
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

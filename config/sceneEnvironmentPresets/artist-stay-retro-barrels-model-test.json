@@ -1,0 +1,327 @@
+{
+  "presetKey": "artist-stay-retro-barrels-model-test",
+  "name": "Stay Retro · 油桶模型展示（11 件）",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "stay-retro-barrels-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "stay-retro-barrels-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          25,
+          45,
+          -25
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "stay-retro-barrels-ground",
+      "name": "油桶模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 22,
+        "height": 17
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#4b5356",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "stay-retro-barrels-01",
+      "name": "油桶 · Barrel1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/Barrel1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -7.5,
+        0.009,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.193,
+        1.193,
+        1.193
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-02",
+      "name": "油桶 · Barrel2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/Barrel2_SM_stay-retro_itch_io.glb",
+      "position": [
+        -2.5,
+        0.009,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.181,
+        1.181,
+        1.181
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-03",
+      "name": "油桶 · Barrel3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/Barrel3_SM_stay-retro_itch_io.glb",
+      "position": [
+        2.5,
+        0.009,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.208,
+        1.208,
+        1.208
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-04",
+      "name": "油桶 · Barrel4_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/Barrel4_SM_stay-retro_itch_io.glb",
+      "position": [
+        7.5,
+        0.009,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.193,
+        1.193,
+        1.193
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-05",
+      "name": "油桶 · Barrel5_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/Barrel5_SM_stay-retro_itch_io.glb",
+      "position": [
+        -7.5,
+        0.009,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.193,
+        1.193,
+        1.193
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-06",
+      "name": "油桶 · BarrelOpen1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/BarrelOpen1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -2.5,
+        0.009,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.208,
+        1.208,
+        1.208
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-07",
+      "name": "油桶 · BarrelOpen2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/BarrelOpen2_SM_stay-retro_itch_io.glb",
+      "position": [
+        2.5,
+        0.009,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.208,
+        1.208,
+        1.208
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-08",
+      "name": "油桶 · BarrelOpen3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/BarrelOpen3_SM_stay-retro_itch_io.glb",
+      "position": [
+        7.5,
+        0.009,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.208,
+        1.208,
+        1.208
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-09",
+      "name": "油桶 · BarrelOpen4_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/BarrelOpen4_SM_stay-retro_itch_io.glb",
+      "position": [
+        -7.5,
+        0.009,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.208,
+        1.208,
+        1.208
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-10",
+      "name": "油桶 · BarrelOpen5_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/BarrelOpen5_SM_stay-retro_itch_io.glb",
+      "position": [
+        -2.5,
+        0.009,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.208,
+        1.208,
+        1.208
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-barrels-11",
+      "name": "油桶 · MossOutline_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-barrel-asset-pack/MossOutline_SM_stay-retro_itch_io.glb",
+      "position": [
+        2.5,
+        0.002,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.698,
+        1.698,
+        1.698
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

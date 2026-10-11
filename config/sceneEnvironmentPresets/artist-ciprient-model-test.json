@@ -1,0 +1,551 @@
+{
+  "presetKey": "artist-ciprient-model-test",
+  "name": "Ciprient · PSX 车辆、武器与轮椅（9 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ciprient-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "ciprient-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "ciprient-vehicles",
+      "name": "救护车与汽车",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ciprient-weapons",
+      "name": "刀、金属管、铲子与木棒",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ciprient-wheelchair",
+      "name": "轮椅",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ciprient-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 22,
+        "height": 24
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-vehicles-zone",
+      "name": "救护车与汽车分区",
+      "parentId": "transform:ciprient-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        7
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "ciprient-vehicles-1-stand",
+      "name": "救护车展台",
+      "parentId": "transform:ciprient-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        7
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-vehicles-2-stand",
+      "name": "军用车展台",
+      "parentId": "transform:ciprient-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        7
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-vehicles-3-stand",
+      "name": "皮卡展台",
+      "parentId": "transform:ciprient-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        7
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-vehicles-4-stand",
+      "name": "红色汽车展台",
+      "parentId": "transform:ciprient-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        7
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-weapons-zone",
+      "name": "刀、金属管、铲子与木棒分区",
+      "parentId": "transform:ciprient-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#91836f"
+    },
+    {
+      "id": "ciprient-weapons-1-stand",
+      "name": "刀展台",
+      "parentId": "transform:ciprient-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-weapons-2-stand",
+      "name": "金属管展台",
+      "parentId": "transform:ciprient-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-weapons-3-stand",
+      "name": "铲子展台",
+      "parentId": "transform:ciprient-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-weapons-4-stand",
+      "name": "木棒展台",
+      "parentId": "transform:ciprient-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-wheelchair-zone",
+      "name": "轮椅分区",
+      "parentId": "transform:ciprient-wheelchair",
+      "geometry": {
+        "primitive": "box",
+        "width": 4.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "ciprient-wheelchair-1-stand",
+      "name": "轮椅展台",
+      "parentId": "transform:ciprient-wheelchair",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -7
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "ciprient-vehicles-1",
+      "name": "救护车",
+      "parentId": "transform:ciprient-vehicles",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Ambulance/Ambulance.glb",
+      "position": [
+        -5.87960817,
+        0.25870917,
+        5.60723155
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        0.14736843,
+        0.14736843,
+        0.14736843
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-vehicles-2",
+      "name": "军用车",
+      "parentId": "transform:ciprient-vehicles",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Cars/ArmyCar.glb",
+      "position": [
+        -2,
+        0.04358,
+        6.86632366
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        0.19162454,
+        0.19162454,
+        0.19162454
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-vehicles-3",
+      "name": "皮卡",
+      "parentId": "transform:ciprient-vehicles",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Cars/Pickup.glb",
+      "position": [
+        2,
+        0.207875,
+        6.96599716
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15261834,
+        0.15261834,
+        0.15261834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-vehicles-4",
+      "name": "红色汽车",
+      "parentId": "transform:ciprient-vehicles",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Cars/RedCar.glb",
+      "position": [
+        6,
+        0.25240435,
+        7.00735746
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16470588,
+        0.16470588,
+        0.16470588
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-weapons-1",
+      "name": "刀",
+      "parentId": "transform:ciprient-weapons",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Weapons/Knife.glb",
+      "position": [
+        -6.00247019,
+        0.04195835,
+        -0.35546296
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58493825,
+        0.58493825,
+        0.58493825
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-weapons-2",
+      "name": "金属管",
+      "parentId": "transform:ciprient-weapons",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Weapons/MetalPipe.glb",
+      "position": [
+        -1.80035072,
+        0.19270324,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62672816,
+        0.62672816,
+        0.62672816
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-weapons-3",
+      "name": "铲子",
+      "parentId": "transform:ciprient-weapons",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Weapons/Shovel.glb",
+      "position": [
+        2,
+        0.05690666,
+        0.06460164
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30943677,
+        0.30943677,
+        0.30943677
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-weapons-4",
+      "name": "木棒",
+      "parentId": "transform:ciprient-weapons",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Weapons/WoodenBat.glb",
+      "position": [
+        5.67869047,
+        0.17491871,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18666664,
+        0.18666664,
+        0.18666664
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "ciprient-wheelchair-1",
+      "name": "轮椅",
+      "parentId": "transform:ciprient-wheelchair",
+      "modelPath": "resources/Model/GLB/artist_ciprient/Wheelchair/Wheelchair.glb",
+      "position": [
+        -0.52872345,
+        -0.1277856,
+        -6.99999938
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87001891,
+        0.87001891,
+        0.87001891
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

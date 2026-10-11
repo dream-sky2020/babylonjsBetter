@@ -1,0 +1,3403 @@
+{
+  "presetKey": "artist-kyle-fuji-rocks-model-test",
+  "name": "Kyle Fuji · 岩石与地表（77 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-rocks-0",
+      "name": "Rocks1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-rocks-1",
+      "name": "Rocks2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-rockvariants-2",
+      "name": "RockVariants",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 40
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "kyle-fuji-4b726fd89766e2d5-stand",
+      "name": "boulder_1_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-880c55fb11336287-stand",
+      "name": "boulder_1_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-baf9c92591cb1625-stand",
+      "name": "boulder_1_TL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-7dca4f0fd984189c-stand",
+      "name": "boulder_1_TR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-b8b90cdb6b6a8d45-stand",
+      "name": "boulder_2_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-a5492d6514097c21-stand",
+      "name": "boulder_2_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-fa07fadbab621ae9-stand",
+      "name": "boulder_2_TL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c057037315baabd9-stand",
+      "name": "boulder_2_TR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-45021eef6639eabc-stand",
+      "name": "boulder_3_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-07b7b5ea52c5b5e4-stand",
+      "name": "boulder_3_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-697f12abd29ace97-stand",
+      "name": "boulder_3_TL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c87a0d54732792ab-stand",
+      "name": "boulder_3_TR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-531210d95da0e4cd-stand",
+      "name": "boulder_4_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-262902b33c6c64ca-stand",
+      "name": "boulder_4_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ae747b71ad5277f9-stand",
+      "name": "boulder_4_TL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ddaedcd381ab82a0-stand",
+      "name": "boulder_4_TR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-94bd3ecd3f567046-stand",
+      "name": "boulder_5_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-cbb7b953f9eb4966-stand",
+      "name": "boulder_5_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-21e3594db7d726cf-stand",
+      "name": "boulder_5_TL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-5f167fdfb9493f5c-stand",
+      "name": "boulder_5_TR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-b89a6800013a7f4d-stand",
+      "name": "boulder_6_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-e20cb29336eb9e48-stand",
+      "name": "boulder_6_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0fac5797709fdbcd-stand",
+      "name": "boulder_6_TL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-4b3e89ebbb2097b8-stand",
+      "name": "boulder_6_TR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0e5bab9e083f0c85-stand",
+      "name": "boulder_7_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-2997c2bdf051038b-stand",
+      "name": "boulder_7_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-836e58a7d09d5eeb-stand",
+      "name": "boulder_7_TL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-1080ec84e9889786-stand",
+      "name": "boulder_7_TR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ed84472be1e0b123-stand",
+      "name": "boulder_8_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-1bfbc7d09cd20e99-stand",
+      "name": "boulder_8_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-b99c2ab208005698-stand",
+      "name": "boulder_8_TL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ce087d82e73df295-stand",
+      "name": "boulder_8_TR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0f718bf9c4022383-stand",
+      "name": "boulder_9_BL展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-aa6c0138b39801e3-stand",
+      "name": "boulder_9_BR展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c3e7fffcedbf2bff-stand",
+      "name": "boulder_9_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-f9e11d147bd98c64-stand",
+      "name": "boulder_9_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-b3c9da52c1d563c7-stand",
+      "name": "plane_BL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-97f7274284794b87-stand",
+      "name": "plane_BR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-e0f4e96f1cb00255-stand",
+      "name": "plane_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-e01b30c8f87ae19e-stand",
+      "name": "plane_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-9945df2028c8ee79-stand",
+      "name": "rock_1_BL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-32ab0784261a0443-stand",
+      "name": "rock_1_BR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-652eb7be3454e5a1-stand",
+      "name": "rock_1_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-3cc4ddfaafd47420-stand",
+      "name": "rock_1_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-9270486180bb7837-stand",
+      "name": "rock_2_BL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-d90f35081d3b505b-stand",
+      "name": "rock_2_BR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-27fd02f28867dafb-stand",
+      "name": "rock_2_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-2a04c5afb6a5e9d7-stand",
+      "name": "rock_2_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-07eaf25b56cfd61b-stand",
+      "name": "rock_3_BL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-6678d13dd5ad52ce-stand",
+      "name": "rock_3_BR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-ffd8b6922aba7f0d-stand",
+      "name": "rock_3_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-2cf59b6341d76928-stand",
+      "name": "rock_3_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-a0d2a45cdf6c942e-stand",
+      "name": "rock_4_BL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-efb4dedd43be86fa-stand",
+      "name": "rock_4_BR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-2005c0b84565c8f7-stand",
+      "name": "rock_4_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-ea65793fb77ee7c7-stand",
+      "name": "rock_4_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-1d4c08c26d7ed127-stand",
+      "name": "rock_5_BL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-ed4ce5629b05a3ac-stand",
+      "name": "rock_5_BR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-d6f35b29f7cf3e8d-stand",
+      "name": "rock_5_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-efd74c4e256a62ef-stand",
+      "name": "rock_5_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-b8bc886718d9f570-stand",
+      "name": "rock_6_BL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-f52facd9ebf4ad8f-stand",
+      "name": "rock_6_BR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-9b322c0f8926394d-stand",
+      "name": "rock_6_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-7b0936c52b641d9c-stand",
+      "name": "rock_6_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-2d3a3e18537025b1-stand",
+      "name": "rock_7_BL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-f19afd238873af7f-stand",
+      "name": "rock_7_BR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-e36a509e5500c082-stand",
+      "name": "rock_7_TL展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-1775f64541cb8f40-stand",
+      "name": "rock_7_TR展台",
+      "parentId": "transform:category-rocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-73c8e342c277172a-stand",
+      "name": "T_arid_atlas_diffuse_roughness_1展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-d336a2a2368f54a3-stand",
+      "name": "T_arid_atlas_diffuse_roughness_2展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-34aac75527310119-stand",
+      "name": "T_arid_atlas_diffuse_roughness_3展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-7a3acf5d2e21f76d-stand",
+      "name": "T_mossy_atlas_diffuse_roughness_1展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ebc0649a1b500673-stand",
+      "name": "T_snowy_atlas_diffuse_roughness_1展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-8c9406ec1a9aff7e-stand",
+      "name": "T_snowy_atlas_diffuse_roughness_2展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-4cf2e8b7e5940ef2-stand",
+      "name": "T_snowy_atlas_diffuse_roughness_3展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-e530b5e2188c575b-stand",
+      "name": "T_snowy_atlas_diffuse_roughness_4展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-d22e816de440f689-stand",
+      "name": "T_snowy_atlas_diffuse_roughness_5展台",
+      "parentId": "transform:category-rockvariants-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "kyle-fuji-4b726fd89766e2d5",
+      "name": "Rocks · boulder_1_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_1_BL.glb",
+      "position": [
+        -22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-880c55fb11336287",
+      "name": "Rocks · boulder_1_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_1_BR.glb",
+      "position": [
+        -18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-baf9c92591cb1625",
+      "name": "Rocks · boulder_1_TL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_1_TL.glb",
+      "position": [
+        -14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-7dca4f0fd984189c",
+      "name": "Rocks · boulder_1_TR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_1_TR.glb",
+      "position": [
+        -10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b8b90cdb6b6a8d45",
+      "name": "Rocks · boulder_2_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_2_BL.glb",
+      "position": [
+        -6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53745547,
+        1.53745547,
+        1.53745547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a5492d6514097c21",
+      "name": "Rocks · boulder_2_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_2_BR.glb",
+      "position": [
+        -2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53745547,
+        1.53745547,
+        1.53745547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-fa07fadbab621ae9",
+      "name": "Rocks · boulder_2_TL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_2_TL.glb",
+      "position": [
+        -22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53745547,
+        1.53745547,
+        1.53745547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c057037315baabd9",
+      "name": "Rocks · boulder_2_TR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_2_TR.glb",
+      "position": [
+        -18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53745547,
+        1.53745547,
+        1.53745547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-45021eef6639eabc",
+      "name": "Rocks · boulder_3_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_3_BL.glb",
+      "position": [
+        -14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-07b7b5ea52c5b5e4",
+      "name": "Rocks · boulder_3_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_3_BR.glb",
+      "position": [
+        -10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-697f12abd29ace97",
+      "name": "Rocks · boulder_3_TL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_3_TL.glb",
+      "position": [
+        -6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000033,
+        1.40000033,
+        1.40000033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c87a0d54732792ab",
+      "name": "Rocks · boulder_3_TR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_3_TR.glb",
+      "position": [
+        -2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000017,
+        1.40000017,
+        1.40000017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-531210d95da0e4cd",
+      "name": "Rocks · boulder_4_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_4_BL.glb",
+      "position": [
+        -22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.732748,
+        0.732748,
+        0.732748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-262902b33c6c64ca",
+      "name": "Rocks · boulder_4_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_4_BR.glb",
+      "position": [
+        -18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.732748,
+        0.732748,
+        0.732748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ae747b71ad5277f9",
+      "name": "Rocks · boulder_4_TL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_4_TL.glb",
+      "position": [
+        -14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73274796,
+        0.73274796,
+        0.73274796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ddaedcd381ab82a0",
+      "name": "Rocks · boulder_4_TR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_4_TR.glb",
+      "position": [
+        -10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73274796,
+        0.73274796,
+        0.73274796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-94bd3ecd3f567046",
+      "name": "Rocks · boulder_5_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_5_BL.glb",
+      "position": [
+        -6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28503339,
+        1.28503339,
+        1.28503339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-cbb7b953f9eb4966",
+      "name": "Rocks · boulder_5_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_5_BR.glb",
+      "position": [
+        -2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28503311,
+        1.28503311,
+        1.28503311
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-21e3594db7d726cf",
+      "name": "Rocks · boulder_5_TL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_5_TL.glb",
+      "position": [
+        -22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28503353,
+        1.28503353,
+        1.28503353
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-5f167fdfb9493f5c",
+      "name": "Rocks · boulder_5_TR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_5_TR.glb",
+      "position": [
+        -18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28503367,
+        1.28503367,
+        1.28503367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b89a6800013a7f4d",
+      "name": "Rocks · boulder_6_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_6_BL.glb",
+      "position": [
+        -14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28503339,
+        1.28503339,
+        1.28503339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e20cb29336eb9e48",
+      "name": "Rocks · boulder_6_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_6_BR.glb",
+      "position": [
+        -10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28503311,
+        1.28503311,
+        1.28503311
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0fac5797709fdbcd",
+      "name": "Rocks · boulder_6_TL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_6_TL.glb",
+      "position": [
+        -6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28503353,
+        1.28503353,
+        1.28503353
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-4b3e89ebbb2097b8",
+      "name": "Rocks · boulder_6_TR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_6_TR.glb",
+      "position": [
+        -2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28503367,
+        1.28503367,
+        1.28503367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0e5bab9e083f0c85",
+      "name": "Rocks · boulder_7_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_7_BL.glb",
+      "position": [
+        -22,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10773916,
+        1.10773916,
+        1.10773916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2997c2bdf051038b",
+      "name": "Rocks · boulder_7_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_7_BR.glb",
+      "position": [
+        -18,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10773916,
+        1.10773916,
+        1.10773916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-836e58a7d09d5eeb",
+      "name": "Rocks · boulder_7_TL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_7_TL.glb",
+      "position": [
+        -14,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10773916,
+        1.10773916,
+        1.10773916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1080ec84e9889786",
+      "name": "Rocks · boulder_7_TR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_7_TR.glb",
+      "position": [
+        -10,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10773916,
+        1.10773916,
+        1.10773916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ed84472be1e0b123",
+      "name": "Rocks · boulder_8_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_8_BL.glb",
+      "position": [
+        -6,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27982703,
+        1.27982703,
+        1.27982703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1bfbc7d09cd20e99",
+      "name": "Rocks · boulder_8_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_8_BR.glb",
+      "position": [
+        -2,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27982703,
+        1.27982703,
+        1.27982703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b99c2ab208005698",
+      "name": "Rocks · boulder_8_TL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_8_TL.glb",
+      "position": [
+        -18,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27982703,
+        1.27982703,
+        1.27982703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ce087d82e73df295",
+      "name": "Rocks · boulder_8_TR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_8_TR.glb",
+      "position": [
+        -14,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27982703,
+        1.27982703,
+        1.27982703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0f718bf9c4022383",
+      "name": "Rocks · boulder_9_BL",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_9_BL.glb",
+      "position": [
+        -10,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.30313043,
+        1.30313043,
+        1.30313043
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-aa6c0138b39801e3",
+      "name": "Rocks · boulder_9_BR",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_9_BR.glb",
+      "position": [
+        -6,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.30313043,
+        1.30313043,
+        1.30313043
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c3e7fffcedbf2bff",
+      "name": "Rocks · boulder_9_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_9_TL.glb",
+      "position": [
+        2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.30313043,
+        1.30313043,
+        1.30313043
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f9e11d147bd98c64",
+      "name": "Rocks · boulder_9_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/boulder_9_TR.glb",
+      "position": [
+        6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.30313043,
+        1.30313043,
+        1.30313043
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b3c9da52c1d563c7",
+      "name": "Rocks · plane_BL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/plane_BL.glb",
+      "position": [
+        10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-97f7274284794b87",
+      "name": "Rocks · plane_BR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/plane_BR.glb",
+      "position": [
+        14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e0f4e96f1cb00255",
+      "name": "Rocks · plane_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/plane_TL.glb",
+      "position": [
+        18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e01b30c8f87ae19e",
+      "name": "Rocks · plane_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/plane_TR.glb",
+      "position": [
+        22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9945df2028c8ee79",
+      "name": "Rocks · rock_1_BL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_1_BL.glb",
+      "position": [
+        2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1305048,
+        3.1305048,
+        3.1305048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-32ab0784261a0443",
+      "name": "Rocks · rock_1_BR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_1_BR.glb",
+      "position": [
+        6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1305048,
+        3.1305048,
+        3.1305048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-652eb7be3454e5a1",
+      "name": "Rocks · rock_1_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_1_TL.glb",
+      "position": [
+        10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-3cc4ddfaafd47420",
+      "name": "Rocks · rock_1_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_1_TR.glb",
+      "position": [
+        14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1305023,
+        3.1305023,
+        3.1305023
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9270486180bb7837",
+      "name": "Rocks · rock_2_BL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_2_BL.glb",
+      "position": [
+        18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53562415,
+        1.53562415,
+        1.53562415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d90f35081d3b505b",
+      "name": "Rocks · rock_2_BR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_2_BR.glb",
+      "position": [
+        22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53562415,
+        1.53562415,
+        1.53562415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-27fd02f28867dafb",
+      "name": "Rocks · rock_2_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_2_TL.glb",
+      "position": [
+        2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53562415,
+        1.53562415,
+        1.53562415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2a04c5afb6a5e9d7",
+      "name": "Rocks · rock_2_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_2_TR.glb",
+      "position": [
+        6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53562415,
+        1.53562415,
+        1.53562415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-07eaf25b56cfd61b",
+      "name": "Rocks · rock_3_BL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_3_BL.glb",
+      "position": [
+        10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.42213982,
+        5.42213982,
+        5.42213982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6678d13dd5ad52ce",
+      "name": "Rocks · rock_3_BR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_3_BR.glb",
+      "position": [
+        14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.42213982,
+        5.42213982,
+        5.42213982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ffd8b6922aba7f0d",
+      "name": "Rocks · rock_3_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_3_TL.glb",
+      "position": [
+        18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.42213982,
+        5.42213982,
+        5.42213982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2cf59b6341d76928",
+      "name": "Rocks · rock_3_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_3_TR.glb",
+      "position": [
+        22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.42213982,
+        5.42213982,
+        5.42213982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a0d2a45cdf6c942e",
+      "name": "Rocks · rock_4_BL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_4_BL.glb",
+      "position": [
+        2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53562456,
+        1.53562456,
+        1.53562456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-efb4dedd43be86fa",
+      "name": "Rocks · rock_4_BR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_4_BR.glb",
+      "position": [
+        6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53562456,
+        1.53562456,
+        1.53562456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2005c0b84565c8f7",
+      "name": "Rocks · rock_4_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_4_TL.glb",
+      "position": [
+        10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53562456,
+        1.53562456,
+        1.53562456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ea65793fb77ee7c7",
+      "name": "Rocks · rock_4_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_4_TR.glb",
+      "position": [
+        14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53562456,
+        1.53562456,
+        1.53562456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1d4c08c26d7ed127",
+      "name": "Rocks · rock_5_BL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_5_BL.glb",
+      "position": [
+        18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.09634356,
+        7.09634356,
+        7.09634356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ed4ce5629b05a3ac",
+      "name": "Rocks · rock_5_BR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_5_BR.glb",
+      "position": [
+        22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.09634356,
+        7.09634356,
+        7.09634356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d6f35b29f7cf3e8d",
+      "name": "Rocks · rock_5_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_5_TL.glb",
+      "position": [
+        2,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.09634356,
+        7.09634356,
+        7.09634356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-efd74c4e256a62ef",
+      "name": "Rocks · rock_5_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_5_TR.glb",
+      "position": [
+        6,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.09634356,
+        7.09634356,
+        7.09634356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b8bc886718d9f570",
+      "name": "Rocks · rock_6_BL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_6_BL.glb",
+      "position": [
+        10,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.42213982,
+        5.42213982,
+        5.42213982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f52facd9ebf4ad8f",
+      "name": "Rocks · rock_6_BR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_6_BR.glb",
+      "position": [
+        14,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.42213982,
+        5.42213982,
+        5.42213982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9b322c0f8926394d",
+      "name": "Rocks · rock_6_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_6_TL.glb",
+      "position": [
+        18,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.42213982,
+        5.42213982,
+        5.42213982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-7b0936c52b641d9c",
+      "name": "Rocks · rock_6_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_6_TR.glb",
+      "position": [
+        22,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.42213982,
+        5.42213982,
+        5.42213982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2d3a3e18537025b1",
+      "name": "Rocks · rock_7_BL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_7_BL.glb",
+      "position": [
+        6,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0483213,
+        5.0483213,
+        5.0483213
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f19afd238873af7f",
+      "name": "Rocks · rock_7_BR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_7_BR.glb",
+      "position": [
+        10,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0483213,
+        5.0483213,
+        5.0483213
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e36a509e5500c082",
+      "name": "Rocks · rock_7_TL",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_7_TL.glb",
+      "position": [
+        14,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0483213,
+        5.0483213,
+        5.0483213
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1775f64541cb8f40",
+      "name": "Rocks · rock_7_TR",
+      "parentId": "transform:category-rocks-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Rocks/rock_7_TR.glb",
+      "position": [
+        18,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0483213,
+        5.0483213,
+        5.0483213
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-73c8e342c277172a",
+      "name": "RockVariants · T_arid_atlas_diffuse_roughness_1",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_arid_atlas_diffuse_roughness_1.glb",
+      "position": [
+        -22,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d336a2a2368f54a3",
+      "name": "RockVariants · T_arid_atlas_diffuse_roughness_2",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_arid_atlas_diffuse_roughness_2.glb",
+      "position": [
+        -18,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-34aac75527310119",
+      "name": "RockVariants · T_arid_atlas_diffuse_roughness_3",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_arid_atlas_diffuse_roughness_3.glb",
+      "position": [
+        -14,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-7a3acf5d2e21f76d",
+      "name": "RockVariants · T_mossy_atlas_diffuse_roughness_1",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_mossy_atlas_diffuse_roughness_1.glb",
+      "position": [
+        -10,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ebc0649a1b500673",
+      "name": "RockVariants · T_snowy_atlas_diffuse_roughness_1",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_snowy_atlas_diffuse_roughness_1.glb",
+      "position": [
+        -6,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-8c9406ec1a9aff7e",
+      "name": "RockVariants · T_snowy_atlas_diffuse_roughness_2",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_snowy_atlas_diffuse_roughness_2.glb",
+      "position": [
+        -2,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-4cf2e8b7e5940ef2",
+      "name": "RockVariants · T_snowy_atlas_diffuse_roughness_3",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_snowy_atlas_diffuse_roughness_3.glb",
+      "position": [
+        -16,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e530b5e2188c575b",
+      "name": "RockVariants · T_snowy_atlas_diffuse_roughness_4",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_snowy_atlas_diffuse_roughness_4.glb",
+      "position": [
+        -12,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d22e816de440f689",
+      "name": "RockVariants · T_snowy_atlas_diffuse_roughness_5",
+      "parentId": "transform:category-rockvariants-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/RockVariants/T_snowy_atlas_diffuse_roughness_5.glb",
+      "position": [
+        -8,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13050292,
+        3.13050292,
+        3.13050292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

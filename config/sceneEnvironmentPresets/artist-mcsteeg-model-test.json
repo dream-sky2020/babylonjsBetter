@@ -1,0 +1,7321 @@
+{
+  "presetKey": "artist-mcsteeg-model-test",
+  "name": "McSteeg · 城堡、家具与生活道具（176 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "mcsteeg-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "mcsteeg-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "mcsteeg-Castles",
+      "name": "城堡与城墙",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "mcsteeg-GothicFurniture",
+      "name": "哥特家具",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "mcsteeg-Tools",
+      "name": "农具与工具",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "mcsteeg-Weapons",
+      "name": "中世纪武器",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "mcsteeg-Crates",
+      "name": "箱子与木桶",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "mcsteeg-Vegetables",
+      "name": "蔬菜与食材",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "mcsteeg-Trash",
+      "name": "垃圾与废墟道具",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "mcsteeg-Wagon",
+      "name": "动画货车",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "mcsteeg-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 70,
+        "height": 112
+      },
+      "position": [
+        0,
+        -0.22,
+        4
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-zone",
+      "name": "城堡与城墙分区",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 24.5,
+        "height": 0.1,
+        "depth": 20.5
+      },
+      "position": [
+        -20,
+        -0.15,
+        44
+      ],
+      "color": "#7d909a"
+    },
+    {
+      "id": "mcsteeg-Castles-1-stand",
+      "name": "Wall_2x2展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -30,
+        -0.1,
+        52
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-2-stand",
+      "name": "Wall_2x4展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        52
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-3-stand",
+      "name": "Gate_2x4展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        52
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-4-stand",
+      "name": "Tower_top_1展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        52
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-5-stand",
+      "name": "Tower_Mid展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        52
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-6-stand",
+      "name": "Scaffle展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        52
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-7-stand",
+      "name": "Scaffle_Ramp展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -30,
+        -0.1,
+        48
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-8-stand",
+      "name": "Roof_Cone展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        48
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-9-stand",
+      "name": "Gate_Door展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        48
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-10-stand",
+      "name": "Wall_2x2_walkway展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        48
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-11-stand",
+      "name": "Wall_2x4_walkway展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        48
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-12-stand",
+      "name": "Gate_2x4_doorway展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        48
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-13-stand",
+      "name": "Wall_corner_walkwayh展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -30,
+        -0.1,
+        44
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-14-stand",
+      "name": "Wall_2x4_walkway_beveled展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        44
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-15-stand",
+      "name": "Tower_mid_hollow展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        44
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-16-stand",
+      "name": "Tower_Doorway展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        44
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-17-stand",
+      "name": "Wall_2x2_ruined展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        44
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-18-stand",
+      "name": "Wall_2x4_ruined展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        44
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-19-stand",
+      "name": "Tower_mid_hollow_ruined展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -30,
+        -0.1,
+        40
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-20-stand",
+      "name": "Building_Shape_Beveled_cube展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        40
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-21-stand",
+      "name": "Building_Shape_Beveled_rectangle展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        40
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-22-stand",
+      "name": "Roof_rectangle展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        40
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-23-stand",
+      "name": "Roof_Cube展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        40
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-24-stand",
+      "name": "Gate_2x4_Beveled展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        40
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-25-stand",
+      "name": "Window_bars展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -30,
+        -0.1,
+        36
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-26-stand",
+      "name": "Window_glass展台",
+      "parentId": "transform:mcsteeg-Castles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        36
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-zone",
+      "name": "哥特家具分区",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 20.5,
+        "height": 0.1,
+        "depth": 8.5
+      },
+      "position": [
+        14,
+        -0.15,
+        44
+      ],
+      "color": "#9d8073"
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-1-stand",
+      "name": "Bench展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        46
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-2-stand",
+      "name": "Chair展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        46
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-3-stand",
+      "name": "Room Divider展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        46
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-4-stand",
+      "name": "Bed展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        46
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-5-stand",
+      "name": "SideTable展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        46
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-6-stand",
+      "name": "Desk展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        42
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-7-stand",
+      "name": "CandleStick展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        42
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-8-stand",
+      "name": "Chest展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        42
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-9-stand",
+      "name": "Dresser展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        42
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-10-stand",
+      "name": "DinnerTable展台",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        42
+      ],
+      "color": "#9d8073",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-zone",
+      "name": "农具与工具分区",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 20.5,
+        "height": 0.1,
+        "depth": 12.5
+      },
+      "position": [
+        -20,
+        -0.15,
+        22
+      ],
+      "color": "#9b8d6e"
+    },
+    {
+      "id": "mcsteeg-Tools-1-stand",
+      "name": "Hoe展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -28,
+        -0.1,
+        26
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-2-stand",
+      "name": "Shovel展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -24,
+        -0.1,
+        26
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-3-stand",
+      "name": "Axe展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        26
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-4-stand",
+      "name": "Rake展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        26
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-5-stand",
+      "name": "Scythe展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        26
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-6-stand",
+      "name": "Hatchet展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -28,
+        -0.1,
+        22
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-7-stand",
+      "name": "Hammer展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -24,
+        -0.1,
+        22
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-8-stand",
+      "name": "Trowl展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        22
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-9-stand",
+      "name": "Pitchfork展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        22
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-10-stand",
+      "name": "Hay Bale 1展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        22
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-11-stand",
+      "name": "Hay Bale 2展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -28,
+        -0.1,
+        18
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-12-stand",
+      "name": "Bucket展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -24,
+        -0.1,
+        18
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-13-stand",
+      "name": "Wheelbarrel展台",
+      "parentId": "transform:mcsteeg-Tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        18
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-zone",
+      "name": "中世纪武器分区",
+      "parentId": "transform:mcsteeg-Weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 12.5,
+        "height": 0.1,
+        "depth": 8.5
+      },
+      "position": [
+        14,
+        -0.15,
+        22
+      ],
+      "color": "#818994"
+    },
+    {
+      "id": "mcsteeg-Weapons-1-stand",
+      "name": "Sword_1展台",
+      "parentId": "transform:mcsteeg-Weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        24
+      ],
+      "color": "#818994",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-2-stand",
+      "name": "Sword_2展台",
+      "parentId": "transform:mcsteeg-Weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        24
+      ],
+      "color": "#818994",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-3-stand",
+      "name": "Sword_3展台",
+      "parentId": "transform:mcsteeg-Weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        24
+      ],
+      "color": "#818994",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-4-stand",
+      "name": "Sword_4展台",
+      "parentId": "transform:mcsteeg-Weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        20
+      ],
+      "color": "#818994",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-5-stand",
+      "name": "Sword_5展台",
+      "parentId": "transform:mcsteeg-Weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        20
+      ],
+      "color": "#818994",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-6-stand",
+      "name": "Sword_6展台",
+      "parentId": "transform:mcsteeg-Weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        20
+      ],
+      "color": "#818994",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-zone",
+      "name": "箱子与木桶分区",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 12.5
+      },
+      "position": [
+        -20,
+        -0.15,
+        4
+      ],
+      "color": "#96846c"
+    },
+    {
+      "id": "mcsteeg-Crates-1-stand",
+      "name": "Chest_1展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        8
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-2-stand",
+      "name": "Crate_1展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        8
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-3-stand",
+      "name": "Crate_2展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        8
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-4-stand",
+      "name": "Barrel_1展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        8
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-5-stand",
+      "name": "Barrel_1_open展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        4
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-6-stand",
+      "name": "Crate_1_open展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        4
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-7-stand",
+      "name": "Barrel_2_keg展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        4
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-8-stand",
+      "name": "Barrel_Stand展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        4
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-9-stand",
+      "name": "Crate_lid展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        0
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-10-stand",
+      "name": "Barrel_lid展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        0
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-11-stand",
+      "name": "Crate_Broken展台",
+      "parentId": "transform:mcsteeg-Crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        0
+      ],
+      "color": "#96846c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-zone",
+      "name": "蔬菜与食材分区",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 24.5,
+        "height": 0.1,
+        "depth": 12.5
+      },
+      "position": [
+        14,
+        -0.15,
+        4
+      ],
+      "color": "#7a967b"
+    },
+    {
+      "id": "mcsteeg-Vegetables-1-stand",
+      "name": "Cucumber展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        8
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-2-stand",
+      "name": "Eggplant展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        8
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-3-stand",
+      "name": "Cucumber_Slice展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        8
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-4-stand",
+      "name": "Jalapeno展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        8
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-5-stand",
+      "name": "Carrot展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        8
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-6-stand",
+      "name": "Brocoli展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        24,
+        -0.1,
+        8
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-7-stand",
+      "name": "Lettuce展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        4
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-8-stand",
+      "name": "Tomato展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        4
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-9-stand",
+      "name": "Onion_Yellow展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        4
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-10-stand",
+      "name": "Onion_White展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        4
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-11-stand",
+      "name": "Potato_Red展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        4
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-12-stand",
+      "name": "Potato_Red.001展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        24,
+        -0.1,
+        4
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-13-stand",
+      "name": "Red_Pepper展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        0
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-14-stand",
+      "name": "Bell_Pepper展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        0
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-15-stand",
+      "name": "Bell_Pepper_Half展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        0
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-16-stand",
+      "name": "Celery展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        0
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-17-stand",
+      "name": "Beets展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        0
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-18-stand",
+      "name": "Beet展台",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        24,
+        -0.1,
+        0
+      ],
+      "color": "#7a967b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-zone",
+      "name": "垃圾与废墟道具分区",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 40.5,
+        "height": 0.1,
+        "depth": 40.5
+      },
+      "position": [
+        -13,
+        -0.15,
+        -26
+      ],
+      "color": "#8a8990"
+    },
+    {
+      "id": "mcsteeg-Trash-1-stand",
+      "name": "Can_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-2-stand",
+      "name": "Can_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-3-stand",
+      "name": "Can_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-4-stand",
+      "name": "Can_4展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-5-stand",
+      "name": "Can_5展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-6-stand",
+      "name": "Can_6展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-7-stand",
+      "name": "Can_7展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-8-stand",
+      "name": "Can_8展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-9-stand",
+      "name": "Can_1_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-10-stand",
+      "name": "Can_2_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -8
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-11-stand",
+      "name": "Can_3_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-12-stand",
+      "name": "Can_4_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-13-stand",
+      "name": "Can_5_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-14-stand",
+      "name": "Can_7_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-15-stand",
+      "name": "Can_6_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-16-stand",
+      "name": "Can_8_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-17-stand",
+      "name": "Litter_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-18-stand",
+      "name": "Litter_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-19-stand",
+      "name": "Flat_Can_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-20-stand",
+      "name": "Flat_Can_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -12
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-21-stand",
+      "name": "Flat_Can_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-22-stand",
+      "name": "Flat_Can_4展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-23-stand",
+      "name": "News_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-24-stand",
+      "name": "News_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-25-stand",
+      "name": "News_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-26-stand",
+      "name": "News_Stack展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-27-stand",
+      "name": "Coffee_Cup_WithLid展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-28-stand",
+      "name": "Coffee Cup_Lid展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-29-stand",
+      "name": "Coffee_Cup展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-30-stand",
+      "name": "Paper_Bag_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -16
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-31-stand",
+      "name": "Paper_Bag_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-32-stand",
+      "name": "Paper_Bag_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-33-stand",
+      "name": "Soda_Cup展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-34-stand",
+      "name": "Soda_Cup_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-35-stand",
+      "name": "Soda_Cup_Lid展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-36-stand",
+      "name": "Coffee_Cup_Crushed展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-37-stand",
+      "name": "Tin_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-38-stand",
+      "name": "Tin_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-39-stand",
+      "name": "Tin_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-40-stand",
+      "name": "Tin_4展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -20
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-41-stand",
+      "name": "Pills_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-42-stand",
+      "name": "Pills_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-43-stand",
+      "name": "Fry_Container展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-44-stand",
+      "name": "CardboardBox_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-45-stand",
+      "name": "CardboardBox_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-46-stand",
+      "name": "CardboardBox_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-47-stand",
+      "name": "CardboardBox_4展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-48-stand",
+      "name": "Cardboard_Cutout_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-49-stand",
+      "name": "Cardboard_Cutout_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-50-stand",
+      "name": "Paper_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -24
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-51-stand",
+      "name": "Paper_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-52-stand",
+      "name": "Glass_Shards_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-53-stand",
+      "name": "Glass_Shards_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-54-stand",
+      "name": "GlassBottle_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-55-stand",
+      "name": "GlassBottle_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-56-stand",
+      "name": "GlassBottle_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-57-stand",
+      "name": "GlassBottle_4展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-58-stand",
+      "name": "GlassBottle_1_Broken展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-59-stand",
+      "name": "GlassBottle_2_Broken展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-60-stand",
+      "name": "GlassBottle_3_Broken展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -28
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-61-stand",
+      "name": "GlassBottle_4_Broken展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-62-stand",
+      "name": "ShampooBottle展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-63-stand",
+      "name": "WaterBottle展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-64-stand",
+      "name": "SoapBottle展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-65-stand",
+      "name": "GasCan展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-66-stand",
+      "name": "TrashBag_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-67-stand",
+      "name": "TrashBag_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-68-stand",
+      "name": "Chip_Bag_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-69-stand",
+      "name": "Chip_Bag_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-70-stand",
+      "name": "Chip_Bag_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -32
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-71-stand",
+      "name": "Chip_Bag_4展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-72-stand",
+      "name": "Wooden_Plank_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-73-stand",
+      "name": "Wooden_Plank_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-74-stand",
+      "name": "Wooden_Plank_3展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-75-stand",
+      "name": "Sheet_Metal_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-76-stand",
+      "name": "Sheet_Metal_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-77-stand",
+      "name": "Concrete_Debris_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-78-stand",
+      "name": "Concrete_Debris_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-79-stand",
+      "name": "Rebar展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-80-stand",
+      "name": "Wheel_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -36
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-81-stand",
+      "name": "Wheel_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-82-stand",
+      "name": "Cinder_Block_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -27,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-83-stand",
+      "name": "Cinder_Block_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -23,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-84-stand",
+      "name": "Brick_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -19,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-85-stand",
+      "name": "Brick_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -15,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-86-stand",
+      "name": "Mask_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -11,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-87-stand",
+      "name": "Mask_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -7,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-88-stand",
+      "name": "Condom_1展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -3,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-89-stand",
+      "name": "Condom_2展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        1,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-90-stand",
+      "name": "Barriar展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        5,
+        -0.1,
+        -40
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-91-stand",
+      "name": "FracturedBarriar展台",
+      "parentId": "transform:mcsteeg-Trash",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -31,
+        -0.1,
+        -44
+      ],
+      "color": "#8a8990",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Wagon-zone",
+      "name": "动画货车分区",
+      "parentId": "transform:mcsteeg-Wagon",
+      "geometry": {
+        "primitive": "box",
+        "width": 4.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        19,
+        -0.15,
+        -18
+      ],
+      "color": "#92906f"
+    },
+    {
+      "id": "mcsteeg-Wagon-1-stand",
+      "name": "Wagon展台",
+      "parentId": "transform:mcsteeg-Wagon",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        19,
+        -0.1,
+        -18
+      ],
+      "color": "#92906f",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "mcsteeg-Castles-1",
+      "name": "Wall_2x2",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Wall_2x2.glb",
+      "position": [
+        -30,
+        -7.0052623,
+        67.40699615
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-2",
+      "name": "Wall_2x4",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Wall_2x4.glb",
+      "position": [
+        -26,
+        -1.59211338,
+        59.40401926
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-3",
+      "name": "Gate_2x4",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Gate_2x4.glb",
+      "position": [
+        -22,
+        0.03535508,
+        53.07674385
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-4",
+      "name": "Tower_top_1",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Tower_top_1.glb",
+      "position": [
+        -18,
+        -3.11545894,
+        38.97511186
+      ],
+      "scaling": [
+        1.29389261,
+        1.29389261,
+        1.29389261
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-5",
+      "name": "Tower_Mid",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Tower_Mid.glb",
+      "position": [
+        -14,
+        -3.37094631,
+        44.68729258
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-6",
+      "name": "Scaffle",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Scaffle.glb",
+      "position": [
+        -10.00000021,
+        -0.0040086,
+        44.95509443
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-7",
+      "name": "Scaffle_Ramp",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Scaffle_Ramp.glb",
+      "position": [
+        -30,
+        -0.05920033,
+        43.89809007
+      ],
+      "scaling": [
+        1.49860243,
+        1.49860243,
+        1.49860243
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-8",
+      "name": "Roof_Cone",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Roof_Cone.glb",
+      "position": [
+        -26,
+        -5.25606063,
+        40.47956656
+      ],
+      "scaling": [
+        1.06360204,
+        1.06360204,
+        1.06360204
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-9",
+      "name": "Gate_Door",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Gate_Door.glb",
+      "position": [
+        -21.61638071,
+        0,
+        45.4958086
+      ],
+      "scaling": [
+        1.89684439,
+        1.89684439,
+        1.89684439
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-10",
+      "name": "Wall_2x2_walkway",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Wall_2x2_walkway.glb",
+      "position": [
+        -18.56000001,
+        -7.17317219,
+        48.93306408
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-11",
+      "name": "Wall_2x4_walkway",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Wall_2x4_walkway.glb",
+      "position": [
+        -14.27999999,
+        -1.83661413,
+        49.28700484
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-12",
+      "name": "Gate_2x4_doorway",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Gate_2x4_doorway.glb",
+      "position": [
+        -9.99999999,
+        0.03535504,
+        52.06659775
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-13",
+      "name": "Wall_corner_walkwayh",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Wall_corner_walkwayh.glb",
+      "position": [
+        -30.56000009,
+        -7.21096344,
+        41.16244085
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-14",
+      "name": "Wall_2x4_walkway_beveled",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Wall_2x4_walkway_beveled.glb",
+      "position": [
+        -26.27999999,
+        -3.63936968,
+        47.27704263
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-15",
+      "name": "Tower_mid_hollow",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Tower_mid_hollow.glb",
+      "position": [
+        -22,
+        -3.37094631,
+        40.4394412
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-16",
+      "name": "Tower_Doorway",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Tower_Doorway.glb",
+      "position": [
+        -18,
+        -3.37094631,
+        26.47119026
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-17",
+      "name": "Wall_2x2_ruined",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Wall_2x2_ruined.glb",
+      "position": [
+        -14,
+        -7.00906696,
+        56.2333374
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-18",
+      "name": "Wall_2x4_ruined",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Wall_2x4_ruined.glb",
+      "position": [
+        -10,
+        -1.75681741,
+        48.28619423
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-19",
+      "name": "Tower_mid_hollow_ruined",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Tower_mid_hollow_ruined.glb",
+      "position": [
+        -30,
+        -3.37094631,
+        29.27829266
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-20",
+      "name": "Building_Shape_Beveled_cube",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Building_Shape_Beveled_cube.glb",
+      "position": [
+        -26,
+        0,
+        22.27868652
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-21",
+      "name": "Building_Shape_Beveled_rectangle",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Building_Shape_Beveled_rectangle.glb",
+      "position": [
+        -22,
+        0,
+        33.68969202
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-22",
+      "name": "Roof_rectangle",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Roof_rectangle.glb",
+      "position": [
+        -18,
+        -3.24631421,
+        33.33974556
+      ],
+      "scaling": [
+        0.62257655,
+        0.62257655,
+        0.62257655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-23",
+      "name": "Roof_Cube",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Roof_Cube.glb",
+      "position": [
+        -14,
+        -5.98834598,
+        34.79193633
+      ],
+      "scaling": [
+        1.11592326,
+        1.11592326,
+        1.11592326
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-24",
+      "name": "Gate_2x4_Beveled",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Gate_2x4_Beveled.glb",
+      "position": [
+        -10,
+        0.03535506,
+        47.20128832
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-25",
+      "name": "Window_bars",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Window_bars.glb",
+      "position": [
+        -29.89076419,
+        -12.59523447,
+        28.32293086
+      ],
+      "scaling": [
+        1.95184036,
+        1.95184036,
+        1.95184036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Castles-26",
+      "name": "Window_glass",
+      "parentId": "transform:mcsteeg-Castles",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Castles/Window_glass.glb",
+      "position": [
+        -25.89076419,
+        -12.59523447,
+        25.6621054
+      ],
+      "scaling": [
+        1.95184036,
+        1.95184036,
+        1.95184036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-1",
+      "name": "Bench",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/Bench.glb",
+      "position": [
+        6,
+        -0.01078023,
+        45.92668926
+      ],
+      "scaling": [
+        0.65323502,
+        0.65323502,
+        0.65323502
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-2",
+      "name": "Chair",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/Chair.glb",
+      "position": [
+        10,
+        -0.0201376,
+        45.83979103
+      ],
+      "scaling": [
+        1.24283436,
+        1.24283436,
+        1.24283436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-3",
+      "name": "Room Divider",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/Room_Divider.glb",
+      "position": [
+        13.99563207,
+        0.01419826,
+        46.00000016
+      ],
+      "scaling": [
+        0.55858412,
+        0.55858412,
+        0.55858412
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-4",
+      "name": "Bed",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/Bed.glb",
+      "position": [
+        18,
+        0.0027162,
+        46.00215554
+      ],
+      "scaling": [
+        0.69401968,
+        0.69401968,
+        0.69401968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-5",
+      "name": "SideTable",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/SideTable.glb",
+      "position": [
+        22.00000023,
+        -0.02320561,
+        45.99999919
+      ],
+      "scaling": [
+        1.93926289,
+        1.93926289,
+        1.93926289
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-6",
+      "name": "Desk",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/Desk.glb",
+      "position": [
+        6,
+        -0.03167685,
+        41.8306988
+      ],
+      "scaling": [
+        1.16180649,
+        1.16180649,
+        1.16180649
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-7",
+      "name": "CandleStick",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/CandleStick.glb",
+      "position": [
+        10,
+        0.00127907,
+        42
+      ],
+      "scaling": [
+        0.81919635,
+        0.81919635,
+        0.81919635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-8",
+      "name": "Chest",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/Chest.glb",
+      "position": [
+        14,
+        0.06796155,
+        42.73134465
+      ],
+      "scaling": [
+        1.25965505,
+        1.25965505,
+        1.25965505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-9",
+      "name": "Dresser",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/Dresser.glb",
+      "position": [
+        17.99999982,
+        -0.00620992,
+        41.99999956
+      ],
+      "scaling": [
+        0.98962347,
+        0.98962347,
+        0.98962347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-GothicFurniture-10",
+      "name": "DinnerTable",
+      "parentId": "transform:mcsteeg-GothicFurniture",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/GothicFurniture/DinnerTable.glb",
+      "position": [
+        21.99999974,
+        -0.00726003,
+        41.92978338
+      ],
+      "scaling": [
+        0.54097121,
+        0.54097121,
+        0.54097121
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-1",
+      "name": "Hoe",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Hoe.glb",
+      "position": [
+        -28,
+        1.4,
+        25.87651119
+      ],
+      "scaling": [
+        0.80238372,
+        0.80238372,
+        0.80238372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-2",
+      "name": "Shovel",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Shovel.glb",
+      "position": [
+        -24,
+        1.15280826,
+        26.10059471
+      ],
+      "scaling": [
+        0.76853884,
+        0.76853884,
+        0.76853884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-3",
+      "name": "Axe",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Axe.glb",
+      "position": [
+        -19.99999999,
+        1.39999999,
+        25.77354214
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-4",
+      "name": "Rake",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Rake.glb",
+      "position": [
+        -16,
+        1.36956355,
+        26.08016672
+      ],
+      "scaling": [
+        0.72854426,
+        0.72854426,
+        0.72854426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-5",
+      "name": "Scythe",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Scythe.glb",
+      "position": [
+        -11.99999999,
+        1.08842653,
+        25.5366408
+      ],
+      "scaling": [
+        0.72561769,
+        0.72561769,
+        0.72561769
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-6",
+      "name": "Hatchet",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Hatchet.glb",
+      "position": [
+        -27.99999999,
+        0.09310219,
+        21.56214408
+      ],
+      "scaling": [
+        1.80459854,
+        1.80459854,
+        1.80459854
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-7",
+      "name": "Hammer",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Hammer.glb",
+      "position": [
+        -23.99999997,
+        0.09310219,
+        21.98659089
+      ],
+      "scaling": [
+        1.80459854,
+        1.80459854,
+        1.80459854
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-8",
+      "name": "Trowl",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Trowl.glb",
+      "position": [
+        -19.99999998,
+        1.20309824,
+        22.14405471
+      ],
+      "scaling": [
+        1.52367096,
+        1.52367096,
+        1.52367096
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-9",
+      "name": "Pitchfork",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Pitchfork.glb",
+      "position": [
+        -15.99999999,
+        1.18644972,
+        22.00181049
+      ],
+      "scaling": [
+        0.70260096,
+        0.70260096,
+        0.70260096
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-10",
+      "name": "Hay Bale 1",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Hay_Bale_1.glb",
+      "position": [
+        -12,
+        0.91055812,
+        22
+      ],
+      "scaling": [
+        0.71581263,
+        0.71581263,
+        0.71581263
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-11",
+      "name": "Hay Bale 2",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Hay_Bale_2.glb",
+      "position": [
+        -28,
+        1.06377738,
+        18
+      ],
+      "scaling": [
+        0.83983975,
+        0.83983975,
+        0.83983975
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-12",
+      "name": "Bucket",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Bucket.glb",
+      "position": [
+        -24,
+        1.47204708,
+        18.14056798
+      ],
+      "scaling": [
+        1.98585599,
+        1.98585599,
+        1.98585599
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Tools-13",
+      "name": "Wheelbarrel",
+      "parentId": "transform:mcsteeg-Tools",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Tools/Wheelbarrel.glb",
+      "position": [
+        -20,
+        0.61587003,
+        18.0651125
+      ],
+      "scaling": [
+        0.47703882,
+        0.47703882,
+        0.47703882
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-1",
+      "name": "Sword_1",
+      "parentId": "transform:mcsteeg-Weapons",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Weapons/Sword_1.glb",
+      "position": [
+        10,
+        2.25875994,
+        24
+      ],
+      "scaling": [
+        2.96502632,
+        2.96502632,
+        2.96502632
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-2",
+      "name": "Sword_2",
+      "parentId": "transform:mcsteeg-Weapons",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Weapons/Sword_2.glb",
+      "position": [
+        14,
+        2.15855457,
+        24
+      ],
+      "scaling": [
+        3.54209243,
+        3.54209243,
+        3.54209243
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-3",
+      "name": "Sword_3",
+      "parentId": "transform:mcsteeg-Weapons",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Weapons/Sword_3.glb",
+      "position": [
+        18,
+        2.21744933,
+        24
+      ],
+      "scaling": [
+        3.75149997,
+        3.75149997,
+        3.75149997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-4",
+      "name": "Sword_4",
+      "parentId": "transform:mcsteeg-Weapons",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Weapons/Sword_4.glb",
+      "position": [
+        10,
+        2.16265288,
+        20
+      ],
+      "scaling": [
+        3.65879486,
+        3.65879486,
+        3.65879486
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-5",
+      "name": "Sword_5",
+      "parentId": "transform:mcsteeg-Weapons",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Weapons/Sword_5.glb",
+      "position": [
+        14,
+        2.21363978,
+        20
+      ],
+      "scaling": [
+        3.45553143,
+        3.45553143,
+        3.45553143
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Weapons-6",
+      "name": "Sword_6",
+      "parentId": "transform:mcsteeg-Weapons",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Weapons/Sword_6.glb",
+      "position": [
+        18,
+        2.15207202,
+        20
+      ],
+      "scaling": [
+        3.8183619,
+        3.8183619,
+        3.8183619
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-1",
+      "name": "Chest_1",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Chest_1.glb",
+      "position": [
+        -26,
+        0,
+        8.04111173
+      ],
+      "scaling": [
+        2.94573871,
+        2.94573871,
+        2.94573871
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-2",
+      "name": "Crate_1",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Crate_1.glb",
+      "position": [
+        -22,
+        0,
+        7.85999993
+      ],
+      "scaling": [
+        5.0669393,
+        5.0669393,
+        5.0669393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-3",
+      "name": "Crate_2",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Crate_2.glb",
+      "position": [
+        -18,
+        0,
+        7.85999993
+      ],
+      "scaling": [
+        5.0669393,
+        5.0669393,
+        5.0669393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-4",
+      "name": "Barrel_1",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Barrel_1.glb",
+      "position": [
+        -14,
+        -3e-8,
+        8
+      ],
+      "scaling": [
+        3.61924231,
+        3.61924231,
+        3.61924231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-5",
+      "name": "Barrel_1_open",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Barrel_1_open.glb",
+      "position": [
+        -26,
+        -3e-8,
+        4
+      ],
+      "scaling": [
+        3.61924231,
+        3.61924231,
+        3.61924231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-6",
+      "name": "Crate_1_open",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Crate_1_open.glb",
+      "position": [
+        -22,
+        0,
+        3.85999993
+      ],
+      "scaling": [
+        5.0669393,
+        5.0669393,
+        5.0669393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-7",
+      "name": "Barrel_2_keg",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Barrel_2_keg.glb",
+      "position": [
+        -18,
+        0.01286603,
+        3.85913977
+      ],
+      "scaling": [
+        3.25509445,
+        3.25509445,
+        3.25509445
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-8",
+      "name": "Barrel_Stand",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Barrel_Stand.glb",
+      "position": [
+        -14,
+        0.0025684,
+        4
+      ],
+      "scaling": [
+        5.06693957,
+        5.06693957,
+        5.06693957
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-9",
+      "name": "Crate_lid",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Crate_lid.glb",
+      "position": [
+        -26,
+        3e-8,
+        0
+      ],
+      "scaling": [
+        5.06693957,
+        5.06693957,
+        5.06693957
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-10",
+      "name": "Barrel_lid",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Barrel_lid.glb",
+      "position": [
+        -22,
+        -0.16038785,
+        0
+      ],
+      "scaling": [
+        5.06693957,
+        5.06693957,
+        5.06693957
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Crates-11",
+      "name": "Crate_Broken",
+      "parentId": "transform:mcsteeg-Crates",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Crates/Crate_Broken.glb",
+      "position": [
+        -18,
+        0,
+        -0.14000007
+      ],
+      "scaling": [
+        5.0669393,
+        5.0669393,
+        5.0669393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-1",
+      "name": "Cucumber",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Cucumber.glb",
+      "position": [
+        3.97443984,
+        1.4,
+        8.00430773
+      ],
+      "scaling": [
+        3.35675017,
+        3.35675017,
+        3.35675017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-2",
+      "name": "Eggplant",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Eggplant.glb",
+      "position": [
+        8.00201972,
+        1.53652639,
+        8.10164884
+      ],
+      "scaling": [
+        2.95779968,
+        2.95779968,
+        2.95779968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-3",
+      "name": "Cucumber_Slice",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Cucumber_Slice.glb",
+      "position": [
+        12,
+        0.9669066,
+        7.91207092
+      ],
+      "scaling": [
+        15.22474224,
+        15.22474224,
+        15.22474224
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-4",
+      "name": "Jalapeno",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Jalapeno.glb",
+      "position": [
+        15.98889894,
+        1.81496097,
+        8.04373638
+      ],
+      "scaling": [
+        5.11231735,
+        5.11231735,
+        5.11231735
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-5",
+      "name": "Carrot",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Carrot.glb",
+      "position": [
+        20,
+        1.35404115,
+        8.03334962
+      ],
+      "scaling": [
+        3.42179249,
+        3.42179249,
+        3.42179249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-6",
+      "name": "Brocoli",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Brocoli.glb",
+      "position": [
+        24.21023898,
+        1.77949648,
+        8.11346051
+      ],
+      "scaling": [
+        5.698569,
+        5.698569,
+        5.698569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-7",
+      "name": "Lettuce",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Lettuce.glb",
+      "position": [
+        4.16722159,
+        1.38913881,
+        4.03871169
+      ],
+      "scaling": [
+        3.71527986,
+        3.71527986,
+        3.71527986
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-8",
+      "name": "Tomato",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Tomato.glb",
+      "position": [
+        7.94647278,
+        1.37862169,
+        3.88707218
+      ],
+      "scaling": [
+        4.00801863,
+        4.00801863,
+        4.00801863
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-9",
+      "name": "Onion_Yellow",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Onion_Yellow.glb",
+      "position": [
+        12,
+        1.21712799,
+        4.1325111
+      ],
+      "scaling": [
+        3.76345253,
+        3.76345253,
+        3.76345253
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-10",
+      "name": "Onion_White",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Onion_White.glb",
+      "position": [
+        16.05564955,
+        1.23068595,
+        4.22633259
+      ],
+      "scaling": [
+        6.19518953,
+        6.19518953,
+        6.19518953
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-11",
+      "name": "Potato_Red",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Potato_Red.glb",
+      "position": [
+        19.94201068,
+        1.4879771,
+        4.07486952
+      ],
+      "scaling": [
+        3.26206473,
+        3.26206473,
+        3.26206473
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-12",
+      "name": "Potato_Red.001",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Potato_Red_001.glb",
+      "position": [
+        24.01135873,
+        1.43174631,
+        4.06376149
+      ],
+      "scaling": [
+        3.27762901,
+        3.27762901,
+        3.27762901
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-13",
+      "name": "Red_Pepper",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Red_Pepper.glb",
+      "position": [
+        4.20296748,
+        1.72237761,
+        0.09274702
+      ],
+      "scaling": [
+        5.92945871,
+        5.92945871,
+        5.92945871
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-14",
+      "name": "Bell_Pepper",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Bell_Pepper.glb",
+      "position": [
+        7.93981175,
+        1.22121971,
+        -0.02557553
+      ],
+      "scaling": [
+        3.78848152,
+        3.78848152,
+        3.78848152
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-15",
+      "name": "Bell_Pepper_Half",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Bell_Pepper_Half.glb",
+      "position": [
+        12.01296621,
+        1.12949349,
+        0.08224325
+      ],
+      "scaling": [
+        3.87795802,
+        3.87795802,
+        3.87795802
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-16",
+      "name": "Celery",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Celery.glb",
+      "position": [
+        15.87693027,
+        1.51303775,
+        0.02410113
+      ],
+      "scaling": [
+        4.0188811,
+        4.0188811,
+        4.0188811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-17",
+      "name": "Beets",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Beets.glb",
+      "position": [
+        20.07456605,
+        1.69175872,
+        -0.02478122
+      ],
+      "scaling": [
+        3.47006208,
+        3.47006208,
+        3.47006208
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Vegetables-18",
+      "name": "Beet",
+      "parentId": "transform:mcsteeg-Vegetables",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Vegetables/Beet.glb",
+      "position": [
+        23.99937805,
+        1.1303852,
+        0.14233249
+      ],
+      "scaling": [
+        10.83273142,
+        10.83273142,
+        10.83273142
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-1",
+      "name": "Can_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_1.glb",
+      "position": [
+        -30.99999994,
+        0.55454891,
+        -8.00920671
+      ],
+      "scaling": [
+        7.97168704,
+        7.97168704,
+        7.97168704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-2",
+      "name": "Can_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_2.glb",
+      "position": [
+        -26.99999994,
+        0.55454891,
+        -8.00920671
+      ],
+      "scaling": [
+        7.97168704,
+        7.97168704,
+        7.97168704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-3",
+      "name": "Can_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_3.glb",
+      "position": [
+        -22.99999994,
+        0.55454891,
+        -8.00920671
+      ],
+      "scaling": [
+        7.97168704,
+        7.97168704,
+        7.97168704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-4",
+      "name": "Can_4",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_4.glb",
+      "position": [
+        -18.99999994,
+        0.55454891,
+        -8.00920671
+      ],
+      "scaling": [
+        7.97168704,
+        7.97168704,
+        7.97168704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-5",
+      "name": "Can_5",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_5.glb",
+      "position": [
+        -14.99999994,
+        0.55454891,
+        -8.00920671
+      ],
+      "scaling": [
+        7.97168704,
+        7.97168704,
+        7.97168704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-6",
+      "name": "Can_6",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_6.glb",
+      "position": [
+        -10.99999994,
+        0.55454891,
+        -8.00920671
+      ],
+      "scaling": [
+        7.97168704,
+        7.97168704,
+        7.97168704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-7",
+      "name": "Can_7",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_7.glb",
+      "position": [
+        -6.99999994,
+        0.55454891,
+        -8.00920671
+      ],
+      "scaling": [
+        7.97168704,
+        7.97168704,
+        7.97168704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-8",
+      "name": "Can_8",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_8.glb",
+      "position": [
+        -2.99999994,
+        0.55454891,
+        -8.00920671
+      ],
+      "scaling": [
+        7.97168704,
+        7.97168704,
+        7.97168704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-9",
+      "name": "Can_1_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_1_Crushed.glb",
+      "position": [
+        1.00000005,
+        0.69206822,
+        -8.00730912
+      ],
+      "scaling": [
+        6.32860358,
+        6.32860358,
+        6.32860358
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-10",
+      "name": "Can_2_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_2_Crushed.glb",
+      "position": [
+        5.32398317,
+        0.06070014,
+        -8.29655076
+      ],
+      "scaling": [
+        9.87017943,
+        9.87017943,
+        9.87017943
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-11",
+      "name": "Can_3_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_3_Crushed.glb",
+      "position": [
+        -30.95767211,
+        0.55217729,
+        -11.80317666
+      ],
+      "scaling": [
+        8.0169917,
+        8.0169917,
+        8.0169917
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-12",
+      "name": "Can_4_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_4_Crushed.glb",
+      "position": [
+        -26.99999995,
+        0.6988061,
+        -12.07262743
+      ],
+      "scaling": [
+        6.166247,
+        6.166247,
+        6.166247
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-13",
+      "name": "Can_5_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_5_Crushed.glb",
+      "position": [
+        -22.975521,
+        -0.05150591,
+        -12.04985786
+      ],
+      "scaling": [
+        8.00092394,
+        8.00092394,
+        8.00092394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-14",
+      "name": "Can_7_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_7_Crushed.glb",
+      "position": [
+        -19,
+        0.67365017,
+        -12.0074954
+      ],
+      "scaling": [
+        6.4898295,
+        6.4898295,
+        6.4898295
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-15",
+      "name": "Can_6_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_6_Crushed.glb",
+      "position": [
+        -14.99999996,
+        0.81796759,
+        -12.00692203
+      ],
+      "scaling": [
+        5.99345128,
+        5.99345128,
+        5.99345128
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-16",
+      "name": "Can_8_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Can_8_Crushed.glb",
+      "position": [
+        -10.99999994,
+        -0.13324108,
+        -12.41431633
+      ],
+      "scaling": [
+        8.57028773,
+        8.57028773,
+        8.57028773
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-17",
+      "name": "Litter_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Litter_1.glb",
+      "position": [
+        -7,
+        0.09390652,
+        -11.87775679
+      ],
+      "scaling": [
+        2.53491533,
+        2.53491533,
+        2.53491533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-18",
+      "name": "Litter_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Litter_2.glb",
+      "position": [
+        -3,
+        0.09580355,
+        -11.87719099
+      ],
+      "scaling": [
+        2.57427647,
+        2.57427647,
+        2.57427647
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-19",
+      "name": "Flat_Can_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Flat_Can_1.glb",
+      "position": [
+        0.93627017,
+        -0.39867681,
+        -11.72020513
+      ],
+      "scaling": [
+        4.3915436,
+        4.3915436,
+        4.3915436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-20",
+      "name": "Flat_Can_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Flat_Can_2.glb",
+      "position": [
+        4.9190117,
+        -0.38496152,
+        -11.79716016
+      ],
+      "scaling": [
+        4.24768239,
+        4.24768239,
+        4.24768239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-21",
+      "name": "Flat_Can_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Flat_Can_3.glb",
+      "position": [
+        -30.83389547,
+        -0.3075192,
+        -16.11500885
+      ],
+      "scaling": [
+        3.43538297,
+        3.43538297,
+        3.43538297
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-22",
+      "name": "Flat_Can_4",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Flat_Can_4.glb",
+      "position": [
+        -26.99446244,
+        -0.53525401,
+        -15.89968493
+      ],
+      "scaling": [
+        5.82411518,
+        5.82411518,
+        5.82411518
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-23",
+      "name": "News_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/News_1.glb",
+      "position": [
+        -23.0014456,
+        -0.14326835,
+        -15.93001195
+      ],
+      "scaling": [
+        1.40427328,
+        1.40427328,
+        1.40427328
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-24",
+      "name": "News_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/News_2.glb",
+      "position": [
+        -18.87498989,
+        0.06861979,
+        -15.8521918
+      ],
+      "scaling": [
+        3.06560096,
+        3.06560096,
+        3.06560096
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-25",
+      "name": "News_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/News_3.glb",
+      "position": [
+        -14.94565492,
+        0.05989008,
+        -16.13010374
+      ],
+      "scaling": [
+        2.5151664,
+        2.5151664,
+        2.5151664
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-26",
+      "name": "News_Stack",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/News_Stack.glb",
+      "position": [
+        -11.00300809,
+        0.27212823,
+        -15.93112638
+      ],
+      "scaling": [
+        2.92217079,
+        2.92217079,
+        2.92217079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-27",
+      "name": "Coffee_Cup_WithLid",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Coffee_Cup_WithLid.glb",
+      "position": [
+        -7.00043592,
+        0.72095713,
+        -15.83982709
+      ],
+      "scaling": [
+        6.31299431,
+        6.31299431,
+        6.31299431
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-28",
+      "name": "Coffee Cup_Lid",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Coffee_Cup_Lid.glb",
+      "position": [
+        -3,
+        0.36439307,
+        -15.76548141
+      ],
+      "scaling": [
+        9.24323103,
+        9.24323103,
+        9.24323103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-29",
+      "name": "Coffee_Cup",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Coffee_Cup.glb",
+      "position": [
+        1,
+        0.81336102,
+        -15.81929796
+      ],
+      "scaling": [
+        7.12212047,
+        7.12212047,
+        7.12212047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-30",
+      "name": "Paper_Bag_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Paper_Bag_1.glb",
+      "position": [
+        5,
+        1.26929118,
+        -15.8858807
+      ],
+      "scaling": [
+        5.35727597,
+        5.35727597,
+        5.35727597
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-31",
+      "name": "Paper_Bag_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Paper_Bag_2.glb",
+      "position": [
+        -31,
+        1.59673299,
+        -19.8110138
+      ],
+      "scaling": [
+        5.38057699,
+        5.38057699,
+        5.38057699
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-32",
+      "name": "Paper_Bag_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Paper_Bag_3.glb",
+      "position": [
+        -27,
+        0.46177752,
+        -19.6169653
+      ],
+      "scaling": [
+        5.30539445,
+        5.30539445,
+        5.30539445
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-33",
+      "name": "Soda_Cup",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Soda_Cup.glb",
+      "position": [
+        -22.99999997,
+        0.90187167,
+        -19.89365295
+      ],
+      "scaling": [
+        4.19152292,
+        4.19152292,
+        4.19152292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-34",
+      "name": "Soda_Cup_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Soda_Cup_Crushed.glb",
+      "position": [
+        -19.00140601,
+        0.99788065,
+        -19.89890713
+      ],
+      "scaling": [
+        3.98443651,
+        3.98443651,
+        3.98443651
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-35",
+      "name": "Soda_Cup_Lid",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Soda_Cup_Lid.glb",
+      "position": [
+        -14.99999996,
+        0.12077733,
+        -20.05626168
+      ],
+      "scaling": [
+        5.86038288,
+        5.86038288,
+        5.86038288
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-36",
+      "name": "Coffee_Cup_Crushed",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Coffee_Cup_Crushed.glb",
+      "position": [
+        -10.91778444,
+        0.8112969,
+        -19.86074726
+      ],
+      "scaling": [
+        5.48845771,
+        5.48845771,
+        5.48845771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-37",
+      "name": "Tin_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Tin_1.glb",
+      "position": [
+        -6.99999987,
+        0.1812047,
+        -19.7840397
+      ],
+      "scaling": [
+        8.51178624,
+        8.51178624,
+        8.51178624
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-38",
+      "name": "Tin_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Tin_2.glb",
+      "position": [
+        -2.99999987,
+        0.26608175,
+        -19.78403969
+      ],
+      "scaling": [
+        8.51178624,
+        8.51178624,
+        8.51178624
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-39",
+      "name": "Tin_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Tin_3.glb",
+      "position": [
+        1.00000012,
+        0.19923054,
+        -19.80104017
+      ],
+      "scaling": [
+        7.8417293,
+        7.8417293,
+        7.8417293
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-40",
+      "name": "Tin_4",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Tin_4.glb",
+      "position": [
+        5.00000012,
+        0.29697485,
+        -19.80104016
+      ],
+      "scaling": [
+        7.8417293,
+        7.8417293,
+        7.8417293
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-41",
+      "name": "Pills_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Pills_1.glb",
+      "position": [
+        -30.99999988,
+        0.22640085,
+        -23.78729018
+      ],
+      "scaling": [
+        8.38366538,
+        8.38366538,
+        8.38366538
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-42",
+      "name": "Pills_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Pills_2.glb",
+      "position": [
+        -26.99999986,
+        0.24101294,
+        -23.75547978
+      ],
+      "scaling": [
+        9.63742858,
+        9.63742858,
+        9.63742858
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-43",
+      "name": "Fry_Container",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Fry_Container.glb",
+      "position": [
+        -22.9999999,
+        1.94124502,
+        -23.24515977
+      ],
+      "scaling": [
+        13.76745939,
+        13.76745939,
+        13.76745939
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-44",
+      "name": "CardboardBox_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/CardboardBox_1.glb",
+      "position": [
+        -19,
+        -0.23507822,
+        -24.002598
+      ],
+      "scaling": [
+        2.2493759,
+        2.2493759,
+        2.2493759
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-45",
+      "name": "CardboardBox_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/CardboardBox_2.glb",
+      "position": [
+        -15,
+        0.04926944,
+        -23.94438537
+      ],
+      "scaling": [
+        2.19198086,
+        2.19198086,
+        2.19198086
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-46",
+      "name": "CardboardBox_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/CardboardBox_3.glb",
+      "position": [
+        -11,
+        -0.46103394,
+        -24.00259789
+      ],
+      "scaling": [
+        2.24937504,
+        2.24937504,
+        2.24937504
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-47",
+      "name": "CardboardBox_4",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/CardboardBox_4.glb",
+      "position": [
+        -6.99141239,
+        -0.45820596,
+        -24.00258196
+      ],
+      "scaling": [
+        2.23557735,
+        2.23557735,
+        2.23557735
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-48",
+      "name": "Cardboard_Cutout_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Cardboard_Cutout_1.glb",
+      "position": [
+        -3,
+        -0.1291141,
+        -24.00161688
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-49",
+      "name": "Cardboard_Cutout_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Cardboard_Cutout_2.glb",
+      "position": [
+        1.00340998,
+        -0.12879962,
+        -24.00161294
+      ],
+      "scaling": [
+        1.39659002,
+        1.39659002,
+        1.39659002
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-50",
+      "name": "Paper_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Paper_1.glb",
+      "position": [
+        4.98885886,
+        0.06426856,
+        -23.92918065
+      ],
+      "scaling": [
+        2.79124837,
+        2.79124837,
+        2.79124837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-51",
+      "name": "Paper_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Paper_2.glb",
+      "position": [
+        -31.01114114,
+        0.06426856,
+        -27.92918065
+      ],
+      "scaling": [
+        2.79124837,
+        2.79124837,
+        2.79124837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-52",
+      "name": "Glass_Shards_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Glass_Shards_1.glb",
+      "position": [
+        -26.58300065,
+        0.01557238,
+        -27.96781803
+      ],
+      "scaling": [
+        2.31761075,
+        2.31761075,
+        2.31761075
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-53",
+      "name": "Glass_Shards_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Glass_Shards_2.glb",
+      "position": [
+        -22.87106558,
+        0.01557238,
+        -27.96781803
+      ],
+      "scaling": [
+        2.31761075,
+        2.31761075,
+        2.31761075
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-54",
+      "name": "GlassBottle_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GlassBottle_1.glb",
+      "position": [
+        -18.99999998,
+        0.86265675,
+        -27.9151159
+      ],
+      "scaling": [
+        3.34559453,
+        3.34559453,
+        3.34559453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-55",
+      "name": "GlassBottle_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GlassBottle_2.glb",
+      "position": [
+        -14.99999998,
+        0.86265675,
+        -27.9151159
+      ],
+      "scaling": [
+        3.34559453,
+        3.34559453,
+        3.34559453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-56",
+      "name": "GlassBottle_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GlassBottle_3.glb",
+      "position": [
+        -10.99999998,
+        0.86265675,
+        -27.9151159
+      ],
+      "scaling": [
+        3.34559453,
+        3.34559453,
+        3.34559453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-57",
+      "name": "GlassBottle_4",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GlassBottle_4.glb",
+      "position": [
+        -6.99999998,
+        0.86265675,
+        -27.9151159
+      ],
+      "scaling": [
+        3.34559453,
+        3.34559453,
+        3.34559453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-58",
+      "name": "GlassBottle_1_Broken",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GlassBottle_1_Broken.glb",
+      "position": [
+        -3.04462943,
+        1.96012348,
+        -27.86947023
+      ],
+      "scaling": [
+        5.14464643,
+        5.14464643,
+        5.14464643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-59",
+      "name": "GlassBottle_2_Broken",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GlassBottle_2_Broken.glb",
+      "position": [
+        0.95537057,
+        1.96012348,
+        -27.86947023
+      ],
+      "scaling": [
+        5.14464643,
+        5.14464643,
+        5.14464643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-60",
+      "name": "GlassBottle_3_Broken",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GlassBottle_3_Broken.glb",
+      "position": [
+        4.95537057,
+        1.96012348,
+        -27.86947023
+      ],
+      "scaling": [
+        5.14464643,
+        5.14464643,
+        5.14464643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-61",
+      "name": "GlassBottle_4_Broken",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GlassBottle_4_Broken.glb",
+      "position": [
+        -31.04462943,
+        1.96012348,
+        -31.86947023
+      ],
+      "scaling": [
+        5.14464643,
+        5.14464643,
+        5.14464643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-62",
+      "name": "ShampooBottle",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/ShampooBottle.glb",
+      "position": [
+        -27.00220572,
+        1.06600583,
+        -31.91958454
+      ],
+      "scaling": [
+        3.16946699,
+        3.16946699,
+        3.16946699
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-63",
+      "name": "WaterBottle",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/WaterBottle.glb",
+      "position": [
+        -22.99999996,
+        1.30143766,
+        -31.87042493
+      ],
+      "scaling": [
+        5.10702674,
+        5.10702674,
+        5.10702674
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-64",
+      "name": "SoapBottle",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/SoapBottle.glb",
+      "position": [
+        -19.00209485,
+        1.00491905,
+        -31.92362662
+      ],
+      "scaling": [
+        3.01015436,
+        3.01015436,
+        3.01015436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-65",
+      "name": "GasCan",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/GasCan.glb",
+      "position": [
+        -15.03446952,
+        0.96628205,
+        -32.00283822
+      ],
+      "scaling": [
+        2.45752053,
+        2.45752053,
+        2.45752053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-66",
+      "name": "TrashBag_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/TrashBag_1.glb",
+      "position": [
+        -11,
+        0.03683978,
+        -31.95998206
+      ],
+      "scaling": [
+        1.57725645,
+        1.57725645,
+        1.57725645
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-67",
+      "name": "TrashBag_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/TrashBag_2.glb",
+      "position": [
+        -6.99282991,
+        0.08384592,
+        -31.86792353
+      ],
+      "scaling": [
+        2.06699846,
+        2.06699846,
+        2.06699846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-68",
+      "name": "Chip_Bag_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Chip_Bag_1.glb",
+      "position": [
+        -3,
+        1.89853441,
+        -31.96019618
+      ],
+      "scaling": [
+        5.38057703,
+        5.38057703,
+        5.38057703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-69",
+      "name": "Chip_Bag_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Chip_Bag_2.glb",
+      "position": [
+        0.93785212,
+        1.89853442,
+        -31.92760406
+      ],
+      "scaling": [
+        5.38057716,
+        5.38057716,
+        5.38057716
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-70",
+      "name": "Chip_Bag_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Chip_Bag_3.glb",
+      "position": [
+        4.99981976,
+        1.90225067,
+        -31.92821241
+      ],
+      "scaling": [
+        5.46327225,
+        5.46327225,
+        5.46327225
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-71",
+      "name": "Chip_Bag_4",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Chip_Bag_4.glb",
+      "position": [
+        -31.00018624,
+        1.96558345,
+        -35.92582234
+      ],
+      "scaling": [
+        5.64516426,
+        5.64516426,
+        5.64516426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-72",
+      "name": "Wooden_Plank_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Wooden_Plank_1.glb",
+      "position": [
+        -27,
+        0.01975842,
+        -35.97746178
+      ],
+      "scaling": [
+        1.10557206,
+        1.10557206,
+        1.10557206
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-73",
+      "name": "Wooden_Plank_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Wooden_Plank_2.glb",
+      "position": [
+        -23,
+        0.02593384,
+        -35.93801214
+      ],
+      "scaling": [
+        1.45111765,
+        1.45111765,
+        1.45111765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-74",
+      "name": "Wooden_Plank_3",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Wooden_Plank_3.glb",
+      "position": [
+        -19,
+        0.03465313,
+        -35.88013265
+      ],
+      "scaling": [
+        1.4345507,
+        1.4345507,
+        1.4345507
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-75",
+      "name": "Sheet_Metal_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Sheet_Metal_1.glb",
+      "position": [
+        -14.951828,
+        0.04008588,
+        -35.96016642
+      ],
+      "scaling": [
+        1.56998466,
+        1.56998466,
+        1.56998466
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-76",
+      "name": "Sheet_Metal_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Sheet_Metal_2.glb",
+      "position": [
+        -10.7907006,
+        0.03745579,
+        -35.95374811
+      ],
+      "scaling": [
+        1.82295336,
+        1.82295336,
+        1.82295336
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-77",
+      "name": "Concrete_Debris_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Concrete_Debris_1.glb",
+      "position": [
+        -6.9065986,
+        0.26127292,
+        -35.91286402
+      ],
+      "scaling": [
+        1.8069088,
+        1.8069088,
+        1.8069088
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-78",
+      "name": "Concrete_Debris_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Concrete_Debris_2.glb",
+      "position": [
+        -3.15524396,
+        0.2006579,
+        -35.84154357
+      ],
+      "scaling": [
+        1.25572442,
+        1.25572442,
+        1.25572442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-79",
+      "name": "Rebar",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Rebar.glb",
+      "position": [
+        -0.0971732,
+        0.09298001,
+        -35.93035027
+      ],
+      "scaling": [
+        2.57342202,
+        2.57342202,
+        2.57342202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-80",
+      "name": "Wheel_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Wheel_1.glb",
+      "position": [
+        5,
+        0.03255139,
+        -35.96509969
+      ],
+      "scaling": [
+        1.37555,
+        1.37555,
+        1.37555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-81",
+      "name": "Wheel_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Wheel_2.glb",
+      "position": [
+        -31,
+        0.03323723,
+        -39.96509969
+      ],
+      "scaling": [
+        1.37555,
+        1.37555,
+        1.37555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-82",
+      "name": "Cinder_Block_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Cinder_Block_1.glb",
+      "position": [
+        -27,
+        0.05746407,
+        -39.93960676
+      ],
+      "scaling": [
+        2.38032399,
+        2.38032399,
+        2.38032399
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-83",
+      "name": "Cinder_Block_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Cinder_Block_2.glb",
+      "position": [
+        -23,
+        0.07572424,
+        -39.93680634
+      ],
+      "scaling": [
+        2.49069868,
+        2.49069868,
+        2.49069868
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-84",
+      "name": "Brick_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Brick_1.glb",
+      "position": [
+        -19,
+        0.75449802,
+        -39.77521165
+      ],
+      "scaling": [
+        5.10083927,
+        5.10083927,
+        5.10083927
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-85",
+      "name": "Brick_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Brick_2.glb",
+      "position": [
+        -15,
+        0.75449802,
+        -39.77521165
+      ],
+      "scaling": [
+        5.10083927,
+        5.10083927,
+        5.10083927
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-86",
+      "name": "Mask_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Mask_1.glb",
+      "position": [
+        -10.99476368,
+        0.16697457,
+        -39.73156234
+      ],
+      "scaling": [
+        5.04108059,
+        5.04108059,
+        5.04108059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-87",
+      "name": "Mask_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Mask_2.glb",
+      "position": [
+        -6.81890342,
+        -0.67968689,
+        -39.94668994
+      ],
+      "scaling": [
+        6.01801358,
+        6.01801358,
+        6.01801358
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-88",
+      "name": "Condom_1",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Condom_1.glb",
+      "position": [
+        -2.99964719,
+        0.25906939,
+        -39.68113275
+      ],
+      "scaling": [
+        9.56259676,
+        9.56259676,
+        9.56259676
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-89",
+      "name": "Condom_2",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Condom_2.glb",
+      "position": [
+        0.95638046,
+        0.1763215,
+        -39.7664435
+      ],
+      "scaling": [
+        6.25273997,
+        6.25273997,
+        6.25273997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-90",
+      "name": "Barriar",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/Barriar.glb",
+      "position": [
+        5,
+        -0.15522029,
+        -40.00172972
+      ],
+      "scaling": [
+        1.49758931,
+        1.49758931,
+        1.49758931
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Trash-91",
+      "name": "FracturedBarriar",
+      "parentId": "transform:mcsteeg-Trash",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Trash/FracturedBarriar.glb",
+      "position": [
+        -31,
+        -0.14237732,
+        -44.0017571
+      ],
+      "scaling": [
+        1.52125705,
+        1.52125705,
+        1.52125705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcsteeg-Wagon-1",
+      "name": "Wagon",
+      "parentId": "transform:mcsteeg-Wagon",
+      "modelPath": "resources/Model/GLB/artist_mcsteeg/Wagon/Wagon.glb",
+      "position": [
+        18.99385778,
+        0.64838685,
+        -17.51111586
+      ],
+      "scaling": [
+        0.36377229,
+        0.36377229,
+        0.36377229
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

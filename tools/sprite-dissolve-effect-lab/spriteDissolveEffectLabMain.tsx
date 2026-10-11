@@ -7,8 +7,8 @@ import{loadConfig}from'@/core/config';
 import{createSpriteAshEffect,normalizeSpriteAshPreset,normalizeSpriteAshPresetLibrary,SPRITE_ASH_PARAMETER_DEFINITIONS,SPRITE_ASH_GROUP_FEATURES,type SpriteAshEffectController,type SpriteAshPreset,type SpriteAshPresetLibrary}from'@/core/sprite';
 
 const PRESET_URL='/config/spriteAshPresets.json',PRESET_API='/api/sprite-ash-presets';
-const resourceModules=import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp}');
-const imagePaths=Object.keys(resourceModules).map(path=>path.replace(/^\/public/,'')).sort((a,b)=>a.localeCompare(b,'zh-CN'));
+import {readBundledPublicAssetPaths} from '@/core/resources/publicAssetManifest.ts';
+const imagePaths=readBundledPublicAssetPaths(/\.(?:png|jpe?g|webp)$/i).filter(path=>path.startsWith('/resources/')).sort((a,b)=>a.localeCompare(b,'zh-CN'));
 const preferredImage=imagePaths.find(path=>decodeURI(path).includes('食肉精灵.png'))||imagePaths[0]||'/resources/particle_white.svg';
 const radians=(degrees:number)=>degrees*Math.PI/180;
 const PARTICLE_MODE_OPTIONS=[

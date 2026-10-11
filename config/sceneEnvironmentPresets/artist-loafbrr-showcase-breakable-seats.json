@@ -1,0 +1,588 @@
+{
+  "presetKey": "artist-loafbrr-showcase-breakable-seats",
+  "name": "Loafbrr · BreakableSeats · 12模型 · 模型 0.16 MiB + 贴图 0.20 MiB · 合计 0.36 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-breakableseats-0",
+      "name": "BreakableSeats",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 13
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-14cb339f9d1fb7e0-stand",
+      "name": "2x2Wood_1展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b3895b7d7affc48a-stand",
+      "name": "2x2Wood_2展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2f67b915697e851b-stand",
+      "name": "Bench_bench展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7ae0ccf5f6d2c1eb-stand",
+      "name": "Broken_2x2Wood_1展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9626e6ca84957afb-stand",
+      "name": "Broken_2x2Wood_2展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d91656b673d79bf2-stand",
+      "name": "Broken_Bench展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3890af0395912fcd-stand",
+      "name": "Broken_Chair展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-37b34027fe9b3bd8-stand",
+      "name": "Broken_Stool展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d7a74781652d817c-stand",
+      "name": "Broken_Table展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-16e22d0ad81f224e-stand",
+      "name": "Chair_chair展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-80aad5d234f39678-stand",
+      "name": "Stool_stool展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b37781a8a5654905-stand",
+      "name": "Table_table展台",
+      "parentId": "transform:category-breakableseats-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-14cb339f9d1fb7e0",
+      "name": "BreakableSeats · 2x2Wood_1 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/2x2Wood_1.glb",
+      "position": [
+        -21.99999998,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000006,
+        1.40000006,
+        1.40000006
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b3895b7d7affc48a",
+      "name": "BreakableSeats · 2x2Wood_2 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/2x2Wood_2.glb",
+      "position": [
+        -17.99999998,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000006,
+        1.40000006,
+        1.40000006
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2f67b915697e851b",
+      "name": "BreakableSeats · Bench_bench · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Bench_bench.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.68035231,
+        1.68035231,
+        1.68035231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7ae0ccf5f6d2c1eb",
+      "name": "BreakableSeats · Broken_2x2Wood_1 · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Broken_2x2Wood_1.glb",
+      "position": [
+        -9.99999996,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000017,
+        1.40000017,
+        1.40000017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9626e6ca84957afb",
+      "name": "BreakableSeats · Broken_2x2Wood_2 · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Broken_2x2Wood_2.glb",
+      "position": [
+        -5.99999998,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000006,
+        1.40000006,
+        1.40000006
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d91656b673d79bf2",
+      "name": "BreakableSeats · Broken_Bench · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Broken_Bench.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.68035231,
+        1.68035231,
+        1.68035231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3890af0395912fcd",
+      "name": "BreakableSeats · Broken_Chair · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Broken_Chair.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.13600051,
+        2.13600051,
+        2.13600051
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-37b34027fe9b3bd8",
+      "name": "BreakableSeats · Broken_Stool · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Broken_Stool.glb",
+      "position": [
+        -18,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.62257877,
+        4.62257877,
+        4.62257877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d7a74781652d817c",
+      "name": "BreakableSeats · Broken_Table · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Broken_Table.glb",
+      "position": [
+        -14,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-16e22d0ad81f224e",
+      "name": "BreakableSeats · Chair_chair · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Chair_chair.glb",
+      "position": [
+        -10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.13600051,
+        2.13600051,
+        2.13600051
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-80aad5d234f39678",
+      "name": "BreakableSeats · Stool_stool · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Stool_stool.glb",
+      "position": [
+        -6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.62257892,
+        4.62257892,
+        4.62257892
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b37781a8a5654905",
+      "name": "BreakableSeats · Table_table · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-breakableseats-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableSeats/Table_table.glb",
+      "position": [
+        -2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

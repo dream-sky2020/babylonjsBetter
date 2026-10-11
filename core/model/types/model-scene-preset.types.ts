@@ -5,6 +5,7 @@ export type ModelTransform = {
 };
 
 export type ModelSceneInstance = {
+  materialOverrides?: import('../material/modelMaterialBindings.ts').ModelMaterialBindings;
   id: string;
   name: string;
   modelPath: string;

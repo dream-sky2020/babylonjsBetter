@@ -1,0 +1,1468 @@
+{
+  "presetKey": "artist-doctor-sci3nce-model-test",
+  "name": "Doctor-sci3nce · 工具、医疗与香烟道具（32 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "tools",
+      "name": "工具与工具箱分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "medical",
+      "name": "医疗用品分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cigarettes",
+      "name": "香烟与烟盒分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 24
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "ajustablewrench-stand",
+      "name": "AjustableWrench展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "awl-stand",
+      "name": "Awl展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "backsaw-stand",
+      "name": "BackSaw展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "chisel-stand",
+      "name": "Chisel展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "hammer-stand",
+      "name": "Hammer展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "handsaw-stand",
+      "name": "HandSaw展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heavypliers-stand",
+      "name": "HeavyPliers展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "needlenosepliers-stand",
+      "name": "NeedleNosePliers展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "pipewrench-stand",
+      "name": "PipeWrench展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "puttyknife-stand",
+      "name": "PuttyKnife展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "screwdriverplastic-stand",
+      "name": "ScrewDriverPlastic展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "screwdriverwood-stand",
+      "name": "ScrewDriverWood展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "toolboxclosed-stand",
+      "name": "ToolBoxClosed展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "toolboxempty-stand",
+      "name": "ToolBoxEmpty展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "toolboxfull-stand",
+      "name": "ToolBoxFull展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "wrench-stand",
+      "name": "Wrench展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bandage-stand",
+      "name": "Bandage展台",
+      "parentId": "transform:medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "green_plant-stand",
+      "name": "Green_Plant展台",
+      "parentId": "transform:medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "green_powder-stand",
+      "name": "Green_Powder展台",
+      "parentId": "transform:medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "health_kit-stand",
+      "name": "Health_Kit展台",
+      "parentId": "transform:medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "health_kit_open-stand",
+      "name": "Health_Kit_open展台",
+      "parentId": "transform:medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "syringe-stand",
+      "name": "Syringe展台",
+      "parentId": "transform:medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "health_solution-stand",
+      "name": "Health_Solution展台",
+      "parentId": "transform:medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "pill_bottle-stand",
+      "name": "Pill_Bottle展台",
+      "parentId": "transform:medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "packcigarettefoiltop-stand",
+      "name": "PackCigaretteFoilTop展台",
+      "parentId": "transform:cigarettes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "packcigarettesstandard-stand",
+      "name": "PackCigarettesStandard展台",
+      "parentId": "transform:cigarettes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "packcigarettesstandardopened-stand",
+      "name": "PackCigarettesStandardOpened展台",
+      "parentId": "transform:cigarettes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "packcigarettesstandardopenpulled-stand",
+      "name": "PackCigarettesStandardOpenPulled展台",
+      "parentId": "transform:cigarettes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "cigarettebutt-stand",
+      "name": "CigaretteButt展台",
+      "parentId": "transform:cigarettes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "cigarettefull-stand",
+      "name": "CigaretteFull展台",
+      "parentId": "transform:cigarettes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "cigarettesmoked-stand",
+      "name": "CigaretteSmoked展台",
+      "parentId": "transform:cigarettes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "cigarettesnuffed-stand",
+      "name": "CigaretteSnuffed展台",
+      "parentId": "transform:cigarettes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -5.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "ajustablewrench",
+      "name": "AjustableWrench",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/AjustableWrench.glb",
+      "position": [
+        -16,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8515214,
+        0.8515214,
+        0.8515214
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "awl",
+      "name": "Awl",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/Awl.glb",
+      "position": [
+        -12,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.28607441,
+        2.28607441,
+        2.28607441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "backsaw",
+      "name": "BackSaw",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/BackSaw.glb",
+      "position": [
+        -8,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.02944126,
+        1.02944126,
+        1.02944126
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "chisel",
+      "name": "Chisel",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/Chisel.glb",
+      "position": [
+        -4,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.60637689,
+        1.60637689,
+        1.60637689
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "hammer",
+      "name": "Hammer",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/Hammer.glb",
+      "position": [
+        -16,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88441793,
+        0.88441793,
+        0.88441793
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "handsaw",
+      "name": "HandSaw",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/HandSaw.glb",
+      "position": [
+        -12,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87437101,
+        0.87437101,
+        0.87437101
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heavypliers",
+      "name": "HeavyPliers",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/HeavyPliers.glb",
+      "position": [
+        -8,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37887295,
+        1.37887295,
+        1.37887295
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "needlenosepliers",
+      "name": "NeedleNosePliers",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/NeedleNosePliers.glb",
+      "position": [
+        -4,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.19547452,
+        1.19547452,
+        1.19547452
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "pipewrench",
+      "name": "PipeWrench",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/PipeWrench.glb",
+      "position": [
+        -16,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50412852,
+        1.50412852,
+        1.50412852
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puttyknife",
+      "name": "PuttyKnife",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/PuttyKnife.glb",
+      "position": [
+        -12,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13458756,
+        1.13458756,
+        1.13458756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "screwdriverplastic",
+      "name": "ScrewDriverPlastic",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/ScrewDriverPlastic.glb",
+      "position": [
+        -8,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.18622241,
+        2.18622241,
+        2.18622241
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "screwdriverwood",
+      "name": "ScrewDriverWood",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/ScrewDriverWood.glb",
+      "position": [
+        -4,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14372259,
+        1.14372259,
+        1.14372259
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "toolboxclosed",
+      "name": "ToolBoxClosed",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/ToolBoxClosed.glb",
+      "position": [
+        -16,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43631799,
+        1.43631799,
+        1.43631799
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "toolboxempty",
+      "name": "ToolBoxEmpty",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/ToolBoxEmpty.glb",
+      "position": [
+        -12,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43631799,
+        1.43631799,
+        1.43631799
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "toolboxfull",
+      "name": "ToolBoxFull",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/ToolBoxFull.glb",
+      "position": [
+        -8,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.29925581,
+        1.29925581,
+        1.29925581
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "wrench",
+      "name": "Wrench",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Tools/Wrench.glb",
+      "position": [
+        -4,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36354821,
+        1.36354821,
+        1.36354821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bandage",
+      "name": "Bandage",
+      "parentId": "transform:medical",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Medical/Bandage.glb",
+      "position": [
+        4,
+        0,
+        9.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67772681,
+        1.67772681,
+        1.67772681
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "green_plant",
+      "name": "Green_Plant",
+      "parentId": "transform:medical",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Medical/Green_Plant.glb",
+      "position": [
+        8,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63418139,
+        0.63418139,
+        0.63418139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "green_powder",
+      "name": "Green_Powder",
+      "parentId": "transform:medical",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Medical/Green_Powder.glb",
+      "position": [
+        12,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36092113,
+        1.36092113,
+        1.36092113
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "health_kit",
+      "name": "Health_Kit",
+      "parentId": "transform:medical",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Medical/Health_Kit.glb",
+      "position": [
+        16,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53257776,
+        0.53257776,
+        0.53257776
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "health_kit_open",
+      "name": "Health_Kit_open",
+      "parentId": "transform:medical",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Medical/Health_Kit_open.glb",
+      "position": [
+        4,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54100396,
+        0.54100396,
+        0.54100396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "syringe",
+      "name": "Syringe",
+      "parentId": "transform:medical",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Medical/Syringe.glb",
+      "position": [
+        8,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.78971184,
+        0.78971184,
+        0.78971184
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "health_solution",
+      "name": "Health_Solution",
+      "parentId": "transform:medical",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Medical/Health_Solution.glb",
+      "position": [
+        12,
+        0,
+        5.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9058457,
+        0.9058457,
+        0.9058457
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "pill_bottle",
+      "name": "Pill_Bottle",
+      "parentId": "transform:medical",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Medical/Pill_Bottle.glb",
+      "position": [
+        16,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.37471458,
+        2.37471458,
+        2.37471458
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "packcigarettefoiltop",
+      "name": "PackCigaretteFoilTop",
+      "parentId": "transform:cigarettes",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Cigarettes/PackCigaretteFoilTop.glb",
+      "position": [
+        4,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.38283643,
+        2.38283643,
+        2.38283643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "packcigarettesstandard",
+      "name": "PackCigarettesStandard",
+      "parentId": "transform:cigarettes",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Cigarettes/PackCigarettesStandard.glb",
+      "position": [
+        8,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.38283643,
+        2.38283643,
+        2.38283643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "packcigarettesstandardopened",
+      "name": "PackCigarettesStandardOpened",
+      "parentId": "transform:cigarettes",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Cigarettes/PackCigarettesStandardOpened.glb",
+      "position": [
+        12,
+        0,
+        -1.50000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.93845246,
+        1.93845246,
+        1.93845246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "packcigarettesstandardopenpulled",
+      "name": "PackCigarettesStandardOpenPulled",
+      "parentId": "transform:cigarettes",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Cigarettes/PackCigarettesStandardOpenPulled.glb",
+      "position": [
+        16,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.93845246,
+        1.93845246,
+        1.93845246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "cigarettebutt",
+      "name": "CigaretteButt",
+      "parentId": "transform:cigarettes",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Cigarettes/CigaretteButt.glb",
+      "position": [
+        4,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.92102654,
+        5.92102654,
+        5.92102654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "cigarettefull",
+      "name": "CigaretteFull",
+      "parentId": "transform:cigarettes",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Cigarettes/CigaretteFull.glb",
+      "position": [
+        8,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.51380778,
+        2.51380778,
+        2.51380778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "cigarettesmoked",
+      "name": "CigaretteSmoked",
+      "parentId": "transform:cigarettes",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Cigarettes/CigaretteSmoked.glb",
+      "position": [
+        12,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.15113043,
+        3.15113043,
+        3.15113043
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "cigarettesnuffed",
+      "name": "CigaretteSnuffed",
+      "parentId": "transform:cigarettes",
+      "modelPath": "resources/Model/GLB/artist_doctor-sci3nce/Cigarettes/CigaretteSnuffed.glb",
+      "position": [
+        16,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.91928803,
+        4.91928803,
+        4.91928803
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

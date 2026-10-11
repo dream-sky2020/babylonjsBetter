@@ -9,8 +9,22 @@ class SceneCatalogTests(unittest.TestCase):
     def test_real_repository(self):
         root = Path(__file__).resolve().parents[1] / "config" / "sceneEnvironmentPresets"
         data = read_scene_environment_presets(root)
-        self.assertEqual(len(data), 5)
+        catalog = json.loads((root / 'index.json').read_text(encoding='utf-8'))
+        self.assertEqual(set(data), set(catalog['presets']))
         self.assertEqual(data["monster-formation-road-shadow-shape-test"]["extendsPresetKey"], "monster-formation-road")
+
+    def test_material_bindings_are_checked_when_reading_scene_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'index.json').write_text(json.dumps({'version': 1, 'presets': {'base': 'base.json'}}), encoding='utf-8')
+            binding = {'selector': {'gltfMaterialIndex': 0}, 'textures': {'baseColor': {'path': 'resources/Model/SharedTextures/a.png'}}}
+            scene = {'presetKey': 'base', 'models': [{'materialOverrides': [binding]}]}
+            (root / 'base.json').write_text(json.dumps(scene), encoding='utf-8')
+            self.assertEqual(read_scene_environment_presets(root)['base']['models'][0]['materialOverrides'], [binding])
+            binding['textures']['baseColor']['path'] = 'resources/../outside.png'
+            (root / 'base.json').write_text(json.dumps(scene), encoding='utf-8')
+            with self.assertRaises(ValueError):
+                read_scene_environment_presets(root)
 
     def test_invalid_references_and_paths(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -21,11 +21,8 @@ const PRESET_OPTIONS: OscilloscopeWavePresetId[] = ['ecg_sharp', 'soft', 'shock'
 const POINTER_PRESET_OPTIONS: Array<OscilloscopeWavePresetId | 'inherit'> = ['inherit', ...PRESET_OPTIONS];
 const BACKGROUND_MODE_OPTIONS: OscilloscopeBackgroundMode[] = ['scanline', 'grid', 'solid', 'image', 'none'];
 const HEX_COLOR_PATTERN = /^#([0-9a-fA-F]{6})$/;
-const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-});
+import { readBundledPublicImageModules } from '@/core/resources/publicAssetManifest.ts';
+const RESOURCE_IMAGE_MODULES = readBundledPublicImageModules(true);
 
 const decodePublicPath = (input: string): string => String(input || '').replace(/^https?:\/\/[^/]+/i, '').replace(/^\/+/, '');
 

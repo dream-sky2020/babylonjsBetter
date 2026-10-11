@@ -1,0 +1,914 @@
+{
+  "presetKey": "artist-cursedlake-market-food-model-test",
+  "name": "Cursedlake · 集市肉食、粮袋与草药 · 模型展示（25 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "cursedlake-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "cursedlake-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cursedlake-MarketFood",
+      "name": "肉食、粮袋与草药",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "cursedlake-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 20,
+        "height": 38
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "cursedlake-MarketFood-zone",
+      "name": "肉食、粮袋与草药分区",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 28.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-1-stand",
+      "name": "悬挂草药（含绳索）展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-2-stand",
+      "name": "悬挂猪腿（含挂钩）展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-3-stand",
+      "name": "悬挂肋排（含挂钩）展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-4-stand",
+      "name": "香肠 · Sausage展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-5-stand",
+      "name": "培根 · Bacon展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-6-stand",
+      "name": "肉块二 · Meat_2展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-7-stand",
+      "name": "肉块一 · Meat_1展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-8-stand",
+      "name": "奶酪块 · Cheese_1展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-9-stand",
+      "name": "奶酪楔块 · Cheese_2展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-10-stand",
+      "name": "奶酪楔块 · Cheese_2.001展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-11-stand",
+      "name": "香肠 · Sausage.001展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-12-stand",
+      "name": "香肠 · Sausage.002展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-13-stand",
+      "name": "香肠 · Sausage.003展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-14-stand",
+      "name": "香肠 · Sausage.004展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-15-stand",
+      "name": "香肠 · Sausage.005展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-16-stand",
+      "name": "香肠 · Sausage.006展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-17-stand",
+      "name": "香肠 · Sausage.007展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-18-stand",
+      "name": "玉米粮袋 · SackOfCorn展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-19-stand",
+      "name": "小麦粮袋 · SackOfWheat展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-20-stand",
+      "name": "稻米粮袋 · SackOfRice展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-21-stand",
+      "name": "香肠 · Sausage.008展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-22-stand",
+      "name": "香肠 · Sausage.009展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-23-stand",
+      "name": "肋排堆 · Ribs.001展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-24-stand",
+      "name": "肉块二 · Meat_2.001展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-25-stand",
+      "name": "草药一束展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    }
+  ],
+  "models": [
+    {
+      "id": "cursedlake-MarketFood-1",
+      "name": "悬挂草药（含绳索）",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/HangingHerbs.glb",
+      "position": [
+        -6.00000002,
+        2e-8,
+        11.9999998
+      ],
+      "scaling": [
+        1.10226284,
+        1.10226284,
+        1.10226284
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-2",
+      "name": "悬挂猪腿（含挂钩）",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/HangingPorkLeg.glb",
+      "position": [
+        -2.00000004,
+        8e-8,
+        11.99999994
+      ],
+      "scaling": [
+        2.59613819,
+        2.59613819,
+        2.59613819
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-3",
+      "name": "悬挂肋排（含挂钩）",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/HangingRibs.glb",
+      "position": [
+        1.99999996,
+        7e-8,
+        11.99999996
+      ],
+      "scaling": [
+        2.38541136,
+        2.38541136,
+        2.38541136
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-4",
+      "name": "香肠 · Sausage",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage.glb",
+      "position": [
+        6.00000022,
+        0,
+        12.00000006
+      ],
+      "scaling": [
+        8.08724964,
+        8.08724964,
+        8.08724964
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-5",
+      "name": "培根 · Bacon",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Bacon.glb",
+      "position": [
+        -6,
+        -1.6e-7,
+        8
+      ],
+      "scaling": [
+        6.21473359,
+        6.21473359,
+        6.21473359
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-6",
+      "name": "肉块二 · Meat_2",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Meat_2.glb",
+      "position": [
+        -1.99999969,
+        -1.2e-7,
+        7.99999991
+      ],
+      "scaling": [
+        8.31690698,
+        8.31690698,
+        8.31690698
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-7",
+      "name": "肉块一 · Meat_1",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Meat_1.glb",
+      "position": [
+        2,
+        8e-8,
+        8.00000015
+      ],
+      "scaling": [
+        5.08677174,
+        5.08677174,
+        5.08677174
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-8",
+      "name": "奶酪块 · Cheese_1",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Cheese_1.glb",
+      "position": [
+        6,
+        0,
+        8.0000001
+      ],
+      "scaling": [
+        6.42907435,
+        6.42907435,
+        6.42907435
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-9",
+      "name": "奶酪楔块 · Cheese_2",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Cheese_2.glb",
+      "position": [
+        -6,
+        0,
+        4.0000001
+      ],
+      "scaling": [
+        6.42907435,
+        6.42907435,
+        6.42907435
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-10",
+      "name": "奶酪楔块 · Cheese_2.001",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Cheese_2_001.glb",
+      "position": [
+        -2.000001,
+        0,
+        4.0000001
+      ],
+      "scaling": [
+        14.09034085,
+        14.09034085,
+        14.09034085
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-11",
+      "name": "香肠 · Sausage.001",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_001.glb",
+      "position": [
+        2.0000003,
+        3.3e-7,
+        4.00000008
+      ],
+      "scaling": [
+        10.95160727,
+        10.95160727,
+        10.95160727
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-12",
+      "name": "香肠 · Sausage.002",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_002.glb",
+      "position": [
+        6.00000026,
+        -2.9e-7,
+        4.00000007
+      ],
+      "scaling": [
+        9.66120972,
+        9.66120972,
+        9.66120972
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-13",
+      "name": "香肠 · Sausage.003",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_003.glb",
+      "position": [
+        -5.99999978,
+        0,
+        6e-8
+      ],
+      "scaling": [
+        8.08724964,
+        8.08724964,
+        8.08724964
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-14",
+      "name": "香肠 · Sausage.004",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_004.glb",
+      "position": [
+        -1.99999978,
+        0,
+        6e-8
+      ],
+      "scaling": [
+        8.08724964,
+        8.08724964,
+        8.08724964
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-15",
+      "name": "香肠 · Sausage.005",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_005.glb",
+      "position": [
+        1.99999992,
+        3.3e-7,
+        3e-7
+      ],
+      "scaling": [
+        10.95160727,
+        10.95160727,
+        10.95160727
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-16",
+      "name": "香肠 · Sausage.006",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_006.glb",
+      "position": [
+        6.00000026,
+        -2.9e-7,
+        7e-8
+      ],
+      "scaling": [
+        9.66120972,
+        9.66120972,
+        9.66120972
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-17",
+      "name": "香肠 · Sausage.007",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_007.glb",
+      "position": [
+        -5.99999978,
+        0,
+        -3.99999994
+      ],
+      "scaling": [
+        8.08724964,
+        8.08724964,
+        8.08724964
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-18",
+      "name": "玉米粮袋 · SackOfCorn",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/SackOfCorn.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "scaling": [
+        4.71351149,
+        4.71351149,
+        4.71351149
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-19",
+      "name": "小麦粮袋 · SackOfWheat",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/SackOfWheat.glb",
+      "position": [
+        1.99999993,
+        0,
+        -4
+      ],
+      "scaling": [
+        4.71351149,
+        4.71351149,
+        4.71351149
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-20",
+      "name": "稻米粮袋 · SackOfRice",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/SackOfRice.glb",
+      "position": [
+        5.99999993,
+        0,
+        -4
+      ],
+      "scaling": [
+        4.71351149,
+        4.71351149,
+        4.71351149
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-21",
+      "name": "香肠 · Sausage.008",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_008.glb",
+      "position": [
+        -5.9999997,
+        3.3e-7,
+        -7.99999992
+      ],
+      "scaling": [
+        10.95160727,
+        10.95160727,
+        10.95160727
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-22",
+      "name": "香肠 · Sausage.009",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sausage_009.glb",
+      "position": [
+        -2.00000006,
+        0,
+        -7.99999978
+      ],
+      "scaling": [
+        8.08724964,
+        8.08724964,
+        8.08724964
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-23",
+      "name": "肋排堆 · Ribs.001",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Ribs_001.glb",
+      "position": [
+        1.99999978,
+        0,
+        -8
+      ],
+      "scaling": [
+        2.88954006,
+        2.88954006,
+        2.88954006
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-24",
+      "name": "肉块二 · Meat_2.001",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Meat_2_001.glb",
+      "position": [
+        6.00000031,
+        -1.2e-7,
+        -8.00000009
+      ],
+      "scaling": [
+        8.31690698,
+        8.31690698,
+        8.31690698
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-25",
+      "name": "草药一束",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/LooseHerb.glb",
+      "position": [
+        -6.00000016,
+        5e-8,
+        -12
+      ],
+      "scaling": [
+        7.10104146,
+        7.10104146,
+        7.10104146
+      ]
+    }
+  ]
+}

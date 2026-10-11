@@ -1,3 +1,4 @@
+import { parseModelMaterialBindings } from '../material/modelMaterialBindings.ts';
 import type {
   ModelSceneInstance,
   ModelScenePreset,
@@ -27,6 +28,7 @@ export const sanitizeModelSceneInstance = (raw: unknown, fallbackId: string): Mo
     id,
     name: typeof value.name === 'string' && value.name.trim() ? value.name.trim() : id,
     modelPath,
+    materialOverrides: parseModelMaterialBindings(value.materialOverrides),
     transform: {
       position: finiteTuple(transform.position, [0, 0, 0]),
       rotationDeg: finiteTuple(transform.rotationDeg, [0, 0, 0]),

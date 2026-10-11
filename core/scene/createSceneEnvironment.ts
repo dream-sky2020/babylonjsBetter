@@ -257,6 +257,8 @@ export const createSceneEnvironmentAsync = async (
         parent: runtime.instance.root,
         name: `${preset.presetKey}:${definition.id}`,
         transparencyPolicy: definition.transparencyPolicy,
+        materialOverrides: definition.materialOverrides,
+        signal: options.signal,
         deformation: { id: `scene:${preset.presetKey}:model:${definition.id}`, groupId: 'scene-models', label: definition.id, tags: [preset.presetKey] },
       });
       if (options.signal?.aborted || scene.isDisposed) { entity.dispose(); throw new Error('场景加载已取消'); }

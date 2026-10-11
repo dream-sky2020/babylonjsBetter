@@ -1,0 +1,1018 @@
+{
+  "presetKey": "artist-loafbrr-showcase-rocks",
+  "name": "Loafbrr · Rocks · 22模型 · 模型 0.29 MiB + 贴图 0.26 MiB · 合计 0.55 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-rocks-0",
+      "name": "Rocks",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 21
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-596a8be890386416-stand",
+      "name": "Rock_1展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1e59e18b1816f4ba-stand",
+      "name": "Rock_2展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b16d2c0294787347-stand",
+      "name": "Rock_3展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2bbc8765c9247449-stand",
+      "name": "Rock_4展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2ceb60ab96f2ade1-stand",
+      "name": "Rock_5展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-48ec9190f053089b-stand",
+      "name": "Rock_6展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-275698fffa62684d-stand",
+      "name": "Rock_7展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-42434ae99e29ec61-stand",
+      "name": "Rock_8展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cb02004c6dee8771-stand",
+      "name": "Rock_Big_1展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f326b8a256a08f23-stand",
+      "name": "Rock_Big_2展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8ace27b0db9f779c-stand",
+      "name": "Rock_Big_3展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c1c1b84ed31ee669-stand",
+      "name": "Rock_Big_4展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e55453dea8b9d9f0-stand",
+      "name": "Rock_Set_1展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-306b6eaf2d3fd7c8-stand",
+      "name": "Rock_Set_10展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6066e136f0d9927c-stand",
+      "name": "Rock_Set_2展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2d5f81e0a7c61619-stand",
+      "name": "Rock_Set_3展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-16fc19e18b5d2ddc-stand",
+      "name": "Rock_Set_4展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-58ed62b456555acb-stand",
+      "name": "Rock_Set_5展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-936ef128300539cd-stand",
+      "name": "Rock_Set_6展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9d136424b91aaca6-stand",
+      "name": "Rock_Set_7展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-269d389cc6f36873-stand",
+      "name": "Rock_Set_8展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-920db69c4aac65c3-stand",
+      "name": "Rock_Set_9展台",
+      "parentId": "transform:category-rocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-596a8be890386416",
+      "name": "Rocks · Rock_1 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_1.glb",
+      "position": [
+        -22.00000015,
+        0,
+        7.99999934
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.45811847,
+        2.45811847,
+        2.45811847
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1e59e18b1816f4ba",
+      "name": "Rocks · Rock_2 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_2.glb",
+      "position": [
+        -17.9999995,
+        0,
+        8.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.1020399,
+        2.1020399,
+        2.1020399
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b16d2c0294787347",
+      "name": "Rocks · Rock_3 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_3.glb",
+      "position": [
+        -14.00000018,
+        0,
+        7.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.96607836,
+        2.96607836,
+        2.96607836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2bbc8765c9247449",
+      "name": "Rocks · Rock_4 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_4.glb",
+      "position": [
+        -10,
+        0,
+        8.0000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.23113621,
+        2.23113621,
+        2.23113621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2ceb60ab96f2ade1",
+      "name": "Rocks · Rock_5 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_5.glb",
+      "position": [
+        -6,
+        0,
+        7.99999925
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9336573,
+        1.9336573,
+        1.9336573
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-48ec9190f053089b",
+      "name": "Rocks · Rock_6 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_6.glb",
+      "position": [
+        -1.99999986,
+        0,
+        7.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.34191284,
+        2.34191284,
+        2.34191284
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-275698fffa62684d",
+      "name": "Rocks · Rock_7 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_7.glb",
+      "position": [
+        -22,
+        0,
+        3.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.97900438,
+        1.97900438,
+        1.97900438
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-42434ae99e29ec61",
+      "name": "Rocks · Rock_8 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_8.glb",
+      "position": [
+        -18.00000032,
+        0,
+        3.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.41530715,
+        2.41530715,
+        2.41530715
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb02004c6dee8771",
+      "name": "Rocks · Rock_Big_1 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Big_1.glb",
+      "position": [
+        -14,
+        0,
+        4.00000037
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69892821,
+        0.69892821,
+        0.69892821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f326b8a256a08f23",
+      "name": "Rocks · Rock_Big_2 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Big_2.glb",
+      "position": [
+        -10,
+        0,
+        3.99999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49326312,
+        0.49326312,
+        0.49326312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8ace27b0db9f779c",
+      "name": "Rocks · Rock_Big_3 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Big_3.glb",
+      "position": [
+        -5.99999995,
+        0,
+        3.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44101617,
+        0.44101617,
+        0.44101617
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c1c1b84ed31ee669",
+      "name": "Rocks · Rock_Big_4 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Big_4.glb",
+      "position": [
+        -1.99999995,
+        0,
+        3.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4090127,
+        0.4090127,
+        0.4090127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e55453dea8b9d9f0",
+      "name": "Rocks · Rock_Set_1 · 模型 0.02 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_1.glb",
+      "position": [
+        -21.99999963,
+        0,
+        4.5e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.94253137,
+        0.94253137,
+        0.94253137
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-306b6eaf2d3fd7c8",
+      "name": "Rocks · Rock_Set_10 · 模型 0.02 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_10.glb",
+      "position": [
+        -18.00000005,
+        0,
+        -1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41222436,
+        0.41222436,
+        0.41222436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6066e136f0d9927c",
+      "name": "Rocks · Rock_Set_2 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_2.glb",
+      "position": [
+        -13.99999966,
+        0,
+        4.3e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80432201,
+        0.80432201,
+        0.80432201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2d5f81e0a7c61619",
+      "name": "Rocks · Rock_Set_3 · 模型 0.02 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_3.glb",
+      "position": [
+        -10.00000082,
+        0,
+        -7e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.19536276,
+        1.19536276,
+        1.19536276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-16fc19e18b5d2ddc",
+      "name": "Rocks · Rock_Set_4 · 模型 0.03 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_4.glb",
+      "position": [
+        -5.9999999,
+        0,
+        -3.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43861383,
+        0.43861383,
+        0.43861383
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-58ed62b456555acb",
+      "name": "Rocks · Rock_Set_5 · 模型 0.02 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_5.glb",
+      "position": [
+        -2.00000022,
+        0,
+        -3.2e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45134244,
+        0.45134244,
+        0.45134244
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-936ef128300539cd",
+      "name": "Rocks · Rock_Set_6 · 模型 0.02 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_6.glb",
+      "position": [
+        -18.0000002,
+        0,
+        -3.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57250613,
+        0.57250613,
+        0.57250613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9d136424b91aaca6",
+      "name": "Rocks · Rock_Set_7 · 模型 0.02 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_7.glb",
+      "position": [
+        -13.9999999,
+        0,
+        -4.00000039
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40768409,
+        0.40768409,
+        0.40768409
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-269d389cc6f36873",
+      "name": "Rocks · Rock_Set_8 · 模型 0.03 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_8.glb",
+      "position": [
+        -10,
+        0,
+        -3.99999952
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3386628,
+        0.3386628,
+        0.3386628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-920db69c4aac65c3",
+      "name": "Rocks · Rock_Set_9 · 模型 0.03 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-rocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rocks/Rock_Set_9.glb",
+      "position": [
+        -6,
+        0,
+        -4.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31992899,
+        0.31992899,
+        0.31992899
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

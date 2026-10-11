@@ -1,0 +1,3823 @@
+{
+  "presetKey": "artist-loafbrr-showcase-canyon",
+  "name": "Loafbrr · Canyon · 87模型 · 模型 0.76 MiB + 贴图 0.99 MiB · 合计 1.75 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-canyon-0",
+      "name": "Canyon 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-canyon-1",
+      "name": "Canyon 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 45
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-5c97842a0241feb5-stand",
+      "name": "Cactus_Flat_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-05340bc0198de046-stand",
+      "name": "Cactus_Flat_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-781bc802831a5696-stand",
+      "name": "Cactus_Flat_3展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a5b87dac81abbd10-stand",
+      "name": "Cactus_Small_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6f5e47e1227fc4a3-stand",
+      "name": "Cactus_Small_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-142d769e938b5fbb-stand",
+      "name": "Cactus_Small_3展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1f7cc725fe9bc4d9-stand",
+      "name": "Cactus_Small_4展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-181149679db5f536-stand",
+      "name": "Cactus_Small_5展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-60cc03a32be63291-stand",
+      "name": "Cactus_Tall_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c9f4eb4f189bbb5d-stand",
+      "name": "Cactus_Tall_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1bbac7f1ad722de9-stand",
+      "name": "Cactus_Tall_3展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1e89f945060786fc-stand",
+      "name": "Cactus_Tall_4展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2150f92305885bbb-stand",
+      "name": "Cactus_Tall_5展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2b71ecfbe8971fd6-stand",
+      "name": "Grass_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f2b60d1cf75fcdf3-stand",
+      "name": "Grass_10展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8a3170ceadbc8715-stand",
+      "name": "Grass_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f2a598dd3a2c795c-stand",
+      "name": "Grass_3展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f02c876bf8d6f660-stand",
+      "name": "Grass_4展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-38c6dbede450a163-stand",
+      "name": "Grass_5展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cb5bd222aefa5e18-stand",
+      "name": "Grass_6展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4f44c422f1c5dec4-stand",
+      "name": "Grass_7展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ce77f5cd24aff32c-stand",
+      "name": "Grass_8展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e18789ec99bd7db9-stand",
+      "name": "Grass_9展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a297927f45b1e661-stand",
+      "name": "Leafs_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-13dda953ae90b915-stand",
+      "name": "Leafs_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8912f84e69e3958e-stand",
+      "name": "Rock_Boulders_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8d6aba10d71784b6-stand",
+      "name": "Rock_Boulders_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7202d632d5e9a601-stand",
+      "name": "Rock_Boulders_3展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e013a5f4edb00cfe-stand",
+      "name": "Rock_Boulders_4展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-900fe840141c76ae-stand",
+      "name": "Rock_Boulders_5展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d20e70bbd5f719bb-stand",
+      "name": "Rock_Boulders_6展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6095a23b51bc546a-stand",
+      "name": "Rock_Formations_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1f90bf2e28a6d01f-stand",
+      "name": "Rock_Formations_10展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9b38a2f2116c87f0-stand",
+      "name": "Rock_Formations_11展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d1b53b423e5831f6-stand",
+      "name": "Rock_Formations_12展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8970edb2e2c70522-stand",
+      "name": "Rock_Formations_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74dac77ff68704d3-stand",
+      "name": "Rock_Formations_3展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-13cc7b3445298b6b-stand",
+      "name": "Rock_Formations_4展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c32f36933c41e3b1-stand",
+      "name": "Rock_Formations_5展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-55958fc59433062b-stand",
+      "name": "Rock_Formations_6展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-139de25ab1ff9612-stand",
+      "name": "Rock_Formations_7展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b661af41c0be090e-stand",
+      "name": "Rock_Formations_8展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-af3f837b1d1b70c5-stand",
+      "name": "Rock_Formations_9展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-22ddd23f743f20b9-stand",
+      "name": "Rock_Platforms_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7e89e25ba406c9d9-stand",
+      "name": "Rock_Platforms_10展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f79b0d823e7b7983-stand",
+      "name": "Rock_Platforms_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-27773a92df85f73b-stand",
+      "name": "Rock_Platforms_3展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-df892466cdf8c371-stand",
+      "name": "Rock_Platforms_4展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aab05dacfddd8cda-stand",
+      "name": "Rock_Platforms_5展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d4c6a7915e639f4e-stand",
+      "name": "Rock_Platforms_6展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-13b2099181b01083-stand",
+      "name": "Rock_Platforms_7展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0d64ad8ad4e1d9d9-stand",
+      "name": "Rock_Platforms_8展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0c7fec19673f94b0-stand",
+      "name": "Rock_Platforms_9展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6ddf569c628a23af-stand",
+      "name": "Sticks_1展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1562098b854394c5-stand",
+      "name": "Sticks_2展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c71ece94811da61a-stand",
+      "name": "Sticks_3展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1c4eabc15bfcfdfe-stand",
+      "name": "Sticks_4展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9666654dd415518b-stand",
+      "name": "Sticks_5展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-02de44c0145793aa-stand",
+      "name": "Sticks_6展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-599850d80745e73a-stand",
+      "name": "Tile_Ground展台",
+      "parentId": "transform:category-canyon-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4e995b91c0c51e89-stand",
+      "name": "Tile_Ground_Ramp_1展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-978a7a4044692970-stand",
+      "name": "Tile_Ground_Ramp_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-57c5c75f4b7607fd-stand",
+      "name": "Tile_Ground_Ramp_3展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-343df92d02e9e018-stand",
+      "name": "Tile_Ground_Ramp_4展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7ec05659141bf845-stand",
+      "name": "Tile_Wall_Corner_1展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c23aab507b64b413-stand",
+      "name": "Tile_Wall_Corner_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c4fd1be08766e0d5-stand",
+      "name": "Tile_Wall_Corner_3展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f0d5bf1caf64086c-stand",
+      "name": "Tile_Wall_Corner_4展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-18fca26b03aea6df-stand",
+      "name": "Tile_Wall_Ledge展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-31d08e76a8e8ef97-stand",
+      "name": "Tile_Wall_Ledge_Corner展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7f3e54eef6743c56-stand",
+      "name": "Tile_Wall_Ledges展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-739fdba0768fd706-stand",
+      "name": "Tile_Wall_Ramp_1展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c81024516796095a-stand",
+      "name": "Tile_Wall_Ramp_1_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-914cd755dd47fc80-stand",
+      "name": "Tile_Wall_Ramp_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-981c8106c08aa017-stand",
+      "name": "Tile_Wall_Ramp_2_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3df857b334229283-stand",
+      "name": "Tile_Wall_Ramp_3展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-63cf7b6bd3682285-stand",
+      "name": "Tile_Wall_Ramp_3_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4e9747a247d5fa89-stand",
+      "name": "Tile_Wall_Ramp_4展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-12324d3f17f09087-stand",
+      "name": "Tile_Wall_Ramp_4_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-eefba44aa8934901-stand",
+      "name": "Tile_Wall_Side_1展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-94c2c0c002d09163-stand",
+      "name": "Tile_Wall_Side_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-07b85acf60cd0ba5-stand",
+      "name": "Tile_Wall_Side_3展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-91cedcd66f411ec2-stand",
+      "name": "Tile_Wall_Side_4展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-eb87c51f25411a03-stand",
+      "name": "Tree_1展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5600323e21eebdcc-stand",
+      "name": "Tree_2展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-697ede2960b1a79e-stand",
+      "name": "Tree_3展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-903671a98844d206-stand",
+      "name": "Tree_4展台",
+      "parentId": "transform:category-canyon-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-5c97842a0241feb5",
+      "name": "Canyon · Cactus_Flat_1 · 模型 0.03 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Flat_1.glb",
+      "position": [
+        -21.99999996,
+        0,
+        20.00000049
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.64015006,
+        2.64015006,
+        2.64015006
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-05340bc0198de046",
+      "name": "Canyon · Cactus_Flat_2 · 模型 0.03 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Flat_2.glb",
+      "position": [
+        -18.00000007,
+        0,
+        19.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6659669,
+        1.6659669,
+        1.6659669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-781bc802831a5696",
+      "name": "Canyon · Cactus_Flat_3 · 模型 0.02 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Flat_3.glb",
+      "position": [
+        -13.99999991,
+        0,
+        19.99999933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97652037,
+        2.97652037,
+        2.97652037
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a5b87dac81abbd10",
+      "name": "Canyon · Cactus_Small_1 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Small_1.glb",
+      "position": [
+        -9.99999987,
+        0,
+        19.99999904
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.28257748,
+        4.28257748,
+        4.28257748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6f5e47e1227fc4a3",
+      "name": "Canyon · Cactus_Small_2 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Small_2.glb",
+      "position": [
+        -6,
+        0,
+        19.99999917
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.84575697,
+        4.84575697,
+        4.84575697
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-142d769e938b5fbb",
+      "name": "Canyon · Cactus_Small_3 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Small_3.glb",
+      "position": [
+        -1.99999994,
+        0,
+        19.99999928
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.73408896,
+        3.73408896,
+        3.73408896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1f7cc725fe9bc4d9",
+      "name": "Canyon · Cactus_Small_4 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Small_4.glb",
+      "position": [
+        -22,
+        0,
+        15.99999904
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.28796894,
+        4.28796894,
+        4.28796894
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-181149679db5f536",
+      "name": "Canyon · Cactus_Small_5 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Small_5.glb",
+      "position": [
+        -18,
+        0,
+        15.99999908
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.11307391,
+        4.11307391,
+        4.11307391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-60cc03a32be63291",
+      "name": "Canyon · Cactus_Tall_1 · 模型 0.05 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Tall_1.glb",
+      "position": [
+        -14.00000015,
+        0,
+        15.99999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27804474,
+        1.27804474,
+        1.27804474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c9f4eb4f189bbb5d",
+      "name": "Canyon · Cactus_Tall_2 · 模型 0.03 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Tall_2.glb",
+      "position": [
+        -10.00000001,
+        0,
+        15.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27804418,
+        1.27804418,
+        1.27804418
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1bbac7f1ad722de9",
+      "name": "Canyon · Cactus_Tall_3 · 模型 0.04 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Tall_3.glb",
+      "position": [
+        -5.99999996,
+        0,
+        16.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20602458,
+        1.20602458,
+        1.20602458
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1e89f945060786fc",
+      "name": "Canyon · Cactus_Tall_4 · 模型 0.03 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Tall_4.glb",
+      "position": [
+        -1.99999999,
+        0,
+        15.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27804474,
+        1.27804474,
+        1.27804474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2150f92305885bbb",
+      "name": "Canyon · Cactus_Tall_5 · 模型 0.05 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Cactus_Tall_5.glb",
+      "position": [
+        -22,
+        0,
+        11.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27804474,
+        1.27804474,
+        1.27804474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2b71ecfbe8971fd6",
+      "name": "Canyon · Grass_1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_1.glb",
+      "position": [
+        -18.00000014,
+        0,
+        12.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.59303562,
+        2.59303562,
+        2.59303562
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f2b60d1cf75fcdf3",
+      "name": "Canyon · Grass_10 · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_10.glb",
+      "position": [
+        -14,
+        0,
+        11.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.47546603,
+        2.47546603,
+        2.47546603
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8a3170ceadbc8715",
+      "name": "Canyon · Grass_2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_2.glb",
+      "position": [
+        -10.00000008,
+        0,
+        11.99999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.59303562,
+        2.59303562,
+        2.59303562
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f2a598dd3a2c795c",
+      "name": "Canyon · Grass_3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_3.glb",
+      "position": [
+        -6.00000017,
+        0,
+        12.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.59303562,
+        2.59303562,
+        2.59303562
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f02c876bf8d6f660",
+      "name": "Canyon · Grass_4 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_4.glb",
+      "position": [
+        -1.99999976,
+        0,
+        12.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.59303562,
+        2.59303562,
+        2.59303562
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-38c6dbede450a163",
+      "name": "Canyon · Grass_5 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_5.glb",
+      "position": [
+        -21.99999981,
+        0,
+        7.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.59303562,
+        2.59303562,
+        2.59303562
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb5bd222aefa5e18",
+      "name": "Canyon · Grass_6 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_6.glb",
+      "position": [
+        -17.99999992,
+        0,
+        7.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.59303562,
+        2.59303562,
+        2.59303562
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4f44c422f1c5dec4",
+      "name": "Canyon · Grass_7 · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_7.glb",
+      "position": [
+        -13.99999998,
+        0,
+        7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.59198659,
+        2.59198659,
+        2.59198659
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ce77f5cd24aff32c",
+      "name": "Canyon · Grass_8 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_8.glb",
+      "position": [
+        -9.99999994,
+        0,
+        8.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.51352511,
+        2.51352511,
+        2.51352511
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e18789ec99bd7db9",
+      "name": "Canyon · Grass_9 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Grass_9.glb",
+      "position": [
+        -5.9999999,
+        0,
+        8.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.58288361,
+        2.58288361,
+        2.58288361
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a297927f45b1e661",
+      "name": "Canyon · Leafs_1 · 模型 0.02 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Leafs_1.glb",
+      "position": [
+        -2,
+        0,
+        8.00000057
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.38810313,
+        2.38810313,
+        2.38810313
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-13dda953ae90b915",
+      "name": "Canyon · Leafs_2 · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Leafs_2.glb",
+      "position": [
+        -22,
+        0,
+        3.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.08755157,
+        3.08755157,
+        3.08755157
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8912f84e69e3958e",
+      "name": "Canyon · Rock_Boulders_1 · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Boulders_1.glb",
+      "position": [
+        -17.99999993,
+        0,
+        3.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1536782,
+        1.1536782,
+        1.1536782
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8d6aba10d71784b6",
+      "name": "Canyon · Rock_Boulders_2 · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Boulders_2.glb",
+      "position": [
+        -14,
+        0,
+        3.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64119485,
+        0.64119485,
+        0.64119485
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7202d632d5e9a601",
+      "name": "Canyon · Rock_Boulders_3 · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Boulders_3.glb",
+      "position": [
+        -10,
+        0,
+        3.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64114987,
+        0.64114987,
+        0.64114987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e013a5f4edb00cfe",
+      "name": "Canyon · Rock_Boulders_4 · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Boulders_4.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67807436,
+        0.67807436,
+        0.67807436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-900fe840141c76ae",
+      "name": "Canyon · Rock_Boulders_5 · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Boulders_5.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11533402,
+        1.11533402,
+        1.11533402
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d20e70bbd5f719bb",
+      "name": "Canyon · Rock_Boulders_6 · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Boulders_6.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.41686185,
+        1.41686185,
+        1.41686185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6095a23b51bc546a",
+      "name": "Canyon · Rock_Formations_1 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_1.glb",
+      "position": [
+        -17.99999995,
+        5e-8,
+        -5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44670175,
+        0.44670175,
+        0.44670175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1f90bf2e28a6d01f",
+      "name": "Canyon · Rock_Formations_10 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_10.glb",
+      "position": [
+        -14.00000031,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32948004,
+        0.32948004,
+        0.32948004
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b38a2f2116c87f0",
+      "name": "Canyon · Rock_Formations_11 · 模型 0.02 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_11.glb",
+      "position": [
+        -10,
+        0,
+        -5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12605194,
+        0.12605194,
+        0.12605194
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d1b53b423e5831f6",
+      "name": "Canyon · Rock_Formations_12 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_12.glb",
+      "position": [
+        -6.00000011,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23289612,
+        0.23289612,
+        0.23289612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8970edb2e2c70522",
+      "name": "Canyon · Rock_Formations_2 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_2.glb",
+      "position": [
+        -1.99999986,
+        0,
+        1.4e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58458427,
+        0.58458427,
+        0.58458427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74dac77ff68704d3",
+      "name": "Canyon · Rock_Formations_3 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_3.glb",
+      "position": [
+        -22.00000015,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20782576,
+        0.20782576,
+        0.20782576
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-13cc7b3445298b6b",
+      "name": "Canyon · Rock_Formations_4 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_4.glb",
+      "position": [
+        -17.99999988,
+        0,
+        -4.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24316546,
+        0.24316546,
+        0.24316546
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c32f36933c41e3b1",
+      "name": "Canyon · Rock_Formations_5 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_5.glb",
+      "position": [
+        -14,
+        0,
+        -3.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14241561,
+        0.14241561,
+        0.14241561
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-55958fc59433062b",
+      "name": "Canyon · Rock_Formations_6 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_6.glb",
+      "position": [
+        -9.99999991,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20879042,
+        0.20879042,
+        0.20879042
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-139de25ab1ff9612",
+      "name": "Canyon · Rock_Formations_7 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_7.glb",
+      "position": [
+        -5.9999997,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18054561,
+        0.18054561,
+        0.18054561
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b661af41c0be090e",
+      "name": "Canyon · Rock_Formations_8 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_8.glb",
+      "position": [
+        -2.00000019,
+        0,
+        -4.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31156515,
+        0.31156515,
+        0.31156515
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-af3f837b1d1b70c5",
+      "name": "Canyon · Rock_Formations_9 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Formations_9.glb",
+      "position": [
+        -21.99999971,
+        0,
+        -8.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30735289,
+        0.30735289,
+        0.30735289
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-22ddd23f743f20b9",
+      "name": "Canyon · Rock_Platforms_1 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_1.glb",
+      "position": [
+        -18.00000007,
+        0,
+        -7.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.61077248,
+        0.61077248,
+        0.61077248
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7e89e25ba406c9d9",
+      "name": "Canyon · Rock_Platforms_10 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_10.glb",
+      "position": [
+        -14.00000007,
+        0,
+        -8.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14878683,
+        0.14878683,
+        0.14878683
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f79b0d823e7b7983",
+      "name": "Canyon · Rock_Platforms_2 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_2.glb",
+      "position": [
+        -9.99999994,
+        0,
+        -8.00000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46667709,
+        0.46667709,
+        0.46667709
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-27773a92df85f73b",
+      "name": "Canyon · Rock_Platforms_3 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_3.glb",
+      "position": [
+        -6.00000006,
+        0,
+        -8.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25632999,
+        0.25632999,
+        0.25632999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-df892466cdf8c371",
+      "name": "Canyon · Rock_Platforms_4 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_4.glb",
+      "position": [
+        -2.00000006,
+        0,
+        -7.99999968
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53813619,
+        0.53813619,
+        0.53813619
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aab05dacfddd8cda",
+      "name": "Canyon · Rock_Platforms_5 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_5.glb",
+      "position": [
+        -22,
+        0,
+        -11.99999958
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2326274,
+        0.2326274,
+        0.2326274
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d4c6a7915e639f4e",
+      "name": "Canyon · Rock_Platforms_6 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_6.glb",
+      "position": [
+        -18.00000006,
+        0,
+        -11.99999955
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49979076,
+        0.49979076,
+        0.49979076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-13b2099181b01083",
+      "name": "Canyon · Rock_Platforms_7 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_7.glb",
+      "position": [
+        -14,
+        0,
+        -11.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13293033,
+        0.13293033,
+        0.13293033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0d64ad8ad4e1d9d9",
+      "name": "Canyon · Rock_Platforms_8 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_8.glb",
+      "position": [
+        -9.99999993,
+        0,
+        -11.99999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1375266,
+        0.1375266,
+        0.1375266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0c7fec19673f94b0",
+      "name": "Canyon · Rock_Platforms_9 · 模型 0.01 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Rock_Platforms_9.glb",
+      "position": [
+        -6.00000006,
+        0,
+        -11.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12971551,
+        0.12971551,
+        0.12971551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6ddf569c628a23af",
+      "name": "Canyon · Sticks_1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Sticks_1.glb",
+      "position": [
+        -2.0000002,
+        0,
+        -12.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.64023153,
+        2.64023153,
+        2.64023153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1562098b854394c5",
+      "name": "Canyon · Sticks_2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Sticks_2.glb",
+      "position": [
+        -21.99999978,
+        0,
+        -15.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.41431582,
+        2.41431582,
+        2.41431582
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c71ece94811da61a",
+      "name": "Canyon · Sticks_3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Sticks_3.glb",
+      "position": [
+        -17.99999978,
+        0,
+        -15.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.41431582,
+        2.41431582,
+        2.41431582
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1c4eabc15bfcfdfe",
+      "name": "Canyon · Sticks_4 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Sticks_4.glb",
+      "position": [
+        -13.99999984,
+        0,
+        -16.00000047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.64023153,
+        2.64023153,
+        2.64023153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9666654dd415518b",
+      "name": "Canyon · Sticks_5 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Sticks_5.glb",
+      "position": [
+        -9.99999984,
+        0,
+        -16.00000047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.64023153,
+        2.64023153,
+        2.64023153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-02de44c0145793aa",
+      "name": "Canyon · Sticks_6 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Sticks_6.glb",
+      "position": [
+        -5.99999988,
+        0,
+        -16.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.64023153,
+        2.64023153,
+        2.64023153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-599850d80745e73a",
+      "name": "Canyon · Tile_Ground · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Ground.glb",
+      "position": [
+        -2,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e995b91c0c51e89",
+      "name": "Canyon · Tile_Ground_Ramp_1 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Ground_Ramp_1.glb",
+      "position": [
+        2,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-978a7a4044692970",
+      "name": "Canyon · Tile_Ground_Ramp_2 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Ground_Ramp_2.glb",
+      "position": [
+        6,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-57c5c75f4b7607fd",
+      "name": "Canyon · Tile_Ground_Ramp_3 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Ground_Ramp_3.glb",
+      "position": [
+        10,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-343df92d02e9e018",
+      "name": "Canyon · Tile_Ground_Ramp_4 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Ground_Ramp_4.glb",
+      "position": [
+        14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7ec05659141bf845",
+      "name": "Canyon · Tile_Wall_Corner_1 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Corner_1.glb",
+      "position": [
+        18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c23aab507b64b413",
+      "name": "Canyon · Tile_Wall_Corner_2 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Corner_2.glb",
+      "position": [
+        22,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c4fd1be08766e0d5",
+      "name": "Canyon · Tile_Wall_Corner_3 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Corner_3.glb",
+      "position": [
+        2,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f0d5bf1caf64086c",
+      "name": "Canyon · Tile_Wall_Corner_4 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Corner_4.glb",
+      "position": [
+        6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-18fca26b03aea6df",
+      "name": "Canyon · Tile_Wall_Ledge · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ledge.glb",
+      "position": [
+        10,
+        0,
+        16.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-31d08e76a8e8ef97",
+      "name": "Canyon · Tile_Wall_Ledge_Corner · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ledge_Corner.glb",
+      "position": [
+        13.99999973,
+        0,
+        16.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66268192,
+        0.66268192,
+        0.66268192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7f3e54eef6743c56",
+      "name": "Canyon · Tile_Wall_Ledges · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ledges.glb",
+      "position": [
+        18,
+        6e-8,
+        15.99999968
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-739fdba0768fd706",
+      "name": "Canyon · Tile_Wall_Ramp_1 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ramp_1.glb",
+      "position": [
+        22,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c81024516796095a",
+      "name": "Canyon · Tile_Wall_Ramp_1_2 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ramp_1_2.glb",
+      "position": [
+        2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-914cd755dd47fc80",
+      "name": "Canyon · Tile_Wall_Ramp_2 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ramp_2.glb",
+      "position": [
+        6,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-981c8106c08aa017",
+      "name": "Canyon · Tile_Wall_Ramp_2_2 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ramp_2_2.glb",
+      "position": [
+        10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3df857b334229283",
+      "name": "Canyon · Tile_Wall_Ramp_3 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ramp_3.glb",
+      "position": [
+        14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-63cf7b6bd3682285",
+      "name": "Canyon · Tile_Wall_Ramp_3_2 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ramp_3_2.glb",
+      "position": [
+        18,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e9747a247d5fa89",
+      "name": "Canyon · Tile_Wall_Ramp_4 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ramp_4.glb",
+      "position": [
+        22,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-12324d3f17f09087",
+      "name": "Canyon · Tile_Wall_Ramp_4_2 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Ramp_4_2.glb",
+      "position": [
+        2,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eefba44aa8934901",
+      "name": "Canyon · Tile_Wall_Side_1 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Side_1.glb",
+      "position": [
+        6,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-94c2c0c002d09163",
+      "name": "Canyon · Tile_Wall_Side_2 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Side_2.glb",
+      "position": [
+        10,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-07b85acf60cd0ba5",
+      "name": "Canyon · Tile_Wall_Side_3 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Side_3.glb",
+      "position": [
+        14,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-91cedcd66f411ec2",
+      "name": "Canyon · Tile_Wall_Side_4 · 模型 0.00 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tile_Wall_Side_4.glb",
+      "position": [
+        18,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eb87c51f25411a03",
+      "name": "Canyon · Tree_1 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tree_1.glb",
+      "position": [
+        22,
+        0,
+        8.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89633264,
+        0.89633264,
+        0.89633264
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5600323e21eebdcc",
+      "name": "Canyon · Tree_2 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tree_2.glb",
+      "position": [
+        8,
+        0,
+        4.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81763505,
+        0.81763505,
+        0.81763505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-697ede2960b1a79e",
+      "name": "Canyon · Tree_3 · 模型 0.02 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tree_3.glb",
+      "position": [
+        12.00000005,
+        0,
+        4.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83803291,
+        0.83803291,
+        0.83803291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-903671a98844d206",
+      "name": "Canyon · Tree_4 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-canyon-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Canyon/Tree_4.glb",
+      "position": [
+        16,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7634959,
+        0.7634959,
+        0.7634959
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

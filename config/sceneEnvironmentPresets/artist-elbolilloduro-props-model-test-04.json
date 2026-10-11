@@ -1,0 +1,7822 @@
+{
+  "presetKey": "artist-elbolilloduro-props-model-test-04",
+  "name": "Elbolilloduro · 家具与生活道具 4/11（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-all",
+      "name": "All",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-archivelegacy",
+      "name": "ArchiveLegacy",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 93
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-edb184d6c14f90e5-stand",
+      "name": "toothpaste_06展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0ba2e77ccf002153-stand",
+      "name": "Trash_can展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-36f3e34ea7dae53f-stand",
+      "name": "Trash_can_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e960dd7ea3ced9db-stand",
+      "name": "Turnip展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2f73d16da5961c88-stand",
+      "name": "Turnip_001展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9a2a11b86efdf4a3-stand",
+      "name": "TV展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fb89a5471fbebc5c-stand",
+      "name": "TV_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f8ec35b10d67b7cd-stand",
+      "name": "TV_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a36f25571fc255e7-stand",
+      "name": "TV_03展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-770a712f40d61e89-stand",
+      "name": "TV_04展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7ce23257c28d620f-stand",
+      "name": "Vaso展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dc0c582480084428-stand",
+      "name": "Vaso_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8205f8a7273e29ab-stand",
+      "name": "Vaso_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-84eb8fdb6aedd224-stand",
+      "name": "Video_player展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bf1ecd26b8d37d8e-stand",
+      "name": "Video_player_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c5d3ff71aa8e3c7-stand",
+      "name": "Video_player_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-71ad3847a7b0e71e-stand",
+      "name": "Waffle展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d32f970fd747d35d-stand",
+      "name": "Washbasin_door_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-76545cd6a13f2574-stand",
+      "name": "Washbasin_door_03展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5fcfece9580ec18e-stand",
+      "name": "Washbasin_drawer展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-55899de6b21f595c-stand",
+      "name": "Washbasin_drawer_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a5127311b5b2b8e2-stand",
+      "name": "Washing_machine展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e691475c255a40c3-stand",
+      "name": "Washing_machine_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-27021852c0170cf7-stand",
+      "name": "Washing_machine_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a479a0e4551dd4ee-stand",
+      "name": "Washing_machine_03展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3eafc6d96ca88e79-stand",
+      "name": "Washing_machine_d展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-16151f684229bedc-stand",
+      "name": "Washing_machine_d_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d8d5b1065282ac14-stand",
+      "name": "Washing_machine_d_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-932f1422577588b8-stand",
+      "name": "Washing_machine_d_03展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-077d14a5648d6b51-stand",
+      "name": "Water展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a7d5fb4c84b95f1d-stand",
+      "name": "Water_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e237cba69c9afcf1-stand",
+      "name": "Water_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fe3e45c8e67c1607-stand",
+      "name": "Watering_can展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-716540f19b1a1c13-stand",
+      "name": "Watering_can_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a04c4cac3b9c1b7f-stand",
+      "name": "Watering_can_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e295baeae7db2515-stand",
+      "name": "Watering_can_03展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1caec517f5467d40-stand",
+      "name": "Watering_can_04展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f3a302f2e279ddf6-stand",
+      "name": "Watering_can_05展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5c8e37a2f41b38ca-stand",
+      "name": "Watering_can_06展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7cabbc9bb0818545-stand",
+      "name": "Watering_can_07展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ebf546d70d61e756-stand",
+      "name": "Watering_can_Manija展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2f3b97ae0f681c94-stand",
+      "name": "Watermelon展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ff110703980a84a1-stand",
+      "name": "Watermelon_01展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2a7310caaa495e64-stand",
+      "name": "Watermelon_02展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7d241b45b3eab09a-stand",
+      "name": "Yam展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-39ad7626e6dec30d-stand",
+      "name": "Yam_001展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b4629bd94c67748d-stand",
+      "name": "Yam_002展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1a50d07cfb19154f-stand",
+      "name": "Yam_003展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-237bf2363ecf8c2d-stand",
+      "name": "Zucchini展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-381d9593cee52797-stand",
+      "name": "Zucchini_001展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6da16615d55f60ce-stand",
+      "name": "Zucchini_002展台",
+      "parentId": "transform:category-all",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a3085bb41898d3b3-stand",
+      "name": "Almohada_001展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e3e38e72c14c891f-stand",
+      "name": "Ar展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f87503723c8c620a-stand",
+      "name": "Ar10展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-eecd77ebe3961256-stand",
+      "name": "Ar11展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8c721a378b90c6c1-stand",
+      "name": "Ar12展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1b8a8fad889208c8-stand",
+      "name": "Ar13展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-335e76beebf17c59-stand",
+      "name": "Ar14展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0a70931965deadb7-stand",
+      "name": "Ar15展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-75af2dab45ad05fc-stand",
+      "name": "Ar16展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-66617c579d2cf23a-stand",
+      "name": "Ar17展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-baa00861f7db020c-stand",
+      "name": "Ar18展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bbdff8efe6550a7c-stand",
+      "name": "Ar19展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d382efc4098166a5-stand",
+      "name": "Ar2展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-86328bfe3c64f2ee-stand",
+      "name": "Ar20展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-016e89b8c8d52207-stand",
+      "name": "Ar21展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-555e9d026ce1ebd8-stand",
+      "name": "Ar22展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7a1b76f19d92c811-stand",
+      "name": "Ar3展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ffec0a5a378940e3-stand",
+      "name": "Ar4展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9a96e63efca28144-stand",
+      "name": "Ar5展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b488029b99c42471-stand",
+      "name": "Ar6展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-383896da0fdea9ca-stand",
+      "name": "Ar7展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5e4ed880b90c6411-stand",
+      "name": "Ar8展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9ebea74a2abcc99c-stand",
+      "name": "Ar9展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ec0dbcbf18aa627f-stand",
+      "name": "Arbol展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-30000423849f62d8-stand",
+      "name": "Arbol10展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-87e60f9dde667e11-stand",
+      "name": "Arbol11展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b4dcfb2574f65101-stand",
+      "name": "Arbol12展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f23f0cf57d628f9d-stand",
+      "name": "Arbol13展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-53104ffb6386ea52-stand",
+      "name": "Arbol2展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f6ff73f1bfc3eab7-stand",
+      "name": "Arbol3展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7e67ffb7cf6587fe-stand",
+      "name": "Arbol4展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8e8bb476344694ec-stand",
+      "name": "Arbol5展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-41cce3a8a18f84ff-stand",
+      "name": "Arbol6展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5f288728b921cd04-stand",
+      "name": "Arbol7展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4956991f7fdb4baf-stand",
+      "name": "Arbol8展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4c9661371f7312ab-stand",
+      "name": "Arbol9展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-82bfa49fc0857c61-stand",
+      "name": "Auto展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-59272f669a47e740-stand",
+      "name": "Auto_002展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d466bcc232a3ce0f-stand",
+      "name": "B展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f0f01d80b7357408-stand",
+      "name": "B_001展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7def911d1bfa9c68-stand",
+      "name": "B_002展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7967af60a4b3090b-stand",
+      "name": "B_003展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a858e5794714c89a-stand",
+      "name": "B_004展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6162c1bb9bee41c7-stand",
+      "name": "B_005展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0977b56c6b8dc101-stand",
+      "name": "B1展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0a133d8a5c353a0b-stand",
+      "name": "B10展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8dae4a03faee94fe-stand",
+      "name": "B2展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c8b9110ed6e1744a-stand",
+      "name": "B3展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b85f43d2402c3219-stand",
+      "name": "B4展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f286790772130408-stand",
+      "name": "B5展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5c2bc3dc5f019c75-stand",
+      "name": "B6展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e6dc9276c5fe9314-stand",
+      "name": "B7展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d759fd01276211fc-stand",
+      "name": "B8展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d350122f9437d91a-stand",
+      "name": "B9展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3f777604dd434a98-stand",
+      "name": "Bano_001展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-28715eb81e23520e-stand",
+      "name": "Base_c展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-35b36b7da481fad6-stand",
+      "name": "Base_c_002展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5d990a840bbc7cae-stand",
+      "name": "bote_001展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a9b3dd6631f7d5eb-stand",
+      "name": "bote_002展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2922cdae8ac23e9d-stand",
+      "name": "Botella展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4272d13e3b3f8d21-stand",
+      "name": "C展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-510cef662329fcee-stand",
+      "name": "C_002展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-82cf30ed496e7b09-stand",
+      "name": "C_004展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1b41e28e4c615959-stand",
+      "name": "C_005展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-303120249732ef3f-stand",
+      "name": "C_006展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d10bf5ac62ce041b-stand",
+      "name": "C_007展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f37c1f6cff50cee4-stand",
+      "name": "C_008展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dea9653455fa4d29-stand",
+      "name": "C_009展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-699effacac8fa9f7-stand",
+      "name": "C_010展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cd18523d3ed058c8-stand",
+      "name": "C_011展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bc7b2d27f6103201-stand",
+      "name": "C_012展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9f44b9857fbd7d06-stand",
+      "name": "C_013展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c8f858ea9769ef2c-stand",
+      "name": "C_014展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-de988ea83ba9a8e6-stand",
+      "name": "C_015展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-efc1390ff9d3c8d4-stand",
+      "name": "C_016展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-846180ba7fdbb25c-stand",
+      "name": "C_017展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4f6d56086aeb9c93-stand",
+      "name": "C_018展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-602024c4826dd355-stand",
+      "name": "C_019展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-fa72cbc9725560bf-stand",
+      "name": "C_020展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1d1de97bd18afe3f-stand",
+      "name": "C_021展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cb3095076fe21229-stand",
+      "name": "C_022展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-12979227b15f565d-stand",
+      "name": "C_023展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-34842cbb09346f92-stand",
+      "name": "C_024展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-29bed1245324071c-stand",
+      "name": "C_025展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-416dcbef7c0f1c79-stand",
+      "name": "C_026展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4ec7de692c9c4cd5-stand",
+      "name": "C_027展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2b0ddfa5aa4f6ad9-stand",
+      "name": "C_028展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d569f0dd7aba42c7-stand",
+      "name": "C1展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5e00432b6a3ffd13-stand",
+      "name": "C2展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0ba68575c0d13c3c-stand",
+      "name": "C3展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3e119163d67bc7b4-stand",
+      "name": "C4展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b75d1ae495741a62-stand",
+      "name": "C5展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c3e2c0ceaced486d-stand",
+      "name": "Ca展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-386a9c03bd67b2c7-stand",
+      "name": "Carro_su_003展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a1000c477964383d-stand",
+      "name": "Casa展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9e66c0a6cbdeabcd-stand",
+      "name": "Casa_001展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-90a46d0f7f5627b9-stand",
+      "name": "Colchon展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-45b2c915e93dede7-stand",
+      "name": "Colchon_001展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e7b7f59d3860eec2-stand",
+      "name": "Cube_003展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4bd0907d5a3a10a6-stand",
+      "name": "Cube_004展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-589a210cd3968c36-stand",
+      "name": "Cube_005展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c42f59e8f647f437-stand",
+      "name": "Cube_006展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b80f6deefb429c6d-stand",
+      "name": "Cube_010展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-35d0f0b2b54013eb-stand",
+      "name": "Cube_013展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-766f7ac8f95810cf-stand",
+      "name": "Cube_014展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1ff0ee7e748fff98-stand",
+      "name": "Cube_015展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-43a1890578f6e573-stand",
+      "name": "Cube_017展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-96a68939a0a272fa-stand",
+      "name": "Cube_019展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0c708e9566e2e09c-stand",
+      "name": "Cube_020展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a0285451a0cd7305-stand",
+      "name": "Cube_021展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-070879f30955216d-stand",
+      "name": "Cube_023展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-73f07bc6e516721a-stand",
+      "name": "Cube_028展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cfa8b19cc5256eb0-stand",
+      "name": "Cube_029展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-26daafa0a7480efc-stand",
+      "name": "Cube_030展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-02bb4926aefaa3d0-stand",
+      "name": "Cube_032展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-44209f24b3b7d15e-stand",
+      "name": "Cube_033展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dec8aa6161b44c4f-stand",
+      "name": "Cube_035展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d487010af37076b1-stand",
+      "name": "Cube_067展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cd2cdec446af7b83-stand",
+      "name": "Cube_072展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-22b7159dcbb22545-stand",
+      "name": "Cube_073展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d85e794e2fa1490f-stand",
+      "name": "Cube_074展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bf0ce09cb2aefc52-stand",
+      "name": "Cube_077展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e68185508ff6e93a-stand",
+      "name": "Cube_081展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-305a70bb08987afc-stand",
+      "name": "Cube_089展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cae4def2204093c5-stand",
+      "name": "Cube_091展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-de00312304b62a0d-stand",
+      "name": "Cube_093展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-84bb77ce7e4fe180-stand",
+      "name": "Cube_096展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1463ce244c2ebaa9-stand",
+      "name": "Cube_097展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a681f2fa9eecb8f7-stand",
+      "name": "Cube_098展台",
+      "parentId": "transform:category-archivelegacy",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-edb184d6c14f90e5",
+      "name": "All · toothpaste_06",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/toothpaste_06_a8963eef.glb",
+      "position": [
+        -21.99999654,
+        0,
+        44.00000346
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.52957394,
+        14.52957394,
+        14.52957394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0ba2e77ccf002153",
+      "name": "All · Trash_can",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Trash_can_ac4bc3a8.glb",
+      "position": [
+        -18,
+        0,
+        43.99999761
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.01591007,
+        5.01591007,
+        5.01591007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-36f3e34ea7dae53f",
+      "name": "All · Trash_can_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Trash_can_01_08df998b.glb",
+      "position": [
+        -14,
+        0,
+        43.99999781
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.59395243,
+        4.59395243,
+        4.59395243
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e960dd7ea3ced9db",
+      "name": "All · Turnip",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Turnip_ab0be5c8.glb",
+      "position": [
+        -10,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.81648308,
+        3.81648308,
+        3.81648308
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2f73d16da5961c88",
+      "name": "All · Turnip_001",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Turnip_001_c58b2f8c.glb",
+      "position": [
+        -6,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.34486092,
+        15.34486092,
+        15.34486092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a2a11b86efdf4a3",
+      "name": "All · TV",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/TV_bc630f81.glb",
+      "position": [
+        -2,
+        0,
+        43.99999927
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.06278411,
+        3.06278411,
+        3.06278411
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fb89a5471fbebc5c",
+      "name": "All · TV_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/TV_01_5bfaa679.glb",
+      "position": [
+        -22,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44706708,
+        2.44706708,
+        2.44706708
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f8ec35b10d67b7cd",
+      "name": "All · TV_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/TV_02_f45b6c0e.glb",
+      "position": [
+        -17.99999883,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44706708,
+        2.44706708,
+        2.44706708
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a36f25571fc255e7",
+      "name": "All · TV_03",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/TV_03_8ecebec8.glb",
+      "position": [
+        -14,
+        0,
+        40.00000053
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24321408,
+        2.24321408,
+        2.24321408
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-770a712f40d61e89",
+      "name": "All · TV_04",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/TV_04_2f2750fb.glb",
+      "position": [
+        -10,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24321408,
+        2.24321408,
+        2.24321408
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7ce23257c28d620f",
+      "name": "All · Vaso",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Vaso_ab18b02e.glb",
+      "position": [
+        -6.0000003,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.95099192,
+        9.95099192,
+        9.95099192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dc0c582480084428",
+      "name": "All · Vaso_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Vaso_01_41073b3a.glb",
+      "position": [
+        -2,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.20912284,
+        15.20912284,
+        15.20912284
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8205f8a7273e29ab",
+      "name": "All · Vaso_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Vaso_02_48879755.glb",
+      "position": [
+        -22,
+        0,
+        36.00000471
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.75558159,
+        19.75558159,
+        19.75558159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-84eb8fdb6aedd224",
+      "name": "All · Video_player",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Video_player_163ceca1.glb",
+      "position": [
+        -18,
+        0,
+        35.99999894
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45220092,
+        4.45220092,
+        4.45220092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bf1ecd26b8d37d8e",
+      "name": "All · Video_player_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Video_player_01_88d6d2f0.glb",
+      "position": [
+        -14,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.25457142,
+        5.25457142,
+        5.25457142
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c5d3ff71aa8e3c7",
+      "name": "All · Video_player_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Video_player_02_2ae5cb39.glb",
+      "position": [
+        -10,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45220092,
+        4.45220092,
+        4.45220092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-71ad3847a7b0e71e",
+      "name": "All · Waffle",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Waffle_76c6a040.glb",
+      "position": [
+        -6,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.75213667,
+        11.75213667,
+        11.75213667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d32f970fd747d35d",
+      "name": "All · Washbasin_door_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washbasin_door_01_8162ccdc.glb",
+      "position": [
+        -2,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.1288475,
+        2.1288475,
+        2.1288475
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-76545cd6a13f2574",
+      "name": "All · Washbasin_door_03",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washbasin_door_03_ccfed0d7.glb",
+      "position": [
+        -22,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.56642232,
+        2.56642232,
+        2.56642232
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5fcfece9580ec18e",
+      "name": "All · Washbasin_drawer",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washbasin_drawer_03692489.glb",
+      "position": [
+        -18,
+        0,
+        32.00000057
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.38323367,
+        2.38323367,
+        2.38323367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-55899de6b21f595c",
+      "name": "All · Washbasin_drawer_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washbasin_drawer_02_3dadff49.glb",
+      "position": [
+        -14,
+        0,
+        31.99999946
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.27636801,
+        2.27636801,
+        2.27636801
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a5127311b5b2b8e2",
+      "name": "All · Washing_machine",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washing_machine_74fd831d.glb",
+      "position": [
+        -10,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.38949984,
+        2.38949984,
+        2.38949984
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e691475c255a40c3",
+      "name": "All · Washing_machine_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washing_machine_01_b80d85c8.glb",
+      "position": [
+        -6,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.30828847,
+        2.30828847,
+        2.30828847
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-27021852c0170cf7",
+      "name": "All · Washing_machine_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washing_machine_02_1b32cb25.glb",
+      "position": [
+        -2,
+        0,
+        32.00000099
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08285044,
+        2.08285044,
+        2.08285044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a479a0e4551dd4ee",
+      "name": "All · Washing_machine_03",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washing_machine_03_d16e37e0.glb",
+      "position": [
+        -22,
+        0,
+        28.00000099
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08285044,
+        2.08285044,
+        2.08285044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3eafc6d96ca88e79",
+      "name": "All · Washing_machine_d",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washing_machine_d_08fdddbe.glb",
+      "position": [
+        -18,
+        0,
+        27.99999813
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.92418549,
+        3.92418549,
+        3.92418549
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-16151f684229bedc",
+      "name": "All · Washing_machine_d_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washing_machine_d_01_a6a98cca.glb",
+      "position": [
+        -14,
+        0,
+        27.99999813
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.92418549,
+        3.92418549,
+        3.92418549
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d8d5b1065282ac14",
+      "name": "All · Washing_machine_d_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washing_machine_d_02_6886e824.glb",
+      "position": [
+        -10,
+        0,
+        27.99999795
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.30512404,
+        4.30512404,
+        4.30512404
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-932f1422577588b8",
+      "name": "All · Washing_machine_d_03",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Washing_machine_d_03_67aaeb88.glb",
+      "position": [
+        -6,
+        0,
+        27.99999795
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.30512404,
+        4.30512404,
+        4.30512404
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-077d14a5648d6b51",
+      "name": "All · Water",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Water_c86f381a.glb",
+      "position": [
+        -2,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.48631911,
+        9.48631911,
+        9.48631911
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a7d5fb4c84b95f1d",
+      "name": "All · Water_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Water_01_39154e92.glb",
+      "position": [
+        -22,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.06117737,
+        8.06117737,
+        8.06117737
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e237cba69c9afcf1",
+      "name": "All · Water_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Water_02_ea52e145.glb",
+      "position": [
+        -17.9999991,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.5778449,
+        7.5778449,
+        7.5778449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fe3e45c8e67c1607",
+      "name": "All · Watering_can",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_ce11813f.glb",
+      "position": [
+        -14,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.3718023,
+        4.3718023,
+        4.3718023
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-716540f19b1a1c13",
+      "name": "All · Watering_can_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_01_b4679334.glb",
+      "position": [
+        -10,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.55407159,
+        4.55407159,
+        4.55407159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a04c4cac3b9c1b7f",
+      "name": "All · Watering_can_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_02_723ae69d.glb",
+      "position": [
+        -6,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.96887641,
+        4.96887641,
+        4.96887641
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e295baeae7db2515",
+      "name": "All · Watering_can_03",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_03_7c1b9929.glb",
+      "position": [
+        -2,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.96693807,
+        1.96693807,
+        1.96693807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1caec517f5467d40",
+      "name": "All · Watering_can_04",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_04_e43e2290.glb",
+      "position": [
+        -22,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.42851765,
+        3.42851765,
+        3.42851765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f3a302f2e279ddf6",
+      "name": "All · Watering_can_05",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_05_3df12a35.glb",
+      "position": [
+        -18,
+        0,
+        19.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.81812571,
+        1.81812571,
+        1.81812571
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c8e37a2f41b38ca",
+      "name": "All · Watering_can_06",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_06_53796b59.glb",
+      "position": [
+        -14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82660746,
+        1.82660746,
+        1.82660746
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7cabbc9bb0818545",
+      "name": "All · Watering_can_07",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_07_15ded056.glb",
+      "position": [
+        -10,
+        0,
+        19.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.09128187,
+        4.09128187,
+        4.09128187
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ebf546d70d61e756",
+      "name": "All · Watering_can_Manija",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watering_can_Manija_5b6ab2bd.glb",
+      "position": [
+        -6,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.0654048,
+        29.0654048,
+        29.0654048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2f3b97ae0f681c94",
+      "name": "All · Watermelon",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watermelon_d4dafe71.glb",
+      "position": [
+        -2.00000035,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.85899666,
+        5.85899666,
+        5.85899666
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ff110703980a84a1",
+      "name": "All · Watermelon_01",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watermelon_01_d8a857cf.glb",
+      "position": [
+        -22,
+        0,
+        16.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.85899593,
+        5.85899593,
+        5.85899593
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2a7310caaa495e64",
+      "name": "All · Watermelon_02",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Watermelon_02_ea74b383.glb",
+      "position": [
+        -18.00000044,
+        0,
+        15.99999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.39606878,
+        7.39606878,
+        7.39606878
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7d241b45b3eab09a",
+      "name": "All · Yam",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Yam_2c154095.glb",
+      "position": [
+        -14,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.98894939,
+        7.98894939,
+        7.98894939
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-39ad7626e6dec30d",
+      "name": "All · Yam_001",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Yam_001_063eec76.glb",
+      "position": [
+        -10,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.69303449,
+        11.69303449,
+        11.69303449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b4629bd94c67748d",
+      "name": "All · Yam_002",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Yam_002_35d0a376.glb",
+      "position": [
+        -6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.1889713,
+        31.1889713,
+        31.1889713
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1a50d07cfb19154f",
+      "name": "All · Yam_003",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Yam_003_f540dc23.glb",
+      "position": [
+        -2,
+        0,
+        15.99999523
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        40.02321227,
+        40.02321227,
+        40.02321227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-237bf2363ecf8c2d",
+      "name": "All · Zucchini",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Zucchini_92138550.glb",
+      "position": [
+        -16,
+        0,
+        11.99999903
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.14561697,
+        8.14561697,
+        8.14561697
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-381d9593cee52797",
+      "name": "All · Zucchini_001",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Zucchini_001_61fb192d.glb",
+      "position": [
+        -11.99999909,
+        0,
+        12.00000182
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.24138022,
+        15.24138022,
+        15.24138022
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6da16615d55f60ce",
+      "name": "All · Zucchini_002",
+      "parentId": "transform:category-all",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/All/Zucchini_002_adbfb43b.glb",
+      "position": [
+        -8,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.73318382,
+        16.73318382,
+        16.73318382
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a3085bb41898d3b3",
+      "name": "ArchiveLegacy · Almohada_001",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Almohada_001_04e62eee.glb",
+      "position": [
+        2,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.58520791,
+        3.58520791,
+        3.58520791
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e3e38e72c14c891f",
+      "name": "ArchiveLegacy · Ar",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar_647bc3a4.glb",
+      "position": [
+        6,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41402302,
+        0.41402302,
+        0.41402302
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f87503723c8c620a",
+      "name": "ArchiveLegacy · Ar10",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar10_14a63d4f.glb",
+      "position": [
+        10,
+        0,
+        43.99999788
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10931579,
+        1.10931579,
+        1.10931579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eecd77ebe3961256",
+      "name": "ArchiveLegacy · Ar11",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar11_57002719.glb",
+      "position": [
+        13.99999971,
+        0,
+        44.00000115
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.60265196,
+        0.60265196,
+        0.60265196
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c721a378b90c6c1",
+      "name": "ArchiveLegacy · Ar12",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar12_17acb738.glb",
+      "position": [
+        17.99999983,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.71591568,
+        0.71591568,
+        0.71591568
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1b8a8fad889208c8",
+      "name": "ArchiveLegacy · Ar13",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar13_7d114e4a.glb",
+      "position": [
+        22,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.71591568,
+        0.71591568,
+        0.71591568
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-335e76beebf17c59",
+      "name": "ArchiveLegacy · Ar14",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar14_b9baf2ac.glb",
+      "position": [
+        2,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03572588,
+        1.03572588,
+        1.03572588
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0a70931965deadb7",
+      "name": "ArchiveLegacy · Ar15",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar15_268a8725.glb",
+      "position": [
+        6.00000012,
+        0,
+        39.99999801
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.04317283,
+        1.04317283,
+        1.04317283
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-75af2dab45ad05fc",
+      "name": "ArchiveLegacy · Ar16",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar16_871f4780.glb",
+      "position": [
+        10.00000007,
+        0,
+        39.99999881
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62333717,
+        0.62333717,
+        0.62333717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-66617c579d2cf23a",
+      "name": "ArchiveLegacy · Ar17",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar17_d905a652.glb",
+      "position": [
+        14,
+        0,
+        40.00000076
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39670697,
+        0.39670697,
+        0.39670697
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-baa00861f7db020c",
+      "name": "ArchiveLegacy · Ar18",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar18_e282a524.glb",
+      "position": [
+        17.99999985,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64512108,
+        0.64512108,
+        0.64512108
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bbdff8efe6550a7c",
+      "name": "ArchiveLegacy · Ar19",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar19_7666e0cc.glb",
+      "position": [
+        22,
+        0,
+        39.99999878
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63896158,
+        0.63896158,
+        0.63896158
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d382efc4098166a5",
+      "name": "ArchiveLegacy · Ar2",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar2_19e92607.glb",
+      "position": [
+        2,
+        0,
+        36.00000189
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.99070227,
+        0.99070227,
+        0.99070227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-86328bfe3c64f2ee",
+      "name": "ArchiveLegacy · Ar20",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar20_5fe1de5f.glb",
+      "position": [
+        6.00000005,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46099476,
+        0.46099476,
+        0.46099476
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-016e89b8c8d52207",
+      "name": "ArchiveLegacy · Ar21",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar21_36a055c4.glb",
+      "position": [
+        9.99999993,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2758063,
+        0.2758063,
+        0.2758063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-555e9d026ce1ebd8",
+      "name": "ArchiveLegacy · Ar22",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar22_c35ee5f8.glb",
+      "position": [
+        14,
+        0,
+        35.99999652
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82290137,
+        1.82290137,
+        1.82290137
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7a1b76f19d92c811",
+      "name": "ArchiveLegacy · Ar3",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar3_e98730ed.glb",
+      "position": [
+        18,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59980994,
+        1.59980994,
+        1.59980994
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ffec0a5a378940e3",
+      "name": "ArchiveLegacy · Ar4",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar4_d64ac4db.glb",
+      "position": [
+        22,
+        0,
+        35.99999718
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48088127,
+        1.48088127,
+        1.48088127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a96e63efca28144",
+      "name": "ArchiveLegacy · Ar5",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar5_512e2c0f.glb",
+      "position": [
+        2,
+        0,
+        31.99999731
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.41158474,
+        1.41158474,
+        1.41158474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b488029b99c42471",
+      "name": "ArchiveLegacy · Ar6",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar6_ffff4709.glb",
+      "position": [
+        6,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-383896da0fdea9ca",
+      "name": "ArchiveLegacy · Ar7",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar7_60079dd8.glb",
+      "position": [
+        10,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.35821226,
+        1.35821226,
+        1.35821226
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5e4ed880b90c6411",
+      "name": "ArchiveLegacy · Ar8",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar8_262cebb8.glb",
+      "position": [
+        14,
+        0,
+        31.99999733
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000017,
+        1.40000017,
+        1.40000017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9ebea74a2abcc99c",
+      "name": "ArchiveLegacy · Ar9",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ar9_5e237fe6.glb",
+      "position": [
+        18,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.99412898,
+        0.99412898,
+        0.99412898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ec0dbcbf18aa627f",
+      "name": "ArchiveLegacy · Arbol",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol_d814a856.glb",
+      "position": [
+        21.99999988,
+        0,
+        31.99999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12235945,
+        0.12235945,
+        0.12235945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-30000423849f62d8",
+      "name": "ArchiveLegacy · Arbol10",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol10_d3b1cb9b.glb",
+      "position": [
+        2.0000001,
+        0,
+        27.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20247564,
+        0.20247564,
+        0.20247564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-87e60f9dde667e11",
+      "name": "ArchiveLegacy · Arbol11",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol11_db9b8ae3.glb",
+      "position": [
+        5.99999996,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32353247,
+        0.32353247,
+        0.32353247
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b4dcfb2574f65101",
+      "name": "ArchiveLegacy · Arbol12",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol12_bb6c7351.glb",
+      "position": [
+        10,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22143515,
+        0.22143515,
+        0.22143515
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f23f0cf57d628f9d",
+      "name": "ArchiveLegacy · Arbol13",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol13_df5fd261.glb",
+      "position": [
+        14,
+        0,
+        27.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16173177,
+        0.16173177,
+        0.16173177
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-53104ffb6386ea52",
+      "name": "ArchiveLegacy · Arbol2",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol2_7e140ce2.glb",
+      "position": [
+        17.99999994,
+        0,
+        27.99999948
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13584313,
+        0.13584313,
+        0.13584313
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f6ff73f1bfc3eab7",
+      "name": "ArchiveLegacy · Arbol3",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol3_efc02f66.glb",
+      "position": [
+        22,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13385338,
+        0.13385338,
+        0.13385338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7e67ffb7cf6587fe",
+      "name": "ArchiveLegacy · Arbol4",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol4_6f42adec.glb",
+      "position": [
+        2.00000007,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13931103,
+        0.13931103,
+        0.13931103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8e8bb476344694ec",
+      "name": "ArchiveLegacy · Arbol5",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol5_49af0f2a.glb",
+      "position": [
+        6,
+        0,
+        23.99999845
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40724256,
+        0.40724256,
+        0.40724256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-41cce3a8a18f84ff",
+      "name": "ArchiveLegacy · Arbol6",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol6_74c4b665.glb",
+      "position": [
+        10,
+        0,
+        24.00000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13782662,
+        0.13782662,
+        0.13782662
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5f288728b921cd04",
+      "name": "ArchiveLegacy · Arbol7",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol7_259c698c.glb",
+      "position": [
+        14,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15337809,
+        0.15337809,
+        0.15337809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4956991f7fdb4baf",
+      "name": "ArchiveLegacy · Arbol8",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol8_581ad8e6.glb",
+      "position": [
+        18,
+        0,
+        24.00000036
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19123916,
+        0.19123916,
+        0.19123916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4c9661371f7312ab",
+      "name": "ArchiveLegacy · Arbol9",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Arbol9_bbfe76cf.glb",
+      "position": [
+        22,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22484065,
+        0.22484065,
+        0.22484065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-82bfa49fc0857c61",
+      "name": "ArchiveLegacy · Auto",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Auto_1bcb591d.glb",
+      "position": [
+        2.00000065,
+        0,
+        20.00000065
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34142749,
+        0.34142749,
+        0.34142749
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-59272f669a47e740",
+      "name": "ArchiveLegacy · Auto_002",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Auto_002_732eac80.glb",
+      "position": [
+        6,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38048169,
+        0.38048169,
+        0.38048169
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d466bcc232a3ce0f",
+      "name": "ArchiveLegacy · B",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B_9f93c4ea.glb",
+      "position": [
+        10.00000051,
+        0,
+        19.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26861877,
+        0.26861877,
+        0.26861877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f0f01d80b7357408",
+      "name": "ArchiveLegacy · B_001",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B_001_96edda8f.glb",
+      "position": [
+        13.99999943,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29860458,
+        0.29860458,
+        0.29860458
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7def911d1bfa9c68",
+      "name": "ArchiveLegacy · B_002",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B_002_d079fa20.glb",
+      "position": [
+        18,
+        0,
+        20.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29860519,
+        0.29860519,
+        0.29860519
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7967af60a4b3090b",
+      "name": "ArchiveLegacy · B_003",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B_003_e2998cbc.glb",
+      "position": [
+        22.00000051,
+        0,
+        20.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26861877,
+        0.26861877,
+        0.26861877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a858e5794714c89a",
+      "name": "ArchiveLegacy · B_004",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B_004_57b1139f.glb",
+      "position": [
+        1.99999992,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16756552,
+        0.16756552,
+        0.16756552
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6162c1bb9bee41c7",
+      "name": "ArchiveLegacy · B_005",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B_005_42014e35.glb",
+      "position": [
+        5.99999992,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16756552,
+        0.16756552,
+        0.16756552
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0977b56c6b8dc101",
+      "name": "ArchiveLegacy · B1",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B1_8b3ed946.glb",
+      "position": [
+        10.00000016,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17023317,
+        0.17023317,
+        0.17023317
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0a133d8a5c353a0b",
+      "name": "ArchiveLegacy · B10",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B10_7ca46bf8.glb",
+      "position": [
+        14,
+        0,
+        16.00000321
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84183368,
+        0.84183368,
+        0.84183368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8dae4a03faee94fe",
+      "name": "ArchiveLegacy · B2",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B2_bc52ecec.glb",
+      "position": [
+        17.99999931,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72136382,
+        0.72136382,
+        0.72136382
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c8b9110ed6e1744a",
+      "name": "ArchiveLegacy · B3",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B3_bfebb2f8.glb",
+      "position": [
+        21.99999959,
+        0,
+        16.00000324
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84997557,
+        0.84997557,
+        0.84997557
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b85f43d2402c3219",
+      "name": "ArchiveLegacy · B4",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B4_4bdd58be.glb",
+      "position": [
+        2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17083095,
+        0.17083095,
+        0.17083095
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f286790772130408",
+      "name": "ArchiveLegacy · B5",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B5_e0bfa816.glb",
+      "position": [
+        5.99999965,
+        0,
+        12.00000279
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73180823,
+        0.73180823,
+        0.73180823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c2bc3dc5f019c75",
+      "name": "ArchiveLegacy · B6",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B6_526093c1.glb",
+      "position": [
+        10,
+        0,
+        11.99999681
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83604881,
+        0.83604881,
+        0.83604881
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e6dc9276c5fe9314",
+      "name": "ArchiveLegacy · B7",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B7_02a56915.glb",
+      "position": [
+        14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9213424,
+        0.9213424,
+        0.9213424
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d759fd01276211fc",
+      "name": "ArchiveLegacy · B8",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B8_d61ee837.glb",
+      "position": [
+        18,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55792675,
+        0.55792675,
+        0.55792675
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d350122f9437d91a",
+      "name": "ArchiveLegacy · B9",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/B9_9a8ceb73.glb",
+      "position": [
+        22.00000025,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.05965698,
+        1.05965698,
+        1.05965698
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3f777604dd434a98",
+      "name": "ArchiveLegacy · Bano_001",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Bano_001_de731fd3.glb",
+      "position": [
+        1.99999701,
+        0,
+        8.00000149
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.56721513,
+        1.56721513,
+        1.56721513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-28715eb81e23520e",
+      "name": "ArchiveLegacy · Base_c",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Base_c_0dc7cc17.glb",
+      "position": [
+        6,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57646917,
+        0.57646917,
+        0.57646917
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-35b36b7da481fad6",
+      "name": "ArchiveLegacy · Base_c_002",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Base_c_002_61e54693.glb",
+      "position": [
+        10,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63780166,
+        0.63780166,
+        0.63780166
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5d990a840bbc7cae",
+      "name": "ArchiveLegacy · bote_001",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/bote_001_fa546266.glb",
+      "position": [
+        14,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57832755,
+        1.57832755,
+        1.57832755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a9b3dd6631f7d5eb",
+      "name": "ArchiveLegacy · bote_002",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/bote_002_ce5b7dd2.glb",
+      "position": [
+        18,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.17277063,
+        2.17277063,
+        2.17277063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2922cdae8ac23e9d",
+      "name": "ArchiveLegacy · Botella",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Botella_cc3ba89f.glb",
+      "position": [
+        22.00000321,
+        0,
+        7.99999679
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.73166127,
+        6.73166127,
+        6.73166127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4272d13e3b3f8d21",
+      "name": "ArchiveLegacy · C",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_12bf155f.glb",
+      "position": [
+        2.00000077,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6140461,
+        1.6140461,
+        1.6140461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-510cef662329fcee",
+      "name": "ArchiveLegacy · C_002",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_002_d0783162.glb",
+      "position": [
+        6,
+        0,
+        3.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90889555,
+        0.90889555,
+        0.90889555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-82cf30ed496e7b09",
+      "name": "ArchiveLegacy · C_004",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_004_9a1e04d3.glb",
+      "position": [
+        10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.367813,
+        0.367813,
+        0.367813
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1b41e28e4c615959",
+      "name": "ArchiveLegacy · C_005",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_005_c1688a70.glb",
+      "position": [
+        14,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59123067,
+        0.59123067,
+        0.59123067
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-303120249732ef3f",
+      "name": "ArchiveLegacy · C_006",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_006_5596f761.glb",
+      "position": [
+        18,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51836018,
+        0.51836018,
+        0.51836018
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d10bf5ac62ce041b",
+      "name": "ArchiveLegacy · C_007",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_007_126b0fdf.glb",
+      "position": [
+        21.99999969,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65453146,
+        0.65453146,
+        0.65453146
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f37c1f6cff50cee4",
+      "name": "ArchiveLegacy · C_008",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_008_c3eb84db.glb",
+      "position": [
+        1.99999947,
+        0,
+        3e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55308871,
+        0.55308871,
+        0.55308871
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dea9653455fa4d29",
+      "name": "ArchiveLegacy · C_009",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_009_0c1bfa21.glb",
+      "position": [
+        6,
+        0,
+        4e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30183063,
+        0.30183063,
+        0.30183063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-699effacac8fa9f7",
+      "name": "ArchiveLegacy · C_010",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_010_0225ae24.glb",
+      "position": [
+        10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62245281,
+        0.62245281,
+        0.62245281
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cd18523d3ed058c8",
+      "name": "ArchiveLegacy · C_011",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_011_3e5e7ab9.glb",
+      "position": [
+        14.00000017,
+        0,
+        2e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36329369,
+        0.36329369,
+        0.36329369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bc7b2d27f6103201",
+      "name": "ArchiveLegacy · C_012",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_012_651aa304.glb",
+      "position": [
+        18.00000017,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36329369,
+        0.36329369,
+        0.36329369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9f44b9857fbd7d06",
+      "name": "ArchiveLegacy · C_013",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_013_c5ce9c23.glb",
+      "position": [
+        22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50051906,
+        0.50051906,
+        0.50051906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c8f858ea9769ef2c",
+      "name": "ArchiveLegacy · C_014",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_014_e8ebcf30.glb",
+      "position": [
+        2.00000048,
+        0,
+        -4.00000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50051924,
+        0.50051924,
+        0.50051924
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-de988ea83ba9a8e6",
+      "name": "ArchiveLegacy · C_015",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_015_c5fcb416.glb",
+      "position": [
+        6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83412778,
+        0.83412778,
+        0.83412778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-efc1390ff9d3c8d4",
+      "name": "ArchiveLegacy · C_016",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_016_0f5aa353.glb",
+      "position": [
+        10,
+        0,
+        -4.00000077
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80787865,
+        0.80787865,
+        0.80787865
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-846180ba7fdbb25c",
+      "name": "ArchiveLegacy · C_017",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_017_9acb6874.glb",
+      "position": [
+        14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84777222,
+        0.84777222,
+        0.84777222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4f6d56086aeb9c93",
+      "name": "ArchiveLegacy · C_018",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_018_4e3f038b.glb",
+      "position": [
+        18,
+        0,
+        -4.00000082
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86319095,
+        0.86319095,
+        0.86319095
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-602024c4826dd355",
+      "name": "ArchiveLegacy · C_019",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_019_88189533.glb",
+      "position": [
+        22,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28859302,
+        1.28859302,
+        1.28859302
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fa72cbc9725560bf",
+      "name": "ArchiveLegacy · C_020",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_020_43e24b4d.glb",
+      "position": [
+        2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.17011758,
+        1.17011758,
+        1.17011758
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1d1de97bd18afe3f",
+      "name": "ArchiveLegacy · C_021",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_021_d8494f5f.glb",
+      "position": [
+        6,
+        0,
+        -7.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50840682,
+        0.50840682,
+        0.50840682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cb3095076fe21229",
+      "name": "ArchiveLegacy · C_022",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_022_4eee9661.glb",
+      "position": [
+        10,
+        0,
+        -7.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80952696,
+        1.80952696,
+        1.80952696
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-12979227b15f565d",
+      "name": "ArchiveLegacy · C_023",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_023_354eb91b.glb",
+      "position": [
+        14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37644526,
+        1.37644526,
+        1.37644526
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-34842cbb09346f92",
+      "name": "ArchiveLegacy · C_024",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_024_65044d1d.glb",
+      "position": [
+        18.00000077,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6140461,
+        1.6140461,
+        1.6140461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-29bed1245324071c",
+      "name": "ArchiveLegacy · C_025",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_025_6c241309.glb",
+      "position": [
+        22,
+        0,
+        -8.00000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50840682,
+        0.50840682,
+        0.50840682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-416dcbef7c0f1c79",
+      "name": "ArchiveLegacy · C_026",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_026_f3753788.glb",
+      "position": [
+        1.99999988,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25924403,
+        0.25924403,
+        0.25924403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4ec7de692c9c4cd5",
+      "name": "ArchiveLegacy · C_027",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_027_740e8e02.glb",
+      "position": [
+        6,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16689579,
+        0.16689579,
+        0.16689579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2b0ddfa5aa4f6ad9",
+      "name": "ArchiveLegacy · C_028",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C_028_99c35052.glb",
+      "position": [
+        9.99999995,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10055214,
+        0.10055214,
+        0.10055214
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d569f0dd7aba42c7",
+      "name": "ArchiveLegacy · C1",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C1_8c2b2c7b.glb",
+      "position": [
+        14,
+        0,
+        -12.00000139
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72687591,
+        0.72687591,
+        0.72687591
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5e00432b6a3ffd13",
+      "name": "ArchiveLegacy · C2",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C2_f7b5b40b.glb",
+      "position": [
+        18,
+        0,
+        -11.99999797
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06264043,
+        1.06264043,
+        1.06264043
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0ba68575c0d13c3c",
+      "name": "ArchiveLegacy · C3",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C3_9014c3c0.glb",
+      "position": [
+        22,
+        0,
+        -11.9999975
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3110804,
+        1.3110804,
+        1.3110804
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e119163d67bc7b4",
+      "name": "ArchiveLegacy · C4",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C4_1bbb8430.glb",
+      "position": [
+        1.99999876,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.29823937,
+        1.29823937,
+        1.29823937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b75d1ae495741a62",
+      "name": "ArchiveLegacy · C5",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/C5_9abd06d5.glb",
+      "position": [
+        6,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26578778,
+        1.26578778,
+        1.26578778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c3e2c0ceaced486d",
+      "name": "ArchiveLegacy · Ca",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Ca_bd87535c.glb",
+      "position": [
+        9.9999999,
+        0,
+        -16.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21625505,
+        0.21625505,
+        0.21625505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-386a9c03bd67b2c7",
+      "name": "ArchiveLegacy · Carro_su_003",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Carro_su_003_04abdd74.glb",
+      "position": [
+        14.00000265,
+        0,
+        -15.99999967
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39018753,
+        1.39018753,
+        1.39018753
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a1000c477964383d",
+      "name": "ArchiveLegacy · Casa",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Casa_b6b80dcf.glb",
+      "position": [
+        17.99999983,
+        0,
+        -15.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17596203,
+        0.17596203,
+        0.17596203
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9e66c0a6cbdeabcd",
+      "name": "ArchiveLegacy · Casa_001",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Casa_001_a42836c8.glb",
+      "position": [
+        22,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.41627257,
+        2.41627257,
+        2.41627257
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-90a46d0f7f5627b9",
+      "name": "ArchiveLegacy · Colchon",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Colchon_2b3c7009.glb",
+      "position": [
+        2,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62699893,
+        0.62699893,
+        0.62699893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-45b2c915e93dede7",
+      "name": "ArchiveLegacy · Colchon_001",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Colchon_001_c851bf9d.glb",
+      "position": [
+        6.00000032,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6721264,
+        0.6721264,
+        0.6721264
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e7b7f59d3860eec2",
+      "name": "ArchiveLegacy · Cube_003",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_003_c373d388.glb",
+      "position": [
+        10,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14952841,
+        1.14952841,
+        1.14952841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4bd0907d5a3a10a6",
+      "name": "ArchiveLegacy · Cube_004",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_004_9b0832cb.glb",
+      "position": [
+        14,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22418386,
+        1.22418386,
+        1.22418386
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-589a210cd3968c36",
+      "name": "ArchiveLegacy · Cube_005",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_005_6e8bf634.glb",
+      "position": [
+        18.00000031,
+        0,
+        -20.00000061
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64215364,
+        0.64215364,
+        0.64215364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c42f59e8f647f437",
+      "name": "ArchiveLegacy · Cube_006",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_006_83bc9674.glb",
+      "position": [
+        22,
+        0,
+        -20.00000031
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64167233,
+        0.64167233,
+        0.64167233
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b80f6deefb429c6d",
+      "name": "ArchiveLegacy · Cube_010",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_010_00b6b131.glb",
+      "position": [
+        2,
+        0,
+        -23.99999858
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48582572,
+        1.48582572,
+        1.48582572
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-35d0f0b2b54013eb",
+      "name": "ArchiveLegacy · Cube_013",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_013_2c43679b.glb",
+      "position": [
+        6,
+        0,
+        -23.99999924
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.58941732,
+        1.58941732,
+        1.58941732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-766f7ac8f95810cf",
+      "name": "ArchiveLegacy · Cube_014",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_014_c6bb00a0.glb",
+      "position": [
+        10,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16049944,
+        1.16049944,
+        1.16049944
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ff0ee7e748fff98",
+      "name": "ArchiveLegacy · Cube_015",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_015_0fa75c89.glb",
+      "position": [
+        14,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3103169,
+        2.3103169,
+        2.3103169
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-43a1890578f6e573",
+      "name": "ArchiveLegacy · Cube_017",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_017_4634b046.glb",
+      "position": [
+        17.99999922,
+        0,
+        -23.99999845
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2562919,
+        3.2562919,
+        3.2562919
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-96a68939a0a272fa",
+      "name": "ArchiveLegacy · Cube_019",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_019_92ba2137.glb",
+      "position": [
+        22.00000071,
+        0,
+        -24.00000036
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.74761598,
+        0.74761598,
+        0.74761598
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c708e9566e2e09c",
+      "name": "ArchiveLegacy · Cube_020",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_020_c128da75.glb",
+      "position": [
+        2,
+        0,
+        -27.99999924
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.58941732,
+        1.58941732,
+        1.58941732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a0285451a0cd7305",
+      "name": "ArchiveLegacy · Cube_021",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_021_8368d7f1.glb",
+      "position": [
+        6.00000213,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.46932724,
+        4.46932724,
+        4.46932724
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-070879f30955216d",
+      "name": "ArchiveLegacy · Cube_023",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_023_2a7e7329.glb",
+      "position": [
+        10,
+        0,
+        -27.99999924
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.58941732,
+        1.58941732,
+        1.58941732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-73f07bc6e516721a",
+      "name": "ArchiveLegacy · Cube_028",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_028_9e56864b.glb",
+      "position": [
+        14.00000119,
+        0,
+        -28.00000119
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.48762836,
+        2.48762836,
+        2.48762836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cfa8b19cc5256eb0",
+      "name": "ArchiveLegacy · Cube_029",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_029_4ae25ba9.glb",
+      "position": [
+        18,
+        0,
+        -28.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.94005317,
+        2.94005317,
+        2.94005317
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-26daafa0a7480efc",
+      "name": "ArchiveLegacy · Cube_030",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_030_1320b479.glb",
+      "position": [
+        22,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.16695337,
+        3.16695337,
+        3.16695337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-02bb4926aefaa3d0",
+      "name": "ArchiveLegacy · Cube_032",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_032_a8321042.glb",
+      "position": [
+        2,
+        0,
+        -31.99999942
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.82608507,
+        4.82608507,
+        4.82608507
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-44209f24b3b7d15e",
+      "name": "ArchiveLegacy · Cube_033",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_033_c7e456ab.glb",
+      "position": [
+        6,
+        0,
+        -31.99999942
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.82608507,
+        4.82608507,
+        4.82608507
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dec8aa6161b44c4f",
+      "name": "ArchiveLegacy · Cube_035",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_035_a3e2b8c8.glb",
+      "position": [
+        9.99999914,
+        0,
+        -31.99999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.62657305,
+        3.62657305,
+        3.62657305
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d487010af37076b1",
+      "name": "ArchiveLegacy · Cube_067",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_067_aa3b8221.glb",
+      "position": [
+        14,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03690054,
+        0.03690054,
+        0.03690054
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cd2cdec446af7b83",
+      "name": "ArchiveLegacy · Cube_072",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_072_06383833.glb",
+      "position": [
+        18,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24405564,
+        0.24405564,
+        0.24405564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-22b7159dcbb22545",
+      "name": "ArchiveLegacy · Cube_073",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_073_486002b5.glb",
+      "position": [
+        21.9999991,
+        0,
+        -31.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23468171,
+        0.23468171,
+        0.23468171
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d85e794e2fa1490f",
+      "name": "ArchiveLegacy · Cube_074",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_074_16ea4fca.glb",
+      "position": [
+        1.99999969,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64167233,
+        0.64167233,
+        0.64167233
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bf0ce09cb2aefc52",
+      "name": "ArchiveLegacy · Cube_077",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_077_3eb661ff.glb",
+      "position": [
+        6,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64167233,
+        0.64167233,
+        0.64167233
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e68185508ff6e93a",
+      "name": "ArchiveLegacy · Cube_081",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_081_45ac09ce.glb",
+      "position": [
+        10,
+        0,
+        -36.00000036
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.74647256,
+        0.74647256,
+        0.74647256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-305a70bb08987afc",
+      "name": "ArchiveLegacy · Cube_089",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_089_c7b76248.glb",
+      "position": [
+        14,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14693197,
+        1.14693197,
+        1.14693197
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cae4def2204093c5",
+      "name": "ArchiveLegacy · Cube_091",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_091_5eadf9b6.glb",
+      "position": [
+        18,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.29611098,
+        1.29611098,
+        1.29611098
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-de00312304b62a0d",
+      "name": "ArchiveLegacy · Cube_093",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_093_b9063911.glb",
+      "position": [
+        21.99999876,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.29614531,
+        1.29614531,
+        1.29614531
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-84bb77ce7e4fe180",
+      "name": "ArchiveLegacy · Cube_096",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_096_cdc6bbf9.glb",
+      "position": [
+        8,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14113377,
+        1.14113377,
+        1.14113377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1463ce244c2ebaa9",
+      "name": "ArchiveLegacy · Cube_097",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_097_c6663e9d.glb",
+      "position": [
+        12,
+        0,
+        -40.00000152
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.58941732,
+        1.58941732,
+        1.58941732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a681f2fa9eecb8f7",
+      "name": "ArchiveLegacy · Cube_098",
+      "parentId": "transform:category-archivelegacy",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/ArchiveLegacy/Cube_098_e1f43647.glb",
+      "position": [
+        16,
+        0,
+        -40.00000152
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.58941732,
+        1.58941732,
+        1.58941732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

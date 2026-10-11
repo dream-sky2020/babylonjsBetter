@@ -1,0 +1,4425 @@
+{
+  "presetKey": "artist-loafbrr-showcase-wooden-docks",
+  "name": "Loafbrr · WoodenDocks · 101模型 · 模型 1.03 MiB + 贴图 1.76 MiB · 合计 2.79 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-woodendocks-0",
+      "name": "WoodenDocks 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-woodendocks-1",
+      "name": "WoodenDocks 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 45
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-7521eb4f2688ab6b-stand",
+      "name": "Boat_A_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-39ad425ea3934814-stand",
+      "name": "Boat_A_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-beacb0aaeecc9d71-stand",
+      "name": "Boat_A_3展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-42814719862fd344-stand",
+      "name": "Boat_B_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5d4e2b4a8f6245f2-stand",
+      "name": "Boat_B_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8310919ef7ef9e76-stand",
+      "name": "Boat_B_3展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d4ec236ac3409e29-stand",
+      "name": "Boat_Stand展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4c127bb3c71c5c58-stand",
+      "name": "Dock_Bollard_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-88835b6a733e8847-stand",
+      "name": "Dock_Bollard_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1a796dabc2757c7e-stand",
+      "name": "Dock_Bollard_3展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e911778e1a7e5203-stand",
+      "name": "Dock_Bollard_Half_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2aad5a96fdcc912b-stand",
+      "name": "Dock_Bollard_Half_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b1a84a194d1fb505-stand",
+      "name": "Fence_Plane展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b7df2664f2e67bdb-stand",
+      "name": "Fence_Plane_Half展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4e3186e9af9086cc-stand",
+      "name": "Fence_Post展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cb18ca7e8cc8abf4-stand",
+      "name": "Floor_Corner展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-35e0ea830ce850a4-stand",
+      "name": "Floor_Dock展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0e519ed4363a1e1e-stand",
+      "name": "Floor_Dock_End展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c7bcc771c65d9e0f-stand",
+      "name": "Floor_Dock_End_Half展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b756b5fb7823b3d6-stand",
+      "name": "Floor_Dock_Half展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fdede06bb4b1a339-stand",
+      "name": "Floor_Floor展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6f0567176ea784f6-stand",
+      "name": "Floor_Half_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aaafe00a2b741a7f-stand",
+      "name": "Floor_Half_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-82780332d916f29d-stand",
+      "name": "Floor_Quarter展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fb744307b3e17dcf-stand",
+      "name": "Floor_Quarter_Corner展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-665dad3a70e88e16-stand",
+      "name": "Floor_Side_Boards展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-69c1dd168eaacfc4-stand",
+      "name": "Floor_Side_Boards_Half展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2573ca8a3e2d27c1-stand",
+      "name": "Floor_Side_Plank展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e66153b09cc2c91a-stand",
+      "name": "Floor_Side_Plank_Half展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0d7f9341bc631ee7-stand",
+      "name": "Floor_Support展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0302a5ac22c93198-stand",
+      "name": "Floor_Support_Half展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-280e19a1583fd1e6-stand",
+      "name": "Floor_Support_Half_VHalf展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3d270444e17d88e9-stand",
+      "name": "Floor_Support_Quarter展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f7a757c58053c234-stand",
+      "name": "Floor_Support_Quarter_VHalf展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aa906533a2e5bbf3-stand",
+      "name": "Floor_Support_VHalf展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b8d34d9d3c653541-stand",
+      "name": "Harpoon_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9d41fe6232e3298d-stand",
+      "name": "Harpoon_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3d48e4814b080cbd-stand",
+      "name": "Lantern_Body展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-53ed96b584e61183-stand",
+      "name": "Lantern_Frame展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-46aba5c7ecd15dd2-stand",
+      "name": "Lantern_Lamp展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3e9707cd7984b030-stand",
+      "name": "Paddle_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c49ba341bf8f9606-stand",
+      "name": "Paddle_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-749c2723c3efda3b-stand",
+      "name": "Paddle_3展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7a6ecb37d0e5356f-stand",
+      "name": "Post展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-742cc4ee3fd20cdd-stand",
+      "name": "Props_Barrel展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9b093ed9b4fe169f-stand",
+      "name": "Props_Bed_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-72859cb7c3aefa43-stand",
+      "name": "Props_Bed_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cb5337717039d0e7-stand",
+      "name": "Props_Bench展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-57c8b1470ccc2c7c-stand",
+      "name": "Props_Box展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b1eeac1e493cd8ef-stand",
+      "name": "Props_Chair展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b8a9de89b62a313b-stand",
+      "name": "Props_Crate展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-036ee4b1d975849f-stand",
+      "name": "Props_Fish_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eb30bc61a36f2dfc-stand",
+      "name": "Props_Fish_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4f24f87836546767-stand",
+      "name": "Props_Rack展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-046e7cf5fae9de8d-stand",
+      "name": "Props_Rack_Fish展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-978d5b2851b9c737-stand",
+      "name": "Props_Shelf_1展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ea9604bb1af08348-stand",
+      "name": "Props_Shelf_2展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6cf2e413b844c5cd-stand",
+      "name": "Props_Stool展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3496444eb7c067da-stand",
+      "name": "Props_Stool_Round展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-32c901f11aa758b4-stand",
+      "name": "Props_Stool_Small展台",
+      "parentId": "transform:category-woodendocks-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-63a42509c5886af8-stand",
+      "name": "Props_Table_1展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1d389feebcf95a43-stand",
+      "name": "Props_Table_2展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-aedea12c785ce79a-stand",
+      "name": "Props_Table_3展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a0d9ef10dd6ad824-stand",
+      "name": "Props_Table_4展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d4119038d2e65211-stand",
+      "name": "Props_Table_Round展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0b697a97fd9c4fe4-stand",
+      "name": "Rope_Coil_001展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-40375d71f5802a30-stand",
+      "name": "RopeSegment展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9f48dcae6dcff662-stand",
+      "name": "Stairs_A展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ac3dd1dab94323e0-stand",
+      "name": "Stairs_A_Support_1展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-df472302d3b02f7b-stand",
+      "name": "Stairs_A_Support_2展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f42870f3661b6ca9-stand",
+      "name": "Stairs_B展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c65a5664c1449c37-stand",
+      "name": "Stairs_B_Support展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-21e16f60a50502ab-stand",
+      "name": "Support_Block_1展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-bf72c12a20307d2f-stand",
+      "name": "Support_Block_1_half展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1eda6ec4f6fe9f83-stand",
+      "name": "Support_Block_2展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-14861f3c0af18095-stand",
+      "name": "Support_Block_2_half展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-326cc7c3000e7733-stand",
+      "name": "Support_Plane展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-262a27df2cf11760-stand",
+      "name": "Support_Plane_Half展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b87d8f82777e1f0e-stand",
+      "name": "Support_Planes_1展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5a930df3f860181d-stand",
+      "name": "Support_Planes_1_Half展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-283de0ffe664c182-stand",
+      "name": "Support_Planes_2展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-013846e732b08249-stand",
+      "name": "Support_Planes_2_Half展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f3c9389a935c6f69-stand",
+      "name": "Support_Post展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8abe35f85bf78390-stand",
+      "name": "Support_Post_Half展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7451ac5b70994890-stand",
+      "name": "Wall_Beam_Plane展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4e7fc5f1be96c273-stand",
+      "name": "Wall_Corner_Ext展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d596d937d03a3709-stand",
+      "name": "Wall_Corner_Int展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7454cfee6cd93266-stand",
+      "name": "Wall_Door_1展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-883ccdbc627cf84b-stand",
+      "name": "Wall_Door_2展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9e45f7f04b119d4c-stand",
+      "name": "Wall_Door_3展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2e2d7317142e88ac-stand",
+      "name": "Wall_Door_4展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-efc115108dc8449e-stand",
+      "name": "Wall_Pillar_Plane展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-6fdfc706a1a6d9b3-stand",
+      "name": "Wall_Wall展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-61fdef0885d3f9e6-stand",
+      "name": "Wall_Window_1展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-140247b91f092e39-stand",
+      "name": "Wall_Window_2展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-26e61c40ea2d3edd-stand",
+      "name": "Wall_Window_3展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-42341ba63a096821-stand",
+      "name": "Wall_Window_4展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-172bb6e3f1fd9bff-stand",
+      "name": "Walls_Beams_Ext展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0984a1cbc6973952-stand",
+      "name": "Walls_Beams_Int展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5119167891183237-stand",
+      "name": "Walls_Pillar_Ext展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-fd8030dc551901fc-stand",
+      "name": "Walls_Pillar_Int展台",
+      "parentId": "transform:category-woodendocks-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-7521eb4f2688ab6b",
+      "name": "WoodenDocks · Boat_A_1 · 模型 0.03 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Boat_A_1.glb",
+      "position": [
+        -22,
+        0,
+        20.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80027047,
+        0.80027047,
+        0.80027047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-39ad425ea3934814",
+      "name": "WoodenDocks · Boat_A_2 · 模型 0.03 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Boat_A_2.glb",
+      "position": [
+        -18,
+        0,
+        20.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80027047,
+        0.80027047,
+        0.80027047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-beacb0aaeecc9d71",
+      "name": "WoodenDocks · Boat_A_3 · 模型 0.03 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Boat_A_3.glb",
+      "position": [
+        -14,
+        0,
+        20.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80027047,
+        0.80027047,
+        0.80027047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-42814719862fd344",
+      "name": "WoodenDocks · Boat_B_1 · 模型 0.02 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Boat_B_1.glb",
+      "position": [
+        -10.00000002,
+        0,
+        20.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51175398,
+        0.51175398,
+        0.51175398
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5d4e2b4a8f6245f2",
+      "name": "WoodenDocks · Boat_B_2 · 模型 0.02 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Boat_B_2.glb",
+      "position": [
+        -6.00000002,
+        0,
+        19.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51175394,
+        0.51175394,
+        0.51175394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8310919ef7ef9e76",
+      "name": "WoodenDocks · Boat_B_3 · 模型 0.02 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Boat_B_3.glb",
+      "position": [
+        -2.00000002,
+        0,
+        19.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51175394,
+        0.51175394,
+        0.51175394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d4ec236ac3409e29",
+      "name": "WoodenDocks · Boat_Stand · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Boat_Stand.glb",
+      "position": [
+        -21.9999999,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.537111,
+        0.537111,
+        0.537111
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4c127bb3c71c5c58",
+      "name": "WoodenDocks · Dock_Bollard_1 · 模型 0.02 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Dock_Bollard_1.glb",
+      "position": [
+        -18.00000003,
+        0,
+        16.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.59672156,
+        3.59672156,
+        3.59672156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-88835b6a733e8847",
+      "name": "WoodenDocks · Dock_Bollard_2 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Dock_Bollard_2.glb",
+      "position": [
+        -14.0000001,
+        0,
+        15.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.43716373,
+        3.43716373,
+        3.43716373
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1a796dabc2757c7e",
+      "name": "WoodenDocks · Dock_Bollard_3 · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Dock_Bollard_3.glb",
+      "position": [
+        -10.00000015,
+        0,
+        16.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.59672183,
+        3.59672183,
+        3.59672183
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e911778e1a7e5203",
+      "name": "WoodenDocks · Dock_Bollard_Half_1 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Dock_Bollard_Half_1.glb",
+      "position": [
+        -5.99999969,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.69683235,
+        4.69683235,
+        4.69683235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2aad5a96fdcc912b",
+      "name": "WoodenDocks · Dock_Bollard_Half_2 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Dock_Bollard_Half_2.glb",
+      "position": [
+        -1.99999958,
+        1e-8,
+        16.00000065
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.23985375,
+        6.23985375,
+        6.23985375
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b1a84a194d1fb505",
+      "name": "WoodenDocks · Fence_Plane · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Fence_Plane.glb",
+      "position": [
+        -22.00000017,
+        0,
+        11.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b7df2664f2e67bdb",
+      "name": "WoodenDocks · Fence_Plane_Half · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Fence_Plane_Half.glb",
+      "position": [
+        -18.00000033,
+        0,
+        11.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e3186e9af9086cc",
+      "name": "WoodenDocks · Fence_Post · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Fence_Post.glb",
+      "position": [
+        -14,
+        0,
+        12.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.52254796,
+        2.52254796,
+        2.52254796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb18ca7e8cc8abf4",
+      "name": "WoodenDocks · Floor_Corner · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Corner.glb",
+      "position": [
+        -10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-35e0ea830ce850a4",
+      "name": "WoodenDocks · Floor_Dock · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Dock.glb",
+      "position": [
+        -6,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0e519ed4363a1e1e",
+      "name": "WoodenDocks · Floor_Dock_End · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Dock_End.glb",
+      "position": [
+        -2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c7bcc771c65d9e0f",
+      "name": "WoodenDocks · Floor_Dock_End_Half · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Dock_End_Half.glb",
+      "position": [
+        -22,
+        0,
+        8.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999983,
+        1.39999983,
+        1.39999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b756b5fb7823b3d6",
+      "name": "WoodenDocks · Floor_Dock_Half · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Dock_Half.glb",
+      "position": [
+        -18,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fdede06bb4b1a339",
+      "name": "WoodenDocks · Floor_Floor · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Floor.glb",
+      "position": [
+        -14,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6f0567176ea784f6",
+      "name": "WoodenDocks · Floor_Half_1 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Half_1.glb",
+      "position": [
+        -10,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aaafe00a2b741a7f",
+      "name": "WoodenDocks · Floor_Half_2 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Half_2.glb",
+      "position": [
+        -6,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-82780332d916f29d",
+      "name": "WoodenDocks · Floor_Quarter · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Quarter.glb",
+      "position": [
+        -2,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fb744307b3e17dcf",
+      "name": "WoodenDocks · Floor_Quarter_Corner · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Quarter_Corner.glb",
+      "position": [
+        -22,
+        0,
+        3.99999967
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999524,
+        1.39999524,
+        1.39999524
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-665dad3a70e88e16",
+      "name": "WoodenDocks · Floor_Side_Boards · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Side_Boards.glb",
+      "position": [
+        -18,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-69c1dd168eaacfc4",
+      "name": "WoodenDocks · Floor_Side_Boards_Half · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Side_Boards_Half.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2573ca8a3e2d27c1",
+      "name": "WoodenDocks · Floor_Side_Plank · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Side_Plank.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e66153b09cc2c91a",
+      "name": "WoodenDocks · Floor_Side_Plank_Half · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Side_Plank_Half.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0d7f9341bc631ee7",
+      "name": "WoodenDocks · Floor_Support · 模型 0.01 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Support.glb",
+      "position": [
+        -2,
+        4e-8,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72217728,
+        0.72217728,
+        0.72217728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0302a5ac22c93198",
+      "name": "WoodenDocks · Floor_Support_Half · 模型 0.01 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Support_Half.glb",
+      "position": [
+        -22.00000002,
+        0,
+        -4e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72217734,
+        0.72217734,
+        0.72217734
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-280e19a1583fd1e6",
+      "name": "WoodenDocks · Floor_Support_Half_VHalf · 模型 0.01 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Support_Half_VHalf.glb",
+      "position": [
+        -18.00000002,
+        0,
+        -4e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72217734,
+        0.72217734,
+        0.72217734
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3d270444e17d88e9",
+      "name": "WoodenDocks · Floor_Support_Quarter · 模型 0.01 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Support_Quarter.glb",
+      "position": [
+        -14.00000017,
+        0,
+        4e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f7a757c58053c234",
+      "name": "WoodenDocks · Floor_Support_Quarter_VHalf · 模型 0.01 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Support_Quarter_VHalf.glb",
+      "position": [
+        -10.00000018,
+        0,
+        4e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49161091,
+        1.49161091,
+        1.49161091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aa906533a2e5bbf3",
+      "name": "WoodenDocks · Floor_Support_VHalf · 模型 0.01 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Floor_Support_VHalf.glb",
+      "position": [
+        -6,
+        4e-8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72217728,
+        0.72217728,
+        0.72217728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b8d34d9d3c653541",
+      "name": "WoodenDocks · Harpoon_1 · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Harpoon_1.glb",
+      "position": [
+        -2.00000022,
+        -1e-8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.87482833,
+        1.87482833,
+        1.87482833
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9d41fe6232e3298d",
+      "name": "WoodenDocks · Harpoon_2 · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Harpoon_2.glb",
+      "position": [
+        -21.9999996,
+        0,
+        -4.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91037273,
+        1.91037273,
+        1.91037273
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3d48e4814b080cbd",
+      "name": "WoodenDocks · Lantern_Body · 模型 0.10 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Lantern_Body.glb",
+      "position": [
+        -17.9999994,
+        -9e-8,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.77360715,
+        4.77360715,
+        4.77360715
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-53ed96b584e61183",
+      "name": "WoodenDocks · Lantern_Frame · 模型 0.09 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Lantern_Frame.glb",
+      "position": [
+        -13.99999923,
+        -1.1e-7,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.0531146,
+        6.0531146,
+        6.0531146
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-46aba5c7ecd15dd2",
+      "name": "WoodenDocks · Lantern_Lamp · 模型 0.02 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Lantern_Lamp.glb",
+      "position": [
+        -9.99999981,
+        0,
+        -4.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.3525624,
+        6.3525624,
+        6.3525624
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3e9707cd7984b030",
+      "name": "WoodenDocks · Paddle_1 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Paddle_1.glb",
+      "position": [
+        -6.00000014,
+        0,
+        -4.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15199555,
+        1.15199555,
+        1.15199555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c49ba341bf8f9606",
+      "name": "WoodenDocks · Paddle_2 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Paddle_2.glb",
+      "position": [
+        -2.00000015,
+        -1e-8,
+        -3.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98656371,
+        0.98656371,
+        0.98656371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-749c2723c3efda3b",
+      "name": "WoodenDocks · Paddle_3 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Paddle_3.glb",
+      "position": [
+        -22.00000002,
+        -1e-8,
+        -8.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.78702376,
+        0.78702376,
+        0.78702376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7a6ecb37d0e5356f",
+      "name": "WoodenDocks · Post · 模型 0.02 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Post.glb",
+      "position": [
+        -18,
+        0,
+        -8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88494414,
+        0.88494414,
+        0.88494414
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-742cc4ee3fd20cdd",
+      "name": "WoodenDocks · Props_Barrel · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Barrel.glb",
+      "position": [
+        -14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.27817417,
+        4.27817417,
+        4.27817417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b093ed9b4fe169f",
+      "name": "WoodenDocks · Props_Bed_1 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Bed_1.glb",
+      "position": [
+        -10,
+        0,
+        -8.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4009153,
+        1.4009153,
+        1.4009153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-72859cb7c3aefa43",
+      "name": "WoodenDocks · Props_Bed_2 · 模型 0.01 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Bed_2.glb",
+      "position": [
+        -6.00000033,
+        0,
+        -8.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4009153,
+        1.4009153,
+        1.4009153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb5337717039d0e7",
+      "name": "WoodenDocks · Props_Bench · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Bench.glb",
+      "position": [
+        -1.99999992,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.53473933,
+        2.53473933,
+        2.53473933
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-57c8b1470ccc2c7c",
+      "name": "WoodenDocks · Props_Box · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Box.glb",
+      "position": [
+        -22.00000007,
+        0,
+        -12.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.66666555,
+        4.66666555,
+        4.66666555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b1eeac1e493cd8ef",
+      "name": "WoodenDocks · Props_Chair · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Chair.glb",
+      "position": [
+        -18,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.49914214,
+        2.49914214,
+        2.49914214
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b8a9de89b62a313b",
+      "name": "WoodenDocks · Props_Crate · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Crate.glb",
+      "position": [
+        -14.00000146,
+        0,
+        -11.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.66930929,
+        4.66930929,
+        4.66930929
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-036ee4b1d975849f",
+      "name": "WoodenDocks · Props_Fish_1 · 模型 0.01 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Fish_1.glb",
+      "position": [
+        -9.99999971,
+        1.4e-7,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.81325311,
+        4.81325311,
+        4.81325311
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eb30bc61a36f2dfc",
+      "name": "WoodenDocks · Props_Fish_2 · 模型 0.01 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Fish_2.glb",
+      "position": [
+        -5.99999883,
+        2.6e-7,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.81366135,
+        5.81366135,
+        5.81366135
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4f24f87836546767",
+      "name": "WoodenDocks · Props_Rack · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Rack.glb",
+      "position": [
+        -2,
+        0,
+        -11.99999955
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15898357,
+        1.15898357,
+        1.15898357
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-046e7cf5fae9de8d",
+      "name": "WoodenDocks · Props_Rack_Fish · 模型 0.07 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Rack_Fish.glb",
+      "position": [
+        -21.99999959,
+        0,
+        -15.99999948
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15898357,
+        1.15898357,
+        1.15898357
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-978d5b2851b9c737",
+      "name": "WoodenDocks · Props_Shelf_1 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Shelf_1.glb",
+      "position": [
+        -18,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ea9604bb1af08348",
+      "name": "WoodenDocks · Props_Shelf_2 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Shelf_2.glb",
+      "position": [
+        -14,
+        0,
+        -16.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999983,
+        1.39999983,
+        1.39999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6cf2e413b844c5cd",
+      "name": "WoodenDocks · Props_Stool · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Stool.glb",
+      "position": [
+        -10,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.24620455,
+        5.24620455,
+        5.24620455
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3496444eb7c067da",
+      "name": "WoodenDocks · Props_Stool_Round · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Stool_Round.glb",
+      "position": [
+        -6,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.24620455,
+        5.24620455,
+        5.24620455
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-32c901f11aa758b4",
+      "name": "WoodenDocks · Props_Stool_Small · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Stool_Small.glb",
+      "position": [
+        -2.00000045,
+        0,
+        -16.00000597
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.02026929,
+        10.02026929,
+        10.02026929
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-63a42509c5886af8",
+      "name": "WoodenDocks · Props_Table_1 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Table_1.glb",
+      "position": [
+        2,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59203455,
+        1.59203455,
+        1.59203455
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1d389feebcf95a43",
+      "name": "WoodenDocks · Props_Table_2 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Table_2.glb",
+      "position": [
+        6,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.48848993,
+        2.48848993,
+        2.48848993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aedea12c785ce79a",
+      "name": "WoodenDocks · Props_Table_3 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Table_3.glb",
+      "position": [
+        9.99999927,
+        0,
+        20.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.22207161,
+        2.22207161,
+        2.22207161
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a0d9ef10dd6ad824",
+      "name": "WoodenDocks · Props_Table_4 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Table_4.glb",
+      "position": [
+        13.99999936,
+        0,
+        19.99999906
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3031473,
+        3.3031473,
+        3.3031473
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d4119038d2e65211",
+      "name": "WoodenDocks · Props_Table_Round · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Props_Table_Round.glb",
+      "position": [
+        18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0b697a97fd9c4fe4",
+      "name": "WoodenDocks · Rope_Coil_001 · 模型 0.01 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Rope_Coil_001.glb",
+      "position": [
+        21.99999836,
+        -4.2e-7,
+        19.99999811
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.77464083,
+        9.77464083,
+        9.77464083
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-40375d71f5802a30",
+      "name": "WoodenDocks · RopeSegment · 模型 0.00 MiB · 贴图 0.26 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/RopeSegment.glb",
+      "position": [
+        2,
+        -3.7e-7,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.54837998,
+        16.54837998,
+        16.54837998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9f48dcae6dcff662",
+      "name": "WoodenDocks · Stairs_A · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Stairs_A.glb",
+      "position": [
+        6,
+        0,
+        15.99999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22656197,
+        1.22656197,
+        1.22656197
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ac3dd1dab94323e0",
+      "name": "WoodenDocks · Stairs_A_Support_1 · 模型 0.00 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Stairs_A_Support_1.glb",
+      "position": [
+        9.99999998,
+        0,
+        16.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53582199,
+        1.53582199,
+        1.53582199
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-df472302d3b02f7b",
+      "name": "WoodenDocks · Stairs_A_Support_2 · 模型 0.00 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Stairs_A_Support_2.glb",
+      "position": [
+        14.00000023,
+        0,
+        15.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f42870f3661b6ca9",
+      "name": "WoodenDocks · Stairs_B · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Stairs_B.glb",
+      "position": [
+        17.99999993,
+        0,
+        16.00000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22271227,
+        1.22271227,
+        1.22271227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c65a5664c1449c37",
+      "name": "WoodenDocks · Stairs_B_Support · 模型 0.00 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Stairs_B_Support.glb",
+      "position": [
+        21.99999988,
+        0,
+        15.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26157144,
+        1.26157144,
+        1.26157144
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-21e16f60a50502ab",
+      "name": "WoodenDocks · Support_Block_1 · 模型 0.00 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Block_1.glb",
+      "position": [
+        2,
+        0,
+        12.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bf72c12a20307d2f",
+      "name": "WoodenDocks · Support_Block_1_half · 模型 0.00 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Block_1_half.glb",
+      "position": [
+        6,
+        0,
+        12.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53582186,
+        1.53582186,
+        1.53582186
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1eda6ec4f6fe9f83",
+      "name": "WoodenDocks · Support_Block_2 · 模型 0.00 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Block_2.glb",
+      "position": [
+        10.00000004,
+        0,
+        12.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73238456,
+        0.73238456,
+        0.73238456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-14861f3c0af18095",
+      "name": "WoodenDocks · Support_Block_2_half · 模型 0.00 MiB · 贴图 0.36 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Block_2_half.glb",
+      "position": [
+        14.00000004,
+        0,
+        12.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73238456,
+        0.73238456,
+        0.73238456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-326cc7c3000e7733",
+      "name": "WoodenDocks · Support_Plane · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Plane.glb",
+      "position": [
+        17.99999987,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-262a27df2cf11760",
+      "name": "WoodenDocks · Support_Plane_Half · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Plane_Half.glb",
+      "position": [
+        21.99999985,
+        0,
+        12.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67950157,
+        1.67950157,
+        1.67950157
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b87d8f82777e1f0e",
+      "name": "WoodenDocks · Support_Planes_1 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Planes_1.glb",
+      "position": [
+        2,
+        4e-8,
+        7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000008,
+        0.70000008,
+        0.70000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5a930df3f860181d",
+      "name": "WoodenDocks · Support_Planes_1_Half · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Planes_1_Half.glb",
+      "position": [
+        6,
+        0,
+        7.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000008,
+        0.70000008,
+        0.70000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-283de0ffe664c182",
+      "name": "WoodenDocks · Support_Planes_2 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Planes_2.glb",
+      "position": [
+        10.00000021,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-013846e732b08249",
+      "name": "WoodenDocks · Support_Planes_2_Half · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Planes_2_Half.glb",
+      "position": [
+        14.00000021,
+        0,
+        7.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000004,
+        1.40000004,
+        1.40000004
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f3c9389a935c6f69",
+      "name": "WoodenDocks · Support_Post · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Post.glb",
+      "position": [
+        17.99999993,
+        0,
+        8.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8abe35f85bf78390",
+      "name": "WoodenDocks · Support_Post_Half · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Support_Post_Half.glb",
+      "position": [
+        21.99999985,
+        0,
+        8.0000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7451ac5b70994890",
+      "name": "WoodenDocks · Wall_Beam_Plane · 模型 0.00 MiB · 贴图 0.43 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Beam_Plane.glb",
+      "position": [
+        2,
+        0,
+        3.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e7fc5f1be96c273",
+      "name": "WoodenDocks · Wall_Corner_Ext · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Corner_Ext.glb",
+      "position": [
+        5.99999975,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000001,
+        0.70000001,
+        0.70000001
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d596d937d03a3709",
+      "name": "WoodenDocks · Wall_Corner_Int · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Corner_Int.glb",
+      "position": [
+        9.99999985,
+        0,
+        3.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000001,
+        0.70000001,
+        0.70000001
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7454cfee6cd93266",
+      "name": "WoodenDocks · Wall_Door_1 · 模型 0.01 MiB · 贴图 0.60 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Door_1.glb",
+      "position": [
+        14,
+        0,
+        3.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999998,
+        0.6999998,
+        0.6999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-883ccdbc627cf84b",
+      "name": "WoodenDocks · Wall_Door_2 · 模型 0.01 MiB · 贴图 0.60 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Door_2.glb",
+      "position": [
+        18,
+        0,
+        4.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999998,
+        0.6999998,
+        0.6999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9e45f7f04b119d4c",
+      "name": "WoodenDocks · Wall_Door_3 · 模型 0.01 MiB · 贴图 0.60 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Door_3.glb",
+      "position": [
+        22,
+        0,
+        4.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999984,
+        0.69999984,
+        0.69999984
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2e2d7317142e88ac",
+      "name": "WoodenDocks · Wall_Door_4 · 模型 0.01 MiB · 贴图 0.60 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Door_4.glb",
+      "position": [
+        2,
+        0,
+        2e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999984,
+        0.69999984,
+        0.69999984
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-efc115108dc8449e",
+      "name": "WoodenDocks · Wall_Pillar_Plane · 模型 0.00 MiB · 贴图 0.43 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Pillar_Plane.glb",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6fdfc706a1a6d9b3",
+      "name": "WoodenDocks · Wall_Wall · 模型 0.00 MiB · 贴图 0.43 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Wall.glb",
+      "position": [
+        10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-61fdef0885d3f9e6",
+      "name": "WoodenDocks · Wall_Window_1 · 模型 0.03 MiB · 贴图 0.77 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Window_1.glb",
+      "position": [
+        14,
+        0,
+        -5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-140247b91f092e39",
+      "name": "WoodenDocks · Wall_Window_2 · 模型 0.01 MiB · 贴图 0.77 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Window_2.glb",
+      "position": [
+        18,
+        0,
+        -7e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-26e61c40ea2d3edd",
+      "name": "WoodenDocks · Wall_Window_3 · 模型 0.02 MiB · 贴图 0.77 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Window_3.glb",
+      "position": [
+        22,
+        0,
+        -7e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-42341ba63a096821",
+      "name": "WoodenDocks · Wall_Window_4 · 模型 0.01 MiB · 贴图 0.77 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Wall_Window_4.glb",
+      "position": [
+        4,
+        0,
+        -3.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-172bb6e3f1fd9bff",
+      "name": "WoodenDocks · Walls_Beams_Ext · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Walls_Beams_Ext.glb",
+      "position": [
+        8,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0984a1cbc6973952",
+      "name": "WoodenDocks · Walls_Beams_Int · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Walls_Beams_Int.glb",
+      "position": [
+        12,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5119167891183237",
+      "name": "WoodenDocks · Walls_Pillar_Ext · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Walls_Pillar_Ext.glb",
+      "position": [
+        15.99999997,
+        0,
+        -3.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fd8030dc551901fc",
+      "name": "WoodenDocks · Walls_Pillar_Int · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-woodendocks-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodenDocks/Walls_Pillar_Int.glb",
+      "position": [
+        19.99999997,
+        0,
+        -3.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

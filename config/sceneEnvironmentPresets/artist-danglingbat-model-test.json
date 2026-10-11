@@ -1,0 +1,1191 @@
+{
+  "presetKey": "artist-danglingbat-model-test",
+  "name": "Danglingbat 资源 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "danglingbat-test-ambient",
+      "name": "测试环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#35404c"
+      }
+    },
+    {
+      "id": "danglingbat-test-key-light",
+      "name": "测试主光",
+      "intensity": 0.9,
+      "color": "#fff3dc",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          30,
+          50,
+          -30
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "danglingbat-test-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 52
+      },
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "color": "#3a4249",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "danglingbat-model-01",
+      "name": "chain_link_fence_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/modular-chain-link-fence/chain_link_fence_01_danglingbat_itch_io.glb",
+      "position": [
+        -21,
+        0.03000000179812254,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-02",
+      "name": "chain_link_fence_02",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/modular-chain-link-fence/chain_link_fence_02_danglingbat_itch_io.glb",
+      "position": [
+        -14,
+        0.03000000179812254,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-03",
+      "name": "chain_link_fence_end_left",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/modular-chain-link-fence/chain_link_fence_end_left_danglingbat_itch_io.glb",
+      "position": [
+        -7,
+        0.03,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-04",
+      "name": "chain_link_fence_end_right",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/modular-chain-link-fence/chain_link_fence_end_right_danglingbat_itch_io.glb",
+      "position": [
+        0,
+        0.03,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-05",
+      "name": "chain_link_fence_ext_corner",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/modular-chain-link-fence/chain_link_fence_ext_corner_danglingbat_itch_io.glb",
+      "position": [
+        7,
+        0.03,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-06",
+      "name": "chain_link_fence_int_corner",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/modular-chain-link-fence/chain_link_fence_int_corner_danglingbat_itch_io.glb",
+      "position": [
+        14,
+        0.03,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-07",
+      "name": "bracken_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/bracken_01_danglingbat_itch_io.glb",
+      "position": [
+        21,
+        0.0626346829533577,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-08",
+      "name": "bracken_02",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/bracken_02_danglingbat_itch_io.glb",
+      "position": [
+        -21,
+        0.05121681720018387,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-09",
+      "name": "bracken_03",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/bracken_03_danglingbat_itch_io.glb",
+      "position": [
+        -14,
+        0.0330140308663249,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-10",
+      "name": "dogbane_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/dogbane_01_danglingbat_itch_io.glb",
+      "position": [
+        -7,
+        0.08559821426868439,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-11",
+      "name": "dogbane_02",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/dogbane_02_danglingbat_itch_io.glb",
+      "position": [
+        0,
+        0.09348861753940582,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-12",
+      "name": "grass_01_large",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/grass_01_large_danglingbat_itch_io.glb",
+      "position": [
+        7,
+        0.07686764255166054,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-13",
+      "name": "grass_01_medium",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/grass_01_medium_danglingbat_itch_io.glb",
+      "position": [
+        14,
+        0.0804113994538784,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-14",
+      "name": "grass_01_small",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/grass_01_small_danglingbat_itch_io.glb",
+      "position": [
+        21,
+        0.0652451391518116,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-15",
+      "name": "old-field_goldenrod_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/old-field_goldenrod_01_danglingbat_itch_io.glb",
+      "position": [
+        -21,
+        0.050729342475533484,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-16",
+      "name": "old-field_goldenrod_02",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/old-field_goldenrod_02_danglingbat_itch_io.glb",
+      "position": [
+        -14,
+        0.06304564207792282,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-17",
+      "name": "old-field_goldenrod_03",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/old-field_goldenrod_03_danglingbat_itch_io.glb",
+      "position": [
+        -7,
+        0.07140857979655266,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-18",
+      "name": "rhus_typhina_small_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/rhus_typhina_small_01_danglingbat_itch_io.glb",
+      "position": [
+        0,
+        0.030862112443428485,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-19",
+      "name": "rhus_typhina_small_02",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/rhus_typhina_small_02_danglingbat_itch_io.glb",
+      "position": [
+        7,
+        0.030862112443428485,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-20",
+      "name": "rhus_typhina_small_03",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/rhus_typhina_small_03_danglingbat_itch_io.glb",
+      "position": [
+        14,
+        0.030862112385220825,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-21",
+      "name": "savory-leaf_aster_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/savory-leaf_aster_01_danglingbat_itch_io.glb",
+      "position": [
+        21,
+        0.06295411169528961,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-22",
+      "name": "savory-leaf_aster_02",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/savory-leaf_aster_02_danglingbat_itch_io.glb",
+      "position": [
+        -21,
+        0.06138189762830734,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-23",
+      "name": "savory-leaf_aster_03",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/savory-leaf_aster_03_danglingbat_itch_io.glb",
+      "position": [
+        -14,
+        0.06371359407901764,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-24",
+      "name": "savory-leaf_aster_04",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/savory-leaf_aster_04_danglingbat_itch_io.glb",
+      "position": [
+        -7,
+        0.06999258577823639,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-25",
+      "name": "savory-leaf_aster_05",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/savory-leaf_aster_05_danglingbat_itch_io.glb",
+      "position": [
+        0,
+        0.07068285599350929,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-26",
+      "name": "tall_grass_01_large",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/tall_grass_01_large_danglingbat_itch_io.glb",
+      "position": [
+        7,
+        0.1044343027472496,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-27",
+      "name": "tall_grass_01_medium",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/tall_grass_01_medium_danglingbat_itch_io.glb",
+      "position": [
+        14,
+        0.09738905608654022,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-28",
+      "name": "tall_grass_01_small",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/tall_grass_01_small_danglingbat_itch_io.glb",
+      "position": [
+        21,
+        0.08384647101163864,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-29",
+      "name": "virginia_creeper_large",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/virginia_creeper_large_danglingbat_itch_io.glb",
+      "position": [
+        -21,
+        3.6511540699005125,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-30",
+      "name": "virginia_creeper_medium",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/virginia_creeper_medium_danglingbat_itch_io.glb",
+      "position": [
+        -14,
+        2.191583662033081,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-31",
+      "name": "virginia_creeper_small",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/virginia_creeper_small_danglingbat_itch_io.glb",
+      "position": [
+        -7,
+        1.453625946044922,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-32",
+      "name": "white_clover_large",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/white_clover_large_danglingbat_itch_io.glb",
+      "position": [
+        0,
+        0.11775974065065384,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-33",
+      "name": "white_clover_medium",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/plants/white_clover_medium_danglingbat_itch_io.glb",
+      "position": [
+        7,
+        0.10958504557609558,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-34",
+      "name": "aspen_tree_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/aspen_tree_01_danglingbat_itch_io.glb",
+      "position": [
+        14,
+        0.03745606422424316,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-35",
+      "name": "aspen_tree_02",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/aspen_tree_02_danglingbat_itch_io.glb",
+      "position": [
+        21,
+        0.030029246031772344,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-36",
+      "name": "dead_branch_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/dead_branch_01_danglingbat_itch_io.glb",
+      "position": [
+        -21,
+        0.03133070792071521,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-37",
+      "name": "dead_branch_02",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/dead_branch_02_danglingbat_itch_io.glb",
+      "position": [
+        -14,
+        0.032268195850774645,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-38",
+      "name": "fallen_pine_tree_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/fallen_pine_tree_01_danglingbat_itch_io.glb",
+      "position": [
+        -7,
+        0.1530991780757904,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-39",
+      "name": "pine_tree_01_a",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/pine_tree_01_a_danglingbat_itch_io.glb",
+      "position": [
+        0,
+        0.04781185157597065,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-40",
+      "name": "pine_tree_01_b",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/pine_tree_01_b_danglingbat_itch_io.glb",
+      "position": [
+        7,
+        0.06374091908335686,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-41",
+      "name": "pine_tree_01_c",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/pine_tree_01_c_danglingbat_itch_io.glb",
+      "position": [
+        14,
+        0.05125822193920612,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-42",
+      "name": "pine_tree_stump_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/pine_tree_stump_01_danglingbat_itch_io.glb",
+      "position": [
+        21,
+        0.1859220254421234,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-43",
+      "name": "pine_tree_trunk_01",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/pine_tree_trunk_01_danglingbat_itch_io.glb",
+      "position": [
+        -21,
+        0.1530991780757904,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-44",
+      "name": "rock_01_large",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/rock_01_large_danglingbat_itch_io.glb",
+      "position": [
+        -14,
+        0.03,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-45",
+      "name": "rock_01_large_mossy",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/rock_01_large_mossy_danglingbat_itch_io.glb",
+      "position": [
+        -7,
+        0.03,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-46",
+      "name": "rock_01_small",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/rock_01_small_danglingbat_itch_io.glb",
+      "position": [
+        0,
+        0.03000002549715461,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "danglingbat-model-47",
+      "name": "rock_01_small_mossy",
+      "modelPath": "resources/Model/GLB/artist_danglingbat/trees/rock_01_small_mossy_danglingbat_itch_io.glb",
+      "position": [
+        7,
+        0.03000002549715461,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

@@ -119,7 +119,7 @@ export const ModelDisplayLab = () => {
     setLoading(true);
     modelRef.current?.dispose();
     modelRef.current = null;
-    void createModelEntity(sceneRef.current, selectedPath, { autoPlayAnimation: true }).then((model) => {
+    void createModelEntity(sceneRef.current, selectedPath, { autoPlayAnimation: true, materialOverrides: settingsRef.current.materialOverrides }).then((model) => {
       if (cancelled) return model.dispose();
       model.root.rotationQuaternion = null;
       modelRef.current = model;

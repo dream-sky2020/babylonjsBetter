@@ -1,0 +1,1287 @@
+{
+  "presetKey": "bathroom-set-model-test",
+  "name": "PSX 浴室套件 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "bathroom-test-ambient",
+      "name": "浴室测试环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#35404c"
+      }
+    },
+    {
+      "id": "bathroom-test-key-light",
+      "name": "浴室测试主光",
+      "intensity": 0.8,
+      "color": "#fff3dc",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          30,
+          50,
+          -30
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "bathroom-test-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 100,
+        "height": 90
+      },
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "color": "#3a4249",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "bathroom-model-01",
+      "name": "bin",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/bin_clonecrafts_itch_io.glb",
+      "position": [
+        -35,
+        0.05,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-02",
+      "name": "ceiling_4x4",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/ceiling_4x4_clonecrafts_itch_io.glb",
+      "position": [
+        -25,
+        0.05,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-03",
+      "name": "ceiling",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/ceiling_clonecrafts_itch_io.glb",
+      "position": [
+        -15,
+        0.05,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-04",
+      "name": "ceiling_corner",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/ceiling_corner_clonecrafts_itch_io.glb",
+      "position": [
+        -5,
+        0.05,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-05",
+      "name": "ceiling_edge",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/ceiling_edge_clonecrafts_itch_io.glb",
+      "position": [
+        5,
+        0.05,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-06",
+      "name": "ceiling_outer",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/ceiling_outer_clonecrafts_itch_io.glb",
+      "position": [
+        15,
+        0.05,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-07",
+      "name": "floor",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_clonecrafts_itch_io.glb",
+      "position": [
+        25,
+        0.05,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-08",
+      "name": "floor_corner",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_corner_clonecrafts_itch_io.glb",
+      "position": [
+        35,
+        0.05,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-09",
+      "name": "floor_corner_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_corner_grime_clonecrafts_itch_io.glb",
+      "position": [
+        -35,
+        0.05,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-10",
+      "name": "floor_corner_grime2",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_corner_grime2_clonecrafts_itch_io.glb",
+      "position": [
+        -25,
+        0.05,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-11",
+      "name": "floor_corner2",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_corner2_clonecrafts_itch_io.glb",
+      "position": [
+        -15,
+        0.05,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-12",
+      "name": "floor_edge",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_edge_clonecrafts_itch_io.glb",
+      "position": [
+        -5,
+        0.05,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-13",
+      "name": "floor_edge_edge2",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_edge_edge2_clonecrafts_itch_io.glb",
+      "position": [
+        5,
+        0.05,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-14",
+      "name": "floor_edge_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_edge_grime_clonecrafts_itch_io.glb",
+      "position": [
+        15,
+        0.05,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-15",
+      "name": "floor_edge2",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_edge2_clonecrafts_itch_io.glb",
+      "position": [
+        25,
+        0.05,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-16",
+      "name": "floor_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_grime_clonecrafts_itch_io.glb",
+      "position": [
+        35,
+        0.05,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-17",
+      "name": "floor_outer",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_outer_clonecrafts_itch_io.glb",
+      "position": [
+        -35,
+        0.05,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-18",
+      "name": "floor_outer_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_outer_grime_clonecrafts_itch_io.glb",
+      "position": [
+        -25,
+        0.05,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-19",
+      "name": "floor_outer_grime2",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_outer_grime2_clonecrafts_itch_io.glb",
+      "position": [
+        -15,
+        0.05,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-20",
+      "name": "floor_outer2",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor_outer2_clonecrafts_itch_io.glb",
+      "position": [
+        -5,
+        0.05,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-21",
+      "name": "floor4x4_2",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor4x4_2_clonecrafts_itch_io.glb",
+      "position": [
+        5,
+        0.05,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-22",
+      "name": "floor4x4",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/floor4x4_clonecrafts_itch_io.glb",
+      "position": [
+        15,
+        0.05,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-23",
+      "name": "flu_light",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/flu_light_clonecrafts_itch_io.glb",
+      "position": [
+        25,
+        0.11373050063848496,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-24",
+      "name": "grate",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/grate_clonecrafts_itch_io.glb",
+      "position": [
+        35,
+        0.05,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-25",
+      "name": "grate_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/grate_grime_clonecrafts_itch_io.glb",
+      "position": [
+        -35,
+        0.05,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-26",
+      "name": "mirror",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/mirror_clonecrafts_itch_io.glb",
+      "position": [
+        -25,
+        0.5499999701976777,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-27",
+      "name": "mirror_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/mirror_grime_clonecrafts_itch_io.glb",
+      "position": [
+        -15,
+        0.5499999701976777,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-28",
+      "name": "paper_roll",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/paper_roll_clonecrafts_itch_io.glb",
+      "position": [
+        -5,
+        0.10500000715255738,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-29",
+      "name": "pipe",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/pipe_clonecrafts_itch_io.glb",
+      "position": [
+        5,
+        0.09989846050739289,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-30",
+      "name": "pipe_corner",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/pipe_corner_clonecrafts_itch_io.glb",
+      "position": [
+        15,
+        0.12298005372285843,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-31",
+      "name": "pipe_corner_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/pipe_corner_grime_clonecrafts_itch_io.glb",
+      "position": [
+        25,
+        0.12298005372285843,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-32",
+      "name": "pipe_double",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/pipe_double_clonecrafts_itch_io.glb",
+      "position": [
+        35,
+        0.11201977282762528,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-33",
+      "name": "pipe_double_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/pipe_double_grime_clonecrafts_itch_io.glb",
+      "position": [
+        -35,
+        0.11201977282762528,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-34",
+      "name": "pipe_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/pipe_grime_clonecrafts_itch_io.glb",
+      "position": [
+        -25,
+        0.09989849030971527,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-35",
+      "name": "pipe_single",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/pipe_single_clonecrafts_itch_io.glb",
+      "position": [
+        -15,
+        0.11201977282762528,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-36",
+      "name": "pipe_single_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/pipe_single_grime_clonecrafts_itch_io.glb",
+      "position": [
+        -5,
+        0.11201977282762528,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-37",
+      "name": "sink",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/sink_clonecrafts_itch_io.glb",
+      "position": [
+        5,
+        0.28497724533081054,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-38",
+      "name": "sink_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/sink_grime_clonecrafts_itch_io.glb",
+      "position": [
+        15,
+        0.28497724533081054,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-39",
+      "name": "soap",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/soap_clonecrafts_itch_io.glb",
+      "position": [
+        25,
+        0.263007315993309,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-40",
+      "name": "stall_closed",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/stall_closed_clonecrafts_itch_io.glb",
+      "position": [
+        35,
+        0.05,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-41",
+      "name": "stall_closed_L",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/stall_closed_L_clonecrafts_itch_io.glb",
+      "position": [
+        -35,
+        0.05,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-42",
+      "name": "stall_closed_R",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/stall_closed_R_clonecrafts_itch_io.glb",
+      "position": [
+        -25,
+        0.05,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-43",
+      "name": "stall_open",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/stall_open_clonecrafts_itch_io.glb",
+      "position": [
+        -15,
+        0.05,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-44",
+      "name": "stall_open_L",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/stall_open_L_clonecrafts_itch_io.glb",
+      "position": [
+        -5,
+        0.05,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-45",
+      "name": "stall_open_R",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/stall_open_R_clonecrafts_itch_io.glb",
+      "position": [
+        5,
+        0.05,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-46",
+      "name": "toilet",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/toilet_clonecrafts_itch_io.glb",
+      "position": [
+        15,
+        0.05,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-47",
+      "name": "toilet_open",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/toilet_open_clonecrafts_itch_io.glb",
+      "position": [
+        25,
+        0.05,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-48",
+      "name": "wall",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/wall_clonecrafts_itch_io.glb",
+      "position": [
+        35,
+        0.05,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-49",
+      "name": "wall_grime",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/wall_grime_clonecrafts_itch_io.glb",
+      "position": [
+        -35,
+        0.05,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-50",
+      "name": "wall_grime2",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/wall_grime2_clonecrafts_itch_io.glb",
+      "position": [
+        -25,
+        0.05,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "bathroom-model-51",
+      "name": "wet_floor",
+      "modelPath": "resources/Model/GLB/artist_clonecrafts/bathroom-set/wet_floor_clonecrafts_itch_io.glb",
+      "position": [
+        -15,
+        0.05,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

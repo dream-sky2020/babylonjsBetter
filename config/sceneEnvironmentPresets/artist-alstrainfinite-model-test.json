@@ -1,0 +1,5385 @@
+{
+  "presetKey": "artist-alstrainfinite-model-test",
+  "name": "alstrainfinite · 模型展示（116 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "vehicles",
+      "name": "车辆分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "legacy-appliances",
+      "name": "旧版家电分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "electronics",
+      "name": "电子设备与娱乐分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapons-tools",
+      "name": "武器与农具分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cabinets-doors",
+      "name": "橱柜与门分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "legacy-cabinets",
+      "name": "旧版橱柜分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "chests",
+      "name": "宝箱与配件分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "boats-fishing",
+      "name": "舟船与渔具分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "appliances",
+      "name": "家电分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "pumpkins",
+      "name": "南瓜分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 48,
+        "height": 78
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-ambulance-truck-stand",
+      "name": "Ambulance-Truck展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-el-truck-stand",
+      "name": "EL-Truck展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-icecream-truck-stand",
+      "name": "IceCream-Truck展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-minivanv1-stand",
+      "name": "MinivanV1展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-minivanv2-stand",
+      "name": "MinivanV2展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-musclecarv1-stand",
+      "name": "MuscleCarV1展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-musclecarv2-stand",
+      "name": "MuscleCarV2展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-musclecarv3-stand",
+      "name": "MuscleCarV3展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-musclecarv4-stand",
+      "name": "MuscleCarV4展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-pickupv1-stand",
+      "name": "PickupV1展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-pickupv2-stand",
+      "name": "PickupV2展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-post-truck-stand",
+      "name": "Post-Truck展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-suvv1-stand",
+      "name": "SuvV1展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-swiftov1-stand",
+      "name": "SwiftoV1展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-swiftov2-stand",
+      "name": "SwiftoV2展台",
+      "parentId": "transform:vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-airfryer-stand",
+      "name": "AirFryer展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-coffee_maker-stand",
+      "name": "Coffee_Maker展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-fanv2-stand",
+      "name": "FanV2展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-mixer-stand",
+      "name": "Mixer展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-stovetop-stand",
+      "name": "Stovetop展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-dryer-stand",
+      "name": "Dryer展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-fan-stand",
+      "name": "Fan展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-fridge-stand",
+      "name": "Fridge展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-fridge_sbs-stand",
+      "name": "Fridge_SBS展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-microwave_oven-stand",
+      "name": "Microwave_Oven展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-stove-stand",
+      "name": "Stove展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        30
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-washer-stand",
+      "name": "Washer展台",
+      "parentId": "transform:legacy-appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        30
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-arcademachinev1-stand",
+      "name": "ArcadeMachineV1展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        23
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-arcademachinev2-stand",
+      "name": "ArcadeMachineV2展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        23
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-arcademachinev3-stand",
+      "name": "ArcadeMachineV3展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        23
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-arcademachinev4-stand",
+      "name": "ArcadeMachineV4展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        23
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-btspeaker-stand",
+      "name": "BTSpeaker展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        23
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-gamingsystem-stand",
+      "name": "GamingSystem展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        19
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-phone-stand",
+      "name": "Phone展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        19
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-pinballmachinev1-stand",
+      "name": "PinballMachineV1展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        19
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-pinballmachinev1_wo_glass-stand",
+      "name": "PinballMachineV1_WO_Glass展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        19
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-remotecontroller-stand",
+      "name": "RemoteController展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        19
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-soundsysteam-stand",
+      "name": "SoundSysteam展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-tablet-stand",
+      "name": "Tablet展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-tv-stand",
+      "name": "Tv展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-walltv-stand",
+      "name": "WallTv展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-axev1-stand",
+      "name": "AxeV1展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        23
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-hammerv1-stand",
+      "name": "HammerV1展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        23
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-hoev1-stand",
+      "name": "HoeV1展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        23
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-pickaxev1-stand",
+      "name": "PickAxeV1展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        23
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_europeanbroad-stand",
+      "name": "Sword_EuropeanBroad展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        23
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_falchion-stand",
+      "name": "Sword_Falchion展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        19
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_katana-stand",
+      "name": "Sword_Katana展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        19
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_rapier-stand",
+      "name": "Sword_Rapier展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        19
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_scimitar-stand",
+      "name": "Sword_Scimitar展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        19
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_viking-stand",
+      "name": "Sword_Viking展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        19
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-scythev1-stand",
+      "name": "ScytheV1展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        15
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-spadev1-stand",
+      "name": "SpadeV1展台",
+      "parentId": "transform:weapons-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        15
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet1-stand",
+      "name": "Cabinet1展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        8
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet2-stand",
+      "name": "Cabinet2展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        8
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet3-stand",
+      "name": "Cabinet3展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        8
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet4-stand",
+      "name": "Cabinet4展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        8
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet5-stand",
+      "name": "Cabinet5展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        8
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cornercabinet1-stand",
+      "name": "CornerCabinet1展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        4
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cornercabinet2-stand",
+      "name": "CornerCabinet2展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        4
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door1-stand",
+      "name": "Door1展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        4
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door2-stand",
+      "name": "Door2展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        4
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door3-stand",
+      "name": "Door3展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        4
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door4-stand",
+      "name": "Door4展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        0
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door5-stand",
+      "name": "Door5展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        0
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door6-stand",
+      "name": "Door6展台",
+      "parentId": "transform:cabinets-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        0
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet1-stand",
+      "name": "Cabinet1展台",
+      "parentId": "transform:legacy-cabinets",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet2-stand",
+      "name": "Cabinet2展台",
+      "parentId": "transform:legacy-cabinets",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet3-stand",
+      "name": "Cabinet3展台",
+      "parentId": "transform:legacy-cabinets",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet4-stand",
+      "name": "Cabinet4展台",
+      "parentId": "transform:legacy-cabinets",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet5-stand",
+      "name": "Cabinet5展台",
+      "parentId": "transform:legacy-cabinets",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cornercabinet1-stand",
+      "name": "CornerCabinet1展台",
+      "parentId": "transform:legacy-cabinets",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        4
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cornercabinet2-stand",
+      "name": "CornerCabinet2展台",
+      "parentId": "transform:legacy-cabinets",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        4
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv1-stand",
+      "name": "ChestV1展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv1_lock-stand",
+      "name": "ChestV1_Lock展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv1_loot-stand",
+      "name": "ChestV1_Loot展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv2-stand",
+      "name": "ChestV2展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv2_lock-stand",
+      "name": "ChestV2_Lock展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv2_loot-stand",
+      "name": "ChestV2_Loot展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv3-stand",
+      "name": "ChestV3展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv3_lock-stand",
+      "name": "ChestV3_Lock展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv3_loot-stand",
+      "name": "ChestV3_Loot展台",
+      "parentId": "transform:chests",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fisher_boat-stand",
+      "name": "Fisher_Boat展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishing_rod-stand",
+      "name": "Fishing_Rod展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishv1-stand",
+      "name": "FishV1展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishv2-stand",
+      "name": "FishV2展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishv3-stand",
+      "name": "FishV3展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishv4-stand",
+      "name": "FishV4展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -11
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-jetskiv1-stand",
+      "name": "JetskiV1展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -11
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-kayakpaddle-stand",
+      "name": "KayakPaddle展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -11
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-kayakv1-stand",
+      "name": "KayakV1展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -11
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-kayakv2-stand",
+      "name": "KayakV2展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -11
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-paddle-stand",
+      "name": "Paddle展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -15
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-scout_boat-stand",
+      "name": "Scout_Boat展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -15
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-sharkv1-stand",
+      "name": "SharkV1展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -15
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-speed_boat-stand",
+      "name": "Speed_Boat展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -15
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-wood_boatv1-stand",
+      "name": "Wood_BoatV1展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -15
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-wood_boatv2-stand",
+      "name": "Wood_BoatV2展台",
+      "parentId": "transform:boats-fishing",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -19
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f1000_fridgefreezer_v1-stand",
+      "name": "KA-F1000_FridgeFreezer_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_bi_stove_v2-stand",
+      "name": "KA-F600_BI_Stove_V2展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_dryer_v1-stand",
+      "name": "KA-F600_Dryer_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_fan_v1-stand",
+      "name": "KA-F600_Fan_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_fan_v3-stand",
+      "name": "KA-F600_Fan_V3展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_fridge_v1-stand",
+      "name": "KA-F600_Fridge_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_stove_v1-stand",
+      "name": "KA-F600_Stove_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_washer_v1-stand",
+      "name": "KA-F600_Washer_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f800_fan_v1-stand",
+      "name": "KA-F800_Fan_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka_airfryer_v1-stand",
+      "name": "KA_Airfryer_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka_coffeemaker_v1-stand",
+      "name": "KA_CoffeeMaker_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka_microwave_v1-stand",
+      "name": "KA_Microwave_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka_mixer_v1-stand",
+      "name": "KA_Mixer_V1展台",
+      "parentId": "transform:appliances",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv1-stand",
+      "name": "PumpkinV1展台",
+      "parentId": "transform:pumpkins",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv2-stand",
+      "name": "PumpkinV2展台",
+      "parentId": "transform:pumpkins",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv3-stand",
+      "name": "PumpkinV3展台",
+      "parentId": "transform:pumpkins",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv4-stand",
+      "name": "PumpkinV4展台",
+      "parentId": "transform:pumpkins",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv5-stand",
+      "name": "PumpkinV5展台",
+      "parentId": "transform:pumpkins",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "vehicles-ambulance-truck",
+      "name": "Ambulance-Truck",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/Ambulance-Truck.glb",
+      "position": [
+        -19.99999997,
+        -4e-8,
+        38.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24983726,
+        1.24983726,
+        1.24983726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-el-truck",
+      "name": "EL-Truck",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/EL-Truck.glb",
+      "position": [
+        -15.99999999,
+        3e-8,
+        37.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24598818,
+        1.24598818,
+        1.24598818
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-icecream-truck",
+      "name": "IceCream-Truck",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/IceCream-Truck.glb",
+      "position": [
+        -11.99999999,
+        3e-8,
+        37.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24598818,
+        1.24598818,
+        1.24598818
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-minivanv1",
+      "name": "MinivanV1",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/MinivanV1.glb",
+      "position": [
+        -7.99999996,
+        2e-8,
+        37.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44384751,
+        1.44384751,
+        1.44384751
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-minivanv2",
+      "name": "MinivanV2",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/MinivanV2.glb",
+      "position": [
+        -3.99999995,
+        2e-8,
+        37.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4437187,
+        1.4437187,
+        1.4437187
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-musclecarv1",
+      "name": "MuscleCarV1",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/MuscleCarV1.glb",
+      "position": [
+        -19.99999998,
+        3e-8,
+        33.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.52778728,
+        1.52778728,
+        1.52778728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-musclecarv2",
+      "name": "MuscleCarV2",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/MuscleCarV2.glb",
+      "position": [
+        -16.00000001,
+        3e-8,
+        33.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6941811,
+        1.6941811,
+        1.6941811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-musclecarv3",
+      "name": "MuscleCarV3",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/MuscleCarV3.glb",
+      "position": [
+        -11.99999998,
+        3e-8,
+        33.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70235982,
+        1.70235982,
+        1.70235982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-musclecarv4",
+      "name": "MuscleCarV4",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/MuscleCarV4.glb",
+      "position": [
+        -7.99999998,
+        3e-8,
+        33.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70235982,
+        1.70235982,
+        1.70235982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-pickupv1",
+      "name": "PickupV1",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/PickupV1.glb",
+      "position": [
+        -3.99999999,
+        2e-8,
+        33.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48928534,
+        1.48928534,
+        1.48928534
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-pickupv2",
+      "name": "PickupV2",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/PickupV2.glb",
+      "position": [
+        -19.99999999,
+        2e-8,
+        29.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31589026,
+        1.31589026,
+        1.31589026
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-post-truck",
+      "name": "Post-Truck",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/Post-Truck.glb",
+      "position": [
+        -15.99999999,
+        3e-8,
+        29.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24598818,
+        1.24598818,
+        1.24598818
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-suvv1",
+      "name": "SuvV1",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/SuvV1.glb",
+      "position": [
+        -12,
+        3e-8,
+        29.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20718364,
+        1.20718364,
+        1.20718364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-swiftov1",
+      "name": "SwiftoV1",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/SwiftoV1.glb",
+      "position": [
+        -8.00000001,
+        3e-8,
+        29.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.25670565,
+        2.25670565,
+        2.25670565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "vehicles-swiftov2",
+      "name": "SwiftoV2",
+      "parentId": "transform:vehicles",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Vehicles/SwiftoV2.glb",
+      "position": [
+        -4.00000001,
+        3e-8,
+        29.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.25670565,
+        2.25670565,
+        2.25670565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-airfryer",
+      "name": "AirFryer",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/AirFryer.glb",
+      "position": [
+        4,
+        1.6e-7,
+        38.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.87841939,
+        8.87841939,
+        8.87841939
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-coffee_maker",
+      "name": "Coffee_Maker",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Coffee_Maker.glb",
+      "position": [
+        8.00000005,
+        1.8e-7,
+        38.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.36011647,
+        8.36011647,
+        8.36011647
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-fanv2",
+      "name": "FanV2",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/FanV2.glb",
+      "position": [
+        12,
+        -2.8e-7,
+        38.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.95111728,
+        0.95111728,
+        0.95111728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-mixer",
+      "name": "Mixer",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Mixer.glb",
+      "position": [
+        15.99999987,
+        -3.9e-7,
+        38.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.47803086,
+        6.47803086,
+        6.47803086
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-stovetop",
+      "name": "Stovetop",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Stovetop.glb",
+      "position": [
+        20,
+        -5e-8,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999956,
+        1.39999956,
+        1.39999956
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-dryer",
+      "name": "Dryer",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Dryer.glb",
+      "position": [
+        4.00000002,
+        7e-8,
+        34.00000031
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.77090287,
+        2.77090287,
+        2.77090287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-fan",
+      "name": "Fan",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Fan.glb",
+      "position": [
+        8.00000004,
+        5e-8,
+        34.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.50605105,
+        3.50605105,
+        3.50605105
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-fridge",
+      "name": "Fridge",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Fridge.glb",
+      "position": [
+        12.00000001,
+        1e-7,
+        34.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.61359937,
+        1.61359937,
+        1.61359937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-fridge_sbs",
+      "name": "Fridge_SBS",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Fridge_SBS.glb",
+      "position": [
+        16,
+        1.8e-7,
+        34.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.61359944,
+        1.61359944,
+        1.61359944
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-microwave_oven",
+      "name": "Microwave_Oven",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Microwave_Oven.glb",
+      "position": [
+        19.99999996,
+        -1e-8,
+        34.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.63294652,
+        4.63294652,
+        4.63294652
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-stove",
+      "name": "Stove",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Stove.glb",
+      "position": [
+        10,
+        1.8e-7,
+        30.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.27824802,
+        3.27824802,
+        3.27824802
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-appliances-washer",
+      "name": "Washer",
+      "parentId": "transform:legacy-appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyAppliances/Washer.glb",
+      "position": [
+        13.99999997,
+        8e-8,
+        30.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.77090287,
+        2.77090287,
+        2.77090287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-arcademachinev1",
+      "name": "ArcadeMachineV1",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/ArcadeMachineV1.glb",
+      "position": [
+        -20.00000002,
+        1.3e-7,
+        22.99999968
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.76940368,
+        1.76940368,
+        1.76940368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-arcademachinev2",
+      "name": "ArcadeMachineV2",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/ArcadeMachineV2.glb",
+      "position": [
+        -16.00000003,
+        1.3e-7,
+        22.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73938352,
+        1.73938352,
+        1.73938352
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-arcademachinev3",
+      "name": "ArcadeMachineV3",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/ArcadeMachineV3.glb",
+      "position": [
+        -12.00000001,
+        1.5e-7,
+        22.99999968
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.71471807,
+        1.71471807,
+        1.71471807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-arcademachinev4",
+      "name": "ArcadeMachineV4",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/ArcadeMachineV4.glb",
+      "position": [
+        -8,
+        1.6e-7,
+        22.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.75382871,
+        1.75382871,
+        1.75382871
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-btspeaker",
+      "name": "BTSpeaker",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/BTSpeaker.glb",
+      "position": [
+        -3.99999997,
+        1e-7,
+        23
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49786156,
+        0.49786156,
+        0.49786156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-gamingsystem",
+      "name": "GamingSystem",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/GamingSystem.glb",
+      "position": [
+        -20.00000003,
+        -1.6e-7,
+        19.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37085269,
+        0.37085269,
+        0.37085269
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-phone",
+      "name": "Phone",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/Phone.glb",
+      "position": [
+        -15.99999999,
+        -8e-8,
+        19.00000034
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70901833,
+        0.70901833,
+        0.70901833
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-pinballmachinev1",
+      "name": "PinballMachineV1",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/PinballMachineV1.glb",
+      "position": [
+        -12.00000004,
+        3.4e-7,
+        18.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.81600613,
+        1.81600613,
+        1.81600613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-pinballmachinev1_wo_glass",
+      "name": "PinballMachineV1_WO_Glass",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/PinballMachineV1_WO_Glass.glb",
+      "position": [
+        -8.00000004,
+        3.4e-7,
+        18.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.81600613,
+        1.81600613,
+        1.81600613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-remotecontroller",
+      "name": "RemoteController",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/RemoteController.glb",
+      "position": [
+        -4,
+        -5e-8,
+        19
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.97096579,
+        12.97096579,
+        12.97096579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-soundsysteam",
+      "name": "SoundSysteam",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/SoundSysteam.glb",
+      "position": [
+        -18.00000012,
+        -1e-8,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.02386583,
+        2.02386583,
+        2.02386583
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-tablet",
+      "name": "Tablet",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/Tablet.glb",
+      "position": [
+        -14,
+        -2.3e-7,
+        15.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43259472,
+        0.43259472,
+        0.43259472
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-tv",
+      "name": "Tv",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/Tv.glb",
+      "position": [
+        -10,
+        0,
+        15.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.87045741,
+        1.87045741,
+        1.87045741
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-walltv",
+      "name": "WallTv",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Electronics/WallTv.glb",
+      "position": [
+        -6,
+        0,
+        14.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.60177416,
+        1.60177416,
+        1.60177416
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-axev1",
+      "name": "AxeV1",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/AxeV1.glb",
+      "position": [
+        4.00000002,
+        7e-8,
+        22.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.49174876,
+        4.49174876,
+        4.49174876
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-hammerv1",
+      "name": "HammerV1",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/HammerV1.glb",
+      "position": [
+        8,
+        1.9e-7,
+        22.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.26571542,
+        4.26571542,
+        4.26571542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-hoev1",
+      "name": "HoeV1",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/HoeV1.glb",
+      "position": [
+        12.00000051,
+        1.3e-7,
+        22.99999963
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.96212155,
+        2.96212155,
+        2.96212155
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-pickaxev1",
+      "name": "PickAxeV1",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/PickAxeV1.glb",
+      "position": [
+        15.99999999,
+        1.2e-7,
+        22.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97907233,
+        2.97907233,
+        2.97907233
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_europeanbroad",
+      "name": "Sword_EuropeanBroad",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/Sword_EuropeanBroad.glb",
+      "position": [
+        20,
+        3e-8,
+        22.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72595332,
+        0.72595332,
+        0.72595332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_falchion",
+      "name": "Sword_Falchion",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/Sword_Falchion.glb",
+      "position": [
+        4,
+        3e-8,
+        18.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.79945053,
+        0.79945053,
+        0.79945053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_katana",
+      "name": "Sword_Katana",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/Sword_Katana.glb",
+      "position": [
+        8,
+        3e-8,
+        18.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8095604,
+        0.8095604,
+        0.8095604
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_rapier",
+      "name": "Sword_Rapier",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/Sword_Rapier.glb",
+      "position": [
+        12,
+        3e-8,
+        19.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8338257,
+        0.8338257,
+        0.8338257
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_scimitar",
+      "name": "Sword_Scimitar",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/Sword_Scimitar.glb",
+      "position": [
+        15.99999999,
+        4e-8,
+        18.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7887648,
+        0.7887648,
+        0.7887648
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-sword_viking",
+      "name": "Sword_Viking",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/Sword_Viking.glb",
+      "position": [
+        20.00000005,
+        5e-8,
+        19.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.92896999,
+        0.92896999,
+        0.92896999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-scythev1",
+      "name": "ScytheV1",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/ScytheV1.glb",
+      "position": [
+        9.99999996,
+        4e-8,
+        14.99999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5258368,
+        2.5258368,
+        2.5258368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-tools-spadev1",
+      "name": "SpadeV1",
+      "parentId": "transform:weapons-tools",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/WeaponsTools/SpadeV1.glb",
+      "position": [
+        14.0000004,
+        7e-8,
+        14.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.61318178,
+        2.61318178,
+        2.61318178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet1",
+      "name": "Cabinet1",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Cabinet1.glb",
+      "position": [
+        -19.99999995,
+        2.7e-7,
+        7.99999975
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.29411768,
+        3.29411768,
+        3.29411768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet2",
+      "name": "Cabinet2",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Cabinet2.glb",
+      "position": [
+        -16,
+        2.7e-7,
+        7.99999975
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.29411768,
+        3.29411768,
+        3.29411768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet3",
+      "name": "Cabinet3",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Cabinet3.glb",
+      "position": [
+        -12,
+        2.7e-7,
+        7.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.29411768,
+        3.29411768,
+        3.29411768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet4",
+      "name": "Cabinet4",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Cabinet4.glb",
+      "position": [
+        -8,
+        2.7e-7,
+        7.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.29411768,
+        3.29411768,
+        3.29411768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cabinet5",
+      "name": "Cabinet5",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Cabinet5.glb",
+      "position": [
+        -4,
+        2.7e-7,
+        7.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.29411768,
+        3.29411768,
+        3.29411768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cornercabinet1",
+      "name": "CornerCabinet1",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/CornerCabinet1.glb",
+      "position": [
+        -20.00000008,
+        3.8e-7,
+        3.99999963
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79999883,
+        2.79999883,
+        2.79999883
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-cornercabinet2",
+      "name": "CornerCabinet2",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/CornerCabinet2.glb",
+      "position": [
+        -16.00000008,
+        0,
+        3.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79999871,
+        2.79999871,
+        2.79999871
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door1",
+      "name": "Door1",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door1.glb",
+      "position": [
+        -12,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door2",
+      "name": "Door2",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door2.glb",
+      "position": [
+        -8,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door3",
+      "name": "Door3",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door3.glb",
+      "position": [
+        -4,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door4",
+      "name": "Door4",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door4.glb",
+      "position": [
+        -16,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door5",
+      "name": "Door5",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door5.glb",
+      "position": [
+        -12,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cabinets-doors-door6",
+      "name": "Door6",
+      "parentId": "transform:cabinets-doors",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door6.glb",
+      "position": [
+        -8,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet1",
+      "name": "Cabinet1",
+      "parentId": "transform:legacy-cabinets",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyCabinets/Cabinet1.glb",
+      "position": [
+        4,
+        1.4e-7,
+        7.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40001539,
+        3.40001539,
+        3.40001539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet2",
+      "name": "Cabinet2",
+      "parentId": "transform:legacy-cabinets",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyCabinets/Cabinet2.glb",
+      "position": [
+        8,
+        1.4e-7,
+        7.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40001539,
+        3.40001539,
+        3.40001539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet3",
+      "name": "Cabinet3",
+      "parentId": "transform:legacy-cabinets",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyCabinets/Cabinet3.glb",
+      "position": [
+        12,
+        1.4e-7,
+        7.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40001539,
+        3.40001539,
+        3.40001539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet4",
+      "name": "Cabinet4",
+      "parentId": "transform:legacy-cabinets",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyCabinets/Cabinet4.glb",
+      "position": [
+        15.99999996,
+        1.4e-7,
+        7.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40001539,
+        3.40001539,
+        3.40001539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cabinet5",
+      "name": "Cabinet5",
+      "parentId": "transform:legacy-cabinets",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyCabinets/Cabinet5.glb",
+      "position": [
+        20.00000001,
+        1.4e-7,
+        7.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40001539,
+        3.40001539,
+        3.40001539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cornercabinet1",
+      "name": "CornerCabinet1",
+      "parentId": "transform:legacy-cabinets",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyCabinets/CornerCabinet1.glb",
+      "position": [
+        9.99999999,
+        1.1e-7,
+        3.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.99989814,
+        1.99989814,
+        1.99989814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "legacy-cabinets-cornercabinet2",
+      "name": "CornerCabinet2",
+      "parentId": "transform:legacy-cabinets",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/LegacyCabinets/CornerCabinet2.glb",
+      "position": [
+        13.99999999,
+        1.1e-7,
+        3.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.99989814,
+        1.99989814,
+        1.99989814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv1",
+      "name": "ChestV1",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV1.glb",
+      "position": [
+        -20.00000012,
+        2e-7,
+        -7.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.76749067,
+        3.76749067,
+        3.76749067
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv1_lock",
+      "name": "ChestV1_Lock",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV1_Lock.glb",
+      "position": [
+        -16,
+        1.5e-7,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.02448421,
+        18.02448421,
+        18.02448421
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv1_loot",
+      "name": "ChestV1_Loot",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV1_Loot.glb",
+      "position": [
+        -11.99999998,
+        2.1e-7,
+        -7.00000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.06318543,
+        4.06318543,
+        4.06318543
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv2",
+      "name": "ChestV2",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV2.glb",
+      "position": [
+        -7.99999997,
+        2.4e-7,
+        -7.00000045
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.76355858,
+        3.76355858,
+        3.76355858
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv2_lock",
+      "name": "ChestV2_Lock",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV2_Lock.glb",
+      "position": [
+        -4,
+        1.2e-7,
+        -6.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        39.86045066,
+        39.86045066,
+        39.86045066
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv2_loot",
+      "name": "ChestV2_Loot",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV2_Loot.glb",
+      "position": [
+        -18.00000005,
+        8e-8,
+        -11.00000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.96064685,
+        3.96064685,
+        3.96064685
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv3",
+      "name": "ChestV3",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV3.glb",
+      "position": [
+        -14.00000006,
+        2.3e-7,
+        -11.00000036
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.70492182,
+        3.70492182,
+        3.70492182
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv3_lock",
+      "name": "ChestV3_Lock",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV3_Lock.glb",
+      "position": [
+        -10.00000048,
+        1.3e-7,
+        -10.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.84326471,
+        33.84326471,
+        33.84326471
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "chests-chestv3_loot",
+      "name": "ChestV3_Loot",
+      "parentId": "transform:chests",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Chests/ChestV3_Loot.glb",
+      "position": [
+        -6.00000002,
+        1.5e-7,
+        -11.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.61959002,
+        4.61959002,
+        4.61959002
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fisher_boat",
+      "name": "Fisher_Boat",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/Fisher_Boat.glb",
+      "position": [
+        3.99999995,
+        7e-8,
+        -6.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48267269,
+        0.48267269,
+        0.48267269
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishing_rod",
+      "name": "Fishing_Rod",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/Fishing_Rod.glb",
+      "position": [
+        8,
+        -1.1e-7,
+        -7.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10261751,
+        1.10261751,
+        1.10261751
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishv1",
+      "name": "FishV1",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/FishV1.glb",
+      "position": [
+        11.99999999,
+        7e-8,
+        -6.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.63340642,
+        3.63340642,
+        3.63340642
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishv2",
+      "name": "FishV2",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/FishV2.glb",
+      "position": [
+        15.99999998,
+        6e-8,
+        -6.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3209344,
+        3.3209344,
+        3.3209344
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishv3",
+      "name": "FishV3",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/FishV3.glb",
+      "position": [
+        19.99999997,
+        3e-8,
+        -6.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.22598065,
+        3.22598065,
+        3.22598065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-fishv4",
+      "name": "FishV4",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/FishV4.glb",
+      "position": [
+        4.00000001,
+        8e-8,
+        -11.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.07864062,
+        3.07864062,
+        3.07864062
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-jetskiv1",
+      "name": "JetskiV1",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/JetskiV1.glb",
+      "position": [
+        8,
+        7e-8,
+        -11.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63324773,
+        0.63324773,
+        0.63324773
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-kayakpaddle",
+      "name": "KayakPaddle",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/KayakPaddle.glb",
+      "position": [
+        12,
+        4e-8,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70011442,
+        0.70011442,
+        0.70011442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-kayakv1",
+      "name": "KayakV1",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/KayakV1.glb",
+      "position": [
+        16,
+        1e-8,
+        -11.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56944184,
+        0.56944184,
+        0.56944184
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-kayakv2",
+      "name": "KayakV2",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/KayakV2.glb",
+      "position": [
+        20,
+        1e-8,
+        -11.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56944184,
+        0.56944184,
+        0.56944184
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-paddle",
+      "name": "Paddle",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/Paddle.glb",
+      "position": [
+        4,
+        1.8e-7,
+        -15.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.97534058,
+        0.97534058,
+        0.97534058
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-scout_boat",
+      "name": "Scout_Boat",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/Scout_Boat.glb",
+      "position": [
+        7.99999995,
+        6e-8,
+        -14.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38452743,
+        0.38452743,
+        0.38452743
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-sharkv1",
+      "name": "SharkV1",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/SharkV1.glb",
+      "position": [
+        11.99999999,
+        6e-8,
+        -14.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47707704,
+        0.47707704,
+        0.47707704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-speed_boat",
+      "name": "Speed_Boat",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/Speed_Boat.glb",
+      "position": [
+        15.99999995,
+        6e-8,
+        -14.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38452743,
+        0.38452743,
+        0.38452743
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-wood_boatv1",
+      "name": "Wood_BoatV1",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/Wood_BoatV1.glb",
+      "position": [
+        20.00000003,
+        -6e-8,
+        -14.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69344358,
+        0.69344358,
+        0.69344358
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boats-fishing-wood_boatv2",
+      "name": "Wood_BoatV2",
+      "parentId": "transform:boats-fishing",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/BoatsFishing/Wood_BoatV2.glb",
+      "position": [
+        12.00000003,
+        9e-8,
+        -19
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64176195,
+        0.64176195,
+        0.64176195
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f1000_fridgefreezer_v1",
+      "name": "KA-F1000_FridgeFreezer_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F1000_FridgeFreezer_V1.glb",
+      "position": [
+        -20,
+        0,
+        -26.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999996,
+        1.39999996,
+        1.39999996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_bi_stove_v2",
+      "name": "KA-F600_BI_Stove_V2",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F600_BI_Stove_V2.glb",
+      "position": [
+        -15.99999994,
+        4e-8,
+        -26.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0909092,
+        5.0909092,
+        5.0909092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_dryer_v1",
+      "name": "KA-F600_Dryer_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F600_Dryer_V1.glb",
+      "position": [
+        -12,
+        0,
+        -26.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.50000021,
+        3.50000021,
+        3.50000021
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_fan_v1",
+      "name": "KA-F600_Fan_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F600_Fan_V1.glb",
+      "position": [
+        -8,
+        4.5e-7,
+        -26.00000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.66666647,
+        4.66666647,
+        4.66666647
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_fan_v3",
+      "name": "KA-F600_Fan_V3",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F600_Fan_V3.glb",
+      "position": [
+        -4.00000001,
+        0,
+        -26.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.45997064,
+        3.45997064,
+        3.45997064
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_fridge_v1",
+      "name": "KA-F600_Fridge_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F600_Fridge_V1.glb",
+      "position": [
+        -20,
+        0,
+        -30.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999996,
+        1.39999996,
+        1.39999996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_stove_v1",
+      "name": "KA-F600_Stove_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F600_Stove_V1.glb",
+      "position": [
+        -16.00000004,
+        2.6e-7,
+        -30.0000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.18181767,
+        3.18181767,
+        3.18181767
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f600_washer_v1",
+      "name": "KA-F600_Washer_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F600_Washer_V1.glb",
+      "position": [
+        -12.00000003,
+        2.9e-7,
+        -30.00000034
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999972,
+        3.49999972,
+        3.49999972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka-f800_fan_v1",
+      "name": "KA-F800_Fan_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA-F800_Fan_V1.glb",
+      "position": [
+        -7.99999995,
+        3.4e-7,
+        -30.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.50000008,
+        3.50000008,
+        3.50000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka_airfryer_v1",
+      "name": "KA_Airfryer_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA_Airfryer_V1.glb",
+      "position": [
+        -4.00000005,
+        3.3e-7,
+        -30.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.13098342,
+        8.13098342,
+        8.13098342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka_coffeemaker_v1",
+      "name": "KA_CoffeeMaker_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA_CoffeeMaker_V1.glb",
+      "position": [
+        -16.00000002,
+        2.9e-7,
+        -34.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.27762339,
+        8.27762339,
+        8.27762339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka_microwave_v1",
+      "name": "KA_Microwave_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA_Microwave_V1.glb",
+      "position": [
+        -12,
+        0,
+        -34.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.22222321,
+        6.22222321,
+        6.22222321
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "appliances-ka_mixer_v1",
+      "name": "KA_Mixer_V1",
+      "parentId": "transform:appliances",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Appliances/KA_Mixer_V1.glb",
+      "position": [
+        -8.00000003,
+        3.7e-7,
+        -34.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.5863977,
+        6.5863977,
+        6.5863977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv1",
+      "name": "PumpkinV1",
+      "parentId": "transform:pumpkins",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Pumpkins/PumpkinV1.glb",
+      "position": [
+        4,
+        3.2e-7,
+        -26.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.60438681,
+        13.60438681,
+        13.60438681
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv2",
+      "name": "PumpkinV2",
+      "parentId": "transform:pumpkins",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Pumpkins/PumpkinV2.glb",
+      "position": [
+        8,
+        0,
+        -26.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.66225682,
+        13.66225682,
+        13.66225682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv3",
+      "name": "PumpkinV3",
+      "parentId": "transform:pumpkins",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Pumpkins/PumpkinV3.glb",
+      "position": [
+        12,
+        -1e-7,
+        -26.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71601259,
+        11.71601259,
+        11.71601259
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv4",
+      "name": "PumpkinV4",
+      "parentId": "transform:pumpkins",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Pumpkins/PumpkinV4.glb",
+      "position": [
+        16,
+        0,
+        -26.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.2902902,
+        11.2902902,
+        11.2902902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "pumpkins-pumpkinv5",
+      "name": "PumpkinV5",
+      "parentId": "transform:pumpkins",
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/Pumpkins/PumpkinV5.glb",
+      "position": [
+        20,
+        -1.1e-7,
+        -26.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.23566221,
+        14.23566221,
+        14.23566221
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

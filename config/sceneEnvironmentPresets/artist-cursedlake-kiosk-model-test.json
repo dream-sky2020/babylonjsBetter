@@ -1,0 +1,1541 @@
+{
+  "presetKey": "artist-cursedlake-kiosk-model-test",
+  "name": "Cursedlake · 太空餐亭与厨师机器人 · 模型展示（44 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "cursedlake-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "cursedlake-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cursedlake-Kiosk",
+      "name": "太空餐亭与厨师机器人",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "cursedlake-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 20,
+        "height": 54
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "cursedlake-Kiosk-zone",
+      "name": "太空餐亭与厨师机器人分区",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 44.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-1-stand",
+      "name": "厨师机器人（Idle 动画）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        20
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-2-stand",
+      "name": "餐亭框架（墙、屋顶与支梁）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        20
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-3-stand",
+      "name": "天线（杆与顶部）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        20
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-4-stand",
+      "name": "全息终端（底座与屏幕）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        20
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-5-stand",
+      "name": "顶灯（灯体与灯面）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        16
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-6-stand",
+      "name": "烹饪锅（含锅内组件）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        16
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-7-stand",
+      "name": "食物碗展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        16
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-8-stand",
+      "name": "砧板（含食物）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        16
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-9-stand",
+      "name": "吧台 · Counter展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-10-stand",
+      "name": "告示牌 · Sign展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-11-stand",
+      "name": "Env_2 · Env_2展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-12-stand",
+      "name": "Env_1 · Env_1展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-13-stand",
+      "name": "吧凳 · Barstool展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-14-stand",
+      "name": "桌子 · Table_2展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-15-stand",
+      "name": "桶 · Barrel展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-16-stand",
+      "name": "灯具 · Lamp_1展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-17-stand",
+      "name": "通风口 · Ventilation展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-18-stand",
+      "name": "桌子 · Table展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-19-stand",
+      "name": "海报 · Poster_1展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-20-stand",
+      "name": "搁架 · Shelf展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-21-stand",
+      "name": "饮料机 · Dispenser_2展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-22-stand",
+      "name": "炉灶 · Stove展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-23-stand",
+      "name": "瓶子 · Bottle_2展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-24-stand",
+      "name": "盘子 · Plate展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-25-stand",
+      "name": "玻璃杯 · Glass展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-26-stand",
+      "name": "箱子 · Box展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-27-stand",
+      "name": "海报 · Poster_2展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-28-stand",
+      "name": "海报 · Poster_3展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-29-stand",
+      "name": "海报 · Poster_4展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-30-stand",
+      "name": "吧凳 · Barstool.001展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-31-stand",
+      "name": "吧凳 · Barstool.002展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-32-stand",
+      "name": "吧凳 · Barstool.003展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-33-stand",
+      "name": "吧凳 · Barstool.004展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-34-stand",
+      "name": "饮料机 · Dispenser_1展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-35-stand",
+      "name": "瓶子 · Bottle_1展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-36-stand",
+      "name": "灯具 · Lamp_2展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-37-stand",
+      "name": "灯具 · Lamp_3展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -16
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-38-stand",
+      "name": "灯具 · Lamp_6展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -16
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-39-stand",
+      "name": "灯具 · Lamp_5展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -16
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-40-stand",
+      "name": "灯具 · Lamp_4展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -16
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-41-stand",
+      "name": "桶 · Barrel.001展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -20
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-42-stand",
+      "name": "通风口 · Ventilation.001展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -20
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-43-stand",
+      "name": "通风口 · Ventilation.002展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -20
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Kiosk-44-stand",
+      "name": "锅 · Pot_1展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -20
+      ],
+      "color": "#8c9e94"
+    }
+  ],
+  "models": [
+    {
+      "id": "cursedlake-Kiosk-1",
+      "name": "厨师机器人（Idle 动画）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/ChefDroid.glb",
+      "position": [
+        -5.92036287,
+        0.53047859,
+        19.28260925
+      ],
+      "scaling": [
+        1.21103481,
+        1.21103481,
+        1.21103481
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-2",
+      "name": "餐亭框架（墙、屋顶与支梁）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/KioskFrame.glb",
+      "position": [
+        -2,
+        0,
+        20
+      ],
+      "scaling": [
+        0.41013347,
+        0.41013347,
+        0.41013347
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-3",
+      "name": "天线（杆与顶部）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Antenna.glb",
+      "position": [
+        1.99999998,
+        -2e-8,
+        20.00000016
+      ],
+      "scaling": [
+        1.38187476,
+        1.38187476,
+        1.38187476
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-4",
+      "name": "全息终端（底座与屏幕）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/HoloTerminal.glb",
+      "position": [
+        6,
+        0,
+        20
+      ],
+      "scaling": [
+        1.46281041,
+        1.46281041,
+        1.46281041
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-5",
+      "name": "顶灯（灯体与灯面）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/CeilingLight.glb",
+      "position": [
+        -6,
+        -1.4e-7,
+        16
+      ],
+      "scaling": [
+        1.36611585,
+        1.36611585,
+        1.36611585
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-6",
+      "name": "烹饪锅（含锅内组件）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/CookingPot.glb",
+      "position": [
+        -2.00000012,
+        1.2e-7,
+        16
+      ],
+      "scaling": [
+        4.17151968,
+        4.17151968,
+        4.17151968
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-7",
+      "name": "食物碗",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/FoodBowl.glb",
+      "position": [
+        1.99999967,
+        4.2e-7,
+        16.00000045
+      ],
+      "scaling": [
+        7.47981573,
+        7.47981573,
+        7.47981573
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-8",
+      "name": "砧板（含食物）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/CuttingBoard.glb",
+      "position": [
+        6,
+        1e-8,
+        16
+      ],
+      "scaling": [
+        3.36090876,
+        3.36090876,
+        3.36090876
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-9",
+      "name": "吧台 · Counter",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Counter.glb",
+      "position": [
+        -6,
+        0,
+        12.00000002
+      ],
+      "scaling": [
+        0.57986349,
+        0.57986349,
+        0.57986349
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-10",
+      "name": "告示牌 · Sign",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Sign.glb",
+      "position": [
+        -2,
+        -1.2e-7,
+        11.99999989
+      ],
+      "scaling": [
+        1.00134514,
+        1.00134514,
+        1.00134514
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-11",
+      "name": "Env_2 · Env_2",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Env_2.glb",
+      "position": [
+        1.99999997,
+        0,
+        12
+      ],
+      "scaling": [
+        0.57581219,
+        0.57581219,
+        0.57581219
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-12",
+      "name": "Env_1 · Env_1",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Env_1.glb",
+      "position": [
+        6,
+        0,
+        11.99999999
+      ],
+      "scaling": [
+        0.62545794,
+        0.62545794,
+        0.62545794
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-13",
+      "name": "吧凳 · Barstool",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Barstool.glb",
+      "position": [
+        -6.00000006,
+        0,
+        7.99999951
+      ],
+      "scaling": [
+        4.1197044,
+        4.1197044,
+        4.1197044
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-14",
+      "name": "桌子 · Table_2",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Table_2.glb",
+      "position": [
+        -2,
+        -2e-8,
+        8.00000002
+      ],
+      "scaling": [
+        0.65551437,
+        0.65551437,
+        0.65551437
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-15",
+      "name": "桶 · Barrel",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Barrel.glb",
+      "position": [
+        2,
+        0,
+        8
+      ],
+      "scaling": [
+        2.45614038,
+        2.45614038,
+        2.45614038
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-16",
+      "name": "灯具 · Lamp_1",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Lamp_1.glb",
+      "position": [
+        5.99999982,
+        5.4e-7,
+        7.99999938
+      ],
+      "scaling": [
+        5.99080411,
+        5.99080411,
+        5.99080411
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-17",
+      "name": "通风口 · Ventilation",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Ventilation.glb",
+      "position": [
+        -6.00000014,
+        -1.4e-7,
+        4.0000001
+      ],
+      "scaling": [
+        4.64318655,
+        4.64318655,
+        4.64318655
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-18",
+      "name": "桌子 · Table",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Table.glb",
+      "position": [
+        -2.00000001,
+        0,
+        4
+      ],
+      "scaling": [
+        1.45674435,
+        1.45674435,
+        1.45674435
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-19",
+      "name": "海报 · Poster_1",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Poster_1.glb",
+      "position": [
+        2,
+        0,
+        3.99999993
+      ],
+      "scaling": [
+        2.60357096,
+        2.60357096,
+        2.60357096
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-20",
+      "name": "搁架 · Shelf",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Shelf.glb",
+      "position": [
+        6,
+        6e-8,
+        3.99999997
+      ],
+      "scaling": [
+        2.16932756,
+        2.16932756,
+        2.16932756
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-21",
+      "name": "饮料机 · Dispenser_2",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Dispenser_2.glb",
+      "position": [
+        -6.00000007,
+        0,
+        -4e-8
+      ],
+      "scaling": [
+        2.59630596,
+        2.59630596,
+        2.59630596
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-22",
+      "name": "炉灶 · Stove",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Stove.glb",
+      "position": [
+        -2,
+        7e-8,
+        0
+      ],
+      "scaling": [
+        3.7832011,
+        3.7832011,
+        3.7832011
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-23",
+      "name": "瓶子 · Bottle_2",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Bottle_2.glb",
+      "position": [
+        2,
+        -3.1e-7,
+        5e-8
+      ],
+      "scaling": [
+        13.65819171,
+        13.65819171,
+        13.65819171
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-24",
+      "name": "盘子 · Plate",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Plate.glb",
+      "position": [
+        6.00000037,
+        -5.6e-7,
+        5.2e-7
+      ],
+      "scaling": [
+        10.02161013,
+        10.02161013,
+        10.02161013
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-25",
+      "name": "玻璃杯 · Glass",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Glass.glb",
+      "position": [
+        -6,
+        -5.2e-7,
+        -4
+      ],
+      "scaling": [
+        27.99998185,
+        27.99998185,
+        27.99998185
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-26",
+      "name": "箱子 · Box",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Box.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.46428335,
+        2.46428335,
+        2.46428335
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-27",
+      "name": "海报 · Poster_2",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Poster_2.glb",
+      "position": [
+        2,
+        0,
+        -4.00000007
+      ],
+      "scaling": [
+        2.60357096,
+        2.60357096,
+        2.60357096
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-28",
+      "name": "海报 · Poster_3",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Poster_3.glb",
+      "position": [
+        6,
+        0,
+        -4.00000007
+      ],
+      "scaling": [
+        2.60357096,
+        2.60357096,
+        2.60357096
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-29",
+      "name": "海报 · Poster_4",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Poster_4.glb",
+      "position": [
+        -5.99999976,
+        0,
+        -8
+      ],
+      "scaling": [
+        2.60357096,
+        2.60357096,
+        2.60357096
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-30",
+      "name": "吧凳 · Barstool.001",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Barstool_001.glb",
+      "position": [
+        -2,
+        0,
+        -8.00000049
+      ],
+      "scaling": [
+        4.1197044,
+        4.1197044,
+        4.1197044
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-31",
+      "name": "吧凳 · Barstool.002",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Barstool_002.glb",
+      "position": [
+        1.99999994,
+        0,
+        -8.00000049
+      ],
+      "scaling": [
+        4.1197044,
+        4.1197044,
+        4.1197044
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-32",
+      "name": "吧凳 · Barstool.003",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Barstool_003.glb",
+      "position": [
+        6.00000043,
+        0,
+        -8
+      ],
+      "scaling": [
+        4.1197044,
+        4.1197044,
+        4.1197044
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-33",
+      "name": "吧凳 · Barstool.004",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Barstool_004.glb",
+      "position": [
+        -5.99999957,
+        0,
+        -12
+      ],
+      "scaling": [
+        4.1197044,
+        4.1197044,
+        4.1197044
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-34",
+      "name": "饮料机 · Dispenser_1",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Dispenser_1.glb",
+      "position": [
+        -2.00000007,
+        0,
+        -12
+      ],
+      "scaling": [
+        2.59630596,
+        2.59630596,
+        2.59630596
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-35",
+      "name": "瓶子 · Bottle_1",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Bottle_1.glb",
+      "position": [
+        2.0000002,
+        -3.1e-7,
+        -11.99999995
+      ],
+      "scaling": [
+        13.65819171,
+        13.65819171,
+        13.65819171
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-36",
+      "name": "灯具 · Lamp_2",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Lamp_2.glb",
+      "position": [
+        5.99999982,
+        5.4e-7,
+        -11.99999991
+      ],
+      "scaling": [
+        5.99080411,
+        5.99080411,
+        5.99080411
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-37",
+      "name": "灯具 · Lamp_3",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Lamp_3.glb",
+      "position": [
+        -6.00000018,
+        5.4e-7,
+        -15.99999991
+      ],
+      "scaling": [
+        5.99080411,
+        5.99080411,
+        5.99080411
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-38",
+      "name": "灯具 · Lamp_6",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Lamp_6.glb",
+      "position": [
+        -2.00000018,
+        5.4e-7,
+        -16.00000062
+      ],
+      "scaling": [
+        5.99080411,
+        5.99080411,
+        5.99080411
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-39",
+      "name": "灯具 · Lamp_5",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Lamp_5.glb",
+      "position": [
+        1.99999982,
+        5.4e-7,
+        -15.99999991
+      ],
+      "scaling": [
+        5.99080411,
+        5.99080411,
+        5.99080411
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-40",
+      "name": "灯具 · Lamp_4",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Lamp_4.glb",
+      "position": [
+        5.99999982,
+        5.4e-7,
+        -15.99999991
+      ],
+      "scaling": [
+        5.99080411,
+        5.99080411,
+        5.99080411
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-41",
+      "name": "桶 · Barrel.001",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Barrel_001.glb",
+      "position": [
+        -6,
+        0,
+        -20
+      ],
+      "scaling": [
+        2.45614038,
+        2.45614038,
+        2.45614038
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-42",
+      "name": "通风口 · Ventilation.001",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Ventilation_001.glb",
+      "position": [
+        -1.99999986,
+        -1.4e-7,
+        -19.9999999
+      ],
+      "scaling": [
+        4.64318655,
+        4.64318655,
+        4.64318655
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-43",
+      "name": "通风口 · Ventilation.002",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Ventilation_002.glb",
+      "position": [
+        1.99999986,
+        0,
+        -19.9999999
+      ],
+      "scaling": [
+        4.64318655,
+        4.64318655,
+        4.64318655
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-44",
+      "name": "锅 · Pot_1",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/Pot_1.glb",
+      "position": [
+        6,
+        0,
+        -20
+      ],
+      "scaling": [
+        4.76091639,
+        4.76091639,
+        4.76091639
+      ]
+    }
+  ]
+}

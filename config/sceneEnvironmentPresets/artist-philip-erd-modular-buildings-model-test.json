@@ -1,0 +1,4652 @@
+{
+  "presetKey": "artist-philip-erd-modular-buildings-model-test",
+  "name": "Philip Erd · 模块建筑（含 57 个 LOD）（114 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "philip-erd-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "philip-erd-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "philip-erd-ModularBuildings",
+      "name": "模块建筑（含 57 个 LOD）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "philip-erd-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 48,
+        "height": 56
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-zone",
+      "name": "模块建筑（含 57 个 LOD）分区",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 40.5,
+        "height": 0.1,
+        "depth": 48.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#85909b"
+    },
+    {
+      "id": "philip-erd-ModularBuildings-1-stand",
+      "name": "Roof_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-2-stand",
+      "name": "Roof_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-3-stand",
+      "name": "Roof_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-4-stand",
+      "name": "Roof_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-5-stand",
+      "name": "Roof_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-6-stand",
+      "name": "Roof_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-7-stand",
+      "name": "Roof_corner_cocave_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-8-stand",
+      "name": "Roof_corner_cocave_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-9-stand",
+      "name": "Roof_corner_concave_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-10-stand",
+      "name": "Roof_corner_concave_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-11-stand",
+      "name": "Roof_corner_concave_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-12-stand",
+      "name": "Roof_corner_concave_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-13-stand",
+      "name": "Roof_corner_convex_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-14-stand",
+      "name": "Roof_corner_convex_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-15-stand",
+      "name": "Roof_corner_convex_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-16-stand",
+      "name": "Roof_corner_convex_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-17-stand",
+      "name": "Roof_corner_convex_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-18-stand",
+      "name": "Roof_corner_convex_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-19-stand",
+      "name": "Roof_edge_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-20-stand",
+      "name": "Roof_edge_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-21-stand",
+      "name": "Roof_edge_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-22-stand",
+      "name": "Roof_edge_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-23-stand",
+      "name": "Roof_edge_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-24-stand",
+      "name": "Roof_edge_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-25-stand",
+      "name": "Roof_end_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-26-stand",
+      "name": "Roof_end_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-27-stand",
+      "name": "Roof_end_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-28-stand",
+      "name": "Roof_end_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-29-stand",
+      "name": "Roof_end_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-30-stand",
+      "name": "Roof_end_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-31-stand",
+      "name": "Roof_end_edge_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-32-stand",
+      "name": "Roof_end_edge_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-33-stand",
+      "name": "Roof_end_edge_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-34-stand",
+      "name": "Roof_end_edge_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-35-stand",
+      "name": "Roof_end_edge_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-36-stand",
+      "name": "Roof_end_edge_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-37-stand",
+      "name": "Roof_end_top展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-38-stand",
+      "name": "Roof_end_top_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-39-stand",
+      "name": "Roof_flat展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-40-stand",
+      "name": "Roof_flat_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-41-stand",
+      "name": "Roof_round展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-42-stand",
+      "name": "Roof_round_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-43-stand",
+      "name": "Roof_round_flat展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-44-stand",
+      "name": "Roof_round_flat_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-45-stand",
+      "name": "Roof_top展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-46-stand",
+      "name": "Roof_top_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-47-stand",
+      "name": "Roof_top_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-48-stand",
+      "name": "Roof_top_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-49-stand",
+      "name": "Roof_top_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-50-stand",
+      "name": "Roof_top_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-51-stand",
+      "name": "Roof_top_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-52-stand",
+      "name": "Roof_top_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-53-stand",
+      "name": "Roof_top_tip展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-54-stand",
+      "name": "Roof_top_tip_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-55-stand",
+      "name": "Wall_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-56-stand",
+      "name": "Wall_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-57-stand",
+      "name": "Wall_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-58-stand",
+      "name": "Wall_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-59-stand",
+      "name": "Wall_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-60-stand",
+      "name": "Wall_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-61-stand",
+      "name": "Wall_angle_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-62-stand",
+      "name": "Wall_angle_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-63-stand",
+      "name": "Wall_angle_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-64-stand",
+      "name": "Wall_angle_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-65-stand",
+      "name": "Wall_angle_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-66-stand",
+      "name": "Wall_angle_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-67-stand",
+      "name": "Wall_arch_left_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-68-stand",
+      "name": "Wall_arch_left_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-69-stand",
+      "name": "Wall_arch_left_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-70-stand",
+      "name": "Wall_arch_left_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -2
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-71-stand",
+      "name": "Wall_arch_right_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-72-stand",
+      "name": "Wall_arch_right_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-73-stand",
+      "name": "Wall_arch_right_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-74-stand",
+      "name": "Wall_arch_right_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-75-stand",
+      "name": "Wall_base_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-76-stand",
+      "name": "Wall_base_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-77-stand",
+      "name": "Wall_base_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-78-stand",
+      "name": "Wall_base_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-79-stand",
+      "name": "Wall_base_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-80-stand",
+      "name": "Wall_base_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -6
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-81-stand",
+      "name": "Wall_diagonal_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-82-stand",
+      "name": "Wall_diagonal_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-83-stand",
+      "name": "Wall_diagonal_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-84-stand",
+      "name": "Wall_diagonal_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-85-stand",
+      "name": "Wall_diagonal_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-86-stand",
+      "name": "Wall_diagonal_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-87-stand",
+      "name": "Wall_door展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-88-stand",
+      "name": "Wall_door_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-89-stand",
+      "name": "Wall_door_round展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-90-stand",
+      "name": "Wall_door_round_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -10
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-91-stand",
+      "name": "Wall_round_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-92-stand",
+      "name": "Wall_round_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-93-stand",
+      "name": "Wall_round_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-94-stand",
+      "name": "Wall_round_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-95-stand",
+      "name": "Wall_round_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-96-stand",
+      "name": "Wall_round_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-97-stand",
+      "name": "Wall_slim_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-98-stand",
+      "name": "Wall_slim_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-99-stand",
+      "name": "Wall_slim_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-100-stand",
+      "name": "Wall_slim_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -14
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-101-stand",
+      "name": "Wall_slim_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-102-stand",
+      "name": "Wall_slim_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-103-stand",
+      "name": "Wall_top_1m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-104-stand",
+      "name": "Wall_top_1m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-105-stand",
+      "name": "Wall_top_2m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-106-stand",
+      "name": "Wall_top_2m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-107-stand",
+      "name": "Wall_top_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-108-stand",
+      "name": "Wall_top_3m_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-109-stand",
+      "name": "Wall_window_double展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-110-stand",
+      "name": "Wall_window_double_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -18
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-111-stand",
+      "name": "Wall_window_large展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-112-stand",
+      "name": "Wall_window_large_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-113-stand",
+      "name": "Wall_window_small展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-114-stand",
+      "name": "Wall_window_small_LOD展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -22
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "philip-erd-ModularBuildings-1",
+      "name": "Roof_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_1m.glb",
+      "position": [
+        -18,
+        0,
+        22.00000004
+      ],
+      "scaling": [
+        0.92359762,
+        0.92359762,
+        0.92359762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-2",
+      "name": "Roof_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_1m_LOD.glb",
+      "position": [
+        -14,
+        0,
+        22.00000004
+      ],
+      "scaling": [
+        0.92359762,
+        0.92359762,
+        0.92359762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-3",
+      "name": "Roof_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_2m.glb",
+      "position": [
+        -10,
+        0,
+        21.99999992
+      ],
+      "scaling": [
+        0.91638926,
+        0.91638926,
+        0.91638926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-4",
+      "name": "Roof_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_2m_LOD.glb",
+      "position": [
+        -6,
+        0,
+        21.99999992
+      ],
+      "scaling": [
+        0.91638926,
+        0.91638926,
+        0.91638926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-5",
+      "name": "Roof_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_3m.glb",
+      "position": [
+        -2,
+        0,
+        21.99999981
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-6",
+      "name": "Roof_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_3m_LOD.glb",
+      "position": [
+        2,
+        0,
+        21.99999981
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-7",
+      "name": "Roof_corner_cocave_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_cocave_1m.glb",
+      "position": [
+        6,
+        1.9e-7,
+        21.99999988
+      ],
+      "scaling": [
+        0.92359762,
+        0.92359762,
+        0.92359762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-8",
+      "name": "Roof_corner_cocave_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_cocave_1m_LOD.glb",
+      "position": [
+        10,
+        1.9e-7,
+        21.99999988
+      ],
+      "scaling": [
+        0.92359762,
+        0.92359762,
+        0.92359762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-9",
+      "name": "Roof_corner_concave_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_concave_2m.glb",
+      "position": [
+        14,
+        1.8e-7,
+        21.99999981
+      ],
+      "scaling": [
+        0.91638927,
+        0.91638927,
+        0.91638927
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-10",
+      "name": "Roof_corner_concave_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_concave_2m_LOD.glb",
+      "position": [
+        18,
+        1.8e-7,
+        21.99999981
+      ],
+      "scaling": [
+        0.91638927,
+        0.91638927,
+        0.91638927
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-11",
+      "name": "Roof_corner_concave_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_concave_3m.glb",
+      "position": [
+        -18,
+        1.8e-7,
+        17.9999997
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-12",
+      "name": "Roof_corner_concave_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_concave_3m_LOD.glb",
+      "position": [
+        -14,
+        1.8e-7,
+        17.9999997
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-13",
+      "name": "Roof_corner_convex_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_1m.glb",
+      "position": [
+        -10,
+        1.9e-7,
+        17.99999994
+      ],
+      "scaling": [
+        0.92359757,
+        0.92359757,
+        0.92359757
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-14",
+      "name": "Roof_corner_convex_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_1m_LOD.glb",
+      "position": [
+        -6,
+        1.9e-7,
+        17.99999994
+      ],
+      "scaling": [
+        0.92359757,
+        0.92359757,
+        0.92359757
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-15",
+      "name": "Roof_corner_convex_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_2m.glb",
+      "position": [
+        -2,
+        1.8e-7,
+        17.99999994
+      ],
+      "scaling": [
+        0.91638919,
+        0.91638919,
+        0.91638919
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-16",
+      "name": "Roof_corner_convex_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_2m_LOD.glb",
+      "position": [
+        2,
+        1.8e-7,
+        17.99999994
+      ],
+      "scaling": [
+        0.91638919,
+        0.91638919,
+        0.91638919
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-17",
+      "name": "Roof_corner_convex_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_3m.glb",
+      "position": [
+        6,
+        1.8e-7,
+        17.99999988
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-18",
+      "name": "Roof_corner_convex_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_3m_LOD.glb",
+      "position": [
+        10,
+        1.8e-7,
+        17.99999988
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-19",
+      "name": "Roof_edge_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_1m.glb",
+      "position": [
+        14,
+        0,
+        18.00000003
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-20",
+      "name": "Roof_edge_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_1m_LOD.glb",
+      "position": [
+        18,
+        0,
+        18.00000003
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-21",
+      "name": "Roof_edge_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_2m.glb",
+      "position": [
+        -18,
+        0,
+        14
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-22",
+      "name": "Roof_edge_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_2m_LOD.glb",
+      "position": [
+        -14,
+        0,
+        14
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-23",
+      "name": "Roof_edge_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_3m.glb",
+      "position": [
+        -10,
+        0,
+        13.99999996
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-24",
+      "name": "Roof_edge_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_3m_LOD.glb",
+      "position": [
+        -6,
+        0,
+        13.99999996
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-25",
+      "name": "Roof_end_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_1m.glb",
+      "position": [
+        -2,
+        0,
+        14.00000004
+      ],
+      "scaling": [
+        0.92359762,
+        0.92359762,
+        0.92359762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-26",
+      "name": "Roof_end_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_1m_LOD.glb",
+      "position": [
+        2,
+        0,
+        14.00000004
+      ],
+      "scaling": [
+        0.92359762,
+        0.92359762,
+        0.92359762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-27",
+      "name": "Roof_end_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_2m.glb",
+      "position": [
+        6,
+        0,
+        13.99999992
+      ],
+      "scaling": [
+        0.91638926,
+        0.91638926,
+        0.91638926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-28",
+      "name": "Roof_end_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_2m_LOD.glb",
+      "position": [
+        10,
+        0,
+        13.99999992
+      ],
+      "scaling": [
+        0.91638926,
+        0.91638926,
+        0.91638926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-29",
+      "name": "Roof_end_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_3m.glb",
+      "position": [
+        14,
+        0,
+        13.99999981
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-30",
+      "name": "Roof_end_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_3m_LOD.glb",
+      "position": [
+        18,
+        0,
+        13.99999981
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-31",
+      "name": "Roof_end_edge_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_1m.glb",
+      "position": [
+        -18,
+        0,
+        10.00000009
+      ],
+      "scaling": [
+        2.71416706,
+        2.71416706,
+        2.71416706
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-32",
+      "name": "Roof_end_edge_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_1m_LOD.glb",
+      "position": [
+        -14,
+        0,
+        10.00000009
+      ],
+      "scaling": [
+        2.71416706,
+        2.71416706,
+        2.71416706
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-33",
+      "name": "Roof_end_edge_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_2m.glb",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "scaling": [
+        2.65283389,
+        2.65283389,
+        2.65283389
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-34",
+      "name": "Roof_end_edge_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_2m_LOD.glb",
+      "position": [
+        -6,
+        0,
+        10
+      ],
+      "scaling": [
+        2.65283389,
+        2.65283389,
+        2.65283389
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-35",
+      "name": "Roof_end_edge_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_3m.glb",
+      "position": [
+        -2,
+        0,
+        9.9999999
+      ],
+      "scaling": [
+        2.61507448,
+        2.61507448,
+        2.61507448
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-36",
+      "name": "Roof_end_edge_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_3m_LOD.glb",
+      "position": [
+        2,
+        0,
+        9.9999999
+      ],
+      "scaling": [
+        2.61507448,
+        2.61507448,
+        2.61507448
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-37",
+      "name": "Roof_end_top",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_top.glb",
+      "position": [
+        6,
+        1e-7,
+        10
+      ],
+      "scaling": [
+        2.43478266,
+        2.43478266,
+        2.43478266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-38",
+      "name": "Roof_end_top_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_top_LOD.glb",
+      "position": [
+        10,
+        1e-7,
+        10
+      ],
+      "scaling": [
+        2.43478266,
+        2.43478266,
+        2.43478266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-39",
+      "name": "Roof_flat",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_flat.glb",
+      "position": [
+        14,
+        1.9e-7,
+        9.99999999
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-40",
+      "name": "Roof_flat_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_flat_LOD.glb",
+      "position": [
+        18,
+        1.9e-7,
+        9.99999999
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-41",
+      "name": "Roof_round",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round.glb",
+      "position": [
+        -18,
+        3.2e-7,
+        5.99999976
+      ],
+      "scaling": [
+        0.79445564,
+        0.79445564,
+        0.79445564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-42",
+      "name": "Roof_round_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round_LOD.glb",
+      "position": [
+        -14,
+        3.2e-7,
+        5.99999976
+      ],
+      "scaling": [
+        0.79445564,
+        0.79445564,
+        0.79445564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-43",
+      "name": "Roof_round_flat",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round_flat.glb",
+      "position": [
+        -10,
+        3.8e-7,
+        5.99999983
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-44",
+      "name": "Roof_round_flat_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round_flat_LOD.glb",
+      "position": [
+        -6,
+        3.8e-7,
+        5.99999983
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-45",
+      "name": "Roof_top",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top.glb",
+      "position": [
+        -2,
+        4e-8,
+        6
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-46",
+      "name": "Roof_top_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_LOD.glb",
+      "position": [
+        2,
+        4e-8,
+        6
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-47",
+      "name": "Roof_top_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_1m.glb",
+      "position": [
+        6,
+        1.8e-7,
+        5.99999999
+      ],
+      "scaling": [
+        0.91406294,
+        0.91406294,
+        0.91406294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-48",
+      "name": "Roof_top_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_1m_LOD.glb",
+      "position": [
+        10,
+        1.8e-7,
+        5.99999999
+      ],
+      "scaling": [
+        0.91406294,
+        0.91406294,
+        0.91406294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-49",
+      "name": "Roof_top_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_2m.glb",
+      "position": [
+        14,
+        1.8e-7,
+        5.99999999
+      ],
+      "scaling": [
+        0.9000494,
+        0.9000494,
+        0.9000494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-50",
+      "name": "Roof_top_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_2m_LOD.glb",
+      "position": [
+        18,
+        1.8e-7,
+        5.99999999
+      ],
+      "scaling": [
+        0.9000494,
+        0.9000494,
+        0.9000494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-51",
+      "name": "Roof_top_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_3m.glb",
+      "position": [
+        -18,
+        1.8e-7,
+        1.99999999
+      ],
+      "scaling": [
+        0.89131598,
+        0.89131598,
+        0.89131598
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-52",
+      "name": "Roof_top_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_3m_LOD.glb",
+      "position": [
+        -14,
+        1.8e-7,
+        1.99999999
+      ],
+      "scaling": [
+        0.89131598,
+        0.89131598,
+        0.89131598
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-53",
+      "name": "Roof_top_tip",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_tip.glb",
+      "position": [
+        -10,
+        1.9e-7,
+        2
+      ],
+      "scaling": [
+        4.66666592,
+        4.66666592,
+        4.66666592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-54",
+      "name": "Roof_top_tip_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_tip_LOD.glb",
+      "position": [
+        -6,
+        1.9e-7,
+        2
+      ],
+      "scaling": [
+        4.66666592,
+        4.66666592,
+        4.66666592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-55",
+      "name": "Wall_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_1m.glb",
+      "position": [
+        -2,
+        0,
+        1.99999991
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-56",
+      "name": "Wall_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_1m_LOD.glb",
+      "position": [
+        2,
+        0,
+        1.99999991
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-57",
+      "name": "Wall_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_2m.glb",
+      "position": [
+        6,
+        0,
+        1.99999981
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-58",
+      "name": "Wall_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_2m_LOD.glb",
+      "position": [
+        10,
+        0,
+        1.99999981
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-59",
+      "name": "Wall_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_3m.glb",
+      "position": [
+        14,
+        0,
+        1.99999971
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-60",
+      "name": "Wall_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_3m_LOD.glb",
+      "position": [
+        18,
+        0,
+        1.99999971
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-61",
+      "name": "Wall_angle_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_1m.glb",
+      "position": [
+        -18,
+        0,
+        -2.00000009
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-62",
+      "name": "Wall_angle_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_1m_LOD.glb",
+      "position": [
+        -14,
+        0,
+        -2.00000009
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-63",
+      "name": "Wall_angle_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_2m.glb",
+      "position": [
+        -10,
+        0,
+        -2.00000019
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-64",
+      "name": "Wall_angle_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_2m_LOD.glb",
+      "position": [
+        -6,
+        0,
+        -2.00000019
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-65",
+      "name": "Wall_angle_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_3m.glb",
+      "position": [
+        -2,
+        0,
+        -2.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-66",
+      "name": "Wall_angle_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_3m_LOD.glb",
+      "position": [
+        2,
+        0,
+        -2.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-67",
+      "name": "Wall_arch_left_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_left_2m.glb",
+      "position": [
+        6,
+        0,
+        -2.00000019
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-68",
+      "name": "Wall_arch_left_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_left_2m_LOD.glb",
+      "position": [
+        10,
+        0,
+        -2.00000019
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-69",
+      "name": "Wall_arch_left_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_left_3m.glb",
+      "position": [
+        14,
+        1e-8,
+        -2.0000003
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-70",
+      "name": "Wall_arch_left_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_left_3m_LOD.glb",
+      "position": [
+        18,
+        1e-8,
+        -2.0000003
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-71",
+      "name": "Wall_arch_right_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_2m.glb",
+      "position": [
+        -18,
+        0,
+        -6.00000019
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-72",
+      "name": "Wall_arch_right_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_2m_LOD.glb",
+      "position": [
+        -14,
+        0,
+        -6.00000019
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-73",
+      "name": "Wall_arch_right_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_3m.glb",
+      "position": [
+        -10,
+        1e-8,
+        -6.0000003
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-74",
+      "name": "Wall_arch_right_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_3m_LOD.glb",
+      "position": [
+        -6,
+        1e-8,
+        -6.0000003
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-75",
+      "name": "Wall_base_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_1m.glb",
+      "position": [
+        -2,
+        2e-8,
+        -6.00000008
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-76",
+      "name": "Wall_base_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_1m_LOD.glb",
+      "position": [
+        2,
+        2e-8,
+        -6.00000008
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-77",
+      "name": "Wall_base_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_2m.glb",
+      "position": [
+        6,
+        2e-8,
+        -6.00000017
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-78",
+      "name": "Wall_base_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_2m_LOD.glb",
+      "position": [
+        10,
+        2e-8,
+        -6.00000017
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-79",
+      "name": "Wall_base_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_3m.glb",
+      "position": [
+        14,
+        2e-8,
+        -6.00000027
+      ],
+      "scaling": [
+        0.93333321,
+        0.93333321,
+        0.93333321
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-80",
+      "name": "Wall_base_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_3m_LOD.glb",
+      "position": [
+        18,
+        2e-8,
+        -6.00000027
+      ],
+      "scaling": [
+        0.93333321,
+        0.93333321,
+        0.93333321
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-81",
+      "name": "Wall_diagonal_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_1m.glb",
+      "position": [
+        -18,
+        1.9e-7,
+        -10.00000006
+      ],
+      "scaling": [
+        0.9118411,
+        0.9118411,
+        0.9118411
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-82",
+      "name": "Wall_diagonal_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_1m_LOD.glb",
+      "position": [
+        -14,
+        1.9e-7,
+        -10.00000006
+      ],
+      "scaling": [
+        0.9118411,
+        0.9118411,
+        0.9118411
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-83",
+      "name": "Wall_diagonal_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_2m.glb",
+      "position": [
+        -10,
+        1.9e-7,
+        -10.00000012
+      ],
+      "scaling": [
+        0.91184106,
+        0.91184106,
+        0.91184106
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-84",
+      "name": "Wall_diagonal_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_2m_LOD.glb",
+      "position": [
+        -6,
+        1.9e-7,
+        -10.00000012
+      ],
+      "scaling": [
+        0.91184106,
+        0.91184106,
+        0.91184106
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-85",
+      "name": "Wall_diagonal_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_3m.glb",
+      "position": [
+        -2,
+        1.9e-7,
+        -10.00000018
+      ],
+      "scaling": [
+        0.91184102,
+        0.91184102,
+        0.91184102
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-86",
+      "name": "Wall_diagonal_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_3m_LOD.glb",
+      "position": [
+        2,
+        1.9e-7,
+        -10.00000018
+      ],
+      "scaling": [
+        0.91184102,
+        0.91184102,
+        0.91184102
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-87",
+      "name": "Wall_door",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door.glb",
+      "position": [
+        6,
+        0,
+        -10.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-88",
+      "name": "Wall_door_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door_LOD.glb",
+      "position": [
+        10,
+        0,
+        -10.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-89",
+      "name": "Wall_door_round",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door_round.glb",
+      "position": [
+        14,
+        0,
+        -10.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-90",
+      "name": "Wall_door_round_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door_round_LOD.glb",
+      "position": [
+        18,
+        0,
+        -10.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-91",
+      "name": "Wall_round_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_1m.glb",
+      "position": [
+        -18,
+        3.8e-7,
+        -14.00000023
+      ],
+      "scaling": [
+        0.93333318,
+        0.93333318,
+        0.93333318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-92",
+      "name": "Wall_round_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_1m_LOD.glb",
+      "position": [
+        -14,
+        3.8e-7,
+        -14.00000023
+      ],
+      "scaling": [
+        0.93333318,
+        0.93333318,
+        0.93333318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-93",
+      "name": "Wall_round_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_2m.glb",
+      "position": [
+        -10,
+        3.8e-7,
+        -14.0000004
+      ],
+      "scaling": [
+        0.93333314,
+        0.93333314,
+        0.93333314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-94",
+      "name": "Wall_round_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_2m_LOD.glb",
+      "position": [
+        -6,
+        3.8e-7,
+        -14.0000004
+      ],
+      "scaling": [
+        0.93333314,
+        0.93333314,
+        0.93333314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-95",
+      "name": "Wall_round_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_3m.glb",
+      "position": [
+        -2,
+        3.8e-7,
+        -14.00000047
+      ],
+      "scaling": [
+        0.9333331,
+        0.9333331,
+        0.9333331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-96",
+      "name": "Wall_round_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_3m_LOD.glb",
+      "position": [
+        2,
+        3.8e-7,
+        -14.00000047
+      ],
+      "scaling": [
+        0.9333331,
+        0.9333331,
+        0.9333331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-97",
+      "name": "Wall_slim_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_1m.glb",
+      "position": [
+        6,
+        0,
+        -14.00000028
+      ],
+      "scaling": [
+        2.79999963,
+        2.79999963,
+        2.79999963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-98",
+      "name": "Wall_slim_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_1m_LOD.glb",
+      "position": [
+        10,
+        0,
+        -14.00000028
+      ],
+      "scaling": [
+        2.79999963,
+        2.79999963,
+        2.79999963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-99",
+      "name": "Wall_slim_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_2m.glb",
+      "position": [
+        14,
+        0,
+        -14.00000028
+      ],
+      "scaling": [
+        1.39999982,
+        1.39999982,
+        1.39999982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-100",
+      "name": "Wall_slim_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_2m_LOD.glb",
+      "position": [
+        18,
+        0,
+        -14.00000028
+      ],
+      "scaling": [
+        1.39999982,
+        1.39999982,
+        1.39999982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-101",
+      "name": "Wall_slim_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_3m.glb",
+      "position": [
+        -18,
+        0,
+        -18.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-102",
+      "name": "Wall_slim_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_3m_LOD.glb",
+      "position": [
+        -14,
+        0,
+        -18.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-103",
+      "name": "Wall_top_1m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_1m.glb",
+      "position": [
+        -10,
+        0,
+        -18.00000004
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-104",
+      "name": "Wall_top_1m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_1m_LOD.glb",
+      "position": [
+        -6,
+        0,
+        -18.00000004
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-105",
+      "name": "Wall_top_2m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_2m.glb",
+      "position": [
+        -2,
+        0,
+        -18.00000009
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-106",
+      "name": "Wall_top_2m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_2m_LOD.glb",
+      "position": [
+        2,
+        0,
+        -18.00000009
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-107",
+      "name": "Wall_top_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_3m.glb",
+      "position": [
+        6,
+        0,
+        -18.00000014
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-108",
+      "name": "Wall_top_3m_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_3m_LOD.glb",
+      "position": [
+        10,
+        0,
+        -18.00000014
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-109",
+      "name": "Wall_window_double",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_double.glb",
+      "position": [
+        14,
+        0,
+        -18.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-110",
+      "name": "Wall_window_double_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_double_LOD.glb",
+      "position": [
+        18,
+        0,
+        -18.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-111",
+      "name": "Wall_window_large",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_large.glb",
+      "position": [
+        -18,
+        0,
+        -22.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-112",
+      "name": "Wall_window_large_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_large_LOD.glb",
+      "position": [
+        -14,
+        0,
+        -22.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-113",
+      "name": "Wall_window_small",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_small.glb",
+      "position": [
+        -10,
+        0,
+        -22.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-114",
+      "name": "Wall_window_small_LOD",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_small_LOD.glb",
+      "position": [
+        -6,
+        0,
+        -22.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

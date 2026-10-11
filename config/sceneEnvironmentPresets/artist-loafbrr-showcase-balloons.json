@@ -1,0 +1,2179 @@
+{
+  "presetKey": "artist-loafbrr-showcase-balloons",
+  "name": "Loafbrr · Balloons · 49模型 · 模型 0.75 MiB + 贴图 0.08 MiB · 合计 0.82 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-balloons-0",
+      "name": "Balloons",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 41
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-19bd5d693889137c-stand",
+      "name": "Balloon_0展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a933e428fab98f20-stand",
+      "name": "Balloon_1展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e5c2c5a496f029b7-stand",
+      "name": "Balloon_2展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-99e8567d639193c3-stand",
+      "name": "Balloon_3展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cae26c5566b5459c-stand",
+      "name": "Balloon_4展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bf567591dd3260da-stand",
+      "name": "Balloon_5展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-49f54ee4713b2d7b-stand",
+      "name": "Balloon_6展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4978b761095f4930-stand",
+      "name": "Balloon_7展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6b7c56dd95c8151a-stand",
+      "name": "Balloon_8展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fe48052cabec17dd-stand",
+      "name": "Balloon_9展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1f2efd05b681ade8-stand",
+      "name": "Balloon_A展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8ee529227ead78b8-stand",
+      "name": "Balloon_And展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bb3c37e969a03068-stand",
+      "name": "Balloon_B展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-66c8ae55e9f1c753-stand",
+      "name": "Balloon_Balloon展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dba7c9d8e4797545-stand",
+      "name": "Balloon_C展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f274d097cebbf58e-stand",
+      "name": "Balloon_D展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4d250dee1874d227-stand",
+      "name": "Balloon_Dog展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c721290100796608-stand",
+      "name": "Balloon_E展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6d0a91ef5d66f4d8-stand",
+      "name": "Balloon_F展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7cf67e86d6a1413e-stand",
+      "name": "Balloon_Flower_A展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ce5150657db85e5d-stand",
+      "name": "Balloon_Flower_B_stem展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e22485c5215fde06-stand",
+      "name": "Balloon_G展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-25a0aca531b3e81c-stand",
+      "name": "Balloon_H展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3ae983d8c303580c-stand",
+      "name": "Balloon_Hat展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1a2f6b8a53068c43-stand",
+      "name": "Balloon_Heart展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8d1920346445852a-stand",
+      "name": "Balloon_I展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-46a5238118106b46-stand",
+      "name": "Balloon_J展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-993616233a699b1b-stand",
+      "name": "Balloon_K展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ad3f72c4c8f41add-stand",
+      "name": "Balloon_L展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b5f76c88826f5fdf-stand",
+      "name": "Balloon_M展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0555e7c2bc8393c2-stand",
+      "name": "Balloon_N展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eb8dbbd39ade4317-stand",
+      "name": "Balloon_O展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-106f58387743c307-stand",
+      "name": "Balloon_P展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f399c5f28fd0131d-stand",
+      "name": "Balloon_Poodle展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7703c4839b530813-stand",
+      "name": "Balloon_Q展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-281ccc4654bc3025-stand",
+      "name": "Balloon_R展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fda9e866b5b2c00d-stand",
+      "name": "Balloon_Ribbon展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-031d9560eab5b15f-stand",
+      "name": "Balloon_S展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c5a073551c7a5730-stand",
+      "name": "Balloon_Star展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1c981f5faeb5bfeb-stand",
+      "name": "Balloon_Stick_A展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2ad3c141cf111f83-stand",
+      "name": "Balloon_Stick_B展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a5a0fba835a2e0c1-stand",
+      "name": "Balloon_Sword展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-27ed54a1abab24bd-stand",
+      "name": "Balloon_T展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0ed5736020a17d54-stand",
+      "name": "Balloon_U展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3f07cc9cf604f4da-stand",
+      "name": "Balloon_V展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e3ecedad70f0e275-stand",
+      "name": "Balloon_W展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e8133700a4cadee7-stand",
+      "name": "Balloon_X展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-db5ea4a9be006b3d-stand",
+      "name": "Balloon_Y展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c9413c24e4d16d0f-stand",
+      "name": "Balloon_Z展台",
+      "parentId": "transform:category-balloons-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-19bd5d693889137c",
+      "name": "Balloons · Balloon_0 · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_0.glb",
+      "position": [
+        -21.99999961,
+        0,
+        17.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.51622669,
+        6.51622669,
+        6.51622669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a933e428fab98f20",
+      "name": "Balloons · Balloon_1 · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_1.glb",
+      "position": [
+        -17.99999988,
+        2e-7,
+        18.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.57424633,
+        6.57424633,
+        6.57424633
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e5c2c5a496f029b7",
+      "name": "Balloons · Balloon_2 · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_2.glb",
+      "position": [
+        -14.00000025,
+        0,
+        17.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.71608273,
+        6.71608273,
+        6.71608273
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-99e8567d639193c3",
+      "name": "Balloons · Balloon_3 · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_3.glb",
+      "position": [
+        -9.9999999,
+        0,
+        18.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.57549508,
+        6.57549508,
+        6.57549508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cae26c5566b5459c",
+      "name": "Balloons · Balloon_4 · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_4.glb",
+      "position": [
+        -6.0000001,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.66555491,
+        6.66555491,
+        6.66555491
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bf567591dd3260da",
+      "name": "Balloons · Balloon_5 · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_5.glb",
+      "position": [
+        -2,
+        0,
+        17.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.79664231,
+        6.79664231,
+        6.79664231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-49f54ee4713b2d7b",
+      "name": "Balloons · Balloon_6 · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_6.glb",
+      "position": [
+        -22,
+        0,
+        13.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.62721474,
+        6.62721474,
+        6.62721474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4978b761095f4930",
+      "name": "Balloons · Balloon_7 · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_7.glb",
+      "position": [
+        -18,
+        0,
+        14.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.58326487,
+        6.58326487,
+        6.58326487
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6b7c56dd95c8151a",
+      "name": "Balloons · Balloon_8 · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_8.glb",
+      "position": [
+        -14,
+        0,
+        14.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.501112,
+        6.501112,
+        6.501112
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe48052cabec17dd",
+      "name": "Balloons · Balloon_9 · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_9.glb",
+      "position": [
+        -10.0000001,
+        0,
+        13.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.61548869,
+        6.61548869,
+        6.61548869
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1f2efd05b681ade8",
+      "name": "Balloons · Balloon_A · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_A.glb",
+      "position": [
+        -6.00000021,
+        4.2e-7,
+        14.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.05474076,
+        7.05474076,
+        7.05474076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8ee529227ead78b8",
+      "name": "Balloons · Balloon_And · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_And.glb",
+      "position": [
+        -1.9999998,
+        0,
+        14.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.68186182,
+        6.68186182,
+        6.68186182
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bb3c37e969a03068",
+      "name": "Balloons · Balloon_B · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_B.glb",
+      "position": [
+        -21.99999991,
+        -1.8e-7,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.14469812,
+        6.14469812,
+        6.14469812
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-66c8ae55e9f1c753",
+      "name": "Balloons · Balloon_Balloon · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Balloon.glb",
+      "position": [
+        -17.99999973,
+        1.5e-7,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.19827664,
+        5.19827664,
+        5.19827664
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dba7c9d8e4797545",
+      "name": "Balloons · Balloon_C · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_C.glb",
+      "position": [
+        -14.0000002,
+        -3e-7,
+        10.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.73353561,
+        6.73353561,
+        6.73353561
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f274d097cebbf58e",
+      "name": "Balloons · Balloon_D · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_D.glb",
+      "position": [
+        -9.99999998,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.52722634,
+        6.52722634,
+        6.52722634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4d250dee1874d227",
+      "name": "Balloons · Balloon_Dog · 模型 0.03 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Dog.glb",
+      "position": [
+        -6.00000027,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.93594797,
+        5.93594797,
+        5.93594797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c721290100796608",
+      "name": "Balloons · Balloon_E · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_E.glb",
+      "position": [
+        -1.99999998,
+        -2.9e-7,
+        9.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.55306313,
+        6.55306313,
+        6.55306313
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6d0a91ef5d66f4d8",
+      "name": "Balloons · Balloon_F · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_F.glb",
+      "position": [
+        -22.00000018,
+        -2.1e-7,
+        5.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.94729311,
+        6.94729311,
+        6.94729311
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7cf67e86d6a1413e",
+      "name": "Balloons · Balloon_Flower_A · 模型 0.03 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Flower_A.glb",
+      "position": [
+        -17.99999937,
+        -1.6e-7,
+        6.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.20120492,
+        14.20120492,
+        14.20120492
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ce5150657db85e5d",
+      "name": "Balloons · Balloon_Flower_B_stem · 模型 0.04 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Flower_B_stem.glb",
+      "position": [
+        -14.00000059,
+        0,
+        6.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.83043201,
+        6.83043201,
+        6.83043201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e22485c5215fde06",
+      "name": "Balloons · Balloon_G · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_G.glb",
+      "position": [
+        -9.99999995,
+        1e-7,
+        5.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.82336791,
+        6.82336791,
+        6.82336791
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-25a0aca531b3e81c",
+      "name": "Balloons · Balloon_H · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_H.glb",
+      "position": [
+        -5.9999999,
+        1e-7,
+        6.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.7613366,
+        6.7613366,
+        6.7613366
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3ae983d8c303580c",
+      "name": "Balloons · Balloon_Hat · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Hat.glb",
+      "position": [
+        -1.99999992,
+        -1.7e-7,
+        5.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.28654747,
+        11.28654747,
+        11.28654747
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1a2f6b8a53068c43",
+      "name": "Balloons · Balloon_Heart · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Heart.glb",
+      "position": [
+        -22.00000056,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.73402167,
+        5.73402167,
+        5.73402167
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8d1920346445852a",
+      "name": "Balloons · Balloon_I · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_I.glb",
+      "position": [
+        -18,
+        0,
+        2.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.0720289,
+        7.0720289,
+        7.0720289
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-46a5238118106b46",
+      "name": "Balloons · Balloon_J · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_J.glb",
+      "position": [
+        -13.99999961,
+        1e-7,
+        1.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.91526279,
+        6.91526279,
+        6.91526279
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-993616233a699b1b",
+      "name": "Balloons · Balloon_K · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_K.glb",
+      "position": [
+        -9.99999941,
+        -2e-7,
+        1.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.56053693,
+        6.56053693,
+        6.56053693
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ad3f72c4c8f41add",
+      "name": "Balloons · Balloon_L · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_L.glb",
+      "position": [
+        -5.99999963,
+        -2.9e-7,
+        2.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.55586432,
+        6.55586432,
+        6.55586432
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b5f76c88826f5fdf",
+      "name": "Balloons · Balloon_M · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_M.glb",
+      "position": [
+        -2.0000005,
+        -3.3e-7,
+        2.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.57492992,
+        5.57492992,
+        5.57492992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0555e7c2bc8393c2",
+      "name": "Balloons · Balloon_N · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_N.glb",
+      "position": [
+        -22.0000006,
+        -2.8e-7,
+        -1.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.24057546,
+        6.24057546,
+        6.24057546
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eb8dbbd39ade4317",
+      "name": "Balloons · Balloon_O · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_O.glb",
+      "position": [
+        -18,
+        -2e-7,
+        -1.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.5443974,
+        6.5443974,
+        6.5443974
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-106f58387743c307",
+      "name": "Balloons · Balloon_P · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_P.glb",
+      "position": [
+        -13.9999998,
+        -2e-7,
+        -1.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.81425426,
+        6.81425426,
+        6.81425426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f399c5f28fd0131d",
+      "name": "Balloons · Balloon_Poodle · 模型 0.04 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Poodle.glb",
+      "position": [
+        -9.99999983,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.66405017,
+        5.66405017,
+        5.66405017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7703c4839b530813",
+      "name": "Balloons · Balloon_Q · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Q.glb",
+      "position": [
+        -6,
+        -9e-8,
+        -1.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.89849899,
+        5.89849899,
+        5.89849899
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-281ccc4654bc3025",
+      "name": "Balloons · Balloon_R · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_R.glb",
+      "position": [
+        -2,
+        -1e-7,
+        -1.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.7027562,
+        6.7027562,
+        6.7027562
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fda9e866b5b2c00d",
+      "name": "Balloons · Balloon_Ribbon · 模型 0.03 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Ribbon.glb",
+      "position": [
+        -22.00000021,
+        0,
+        -6.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.56019787,
+        9.56019787,
+        9.56019787
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-031d9560eab5b15f",
+      "name": "Balloons · Balloon_S · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_S.glb",
+      "position": [
+        -17.99999995,
+        0,
+        -5.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.03276,
+        7.03276,
+        7.03276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c5a073551c7a5730",
+      "name": "Balloons · Balloon_Star · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Star.glb",
+      "position": [
+        -13.9999996,
+        0,
+        -5.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.46874138,
+        4.46874138,
+        4.46874138
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1c981f5faeb5bfeb",
+      "name": "Balloons · Balloon_Stick_A · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Stick_A.glb",
+      "position": [
+        -10.00000014,
+        0,
+        -5.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.16481775,
+        3.16481775,
+        3.16481775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2ad3c141cf111f83",
+      "name": "Balloons · Balloon_Stick_B · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Stick_B.glb",
+      "position": [
+        -6,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.18867288,
+        3.18867288,
+        3.18867288
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a5a0fba835a2e0c1",
+      "name": "Balloons · Balloon_Sword · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Sword.glb",
+      "position": [
+        -1.99999929,
+        3e-8,
+        -5.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.59107125,
+        7.59107125,
+        7.59107125
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-27ed54a1abab24bd",
+      "name": "Balloons · Balloon_T · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_T.glb",
+      "position": [
+        -21.9999999,
+        -2e-7,
+        -10.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.66459094,
+        6.66459094,
+        6.66459094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0ed5736020a17d54",
+      "name": "Balloons · Balloon_U · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_U.glb",
+      "position": [
+        -17.99999969,
+        -1e-7,
+        -9.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.95536242,
+        6.95536242,
+        6.95536242
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3f07cc9cf604f4da",
+      "name": "Balloons · Balloon_V · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_V.glb",
+      "position": [
+        -13.99999984,
+        -1.1e-7,
+        -10.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.04689018,
+        7.04689018,
+        7.04689018
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e3ecedad70f0e275",
+      "name": "Balloons · Balloon_W · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_W.glb",
+      "position": [
+        -10.00000017,
+        0,
+        -9.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.57492992,
+        5.57492992,
+        5.57492992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e8133700a4cadee7",
+      "name": "Balloons · Balloon_X · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_X.glb",
+      "position": [
+        -6.00000083,
+        -1e-7,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.94765376,
+        6.94765376,
+        6.94765376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-db5ea4a9be006b3d",
+      "name": "Balloons · Balloon_Y · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Y.glb",
+      "position": [
+        -1.99999985,
+        -1e-7,
+        -10.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.92953526,
+        6.92953526,
+        6.92953526
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c9413c24e4d16d0f",
+      "name": "Balloons · Balloon_Z · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-balloons-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Balloons/Balloon_Z.glb",
+      "position": [
+        -11.99999927,
+        -1e-7,
+        -14.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.9520022,
+        6.9520022,
+        6.9520022
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

@@ -1,0 +1,1663 @@
+{
+  "presetKey": "artist-loafbrr-showcase-dungeon-free",
+  "name": "Loafbrr · DungeonFree · 37模型 · 模型 0.79 MiB + 贴图 0.54 MiB · 合计 1.33 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-dungeonfree-0",
+      "name": "DungeonFree",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 33
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-381e01e3f000dc90-stand",
+      "name": "Pillar_Fountain_1展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dab127fab90748c7-stand",
+      "name": "Pillar_Fountain_2展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-17496a9eb488eea2-stand",
+      "name": "Pillar_Fountain_Spout_1展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74fda1af38eaa37d-stand",
+      "name": "Pillar_Fountain_Spout_2展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-195dbfc75942e810-stand",
+      "name": "Pillar_Pillar_Base展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9dc2f7a25a26e464-stand",
+      "name": "Pillar_Pillars_1展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-891be25f49cb04aa-stand",
+      "name": "Pillar_Pillars_2展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4be1dc98172dc9b9-stand",
+      "name": "Pillar_Pillars_3展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6db810df99068c9e-stand",
+      "name": "Pillar_Pillars_4展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8bb8b5a6b7048f8e-stand",
+      "name": "Pillar_Pillars_Big_1展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3fe6e676f1e42d44-stand",
+      "name": "Pillar_Pillars_Big_2展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8e35a328adadf8c4-stand",
+      "name": "Prop_Barrel展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5906212f2f36a38a-stand",
+      "name": "Prop_Brazier_1展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-285899555cfa1b85-stand",
+      "name": "Prop_Brazier_2展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-09834305b3fcce47-stand",
+      "name": "Prop_Candle展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-604a635fd396ac1d-stand",
+      "name": "Prop_CandleHolder展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fba4c3a7630eb8a1-stand",
+      "name": "Prop_CandleStick展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-539cecf8fd3476cf-stand",
+      "name": "Prop_Chest1展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-86effea1059d2206-stand",
+      "name": "Prop_Chest2展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7aa1baeebe2f6982-stand",
+      "name": "Prop_Crate展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d3cbddb08e17a628-stand",
+      "name": "Prop_Plank展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8c92507b558ee2b9-stand",
+      "name": "Prop_Shackles_1展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-af698d115b368135-stand",
+      "name": "Prop_Shackles_2展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0d93f5855c56ff4f-stand",
+      "name": "Prop_Torch展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-627ee925925d4c85-stand",
+      "name": "Prop_WeaponRack展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e4d5ad887edd0790-stand",
+      "name": "Prop_WeaponRack_2展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-688abdde07c31c37-stand",
+      "name": "Statue_Base展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3a81eac1f5612d96-stand",
+      "name": "Weapon_Axe展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ddd5d7318b700728-stand",
+      "name": "Weapon_BattleAxe展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-828ad584a93af0f9-stand",
+      "name": "Weapon_Broom展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-33654f656102ac0b-stand",
+      "name": "Weapon_Gladius展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cba3592ae9566223-stand",
+      "name": "Weapon_Mace展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-506dc35cad4a8a4e-stand",
+      "name": "Weapon_PickAxe展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8ea94179dc896937-stand",
+      "name": "Weapon_ShortSword展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-049db73a3b782943-stand",
+      "name": "Weapon_SledgeHammer展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d822d4e24be462e3-stand",
+      "name": "Weapon_Spear展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1cf1ed9e15116a21-stand",
+      "name": "Weapon_Sword展台",
+      "parentId": "transform:category-dungeonfree-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-381e01e3f000dc90",
+      "name": "DungeonFree · Pillar_Fountain_1 · 模型 0.03 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Fountain_1.glb",
+      "position": [
+        -22,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50298028,
+        1.50298028,
+        1.50298028
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dab127fab90748c7",
+      "name": "DungeonFree · Pillar_Fountain_2 · 模型 0.02 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Fountain_2.glb",
+      "position": [
+        -18,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50298009,
+        1.50298009,
+        1.50298009
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-17496a9eb488eea2",
+      "name": "DungeonFree · Pillar_Fountain_Spout_1 · 模型 0.03 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Fountain_Spout_1.glb",
+      "position": [
+        -14.00000059,
+        0,
+        14.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.52466564,
+        1.52466564,
+        1.52466564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74fda1af38eaa37d",
+      "name": "DungeonFree · Pillar_Fountain_Spout_2 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Fountain_Spout_2.glb",
+      "position": [
+        -10,
+        0,
+        13.99999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.52466564,
+        1.52466564,
+        1.52466564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-195dbfc75942e810",
+      "name": "DungeonFree · Pillar_Pillar_Base · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Pillar_Base.glb",
+      "position": [
+        -6,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.41213976,
+        2.41213976,
+        2.41213976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9dc2f7a25a26e464",
+      "name": "DungeonFree · Pillar_Pillars_1 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Pillars_1.glb",
+      "position": [
+        -2,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999998,
+        0.69999998,
+        0.69999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-891be25f49cb04aa",
+      "name": "DungeonFree · Pillar_Pillars_2 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Pillars_2.glb",
+      "position": [
+        -22,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999998,
+        0.69999998,
+        0.69999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4be1dc98172dc9b9",
+      "name": "DungeonFree · Pillar_Pillars_3 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Pillars_3.glb",
+      "position": [
+        -18,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999999,
+        0.69999999,
+        0.69999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6db810df99068c9e",
+      "name": "DungeonFree · Pillar_Pillars_4 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Pillars_4.glb",
+      "position": [
+        -14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999999,
+        0.69999999,
+        0.69999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8bb8b5a6b7048f8e",
+      "name": "DungeonFree · Pillar_Pillars_Big_1 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Pillars_Big_1.glb",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35,
+        0.35,
+        0.35
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3fe6e676f1e42d44",
+      "name": "DungeonFree · Pillar_Pillars_Big_2 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Pillar_Pillars_Big_2.glb",
+      "position": [
+        -5.99999992,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34999999,
+        0.34999999,
+        0.34999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8e35a328adadf8c4",
+      "name": "DungeonFree · Prop_Barrel · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Barrel.glb",
+      "position": [
+        -2,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5906212f2f36a38a",
+      "name": "DungeonFree · Prop_Brazier_1 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Brazier_1.glb",
+      "position": [
+        -22.00000031,
+        0,
+        5.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.45066859,
+        3.45066859,
+        3.45066859
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-285899555cfa1b85",
+      "name": "DungeonFree · Prop_Brazier_2 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Brazier_2.glb",
+      "position": [
+        -18.00000031,
+        0,
+        5.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.45066859,
+        3.45066859,
+        3.45066859
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-09834305b3fcce47",
+      "name": "DungeonFree · Prop_Candle · 模型 0.06 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Candle.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.08038532,
+        10.08038532,
+        10.08038532
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-604a635fd396ac1d",
+      "name": "DungeonFree · Prop_CandleHolder · 模型 0.05 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_CandleHolder.glb",
+      "position": [
+        -10.00000006,
+        0,
+        6.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.36934364,
+        15.36934364,
+        15.36934364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fba4c3a7630eb8a1",
+      "name": "DungeonFree · Prop_CandleStick · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_CandleStick.glb",
+      "position": [
+        -6.00000068,
+        0,
+        6.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.89831093,
+        23.89831093,
+        23.89831093
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-539cecf8fd3476cf",
+      "name": "DungeonFree · Prop_Chest1 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Chest1.glb",
+      "position": [
+        -1.99999992,
+        0,
+        6.00000111
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.72168535,
+        2.72168535,
+        2.72168535
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-86effea1059d2206",
+      "name": "DungeonFree · Prop_Chest2 · 模型 0.03 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Chest2.glb",
+      "position": [
+        -21.99999935,
+        0,
+        1.99999899
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.72168425,
+        2.72168425,
+        2.72168425
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7aa1baeebe2f6982",
+      "name": "DungeonFree · Prop_Crate · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Crate.glb",
+      "position": [
+        -18.00000021,
+        0,
+        1.99999894
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.77252056,
+        1.77252056,
+        1.77252056
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d3cbddb08e17a628",
+      "name": "DungeonFree · Prop_Plank · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Plank.glb",
+      "position": [
+        -14,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10175103,
+        1.10175103,
+        1.10175103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8c92507b558ee2b9",
+      "name": "DungeonFree · Prop_Shackles_1 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Shackles_1.glb",
+      "position": [
+        -10,
+        0,
+        1.99999893
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6971582,
+        2.6971582,
+        2.6971582
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-af698d115b368135",
+      "name": "DungeonFree · Prop_Shackles_2 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Shackles_2.glb",
+      "position": [
+        -6,
+        0,
+        1.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.69715851,
+        2.69715851,
+        2.69715851
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0d93f5855c56ff4f",
+      "name": "DungeonFree · Prop_Torch · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_Torch.glb",
+      "position": [
+        -2.00000033,
+        0,
+        2.00000279
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.01050318,
+        4.01050318,
+        4.01050318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-627ee925925d4c85",
+      "name": "DungeonFree · Prop_WeaponRack · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_WeaponRack.glb",
+      "position": [
+        -22.00000042,
+        0,
+        -2.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.99462566,
+        1.99462566,
+        1.99462566
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e4d5ad887edd0790",
+      "name": "DungeonFree · Prop_WeaponRack_2 · 模型 0.12 MiB · 贴图 0.39 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Prop_WeaponRack_2.glb",
+      "position": [
+        -18.00000036,
+        0,
+        -2.00000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.71229523,
+        1.71229523,
+        1.71229523
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-688abdde07c31c37",
+      "name": "DungeonFree · Statue_Base · 模型 0.07 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Statue_Base.glb",
+      "position": [
+        -14.00000022,
+        0,
+        -1.99999891
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39920908,
+        1.39920908,
+        1.39920908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3a81eac1f5612d96",
+      "name": "DungeonFree · Weapon_Axe · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_Axe.glb",
+      "position": [
+        -10.00000029,
+        0,
+        -1.99999948
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.99579333,
+        6.99579333,
+        6.99579333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ddd5d7318b700728",
+      "name": "DungeonFree · Weapon_BattleAxe · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_BattleAxe.glb",
+      "position": [
+        -6.00000014,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.2414384,
+        4.2414384,
+        4.2414384
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-828ad584a93af0f9",
+      "name": "DungeonFree · Weapon_Broom · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_Broom.glb",
+      "position": [
+        -2,
+        0,
+        -1.99999848
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.47847034,
+        2.47847034,
+        2.47847034
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-33654f656102ac0b",
+      "name": "DungeonFree · Weapon_Gladius · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_Gladius.glb",
+      "position": [
+        -21.99999994,
+        0,
+        -6.00000069
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.78885025,
+        3.78885025,
+        3.78885025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cba3592ae9566223",
+      "name": "DungeonFree · Weapon_Mace · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_Mace.glb",
+      "position": [
+        -17.99999996,
+        0,
+        -6.00000037
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.70805193,
+        4.70805193,
+        4.70805193
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-506dc35cad4a8a4e",
+      "name": "DungeonFree · Weapon_PickAxe · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_PickAxe.glb",
+      "position": [
+        -13.99999974,
+        0,
+        -6.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.93966536,
+        6.93966536,
+        6.93966536
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8ea94179dc896937",
+      "name": "DungeonFree · Weapon_ShortSword · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_ShortSword.glb",
+      "position": [
+        -10.00000034,
+        0,
+        -5.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.99235842,
+        6.99235842,
+        6.99235842
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-049db73a3b782943",
+      "name": "DungeonFree · Weapon_SledgeHammer · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_SledgeHammer.glb",
+      "position": [
+        -6,
+        0,
+        -6.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.93474462,
+        3.93474462,
+        3.93474462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d822d4e24be462e3",
+      "name": "DungeonFree · Weapon_Spear · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_Spear.glb",
+      "position": [
+        -1.99999998,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.79496054,
+        1.79496054,
+        1.79496054
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1cf1ed9e15116a21",
+      "name": "DungeonFree · Weapon_Sword · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-dungeonfree-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/DungeonFree/Weapon_Sword.glb",
+      "position": [
+        -12.00000019,
+        0,
+        -10.00000236
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79248023,
+        2.79248023,
+        2.79248023
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

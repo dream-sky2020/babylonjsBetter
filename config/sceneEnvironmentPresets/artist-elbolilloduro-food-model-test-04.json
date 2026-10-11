@@ -1,0 +1,7832 @@
+{
+  "presetKey": "artist-elbolilloduro-food-model-test-04",
+  "name": "Elbolilloduro · 餐饮、厨房与商店 4/8（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-diner",
+      "name": "DINER",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-electronics_kitchen",
+      "name": "Electronics_kitchen",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-mini_market",
+      "name": "Mini_Market",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 92
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-113dde1c8c4bf9d7-stand",
+      "name": "Refrigerator_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-152fe188c8c2c632-stand",
+      "name": "Refrigerator_01_001展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f35eb185002b2de5-stand",
+      "name": "Refrigerator_Door展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cd5440687b2f346d-stand",
+      "name": "Refrigerator_Door_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c51812f868da8b7c-stand",
+      "name": "Salt_shaker展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-50ce9735781f3e69-stand",
+      "name": "Salt_shaker_008展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d7d2028f5673dbd7-stand",
+      "name": "Sauce展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b14b618a238359df-stand",
+      "name": "Sauce展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5343a3aacbd6a870-stand",
+      "name": "Sauce_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c480baab40763869-stand",
+      "name": "Sauce_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-55f2dbe9464f3fcd-stand",
+      "name": "Seat展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-db9a7e6034ac839f-stand",
+      "name": "Seat展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-48a200cf7d106da5-stand",
+      "name": "Seat_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-23beb3ee88a2eeeb-stand",
+      "name": "Seat_02展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4f236ea03ceefba9-stand",
+      "name": "Sewer展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f8e7411e7923ba90-stand",
+      "name": "Shelf展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-df0ee540c36c683b-stand",
+      "name": "Showcase展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-657ec66e7b866830-stand",
+      "name": "Sign展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-649985bbc33508ba-stand",
+      "name": "Sing_DINER展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bb4667cd8fbdd2ff-stand",
+      "name": "Soap_dispenser展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f6dddf4f77593634-stand",
+      "name": "Soap_dispenser展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-849ccd708ccd9b45-stand",
+      "name": "Soft_drink_dispenser展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-955aadbfe7b47097-stand",
+      "name": "Soft_drink_dispenser_001展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ac23f276d83bae01-stand",
+      "name": "Stove展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8ebe4356bf09bb3b-stand",
+      "name": "Stove_001展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-427b1f70850f2e18-stand",
+      "name": "Stoves展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-93dac41564a48b19-stand",
+      "name": "Stoves展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-35259da4a31724e3-stand",
+      "name": "Table展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8a2bb83dab0bf52e-stand",
+      "name": "Table展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e1de057b0bda1abf-stand",
+      "name": "Table_Metal展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9aed732de5471c47-stand",
+      "name": "Tiles展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6415a7531624563b-stand",
+      "name": "Tiles_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b69aedd0281742a2-stand",
+      "name": "Toilet展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b8ce726b15768565-stand",
+      "name": "Toilet展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9702985f5c4e6631-stand",
+      "name": "Toilet_sing展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9bc1ede56ec40d34-stand",
+      "name": "Trash展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b24fcdb50eb338e7-stand",
+      "name": "Trash展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0d8f8ae5db16ec7e-stand",
+      "name": "Trash_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c6a647d01bf68ee4-stand",
+      "name": "Trash_02展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-db05228ea52236e2-stand",
+      "name": "Tray展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b0bc8ff30293c72-stand",
+      "name": "Tray_01_001展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6843fcae4591671c-stand",
+      "name": "Tray_03展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-34a1428ab32c9de9-stand",
+      "name": "Trees展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c09e54d7d8923ad-stand",
+      "name": "Trees_001展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a5308e71c4fd4a68-stand",
+      "name": "Trees_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6a74943422840677-stand",
+      "name": "Tumbler展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-88a9be36d179e359-stand",
+      "name": "Tumbler展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-83d541bb746f9330-stand",
+      "name": "Tumbler_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b789b78f0ad1c019-stand",
+      "name": "Tumbler_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-822a5fe176e657c7-stand",
+      "name": "Vending_machine展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d29a033df71bf1c6-stand",
+      "name": "Washbasin展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-04a498ae228dc42f-stand",
+      "name": "Washbasin展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-82ee3b8acce6ad2a-stand",
+      "name": "Washbasin_01展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d11a8fb780b529bc-stand",
+      "name": "Window_frame展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a588b05e3c2612ea-stand",
+      "name": "Wood展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-22280ceb766dcf75-stand",
+      "name": "Wood_04展台",
+      "parentId": "transform:category-diner",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2b91202556ccbaae-stand",
+      "name": "Blender_Tapa展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-02049e94f51a74fe-stand",
+      "name": "Blender_Tapa_01展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c5c6a0f1f014ed99-stand",
+      "name": "Blender_Tapa_02展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-47a3c9c6dd9bdbaa-stand",
+      "name": "Microwave_door展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d61e9bdaed44d998-stand",
+      "name": "Microwave_door_01展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-fd939c60c4a9eacf-stand",
+      "name": "Pot_lid展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-09230a479a7f2612-stand",
+      "name": "Pot_lid_01展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-09408cec1d085ef7-stand",
+      "name": "Pot_lid_02展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0a893511ed586236-stand",
+      "name": "Refrigerator_door_01展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1c5586ba17a6556c-stand",
+      "name": "Refrigerator_door_02展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f6cd7aa5261b8c26-stand",
+      "name": "Refrigerator_door_04展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7d60c7f384a0d9db-stand",
+      "name": "Refrigerator_door_07展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c81d70ca4083cf7b-stand",
+      "name": "Refrigerator_door_08展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5c6b57c0dfa742a4-stand",
+      "name": "Stove_door展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-30ec11acf7b0452b-stand",
+      "name": "Stove_door_01展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-060f2689bc64c34b-stand",
+      "name": "Stove_door_02展台",
+      "parentId": "transform:category-electronics_kitchen",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e1c5ecb10a802f3e-stand",
+      "name": "Cube展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-82e2f3010fb89523-stand",
+      "name": "Cube_001展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b8ca081f48cfea08-stand",
+      "name": "Cube_006展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-14643d4d093ea043-stand",
+      "name": "Cube_007展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-099c94e5dc9d8532-stand",
+      "name": "Cube_015展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e5f18aa9d6f7431f-stand",
+      "name": "Cube_016展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9fb3051c14d65409-stand",
+      "name": "Cube_019展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-11a371d15614ad0f-stand",
+      "name": "Cube_022展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-800002452392a001-stand",
+      "name": "Cube_029展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5f1e1846e746be22-stand",
+      "name": "Cube_035展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-809f6472decad763-stand",
+      "name": "Cube_044展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d195e04a19344eb0-stand",
+      "name": "Cube_045展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f0dd63ab9751c9c3-stand",
+      "name": "Cube_052展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d8fa0c0ad4f687ca-stand",
+      "name": "Cube_075展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7267aea3cbbab909-stand",
+      "name": "Cube_076展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ae31d12b9848cd4d-stand",
+      "name": "Cube_078展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6d210cd368b25d73-stand",
+      "name": "Cube_079展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aaba93fd7620495d-stand",
+      "name": "Cube_080展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f8a65b392ffa5a39-stand",
+      "name": "Cube_081展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dd70d9136a97795c-stand",
+      "name": "Cube_119展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5c15e0ed2e031984-stand",
+      "name": "Cube_120展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ec4739033d47bf05-stand",
+      "name": "Cube_125展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-26a7c40459b3d4ea-stand",
+      "name": "Cube_126展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c942547ef4dfab84-stand",
+      "name": "Cube_131展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-08e760b175760116-stand",
+      "name": "Cube_132展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d1ff622191b5f809-stand",
+      "name": "Cube_133展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2847744ac5b5352d-stand",
+      "name": "Cube_137展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d05cbb7401672f02-stand",
+      "name": "Cube_138展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-809d089643184e8a-stand",
+      "name": "Cube_139展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a576db977d8f61fb-stand",
+      "name": "Cube_140展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0478e6e4d07191de-stand",
+      "name": "Cube_154展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-63b603e0a0887466-stand",
+      "name": "Cube_155展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-880408816d17c43e-stand",
+      "name": "Cube_158展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5294d75430007581-stand",
+      "name": "Cube_159展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1fe65815c7347afb-stand",
+      "name": "Cube_162展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-44e8c574b7bdc787-stand",
+      "name": "Cube_163展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-36e3a45f6abd8124-stand",
+      "name": "Cube_165展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1e770b7e7aee8fec-stand",
+      "name": "Cube_168展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-29beb60c1e2f92cb-stand",
+      "name": "Cube_169展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-22e96773ad212bbd-stand",
+      "name": "Cube_170展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4d831cef7eb74e72-stand",
+      "name": "Cube_171展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7a229f33a9d7a4db-stand",
+      "name": "Cube_261展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f2e562323eb087d8-stand",
+      "name": "Cube_266展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6792e4146de96cfd-stand",
+      "name": "Cube_272展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2da8a3f6d50bce52-stand",
+      "name": "Cube_295展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fbdb42f607296a14-stand",
+      "name": "Cube_296展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dee45bcdf760d79c-stand",
+      "name": "Cube_313展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-383770f9c3929a39-stand",
+      "name": "Cube_318展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-db5c3c6b2eafd6dd-stand",
+      "name": "Cube_321展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fd6569b6cf90a6ab-stand",
+      "name": "Cube_332展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b016414745999cc0-stand",
+      "name": "Cube_343展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-63fdc272782ae1ff-stand",
+      "name": "Cube_359展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e46c56e26285a1fb-stand",
+      "name": "Cube_365展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-99f19ae98f5902cd-stand",
+      "name": "Cube_387展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b658cdc742e6269-stand",
+      "name": "Cube_398展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-91c5e3c3055e2d89-stand",
+      "name": "Cube_475展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a5f71f19ed203d45-stand",
+      "name": "Cube_736展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e369ae8b91f3915e-stand",
+      "name": "Cube_738展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-539aa3016e9b680d-stand",
+      "name": "Cube_750展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3e034a98ac774fc1-stand",
+      "name": "Cube_774展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cc35d7639ea406d4-stand",
+      "name": "Cube_834展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b48eaad24c7b0bcd-stand",
+      "name": "Cube_846展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f7e233e7ead04f4a-stand",
+      "name": "Cube_847展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-76653008cfac0d73-stand",
+      "name": "Cube_849展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-41f3e7bb1bab92d3-stand",
+      "name": "Cube_854展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5f7bf92e0da400ca-stand",
+      "name": "Cylinder_129展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d814f174d9147112-stand",
+      "name": "Cylinder_142展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4f6e884a73708023-stand",
+      "name": "Cylinder_155展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a56a71c53b85cb83-stand",
+      "name": "Cylinder_166展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5a88ed4c89df8d51-stand",
+      "name": "Cylinder_185展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e3b694790fa04801-stand",
+      "name": "Cylinder_208展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-531f3dcbec9577a5-stand",
+      "name": "Cylinder_227展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b18b2c0183bb55a2-stand",
+      "name": "Cylinder_248展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6a4c462502a2ea63-stand",
+      "name": "Cylinder_279展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-78c17dcd111346ef-stand",
+      "name": "Cylinder_368展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c7e61c9afed0145e-stand",
+      "name": "Cylinder_379展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a10bcc02a0e5d2d2-stand",
+      "name": "Cylinder_390展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-797a05ae527114d2-stand",
+      "name": "Cylinder_401展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5228287148d2f574-stand",
+      "name": "Cylinder_410展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-126aa674a5bf1e32-stand",
+      "name": "Cylinder_419展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5c93a327204acbf3-stand",
+      "name": "Cylinder_430展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-65f104402202055e-stand",
+      "name": "Cylinder_435展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2df152254f0c6705-stand",
+      "name": "Cylinder_440展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c845c13b3222edf1-stand",
+      "name": "Cylinder_467展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-894389bef220776d-stand",
+      "name": "Cylinder_480展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f3e238f7ee403986-stand",
+      "name": "Cylinder_495展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2a17aa1b7f9126fe-stand",
+      "name": "Cylinder_521展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-489732b6dc657387-stand",
+      "name": "Cylinder_544展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3b61c3941db0b85f-stand",
+      "name": "Cylinder_561展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c965e4318cf3213b-stand",
+      "name": "Cylinder_594展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c29ba36f0fa66976-stand",
+      "name": "Cylinder_603展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ffcd6b71851130c1-stand",
+      "name": "Cylinder_612展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-07fca40666fc440b-stand",
+      "name": "Cylinder_629展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b18235bd781874a4-stand",
+      "name": "Cylinder_652展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-44aa3542a1037ee5-stand",
+      "name": "Cylinder_675展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-df6f19c164ae7562-stand",
+      "name": "Cylinder_698展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-28ae9b11fdcecba2-stand",
+      "name": "Cylinder_721展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0e2f697ffaa03186-stand",
+      "name": "Cylinder_744展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cb52b0a147b56f44-stand",
+      "name": "Cylinder_779展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0259cf9746c64dc0-stand",
+      "name": "Cylinder_802展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4df138a4da1a99e0-stand",
+      "name": "Cylinder_813展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d01ee697a59078fa-stand",
+      "name": "Cylinder_824展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a7a5e07749be3a4e-stand",
+      "name": "Cylinder_835展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3313070126845a86-stand",
+      "name": "Cylinder_846展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a55b34f0e283729b-stand",
+      "name": "Cylinder_857展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-02c3340d71e28ea0-stand",
+      "name": "Cylinder_859展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0dea0aa8a6e9e8ec-stand",
+      "name": "Helado展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dc8315577153ab94-stand",
+      "name": "Helado_001展台",
+      "parentId": "transform:category-mini_market",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -39.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-113dde1c8c4bf9d7",
+      "name": "DINER · Refrigerator_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Refrigerator_01_bbc8a60e.glb",
+      "position": [
+        -22,
+        0,
+        43.49999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.01587911,
+        1.01587911,
+        1.01587911
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-152fe188c8c2c632",
+      "name": "DINER · Refrigerator_01_001",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Refrigerator_01_001_a37d90cb.glb",
+      "position": [
+        -18.00000006,
+        0,
+        43.49999952
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.01587911,
+        1.01587911,
+        1.01587911
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f35eb185002b2de5",
+      "name": "DINER · Refrigerator_Door",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Refrigerator_Door_75f76f60.glb",
+      "position": [
+        -14,
+        0,
+        43.50000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.33224059,
+        1.33224059,
+        1.33224059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cd5440687b2f346d",
+      "name": "DINER · Refrigerator_Door_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Refrigerator_Door_01_d67b0729.glb",
+      "position": [
+        -10,
+        0,
+        43.50000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.33224059,
+        1.33224059,
+        1.33224059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c51812f868da8b7c",
+      "name": "DINER · Salt_shaker",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Salt_shaker_a09f9c98.glb",
+      "position": [
+        -6,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.74733761,
+        20.74733761,
+        20.74733761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-50ce9735781f3e69",
+      "name": "DINER · Salt_shaker_008",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Salt_shaker_008_f3f6aa8c.glb",
+      "position": [
+        -2.00000495,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.74733761,
+        20.74733761,
+        20.74733761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d7d2028f5673dbd7",
+      "name": "DINER · Sauce",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Sauce_b78cf0d9.glb",
+      "position": [
+        -22,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.48746421,
+        10.48746421,
+        10.48746421
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b14b618a238359df",
+      "name": "DINER · Sauce",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Sauce_ee168189.glb",
+      "position": [
+        -18,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.48748294,
+        10.48748294,
+        10.48748294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5343a3aacbd6a870",
+      "name": "DINER · Sauce_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Sauce_01_e30ae8db.glb",
+      "position": [
+        -14,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.48748294,
+        10.48748294,
+        10.48748294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c480baab40763869",
+      "name": "DINER · Sauce_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Sauce_01_f09b7fd2.glb",
+      "position": [
+        -10,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.48747358,
+        10.48747358,
+        10.48747358
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-55f2dbe9464f3fcd",
+      "name": "DINER · Seat",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Seat_4cc009f7.glb",
+      "position": [
+        -6,
+        0,
+        39.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68895809,
+        0.68895809,
+        0.68895809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db9a7e6034ac839f",
+      "name": "DINER · Seat",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Seat_f86a7644.glb",
+      "position": [
+        -2,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2018769,
+        1.2018769,
+        1.2018769
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-48a200cf7d106da5",
+      "name": "DINER · Seat_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Seat_01_8a5d8ffc.glb",
+      "position": [
+        -22.00000033,
+        0,
+        35.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68895728,
+        0.68895728,
+        0.68895728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-23beb3ee88a2eeeb",
+      "name": "DINER · Seat_02",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Seat_02_b4921ede.glb",
+      "position": [
+        -17.99999967,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68895776,
+        0.68895776,
+        0.68895776
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4f236ea03ceefba9",
+      "name": "DINER · Sewer",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Sewer_555b1aff.glb",
+      "position": [
+        -13.99999945,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14398206,
+        1.14398206,
+        1.14398206
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f8e7411e7923ba90",
+      "name": "DINER · Shelf",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Shelf_660dcfd3.glb",
+      "position": [
+        -9.99999963,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76852737,
+        0.76852737,
+        0.76852737
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-df0ee540c36c683b",
+      "name": "DINER · Showcase",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Showcase_8f593e56.glb",
+      "position": [
+        -6,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.78140767,
+        1.78140767,
+        1.78140767
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-657ec66e7b866830",
+      "name": "DINER · Sign",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Sign_b2d23219.glb",
+      "position": [
+        -2,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50582752,
+        1.50582752,
+        1.50582752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-649985bbc33508ba",
+      "name": "DINER · Sing_DINER",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Sing_DINER_ccfdbbf3.glb",
+      "position": [
+        -22,
+        0,
+        31.49999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36813426,
+        0.36813426,
+        0.36813426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bb4667cd8fbdd2ff",
+      "name": "DINER · Soap_dispenser",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Soap_dispenser_a17a05a7.glb",
+      "position": [
+        -18,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.88452433,
+        5.88452433,
+        5.88452433
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f6dddf4f77593634",
+      "name": "DINER · Soap_dispenser",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Soap_dispenser_b7995792.glb",
+      "position": [
+        -14,
+        0,
+        31.50000281
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.88452433,
+        5.88452433,
+        5.88452433
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-849ccd708ccd9b45",
+      "name": "DINER · Soft_drink_dispenser",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Soft_drink_dispenser_4ed9d9aa.glb",
+      "position": [
+        -10,
+        0,
+        31.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.96213569,
+        1.96213569,
+        1.96213569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-955aadbfe7b47097",
+      "name": "DINER · Soft_drink_dispenser_001",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Soft_drink_dispenser_001_2cea82f9.glb",
+      "position": [
+        -6,
+        0,
+        31.49999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.96213569,
+        1.96213569,
+        1.96213569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ac23f276d83bae01",
+      "name": "DINER · Stove",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Stove_42c50ffc.glb",
+      "position": [
+        -2.00000006,
+        0,
+        31.49999975
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06176862,
+        1.06176862,
+        1.06176862
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8ebe4356bf09bb3b",
+      "name": "DINER · Stove_001",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Stove_001_c0d04042.glb",
+      "position": [
+        -22,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06176867,
+        1.06176867,
+        1.06176867
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-427b1f70850f2e18",
+      "name": "DINER · Stoves",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Stoves_7725e2b4.glb",
+      "position": [
+        -18,
+        0,
+        27.49999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75403654,
+        0.75403654,
+        0.75403654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-93dac41564a48b19",
+      "name": "DINER · Stoves",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Stoves_9480e788.glb",
+      "position": [
+        -14,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75403644,
+        0.75403644,
+        0.75403644
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-35259da4a31724e3",
+      "name": "DINER · Table",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Table_038caf4b.glb",
+      "position": [
+        -10,
+        0,
+        27.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.17910213,
+        1.17910213,
+        1.17910213
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8a2bb83dab0bf52e",
+      "name": "DINER · Table",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Table_25a96da6.glb",
+      "position": [
+        -5.99999972,
+        0,
+        27.49999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.17910207,
+        1.17910207,
+        1.17910207
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e1de057b0bda1abf",
+      "name": "DINER · Table_Metal",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Table_Metal_7e6479ad.glb",
+      "position": [
+        -2,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.18775549,
+        1.18775549,
+        1.18775549
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9aed732de5471c47",
+      "name": "DINER · Tiles",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tiles_42b43ab8.glb",
+      "position": [
+        -22,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12735271,
+        0.12735271,
+        0.12735271
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6415a7531624563b",
+      "name": "DINER · Tiles_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tiles_01_4469faf7.glb",
+      "position": [
+        -18,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16380671,
+        0.16380671,
+        0.16380671
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b69aedd0281742a2",
+      "name": "DINER · Toilet",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Toilet_685f5437.glb",
+      "position": [
+        -14,
+        0,
+        23.50000051
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07234736,
+        1.07234736,
+        1.07234736
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b8ce726b15768565",
+      "name": "DINER · Toilet",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Toilet_726aed24.glb",
+      "position": [
+        -10,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07234736,
+        1.07234736,
+        1.07234736
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9702985f5c4e6631",
+      "name": "DINER · Toilet_sing",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Toilet_sing_eeb81bb3.glb",
+      "position": [
+        -6,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.93789893,
+        2.93789893,
+        2.93789893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9bc1ede56ec40d34",
+      "name": "DINER · Trash",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Trash_469965bf.glb",
+      "position": [
+        -2,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.58525717,
+        1.58525717,
+        1.58525717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b24fcdb50eb338e7",
+      "name": "DINER · Trash",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Trash_60dff84d.glb",
+      "position": [
+        -21.99999991,
+        0,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.58525717,
+        1.58525717,
+        1.58525717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0d8f8ae5db16ec7e",
+      "name": "DINER · Trash_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Trash_01_e3d71927.glb",
+      "position": [
+        -18.00000084,
+        0,
+        19.5000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.75706882,
+        1.75706882,
+        1.75706882
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c6a647d01bf68ee4",
+      "name": "DINER · Trash_02",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Trash_02_895ac1c6.glb",
+      "position": [
+        -14.0000014,
+        0,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.46372938,
+        1.46372938,
+        1.46372938
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db05228ea52236e2",
+      "name": "DINER · Tray",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tray_ba2e7fde.glb",
+      "position": [
+        -9.99999962,
+        0,
+        19.49999849
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.17106909,
+        3.17106909,
+        3.17106909
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b0bc8ff30293c72",
+      "name": "DINER · Tray_01_001",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tray_01_001_5e9f1f62.glb",
+      "position": [
+        -6.00000011,
+        0,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.7492718,
+        3.7492718,
+        3.7492718
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6843fcae4591671c",
+      "name": "DINER · Tray_03",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tray_03_278c215e.glb",
+      "position": [
+        -2.00000011,
+        0,
+        19.50000089
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.7492718,
+        3.7492718,
+        3.7492718
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-34a1428ab32c9de9",
+      "name": "DINER · Trees",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Trees_60143ae7.glb",
+      "position": [
+        -22.00000003,
+        0,
+        15.49999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27907769,
+        0.27907769,
+        0.27907769
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c09e54d7d8923ad",
+      "name": "DINER · Trees_001",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Trees_001_5fdb4679.glb",
+      "position": [
+        -18,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02980289,
+        0.02980289,
+        0.02980289
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a5308e71c4fd4a68",
+      "name": "DINER · Trees_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Trees_01_706c5dd7.glb",
+      "position": [
+        -14,
+        0,
+        15.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34199501,
+        0.34199501,
+        0.34199501
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6a74943422840677",
+      "name": "DINER · Tumbler",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tumbler_9e0a3af1.glb",
+      "position": [
+        -10,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.77263429,
+        10.77263429,
+        10.77263429
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-88a9be36d179e359",
+      "name": "DINER · Tumbler",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tumbler_cfcd55b8.glb",
+      "position": [
+        -6,
+        0,
+        15.49999743
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.77263429,
+        10.77263429,
+        10.77263429
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-83d541bb746f9330",
+      "name": "DINER · Tumbler_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tumbler_01_21fcd238.glb",
+      "position": [
+        -2.00000116,
+        0,
+        15.50000232
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.71378712,
+        9.71378712,
+        9.71378712
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b789b78f0ad1c019",
+      "name": "DINER · Tumbler_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Tumbler_01_73e9e66f.glb",
+      "position": [
+        -22.00000232,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.71378712,
+        9.71378712,
+        9.71378712
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-822a5fe176e657c7",
+      "name": "DINER · Vending_machine",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Vending_machine_78a38746.glb",
+      "position": [
+        -18,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.01608795,
+        1.01608795,
+        1.01608795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d29a033df71bf1c6",
+      "name": "DINER · Washbasin",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Washbasin_49765918.glb",
+      "position": [
+        -13.99999991,
+        0,
+        11.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7529334,
+        0.7529334,
+        0.7529334
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-04a498ae228dc42f",
+      "name": "DINER · Washbasin",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Washbasin_6154ac01.glb",
+      "position": [
+        -10.00000018,
+        0,
+        11.50000036
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75293355,
+        0.75293355,
+        0.75293355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-82ee3b8acce6ad2a",
+      "name": "DINER · Washbasin_01",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Washbasin_01_bacbf24f.glb",
+      "position": [
+        -6,
+        0,
+        11.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06101047,
+        1.06101047,
+        1.06101047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d11a8fb780b529bc",
+      "name": "DINER · Window_frame",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Window_frame_f2e2269e.glb",
+      "position": [
+        -1.99999991,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.74020552,
+        0.74020552,
+        0.74020552
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a588b05e3c2612ea",
+      "name": "DINER · Wood",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Wood_fd83313b.glb",
+      "position": [
+        -14.00000003,
+        0,
+        7.49999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12762222,
+        1.12762222,
+        1.12762222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-22280ceb766dcf75",
+      "name": "DINER · Wood_04",
+      "parentId": "transform:category-diner",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/DINER/Wood_04_9096801b.glb",
+      "position": [
+        -10.00000027,
+        0,
+        7.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12762216,
+        1.12762216,
+        1.12762216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2b91202556ccbaae",
+      "name": "Electronics_kitchen · Blender_Tapa",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Blender_Tapa_01bd1b16.glb",
+      "position": [
+        1.99999952,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.06254374,
+        4.06254374,
+        4.06254374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-02049e94f51a74fe",
+      "name": "Electronics_kitchen · Blender_Tapa_01",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Blender_Tapa_01_bf4beafd.glb",
+      "position": [
+        5.99999945,
+        0,
+        43.49999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.61717044,
+        4.61717044,
+        4.61717044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c5c6a0f1f014ed99",
+      "name": "Electronics_kitchen · Blender_Tapa_02",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Blender_Tapa_02_c261bfb2.glb",
+      "position": [
+        10,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.16931232,
+        4.16931232,
+        4.16931232
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-47a3c9c6dd9bdbaa",
+      "name": "Electronics_kitchen · Microwave_door",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Microwave_door_72441ff4.glb",
+      "position": [
+        13.99999975,
+        0,
+        43.50000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.2709205,
+        4.2709205,
+        4.2709205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d61e9bdaed44d998",
+      "name": "Electronics_kitchen · Microwave_door_01",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Microwave_door_01_42262ce5.glb",
+      "position": [
+        18,
+        0,
+        43.50000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.06543832,
+        4.06543832,
+        4.06543832
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fd939c60c4a9eacf",
+      "name": "Electronics_kitchen · Pot_lid",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Pot_lid_51b716f8.glb",
+      "position": [
+        22,
+        0,
+        43.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.46652938,
+        5.46652938,
+        5.46652938
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-09230a479a7f2612",
+      "name": "Electronics_kitchen · Pot_lid_01",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Pot_lid_01_fe461e2b.glb",
+      "position": [
+        2,
+        0,
+        39.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.4294316,
+        6.4294316,
+        6.4294316
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-09408cec1d085ef7",
+      "name": "Electronics_kitchen · Pot_lid_02",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Pot_lid_02_5153ca7d.glb",
+      "position": [
+        6,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.02851752,
+        8.02851752,
+        8.02851752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0a893511ed586236",
+      "name": "Electronics_kitchen · Refrigerator_door_01",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Refrigerator_door_01_00d2503b.glb",
+      "position": [
+        9.99999992,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3408418,
+        1.3408418,
+        1.3408418
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1c5586ba17a6556c",
+      "name": "Electronics_kitchen · Refrigerator_door_02",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Refrigerator_door_02_9e17ca79.glb",
+      "position": [
+        13.99999996,
+        0,
+        39.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31367371,
+        1.31367371,
+        1.31367371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f6cd7aa5261b8c26",
+      "name": "Electronics_kitchen · Refrigerator_door_04",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Refrigerator_door_04_b0a8ca82.glb",
+      "position": [
+        18,
+        0,
+        39.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31367371,
+        1.31367371,
+        1.31367371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7d60c7f384a0d9db",
+      "name": "Electronics_kitchen · Refrigerator_door_07",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Refrigerator_door_07_ff500f54.glb",
+      "position": [
+        22,
+        0,
+        39.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24147664,
+        1.24147664,
+        1.24147664
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c81d70ca4083cf7b",
+      "name": "Electronics_kitchen · Refrigerator_door_08",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Refrigerator_door_08_21af13ad.glb",
+      "position": [
+        6,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.95733742,
+        2.95733742,
+        2.95733742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c6b57c0dfa742a4",
+      "name": "Electronics_kitchen · Stove_door",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Stove_door_cbe5d23e.glb",
+      "position": [
+        9.99999973,
+        0,
+        35.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.28835376,
+        2.28835376,
+        2.28835376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-30ec11acf7b0452b",
+      "name": "Electronics_kitchen · Stove_door_01",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Stove_door_01_5716a533.glb",
+      "position": [
+        14,
+        0,
+        35.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.1545237,
+        2.1545237,
+        2.1545237
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-060f2689bc64c34b",
+      "name": "Electronics_kitchen · Stove_door_02",
+      "parentId": "transform:category-electronics_kitchen",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Electronics_kitchen/Stove_door_02_01eb4a31.glb",
+      "position": [
+        18,
+        0,
+        35.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.30904661,
+        2.30904661,
+        2.30904661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e1c5ecb10a802f3e",
+      "name": "Mini_Market · Cube",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_54f4140a.glb",
+      "position": [
+        2,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0295483,
+        0.0295483,
+        0.0295483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-82e2f3010fb89523",
+      "name": "Mini_Market · Cube_001",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_001_314f28c3.glb",
+      "position": [
+        6,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17919547,
+        0.17919547,
+        0.17919547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b8ca081f48cfea08",
+      "name": "Mini_Market · Cube_006",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_006_5fe20e1a.glb",
+      "position": [
+        9.99999994,
+        0,
+        28.50000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23988206,
+        0.23988206,
+        0.23988206
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-14643d4d093ea043",
+      "name": "Mini_Market · Cube_007",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_007_93ff57bd.glb",
+      "position": [
+        13.99999995,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21193023,
+        0.21193023,
+        0.21193023
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-099c94e5dc9d8532",
+      "name": "Mini_Market · Cube_015",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_015_3c7e110d.glb",
+      "position": [
+        18.00000043,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22687036,
+        0.22687036,
+        0.22687036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e5f18aa9d6f7431f",
+      "name": "Mini_Market · Cube_016",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_016_9306ec7f.glb",
+      "position": [
+        22.0000002,
+        0,
+        28.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21193021,
+        0.21193021,
+        0.21193021
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9fb3051c14d65409",
+      "name": "Mini_Market · Cube_019",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_019_225c061b.glb",
+      "position": [
+        2,
+        0,
+        24.50000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16539059,
+        0.16539059,
+        0.16539059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-11a371d15614ad0f",
+      "name": "Mini_Market · Cube_022",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_022_bc56e188.glb",
+      "position": [
+        6.00000006,
+        0,
+        24.49999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12762494,
+        0.12762494,
+        0.12762494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-800002452392a001",
+      "name": "Mini_Market · Cube_029",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_029_c7268e81.glb",
+      "position": [
+        9.99999981,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39426095,
+        0.39426095,
+        0.39426095
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5f1e1846e746be22",
+      "name": "Mini_Market · Cube_035",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_035_692b5a1b.glb",
+      "position": [
+        13.99999964,
+        0,
+        24.49999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18891265,
+        0.18891265,
+        0.18891265
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-809f6472decad763",
+      "name": "Mini_Market · Cube_044",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_044_6800d0f3.glb",
+      "position": [
+        18.00000022,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22623243,
+        0.22623243,
+        0.22623243
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d195e04a19344eb0",
+      "name": "Mini_Market · Cube_045",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_045_c4e9c646.glb",
+      "position": [
+        22,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25157295,
+        0.25157295,
+        0.25157295
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f0dd63ab9751c9c3",
+      "name": "Mini_Market · Cube_052",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_052_ab62bc82.glb",
+      "position": [
+        1.99999968,
+        0,
+        20.50000128
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66984235,
+        0.66984235,
+        0.66984235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d8fa0c0ad4f687ca",
+      "name": "Mini_Market · Cube_075",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_075_a347d080.glb",
+      "position": [
+        6.00000056,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5830818,
+        0.5830818,
+        0.5830818
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7267aea3cbbab909",
+      "name": "Mini_Market · Cube_076",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_076_d2759d89.glb",
+      "position": [
+        10,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47521566,
+        0.47521566,
+        0.47521566
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ae31d12b9848cd4d",
+      "name": "Mini_Market · Cube_078",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_078_c0496cd4.glb",
+      "position": [
+        13.99999976,
+        0,
+        20.49999905
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.99723869,
+        0.99723869,
+        0.99723869
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6d210cd368b25d73",
+      "name": "Mini_Market · Cube_079",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_079_71faa965.glb",
+      "position": [
+        17.99999989,
+        0,
+        20.49999914
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90257721,
+        0.90257721,
+        0.90257721
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aaba93fd7620495d",
+      "name": "Mini_Market · Cube_080",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_080_8868ec3c.glb",
+      "position": [
+        22.00000005,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81800309,
+        0.81800309,
+        0.81800309
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f8a65b392ffa5a39",
+      "name": "Mini_Market · Cube_081",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_081_c3e5d906.glb",
+      "position": [
+        1.99999991,
+        0,
+        16.49999857
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.74875441,
+        0.74875441,
+        0.74875441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd70d9136a97795c",
+      "name": "Mini_Market · Cube_119",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_119_ea078e1a.glb",
+      "position": [
+        6,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c15e0ed2e031984",
+      "name": "Mini_Market · Cube_120",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_120_62b02f4d.glb",
+      "position": [
+        10,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ec4739033d47bf05",
+      "name": "Mini_Market · Cube_125",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_125_29f5dc43.glb",
+      "position": [
+        14.00000122,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-26a7c40459b3d4ea",
+      "name": "Mini_Market · Cube_126",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_126_ba584264.glb",
+      "position": [
+        17.99999878,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c942547ef4dfab84",
+      "name": "Mini_Market · Cube_131",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_131_ecd808a5.glb",
+      "position": [
+        21.99999878,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-08e760b175760116",
+      "name": "Mini_Market · Cube_132",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_132_1895674a.glb",
+      "position": [
+        2,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d1ff622191b5f809",
+      "name": "Mini_Market · Cube_133",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_133_690fd9d4.glb",
+      "position": [
+        5.99999605,
+        0,
+        12.49999901
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0692409,
+        2.0692409,
+        2.0692409
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2847744ac5b5352d",
+      "name": "Mini_Market · Cube_137",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_137_9196e3ad.glb",
+      "position": [
+        9.99999878,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d05cbb7401672f02",
+      "name": "Mini_Market · Cube_138",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_138_9806a80f.glb",
+      "position": [
+        13.99999878,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-809d089643184e8a",
+      "name": "Mini_Market · Cube_139",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_139_48f8c583.glb",
+      "position": [
+        17.99999878,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a576db977d8f61fb",
+      "name": "Mini_Market · Cube_140",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_140_27a8b771.glb",
+      "position": [
+        22.00000243,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0478e6e4d07191de",
+      "name": "Mini_Market · Cube_154",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_154_25c5a4ca.glb",
+      "position": [
+        2.00000122,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-63b603e0a0887466",
+      "name": "Mini_Market · Cube_155",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_155_47470fd3.glb",
+      "position": [
+        6,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-880408816d17c43e",
+      "name": "Mini_Market · Cube_158",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_158_32264058.glb",
+      "position": [
+        9.99999662,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.77011556,
+        1.77011556,
+        1.77011556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5294d75430007581",
+      "name": "Mini_Market · Cube_159",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_159_45121fca.glb",
+      "position": [
+        14,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.77011556,
+        1.77011556,
+        1.77011556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1fe65815c7347afb",
+      "name": "Mini_Market · Cube_162",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_162_79397157.glb",
+      "position": [
+        18,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.77011556,
+        1.77011556,
+        1.77011556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-44e8c574b7bdc787",
+      "name": "Mini_Market · Cube_163",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_163_a8f7a7e6.glb",
+      "position": [
+        22,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-36e3a45f6abd8124",
+      "name": "Mini_Market · Cube_165",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_165_b1b6df74.glb",
+      "position": [
+        2,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.29581352,
+        1.29581352,
+        1.29581352
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1e770b7e7aee8fec",
+      "name": "Mini_Market · Cube_168",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_168_95731a01.glb",
+      "position": [
+        6,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-29beb60c1e2f92cb",
+      "name": "Mini_Market · Cube_169",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_169_52bee520.glb",
+      "position": [
+        10,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-22e96773ad212bbd",
+      "name": "Mini_Market · Cube_170",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_170_b096b90c.glb",
+      "position": [
+        14.00000122,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4d831cef7eb74e72",
+      "name": "Mini_Market · Cube_171",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_171_a58bc4e4.glb",
+      "position": [
+        18,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27444608,
+        1.27444608,
+        1.27444608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7a229f33a9d7a4db",
+      "name": "Mini_Market · Cube_261",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_261_b317e700.glb",
+      "position": [
+        22,
+        0,
+        4.49999964
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49677774,
+        1.49677774,
+        1.49677774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f2e562323eb087d8",
+      "name": "Mini_Market · Cube_266",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_266_170737c3.glb",
+      "position": [
+        2,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44423857,
+        1.44423857,
+        1.44423857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6792e4146de96cfd",
+      "name": "Mini_Market · Cube_272",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_272_66cdf49f.glb",
+      "position": [
+        6,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4679731,
+        1.4679731,
+        1.4679731
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2da8a3f6d50bce52",
+      "name": "Mini_Market · Cube_295",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_295_46e2c3e8.glb",
+      "position": [
+        10,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26272191,
+        1.26272191,
+        1.26272191
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fbdb42f607296a14",
+      "name": "Mini_Market · Cube_296",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_296_9a7c6dd8.glb",
+      "position": [
+        14,
+        0,
+        0.50000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3930735,
+        1.3930735,
+        1.3930735
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dee45bcdf760d79c",
+      "name": "Mini_Market · Cube_313",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_313_0855df34.glb",
+      "position": [
+        18,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.62812529,
+        2.62812529,
+        2.62812529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-383770f9c3929a39",
+      "name": "Mini_Market · Cube_318",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_318_77097f71.glb",
+      "position": [
+        22,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.62812529,
+        2.62812529,
+        2.62812529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db5c3c6b2eafd6dd",
+      "name": "Mini_Market · Cube_321",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_321_d4655e0d.glb",
+      "position": [
+        2,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.62812529,
+        2.62812529,
+        2.62812529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fd6569b6cf90a6ab",
+      "name": "Mini_Market · Cube_332",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_332_52cfc478.glb",
+      "position": [
+        6,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55435222,
+        1.55435222,
+        1.55435222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b016414745999cc0",
+      "name": "Mini_Market · Cube_343",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_343_1d0412d2.glb",
+      "position": [
+        10,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55435222,
+        1.55435222,
+        1.55435222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-63fdc272782ae1ff",
+      "name": "Mini_Market · Cube_359",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_359_5939a2b4.glb",
+      "position": [
+        14,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55435222,
+        1.55435222,
+        1.55435222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e46c56e26285a1fb",
+      "name": "Mini_Market · Cube_365",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_365_9c5beb6b.glb",
+      "position": [
+        18,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55435201,
+        1.55435201,
+        1.55435201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-99f19ae98f5902cd",
+      "name": "Mini_Market · Cube_387",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_387_a58f28dc.glb",
+      "position": [
+        22,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55435201,
+        1.55435201,
+        1.55435201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b658cdc742e6269",
+      "name": "Mini_Market · Cube_398",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_398_7dd79002.glb",
+      "position": [
+        2,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55435222,
+        1.55435222,
+        1.55435222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-91c5e3c3055e2d89",
+      "name": "Mini_Market · Cube_475",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_475_384b08c5.glb",
+      "position": [
+        6,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55435222,
+        1.55435222,
+        1.55435222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a5f71f19ed203d45",
+      "name": "Mini_Market · Cube_736",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_736_c55cb530.glb",
+      "position": [
+        10,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33035722,
+        0.33035722,
+        0.33035722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e369ae8b91f3915e",
+      "name": "Mini_Market · Cube_738",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_738_b20634e0.glb",
+      "position": [
+        14,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.71479052,
+        0.71479052,
+        0.71479052
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-539aa3016e9b680d",
+      "name": "Mini_Market · Cube_750",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_750_bbed039c.glb",
+      "position": [
+        18.0000007,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47079503,
+        1.47079503,
+        1.47079503
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e034a98ac774fc1",
+      "name": "Mini_Market · Cube_774",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_774_683f89c2.glb",
+      "position": [
+        22,
+        0,
+        -7.4999968
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67942165,
+        1.67942165,
+        1.67942165
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cc35d7639ea406d4",
+      "name": "Mini_Market · Cube_834",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_834_81b374de.glb",
+      "position": [
+        2,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67240209,
+        0.67240209,
+        0.67240209
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b48eaad24c7b0bcd",
+      "name": "Mini_Market · Cube_846",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_846_c2f84ba3.glb",
+      "position": [
+        6,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67240178,
+        0.67240178,
+        0.67240178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f7e233e7ead04f4a",
+      "name": "Mini_Market · Cube_847",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_847_94130d20.glb",
+      "position": [
+        10,
+        0,
+        -11.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17919547,
+        0.17919547,
+        0.17919547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-76653008cfac0d73",
+      "name": "Mini_Market · Cube_849",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_849_e8f25d11.glb",
+      "position": [
+        14,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2353963,
+        0.2353963,
+        0.2353963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-41f3e7bb1bab92d3",
+      "name": "Mini_Market · Cube_854",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cube_854_eb45e74a.glb",
+      "position": [
+        18,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10695653,
+        0.10695653,
+        0.10695653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5f7bf92e0da400ca",
+      "name": "Mini_Market · Cylinder_129",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_129_4cb421c9.glb",
+      "position": [
+        22,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57905035,
+        1.57905035,
+        1.57905035
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d814f174d9147112",
+      "name": "Mini_Market · Cylinder_142",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_142_bffe546f.glb",
+      "position": [
+        2,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59276856,
+        1.59276856,
+        1.59276856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4f6e884a73708023",
+      "name": "Mini_Market · Cylinder_155",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_155_cde50dba.glb",
+      "position": [
+        6,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.577429,
+        1.577429,
+        1.577429
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a56a71c53b85cb83",
+      "name": "Mini_Market · Cylinder_166",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_166_76d83d7a.glb",
+      "position": [
+        10,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.60780263,
+        1.60780263,
+        1.60780263
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5a88ed4c89df8d51",
+      "name": "Mini_Market · Cylinder_185",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_185_7733f7cf.glb",
+      "position": [
+        14,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54832274,
+        1.54832274,
+        1.54832274
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e3b694790fa04801",
+      "name": "Mini_Market · Cylinder_208",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_208_2ae50753.glb",
+      "position": [
+        18,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54832274,
+        1.54832274,
+        1.54832274
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-531f3dcbec9577a5",
+      "name": "Mini_Market · Cylinder_227",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_227_79ceb6c5.glb",
+      "position": [
+        22,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54740623,
+        1.54740623,
+        1.54740623
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b18b2c0183bb55a2",
+      "name": "Mini_Market · Cylinder_248",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_248_67c4baab.glb",
+      "position": [
+        2,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.66148568,
+        1.66148568,
+        1.66148568
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6a4c462502a2ea63",
+      "name": "Mini_Market · Cylinder_279",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_279_ab28a21a.glb",
+      "position": [
+        6,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4553816,
+        1.4553816,
+        1.4553816
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-78c17dcd111346ef",
+      "name": "Mini_Market · Cylinder_368",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_368_770b539e.glb",
+      "position": [
+        10,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.45972238,
+        1.45972238,
+        1.45972238
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c7e61c9afed0145e",
+      "name": "Mini_Market · Cylinder_379",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_379_2675cebc.glb",
+      "position": [
+        14,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.46990267,
+        1.46990267,
+        1.46990267
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a10bcc02a0e5d2d2",
+      "name": "Mini_Market · Cylinder_390",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_390_1c7370d8.glb",
+      "position": [
+        18,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5768581,
+        1.5768581,
+        1.5768581
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-797a05ae527114d2",
+      "name": "Mini_Market · Cylinder_401",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_401_2eb68be0.glb",
+      "position": [
+        22,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57685831,
+        1.57685831,
+        1.57685831
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5228287148d2f574",
+      "name": "Mini_Market · Cylinder_410",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_410_0f691cb0.glb",
+      "position": [
+        1.99999962,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57685831,
+        1.57685831,
+        1.57685831
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-126aa674a5bf1e32",
+      "name": "Mini_Market · Cylinder_419",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_419_838a493a.glb",
+      "position": [
+        6,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57685831,
+        1.57685831,
+        1.57685831
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c93a327204acbf3",
+      "name": "Mini_Market · Cylinder_430",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_430_77eae396.glb",
+      "position": [
+        10,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65041965,
+        1.65041965,
+        1.65041965
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-65f104402202055e",
+      "name": "Mini_Market · Cylinder_435",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_435_8eb968a3.glb",
+      "position": [
+        14,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65041977,
+        1.65041977,
+        1.65041977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2df152254f0c6705",
+      "name": "Mini_Market · Cylinder_440",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_440_a89ac21d.glb",
+      "position": [
+        18,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65041953,
+        1.65041953,
+        1.65041953
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c845c13b3222edf1",
+      "name": "Mini_Market · Cylinder_467",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_467_0e3093bb.glb",
+      "position": [
+        22,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.62584551,
+        1.62584551,
+        1.62584551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-894389bef220776d",
+      "name": "Mini_Market · Cylinder_480",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_480_fdf66f7b.glb",
+      "position": [
+        2,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.1589905,
+        2.1589905,
+        2.1589905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f3e238f7ee403986",
+      "name": "Mini_Market · Cylinder_495",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_495_10e3f549.glb",
+      "position": [
+        6,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.65681538,
+        2.65681538,
+        2.65681538
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2a17aa1b7f9126fe",
+      "name": "Mini_Market · Cylinder_521",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_521_118698d8.glb",
+      "position": [
+        10,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70131199,
+        1.70131199,
+        1.70131199
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-489732b6dc657387",
+      "name": "Mini_Market · Cylinder_544",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_544_8dc2e7b9.glb",
+      "position": [
+        13.99999796,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.13408074,
+        2.13408074,
+        2.13408074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3b61c3941db0b85f",
+      "name": "Mini_Market · Cylinder_561",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_561_53968e8c.glb",
+      "position": [
+        18,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.13408074,
+        2.13408074,
+        2.13408074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c965e4318cf3213b",
+      "name": "Mini_Market · Cylinder_594",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_594_e8659981.glb",
+      "position": [
+        22.00000177,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85826241,
+        1.85826241,
+        1.85826241
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c29ba36f0fa66976",
+      "name": "Mini_Market · Cylinder_603",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_603_5842a893.glb",
+      "position": [
+        2,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85826256,
+        1.85826256,
+        1.85826256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ffcd6b71851130c1",
+      "name": "Mini_Market · Cylinder_612",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_612_d004aec1.glb",
+      "position": [
+        6.00000177,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.858263,
+        1.858263,
+        1.858263
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-07fca40666fc440b",
+      "name": "Mini_Market · Cylinder_629",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_629_a5a02cf6.glb",
+      "position": [
+        10,
+        0,
+        -31.49999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.858263,
+        1.858263,
+        1.858263
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b18235bd781874a4",
+      "name": "Mini_Market · Cylinder_652",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_652_21de5c88.glb",
+      "position": [
+        14,
+        0,
+        -31.4999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09910229,
+        2.09910229,
+        2.09910229
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-44aa3542a1037ee5",
+      "name": "Mini_Market · Cylinder_675",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_675_372b0848.glb",
+      "position": [
+        17.999998,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09910192,
+        2.09910192,
+        2.09910192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-df6f19c164ae7562",
+      "name": "Mini_Market · Cylinder_698",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_698_6c7c265d.glb",
+      "position": [
+        22,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09910192,
+        2.09910192,
+        2.09910192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-28ae9b11fdcecba2",
+      "name": "Mini_Market · Cylinder_721",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_721_55958887.glb",
+      "position": [
+        2,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09910192,
+        2.09910192,
+        2.09910192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0e2f697ffaa03186",
+      "name": "Mini_Market · Cylinder_744",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_744_de217212.glb",
+      "position": [
+        5.99999661,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.55253264,
+        3.55253264,
+        3.55253264
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cb52b0a147b56f44",
+      "name": "Mini_Market · Cylinder_779",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_779_75b927f4.glb",
+      "position": [
+        10,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.58845739,
+        2.58845739,
+        2.58845739
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0259cf9746c64dc0",
+      "name": "Mini_Market · Cylinder_802",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_802_752471df.glb",
+      "position": [
+        14,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.55253156,
+        3.55253156,
+        3.55253156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4df138a4da1a99e0",
+      "name": "Mini_Market · Cylinder_813",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_813_66b50e27.glb",
+      "position": [
+        18,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.55253156,
+        3.55253156,
+        3.55253156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d01ee697a59078fa",
+      "name": "Mini_Market · Cylinder_824",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_824_6806a6a9.glb",
+      "position": [
+        22,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.55253264,
+        3.55253264,
+        3.55253264
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a7a5e07749be3a4e",
+      "name": "Mini_Market · Cylinder_835",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_835_f6230b09.glb",
+      "position": [
+        2,
+        0,
+        -39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5525321,
+        3.5525321,
+        3.5525321
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3313070126845a86",
+      "name": "Mini_Market · Cylinder_846",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_846_e2805a0b.glb",
+      "position": [
+        6,
+        0,
+        -39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.55253156,
+        3.55253156,
+        3.55253156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a55b34f0e283729b",
+      "name": "Mini_Market · Cylinder_857",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_857_2e83070a.glb",
+      "position": [
+        10,
+        0,
+        -39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5525321,
+        3.5525321,
+        3.5525321
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-02c3340d71e28ea0",
+      "name": "Mini_Market · Cylinder_859",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Cylinder_859_cbc17eb9.glb",
+      "position": [
+        13.99999942,
+        0,
+        -39.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30469631,
+        0.30469631,
+        0.30469631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0dea0aa8a6e9e8ec",
+      "name": "Mini_Market · Helado",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Helado_4c48040b.glb",
+      "position": [
+        17.99999987,
+        0,
+        -39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.13358487,
+        2.13358487,
+        2.13358487
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dc8315577153ab94",
+      "name": "Mini_Market · Helado_001",
+      "parentId": "transform:category-mini_market",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Mini_Market/Helado_001_12656304.glb",
+      "position": [
+        22.0000001,
+        0,
+        -39.50000317
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.66459992,
+        1.66459992,
+        1.66459992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

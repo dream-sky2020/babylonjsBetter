@@ -1,0 +1,330 @@
+{
+  "models": 8,
+  "newImageFiles": 0,
+  "other167ModelsUnchanged": true,
+  "all58ImagesUnchanged": true,
+  "repairs": [
+    {
+      "modelPath": "resources/Model/GLB/artist_shayno/Electronics/Boombox.glb",
+      "kind": "missing-source-texture-substitution",
+      "originalPublishedSha256": "c0308aa4f385b00437155062d09c393fed9b7875a1630dcdf92064f706d23ffd",
+      "originalBytes": 21900,
+      "originalImagesMissing": true,
+      "authoredSourceRestored": false,
+      "geometryIndicesNormalsTransformsUnchanged": true,
+      "uvChanged": false,
+      "changes": [
+        {
+          "material": 0,
+          "kind": "same-radio shared specular mask",
+          "donorMaterial": "Material.079",
+          "texture": "__shared_textures__/artist_shayno/f505911c5f0edd1ea80c5dc0780228edced61167725672df13b56764295c42fa.jpg"
+        }
+      ]
+    },
+    {
+      "modelPath": "resources/Model/GLB/artist_izkeas/Weapons/DaggerPSX.glb",
+      "kind": "missing-source-texture-substitution",
+      "originalPublishedSha256": "02dfae309055ed6038df88774a637e074faaa8a9c117fb8484a8b1ef17a0c63b",
+      "originalBytes": 15260,
+      "originalImagesMissing": true,
+      "authoredSourceRestored": false,
+      "geometryIndicesNormalsTransformsUnchanged": true,
+      "uvChanged": false,
+      "changes": [
+        {
+          "material": 0,
+          "name": "blade",
+          "kind": "author-shared weapon texture",
+          "donorModel": "resources/Model/GLB/artist_izkeas/Weapons/Longsword.glb",
+          "donorMaterial": "BladeMaterial",
+          "texture": "__shared_textures__/artist_izkeas/7d9a21d63dc95844387721206d086fc166346498776eee6831bb7efcc29af145.png",
+          "uvTransform": {
+            "offset": [
+              0.04,
+              0.05
+            ],
+            "scale": [
+              0.17,
+              0.9
+            ]
+          },
+          "metallicFactor": 0.3,
+          "roughnessFactor": 0.6
+        },
+        {
+          "material": 1,
+          "name": "hilt",
+          "kind": "author-shared weapon texture",
+          "donorModel": "resources/Model/GLB/artist_izkeas/Weapons/Longsword.glb",
+          "donorMaterial": "Grip Material",
+          "texture": "__shared_textures__/artist_izkeas/aad986d4b88f471e69d5d4cebdf837e56b8b583537c5c3191fc4d7901f95d441.png",
+          "metallicFactor": 0,
+          "roughnessFactor": 0.75
+        },
+        {
+          "material": 2,
+          "name": "guard",
+          "kind": "author-shared weapon texture",
+          "donorModel": "resources/Model/GLB/artist_izkeas/Weapons/Longsword.glb",
+          "donorMaterial": "Guard Material",
+          "texture": "__shared_textures__/artist_izkeas/1618c91c986013c0ba8623ae056b7c7703d10ed0422d9006872cf354f188a38f.png",
+          "uvTransform": {
+            "offset": [
+              0.91,
+              0.69
+            ],
+            "scale": [
+              0.085,
+              0.305
+            ]
+          },
+          "metallicFactor": 0.3,
+          "roughnessFactor": 0.6
+        },
+        {
+          "material": 3,
+          "name": "pommel",
+          "kind": "author-shared weapon texture",
+          "donorModel": "resources/Model/GLB/artist_izkeas/Weapons/Longsword.glb",
+          "donorMaterial": "Pommel Material",
+          "texture": "__shared_textures__/artist_izkeas/7ff191eabfa873a8715e9c7a22d9ddc5616aa52fc0e1fd91eca53ffdbae1f34d.png",
+          "uvTransform": {
+            "offset": [
+              0.04,
+              0.04
+            ],
+            "scale": [
+              0.92,
+              0.92
+            ]
+          },
+          "metallicFactor": 0.3,
+          "roughnessFactor": 0.6
+        }
+      ]
+    },
+    {
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door1.glb",
+      "kind": "missing-source-texture-substitution",
+      "originalPublishedSha256": "bcd47ea56bc5bf3989fb932b950ec5ca48269533f854ea8048bdd01408f757dc",
+      "originalBytes": 93448,
+      "originalImagesMissing": true,
+      "authoredSourceRestored": false,
+      "geometryIndicesNormalsTransformsUnchanged": true,
+      "uvChanged": true,
+      "changes": [
+        {
+          "material": 0,
+          "kind": "author-shared palette with semantic UV remap",
+          "texture": "__shared_textures__/artist_alstrainfinite/a6c9c4f71b1597cb55c0943b8d7a74bf8f39e09bda8de96a85e9ba542a87521a.png",
+          "regions": [
+            {
+              "column": 6,
+              "row": 3,
+              "role": "brown wood panel",
+              "vertices": 120
+            },
+            {
+              "column": 1,
+              "row": 1,
+              "role": "blue glass",
+              "vertices": 8
+            },
+            {
+              "column": 4,
+              "row": 0,
+              "role": "grey metal handle",
+              "vertices": 2468
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door2.glb",
+      "kind": "missing-source-texture-substitution",
+      "originalPublishedSha256": "55d7cde0f4deed1db466b5b8dfc61e3fbae2c7605075939ca8d601d2ef7a2374",
+      "originalBytes": 95856,
+      "originalImagesMissing": true,
+      "authoredSourceRestored": false,
+      "geometryIndicesNormalsTransformsUnchanged": true,
+      "uvChanged": true,
+      "changes": [
+        {
+          "material": 0,
+          "kind": "author-shared palette with semantic UV remap",
+          "texture": "__shared_textures__/artist_alstrainfinite/a6c9c4f71b1597cb55c0943b8d7a74bf8f39e09bda8de96a85e9ba542a87521a.png",
+          "regions": [
+            {
+              "column": 1,
+              "row": 0,
+              "role": "painted white panel",
+              "vertices": 176
+            },
+            {
+              "column": 4,
+              "row": 0,
+              "role": "grey metal handle",
+              "vertices": 2468
+            },
+            {
+              "column": 0,
+              "row": 1,
+              "role": "pale blue inset",
+              "vertices": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door3.glb",
+      "kind": "missing-source-texture-substitution",
+      "originalPublishedSha256": "1b06c3e263cac5442da8d1393c548f1051675f797b7481363540edbf1b78472f",
+      "originalBytes": 105048,
+      "originalImagesMissing": true,
+      "authoredSourceRestored": false,
+      "geometryIndicesNormalsTransformsUnchanged": true,
+      "uvChanged": true,
+      "changes": [
+        {
+          "material": 0,
+          "kind": "author-shared palette with semantic UV remap",
+          "texture": "__shared_textures__/artist_alstrainfinite/a6c9c4f71b1597cb55c0943b8d7a74bf8f39e09bda8de96a85e9ba542a87521a.png",
+          "regions": [
+            {
+              "column": 6,
+              "row": 3,
+              "role": "brown wood panel",
+              "vertices": 328
+            },
+            {
+              "column": 4,
+              "row": 0,
+              "role": "grey metal handle",
+              "vertices": 2604
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door4.glb",
+      "kind": "missing-source-texture-substitution",
+      "originalPublishedSha256": "fbf7be532e9b898dce3fc72334a11ed754d412a307fbe74fdc8f7bc1c1e132ef",
+      "originalBytes": 119296,
+      "originalImagesMissing": true,
+      "authoredSourceRestored": false,
+      "geometryIndicesNormalsTransformsUnchanged": true,
+      "uvChanged": true,
+      "changes": [
+        {
+          "material": 0,
+          "kind": "author-shared palette with semantic UV remap",
+          "texture": "__shared_textures__/artist_alstrainfinite/a6c9c4f71b1597cb55c0943b8d7a74bf8f39e09bda8de96a85e9ba542a87521a.png",
+          "regions": [
+            {
+              "column": 2,
+              "row": 1,
+              "role": "painted blue panel",
+              "vertices": 178
+            },
+            {
+              "column": 4,
+              "row": 0,
+              "role": "grey metal handle",
+              "vertices": 2604
+            },
+            {
+              "column": 1,
+              "row": 1,
+              "role": "pale blue trim",
+              "vertices": 553
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door5.glb",
+      "kind": "missing-source-texture-substitution",
+      "originalPublishedSha256": "6a994a80b12f4fac16c0e02c0aa16239509ad933d39e33325588772e79d4d26c",
+      "originalBytes": 122736,
+      "originalImagesMissing": true,
+      "authoredSourceRestored": false,
+      "geometryIndicesNormalsTransformsUnchanged": true,
+      "uvChanged": true,
+      "changes": [
+        {
+          "material": 0,
+          "kind": "author-shared palette with semantic UV remap",
+          "texture": "__shared_textures__/artist_alstrainfinite/a6c9c4f71b1597cb55c0943b8d7a74bf8f39e09bda8de96a85e9ba542a87521a.png",
+          "regions": [
+            {
+              "column": 6,
+              "row": 3,
+              "role": "brown wood panel",
+              "vertices": 508
+            },
+            {
+              "column": 5,
+              "row": 3,
+              "role": "light wood trim",
+              "vertices": 64
+            },
+            {
+              "column": 4,
+              "row": 3,
+              "role": "raised wood trim",
+              "vertices": 160
+            },
+            {
+              "column": 5,
+              "row": 4,
+              "role": "dark wood trim",
+              "vertices": 96
+            },
+            {
+              "column": 4,
+              "row": 0,
+              "role": "grey metal handle",
+              "vertices": 2604
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "modelPath": "resources/Model/GLB/artist_alstrainfinite/CabinetsDoors/Door6.glb",
+      "kind": "missing-source-texture-substitution",
+      "originalPublishedSha256": "3c700228179f97a0647f5c29f40322f2184b734678a33d9de4ce8adc80c958c1",
+      "originalBytes": 90040,
+      "originalImagesMissing": true,
+      "authoredSourceRestored": false,
+      "geometryIndicesNormalsTransformsUnchanged": true,
+      "uvChanged": true,
+      "changes": [
+        {
+          "material": 0,
+          "kind": "author-shared palette with semantic UV remap",
+          "texture": "__shared_textures__/artist_alstrainfinite/a6c9c4f71b1597cb55c0943b8d7a74bf8f39e09bda8de96a85e9ba542a87521a.png",
+          "regions": [
+            {
+              "column": 4,
+              "row": 0,
+              "role": "grey metal handle",
+              "vertices": 2468
+            },
+            {
+              "column": 6,
+              "row": 3,
+              "role": "brown wood panel",
+              "vertices": 32
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1199 @@
+{
+  "format": "glTF 2.0 GLB / author shared PNG",
+  "sources": [
+    {
+      "path": "Air_ConditionerLP/KRC_air_conditioner.fbx",
+      "bytes": 32320,
+      "sha256": "2b3d76f6f8e605f79d885b577b78a4016129e7737f4468c98ef94c4582996fcb"
+    },
+    {
+      "path": "Air_ConditionerLP/KRC_cond_d01.png",
+      "bytes": 189493,
+      "sha256": "a4bbcf48c78d9d6072db0cf886ffcf015bc5f7eaf0bc146456bf968e0ebb7325",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "Air_ConditionerLP.7z",
+      "bytes": 203321,
+      "sha256": "b5cbf024682c1c4923d009ab78edfd1583973a89593e46557c4822ef61aeb42a"
+    },
+    {
+      "path": "CardBoard_box/Cardboard_box.fbx",
+      "bytes": 35900,
+      "sha256": "45a8af6e265c0e62b7760be7115672396edc2517c4406cc3fd3071734a978964"
+    },
+    {
+      "path": "CardBoard_box/Cardboard_box.png",
+      "bytes": 359296,
+      "sha256": "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "alphaRange": [
+        222,
+        255
+      ]
+    },
+    {
+      "path": "CardBoard_box.7z",
+      "bytes": 373803,
+      "sha256": "4eb1d2ce6ab00059b8db54905c7efa0d202b1c6ef744cc38e77fbb4d73c06c55"
+    },
+    {
+      "path": "KRCWheelbarrow/KRC_StT_Grn01.fbx",
+      "bytes": 58160,
+      "sha256": "20983a3393678c0037d40ae0ec3570913e995b96bb062efe0dcac95e0430749b"
+    },
+    {
+      "path": "KRCWheelbarrow/KRC_StT_Grn01.png",
+      "bytes": 1096140,
+      "sha256": "c732a676cb14acaad719f0b33ee68704a58261e793f89ebac43a9cb68d1b12a0",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "alphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "path": "KRCWheelbarrow.7z",
+      "bytes": 1135418,
+      "sha256": "1ae9761512594358016d45af8d6cb241cf80e2cee771b458064f6cb0c3b8b32b"
+    }
+  ],
+  "models": [
+    {
+      "name": "AirConditioner",
+      "category": "Props",
+      "file": "Props/AirConditioner.glb",
+      "sourcePath": "Air_ConditionerLP/KRC_air_conditioner.fbx",
+      "sourceObjects": [
+        {
+          "name": "Box051",
+          "vertices": 249,
+          "triangles": 429,
+          "uvLayers": 1,
+          "materials": [
+            "Material #1008"
+          ],
+          "parent": null,
+          "modifiers": [],
+          "colors": [],
+          "matrix": [
+            [
+              0.02539999969303608,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0.02539999969303608,
+              1.110269209902981e-9,
+              -0.00490398658439517
+            ],
+            [
+              0,
+              -1.110269209902981e-9,
+              0.02539999969303608,
+              -0.008028353564441204
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "uvRange": [
+            [
+              0.0008288472890853882,
+              3.3021957874298096
+            ],
+            [
+              0.005151960998773575,
+              0.9952700138092041
+            ]
+          ]
+        }
+      ],
+      "sourceSha256": "2b3d76f6f8e605f79d885b577b78a4016129e7737f4468c98ef94c4582996fcb",
+      "geometrySha256": "38a7893dc17567ba89d469272638f5090b8d30a9789868bc8bdbe2eb40c0a9eb",
+      "materialSettings": [
+        {
+          "name": "Material #1008",
+          "textureSource": "Air_ConditionerLP/KRC_cond_d01.png",
+          "textureSha256": "a4bbcf48c78d9d6072db0cf886ffcf015bc5f7eaf0bc146456bf968e0ebb7325",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "metallic": 1,
+          "roughness": 0.858578622341156,
+          "doubleSided": true,
+          "specularFactor": 0,
+          "alphaMode": "OPAQUE",
+          "sampler": "linear",
+          "emissiveFactor": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "native": false,
+      "sourceTriangles": 429,
+      "zeroNormalCornerRepairs": 0,
+      "sourceGeometryNormalsUVVerified": true,
+      "maximumFloat32Error": 2.9802322387695312e-8,
+      "centeringSourceTranslation": [
+        0,
+        2.3283064365386963e-10,
+        -0.009067070670425892
+      ],
+      "sourceVertexColorsPreserved": false,
+      "author": "keysrec",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Props/AirConditioner.glb",
+      "sha256": "a74bc45be4f18099b4b9993a588f12bf42edc74b94a5343ee9c3cc0e712166f8",
+      "bytes": 48024,
+      "meshCount": 1,
+      "renderMeshes": 1,
+      "materialCount": 1,
+      "materials": [
+        {
+          "name": "Material #1008",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 1,
+            "roughnessFactor": 0.858578622341156
+          },
+          "doubleSided": true,
+          "alphaMode": "OPAQUE",
+          "extensions": {
+            "KHR_materials_specular": {
+              "specularFactor": 0
+            }
+          }
+        }
+      ],
+      "textures": [
+        {
+          "source": 0,
+          "sampler": 0
+        }
+      ],
+      "samplers": [
+        {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS": 10497,
+          "wrapT": 10497
+        },
+        {
+          "magFilter": 9728,
+          "minFilter": 9984,
+          "wrapS": 10497,
+          "wrapT": 10497
+        }
+      ],
+      "images": [
+        "a4bbcf48c78d9d6072db0cf886ffcf015bc5f7eaf0bc146456bf968e0ebb7325.png"
+      ],
+      "animations": 0,
+      "skins": 0,
+      "expectedUV": true,
+      "expectedNormals": true,
+      "geometryBufferSha256": "c9605ca81039238f891a19dbde85a909ef60a4a4b5e287473713e4eb4ec63fe2"
+    },
+    {
+      "name": "Cardboard_close",
+      "category": "Cardboard",
+      "file": "Cardboard/Cardboard_close.glb",
+      "sourcePath": "CardBoard_box/Cardboard_box.fbx",
+      "sourceObjects": [
+        {
+          "name": "Cardboard_close",
+          "vertices": 8,
+          "triangles": 12,
+          "uvLayers": 1,
+          "materials": [
+            "Cardboard_box"
+          ],
+          "parent": null,
+          "modifiers": [],
+          "colors": [],
+          "matrix": [
+            [
+              -1,
+              1.5099580252808664e-7,
+              -1.1399864918422518e-14,
+              -1.4901161193847656e-8
+            ],
+            [
+              -1.5099580252808664e-7,
+              -1,
+              7.549790126404332e-8,
+              0.7652868628501892
+            ],
+            [
+              6.360639752427297e-22,
+              7.549790126404332e-8,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "uvRange": [
+            [
+              0.0011687353253364563,
+              0.9986183047294617
+            ],
+            [
+              0.0025981394574046135,
+              0.9977242350578308
+            ]
+          ]
+        }
+      ],
+      "sourceSha256": "45a8af6e265c0e62b7760be7115672396edc2517c4406cc3fd3071734a978964",
+      "geometrySha256": "1b44ed44c6db26ff479f2a81cec567fbf48f26c71aa9a0df3e1a4192d02b714b",
+      "materialSettings": [
+        {
+          "name": "Cardboard_box",
+          "textureSource": "CardBoard_box/Cardboard_box.png",
+          "textureSha256": "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "metallic": 0,
+          "roughness": 0.5,
+          "doubleSided": true,
+          "specularFactor": 0,
+          "alphaMode": "OPAQUE",
+          "sampler": "linear",
+          "emissiveFactor": [
+            0,
+            0,
+            0
+          ],
+          "sourcePolicy": "Solid cardboard: original atlas alpha 222..255 contains minor image alpha; ignore it for surface opacity to prevent inner faces overwriting outer faces"
+        }
+      ],
+      "native": false,
+      "sourceTriangles": 12,
+      "zeroNormalCornerRepairs": 0,
+      "sourceGeometryNormalsUVVerified": true,
+      "maximumFloat32Error": 2.9802322387695312e-8,
+      "centeringSourceTranslation": [
+        -2.9802322387695312e-8,
+        0.765286922454834,
+        -9.059747618778147e-9
+      ],
+      "sourceVertexColorsPreserved": false,
+      "author": "keysrec",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_close.glb",
+      "sha256": "f296fd641115b01ec569de78642daf081f9183ee6415933ad516c7f85cd900d6",
+      "bytes": 2968,
+      "meshCount": 1,
+      "renderMeshes": 1,
+      "materialCount": 1,
+      "materials": [
+        {
+          "name": "Cardboard_box",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0,
+            "roughnessFactor": 0.5
+          },
+          "doubleSided": true,
+          "alphaMode": "OPAQUE",
+          "extensions": {
+            "KHR_materials_specular": {
+              "specularFactor": 0
+            }
+          }
+        }
+      ],
+      "textures": [
+        {
+          "source": 0,
+          "sampler": 0
+        }
+      ],
+      "samplers": [
+        {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS": 10497,
+          "wrapT": 10497
+        },
+        {
+          "magFilter": 9728,
+          "minFilter": 9984,
+          "wrapS": 10497,
+          "wrapT": 10497
+        }
+      ],
+      "images": [
+        "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea.png"
+      ],
+      "animations": 0,
+      "skins": 0,
+      "expectedUV": true,
+      "expectedNormals": true,
+      "geometryBufferSha256": "5bb133556ac4d0fc7073cbf89956b5d164c28cca92c5839625b8906d759d9b9f"
+    },
+    {
+      "name": "Cardboard_open00",
+      "category": "Cardboard",
+      "file": "Cardboard/Cardboard_open00.glb",
+      "sourcePath": "CardBoard_box/Cardboard_box.fbx",
+      "sourceObjects": [
+        {
+          "name": "Cardboard_open00",
+          "vertices": 36,
+          "triangles": 68,
+          "uvLayers": 1,
+          "materials": [
+            "Cardboard_box"
+          ],
+          "parent": null,
+          "modifiers": [],
+          "colors": [],
+          "matrix": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1.6292067073209182e-7,
+              -0.3057681918144226
+            ],
+            [
+              0,
+              -1.6292067073209182e-7,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "uvRange": [
+            [
+              -0.9992087483406067,
+              0.9986183047294617
+            ],
+            [
+              0.0011597014963626862,
+              0.9977242350578308
+            ]
+          ]
+        }
+      ],
+      "sourceSha256": "45a8af6e265c0e62b7760be7115672396edc2517c4406cc3fd3071734a978964",
+      "geometrySha256": "d94c97daac5b39abc17a2bee79a2735a5e33d76a1d082ee5d0c1c590eec26b60",
+      "materialSettings": [
+        {
+          "name": "Cardboard_box",
+          "textureSource": "CardBoard_box/Cardboard_box.png",
+          "textureSha256": "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "metallic": 0,
+          "roughness": 0.5,
+          "doubleSided": true,
+          "specularFactor": 0,
+          "alphaMode": "OPAQUE",
+          "sampler": "linear",
+          "emissiveFactor": [
+            0,
+            0,
+            0
+          ],
+          "sourcePolicy": "Solid cardboard: original atlas alpha 222..255 contains minor image alpha; ignore it for surface opacity to prevent inner faces overwriting outer faces"
+        }
+      ],
+      "native": false,
+      "sourceTriangles": 68,
+      "zeroNormalCornerRepairs": 0,
+      "sourceGeometryNormalsUVVerified": true,
+      "maximumFloat32Error": 2.9802322387695312e-8,
+      "centeringSourceTranslation": [
+        0.0005671381950378418,
+        -0.306317001581192,
+        -1.9550476793028793e-8
+      ],
+      "sourceVertexColorsPreserved": false,
+      "author": "keysrec",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_open00.glb",
+      "sha256": "66ae4f27385e8e3d67f29f0b857d042a76543315bc55bf4fb703ee6198512ba8",
+      "bytes": 9028,
+      "meshCount": 1,
+      "renderMeshes": 1,
+      "materialCount": 1,
+      "materials": [
+        {
+          "name": "Cardboard_box",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0,
+            "roughnessFactor": 0.5
+          },
+          "doubleSided": true,
+          "alphaMode": "OPAQUE",
+          "extensions": {
+            "KHR_materials_specular": {
+              "specularFactor": 0
+            }
+          }
+        }
+      ],
+      "textures": [
+        {
+          "source": 0,
+          "sampler": 0
+        }
+      ],
+      "samplers": [
+        {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS": 10497,
+          "wrapT": 10497
+        },
+        {
+          "magFilter": 9728,
+          "minFilter": 9984,
+          "wrapS": 10497,
+          "wrapT": 10497
+        }
+      ],
+      "images": [
+        "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea.png"
+      ],
+      "animations": 0,
+      "skins": 0,
+      "expectedUV": true,
+      "expectedNormals": true,
+      "geometryBufferSha256": "cdedc783bee63d52049002620c07d30d19fc64970175a14a35bbb34bc4644d10"
+    },
+    {
+      "name": "Cardboard_open01",
+      "category": "Cardboard",
+      "file": "Cardboard/Cardboard_open01.glb",
+      "sourcePath": "CardBoard_box/Cardboard_box.fbx",
+      "sourceObjects": [
+        {
+          "name": "Cardboard_open01",
+          "vertices": 52,
+          "triangles": 100,
+          "uvLayers": 1,
+          "materials": [
+            "Cardboard_box"
+          ],
+          "parent": null,
+          "modifiers": [],
+          "colors": [],
+          "matrix": [
+            [
+              -1,
+              1.5099580252808664e-7,
+              -1.1399864918422518e-14,
+              7.450580596923828e-9
+            ],
+            [
+              -1.5099580252808664e-7,
+              -1,
+              7.549790126404332e-8,
+              -0.7622280716896057
+            ],
+            [
+              6.360639752427297e-22,
+              7.549790126404332e-8,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "uvRange": [
+            [
+              -0.9992087483406067,
+              0.9986183047294617
+            ],
+            [
+              0.0011597014963626862,
+              0.9977242350578308
+            ]
+          ]
+        }
+      ],
+      "sourceSha256": "45a8af6e265c0e62b7760be7115672396edc2517c4406cc3fd3071734a978964",
+      "geometrySha256": "7a8ad245af373296673c524587b2f842605c19e21118973f8473c1236a9fdbdf",
+      "materialSettings": [
+        {
+          "name": "Cardboard_box",
+          "textureSource": "CardBoard_box/Cardboard_box.png",
+          "textureSha256": "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "metallic": 0,
+          "roughness": 0.5,
+          "doubleSided": true,
+          "specularFactor": 0,
+          "alphaMode": "OPAQUE",
+          "sampler": "linear",
+          "emissiveFactor": [
+            0,
+            0,
+            0
+          ],
+          "sourcePolicy": "Solid cardboard: original atlas alpha 222..255 contains minor image alpha; ignore it for surface opacity to prevent inner faces overwriting outer faces"
+        }
+      ],
+      "native": false,
+      "sourceTriangles": 100,
+      "zeroNormalCornerRepairs": 0,
+      "sourceGeometryNormalsUVVerified": true,
+      "maximumFloat32Error": 2.9802322387695312e-8,
+      "centeringSourceTranslation": [
+        -0.0053435564041137695,
+        -0.754492998123169,
+        -9.059748506956566e-9
+      ],
+      "sourceVertexColorsPreserved": false,
+      "author": "keysrec",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_open01.glb",
+      "sha256": "cc86400b86d35d6755582a23425f7fa2d319c57e34671ccbac88ff829459b173",
+      "bytes": 12484,
+      "meshCount": 1,
+      "renderMeshes": 1,
+      "materialCount": 1,
+      "materials": [
+        {
+          "name": "Cardboard_box",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0,
+            "roughnessFactor": 0.5
+          },
+          "doubleSided": true,
+          "alphaMode": "OPAQUE",
+          "extensions": {
+            "KHR_materials_specular": {
+              "specularFactor": 0
+            }
+          }
+        }
+      ],
+      "textures": [
+        {
+          "source": 0,
+          "sampler": 0
+        }
+      ],
+      "samplers": [
+        {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS": 10497,
+          "wrapT": 10497
+        },
+        {
+          "magFilter": 9728,
+          "minFilter": 9984,
+          "wrapS": 10497,
+          "wrapT": 10497
+        }
+      ],
+      "images": [
+        "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea.png"
+      ],
+      "animations": 0,
+      "skins": 0,
+      "expectedUV": true,
+      "expectedNormals": true,
+      "geometryBufferSha256": "3402cb08a97b7750a9eec6e5330f81b0edaff3ce5f8c10b798fa8a8d327a52f3"
+    },
+    {
+      "name": "Cardboard_open02",
+      "category": "Cardboard",
+      "file": "Cardboard/Cardboard_open02.glb",
+      "sourcePath": "CardBoard_box/Cardboard_box.fbx",
+      "sourceObjects": [
+        {
+          "name": "Cardboard_open02",
+          "vertices": 36,
+          "triangles": 68,
+          "uvLayers": 1,
+          "materials": [
+            "Cardboard_box"
+          ],
+          "parent": null,
+          "modifiers": [],
+          "colors": [],
+          "matrix": [
+            [
+              1,
+              0,
+              0,
+              7.450580596923828e-9
+            ],
+            [
+              0,
+              1,
+              1.6292067073209182e-7,
+              0.4252868890762329
+            ],
+            [
+              0,
+              -1.6292067073209182e-7,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "uvRange": [
+            [
+              -0.9992087483406067,
+              0.9986183047294617
+            ],
+            [
+              0.0011597014963626862,
+              0.9977242350578308
+            ]
+          ]
+        }
+      ],
+      "sourceSha256": "45a8af6e265c0e62b7760be7115672396edc2517c4406cc3fd3071734a978964",
+      "geometrySha256": "9c8dfdb1baf350f36ab131c48a081c909bda54211401372879b7cc979ce8fc6b",
+      "materialSettings": [
+        {
+          "name": "Cardboard_box",
+          "textureSource": "CardBoard_box/Cardboard_box.png",
+          "textureSha256": "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "metallic": 0,
+          "roughness": 0.5,
+          "doubleSided": true,
+          "specularFactor": 0,
+          "alphaMode": "OPAQUE",
+          "sampler": "linear",
+          "emissiveFactor": [
+            0,
+            0,
+            0
+          ],
+          "sourcePolicy": "Solid cardboard: original atlas alpha 222..255 contains minor image alpha; ignore it for surface opacity to prevent inner faces overwriting outer faces"
+        }
+      ],
+      "native": false,
+      "sourceTriangles": 68,
+      "zeroNormalCornerRepairs": 0,
+      "sourceGeometryNormalsUVVerified": true,
+      "maximumFloat32Error": 2.9802322387695312e-8,
+      "centeringSourceTranslation": [
+        0,
+        0.4252869188785553,
+        -1.955048212209931e-8
+      ],
+      "sourceVertexColorsPreserved": false,
+      "author": "keysrec",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_open02.glb",
+      "sha256": "5b6fb647f1a1ae38d8665d08fb7eb3c3d72b092cd4b860d9375bed3b33f2a9f2",
+      "bytes": 9028,
+      "meshCount": 1,
+      "renderMeshes": 1,
+      "materialCount": 1,
+      "materials": [
+        {
+          "name": "Cardboard_box",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0,
+            "roughnessFactor": 0.5
+          },
+          "doubleSided": true,
+          "alphaMode": "OPAQUE",
+          "extensions": {
+            "KHR_materials_specular": {
+              "specularFactor": 0
+            }
+          }
+        }
+      ],
+      "textures": [
+        {
+          "source": 0,
+          "sampler": 0
+        }
+      ],
+      "samplers": [
+        {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS": 10497,
+          "wrapT": 10497
+        },
+        {
+          "magFilter": 9728,
+          "minFilter": 9984,
+          "wrapS": 10497,
+          "wrapT": 10497
+        }
+      ],
+      "images": [
+        "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea.png"
+      ],
+      "animations": 0,
+      "skins": 0,
+      "expectedUV": true,
+      "expectedNormals": true,
+      "geometryBufferSha256": "996175681b338581caf2e73725cb0e321ed3cf8a38ca77078db73c9069b4ead4"
+    },
+    {
+      "name": "Cardboard_open03",
+      "category": "Cardboard",
+      "file": "Cardboard/Cardboard_open03.glb",
+      "sourcePath": "CardBoard_box/Cardboard_box.fbx",
+      "sourceObjects": [
+        {
+          "name": "Cardboard_open03",
+          "vertices": 36,
+          "triangles": 68,
+          "uvLayers": 1,
+          "materials": [
+            "Cardboard_box"
+          ],
+          "parent": null,
+          "modifiers": [],
+          "colors": [],
+          "matrix": [
+            [
+              -1,
+              1.5099580252808664e-7,
+              -1.1399864918422518e-14,
+              0
+            ],
+            [
+              -1.5099580252808664e-7,
+              -1,
+              7.549790126404332e-8,
+              0.08305372297763824
+            ],
+            [
+              6.360639752427297e-22,
+              7.549790126404332e-8,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "uvRange": [
+            [
+              -0.9992087483406067,
+              0.9986183047294617
+            ],
+            [
+              0.0011597014963626862,
+              0.9977242350578308
+            ]
+          ]
+        }
+      ],
+      "sourceSha256": "45a8af6e265c0e62b7760be7115672396edc2517c4406cc3fd3071734a978964",
+      "geometrySha256": "659278ddcaf2d829cc9fafcafab7f44c7a70583c87ca4840d1c94d1af1599452",
+      "materialSettings": [
+        {
+          "name": "Cardboard_box",
+          "textureSource": "CardBoard_box/Cardboard_box.png",
+          "textureSha256": "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "metallic": 0,
+          "roughness": 0.5,
+          "doubleSided": true,
+          "specularFactor": 0,
+          "alphaMode": "OPAQUE",
+          "sampler": "linear",
+          "emissiveFactor": [
+            0,
+            0,
+            0
+          ],
+          "sourcePolicy": "Solid cardboard: original atlas alpha 222..255 contains minor image alpha; ignore it for surface opacity to prevent inner faces overwriting outer faces"
+        }
+      ],
+      "native": false,
+      "sourceTriangles": 68,
+      "zeroNormalCornerRepairs": 0,
+      "sourceGeometryNormalsUVVerified": true,
+      "maximumFloat32Error": 2.9802322387695312e-8,
+      "centeringSourceTranslation": [
+        0.004614003002643585,
+        0.08389107137918472,
+        -9.059748506956566e-9
+      ],
+      "sourceVertexColorsPreserved": false,
+      "author": "keysrec",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Cardboard/Cardboard_open03.glb",
+      "sha256": "fda16dc22e498bbfc13ebd023a6c85ec98e703f84603ff890469d6e686a9fda4",
+      "bytes": 9024,
+      "meshCount": 1,
+      "renderMeshes": 1,
+      "materialCount": 1,
+      "materials": [
+        {
+          "name": "Cardboard_box",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 0,
+            "roughnessFactor": 0.5
+          },
+          "doubleSided": true,
+          "alphaMode": "OPAQUE",
+          "extensions": {
+            "KHR_materials_specular": {
+              "specularFactor": 0
+            }
+          }
+        }
+      ],
+      "textures": [
+        {
+          "source": 0,
+          "sampler": 0
+        }
+      ],
+      "samplers": [
+        {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS": 10497,
+          "wrapT": 10497
+        },
+        {
+          "magFilter": 9728,
+          "minFilter": 9984,
+          "wrapS": 10497,
+          "wrapT": 10497
+        }
+      ],
+      "images": [
+        "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea.png"
+      ],
+      "animations": 0,
+      "skins": 0,
+      "expectedUV": true,
+      "expectedNormals": true,
+      "geometryBufferSha256": "42fc3ac74f63cc0d070536224720ce28e102ee4e6cf345048be4a2de4d263fc7"
+    },
+    {
+      "name": "Wheelbarrow",
+      "category": "Props",
+      "file": "Props/Wheelbarrow.glb",
+      "sourcePath": "KRCWheelbarrow/KRC_StT_Grn01.fbx",
+      "sourceObjects": [
+        {
+          "name": "KRC_StT_Grn01",
+          "vertices": 706,
+          "triangles": 1396,
+          "uvLayers": 1,
+          "materials": [
+            "Material #18"
+          ],
+          "parent": null,
+          "modifiers": [],
+          "colors": [],
+          "matrix": [
+            [
+              0.0010000000474974513,
+              1.7484554082347614e-10,
+              -3.057096423979195e-17,
+              0
+            ],
+            [
+              -1.7484554082347614e-10,
+              0.0010000000474974513,
+              -1.3113415908705406e-10,
+              0
+            ],
+            [
+              7.642741059947987e-18,
+              1.3113415908705406e-10,
+              0.0010000000474974513,
+              9.536743617033494e-10
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ],
+          "uvRange": [
+            [
+              0.0013146046549081802,
+              0.9974256753921509
+            ],
+            [
+              0.0012929504737257957,
+              0.9990180730819702
+            ]
+          ]
+        }
+      ],
+      "sourceSha256": "20983a3393678c0037d40ae0ec3570913e995b96bb062efe0dcac95e0430749b",
+      "geometrySha256": "1fbbf3d03fad7822e33f2ea9b218890a8adfeeca5b0215902b2430322f5b861a",
+      "materialSettings": [
+        {
+          "name": "Material #18",
+          "textureSource": "KRCWheelbarrow/KRC_StT_Grn01.png",
+          "textureSha256": "c732a676cb14acaad719f0b33ee68704a58261e793f89ebac43a9cb68d1b12a0",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "metallic": 1,
+          "roughness": 0.858578622341156,
+          "doubleSided": true,
+          "specularFactor": 0,
+          "alphaMode": "OPAQUE",
+          "sampler": "linear",
+          "emissiveFactor": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "native": false,
+      "sourceTriangles": 1396,
+      "zeroNormalCornerRepairs": 0,
+      "sourceGeometryNormalsUVVerified": true,
+      "maximumFloat32Error": 2.9802322387695312e-8,
+      "centeringSourceTranslation": [
+        -3.725290298461914e-9,
+        -5.587935447692871e-9,
+        -1.5437501588166924e-7
+      ],
+      "sourceVertexColorsPreserved": false,
+      "author": "keysrec",
+      "modelPath": "resources/Model/GLB/artist_keysrec/Props/Wheelbarrow.glb",
+      "sha256": "70f55f34535b1ee15414fe9dd5dd7510f380be7b6a19563b40e75012498f535b",
+      "bytes": 152532,
+      "meshCount": 1,
+      "renderMeshes": 1,
+      "materialCount": 1,
+      "materials": [
+        {
+          "name": "Material #18",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicFactor": 1,
+            "roughnessFactor": 0.858578622341156
+          },
+          "doubleSided": true,
+          "alphaMode": "OPAQUE",
+          "extensions": {
+            "KHR_materials_specular": {
+              "specularFactor": 0
+            }
+          }
+        }
+      ],
+      "textures": [
+        {
+          "source": 0,
+          "sampler": 0
+        }
+      ],
+      "samplers": [
+        {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS": 10497,
+          "wrapT": 10497
+        },
+        {
+          "magFilter": 9728,
+          "minFilter": 9984,
+          "wrapS": 10497,
+          "wrapT": 10497
+        }
+      ],
+      "images": [
+        "c732a676cb14acaad719f0b33ee68704a58261e793f89ebac43a9cb68d1b12a0.png"
+      ],
+      "animations": 0,
+      "skins": 0,
+      "expectedUV": true,
+      "expectedNormals": true,
+      "geometryBufferSha256": "51c6b11e7a7add5d2d504c2fbcf5f5aca705a559b6bfbc11fcc31135b3c0ca7c"
+    }
+  ],
+  "authors": [
+    {
+      "name": "keysrec",
+      "author": "artist_keysrec",
+      "source": "D:/Model/ARTIST——keysrec",
+      "count": 7,
+      "modelDirectory": "resources/Model/GLB/artist_keysrec",
+      "textureDirectory": "resources/Model/SharedTextures/artist_keysrec",
+      "modelBytes": 243088,
+      "imageBytes": 1644929,
+      "images": [
+        {
+          "file": "a4bbcf48c78d9d6072db0cf886ffcf015bc5f7eaf0bc146456bf968e0ebb7325.png",
+          "texturePath": "resources/Model/SharedTextures/artist_keysrec/a4bbcf48c78d9d6072db0cf886ffcf015bc5f7eaf0bc146456bf968e0ebb7325.png",
+          "sha256": "a4bbcf48c78d9d6072db0cf886ffcf015bc5f7eaf0bc146456bf968e0ebb7325",
+          "bytes": 189493,
+          "width": 512,
+          "height": 512,
+          "originalEncodedBytes": true,
+          "sources": [
+            "Air_ConditionerLP/KRC_cond_d01.png"
+          ]
+        },
+        {
+          "file": "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea.png",
+          "texturePath": "resources/Model/SharedTextures/artist_keysrec/393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea.png",
+          "sha256": "393347dd3f62014dde5e3c4f0611db0162473ac9abac7920694b6eb723dcbfea",
+          "bytes": 359296,
+          "width": 512,
+          "height": 512,
+          "originalEncodedBytes": true,
+          "sources": [
+            "CardBoard_box/Cardboard_box.png"
+          ]
+        },
+        {
+          "file": "c732a676cb14acaad719f0b33ee68704a58261e793f89ebac43a9cb68d1b12a0.png",
+          "texturePath": "resources/Model/SharedTextures/artist_keysrec/c732a676cb14acaad719f0b33ee68704a58261e793f89ebac43a9cb68d1b12a0.png",
+          "sha256": "c732a676cb14acaad719f0b33ee68704a58261e793f89ebac43a9cb68d1b12a0",
+          "bytes": 1096140,
+          "width": 512,
+          "height": 512,
+          "originalEncodedBytes": true,
+          "sources": [
+            "KRCWheelbarrow/KRC_StT_Grn01.png"
+          ]
+        }
+      ]
+    }
+  ]
+}

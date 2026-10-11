@@ -1,0 +1,1405 @@
+{
+  "presetKey": "artist-loafbrr-showcase-brick-houses",
+  "name": "Loafbrr · BrickHouses · 31模型 · 模型 5.70 MiB + 贴图 0.80 MiB · 合计 6.49 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-brickhouses-0",
+      "name": "BrickHouses",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 29
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-0b41f07fc43c8656-stand",
+      "name": "Building_1展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-269236ad5b754043-stand",
+      "name": "Building_10展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f02e6274f20463d3-stand",
+      "name": "Building_11展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b4402fb5d38884ac-stand",
+      "name": "Building_12展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ee5b26cd0782900a-stand",
+      "name": "Building_13展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2f08985f5b2c0972-stand",
+      "name": "Building_14展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d0d3bac331c10d7d-stand",
+      "name": "Building_15展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c2c214b3922a043d-stand",
+      "name": "Building_16展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6ae6b84a104f8eb7-stand",
+      "name": "Building_17展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0d57b4f4058947a3-stand",
+      "name": "Building_18展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-05ac6bc36ff41106-stand",
+      "name": "Building_19展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a4cea80cc1251d46-stand",
+      "name": "Building_2展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0461098423925a1c-stand",
+      "name": "Building_20展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-61f21690b632e349-stand",
+      "name": "Building_21展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-69708fc3bbb9f24a-stand",
+      "name": "Building_22展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-25238346bc42a2ba-stand",
+      "name": "Building_23展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9586babfc36b0f0d-stand",
+      "name": "Building_24展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0f33d397427413f8-stand",
+      "name": "Building_25展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-99884d734df908f8-stand",
+      "name": "Building_26展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-093a11d6c811ecf2-stand",
+      "name": "Building_27展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e745abeb638be603-stand",
+      "name": "Building_28展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b4d096de29504a29-stand",
+      "name": "Building_29展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-62005ceb5a828dc7-stand",
+      "name": "Building_3展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9388e2ea0cd2134b-stand",
+      "name": "Building_30展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-68d1473bfb9fe34f-stand",
+      "name": "Building_31展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d739f187fae4be93-stand",
+      "name": "Building_4展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fdcaf7ee915c95b7-stand",
+      "name": "Building_5展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9a69478d96400555-stand",
+      "name": "Building_6展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e0a81ff5675fffd1-stand",
+      "name": "Building_7展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2ea7156cd04db29e-stand",
+      "name": "Building_8展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-075f5e3b6d85fdff-stand",
+      "name": "Building_9展台",
+      "parentId": "transform:category-brickhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-0b41f07fc43c8656",
+      "name": "BrickHouses · Building_1 · 模型 0.05 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_1.glb",
+      "position": [
+        -22,
+        2e-8,
+        12.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55098613,
+        0.55098613,
+        0.55098613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-269236ad5b754043",
+      "name": "BrickHouses · Building_10 · 模型 0.14 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_10.glb",
+      "position": [
+        -17.99999996,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3483683,
+        0.3483683,
+        0.3483683
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f02e6274f20463d3",
+      "name": "BrickHouses · Building_11 · 模型 0.23 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_11.glb",
+      "position": [
+        -14,
+        0,
+        11.99999951
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20549896,
+        0.20549896,
+        0.20549896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b4402fb5d38884ac",
+      "name": "BrickHouses · Building_12 · 模型 0.28 MiB · 贴图 0.50 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_12.glb",
+      "position": [
+        -10,
+        0,
+        12.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30112346,
+        0.30112346,
+        0.30112346
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ee5b26cd0782900a",
+      "name": "BrickHouses · Building_13 · 模型 0.25 MiB · 贴图 0.43 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_13.glb",
+      "position": [
+        -5.99999991,
+        0,
+        12.00000037
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26168225,
+        0.26168225,
+        0.26168225
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2f08985f5b2c0972",
+      "name": "BrickHouses · Building_14 · 模型 0.16 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_14.glb",
+      "position": [
+        -2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34198595,
+        0.34198595,
+        0.34198595
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d0d3bac331c10d7d",
+      "name": "BrickHouses · Building_15 · 模型 0.17 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_15.glb",
+      "position": [
+        -22,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25028,
+        0.25028,
+        0.25028
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c2c214b3922a043d",
+      "name": "BrickHouses · Building_16 · 模型 0.07 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_16.glb",
+      "position": [
+        -17.99999985,
+        0,
+        7.99999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3095739,
+        0.3095739,
+        0.3095739
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6ae6b84a104f8eb7",
+      "name": "BrickHouses · Building_17 · 模型 0.20 MiB · 贴图 0.47 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_17.glb",
+      "position": [
+        -14,
+        0,
+        8.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27772825,
+        0.27772825,
+        0.27772825
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0d57b4f4058947a3",
+      "name": "BrickHouses · Building_18 · 模型 0.20 MiB · 贴图 0.43 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_18.glb",
+      "position": [
+        -10,
+        0,
+        8.00000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3445996,
+        0.3445996,
+        0.3445996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-05ac6bc36ff41106",
+      "name": "BrickHouses · Building_19 · 模型 0.21 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_19.glb",
+      "position": [
+        -6,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27647602,
+        0.27647602,
+        0.27647602
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a4cea80cc1251d46",
+      "name": "BrickHouses · Building_2 · 模型 0.20 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_2.glb",
+      "position": [
+        -2.00000004,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18122977,
+        0.18122977,
+        0.18122977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0461098423925a1c",
+      "name": "BrickHouses · Building_20 · 模型 0.17 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_20.glb",
+      "position": [
+        -22,
+        0,
+        3.99999964
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25368133,
+        0.25368133,
+        0.25368133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-61f21690b632e349",
+      "name": "BrickHouses · Building_21 · 模型 0.19 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_21.glb",
+      "position": [
+        -18,
+        0,
+        3.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27993112,
+        0.27993112,
+        0.27993112
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-69708fc3bbb9f24a",
+      "name": "BrickHouses · Building_22 · 模型 0.16 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_22.glb",
+      "position": [
+        -13.99999993,
+        0,
+        4.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27317073,
+        0.27317073,
+        0.27317073
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-25238346bc42a2ba",
+      "name": "BrickHouses · Building_23 · 模型 0.48 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_23.glb",
+      "position": [
+        -10,
+        0,
+        3.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18064503,
+        0.18064503,
+        0.18064503
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9586babfc36b0f0d",
+      "name": "BrickHouses · Building_24 · 模型 0.14 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_24.glb",
+      "position": [
+        -6,
+        0,
+        3.99999958
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34836832,
+        0.34836832,
+        0.34836832
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0f33d397427413f8",
+      "name": "BrickHouses · Building_25 · 模型 0.05 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_25.glb",
+      "position": [
+        -2,
+        0,
+        4.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39453181,
+        0.39453181,
+        0.39453181
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-99884d734df908f8",
+      "name": "BrickHouses · Building_26 · 模型 0.13 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_26.glb",
+      "position": [
+        -22,
+        0,
+        -7e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28,
+        0.28,
+        0.28
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-093a11d6c811ecf2",
+      "name": "BrickHouses · Building_27 · 模型 0.34 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_27.glb",
+      "position": [
+        -18.00000006,
+        0,
+        3e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24806266,
+        0.24806266,
+        0.24806266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e745abeb638be603",
+      "name": "BrickHouses · Building_28 · 模型 0.17 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_28.glb",
+      "position": [
+        -14,
+        0,
+        -2.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21538462,
+        0.21538462,
+        0.21538462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b4d096de29504a29",
+      "name": "BrickHouses · Building_29 · 模型 0.13 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_29.glb",
+      "position": [
+        -9.99999993,
+        0,
+        1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27772826,
+        0.27772826,
+        0.27772826
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-62005ceb5a828dc7",
+      "name": "BrickHouses · Building_3 · 模型 0.14 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_3.glb",
+      "position": [
+        -6.00000004,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29473684,
+        0.29473684,
+        0.29473684
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9388e2ea0cd2134b",
+      "name": "BrickHouses · Building_30 · 模型 0.20 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_30.glb",
+      "position": [
+        -1.99999894,
+        0,
+        1.3e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27772828,
+        0.27772828,
+        0.27772828
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-68d1473bfb9fe34f",
+      "name": "BrickHouses · Building_31 · 模型 0.13 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_31.glb",
+      "position": [
+        -22.00000099,
+        0,
+        -3.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27772826,
+        0.27772826,
+        0.27772826
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d739f187fae4be93",
+      "name": "BrickHouses · Building_4 · 模型 0.18 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_4.glb",
+      "position": [
+        -18.00000005,
+        0,
+        -3.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2295082,
+        0.2295082,
+        0.2295082
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fdcaf7ee915c95b7",
+      "name": "BrickHouses · Building_5 · 模型 0.10 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_5.glb",
+      "position": [
+        -14,
+        0,
+        -3.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30469674,
+        0.30469674,
+        0.30469674
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9a69478d96400555",
+      "name": "BrickHouses · Building_6 · 模型 0.11 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_6.glb",
+      "position": [
+        -10.00000007,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29629629,
+        0.29629629,
+        0.29629629
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e0a81ff5675fffd1",
+      "name": "BrickHouses · Building_7 · 模型 0.40 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_7.glb",
+      "position": [
+        -6.00000004,
+        0,
+        -4.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18433829,
+        0.18433829,
+        0.18433829
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2ea7156cd04db29e",
+      "name": "BrickHouses · Building_8 · 模型 0.16 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_8.glb",
+      "position": [
+        -1.99999994,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25368131,
+        0.25368131,
+        0.25368131
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-075f5e3b6d85fdff",
+      "name": "BrickHouses · Building_9 · 模型 0.14 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-brickhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickHouses/Building_9.glb",
+      "position": [
+        -12.00000003,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25000001,
+        0.25000001,
+        0.25000001
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

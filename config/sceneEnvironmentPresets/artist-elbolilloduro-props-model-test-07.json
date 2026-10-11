@@ -1,0 +1,7822 @@
+{
+  "presetKey": "artist-elbolilloduro-props-model-test-07",
+  "name": "Elbolilloduro · 家具与生活道具 7/11（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-laundry",
+      "name": "Laundry",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-maquinas",
+      "name": "Maquinas",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 125
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-895f48e6711d6f9d-stand",
+      "name": "basket_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7f9effc84c01ecc3-stand",
+      "name": "basket_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9a1c085a06748515-stand",
+      "name": "basket_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-777125348fd517cf-stand",
+      "name": "Board展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-290552e4944488b5-stand",
+      "name": "building_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-91ae86fbbec5b272-stand",
+      "name": "building_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1904e6ef5f45c6d0-stand",
+      "name": "building_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5355b715ea9115b2-stand",
+      "name": "building_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-43454e90ce012bb6-stand",
+      "name": "building_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6cc30d6839110310-stand",
+      "name": "building_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fd122c5f67ccd7cd-stand",
+      "name": "building_03_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9536a28a82f20188-stand",
+      "name": "building_04展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-36420195d0e1b491-stand",
+      "name": "building_04展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-518ac76c8900249d-stand",
+      "name": "Cash_register展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1c930d6636a3df8e-stand",
+      "name": "Cash_register展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-da407b4a1bfe1fce-stand",
+      "name": "Checker展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-468084f0327d8000-stand",
+      "name": "Checker展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1a351a208945b441-stand",
+      "name": "Checker_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-638fd15688bdc850-stand",
+      "name": "Clock展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-208188e1fdb34670-stand",
+      "name": "Clock展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0bdd5c918f3c4433-stand",
+      "name": "clothes_line展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b3feffe37e0cf5b4-stand",
+      "name": "counter_bell展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-933c37b5ef5c5598-stand",
+      "name": "counter_bell展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a942bd958757fd82-stand",
+      "name": "Detergent_bottle_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1ba9feddb4ad814f-stand",
+      "name": "Detergent_bottle_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-af5345c028d0b4c2-stand",
+      "name": "Detergent_bottle_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dfe26a9072fb6350-stand",
+      "name": "Detergent_bottle_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-32b78ca49bff0273-stand",
+      "name": "Detergent_bottle_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7a82030cca75c98f-stand",
+      "name": "Detergent_bottle_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d2cb452611d595e9-stand",
+      "name": "Detergent_bottle_03_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f71f22926268ccd8-stand",
+      "name": "Detergent_bottle_04展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a06d01209b95a6dc-stand",
+      "name": "Detergent_bottle_04展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dd2c800e2cf6c344-stand",
+      "name": "Door展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-55da271d2d77d343-stand",
+      "name": "DoorsWood展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-00b7b7100b49929e-stand",
+      "name": "Extinguisher展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e4fecddd2680d367-stand",
+      "name": "Extinguisher展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b46f664f44aae49b-stand",
+      "name": "folded_clothes展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1a4d6533937c0918-stand",
+      "name": "folded_clothes_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-28a74f3f7d305cf6-stand",
+      "name": "folded_clothes_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0515d3f5f12a7bea-stand",
+      "name": "folded_clothes_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-94149dc21f5d98dc-stand",
+      "name": "folded_clothes_003展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0ea7f566706631b8-stand",
+      "name": "folded_clothes_004展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6e8151867305b967-stand",
+      "name": "frame_door展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3e8d6b6dcc75464b-stand",
+      "name": "frame_door_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c3b1dd175780ccc2-stand",
+      "name": "Garbage_bag展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9c8c2cd86758296c-stand",
+      "name": "Garbage_bag展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0313b4a327b91a89-stand",
+      "name": "Garbage_bag_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fd93bc078881d62c-stand",
+      "name": "Garbage_bag_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-43e22ddc2d315356-stand",
+      "name": "Garbage_bag_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2d613d0beab487ac-stand",
+      "name": "Garbage_bag_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-805b0d0e06469dc1-stand",
+      "name": "Glass展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bc833c99f4cfc31d-stand",
+      "name": "Glass_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-428eadeee6f26202-stand",
+      "name": "Glass_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a5ff6d43ec8d421e-stand",
+      "name": "Grove展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7199fc85d27c1205-stand",
+      "name": "Grove_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bf2b64dcee42ea4b-stand",
+      "name": "Grove_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7c75896d459a0027-stand",
+      "name": "hanging_clothes展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-eeaa34d8a8438fa5-stand",
+      "name": "hanging_clothes_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-35b0b7b1ce2f18fd-stand",
+      "name": "hanging_clothes_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c1fce710e6df9f13-stand",
+      "name": "lamp展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bae83ee1c5bf3500-stand",
+      "name": "lamp展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-560572db283023fb-stand",
+      "name": "Lamppost展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6be8c507830a65af-stand",
+      "name": "Lamppost_003展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-88f59152aa94d145-stand",
+      "name": "Lamppost_004展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-19948912854da7f1-stand",
+      "name": "Lamppost_005展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-26533df0d0382a07-stand",
+      "name": "Laundry_building展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-28746ceca315d79b-stand",
+      "name": "Laundry_cover展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9e7986aad6433664-stand",
+      "name": "Laundry_cover展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a1e9377e609efb0f-stand",
+      "name": "Laundry_cover_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b28ae1c549c5b146-stand",
+      "name": "Laundry_cover_004展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b8f7c83110f393a-stand",
+      "name": "Laundry_cover_006展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bbc65eb8ba684a57-stand",
+      "name": "Laundry_cover_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f07e602f46cc35af-stand",
+      "name": "Laundry_cover_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f11531c3f142a8d5-stand",
+      "name": "Laundry_cover_01_003展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f2fed06ac4703977-stand",
+      "name": "Laundry_cover_01_005展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-396233c8ffef9ef7-stand",
+      "name": "Laundry_S_conver展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-818b055e519ea50e-stand",
+      "name": "Laundry_S_conver_003_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c86e3425f0374931-stand",
+      "name": "Lines展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c7eda4905dd268b8-stand",
+      "name": "Lines_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-983f1b87939c609e-stand",
+      "name": "Lines_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-49e74c5d0b4ab51c-stand",
+      "name": "Lines_006展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c6cd55b56efe2fc-stand",
+      "name": "NurbsCurve展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-daa37e1695fbbfe9-stand",
+      "name": "plants_flowers_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-522c5a1aa6e71b89-stand",
+      "name": "plants_flowers_015展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bcb7f2ee5b5f480a-stand",
+      "name": "shelf_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5daf3028e1d53e17-stand",
+      "name": "shelf_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-518a6917ddfd2016-stand",
+      "name": "sidewalk展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-80a131649d76b8bb-stand",
+      "name": "sidewalk_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cc550395da69ef2f-stand",
+      "name": "sidewalk_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fcd59bc01a9aea16-stand",
+      "name": "sidewalk_003展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5f053206ab393665-stand",
+      "name": "sidewalk_004展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3a7b51718a448fb9-stand",
+      "name": "sidewalk_005展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-033bb287740bf9a7-stand",
+      "name": "sidewalk_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8db8640ae73848e7-stand",
+      "name": "sidewalk_01_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b40ecfdb42623f8-stand",
+      "name": "Sign_Laundry展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fad2b4ad5e5797fc-stand",
+      "name": "Soap_Box展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3cb49af4bdf69fb5-stand",
+      "name": "Soap_Box_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e6f2a5c6702529f4-stand",
+      "name": "Soap_Box_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6a52f04a47272247-stand",
+      "name": "Soap_Box_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d292bed2ffd7eead-stand",
+      "name": "Soap_Box_04展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9a995cfcbaf98ea1-stand",
+      "name": "Soap_Box_05展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8ea10fdda426a779-stand",
+      "name": "Softener展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-de4fab0910aa685c-stand",
+      "name": "Softener展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3f8cbef2c175fdc5-stand",
+      "name": "Softener_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2c125a2d0d409fb6-stand",
+      "name": "Softener_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aebe7df0bc57a450-stand",
+      "name": "Softener_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4a6d132b6146da01-stand",
+      "name": "Softener_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b93b96b57b4f2e95-stand",
+      "name": "Softener_04展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d287423e6f711e8e-stand",
+      "name": "Softener_05展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-413f406c4ac1d324-stand",
+      "name": "Softener_05展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3822ebe548003585-stand",
+      "name": "Table展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-844578b0a7b9f05b-stand",
+      "name": "Terrain展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2916fb45934058b0-stand",
+      "name": "Terrain_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8214cac96f50c033-stand",
+      "name": "Terrain_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-969a3682a7d4c1bc-stand",
+      "name": "Terrain_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2b771901a8598ef6-stand",
+      "name": "Terrain_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-00404e530c1950c5-stand",
+      "name": "Terrain_02_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0bb2b9b58254570d-stand",
+      "name": "Text展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-33165cdbb499e629-stand",
+      "name": "Text展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a935ec199952bd86-stand",
+      "name": "Text_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-42fe069724d7d003-stand",
+      "name": "Text_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-430e3910059bbd93-stand",
+      "name": "Text_007展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3bbd07fdd2a3672b-stand",
+      "name": "Text_007展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-62b63daae7833d69-stand",
+      "name": "TilesPlain展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-565978f79695122d-stand",
+      "name": "towels展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fb0b002f68dd1c2e-stand",
+      "name": "towels展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-074f8a2d6c49a269-stand",
+      "name": "towels_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-651ee465aec1e867-stand",
+      "name": "towels_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5d9cfa5564a5dbaa-stand",
+      "name": "towels_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8ab7748fbcfe7076-stand",
+      "name": "towels_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-83a86f389f803a28-stand",
+      "name": "towels_003展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-296a48415217d305-stand",
+      "name": "towels_003展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-861d14251a57d03d-stand",
+      "name": "towels_004展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-eee478db498e6f96-stand",
+      "name": "towels_005展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e2b7fdc6a42cf1eb-stand",
+      "name": "towels_006展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3722903bcbf11c30-stand",
+      "name": "trash_can展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b8b47f00b0939a23-stand",
+      "name": "trash_can展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9f13b4ea49ca4552-stand",
+      "name": "trash_can_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-699545ccb7a93c34-stand",
+      "name": "trash_can_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-16c6bbe48f3d6951-stand",
+      "name": "trash_can_Top_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-68c0ab162b5f5e3b-stand",
+      "name": "trash_can_Top_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-12125ed2640b54df-stand",
+      "name": "Tree展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3e2c9f0b9e784fc4-stand",
+      "name": "Tree展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8c1f1f29d16e0d0c-stand",
+      "name": "Tree_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bf7d79b933713949-stand",
+      "name": "Tree_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bbe10430a764debd-stand",
+      "name": "Tree_01_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cc410058155bf64f-stand",
+      "name": "Tree_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8775e7566a8ecf97-stand",
+      "name": "Tree_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e13a3efbb000392a-stand",
+      "name": "Tree_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6e3b6c9adcbfdb1c-stand",
+      "name": "Tree_03_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2d65ed7bf83a58e0-stand",
+      "name": "Tree_03_002展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3efb5d6a046395ec-stand",
+      "name": "Tree_03_003展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9a2b3537f24dd2d6-stand",
+      "name": "Tree_03_005展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f0ae368a0ac9eea7-stand",
+      "name": "Tree_03_013展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-15f9c2c22b49d796-stand",
+      "name": "Trees展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d500325e8c27f922-stand",
+      "name": "Trees_001展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a0f0b5beb0f8ebf9-stand",
+      "name": "Trees_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aa828b92ca0db17b-stand",
+      "name": "Trees_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a413f5fe7d86668b-stand",
+      "name": "Trees_03展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-991f5c0f18117be6-stand",
+      "name": "Trees_04展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f6e09cce9863fe97-stand",
+      "name": "Trees_05展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dd3f6ec130c2b30e-stand",
+      "name": "Trees_06展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-855f5a8103a70d07-stand",
+      "name": "Trees_07展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b1108096f6188999-stand",
+      "name": "Trees_08展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7978f98f16d91f42-stand",
+      "name": "Trees_09展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c99fa977769f1005-stand",
+      "name": "Trees_10展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1ec581b1cf0df32a-stand",
+      "name": "Trees_11展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2a018bbea688a69a-stand",
+      "name": "Trees_12展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3bb1f8cb184c5ca2-stand",
+      "name": "Trees_13展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e7d77ea23fde12ff-stand",
+      "name": "Trees_14展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d9fb5fd6191dcb54-stand",
+      "name": "Trees_15展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3e8e072795cfeeb8-stand",
+      "name": "Vending_machine展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bd086c14a6babf39-stand",
+      "name": "Water_dispenser展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f1cbee4d471bfde7-stand",
+      "name": "Window_frame展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ab72c0a2d97f6e24-stand",
+      "name": "Window_frame_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-44af4f69c9a47971-stand",
+      "name": "Window_frame_02展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-92a88b0b6eea4811-stand",
+      "name": "WoodPlanksClean展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0ccd9b808a990410-stand",
+      "name": "WoodPlanksClean_01展台",
+      "parentId": "transform:category-laundry",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4f23cbfdb9c40272-stand",
+      "name": "Cube展台",
+      "parentId": "transform:category-maquinas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        60
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8c85e2ad7232ce33-stand",
+      "name": "Cube_001展台",
+      "parentId": "transform:category-maquinas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        60
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-895f48e6711d6f9d",
+      "name": "Laundry · basket_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/basket_001_eddaa5b7.glb",
+      "position": [
+        -21.99999975,
+        0,
+        59.999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.19784218,
+        4.19784218,
+        4.19784218
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7f9effc84c01ecc3",
+      "name": "Laundry · basket_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/basket_001_f94786ab.glb",
+      "position": [
+        -18,
+        0,
+        59.999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.19784218,
+        4.19784218,
+        4.19784218
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a1c085a06748515",
+      "name": "Laundry · basket_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/basket_002_3ce48149.glb",
+      "position": [
+        -14,
+        0,
+        59.9999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.50770717,
+        4.50770717,
+        4.50770717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-777125348fd517cf",
+      "name": "Laundry · Board",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Board_0de39e73.glb",
+      "position": [
+        -9.99999978,
+        0,
+        60.00000089
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86224774,
+        1.86224774,
+        1.86224774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-290552e4944488b5",
+      "name": "Laundry · building_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_001_dd2fa22f.glb",
+      "position": [
+        -6,
+        0,
+        60
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09566464,
+        0.09566464,
+        0.09566464
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-91ae86fbbec5b272",
+      "name": "Laundry · building_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_002_7c5e4c0c.glb",
+      "position": [
+        -2,
+        0,
+        60
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.05504756,
+        0.05504756,
+        0.05504756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1904e6ef5f45c6d0",
+      "name": "Laundry · building_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_01_60d78f24.glb",
+      "position": [
+        -22,
+        0,
+        55.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09920994,
+        0.09920994,
+        0.09920994
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5355b715ea9115b2",
+      "name": "Laundry · building_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_02_0662b93f.glb",
+      "position": [
+        -17.99999998,
+        0,
+        56.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07276367,
+        0.07276367,
+        0.07276367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-43454e90ce012bb6",
+      "name": "Laundry · building_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_02_9002cdb7.glb",
+      "position": [
+        -14.00000014,
+        0,
+        56
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07276367,
+        0.07276367,
+        0.07276367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6cc30d6839110310",
+      "name": "Laundry · building_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_03_e809eb27.glb",
+      "position": [
+        -10.00000005,
+        0,
+        56.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1930305,
+        0.1930305,
+        0.1930305
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fd122c5f67ccd7cd",
+      "name": "Laundry · building_03_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_03_001_a486a5d2.glb",
+      "position": [
+        -6.00000037,
+        0,
+        56
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19303052,
+        0.19303052,
+        0.19303052
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9536a28a82f20188",
+      "name": "Laundry · building_04",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_04_16a6e143.glb",
+      "position": [
+        -1.99999996,
+        0,
+        56
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07870602,
+        0.07870602,
+        0.07870602
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-36420195d0e1b491",
+      "name": "Laundry · building_04",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/building_04_5a8e19e5.glb",
+      "position": [
+        -22,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07870602,
+        0.07870602,
+        0.07870602
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-518ac76c8900249d",
+      "name": "Laundry · Cash_register",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Cash_register_4cb2b1d6.glb",
+      "position": [
+        -18,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.59392278,
+        4.59392278,
+        4.59392278
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1c930d6636a3df8e",
+      "name": "Laundry · Cash_register",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Cash_register_7ca2b727.glb",
+      "position": [
+        -14,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.59393176,
+        4.59393176,
+        4.59393176
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-da407b4a1bfe1fce",
+      "name": "Laundry · Checker",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Checker_44502e61.glb",
+      "position": [
+        -9.99999984,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.23674086,
+        5.23674086,
+        5.23674086
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-468084f0327d8000",
+      "name": "Laundry · Checker",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Checker_da11756d.glb",
+      "position": [
+        -6,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.23674086,
+        5.23674086,
+        5.23674086
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1a351a208945b441",
+      "name": "Laundry · Checker_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Checker_01_f0be2dbf.glb",
+      "position": [
+        -2,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8380912,
+        2.8380912,
+        2.8380912
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-638fd15688bdc850",
+      "name": "Laundry · Clock",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Clock_32093983.glb",
+      "position": [
+        -22,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68579697,
+        3.68579697,
+        3.68579697
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-208188e1fdb34670",
+      "name": "Laundry · Clock",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Clock_8783753e.glb",
+      "position": [
+        -18,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68579119,
+        3.68579119,
+        3.68579119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0bdd5c918f3c4433",
+      "name": "Laundry · clothes_line",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/clothes_line_b7d31359.glb",
+      "position": [
+        -13.99999971,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44133894,
+        2.44133894,
+        2.44133894
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b3feffe37e0cf5b4",
+      "name": "Laundry · counter_bell",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/counter_bell_48a60b41.glb",
+      "position": [
+        -9.99999879,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.15331157,
+        10.15331157,
+        10.15331157
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-933c37b5ef5c5598",
+      "name": "Laundry · counter_bell",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/counter_bell_e326d34d.glb",
+      "position": [
+        -6,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.15331157,
+        10.15331157,
+        10.15331157
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a942bd958757fd82",
+      "name": "Laundry · Detergent_bottle_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_01_429ff8b0.glb",
+      "position": [
+        -2,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.66551641,
+        7.66551641,
+        7.66551641
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ba9feddb4ad814f",
+      "name": "Laundry · Detergent_bottle_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_01_9510a69c.glb",
+      "position": [
+        -22,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.66551704,
+        7.66551704,
+        7.66551704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-af5345c028d0b4c2",
+      "name": "Laundry · Detergent_bottle_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_02_03fdaca4.glb",
+      "position": [
+        -18.00000044,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.39139759,
+        7.39139759,
+        7.39139759
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dfe26a9072fb6350",
+      "name": "Laundry · Detergent_bottle_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_02_0f3916ad.glb",
+      "position": [
+        -14,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.39139759,
+        7.39139759,
+        7.39139759
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-32b78ca49bff0273",
+      "name": "Laundry · Detergent_bottle_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_03_5249f71c.glb",
+      "position": [
+        -10,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.21523428,
+        8.21523428,
+        8.21523428
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7a82030cca75c98f",
+      "name": "Laundry · Detergent_bottle_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_03_ce34fe5a.glb",
+      "position": [
+        -6,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.21523428,
+        8.21523428,
+        8.21523428
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d2cb452611d595e9",
+      "name": "Laundry · Detergent_bottle_03_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_03_01_6fe0660d.glb",
+      "position": [
+        -2,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.21523141,
+        8.21523141,
+        8.21523141
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f71f22926268ccd8",
+      "name": "Laundry · Detergent_bottle_04",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_04_4aea844b.glb",
+      "position": [
+        -22.00000012,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.71865113,
+        7.71865113,
+        7.71865113
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a06d01209b95a6dc",
+      "name": "Laundry · Detergent_bottle_04",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Detergent_bottle_04_90414083.glb",
+      "position": [
+        -18,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.71865177,
+        7.71865177,
+        7.71865177
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd2c800e2cf6c344",
+      "name": "Laundry · Door",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Door_7f5e690e.glb",
+      "position": [
+        -14.00000025,
+        0,
+        40.00000102
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06466489,
+        1.06466489,
+        1.06466489
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-55da271d2d77d343",
+      "name": "Laundry · DoorsWood",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/DoorsWood_3aa202e0.glb",
+      "position": [
+        -10,
+        0,
+        40.00000101
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06307771,
+        1.06307771,
+        1.06307771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-00b7b7100b49929e",
+      "name": "Laundry · Extinguisher",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Extinguisher_3855e8ff.glb",
+      "position": [
+        -6,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.10191567,
+        4.10191567,
+        4.10191567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e4fecddd2680d367",
+      "name": "Laundry · Extinguisher",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Extinguisher_c7b65926.glb",
+      "position": [
+        -2,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.10191567,
+        4.10191567,
+        4.10191567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b46f664f44aae49b",
+      "name": "Laundry · folded_clothes",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/folded_clothes_d9a7c181.glb",
+      "position": [
+        -21.99999981,
+        0,
+        36.00000301
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.32135247,
+        6.32135247,
+        6.32135247
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1a4d6533937c0918",
+      "name": "Laundry · folded_clothes_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/folded_clothes_001_3405170b.glb",
+      "position": [
+        -18,
+        0,
+        36.00000425
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.92049913,
+        8.92049913,
+        8.92049913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-28a74f3f7d305cf6",
+      "name": "Laundry · folded_clothes_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/folded_clothes_002_0dd72d85.glb",
+      "position": [
+        -14.00000801,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.39482467,
+        8.39482467,
+        8.39482467
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0515d3f5f12a7bea",
+      "name": "Laundry · folded_clothes_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/folded_clothes_002_4725b4c0.glb",
+      "position": [
+        -10.00000025,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.39482392,
+        8.39482392,
+        8.39482392
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-94149dc21f5d98dc",
+      "name": "Laundry · folded_clothes_003",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/folded_clothes_003_dbb3bbd5.glb",
+      "position": [
+        -6.00000039,
+        0,
+        36.00000311
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.51227323,
+        6.51227323,
+        6.51227323
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0ea7f566706631b8",
+      "name": "Laundry · folded_clothes_004",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/folded_clothes_004_3e511cef.glb",
+      "position": [
+        -1.99999985,
+        0,
+        36.0000049
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.2719925,
+        10.2719925,
+        10.2719925
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6e8151867305b967",
+      "name": "Laundry · frame_door",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/frame_door_d114cc9f.glb",
+      "position": [
+        -21.99999975,
+        0,
+        32.00000099
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03970039,
+        1.03970039,
+        1.03970039
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e8d6b6dcc75464b",
+      "name": "Laundry · frame_door_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/frame_door_01_6c7dacdc.glb",
+      "position": [
+        -18,
+        0,
+        31.99999901
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03970039,
+        1.03970039,
+        1.03970039
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c3b1dd175780ccc2",
+      "name": "Laundry · Garbage_bag",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Garbage_bag_0f8ecab9.glb",
+      "position": [
+        -14,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.80707923,
+        5.80707923,
+        5.80707923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9c8c2cd86758296c",
+      "name": "Laundry · Garbage_bag",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Garbage_bag_4d309dd6.glb",
+      "position": [
+        -10,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.80707923,
+        5.80707923,
+        5.80707923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0313b4a327b91a89",
+      "name": "Laundry · Garbage_bag_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Garbage_bag_01_d141b7ef.glb",
+      "position": [
+        -5.99999928,
+        0,
+        31.99999714
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.00140386,
+        6.00140386,
+        6.00140386
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fd93bc078881d62c",
+      "name": "Laundry · Garbage_bag_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Garbage_bag_01_d7a48c5b.glb",
+      "position": [
+        -2,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.00141613,
+        6.00141613,
+        6.00141613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-43e22ddc2d315356",
+      "name": "Laundry · Garbage_bag_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Garbage_bag_02_1b75abf9.glb",
+      "position": [
+        -22,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.06586423,
+        5.06586423,
+        5.06586423
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d613d0beab487ac",
+      "name": "Laundry · Garbage_bag_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Garbage_bag_02_8e04128c.glb",
+      "position": [
+        -18,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.11930367,
+        5.11930367,
+        5.11930367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-805b0d0e06469dc1",
+      "name": "Laundry · Glass",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Glass_e5708dbc.glb",
+      "position": [
+        -14,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16171547,
+        1.16171547,
+        1.16171547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bc833c99f4cfc31d",
+      "name": "Laundry · Glass_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Glass_001_d24db9df.glb",
+      "position": [
+        -10,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50682918,
+        0.50682918,
+        0.50682918
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-428eadeee6f26202",
+      "name": "Laundry · Glass_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Glass_002_74f6d9a2.glb",
+      "position": [
+        -6.00000012,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.99633149,
+        0.99633149,
+        0.99633149
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a5ff6d43ec8d421e",
+      "name": "Laundry · Grove",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Grove_3a2a9d04.glb",
+      "position": [
+        -2,
+        0,
+        28.00000031
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1633228,
+        0.1633228,
+        0.1633228
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7199fc85d27c1205",
+      "name": "Laundry · Grove_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Grove_001_0cd27a68.glb",
+      "position": [
+        -22,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.05554156,
+        0.05554156,
+        0.05554156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bf2b64dcee42ea4b",
+      "name": "Laundry · Grove_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Grove_002_4ea32959.glb",
+      "position": [
+        -18,
+        0,
+        23.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16252561,
+        0.16252561,
+        0.16252561
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7c75896d459a0027",
+      "name": "Laundry · hanging_clothes",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/hanging_clothes_21b2f874.glb",
+      "position": [
+        -14,
+        0,
+        23.99999822
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86453525,
+        1.86453525,
+        1.86453525
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eeaa34d8a8438fa5",
+      "name": "Laundry · hanging_clothes_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/hanging_clothes_001_803e6d9f.glb",
+      "position": [
+        -10,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.17364047,
+        2.17364047,
+        2.17364047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-35b0b7b1ce2f18fd",
+      "name": "Laundry · hanging_clothes_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/hanging_clothes_002_a07c1b96.glb",
+      "position": [
+        -6,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.17364047,
+        2.17364047,
+        2.17364047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c1fce710e6df9f13",
+      "name": "Laundry · lamp",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/lamp_74ba92b9.glb",
+      "position": [
+        -2,
+        0,
+        23.99999834
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73729185,
+        1.73729185,
+        1.73729185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bae83ee1c5bf3500",
+      "name": "Laundry · lamp",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/lamp_a2cde77b.glb",
+      "position": [
+        -22,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7372939,
+        1.7372939,
+        1.7372939
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-560572db283023fb",
+      "name": "Laundry · Lamppost",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Lamppost_33bc5f19.glb",
+      "position": [
+        -18,
+        0,
+        19.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32390163,
+        0.32390163,
+        0.32390163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6be8c507830a65af",
+      "name": "Laundry · Lamppost_003",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Lamppost_003_adcd156a.glb",
+      "position": [
+        -13.99999992,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0393907,
+        0.0393907,
+        0.0393907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-88f59152aa94d145",
+      "name": "Laundry · Lamppost_004",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Lamppost_004_2784087c.glb",
+      "position": [
+        -10,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02929488,
+        0.02929488,
+        0.02929488
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-19948912854da7f1",
+      "name": "Laundry · Lamppost_005",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Lamppost_005_7cf75357.glb",
+      "position": [
+        -6,
+        0,
+        20.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04058912,
+        0.04058912,
+        0.04058912
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-26533df0d0382a07",
+      "name": "Laundry · Laundry_building",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_building_d2e2943e.glb",
+      "position": [
+        -2,
+        0,
+        20.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16773115,
+        0.16773115,
+        0.16773115
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-28746ceca315d79b",
+      "name": "Laundry · Laundry_cover",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_1001193b.glb",
+      "position": [
+        -22,
+        0,
+        16.00000206
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406628,
+        2.16406628,
+        2.16406628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9e7986aad6433664",
+      "name": "Laundry · Laundry_cover",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_12dacb4a.glb",
+      "position": [
+        -18,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406628,
+        2.16406628,
+        2.16406628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a1e9377e609efb0f",
+      "name": "Laundry · Laundry_cover_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_001_934cf3eb.glb",
+      "position": [
+        -14,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406628,
+        2.16406628,
+        2.16406628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b28ae1c549c5b146",
+      "name": "Laundry · Laundry_cover_004",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_004_910e85c9.glb",
+      "position": [
+        -10,
+        0,
+        16.00000206
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406628,
+        2.16406628,
+        2.16406628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b8f7c83110f393a",
+      "name": "Laundry · Laundry_cover_006",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_006_8a89ac52.glb",
+      "position": [
+        -6.00000013,
+        0,
+        16.00000206
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406588,
+        2.16406588,
+        2.16406588
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bbc65eb8ba684a57",
+      "name": "Laundry · Laundry_cover_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_01_b9817cdf.glb",
+      "position": [
+        -2,
+        0,
+        16.00000206
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406628,
+        2.16406628,
+        2.16406628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f07e602f46cc35af",
+      "name": "Laundry · Laundry_cover_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_01_bf499580.glb",
+      "position": [
+        -22.00000052,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406628,
+        2.16406628,
+        2.16406628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f11531c3f142a8d5",
+      "name": "Laundry · Laundry_cover_01_003",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_01_003_515196b4.glb",
+      "position": [
+        -18,
+        0,
+        11.99999794
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406588,
+        2.16406588,
+        2.16406588
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f2fed06ac4703977",
+      "name": "Laundry · Laundry_cover_01_005",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_cover_01_005_4eba96a6.glb",
+      "position": [
+        -13.99999997,
+        0,
+        11.99999794
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16406628,
+        2.16406628,
+        2.16406628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-396233c8ffef9ef7",
+      "name": "Laundry · Laundry_S_conver",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_S_conver_b1f8bd25.glb",
+      "position": [
+        -10.00000014,
+        0,
+        12.00000115
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20201677,
+        1.20201677,
+        1.20201677
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-818b055e519ea50e",
+      "name": "Laundry · Laundry_S_conver_003_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Laundry_S_conver_003_001_3444a70d.glb",
+      "position": [
+        -6,
+        0,
+        11.99999885
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20201689,
+        1.20201689,
+        1.20201689
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c86e3425f0374931",
+      "name": "Laundry · Lines",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Lines_80b85a68.glb",
+      "position": [
+        -2.0000001,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.05223944,
+        0.05223944,
+        0.05223944
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c7eda4905dd268b8",
+      "name": "Laundry · Lines_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Lines_001_aac5e420.glb",
+      "position": [
+        -22.00000005,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21276405,
+        0.21276405,
+        0.21276405
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-983f1b87939c609e",
+      "name": "Laundry · Lines_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Lines_002_327cd511.glb",
+      "position": [
+        -18,
+        0,
+        8.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19457063,
+        0.19457063,
+        0.19457063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-49e74c5d0b4ab51c",
+      "name": "Laundry · Lines_006",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Lines_006_95ea9c92.glb",
+      "position": [
+        -13.99999952,
+        0,
+        7.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25039177,
+        0.25039177,
+        0.25039177
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c6cd55b56efe2fc",
+      "name": "Laundry · NurbsCurve",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/NurbsCurve_f3b08bf3.glb",
+      "position": [
+        -9.99999962,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.584704,
+        1.584704,
+        1.584704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-daa37e1695fbbfe9",
+      "name": "Laundry · plants_flowers_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/plants_flowers_002_61ef906f.glb",
+      "position": [
+        -6,
+        0,
+        7.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67881609,
+        0.67881609,
+        0.67881609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-522c5a1aa6e71b89",
+      "name": "Laundry · plants_flowers_015",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/plants_flowers_015_05a2e50b.glb",
+      "position": [
+        -1.99999869,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6873056,
+        0.6873056,
+        0.6873056
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bcb7f2ee5b5f480a",
+      "name": "Laundry · shelf_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/shelf_01_a6b19c67.glb",
+      "position": [
+        -22,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89787567,
+        0.89787567,
+        0.89787567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5daf3028e1d53e17",
+      "name": "Laundry · shelf_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/shelf_02_535ea892.glb",
+      "position": [
+        -18.00000021,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89787532,
+        0.89787532,
+        0.89787532
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-518a6917ddfd2016",
+      "name": "Laundry · sidewalk",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/sidewalk_738bfa56.glb",
+      "position": [
+        -14,
+        0,
+        4.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17926246,
+        0.17926246,
+        0.17926246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-80a131649d76b8bb",
+      "name": "Laundry · sidewalk_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/sidewalk_001_1a4a56f2.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07986527,
+        0.07986527,
+        0.07986527
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cc550395da69ef2f",
+      "name": "Laundry · sidewalk_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/sidewalk_002_daa3f440.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04813426,
+        0.04813426,
+        0.04813426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fcd59bc01a9aea16",
+      "name": "Laundry · sidewalk_003",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/sidewalk_003_f1a6fd19.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04796816,
+        0.04796816,
+        0.04796816
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5f053206ab393665",
+      "name": "Laundry · sidewalk_004",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/sidewalk_004_b67e74ac.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.01206774,
+        0.01206774,
+        0.01206774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3a7b51718a448fb9",
+      "name": "Laundry · sidewalk_005",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/sidewalk_005_f41cf684.glb",
+      "position": [
+        -18,
+        0,
+        4e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02144666,
+        0.02144666,
+        0.02144666
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-033bb287740bf9a7",
+      "name": "Laundry · sidewalk_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/sidewalk_01_46ab5111.glb",
+      "position": [
+        -14,
+        0,
+        4e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02146117,
+        0.02146117,
+        0.02146117
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8db8640ae73848e7",
+      "name": "Laundry · sidewalk_01_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/sidewalk_01_001_a282263a.glb",
+      "position": [
+        -10.00000022,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02873907,
+        0.02873907,
+        0.02873907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b40ecfdb42623f8",
+      "name": "Laundry · Sign_Laundry",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Sign_Laundry_dacd7548.glb",
+      "position": [
+        -5.99999995,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39725387,
+        0.39725387,
+        0.39725387
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fad2b4ad5e5797fc",
+      "name": "Laundry · Soap_Box",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Soap_Box_fcbac22f.glb",
+      "position": [
+        -2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.16113291,
+        7.16113291,
+        7.16113291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3cb49af4bdf69fb5",
+      "name": "Laundry · Soap_Box_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Soap_Box_01_6aacd9b1.glb",
+      "position": [
+        -22,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.16113291,
+        7.16113291,
+        7.16113291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e6f2a5c6702529f4",
+      "name": "Laundry · Soap_Box_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Soap_Box_02_de6d8b5f.glb",
+      "position": [
+        -18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.16113291,
+        7.16113291,
+        7.16113291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6a52f04a47272247",
+      "name": "Laundry · Soap_Box_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Soap_Box_03_263ddd24.glb",
+      "position": [
+        -14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.16113291,
+        7.16113291,
+        7.16113291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d292bed2ffd7eead",
+      "name": "Laundry · Soap_Box_04",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Soap_Box_04_d078b23a.glb",
+      "position": [
+        -10,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.16113291,
+        7.16113291,
+        7.16113291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a995cfcbaf98ea1",
+      "name": "Laundry · Soap_Box_05",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Soap_Box_05_645f367d.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.16113291,
+        7.16113291,
+        7.16113291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8ea10fdda426a779",
+      "name": "Laundry · Softener",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_42f862a0.glb",
+      "position": [
+        -2,
+        0,
+        -4.00000766
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.03595857,
+        8.03595857,
+        8.03595857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-de4fab0910aa685c",
+      "name": "Laundry · Softener",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_90255845.glb",
+      "position": [
+        -21.99999234,
+        0,
+        -8.00000383
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.03595788,
+        8.03595788,
+        8.03595788
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3f8cbef2c175fdc5",
+      "name": "Laundry · Softener_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_01_b3858f84.glb",
+      "position": [
+        -18,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.05390892,
+        7.05390892,
+        7.05390892
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2c125a2d0d409fb6",
+      "name": "Laundry · Softener_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_01_e178fafa.glb",
+      "position": [
+        -14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.05390998,
+        7.05390998,
+        7.05390998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aebe7df0bc57a450",
+      "name": "Laundry · Softener_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_03_4665b8bc.glb",
+      "position": [
+        -10,
+        0,
+        -8.00000243
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.09783576,
+        5.09783576,
+        5.09783576
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4a6d132b6146da01",
+      "name": "Laundry · Softener_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_03_5255bb40.glb",
+      "position": [
+        -5.99999939,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.09783632,
+        5.09783632,
+        5.09783632
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b93b96b57b4f2e95",
+      "name": "Laundry · Softener_04",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_04_c89e2dcd.glb",
+      "position": [
+        -2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.60864369,
+        5.60864369,
+        5.60864369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d287423e6f711e8e",
+      "name": "Laundry · Softener_05",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_05_339da5cd.glb",
+      "position": [
+        -22,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.0725823,
+        7.0725823,
+        7.0725823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-413f406c4ac1d324",
+      "name": "Laundry · Softener_05",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Softener_05_a449b94e.glb",
+      "position": [
+        -18.00000042,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.07258017,
+        7.07258017,
+        7.07258017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3822ebe548003585",
+      "name": "Laundry · Table",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Table_3776bb50.glb",
+      "position": [
+        -14.00000005,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73424031,
+        1.73424031,
+        1.73424031
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-844578b0a7b9f05b",
+      "name": "Laundry · Terrain",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Terrain_82b5ff8d.glb",
+      "position": [
+        -10,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.01211149,
+        0.01211149,
+        0.01211149
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2916fb45934058b0",
+      "name": "Laundry · Terrain_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Terrain_001_121b45aa.glb",
+      "position": [
+        -6,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02873907,
+        0.02873907,
+        0.02873907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8214cac96f50c033",
+      "name": "Laundry · Terrain_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Terrain_002_3fe8c58a.glb",
+      "position": [
+        -2,
+        0,
+        -12.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02873907,
+        0.02873907,
+        0.02873907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-969a3682a7d4c1bc",
+      "name": "Laundry · Terrain_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Terrain_01_8e4fc471.glb",
+      "position": [
+        -22,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.01206774,
+        0.01206774,
+        0.01206774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2b771901a8598ef6",
+      "name": "Laundry · Terrain_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Terrain_02_a52ebbdf.glb",
+      "position": [
+        -17.99999992,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02175009,
+        0.02175009,
+        0.02175009
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-00404e530c1950c5",
+      "name": "Laundry · Terrain_02_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Terrain_02_001_2fe1cc63.glb",
+      "position": [
+        -14,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0287115,
+        0.0287115,
+        0.0287115
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0bb2b9b58254570d",
+      "name": "Laundry · Text",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Text_a039b8a2.glb",
+      "position": [
+        -10,
+        0,
+        -16.00000041
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43215744,
+        0.43215744,
+        0.43215744
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-33165cdbb499e629",
+      "name": "Laundry · Text",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Text_dbdec3f7.glb",
+      "position": [
+        -6,
+        0,
+        -15.99999959
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43215744,
+        0.43215744,
+        0.43215744
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a935ec199952bd86",
+      "name": "Laundry · Text_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Text_002_2876a5c1.glb",
+      "position": [
+        -2,
+        0,
+        -15.99999728
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.85255281,
+        2.85255281,
+        2.85255281
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-42fe069724d7d003",
+      "name": "Laundry · Text_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Text_002_293a858a.glb",
+      "position": [
+        -22,
+        0,
+        -20.00000272
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.85255281,
+        2.85255281,
+        2.85255281
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-430e3910059bbd93",
+      "name": "Laundry · Text_007",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Text_007_4e650eac.glb",
+      "position": [
+        -18,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.22796265,
+        3.22796265,
+        3.22796265
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3bbd07fdd2a3672b",
+      "name": "Laundry · Text_007",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Text_007_db009330.glb",
+      "position": [
+        -14,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.22796265,
+        3.22796265,
+        3.22796265
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-62b63daae7833d69",
+      "name": "Laundry · TilesPlain",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/TilesPlain_780345da.glb",
+      "position": [
+        -10,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19965732,
+        0.19965732,
+        0.19965732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-565978f79695122d",
+      "name": "Laundry · towels",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_8203c137.glb",
+      "position": [
+        -6,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.62466058,
+        7.62466058,
+        7.62466058
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fb0b002f68dd1c2e",
+      "name": "Laundry · towels",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_e806e362.glb",
+      "position": [
+        -2,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.62462098,
+        7.62462098,
+        7.62462098
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-074f8a2d6c49a269",
+      "name": "Laundry · towels_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_001_586e3666.glb",
+      "position": [
+        -22,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.74134323,
+        7.74134323,
+        7.74134323
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-651ee465aec1e867",
+      "name": "Laundry · towels_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_001_c8b1836e.glb",
+      "position": [
+        -18.00000092,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.74138406,
+        7.74138406,
+        7.74138406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5d9cfa5564a5dbaa",
+      "name": "Laundry · towels_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_002_68beb32d.glb",
+      "position": [
+        -14,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.68941057,
+        8.68941057,
+        8.68941057
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8ab7748fbcfe7076",
+      "name": "Laundry · towels_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_002_798520fa.glb",
+      "position": [
+        -10,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.68935913,
+        8.68935913,
+        8.68935913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-83a86f389f803a28",
+      "name": "Laundry · towels_003",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_003_27ab5050.glb",
+      "position": [
+        -6.00000829,
+        0,
+        -24.00000414
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.68935913,
+        8.68935913,
+        8.68935913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-296a48415217d305",
+      "name": "Laundry · towels_003",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_003_6f2cd175.glb",
+      "position": [
+        -1.99999994,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.68935913,
+        8.68935913,
+        8.68935913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-861d14251a57d03d",
+      "name": "Laundry · towels_004",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_004_2020c109.glb",
+      "position": [
+        -22,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.61137761,
+        7.61137761,
+        7.61137761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eee478db498e6f96",
+      "name": "Laundry · towels_005",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_005_26fb0911.glb",
+      "position": [
+        -18.00000045,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.61137761,
+        7.61137761,
+        7.61137761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e2b7fdc6a42cf1eb",
+      "name": "Laundry · towels_006",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/towels_006_100f1954.glb",
+      "position": [
+        -14,
+        0,
+        -27.99999658
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.16305092,
+        7.16305092,
+        7.16305092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3722903bcbf11c30",
+      "name": "Laundry · trash_can",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/trash_can_6a9a8e41.glb",
+      "position": [
+        -10.00000067,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.82952521,
+        2.82952521,
+        2.82952521
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b8b47f00b0939a23",
+      "name": "Laundry · trash_can",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/trash_can_7189ed4e.glb",
+      "position": [
+        -6,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.82952521,
+        2.82952521,
+        2.82952521
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9f13b4ea49ca4552",
+      "name": "Laundry · trash_can_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/trash_can_01_69a3a424.glb",
+      "position": [
+        -2,
+        0,
+        -28.00000171
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.58011948,
+        3.58011948,
+        3.58011948
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-699545ccb7a93c34",
+      "name": "Laundry · trash_can_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/trash_can_01_e4c09c1b.glb",
+      "position": [
+        -22.00000341,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.58012003,
+        3.58012003,
+        3.58012003
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-16c6bbe48f3d6951",
+      "name": "Laundry · trash_can_Top_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/trash_can_Top_01_362be459.glb",
+      "position": [
+        -18,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.2476315,
+        4.2476315,
+        4.2476315
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-68c0ab162b5f5e3b",
+      "name": "Laundry · trash_can_Top_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/trash_can_Top_01_d125eb31.glb",
+      "position": [
+        -14.00000405,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.24762996,
+        4.24762996,
+        4.24762996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-12125ed2640b54df",
+      "name": "Laundry · Tree",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_19221914.glb",
+      "position": [
+        -9.99999997,
+        0,
+        -31.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22784094,
+        0.22784094,
+        0.22784094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e2c9f0b9e784fc4",
+      "name": "Laundry · Tree",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_3fa3fe32.glb",
+      "position": [
+        -6.00000022,
+        0,
+        -32.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2278409,
+        0.2278409,
+        0.2278409
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c1f1f29d16e0d0c",
+      "name": "Laundry · Tree_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_01_9fc7a699.glb",
+      "position": [
+        -2,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19789297,
+        0.19789297,
+        0.19789297
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bf7d79b933713949",
+      "name": "Laundry · Tree_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_01_ef8b1496.glb",
+      "position": [
+        -21.99999995,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19789297,
+        0.19789297,
+        0.19789297
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bbe10430a764debd",
+      "name": "Laundry · Tree_01_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_01_01_400a175a.glb",
+      "position": [
+        -17.99999998,
+        0,
+        -35.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18470612,
+        0.18470612,
+        0.18470612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cc410058155bf64f",
+      "name": "Laundry · Tree_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_02_9701ef04.glb",
+      "position": [
+        -13.99999995,
+        0,
+        -35.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21026477,
+        0.21026477,
+        0.21026477
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8775e7566a8ecf97",
+      "name": "Laundry · Tree_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_03_0fc74e5d.glb",
+      "position": [
+        -9.99999938,
+        0,
+        -36.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65282186,
+        0.65282186,
+        0.65282186
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e13a3efbb000392a",
+      "name": "Laundry · Tree_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_03_2dcbd9a4.glb",
+      "position": [
+        -5.99999984,
+        0,
+        -36.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65282179,
+        0.65282179,
+        0.65282179
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6e3b6c9adcbfdb1c",
+      "name": "Laundry · Tree_03_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_03_001_519525c0.glb",
+      "position": [
+        -2,
+        0,
+        -35.99999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6013078,
+        0.6013078,
+        0.6013078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d65ed7bf83a58e0",
+      "name": "Laundry · Tree_03_002",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_03_002_322ac3fa.glb",
+      "position": [
+        -22,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65983688,
+        0.65983688,
+        0.65983688
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3efb5d6a046395ec",
+      "name": "Laundry · Tree_03_003",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_03_003_932437e6.glb",
+      "position": [
+        -18,
+        0,
+        -39.99999975
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51574677,
+        0.51574677,
+        0.51574677
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a2b3537f24dd2d6",
+      "name": "Laundry · Tree_03_005",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_03_005_aa4348e7.glb",
+      "position": [
+        -14,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56714469,
+        0.56714469,
+        0.56714469
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f0ae368a0ac9eea7",
+      "name": "Laundry · Tree_03_013",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Tree_03_013_71061f44.glb",
+      "position": [
+        -10,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56501857,
+        0.56501857,
+        0.56501857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-15f9c2c22b49d796",
+      "name": "Laundry · Trees",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_1840c8cb.glb",
+      "position": [
+        -5.99999993,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07229252,
+        0.07229252,
+        0.07229252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d500325e8c27f922",
+      "name": "Laundry · Trees_001",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_001_b30c0769.glb",
+      "position": [
+        -2,
+        0,
+        -39.9999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18470597,
+        0.18470597,
+        0.18470597
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a0f0b5beb0f8ebf9",
+      "name": "Laundry · Trees_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_01_b857329d.glb",
+      "position": [
+        -22,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03727004,
+        0.03727004,
+        0.03727004
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aa828b92ca0db17b",
+      "name": "Laundry · Trees_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_02_a0ce7d4d.glb",
+      "position": [
+        -18,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0908909,
+        0.0908909,
+        0.0908909
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a413f5fe7d86668b",
+      "name": "Laundry · Trees_03",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_03_19a667a6.glb",
+      "position": [
+        -14,
+        0,
+        -44.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03898634,
+        0.03898634,
+        0.03898634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-991f5c0f18117be6",
+      "name": "Laundry · Trees_04",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_04_55013846.glb",
+      "position": [
+        -10,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1847061,
+        0.1847061,
+        0.1847061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f6e09cce9863fe97",
+      "name": "Laundry · Trees_05",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_05_90cc6481.glb",
+      "position": [
+        -6,
+        0,
+        -43.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08792505,
+        0.08792505,
+        0.08792505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd3f6ec130c2b30e",
+      "name": "Laundry · Trees_06",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_06_103115f5.glb",
+      "position": [
+        -1.99999987,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13413384,
+        0.13413384,
+        0.13413384
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-855f5a8103a70d07",
+      "name": "Laundry · Trees_07",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_07_2ead13d1.glb",
+      "position": [
+        -21.99999994,
+        0,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06104714,
+        0.06104714,
+        0.06104714
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b1108096f6188999",
+      "name": "Laundry · Trees_08",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_08_29822d3e.glb",
+      "position": [
+        -18,
+        0,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0438415,
+        0.0438415,
+        0.0438415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7978f98f16d91f42",
+      "name": "Laundry · Trees_09",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_09_62417b03.glb",
+      "position": [
+        -14,
+        0,
+        -48.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15915685,
+        0.15915685,
+        0.15915685
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c99fa977769f1005",
+      "name": "Laundry · Trees_10",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_10_e7e5f01c.glb",
+      "position": [
+        -10.00000016,
+        0,
+        -48.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16528624,
+        0.16528624,
+        0.16528624
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ec581b1cf0df32a",
+      "name": "Laundry · Trees_11",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_11_867eac59.glb",
+      "position": [
+        -6.0000003,
+        0,
+        -48.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15916209,
+        0.15916209,
+        0.15916209
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2a018bbea688a69a",
+      "name": "Laundry · Trees_12",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_12_bc972c35.glb",
+      "position": [
+        -2,
+        0,
+        -47.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07870879,
+        0.07870879,
+        0.07870879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3bb1f8cb184c5ca2",
+      "name": "Laundry · Trees_13",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_13_3345e3fd.glb",
+      "position": [
+        -22,
+        0,
+        -52.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09061362,
+        0.09061362,
+        0.09061362
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e7d77ea23fde12ff",
+      "name": "Laundry · Trees_14",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_14_daa80d34.glb",
+      "position": [
+        -18.0000007,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18470605,
+        0.18470605,
+        0.18470605
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d9fb5fd6191dcb54",
+      "name": "Laundry · Trees_15",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Trees_15_37d68c70.glb",
+      "position": [
+        -14,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18117179,
+        0.18117179,
+        0.18117179
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e8e072795cfeeb8",
+      "name": "Laundry · Vending_machine",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Vending_machine_4cb23944.glb",
+      "position": [
+        -10,
+        0,
+        -52.00000056
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1781163,
+        1.1781163,
+        1.1781163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bd086c14a6babf39",
+      "name": "Laundry · Water_dispenser",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Water_dispenser_e7aca5d6.glb",
+      "position": [
+        -6,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44187751,
+        1.44187751,
+        1.44187751
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f1cbee4d471bfde7",
+      "name": "Laundry · Window_frame",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Window_frame_78843284.glb",
+      "position": [
+        -1.99999988,
+        0,
+        -51.99999952
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50376065,
+        0.50376065,
+        0.50376065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ab72c0a2d97f6e24",
+      "name": "Laundry · Window_frame_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Window_frame_01_95e7a7b8.glb",
+      "position": [
+        -17.99999973,
+        0,
+        -56
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13700934,
+        1.13700934,
+        1.13700934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-44af4f69c9a47971",
+      "name": "Laundry · Window_frame_02",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/Window_frame_02_0867e1c2.glb",
+      "position": [
+        -14,
+        0,
+        -56.00000092
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.96986456,
+        0.96986456,
+        0.96986456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-92a88b0b6eea4811",
+      "name": "Laundry · WoodPlanksClean",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/WoodPlanksClean_b3d2ad40.glb",
+      "position": [
+        -10,
+        0,
+        -55.99999908
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.96392054,
+        0.96392054,
+        0.96392054
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0ccd9b808a990410",
+      "name": "Laundry · WoodPlanksClean_01",
+      "parentId": "transform:category-laundry",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Laundry/WoodPlanksClean_01_46b3fa21.glb",
+      "position": [
+        -6,
+        0,
+        -55.99999908
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.96392054,
+        0.96392054,
+        0.96392054
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4f23cbfdb9c40272",
+      "name": "Maquinas · Cube",
+      "parentId": "transform:category-maquinas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Maquinas/Cube_5c76b8a3.glb",
+      "position": [
+        10,
+        0,
+        60
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67840761,
+        0.67840761,
+        0.67840761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c85e2ad7232ce33",
+      "name": "Maquinas · Cube_001",
+      "parentId": "transform:category-maquinas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Maquinas/Cube_001_3930ff58.glb",
+      "position": [
+        14,
+        0,
+        60.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67840761,
+        0.67840761,
+        0.67840761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

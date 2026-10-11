@@ -1,0 +1,1117 @@
+[
+  {
+    "sourcePath": "Air_ConditionerLP/KRC_air_conditioner.fbx",
+    "objects": [
+      {
+        "name": "Box051",
+        "vertices": 249,
+        "triangles": 429,
+        "uvLayers": 1,
+        "materials": [
+          "Material #1008"
+        ],
+        "parent": null,
+        "modifiers": [],
+        "colors": [],
+        "matrix": [
+          [
+            0.02539999969303608,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.02539999969303608,
+            1.110269209902981e-09,
+            -0.00490398658439517
+          ],
+          [
+            0.0,
+            -1.110269209902981e-09,
+            0.02539999969303608,
+            -0.008028353564441204
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "uvRange": [
+          [
+            0.0008288472890853882,
+            3.3021957874298096
+          ],
+          [
+            0.005151960998773575,
+            0.9952700138092041
+          ]
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material #1008",
+        "diffuse": [
+          0.5879999995231628,
+          0.5879999995231628,
+          0.5879999995231628,
+          1.0
+        ],
+        "backfaceCulling": false,
+        "inputs": {
+          "Base Color": {
+            "value": [
+              0.5879999995231628,
+              0.5879999995231628,
+              0.5879999995231628,
+              1.0
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ]
+            ]
+          },
+          "Metallic": {
+            "value": 1.0,
+            "links": []
+          },
+          "Roughness": {
+            "value": 0.858578622341156,
+            "links": []
+          },
+          "IOR": {
+            "value": 1.5,
+            "links": []
+          },
+          "Alpha": {
+            "value": 1.0,
+            "links": []
+          },
+          "Normal": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": [
+              [
+                "Normal Map",
+                "Normal",
+                "Normal"
+              ]
+            ]
+          },
+          "Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Diffuse Roughness": {
+            "value": 0.0,
+            "links": []
+          },
+          "Subsurface Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Subsurface Radius": {
+            "value": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "links": []
+          },
+          "Subsurface Scale": {
+            "value": 0.05000000074505806,
+            "links": []
+          },
+          "Subsurface IOR": {
+            "value": 1.399999976158142,
+            "links": []
+          },
+          "Subsurface Anisotropy": {
+            "value": 0.0,
+            "links": []
+          },
+          "Specular IOR Level": {
+            "value": 0.0,
+            "links": []
+          },
+          "Specular Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Anisotropic": {
+            "value": 0.0,
+            "links": []
+          },
+          "Anisotropic Rotation": {
+            "value": 0.0,
+            "links": []
+          },
+          "Tangent": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": []
+          },
+          "Transmission Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Coat Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Coat Roughness": {
+            "value": 0.029999999329447746,
+            "links": []
+          },
+          "Coat IOR": {
+            "value": 1.5,
+            "links": []
+          },
+          "Coat Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Coat Normal": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": []
+          },
+          "Sheen Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Sheen Roughness": {
+            "value": 0.5,
+            "links": []
+          },
+          "Sheen Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Emission Color": {
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Emission Strength": {
+            "value": 0.0,
+            "links": []
+          },
+          "Thin Film Thickness": {
+            "value": 0.0,
+            "links": []
+          },
+          "Thin Film IOR": {
+            "value": 1.3300000429153442,
+            "links": []
+          }
+        },
+        "nodes": [
+          {
+            "name": "Principled BSDF",
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Material Output",
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Normal Map",
+            "type": "NORMAL_MAP",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Image Texture",
+            "type": "TEX_IMAGE",
+            "image": {
+              "name": "Map #63",
+              "path": "D:\\Model\\ARTIST——keysrec\\Air_ConditionerLP\\KRC_cond_d01.png",
+              "packed": false,
+              "size": [
+                512,
+                512
+              ]
+            },
+            "interpolation": "Linear"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      }
+    ],
+    "animations": []
+  },
+  {
+    "sourcePath": "CardBoard_box/Cardboard_box.fbx",
+    "objects": [
+      {
+        "name": "Cardboard_close",
+        "vertices": 8,
+        "triangles": 12,
+        "uvLayers": 1,
+        "materials": [
+          "Cardboard_box"
+        ],
+        "parent": null,
+        "modifiers": [],
+        "colors": [],
+        "matrix": [
+          [
+            -1.0,
+            1.5099580252808664e-07,
+            -1.1399864918422518e-14,
+            -1.4901161193847656e-08
+          ],
+          [
+            -1.5099580252808664e-07,
+            -1.0,
+            7.549790126404332e-08,
+            0.7652868628501892
+          ],
+          [
+            6.360639752427297e-22,
+            7.549790126404332e-08,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "uvRange": [
+          [
+            0.0011687353253364563,
+            0.9986183047294617
+          ],
+          [
+            0.0025981394574046135,
+            0.9977242350578308
+          ]
+        ]
+      },
+      {
+        "name": "Cardboard_open00",
+        "vertices": 36,
+        "triangles": 68,
+        "uvLayers": 1,
+        "materials": [
+          "Cardboard_box"
+        ],
+        "parent": null,
+        "modifiers": [],
+        "colors": [],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            1.6292067073209182e-07,
+            -0.3057681918144226
+          ],
+          [
+            0.0,
+            -1.6292067073209182e-07,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "uvRange": [
+          [
+            -0.9992087483406067,
+            0.9986183047294617
+          ],
+          [
+            0.0011597014963626862,
+            0.9977242350578308
+          ]
+        ]
+      },
+      {
+        "name": "Cardboard_open01",
+        "vertices": 52,
+        "triangles": 100,
+        "uvLayers": 1,
+        "materials": [
+          "Cardboard_box"
+        ],
+        "parent": null,
+        "modifiers": [],
+        "colors": [],
+        "matrix": [
+          [
+            -1.0,
+            1.5099580252808664e-07,
+            -1.1399864918422518e-14,
+            7.450580596923828e-09
+          ],
+          [
+            -1.5099580252808664e-07,
+            -1.0,
+            7.549790126404332e-08,
+            -0.7622280716896057
+          ],
+          [
+            6.360639752427297e-22,
+            7.549790126404332e-08,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "uvRange": [
+          [
+            -0.9992087483406067,
+            0.9986183047294617
+          ],
+          [
+            0.0011597014963626862,
+            0.9977242350578308
+          ]
+        ]
+      },
+      {
+        "name": "Cardboard_open02",
+        "vertices": 36,
+        "triangles": 68,
+        "uvLayers": 1,
+        "materials": [
+          "Cardboard_box"
+        ],
+        "parent": null,
+        "modifiers": [],
+        "colors": [],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            7.450580596923828e-09
+          ],
+          [
+            0.0,
+            1.0,
+            1.6292067073209182e-07,
+            0.4252868890762329
+          ],
+          [
+            0.0,
+            -1.6292067073209182e-07,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "uvRange": [
+          [
+            -0.9992087483406067,
+            0.9986183047294617
+          ],
+          [
+            0.0011597014963626862,
+            0.9977242350578308
+          ]
+        ]
+      },
+      {
+        "name": "Cardboard_open03",
+        "vertices": 36,
+        "triangles": 68,
+        "uvLayers": 1,
+        "materials": [
+          "Cardboard_box"
+        ],
+        "parent": null,
+        "modifiers": [],
+        "colors": [],
+        "matrix": [
+          [
+            -1.0,
+            1.5099580252808664e-07,
+            -1.1399864918422518e-14,
+            0.0
+          ],
+          [
+            -1.5099580252808664e-07,
+            -1.0,
+            7.549790126404332e-08,
+            0.08305372297763824
+          ],
+          [
+            6.360639752427297e-22,
+            7.549790126404332e-08,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "uvRange": [
+          [
+            -0.9992087483406067,
+            0.9986183047294617
+          ],
+          [
+            0.0011597014963626862,
+            0.9977242350578308
+          ]
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "name": "Cardboard_box",
+        "diffuse": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "backfaceCulling": false,
+        "inputs": {
+          "Base Color": {
+            "value": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ]
+            ]
+          },
+          "Metallic": {
+            "value": 0.0,
+            "links": []
+          },
+          "Roughness": {
+            "value": 0.5,
+            "links": []
+          },
+          "IOR": {
+            "value": 1.5,
+            "links": []
+          },
+          "Alpha": {
+            "value": 1.0,
+            "links": [
+              [
+                "Image Texture.001",
+                "Alpha",
+                "Alpha"
+              ]
+            ]
+          },
+          "Normal": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": [
+              [
+                "Normal Map",
+                "Normal",
+                "Normal"
+              ]
+            ]
+          },
+          "Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Diffuse Roughness": {
+            "value": 0.0,
+            "links": []
+          },
+          "Subsurface Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Subsurface Radius": {
+            "value": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "links": []
+          },
+          "Subsurface Scale": {
+            "value": 0.05000000074505806,
+            "links": []
+          },
+          "Subsurface IOR": {
+            "value": 1.399999976158142,
+            "links": []
+          },
+          "Subsurface Anisotropy": {
+            "value": 0.0,
+            "links": []
+          },
+          "Specular IOR Level": {
+            "value": 0.0,
+            "links": []
+          },
+          "Specular Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Anisotropic": {
+            "value": 0.0,
+            "links": []
+          },
+          "Anisotropic Rotation": {
+            "value": 0.0,
+            "links": []
+          },
+          "Tangent": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": []
+          },
+          "Transmission Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Coat Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Coat Roughness": {
+            "value": 0.029999999329447746,
+            "links": []
+          },
+          "Coat IOR": {
+            "value": 1.5,
+            "links": []
+          },
+          "Coat Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Coat Normal": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": []
+          },
+          "Sheen Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Sheen Roughness": {
+            "value": 0.5,
+            "links": []
+          },
+          "Sheen Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Emission Color": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Emission Strength": {
+            "value": 0.0,
+            "links": []
+          },
+          "Thin Film Thickness": {
+            "value": 0.0,
+            "links": []
+          },
+          "Thin Film IOR": {
+            "value": 1.3300000429153442,
+            "links": []
+          }
+        },
+        "nodes": [
+          {
+            "name": "Principled BSDF",
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Material Output",
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Normal Map",
+            "type": "NORMAL_MAP",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Image Texture",
+            "type": "TEX_IMAGE",
+            "image": {
+              "name": "Cardboard_box.png",
+              "path": "D:\\Model\\ARTIST——keysrec\\CardBoard_box\\Cardboard_box.png",
+              "packed": false,
+              "size": [
+                512,
+                512
+              ]
+            },
+            "interpolation": "Linear"
+          },
+          {
+            "name": "Image Texture.001",
+            "type": "TEX_IMAGE",
+            "image": {
+              "name": "Cardboard_box.png.001",
+              "path": "D:\\Model\\ARTIST——keysrec\\CardBoard_box\\Cardboard_box.png",
+              "packed": false,
+              "size": [
+                512,
+                512
+              ]
+            },
+            "interpolation": "Linear"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Image Texture.001",
+            "Alpha",
+            "Principled BSDF",
+            "Alpha"
+          ]
+        ]
+      }
+    ],
+    "animations": []
+  },
+  {
+    "sourcePath": "KRCWheelbarrow/KRC_StT_Grn01.fbx",
+    "objects": [
+      {
+        "name": "KRC_StT_Grn01",
+        "vertices": 706,
+        "triangles": 1396,
+        "uvLayers": 1,
+        "materials": [
+          "Material #18"
+        ],
+        "parent": null,
+        "modifiers": [],
+        "colors": [],
+        "matrix": [
+          [
+            0.0010000000474974513,
+            1.7484554082347614e-10,
+            -3.057096423979195e-17,
+            0.0
+          ],
+          [
+            -1.7484554082347614e-10,
+            0.0010000000474974513,
+            -1.3113415908705406e-10,
+            0.0
+          ],
+          [
+            7.642741059947987e-18,
+            1.3113415908705406e-10,
+            0.0010000000474974513,
+            9.536743617033494e-10
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "uvRange": [
+          [
+            0.0013146046549081802,
+            0.9974256753921509
+          ],
+          [
+            0.0012929504737257957,
+            0.9990180730819702
+          ]
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material #18",
+        "diffuse": [
+          0.5879999995231628,
+          0.5879999995231628,
+          0.5879999995231628,
+          1.0
+        ],
+        "backfaceCulling": false,
+        "inputs": {
+          "Base Color": {
+            "value": [
+              0.5879999995231628,
+              0.5879999995231628,
+              0.5879999995231628,
+              1.0
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ]
+            ]
+          },
+          "Metallic": {
+            "value": 1.0,
+            "links": []
+          },
+          "Roughness": {
+            "value": 0.858578622341156,
+            "links": []
+          },
+          "IOR": {
+            "value": 1.5,
+            "links": []
+          },
+          "Alpha": {
+            "value": 1.0,
+            "links": []
+          },
+          "Normal": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": [
+              [
+                "Normal Map",
+                "Normal",
+                "Normal"
+              ]
+            ]
+          },
+          "Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Diffuse Roughness": {
+            "value": 0.0,
+            "links": []
+          },
+          "Subsurface Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Subsurface Radius": {
+            "value": [
+              1.0,
+              0.20000000298023224,
+              0.10000000149011612
+            ],
+            "links": []
+          },
+          "Subsurface Scale": {
+            "value": 0.05000000074505806,
+            "links": []
+          },
+          "Subsurface IOR": {
+            "value": 1.399999976158142,
+            "links": []
+          },
+          "Subsurface Anisotropy": {
+            "value": 0.0,
+            "links": []
+          },
+          "Specular IOR Level": {
+            "value": 0.0,
+            "links": []
+          },
+          "Specular Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Anisotropic": {
+            "value": 0.0,
+            "links": []
+          },
+          "Anisotropic Rotation": {
+            "value": 0.0,
+            "links": []
+          },
+          "Tangent": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": []
+          },
+          "Transmission Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Coat Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Coat Roughness": {
+            "value": 0.029999999329447746,
+            "links": []
+          },
+          "Coat IOR": {
+            "value": 1.5,
+            "links": []
+          },
+          "Coat Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Coat Normal": {
+            "value": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "links": []
+          },
+          "Sheen Weight": {
+            "value": 0.0,
+            "links": []
+          },
+          "Sheen Roughness": {
+            "value": 0.5,
+            "links": []
+          },
+          "Sheen Tint": {
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Emission Color": {
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "links": []
+          },
+          "Emission Strength": {
+            "value": 0.0,
+            "links": []
+          },
+          "Thin Film Thickness": {
+            "value": 0.0,
+            "links": []
+          },
+          "Thin Film IOR": {
+            "value": 1.3300000429153442,
+            "links": []
+          }
+        },
+        "nodes": [
+          {
+            "name": "Principled BSDF",
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Material Output",
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Normal Map",
+            "type": "NORMAL_MAP",
+            "image": null,
+            "interpolation": null
+          },
+          {
+            "name": "Image Texture",
+            "type": "TEX_IMAGE",
+            "image": {
+              "name": "Map #6",
+              "path": "D:\\Model\\ARTIST——keysrec\\KRCWheelbarrow\\KRC_StT_Grn01.png",
+              "packed": false,
+              "size": [
+                512,
+                512
+              ]
+            },
+            "interpolation": "Linear"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      }
+    ],
+    "animations": []
+  }
+]

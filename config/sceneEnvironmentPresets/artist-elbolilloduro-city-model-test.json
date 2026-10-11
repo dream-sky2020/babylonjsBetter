@@ -1,0 +1,2758 @@
+{
+  "presetKey": "artist-elbolilloduro-city-model-test",
+  "name": "Elbolilloduro · 城市建筑与废弃房屋（62 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-abandoned_house",
+      "name": "Abandoned_House",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-bui",
+      "name": "Bui",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-buildings",
+      "name": "Buildings",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 29
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-d87ab92cabb03a45-stand",
+      "name": "AL展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-358b59758a50d6d9-stand",
+      "name": "Alfombras展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-856078c07dc57410-stand",
+      "name": "Almohadas展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-39d5895bda16f785-stand",
+      "name": "Ban展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a9c5beda42be45c2-stand",
+      "name": "Ban展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-38dea7b73cfee4f8-stand",
+      "name": "Bano展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b621e88caa56b3b8-stand",
+      "name": "Barriles展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-077aeeff0d393843-stand",
+      "name": "Base展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c1717542f64d6b41-stand",
+      "name": "Cajas展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ab34bef73cb5d515-stand",
+      "name": "Cajones_Puertas展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b2b8dda7b7e02815-stand",
+      "name": "Casa展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a1f571b1379185b1-stand",
+      "name": "Casa_005展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7adb9ed33ca10897-stand",
+      "name": "Colision展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2d9110e6871f1816-stand",
+      "name": "Cuadros展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2c101338d14b6301-stand",
+      "name": "Cylinder展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6eb399a7888836f1-stand",
+      "name": "Cylinder_001展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4e58b45559aaadd0-stand",
+      "name": "Estanterias展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9b0c8ed66167c750-stand",
+      "name": "Focos展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ff976b2288077ce9-stand",
+      "name": "grass展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-66a985c7f3ac344b-stand",
+      "name": "Lamparas展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ae93666efc5d3a04-stand",
+      "name": "Lavanderia展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4fe076bb5792a4e2-stand",
+      "name": "Libreros展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9af867665411644c-stand",
+      "name": "Mesas展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d486378eaeb4618a-stand",
+      "name": "Otros展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-372dd8cb683e2164-stand",
+      "name": "Radio_001展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b7572ef7462780bd-stand",
+      "name": "Reseptor_Senal展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cab9d40487851ec5-stand",
+      "name": "Sillas展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f2e66731344aea5b-stand",
+      "name": "Sillones展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c85ccb9162d9c179-stand",
+      "name": "Telaranas展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0de1086875ec34d8-stand",
+      "name": "Television_展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d252876b5be0b240-stand",
+      "name": "Trash展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-edb46543c90c624e-stand",
+      "name": "Tuberias展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7b191cb2065cd7f3-stand",
+      "name": "Vecindario展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a9e70e93b78a129a-stand",
+      "name": "Ventanas展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-192267c6e2cbc2a4-stand",
+      "name": "Ventiladores展台",
+      "parentId": "transform:category-abandoned_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dc8c6d598126917f-stand",
+      "name": "Cube展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-72651f87dc14479b-stand",
+      "name": "Cube_001展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-532af34fc956fb05-stand",
+      "name": "Cube_002展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9746c11151c00c94-stand",
+      "name": "Cube_003展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6f84979fa881aebc-stand",
+      "name": "Cube_004展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4f77dc17773f3b5b-stand",
+      "name": "Cube_005展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e18eba23f2afe0ea-stand",
+      "name": "Cube_006展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d7817b1a8d20b56c-stand",
+      "name": "Cube_007展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7e11c8fb25272b4b-stand",
+      "name": "Cube_008展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-78f11a970ddd4367-stand",
+      "name": "Cube_009展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-70834cfb512808ab-stand",
+      "name": "Cube_010展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-47c05f7ba32ddb0d-stand",
+      "name": "Cube_011展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3143580089ff8111-stand",
+      "name": "Cube_012展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5077f98b83ad1048-stand",
+      "name": "Cube_013展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c97942f466f5fb72-stand",
+      "name": "Cube_014展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-12f92c099a2a1b02-stand",
+      "name": "Cube_015展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1f015c73b86e707d-stand",
+      "name": "Plane展台",
+      "parentId": "transform:category-bui",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-eea69bdcdf755bdf-stand",
+      "name": "Building展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-77d161e7376dac81-stand",
+      "name": "Building_01展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7f19faefcd4c8c0a-stand",
+      "name": "Building_02展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d3d1612ad7e381b9-stand",
+      "name": "Building_03展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d585aa7700336627-stand",
+      "name": "Building_04展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b085e965d06d3e5-stand",
+      "name": "Building_05展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2d917806279f4500-stand",
+      "name": "Building_06展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b5435704dbbf5016-stand",
+      "name": "Building_07展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a90c13b31957ef5e-stand",
+      "name": "Building_08展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d284c8e2fd71e4c2-stand",
+      "name": "Building_09展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-d87ab92cabb03a45",
+      "name": "Abandoned_House · AL",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/AL_4c9a55c0.glb",
+      "position": [
+        -22,
+        -2e-8,
+        11.99999906
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10778775,
+        0.10778775,
+        0.10778775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-358b59758a50d6d9",
+      "name": "Abandoned_House · Alfombras",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Alfombras_d9a6a87d.glb",
+      "position": [
+        -18.00000035,
+        2e-8,
+        11.99999939
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12469896,
+        0.12469896,
+        0.12469896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-856078c07dc57410",
+      "name": "Abandoned_House · Almohadas",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Almohadas_084c9f8d.glb",
+      "position": [
+        -13.99999979,
+        0,
+        12.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09700202,
+        0.09700202,
+        0.09700202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-39d5895bda16f785",
+      "name": "Abandoned_House · Ban",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Ban_2eb5e8d6.glb",
+      "position": [
+        -10.00000132,
+        -1e-8,
+        11.99999705
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45436745,
+        0.45436745,
+        0.45436745
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a9c5beda42be45c2",
+      "name": "Abandoned_House · Ban",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Ban_5a4e5a1e.glb",
+      "position": [
+        -6,
+        0,
+        12.00000181
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47447982,
+        0.47447982,
+        0.47447982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-38dea7b73cfee4f8",
+      "name": "Abandoned_House · Bano",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Bano_1100aafa.glb",
+      "position": [
+        -2.00000006,
+        1e-8,
+        11.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11001222,
+        0.11001222,
+        0.11001222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b621e88caa56b3b8",
+      "name": "Abandoned_House · Barriles",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Barriles_c2751b96.glb",
+      "position": [
+        -21.99999934,
+        -3e-7,
+        8.00001093
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4292558,
+        1.4292558,
+        1.4292558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-077aeeff0d393843",
+      "name": "Abandoned_House · Base",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Base_e8783428.glb",
+      "position": [
+        -17.9999997,
+        -5e-8,
+        7.99999939
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38512984,
+        0.38512984,
+        0.38512984
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c1717542f64d6b41",
+      "name": "Abandoned_House · Cajas",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Cajas_427a4c9d.glb",
+      "position": [
+        -13.99999997,
+        -1e-8,
+        8.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10390973,
+        0.10390973,
+        0.10390973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ab34bef73cb5d515",
+      "name": "Abandoned_House · Cajones_Puertas",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Cajones_Puertas_f7dcae48.glb",
+      "position": [
+        -10.00000001,
+        1e-8,
+        7.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08026947,
+        0.08026947,
+        0.08026947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b2b8dda7b7e02815",
+      "name": "Abandoned_House · Casa",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Casa_0022d0f3.glb",
+      "position": [
+        -6.00000006,
+        3e-8,
+        7.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06213616,
+        0.06213616,
+        0.06213616
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a1f571b1379185b1",
+      "name": "Abandoned_House · Casa_005",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Casa_005_c197f982.glb",
+      "position": [
+        -2.00000026,
+        0,
+        8.00000087
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3665861,
+        0.3665861,
+        0.3665861
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7adb9ed33ca10897",
+      "name": "Abandoned_House · Colision",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Colision_1ea48711.glb",
+      "position": [
+        -22.00000015,
+        -4e-8,
+        3.99999951
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07922627,
+        0.07922627,
+        0.07922627
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d9110e6871f1816",
+      "name": "Abandoned_House · Cuadros",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Cuadros_edf32657.glb",
+      "position": [
+        -18,
+        1e-8,
+        3.99999952
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08464758,
+        0.08464758,
+        0.08464758
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2c101338d14b6301",
+      "name": "Abandoned_House · Cylinder",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Cylinder_5fac7278.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.01013483,
+        0.01013483,
+        0.01013483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6eb399a7888836f1",
+      "name": "Abandoned_House · Cylinder_001",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Cylinder_001_35e9d59f.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.00692351,
+        0.00692351,
+        0.00692351
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4e58b45559aaadd0",
+      "name": "Abandoned_House · Estanterias",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Estanterias_ce3a56e8.glb",
+      "position": [
+        -6.00000019,
+        1e-8,
+        3.99999952
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11841253,
+        0.11841253,
+        0.11841253
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9b0c8ed66167c750",
+      "name": "Abandoned_House · Focos",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Focos_70a9eec1.glb",
+      "position": [
+        -2.00000013,
+        0,
+        4.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09912816,
+        0.09912816,
+        0.09912816
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ff976b2288077ce9",
+      "name": "Abandoned_House · grass",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/grass_df4ac4fd.glb",
+      "position": [
+        -22.00000002,
+        0,
+        -9e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06232752,
+        0.06232752,
+        0.06232752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-66a985c7f3ac344b",
+      "name": "Abandoned_House · Lamparas",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Lamparas_dadcb522.glb",
+      "position": [
+        -17.99999989,
+        0,
+        3e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12516601,
+        0.12516601,
+        0.12516601
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ae93666efc5d3a04",
+      "name": "Abandoned_House · Lavanderia",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Lavanderia_d1bfe0d3.glb",
+      "position": [
+        -14.00000029,
+        -2e-8,
+        0.000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18807376,
+        0.18807376,
+        0.18807376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4fe076bb5792a4e2",
+      "name": "Abandoned_House · Libreros",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Libreros_d64702f7.glb",
+      "position": [
+        -9.99999996,
+        0,
+        5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07920835,
+        0.07920835,
+        0.07920835
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9af867665411644c",
+      "name": "Abandoned_House · Mesas",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Mesas_65755027.glb",
+      "position": [
+        -5.99999998,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07916923,
+        0.07916923,
+        0.07916923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d486378eaeb4618a",
+      "name": "Abandoned_House · Otros",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Otros_2207da8f.glb",
+      "position": [
+        -1.99999995,
+        -7e-8,
+        1.2e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2170452,
+        0.2170452,
+        0.2170452
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-372dd8cb683e2164",
+      "name": "Abandoned_House · Radio_001",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Radio_001_ca620c07.glb",
+      "position": [
+        -22,
+        -0.00000122,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.91729185,
+        10.91729185,
+        10.91729185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b7572ef7462780bd",
+      "name": "Abandoned_House · Reseptor_Senal",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Reseptor_Senal_d8838a6d.glb",
+      "position": [
+        -17.99999888,
+        0,
+        -4.000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26303239,
+        1.26303239,
+        1.26303239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cab9d40487851ec5",
+      "name": "Abandoned_House · Sillas",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Sillas_99e2d932.glb",
+      "position": [
+        -13.99999983,
+        0,
+        -4.00000043
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08782944,
+        0.08782944,
+        0.08782944
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f2e66731344aea5b",
+      "name": "Abandoned_House · Sillones",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Sillones_b4b3ff7e.glb",
+      "position": [
+        -9.99999999,
+        -3e-8,
+        -3.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08360805,
+        0.08360805,
+        0.08360805
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c85ccb9162d9c179",
+      "name": "Abandoned_House · Telaranas",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Telaranas_c7ddf68f.glb",
+      "position": [
+        -6.00000014,
+        5e-8,
+        -3.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08529401,
+        0.08529401,
+        0.08529401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0de1086875ec34d8",
+      "name": "Abandoned_House · Television_",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Television__610b9d92.glb",
+      "position": [
+        -1.99999989,
+        2e-8,
+        -3.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10217397,
+        0.10217397,
+        0.10217397
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d252876b5be0b240",
+      "name": "Abandoned_House · Trash",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Trash_502f9302.glb",
+      "position": [
+        -20.00000005,
+        0,
+        -8.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0667846,
+        0.0667846,
+        0.0667846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-edb46543c90c624e",
+      "name": "Abandoned_House · Tuberias",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Tuberias_636e9d4b.glb",
+      "position": [
+        -16.00000002,
+        -2e-8,
+        -8.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21178687,
+        0.21178687,
+        0.21178687
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7b191cb2065cd7f3",
+      "name": "Abandoned_House · Vecindario",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Vecindario_c13660c9.glb",
+      "position": [
+        -12,
+        0,
+        -7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.00532878,
+        0.00532878,
+        0.00532878
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a9e70e93b78a129a",
+      "name": "Abandoned_House · Ventanas",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Ventanas_dd76b610.glb",
+      "position": [
+        -8.00000001,
+        1e-8,
+        -8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08596513,
+        0.08596513,
+        0.08596513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-192267c6e2cbc2a4",
+      "name": "Abandoned_House · Ventiladores",
+      "parentId": "transform:category-abandoned_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Abandoned_House/Ventiladores_cd2b4b7f.glb",
+      "position": [
+        -3.99999972,
+        -1e-8,
+        -8.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0962596,
+        0.0962596,
+        0.0962596
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dc8c6d598126917f",
+      "name": "Bui · Cube",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_8359c58a.glb",
+      "position": [
+        2,
+        0,
+        11.99999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67367617,
+        0.67367617,
+        0.67367617
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-72651f87dc14479b",
+      "name": "Bui · Cube_001",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_001_538e2657.glb",
+      "position": [
+        5.99999996,
+        0,
+        11.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36822691,
+        0.36822691,
+        0.36822691
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-532af34fc956fb05",
+      "name": "Bui · Cube_002",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_002_bbe0a26e.glb",
+      "position": [
+        10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.02053746,
+        1.02053746,
+        1.02053746
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9746c11151c00c94",
+      "name": "Bui · Cube_003",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_003_eddc9124.glb",
+      "position": [
+        14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50385385,
+        0.50385385,
+        0.50385385
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6f84979fa881aebc",
+      "name": "Bui · Cube_004",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_004_9d332ea8.glb",
+      "position": [
+        18,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38583579,
+        0.38583579,
+        0.38583579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4f77dc17773f3b5b",
+      "name": "Bui · Cube_005",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_005_8840adb3.glb",
+      "position": [
+        21.99999978,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45940155,
+        0.45940155,
+        0.45940155
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e18eba23f2afe0ea",
+      "name": "Bui · Cube_006",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_006_1e289651.glb",
+      "position": [
+        2,
+        0,
+        8.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09000645,
+        0.09000645,
+        0.09000645
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d7817b1a8d20b56c",
+      "name": "Bui · Cube_007",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_007_4e101cea.glb",
+      "position": [
+        5.99999978,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23270027,
+        0.23270027,
+        0.23270027
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7e11c8fb25272b4b",
+      "name": "Bui · Cube_008",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_008_77d744fb.glb",
+      "position": [
+        10,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62968569,
+        0.62968569,
+        0.62968569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-78f11a970ddd4367",
+      "name": "Bui · Cube_009",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_009_dc01cfdd.glb",
+      "position": [
+        14,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35211066,
+        0.35211066,
+        0.35211066
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-70834cfb512808ab",
+      "name": "Bui · Cube_010",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_010_1aaf9124.glb",
+      "position": [
+        18,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40887278,
+        0.40887278,
+        0.40887278
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-47c05f7ba32ddb0d",
+      "name": "Bui · Cube_011",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_011_09b80c52.glb",
+      "position": [
+        21.99999924,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39715433,
+        0.39715433,
+        0.39715433
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3143580089ff8111",
+      "name": "Bui · Cube_012",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_012_65b27f20.glb",
+      "position": [
+        4,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35179896,
+        0.35179896,
+        0.35179896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5077f98b83ad1048",
+      "name": "Bui · Cube_013",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_013_b4f1dbfa.glb",
+      "position": [
+        8,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2496959,
+        0.2496959,
+        0.2496959
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c97942f466f5fb72",
+      "name": "Bui · Cube_014",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_014_fe8041b1.glb",
+      "position": [
+        12,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3310971,
+        0.3310971,
+        0.3310971
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-12f92c099a2a1b02",
+      "name": "Bui · Cube_015",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Cube_015_bdb263ce.glb",
+      "position": [
+        16,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09804598,
+        0.09804598,
+        0.09804598
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1f015c73b86e707d",
+      "name": "Bui · Plane",
+      "parentId": "transform:category-bui",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Bui/Plane_a3cd3fc7.glb",
+      "position": [
+        20,
+        0,
+        4.00000042
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74753513,
+        1.74753513,
+        1.74753513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eea69bdcdf755bdf",
+      "name": "Buildings · Building",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_dae3aa2c.glb",
+      "position": [
+        1.99999991,
+        0,
+        -2.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09936247,
+        0.09936247,
+        0.09936247
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-77d161e7376dac81",
+      "name": "Buildings · Building_01",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_01_1309a05a.glb",
+      "position": [
+        6,
+        0,
+        -2.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08223179,
+        0.08223179,
+        0.08223179
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7f19faefcd4c8c0a",
+      "name": "Buildings · Building_02",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_02_ae11a5dd.glb",
+      "position": [
+        9.99999993,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06862725,
+        0.06862725,
+        0.06862725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d3d1612ad7e381b9",
+      "name": "Buildings · Building_03",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_03_87b2f681.glb",
+      "position": [
+        14,
+        0,
+        -3.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12072524,
+        0.12072524,
+        0.12072524
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d585aa7700336627",
+      "name": "Buildings · Building_04",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_04_628d3368.glb",
+      "position": [
+        18,
+        0,
+        -3.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10983851,
+        0.10983851,
+        0.10983851
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b085e965d06d3e5",
+      "name": "Buildings · Building_05",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_05_1b5638b5.glb",
+      "position": [
+        22,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09398201,
+        0.09398201,
+        0.09398201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d917806279f4500",
+      "name": "Buildings · Building_06",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_06_806c84ad.glb",
+      "position": [
+        6.00000008,
+        0,
+        -7.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08370579,
+        0.08370579,
+        0.08370579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b5435704dbbf5016",
+      "name": "Buildings · Building_07",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_07_dec40e8f.glb",
+      "position": [
+        10,
+        0,
+        -6.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1125494,
+        0.1125494,
+        0.1125494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a90c13b31957ef5e",
+      "name": "Buildings · Building_08",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_08_1376ed10.glb",
+      "position": [
+        14.00000013,
+        0,
+        -6.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18046628,
+        0.18046628,
+        0.18046628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d284c8e2fd71e4c2",
+      "name": "Buildings · Building_09",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Buildings/Building_09_502c2b5e.glb",
+      "position": [
+        18.00000008,
+        0,
+        -6.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16576129,
+        0.16576129,
+        0.16576129
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

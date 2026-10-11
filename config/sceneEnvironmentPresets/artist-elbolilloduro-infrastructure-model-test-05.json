@@ -1,0 +1,6532 @@
+{
+  "presetKey": "artist-elbolilloduro-infrastructure-model-test-05",
+  "name": "Elbolilloduro · 道路、交通与地下设施 5/5（150 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-roads",
+      "name": "Roads",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-sewer",
+      "name": "Sewer",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 101
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-3746235bab77facf-stand",
+      "name": "tree展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-15e1f1945e613eca-stand",
+      "name": "Tree展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-77fc0915d2c039dc-stand",
+      "name": "tree_001展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ca9514becfebcd07-stand",
+      "name": "Tree_001展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9a3b4b9468fca620-stand",
+      "name": "tree_002展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bfa0465f8d03fd6e-stand",
+      "name": "Tree_002展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-93d364038055223f-stand",
+      "name": "tree_003展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1921b809f71ee286-stand",
+      "name": "Tree_003展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fe8f01abbd846203-stand",
+      "name": "Box_T展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        48
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f2720705838407f4-stand",
+      "name": "Box_T_01展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        48
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4afcd77b2a56a6f6-stand",
+      "name": "Box_T_02展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        48
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bbb01b69d1258fbb-stand",
+      "name": "Box_T_03展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        48
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5109db3dc52438ed-stand",
+      "name": "Brick展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        48
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-06618eb7bc8dd036-stand",
+      "name": "Bricks展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        48
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1d47bb38b6ea7881-stand",
+      "name": "Cylinder展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9cbf78b6fee27745-stand",
+      "name": "debris展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7ad14de808d27e64-stand",
+      "name": "debris展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8709a7ea22685157-stand",
+      "name": "debris_01展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-efbf5b9310f65932-stand",
+      "name": "debris_02展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-45a6589d2bdc0e97-stand",
+      "name": "debris_03展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ea58700bc9618c72-stand",
+      "name": "debris_04展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b3025a7ecadaca29-stand",
+      "name": "debris_05展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-932a4a1971e8dbcd-stand",
+      "name": "door_metal展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b8938d043bc5bba2-stand",
+      "name": "door_metal_01展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7936ebb42e056b17-stand",
+      "name": "door_metal_02展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-210017860cfbee11-stand",
+      "name": "Garbage_bag展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-88c0eacb0139424e-stand",
+      "name": "Garbage_bag展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ced7c2d49686f971-stand",
+      "name": "Garbage_bag_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5a967c24d1def84d-stand",
+      "name": "Garbage_bag_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ef4e3f882c013752-stand",
+      "name": "Pipe展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2827549035fa256a-stand",
+      "name": "Pipe_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-925613e890070c07-stand",
+      "name": "Pipe_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-503314520105c5f6-stand",
+      "name": "Pipe_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6b24921d26c7635d-stand",
+      "name": "Pipe_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-11110db61284bc22-stand",
+      "name": "Pipe_005展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a488daa5110832a4-stand",
+      "name": "Pipe_006展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8e7d643c5e6d1531-stand",
+      "name": "Pipe_007展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3971e85190056096-stand",
+      "name": "Pipe_008展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a3739dc8cbbef660-stand",
+      "name": "Pipe_009展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-333b266ed730478f-stand",
+      "name": "Pipe_010展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2d087c096517b8a5-stand",
+      "name": "Pipe_011展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a6168aa745af5563-stand",
+      "name": "Pipe_012展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-309b0b7af10b160e-stand",
+      "name": "Pipe_013展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bbcb17ae93cf2954-stand",
+      "name": "Pipe_P展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-eceabfbeb8fe5443-stand",
+      "name": "Pipe_P_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3818c037a9db0b8b-stand",
+      "name": "Serwers展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dba0d0bdba246e58-stand",
+      "name": "Serwers展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7ce0394a56398282-stand",
+      "name": "Serwers_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e68c9da8d896b1c1-stand",
+      "name": "Serwers_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c16c21386b47c412-stand",
+      "name": "Serwers_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c1c0c3f9e39d45af-stand",
+      "name": "Serwers_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2f5f23376bc6dc79-stand",
+      "name": "Serwers_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a677bb84e1bce480-stand",
+      "name": "Serwers_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-54d222629c6fccb8-stand",
+      "name": "Serwers_005展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7969e0ebc02f370b-stand",
+      "name": "Serwers_006展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4bff2d49736c4e27-stand",
+      "name": "Serwers_007展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2a33b04f49f20ef8-stand",
+      "name": "Serwers_008展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-57521317e6afe581-stand",
+      "name": "Serwers_009展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e8c2788213cfc656-stand",
+      "name": "Serwers_010展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9bd8df19f76f5ccc-stand",
+      "name": "Serwers_011展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-49f9bd4ac1601ae3-stand",
+      "name": "Serwers_012展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-103a527442c669d2-stand",
+      "name": "Serwers_013展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ebaafec1f7202461-stand",
+      "name": "Serwers_014展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4e69081700c9a4fe-stand",
+      "name": "Serwers_015展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8b4a85d4ac0b048c-stand",
+      "name": "Serwers01展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-fa00685f26754ec6-stand",
+      "name": "Serwers01_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d30927f1a60b0b0e-stand",
+      "name": "Serwers01_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0a19f4816f157ddd-stand",
+      "name": "Serwers01_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0ed96e933d0c6447-stand",
+      "name": "Serwers01_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b0d9d633c2d65f83-stand",
+      "name": "Serwers01_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c0a48d25b66ff1c6-stand",
+      "name": "Serwers01_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-37a69ec86e010322-stand",
+      "name": "Serwers01_005展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8c58669bfe971678-stand",
+      "name": "Serwers01_005展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-31c6805e19979ae2-stand",
+      "name": "Serwers01_006展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9b338c12480c9d17-stand",
+      "name": "Serwers01_007展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5c92bd860125eabe-stand",
+      "name": "Serwers01_008展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9c77ba05b9742dc0-stand",
+      "name": "Serwers01_009展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-30e4ddeafd240318-stand",
+      "name": "Serwers01_010展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-071369b1d5cdffdc-stand",
+      "name": "Serwers01_011展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6366c34929ddbc6e-stand",
+      "name": "Serwers02展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dd2036f665d1e822-stand",
+      "name": "Serwers02_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6fb91d91798c9111-stand",
+      "name": "Serwers02_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cbe447b087352810-stand",
+      "name": "Serwers02_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ecfa9737dc0d77d2-stand",
+      "name": "Serwers02_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cd7dcbf51ebc624c-stand",
+      "name": "Serwers02_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-aaadc391e035a966-stand",
+      "name": "Serwers02_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4d24b10a83f8185f-stand",
+      "name": "Serwers02_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1995152d8974d2a9-stand",
+      "name": "Serwers02_005展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-565b5747dc35f6ca-stand",
+      "name": "Serwers02_006展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-986f8f39c4aca4ca-stand",
+      "name": "Serwers02_007展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-60b02b2196bde25f-stand",
+      "name": "Serwers02_008展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-19f53b6807d8ae06-stand",
+      "name": "Serwers02_009展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bbd1b527b176a8b9-stand",
+      "name": "Serwers02_010展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-26568c20027f9068-stand",
+      "name": "SerwersP展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0836db6e66ff637f-stand",
+      "name": "SerwersP_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4c4a71c0c89474a0-stand",
+      "name": "SerwersP_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c54288cd20f213d6-stand",
+      "name": "SerwersP_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f746b1c6efbf445a-stand",
+      "name": "SerwersP_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1540e5ed7b0f76d5-stand",
+      "name": "SerwersP_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1ebab38923b873a6-stand",
+      "name": "SerwersP_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-03a183f397a7f44c-stand",
+      "name": "SerwersP_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c904559ada9fb9ff-stand",
+      "name": "SerwersP_005展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-671ca501bc89fd1f-stand",
+      "name": "SerwersP_006展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c04408929b72554d-stand",
+      "name": "SerwersP_007展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c3b8a722d87e7d89-stand",
+      "name": "SerwersP_008展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c7298de21743728f-stand",
+      "name": "SerwersP_008展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-db3c5be5dd1beb47-stand",
+      "name": "SerwersP_009展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-50519100b0ce9a81-stand",
+      "name": "SerwersP_010展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-44b274d643250b90-stand",
+      "name": "SerwersP_011展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-188871c52db1342b-stand",
+      "name": "SerwersP_012展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-40d02a1bbbfe114f-stand",
+      "name": "SerwersP_013展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9db68931e60b35e1-stand",
+      "name": "SerwersP_013展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-675c144a3210dd5c-stand",
+      "name": "SerwersP1展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-60ec11a917d84b7a-stand",
+      "name": "SerwersP1_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a446640fece6cd73-stand",
+      "name": "SerwersP1_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-33b3f5a88516df6f-stand",
+      "name": "SerwersP1_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9b778c997360df1a-stand",
+      "name": "SerwersP1_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1980499d5726af35-stand",
+      "name": "SerwersP1_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9b56d34f0e654e45-stand",
+      "name": "SerwersP1_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-56e491776dfb39d1-stand",
+      "name": "SerwersP1_005展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-460e80d19ccdecdb-stand",
+      "name": "SerwersP1_006展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d504c4c4422be14e-stand",
+      "name": "SerwersP1_007展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e26ffd9440449e84-stand",
+      "name": "SerwersP1_008展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-80a836770320049f-stand",
+      "name": "SerwersP1_009展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c42be332eca1af4b-stand",
+      "name": "SerwersP1_010展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5ad0c6521caf6b9f-stand",
+      "name": "SerwersP1_011展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-940c1589bb12581c-stand",
+      "name": "SerwersP1_012展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a485cde4a555f139-stand",
+      "name": "SerwersP1_012展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9c85845f042fdc90-stand",
+      "name": "TB展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bc9783eec0c3be28-stand",
+      "name": "Tire展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bedd2b42ac3737db-stand",
+      "name": "Trash展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e4af7071ef8a9305-stand",
+      "name": "Trash_001展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d2b725f151cab137-stand",
+      "name": "Trash_002展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7a68cbfc9795b93a-stand",
+      "name": "Trash_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-32e2703e0cd2b118-stand",
+      "name": "Trash_003展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2ae66a86b505af72-stand",
+      "name": "Trash_004展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c8f40abbcbb34332-stand",
+      "name": "Trash_005展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0cd501c5c1d07a95-stand",
+      "name": "Trash_006展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e25472d2117c8626-stand",
+      "name": "Trash_007展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4b2b33e91c909d38-stand",
+      "name": "Trash_007展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d71fa9ef724f3104-stand",
+      "name": "Trash_008展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cfd073a4bac9e968-stand",
+      "name": "Trash_009展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-342e65479786d053-stand",
+      "name": "Trash_010展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3f0b5bcf253dcfd0-stand",
+      "name": "Trash_011展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ef7f3494039116e6-stand",
+      "name": "Trash_012展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-31a6dd2e9c3faa8d-stand",
+      "name": "Trash_013展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c71ba4782f9e0768-stand",
+      "name": "Trash_M展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6b47c9cafed11ec0-stand",
+      "name": "Trash_M展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6df15d9a9f5a3338-stand",
+      "name": "Trash_M_01展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -44
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a3a2a869f7aa1eea-stand",
+      "name": "Trash_M_01展台",
+      "parentId": "transform:category-sewer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -44
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-3746235bab77facf",
+      "name": "Roads · tree",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/tree_03cd1d59.glb",
+      "position": [
+        -21.99999933,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-15e1f1945e613eca",
+      "name": "Roads · Tree",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Tree_4ae1f6f4.glb",
+      "position": [
+        -18,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35365161,
+        0.35365161,
+        0.35365161
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-77fc0915d2c039dc",
+      "name": "Roads · tree_001",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/tree_001_0fdaafcb.glb",
+      "position": [
+        -14,
+        0,
+        47.99999825
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9156673,
+        0.9156673,
+        0.9156673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ca9514becfebcd07",
+      "name": "Roads · Tree_001",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Tree_001_9dd1615f.glb",
+      "position": [
+        -10,
+        0,
+        47.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25328967,
+        0.25328967,
+        0.25328967
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a3b4b9468fca620",
+      "name": "Roads · tree_002",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/tree_002_d75871e1.glb",
+      "position": [
+        -6,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13106715,
+        1.13106715,
+        1.13106715
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bfa0465f8d03fd6e",
+      "name": "Roads · Tree_002",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Tree_002_9c53ee4a.glb",
+      "position": [
+        -2,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35365161,
+        0.35365161,
+        0.35365161
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-93d364038055223f",
+      "name": "Roads · tree_003",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/tree_003_12149909.glb",
+      "position": [
+        -14.00000067,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1921b809f71ee286",
+      "name": "Roads · Tree_003",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Tree_003_f3166f20.glb",
+      "position": [
+        -10,
+        0,
+        43.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25328967,
+        0.25328967,
+        0.25328967
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fe8f01abbd846203",
+      "name": "Sewer · Box_T",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Box_T_df6f36df.glb",
+      "position": [
+        2,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.81425194,
+        3.81425194,
+        3.81425194
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f2720705838407f4",
+      "name": "Sewer · Box_T_01",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Box_T_01_85ff265e.glb",
+      "position": [
+        6,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.05680161,
+        4.05680161,
+        4.05680161
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4afcd77b2a56a6f6",
+      "name": "Sewer · Box_T_02",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Box_T_02_231ec869.glb",
+      "position": [
+        10,
+        0,
+        48.00001122
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.94187301,
+        2.94187301,
+        2.94187301
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bbb01b69d1258fbb",
+      "name": "Sewer · Box_T_03",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Box_T_03_e35ffd26.glb",
+      "position": [
+        14,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.78857525,
+        2.78857525,
+        2.78857525
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5109db3dc52438ed",
+      "name": "Sewer · Brick",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Brick_3361701d.glb",
+      "position": [
+        18,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.57059963,
+        13.57059963,
+        13.57059963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-06618eb7bc8dd036",
+      "name": "Sewer · Bricks",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Bricks_4e8171d3.glb",
+      "position": [
+        22,
+        0,
+        48.00002059
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.39657642,
+        5.39657642,
+        5.39657642
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1d47bb38b6ea7881",
+      "name": "Sewer · Cylinder",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Cylinder_b428b8bc.glb",
+      "position": [
+        2.00000004,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37547132,
+        0.37547132,
+        0.37547132
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9cbf78b6fee27745",
+      "name": "Sewer · debris",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/debris_3df2ddec.glb",
+      "position": [
+        5.99999985,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63462566,
+        0.63462566,
+        0.63462566
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7ad14de808d27e64",
+      "name": "Sewer · debris",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/debris_d35a0bb9.glb",
+      "position": [
+        10,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63462573,
+        0.63462573,
+        0.63462573
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8709a7ea22685157",
+      "name": "Sewer · debris_01",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/debris_01_d2865b18.glb",
+      "position": [
+        14,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91311065,
+        0.91311065,
+        0.91311065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-efbf5b9310f65932",
+      "name": "Sewer · debris_02",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/debris_02_1188fcac.glb",
+      "position": [
+        17.99999995,
+        0,
+        44.00000311
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81655698,
+        0.81655698,
+        0.81655698
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-45a6589d2bdc0e97",
+      "name": "Sewer · debris_03",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/debris_03_8690fea6.glb",
+      "position": [
+        22,
+        0,
+        44.00000336
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88014692,
+        0.88014692,
+        0.88014692
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ea58700bc9618c72",
+      "name": "Sewer · debris_04",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/debris_04_71934735.glb",
+      "position": [
+        2.00000011,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88236273,
+        0.88236273,
+        0.88236273
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b3025a7ecadaca29",
+      "name": "Sewer · debris_05",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/debris_05_32644bb0.glb",
+      "position": [
+        5.99999995,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87757932,
+        0.87757932,
+        0.87757932
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-932a4a1971e8dbcd",
+      "name": "Sewer · door_metal",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/door_metal_85896d9b.glb",
+      "position": [
+        10,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20829626,
+        1.20829626,
+        1.20829626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b8938d043bc5bba2",
+      "name": "Sewer · door_metal_01",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/door_metal_01_eb46664c.glb",
+      "position": [
+        14,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20829626,
+        1.20829626,
+        1.20829626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7936ebb42e056b17",
+      "name": "Sewer · door_metal_02",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/door_metal_02_412cfdde.glb",
+      "position": [
+        18,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20829626,
+        1.20829626,
+        1.20829626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-210017860cfbee11",
+      "name": "Sewer · Garbage_bag",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Garbage_bag_81e57ee0.glb",
+      "position": [
+        22.00000117,
+        0,
+        39.99998127
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.90910061,
+        4.90910061,
+        4.90910061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-88c0eacb0139424e",
+      "name": "Sewer · Garbage_bag",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Garbage_bag_d4ae3b98.glb",
+      "position": [
+        2.00000117,
+        0,
+        35.99998127
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.90910061,
+        4.90910061,
+        4.90910061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ced7c2d49686f971",
+      "name": "Sewer · Garbage_bag_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Garbage_bag_001_1b359f83.glb",
+      "position": [
+        6,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.36293778,
+        4.36293778,
+        4.36293778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5a967c24d1def84d",
+      "name": "Sewer · Garbage_bag_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Garbage_bag_001_ebf18c82.glb",
+      "position": [
+        10,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.36293778,
+        4.36293778,
+        4.36293778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ef4e3f882c013752",
+      "name": "Sewer · Pipe",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_902cee11.glb",
+      "position": [
+        14,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68146654,
+        2.68146654,
+        2.68146654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2827549035fa256a",
+      "name": "Sewer · Pipe_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_001_e2e47d93.glb",
+      "position": [
+        18,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68146654,
+        2.68146654,
+        2.68146654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-925613e890070c07",
+      "name": "Sewer · Pipe_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_002_1ce0ec6c.glb",
+      "position": [
+        22,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68145491,
+        2.68145491,
+        2.68145491
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-503314520105c5f6",
+      "name": "Sewer · Pipe_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_003_9ccb4c78.glb",
+      "position": [
+        2,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68146654,
+        2.68146654,
+        2.68146654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6b24921d26c7635d",
+      "name": "Sewer · Pipe_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_004_43b3479d.glb",
+      "position": [
+        6,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36972583,
+        1.36972583,
+        1.36972583
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-11110db61284bc22",
+      "name": "Sewer · Pipe_005",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_005_01af4eb3.glb",
+      "position": [
+        10,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68146654,
+        2.68146654,
+        2.68146654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a488daa5110832a4",
+      "name": "Sewer · Pipe_006",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_006_117845c5.glb",
+      "position": [
+        13.99999864,
+        0,
+        32.00001086
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.84771823,
+        2.84771823,
+        2.84771823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8e7d643c5e6d1531",
+      "name": "Sewer · Pipe_007",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_007_adbc7f5d.glb",
+      "position": [
+        18,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.09810072,
+        4.09810072,
+        4.09810072
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3971e85190056096",
+      "name": "Sewer · Pipe_008",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_008_91b12b81.glb",
+      "position": [
+        22.00000145,
+        0,
+        32.00001158
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.03595963,
+        3.03595963,
+        3.03595963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a3739dc8cbbef660",
+      "name": "Sewer · Pipe_009",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_009_8f71f358.glb",
+      "position": [
+        2,
+        0,
+        28.00001517
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.97674212,
+        3.97674212,
+        3.97674212
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-333b266ed730478f",
+      "name": "Sewer · Pipe_010",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_010_5f38cc78.glb",
+      "position": [
+        6,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.07895996,
+        7.07895996,
+        7.07895996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d087c096517b8a5",
+      "name": "Sewer · Pipe_011",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_011_e6e188ee.glb",
+      "position": [
+        10,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.07895996,
+        7.07895996,
+        7.07895996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a6168aa745af5563",
+      "name": "Sewer · Pipe_012",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_012_e7295da3.glb",
+      "position": [
+        14,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.07895996,
+        7.07895996,
+        7.07895996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-309b0b7af10b160e",
+      "name": "Sewer · Pipe_013",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_013_d832607b.glb",
+      "position": [
+        18,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.07895996,
+        7.07895996,
+        7.07895996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bbcb17ae93cf2954",
+      "name": "Sewer · Pipe_P",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_P_a5cc0580.glb",
+      "position": [
+        21.99999239,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.98384963,
+        7.98384963,
+        7.98384963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eceabfbeb8fe5443",
+      "name": "Sewer · Pipe_P_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Pipe_P_001_22c3cb23.glb",
+      "position": [
+        1.99999076,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.69262624,
+        9.69262624,
+        9.69262624
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3818c037a9db0b8b",
+      "name": "Sewer · Serwers",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_7df54720.glb",
+      "position": [
+        5.99999991,
+        0,
+        24.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36415913,
+        0.36415913,
+        0.36415913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dba0d0bdba246e58",
+      "name": "Sewer · Serwers",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_c2ac6755.glb",
+      "position": [
+        10,
+        0,
+        24.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36415916,
+        0.36415916,
+        0.36415916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7ce0394a56398282",
+      "name": "Sewer · Serwers_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_001_40a44eb2.glb",
+      "position": [
+        14,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31912974,
+        0.31912974,
+        0.31912974
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e68c9da8d896b1c1",
+      "name": "Sewer · Serwers_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_001_53e7d01c.glb",
+      "position": [
+        18.00000008,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31912974,
+        0.31912974,
+        0.31912974
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c16c21386b47c412",
+      "name": "Sewer · Serwers_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_002_35fd2d5d.glb",
+      "position": [
+        22.00000008,
+        0,
+        24.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31912969,
+        0.31912969,
+        0.31912969
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c1c0c3f9e39d45af",
+      "name": "Sewer · Serwers_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_002_8c1913b5.glb",
+      "position": [
+        2,
+        0,
+        20.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31912968,
+        0.31912968,
+        0.31912968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2f5f23376bc6dc79",
+      "name": "Sewer · Serwers_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_003_23000a72.glb",
+      "position": [
+        6.00000005,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2032836,
+        0.2032836,
+        0.2032836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a677bb84e1bce480",
+      "name": "Sewer · Serwers_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_004_117bb46c.glb",
+      "position": [
+        10.00000005,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2032836,
+        0.2032836,
+        0.2032836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-54d222629c6fccb8",
+      "name": "Sewer · Serwers_005",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_005_aae6162c.glb",
+      "position": [
+        14,
+        0,
+        19.99999968
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33686135,
+        0.33686135,
+        0.33686135
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7969e0ebc02f370b",
+      "name": "Sewer · Serwers_006",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_006_cff61045.glb",
+      "position": [
+        18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30726238,
+        0.30726238,
+        0.30726238
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4bff2d49736c4e27",
+      "name": "Sewer · Serwers_007",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_007_1dda4dc5.glb",
+      "position": [
+        22,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36589269,
+        0.36589269,
+        0.36589269
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2a33b04f49f20ef8",
+      "name": "Sewer · Serwers_008",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_008_e72965bf.glb",
+      "position": [
+        2,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4239838,
+        0.4239838,
+        0.4239838
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-57521317e6afe581",
+      "name": "Sewer · Serwers_009",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_009_1a50e708.glb",
+      "position": [
+        6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4133536,
+        0.4133536,
+        0.4133536
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e8c2788213cfc656",
+      "name": "Sewer · Serwers_010",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_010_51edcdc8.glb",
+      "position": [
+        10,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41607682,
+        0.41607682,
+        0.41607682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9bd8df19f76f5ccc",
+      "name": "Sewer · Serwers_011",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_011_90dbe1d3.glb",
+      "position": [
+        14,
+        0,
+        15.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4239838,
+        0.4239838,
+        0.4239838
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-49f9bd4ac1601ae3",
+      "name": "Sewer · Serwers_012",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_012_f785eb0f.glb",
+      "position": [
+        18,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38516876,
+        0.38516876,
+        0.38516876
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-103a527442c669d2",
+      "name": "Sewer · Serwers_013",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_013_8b016d2c.glb",
+      "position": [
+        21.99999994,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23148962,
+        0.23148962,
+        0.23148962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ebaafec1f7202461",
+      "name": "Sewer · Serwers_014",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_014_e139b5c9.glb",
+      "position": [
+        2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11577084,
+        0.11577084,
+        0.11577084
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4e69081700c9a4fe",
+      "name": "Sewer · Serwers_015",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers_015_a3eac905.glb",
+      "position": [
+        6.00000022,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11577084,
+        0.11577084,
+        0.11577084
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8b4a85d4ac0b048c",
+      "name": "Sewer · Serwers01",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_b50ec345.glb",
+      "position": [
+        9.99999957,
+        0,
+        12.00000086
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22569505,
+        0.22569505,
+        0.22569505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fa00685f26754ec6",
+      "name": "Sewer · Serwers01_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_001_4a70e404.glb",
+      "position": [
+        14,
+        0,
+        12.00000058
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30669648,
+        0.30669648,
+        0.30669648
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d30927f1a60b0b0e",
+      "name": "Sewer · Serwers01_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_002_ccd43ead.glb",
+      "position": [
+        18,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0a19f4816f157ddd",
+      "name": "Sewer · Serwers01_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_002_f2b1c80d.glb",
+      "position": [
+        21.99999956,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0ed96e933d0c6447",
+      "name": "Sewer · Serwers01_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_003_191fec6c.glb",
+      "position": [
+        2,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b0d9d633c2d65f83",
+      "name": "Sewer · Serwers01_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_003_369e5a6e.glb",
+      "position": [
+        6,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c0a48d25b66ff1c6",
+      "name": "Sewer · Serwers01_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_004_5a189742.glb",
+      "position": [
+        10,
+        0,
+        7.99999911
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-37a69ec86e010322",
+      "name": "Sewer · Serwers01_005",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_005_755f4053.glb",
+      "position": [
+        14,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26606774,
+        0.26606774,
+        0.26606774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c58669bfe971678",
+      "name": "Sewer · Serwers01_005",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_005_b8564d33.glb",
+      "position": [
+        18,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26606774,
+        0.26606774,
+        0.26606774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-31c6805e19979ae2",
+      "name": "Sewer · Serwers01_006",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_006_e3f69937.glb",
+      "position": [
+        22,
+        0,
+        7.99999911
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9b338c12480c9d17",
+      "name": "Sewer · Serwers01_007",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_007_2706d774.glb",
+      "position": [
+        2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c92bd860125eabe",
+      "name": "Sewer · Serwers01_008",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_008_6cb42d3d.glb",
+      "position": [
+        6,
+        0,
+        4.00000089
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9c77ba05b9742dc0",
+      "name": "Sewer · Serwers01_009",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_009_99dda585.glb",
+      "position": [
+        10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23308541,
+        0.23308541,
+        0.23308541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-30e4ddeafd240318",
+      "name": "Sewer · Serwers01_010",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_010_46aa63bf.glb",
+      "position": [
+        14,
+        0,
+        4.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19927517,
+        0.19927517,
+        0.19927517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-071369b1d5cdffdc",
+      "name": "Sewer · Serwers01_011",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers01_011_0b384fbd.glb",
+      "position": [
+        18.00000021,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10748883,
+        0.10748883,
+        0.10748883
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6366c34929ddbc6e",
+      "name": "Sewer · Serwers02",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_efe8e033.glb",
+      "position": [
+        22,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949517,
+        0.32949517,
+        0.32949517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd2036f665d1e822",
+      "name": "Sewer · Serwers02_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_001_79c4774f.glb",
+      "position": [
+        2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37509464,
+        0.37509464,
+        0.37509464
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6fb91d91798c9111",
+      "name": "Sewer · Serwers02_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_001_b6353020.glb",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37509464,
+        0.37509464,
+        0.37509464
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cbe447b087352810",
+      "name": "Sewer · Serwers02_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_002_29ce2f81.glb",
+      "position": [
+        10.00000063,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949502,
+        0.32949502,
+        0.32949502
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ecfa9737dc0d77d2",
+      "name": "Sewer · Serwers02_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_002_9708a008.glb",
+      "position": [
+        14.00000063,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949502,
+        0.32949502,
+        0.32949502
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cd7dcbf51ebc624c",
+      "name": "Sewer · Serwers02_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_003_66e19f94.glb",
+      "position": [
+        18,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949502,
+        0.32949502,
+        0.32949502
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aaadc391e035a966",
+      "name": "Sewer · Serwers02_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_003_bfbb5e88.glb",
+      "position": [
+        22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949502,
+        0.32949502,
+        0.32949502
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4d24b10a83f8185f",
+      "name": "Sewer · Serwers02_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_004_a7dfd9b9.glb",
+      "position": [
+        2,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949517,
+        0.32949517,
+        0.32949517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1995152d8974d2a9",
+      "name": "Sewer · Serwers02_005",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_005_8b409d03.glb",
+      "position": [
+        6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949517,
+        0.32949517,
+        0.32949517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-565b5747dc35f6ca",
+      "name": "Sewer · Serwers02_006",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_006_e180a6d6.glb",
+      "position": [
+        9.99999989,
+        0,
+        -4.00000087
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22826618,
+        0.22826618,
+        0.22826618
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-986f8f39c4aca4ca",
+      "name": "Sewer · Serwers02_007",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_007_2f1fc2c2.glb",
+      "position": [
+        14,
+        0,
+        -3.99999951
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1277051,
+        0.1277051,
+        0.1277051
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-60b02b2196bde25f",
+      "name": "Sewer · Serwers02_008",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_008_01a2e0aa.glb",
+      "position": [
+        17.99999969,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949517,
+        0.32949517,
+        0.32949517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-19f53b6807d8ae06",
+      "name": "Sewer · Serwers02_009",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_009_d9c3d361.glb",
+      "position": [
+        22,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32705779,
+        0.32705779,
+        0.32705779
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bbd1b527b176a8b9",
+      "name": "Sewer · Serwers02_010",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Serwers02_010_db9d2289.glb",
+      "position": [
+        2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32949517,
+        0.32949517,
+        0.32949517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-26568c20027f9068",
+      "name": "Sewer · SerwersP",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_ec00e9a8.glb",
+      "position": [
+        6,
+        0,
+        -8.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66878131,
+        0.66878131,
+        0.66878131
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0836db6e66ff637f",
+      "name": "Sewer · SerwersP_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_001_bd2aa6a7.glb",
+      "position": [
+        9.99999968,
+        0,
+        -8.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66878115,
+        0.66878115,
+        0.66878115
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4c4a71c0c89474a0",
+      "name": "Sewer · SerwersP_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_002_349b0d35.glb",
+      "position": [
+        14,
+        0,
+        -8.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.668781,
+        0.668781,
+        0.668781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c54288cd20f213d6",
+      "name": "Sewer · SerwersP_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_002_69769fbb.glb",
+      "position": [
+        18,
+        0,
+        -8.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.668781,
+        0.668781,
+        0.668781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f746b1c6efbf445a",
+      "name": "Sewer · SerwersP_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_003_5f2d0784.glb",
+      "position": [
+        21.99999936,
+        0,
+        -8.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66878131,
+        0.66878131,
+        0.66878131
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1540e5ed7b0f76d5",
+      "name": "Sewer · SerwersP_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_003_c2a9bb94.glb",
+      "position": [
+        1.99999936,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66878131,
+        0.66878131,
+        0.66878131
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ebab38923b873a6",
+      "name": "Sewer · SerwersP_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_004_6db8735b.glb",
+      "position": [
+        6,
+        0,
+        -12.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.79047812,
+        0.79047812,
+        0.79047812
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-03a183f397a7f44c",
+      "name": "Sewer · SerwersP_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_004_e0c41ade.glb",
+      "position": [
+        10,
+        0,
+        -12.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.79047812,
+        0.79047812,
+        0.79047812
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c904559ada9fb9ff",
+      "name": "Sewer · SerwersP_005",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_005_80517ba9.glb",
+      "position": [
+        14.00000128,
+        0,
+        -12.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66878161,
+        0.66878161,
+        0.66878161
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-671ca501bc89fd1f",
+      "name": "Sewer · SerwersP_006",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_006_da764ed5.glb",
+      "position": [
+        18,
+        0,
+        -12.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6095047,
+        0.6095047,
+        0.6095047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c04408929b72554d",
+      "name": "Sewer · SerwersP_007",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_007_3c311bcd.glb",
+      "position": [
+        22.00000082,
+        0,
+        -12.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42767456,
+        0.42767456,
+        0.42767456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c3b8a722d87e7d89",
+      "name": "Sewer · SerwersP_008",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_008_2ed5cfac.glb",
+      "position": [
+        2,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15531356,
+        1.15531356,
+        1.15531356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c7298de21743728f",
+      "name": "Sewer · SerwersP_008",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_008_c88dc963.glb",
+      "position": [
+        6,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15531356,
+        1.15531356,
+        1.15531356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db3c5be5dd1beb47",
+      "name": "Sewer · SerwersP_009",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_009_1b07210e.glb",
+      "position": [
+        10,
+        0,
+        -15.99999959
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86567706,
+        0.86567706,
+        0.86567706
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-50519100b0ce9a81",
+      "name": "Sewer · SerwersP_010",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_010_b652f527.glb",
+      "position": [
+        14,
+        0,
+        -15.99999959
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86567706,
+        0.86567706,
+        0.86567706
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-44b274d643250b90",
+      "name": "Sewer · SerwersP_011",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_011_886e3d3a.glb",
+      "position": [
+        18,
+        0,
+        -15.99999959
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86567713,
+        0.86567713,
+        0.86567713
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-188871c52db1342b",
+      "name": "Sewer · SerwersP_012",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_012_4cb000b9.glb",
+      "position": [
+        22,
+        0,
+        -15.99999959
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86567713,
+        0.86567713,
+        0.86567713
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-40d02a1bbbfe114f",
+      "name": "Sewer · SerwersP_013",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_013_0e4ff6fc.glb",
+      "position": [
+        2,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40559483,
+        1.40559483,
+        1.40559483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9db68931e60b35e1",
+      "name": "Sewer · SerwersP_013",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP_013_f926bfbe.glb",
+      "position": [
+        6,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40559483,
+        1.40559483,
+        1.40559483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-675c144a3210dd5c",
+      "name": "Sewer · SerwersP1",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_57d0a1c1.glb",
+      "position": [
+        10.00000016,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66878123,
+        0.66878123,
+        0.66878123
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-60ec11a917d84b7a",
+      "name": "Sewer · SerwersP1_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_001_f58b0c21.glb",
+      "position": [
+        13.99999968,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66878115,
+        0.66878115,
+        0.66878115
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a446640fece6cd73",
+      "name": "Sewer · SerwersP1_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_002_2e64fcdc.glb",
+      "position": [
+        18,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.668781,
+        0.668781,
+        0.668781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-33b3f5a88516df6f",
+      "name": "Sewer · SerwersP1_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_002_7cdd0837.glb",
+      "position": [
+        22,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.668781,
+        0.668781,
+        0.668781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9b778c997360df1a",
+      "name": "Sewer · SerwersP1_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_003_cc47991c.glb",
+      "position": [
+        2,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.668781,
+        0.668781,
+        0.668781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1980499d5726af35",
+      "name": "Sewer · SerwersP1_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_004_271e574d.glb",
+      "position": [
+        5.99999867,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6965094,
+        0.6965094,
+        0.6965094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9b56d34f0e654e45",
+      "name": "Sewer · SerwersP1_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_004_cc7d84ef.glb",
+      "position": [
+        9.99999867,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6965094,
+        0.6965094,
+        0.6965094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-56e491776dfb39d1",
+      "name": "Sewer · SerwersP1_005",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_005_ba48df7a.glb",
+      "position": [
+        14,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6670105,
+        0.6670105,
+        0.6670105
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-460e80d19ccdecdb",
+      "name": "Sewer · SerwersP1_006",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_006_71923ebe.glb",
+      "position": [
+        18,
+        0,
+        -23.99999954
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48457756,
+        0.48457756,
+        0.48457756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d504c4c4422be14e",
+      "name": "Sewer · SerwersP1_007",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_007_52f8b931.glb",
+      "position": [
+        22,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29329672,
+        0.29329672,
+        0.29329672
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e26ffd9440449e84",
+      "name": "Sewer · SerwersP1_008",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_008_822eaa6e.glb",
+      "position": [
+        2,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72663656,
+        0.72663656,
+        0.72663656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-80a836770320049f",
+      "name": "Sewer · SerwersP1_009",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_009_e982c178.glb",
+      "position": [
+        6,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72663656,
+        0.72663656,
+        0.72663656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c42be332eca1af4b",
+      "name": "Sewer · SerwersP1_010",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_010_8cf3e79c.glb",
+      "position": [
+        10,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.71947202,
+        0.71947202,
+        0.71947202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5ad0c6521caf6b9f",
+      "name": "Sewer · SerwersP1_011",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_011_deea7a54.glb",
+      "position": [
+        14,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.71947202,
+        0.71947202,
+        0.71947202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-940c1589bb12581c",
+      "name": "Sewer · SerwersP1_012",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_012_3aa8ca76.glb",
+      "position": [
+        18,
+        0,
+        -28.00000118
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23806023,
+        1.23806023,
+        1.23806023
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a485cde4a555f139",
+      "name": "Sewer · SerwersP1_012",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/SerwersP1_012_e6247317.glb",
+      "position": [
+        22,
+        0,
+        -27.99999882
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23806023,
+        1.23806023,
+        1.23806023
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9c85845f042fdc90",
+      "name": "Sewer · TB",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/TB_a0bb4fdc.glb",
+      "position": [
+        2,
+        0,
+        -32.0000068
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.78193312,
+        1.78193312,
+        1.78193312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bc9783eec0c3be28",
+      "name": "Sewer · Tire",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Tire_baf6eeb4.glb",
+      "position": [
+        6,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97167287,
+        2.97167287,
+        2.97167287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bedd2b42ac3737db",
+      "name": "Sewer · Trash",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_ca75bebf.glb",
+      "position": [
+        9.99999547,
+        0,
+        -32.00003625
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.50298197,
+        9.50298197,
+        9.50298197
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e4af7071ef8a9305",
+      "name": "Sewer · Trash_001",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_001_cba4627d.glb",
+      "position": [
+        14,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.30122598,
+        7.30122598,
+        7.30122598
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d2b725f151cab137",
+      "name": "Sewer · Trash_002",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_002_afe9f6d4.glb",
+      "position": [
+        17.99999191,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.95662772,
+        16.95662772,
+        16.95662772
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7a68cbfc9795b93a",
+      "name": "Sewer · Trash_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_003_be0903a4.glb",
+      "position": [
+        22,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.40038212,
+        7.40038212,
+        7.40038212
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-32e2703e0cd2b118",
+      "name": "Sewer · Trash_003",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_003_ef69db14.glb",
+      "position": [
+        2,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.40038212,
+        7.40038212,
+        7.40038212
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2ae66a86b505af72",
+      "name": "Sewer · Trash_004",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_004_54d80103.glb",
+      "position": [
+        6,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.46165806,
+        15.46165806,
+        15.46165806
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c8f40abbcbb34332",
+      "name": "Sewer · Trash_005",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_005_32f599ad.glb",
+      "position": [
+        10.00000285,
+        0,
+        -35.99997717
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.98357134,
+        5.98357134,
+        5.98357134
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0cd501c5c1d07a95",
+      "name": "Sewer · Trash_006",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_006_dd3935b1.glb",
+      "position": [
+        14,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.11761063,
+        9.11761063,
+        9.11761063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e25472d2117c8626",
+      "name": "Sewer · Trash_007",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_007_105359af.glb",
+      "position": [
+        17.99999325,
+        0,
+        -35.999946
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.15457539,
+        14.15457539,
+        14.15457539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4b2b33e91c909d38",
+      "name": "Sewer · Trash_007",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_007_b5dcd1de.glb",
+      "position": [
+        21.99999325,
+        0,
+        -36.000054
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.15457539,
+        14.15457539,
+        14.15457539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d71fa9ef724f3104",
+      "name": "Sewer · Trash_008",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_008_7e8afb54.glb",
+      "position": [
+        2,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.48479449,
+        9.48479449,
+        9.48479449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cfd073a4bac9e968",
+      "name": "Sewer · Trash_009",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_009_ed0dc2c5.glb",
+      "position": [
+        6,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.5714248,
+        7.5714248,
+        7.5714248
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-342e65479786d053",
+      "name": "Sewer · Trash_010",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_010_eaff4636.glb",
+      "position": [
+        10,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.40773878,
+        5.40773878,
+        5.40773878
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3f0b5bcf253dcfd0",
+      "name": "Sewer · Trash_011",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_011_03ebd40d.glb",
+      "position": [
+        14,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.61799439,
+        8.61799439,
+        8.61799439
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ef7f3494039116e6",
+      "name": "Sewer · Trash_012",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_012_78d00973.glb",
+      "position": [
+        18,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.20203009,
+        20.20203009,
+        20.20203009
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-31a6dd2e9c3faa8d",
+      "name": "Sewer · Trash_013",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_013_7569b5b5.glb",
+      "position": [
+        22,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.14802815,
+        7.14802815,
+        7.14802815
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c71ba4782f9e0768",
+      "name": "Sewer · Trash_M",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_M_a336769e.glb",
+      "position": [
+        6,
+        0,
+        -43.99999302
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82979765,
+        1.82979765,
+        1.82979765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6b47c9cafed11ec0",
+      "name": "Sewer · Trash_M",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_M_f81a4722.glb",
+      "position": [
+        10.00000087,
+        0,
+        -43.99999302
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82979879,
+        1.82979879,
+        1.82979879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6df15d9a9f5a3338",
+      "name": "Sewer · Trash_M_01",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_M_01_77442719.glb",
+      "position": [
+        14,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36984214,
+        1.36984214,
+        1.36984214
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a3a2a869f7aa1eea",
+      "name": "Sewer · Trash_M_01",
+      "parentId": "transform:category-sewer",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Sewer/Trash_M_01_d5f36b04.glb",
+      "position": [
+        18,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36984214,
+        1.36984214,
+        1.36984214
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

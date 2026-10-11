@@ -1,0 +1,1018 @@
+{
+  "presetKey": "artist-loafbrr-showcase-doors",
+  "name": "Loafbrr · Doors · 22模型 · 模型 0.15 MiB + 贴图 0.14 MiB · 合计 0.29 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-doors-0",
+      "name": "Doors",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 21
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-569850c99b7ce949-stand",
+      "name": "Door_1_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7e42958b0fcbea2c-stand",
+      "name": "Door_10_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8a7b43cc4eef3f3b-stand",
+      "name": "Door_11_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d5f0afaae56025e0-stand",
+      "name": "Door_12_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f7e47bf6a4d5d226-stand",
+      "name": "Door_13_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-087e04df675c0602-stand",
+      "name": "Door_14_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1776155ef7df4cae-stand",
+      "name": "Door_15_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-152b830d576348bb-stand",
+      "name": "Door_16_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3649442648942e8d-stand",
+      "name": "Door_17_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a4b67b785c1a8b75-stand",
+      "name": "Door_2_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e88fb1db212dce5e-stand",
+      "name": "Door_3_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1c7d4bf65541f46f-stand",
+      "name": "Door_4_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-20465f2f27b47251-stand",
+      "name": "Door_5_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-09b5b40ba15205c9-stand",
+      "name": "Door_6_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b911ac6e58a17ab4-stand",
+      "name": "Door_7_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-50406f0ae4c705bb-stand",
+      "name": "Door_8_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e6065e81c6c61023-stand",
+      "name": "Door_9_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7740445d27669d76-stand",
+      "name": "Window1_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a785d4647fe1d6dc-stand",
+      "name": "Window2_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d69ebcd26458c32d-stand",
+      "name": "Window3_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-39b480c64faeeeac-stand",
+      "name": "Window4_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5ed041d2265f1b60-stand",
+      "name": "Window5_grp展台",
+      "parentId": "transform:category-doors-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-569850c99b7ce949",
+      "name": "Doors · Door_1_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_1_grp.glb",
+      "position": [
+        -22,
+        0,
+        8.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7e42958b0fcbea2c",
+      "name": "Doors · Door_10_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_10_grp.glb",
+      "position": [
+        -18,
+        0,
+        8.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8a7b43cc4eef3f3b",
+      "name": "Doors · Door_11_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_11_grp.glb",
+      "position": [
+        -14,
+        0,
+        8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d5f0afaae56025e0",
+      "name": "Doors · Door_12_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_12_grp.glb",
+      "position": [
+        -9.99999994,
+        0,
+        8.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f7e47bf6a4d5d226",
+      "name": "Doors · Door_13_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_13_grp.glb",
+      "position": [
+        -6,
+        0,
+        8.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-087e04df675c0602",
+      "name": "Doors · Door_14_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_14_grp.glb",
+      "position": [
+        -1.99999994,
+        0,
+        8.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1776155ef7df4cae",
+      "name": "Doors · Door_15_grp · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_15_grp.glb",
+      "position": [
+        -22,
+        0,
+        4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-152b830d576348bb",
+      "name": "Doors · Door_16_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_16_grp.glb",
+      "position": [
+        -18,
+        0,
+        4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3649442648942e8d",
+      "name": "Doors · Door_17_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_17_grp.glb",
+      "position": [
+        -13.99999994,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a4b67b785c1a8b75",
+      "name": "Doors · Door_2_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_2_grp.glb",
+      "position": [
+        -10,
+        0,
+        4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e88fb1db212dce5e",
+      "name": "Doors · Door_3_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_3_grp.glb",
+      "position": [
+        -6,
+        0,
+        4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1c7d4bf65541f46f",
+      "name": "Doors · Door_4_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_4_grp.glb",
+      "position": [
+        -2,
+        0,
+        4.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-20465f2f27b47251",
+      "name": "Doors · Door_5_grp · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_5_grp.glb",
+      "position": [
+        -22,
+        0,
+        1e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-09b5b40ba15205c9",
+      "name": "Doors · Door_6_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_6_grp.glb",
+      "position": [
+        -18,
+        0,
+        1e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b911ac6e58a17ab4",
+      "name": "Doors · Door_7_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_7_grp.glb",
+      "position": [
+        -13.99999994,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-50406f0ae4c705bb",
+      "name": "Doors · Door_8_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_8_grp.glb",
+      "position": [
+        -10,
+        0,
+        1e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e6065e81c6c61023",
+      "name": "Doors · Door_9_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Door_9_grp.glb",
+      "position": [
+        -5.99999994,
+        0,
+        1e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7740445d27669d76",
+      "name": "Doors · Window1_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Window1_grp.glb",
+      "position": [
+        -2,
+        0,
+        -1e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a785d4647fe1d6dc",
+      "name": "Doors · Window2_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Window2_grp.glb",
+      "position": [
+        -18,
+        0,
+        -4.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16666662,
+        1.16666662,
+        1.16666662
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d69ebcd26458c32d",
+      "name": "Doors · Window3_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Window3_grp.glb",
+      "position": [
+        -13.99999989,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-39b480c64faeeeac",
+      "name": "Doors · Window4_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Window4_grp.glb",
+      "position": [
+        -10,
+        0,
+        -4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5ed041d2265f1b60",
+      "name": "Doors · Window5_grp · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-doors-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Doors/Window5_grp.glb",
+      "position": [
+        -6.00000011,
+        0,
+        -4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

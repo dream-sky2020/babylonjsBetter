@@ -1,0 +1,7822 @@
+{
+  "presetKey": "artist-elbolilloduro-seasonal-model-test",
+  "name": "Elbolilloduro · 节日与万圣节 1/2（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-christmas",
+      "name": "Christmas",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-halloween",
+      "name": "halloween",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 81
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-6bc322ceded940ca-stand",
+      "name": "Aluminum_tray展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        38
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ea713247360a849b-stand",
+      "name": "Champam展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        38
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3ae67794535ae6b8-stand",
+      "name": "Christmas_cookie展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        38
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dc0e595516c2f3d8-stand",
+      "name": "Christmas_cookie_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        38
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-03dfffce621de1fa-stand",
+      "name": "Christmas_cookie_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        38
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e7ac19eff59fd9de-stand",
+      "name": "Christmas_cookie_03展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        38
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1bcf60e5da99032a-stand",
+      "name": "Christmas_cookie_04展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b46b92a30ace5809-stand",
+      "name": "Christmas_cookie_05展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-abf315681b00f415-stand",
+      "name": "Christmas_cookie_06展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-23b1115d2293e895-stand",
+      "name": "Christmas_cookie_07展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5a91da99c50be33a-stand",
+      "name": "Christmas_cookie_08展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fc6e94bbb5797f57-stand",
+      "name": "Christmas_cookie_09展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4cce875d8565c41e-stand",
+      "name": "Christmas_cookie_10展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b226f67d81938fc8-stand",
+      "name": "Christmas_cookie_11展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4ad4c59066bf46bc-stand",
+      "name": "Christmas_decoration展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bd3360f95fcab237-stand",
+      "name": "Christmas_decoration_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8c04037eb9f27ed3-stand",
+      "name": "Christmas_decoration_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-357f2dfb2dece5c1-stand",
+      "name": "Christmas_food展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a0d9357ac185b65e-stand",
+      "name": "Christmas_food_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3e67273d110c3698-stand",
+      "name": "Christmas_food_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ed4bb49c1093a733-stand",
+      "name": "Christmas_food_03展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ba30cf98933c8e92-stand",
+      "name": "Christmas_hat展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-84cd05dfb077ef23-stand",
+      "name": "Christmas_hat_001展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b2ece6df3d618335-stand",
+      "name": "Christmas_hat_002展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c2872395b86b2d57-stand",
+      "name": "Christmas_sphere展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0184e99ece376dfa-stand",
+      "name": "Christmas_sphere_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dfc1c527c119dddf-stand",
+      "name": "Christmas_sphere_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-68c3854eb31f176e-stand",
+      "name": "Christmas_sphere_03展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4a8d9d630ba55123-stand",
+      "name": "Christmas_sphere_04展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9555a709dfa4ae5e-stand",
+      "name": "Christmas_sphere_05展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1b5f809b0d028c2a-stand",
+      "name": "Christmas_sphere_06展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2a5cc12aec242654-stand",
+      "name": "Christmas_stocking展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7877fdfe577ee43a-stand",
+      "name": "Christmas_stocking_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5172e4b0e95f7deb-stand",
+      "name": "Christmas_tree_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f7b2bfdc265d54b0-stand",
+      "name": "Christmas_wreath展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c443cc199523cf2b-stand",
+      "name": "Christmas_wreath_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f94904774d713d7a-stand",
+      "name": "Cup_chocolate展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3e8826b82cb2fe79-stand",
+      "name": "Cup_chocolate_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9e9fc834ff74890f-stand",
+      "name": "Flan展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a500a7c79f42e287-stand",
+      "name": "Gift展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-498e9477ee1ce593-stand",
+      "name": "Gift_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9e6bdfa3e189a471-stand",
+      "name": "Gift_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a6c343486a6fc795-stand",
+      "name": "Gift_03展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f6f24e3aacebad2d-stand",
+      "name": "Hammer展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-22ef3dfe74fe0c02-stand",
+      "name": "Hammer_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8ff445a5f2f327d8-stand",
+      "name": "Ponche展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3914100290023858-stand",
+      "name": "Ponche_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e90bd5afd0498c45-stand",
+      "name": "Ponche_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-802ff43f8d2d8e8b-stand",
+      "name": "Ribbon展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-73047612e56d5970-stand",
+      "name": "Road展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fd4459c5773aef4a-stand",
+      "name": "Road_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-55d4bdd283ea9b99-stand",
+      "name": "Road_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aea0b3daabe02209-stand",
+      "name": "Road_03展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ae6ad472dbf67552-stand",
+      "name": "Road_V展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d626eabcba1c48df-stand",
+      "name": "Road_V_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3418dcba65775745-stand",
+      "name": "Road_V_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-605f2538a41a8885-stand",
+      "name": "Road_V_03展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e5ce389b02205061-stand",
+      "name": "Road_V2展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b23bd4bf919ffa92-stand",
+      "name": "Road_V2_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-209befa20748004f-stand",
+      "name": "Road_V2_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5cc251c9e8a1d93e-stand",
+      "name": "Road_V2_03展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f9e6006785939ecf-stand",
+      "name": "Snow展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a0ce73bf93512755-stand",
+      "name": "Snowman展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f5a3a57e1e320960-stand",
+      "name": "Snowman_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-067895337a890d40-stand",
+      "name": "Snowman_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7631b47bc25b7c29-stand",
+      "name": "Tree_N展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a0cd11a2a8d2cea1-stand",
+      "name": "Tree_N_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-781cde3edd0a7955-stand",
+      "name": "Tree_N_P展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6d92b83466e9055f-stand",
+      "name": "Trees_01展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-948fcfb39e13d321-stand",
+      "name": "Trees_02展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c7e53bb1be9d5413-stand",
+      "name": "Trees_03展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-95a156407c2182b9-stand",
+      "name": "Body展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        38
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-333174a6609ec606-stand",
+      "name": "Body_001展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        38
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f84478f1a256a4b3-stand",
+      "name": "Body_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        38
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e4a98dedca65a05b-stand",
+      "name": "Body_01_001展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        38
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0333a8a4c0242346-stand",
+      "name": "Body_part展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        38
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-df59f5df1fa4c73f-stand",
+      "name": "Body_part_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        38
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-66d26c5de73f2758-stand",
+      "name": "Body_part_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        34
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-250edc8795e01fca-stand",
+      "name": "Body_part_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        34
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ec13e28788b98db0-stand",
+      "name": "Body_part_04展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        34
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ac1893dbeefa43be-stand",
+      "name": "Body_part_05展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        34
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4a744751473f1a68-stand",
+      "name": "Body_part_06展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        34
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3a7ae026455714e8-stand",
+      "name": "Body_part_07展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        34
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ad622d8af3dc2538-stand",
+      "name": "Body_part_08展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6a380d592c08f55c-stand",
+      "name": "Body_part_09展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ae80665f9a6d459e-stand",
+      "name": "Brick展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-50581e65ff4950a7-stand",
+      "name": "Bricks展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e9fdd0de4c75da3b-stand",
+      "name": "Bricks_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e5f98408ed67cd24-stand",
+      "name": "Candle展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-74584a17f014b995-stand",
+      "name": "Candle_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-53f758362ea7ebb2-stand",
+      "name": "Candle_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-36f8627749cfc8a8-stand",
+      "name": "Candle_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-27bcd7644f982af5-stand",
+      "name": "Candy_Bowl_S展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-fe86cf126d9797f6-stand",
+      "name": "Candy_Container_D展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-43edcf583fb26d97-stand",
+      "name": "Candy_Container_D_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1fc137e03665084d-stand",
+      "name": "Candy_Container_D_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d1e7dc8f49cb2234-stand",
+      "name": "Coffin展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-312b47dc3646cce3-stand",
+      "name": "Coffin_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-46199ea313b42886-stand",
+      "name": "Coffin_Top展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3dad93f3ad6b296f-stand",
+      "name": "Coffin_Top_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1bf6c6dde9b932bc-stand",
+      "name": "Concrete展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a6abfbbed51007f4-stand",
+      "name": "Concrete_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e68b4f8c876f7090-stand",
+      "name": "Farmland展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-220d7f3d9067a820-stand",
+      "name": "Farmland_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-efa86e7ee95ead4f-stand",
+      "name": "Farmland_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-95d8458421f05755-stand",
+      "name": "Farmland_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0737db5f58ffd170-stand",
+      "name": "Farmland_04展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a645ed57a7d4ddc0-stand",
+      "name": "Fence展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1edcfffb6eec0fc5-stand",
+      "name": "Fence_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-eea193ec743076f9-stand",
+      "name": "Fence_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e1c4bc0118c181f0-stand",
+      "name": "Fence_04展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-49be0b2add34dad3-stand",
+      "name": "Fence_05展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2a1bb881734ec92c-stand",
+      "name": "Fence_06展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3b4b95d95acf220c-stand",
+      "name": "Fence_07展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4861fe8f38e5a350-stand",
+      "name": "Fence_08展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7e7f494c9e2835fe-stand",
+      "name": "Fence_09展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-95c9a614c0501e70-stand",
+      "name": "Fence_10展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-87d3601d02481298-stand",
+      "name": "Fence_Metal展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d50fc8d8fea2daec-stand",
+      "name": "Fence_Metal_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-fb6e259cc4496f87-stand",
+      "name": "Fence_Metal_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2630c13bc9d7c05f-stand",
+      "name": "Fence_Metal_04展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cde4c9181ae9c2c2-stand",
+      "name": "Fence_Metal_05展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7b75d31eeaf9f30c-stand",
+      "name": "Metal展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ff228025f47cf250-stand",
+      "name": "Pumpkin展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-79ad6c935a85e7c3-stand",
+      "name": "Pumpkin_001展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-55e8f2e9cb3c9381-stand",
+      "name": "Pumpkin_002展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-35de318729fb6bad-stand",
+      "name": "Pumpkin_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0f48246d8b1db898-stand",
+      "name": "Pumpkin_01_001展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b46a4989051c2947-stand",
+      "name": "Pumpkin_01_002展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b8b3cd69a541975b-stand",
+      "name": "Pumpkin_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-79650a624a2aed09-stand",
+      "name": "Pumpkin_02_001展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-822ad93d75c542d7-stand",
+      "name": "Pumpkin_02_002展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6b34bfc0f84f217e-stand",
+      "name": "Pumpkin_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-21aaf2a3a3fbdf74-stand",
+      "name": "Pumpkin_03_001展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bfb69af82c7b5eed-stand",
+      "name": "Pumpkin_03_002展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cc44e1f484bac109-stand",
+      "name": "Scarecrow展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a671e7102dd86421-stand",
+      "name": "Scarecrow_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-def03be32d45117e-stand",
+      "name": "Shovel展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dd140d8006db637e-stand",
+      "name": "Spiderweb展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a32291ccf827b878-stand",
+      "name": "Spiderweb_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ca365f397ca84c28-stand",
+      "name": "Spiderweb_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f65a0b4932fc8009-stand",
+      "name": "Spiderweb_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c9d3b9d6ba91bc41-stand",
+      "name": "Stone展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-89701b46a93cc5da-stand",
+      "name": "Stone_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-22fcc6629eacc67f-stand",
+      "name": "Stone_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dd4e741b2cb11f31-stand",
+      "name": "Stone_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0fb2225e585298cb-stand",
+      "name": "Stone_04展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-82a7cf21880ebb01-stand",
+      "name": "Stone_05展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8a3d7e9b9f379d47-stand",
+      "name": "Stone_06展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -10
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-695dc8695f73e45a-stand",
+      "name": "Stone_07展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-52a8702db5e591e2-stand",
+      "name": "Stone_08展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cd98f047852d122d-stand",
+      "name": "Straw展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-da312220d657bfa9-stand",
+      "name": "Straw_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cfb320070a75a480-stand",
+      "name": "Sweets展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-66e61f03c0f1e1f9-stand",
+      "name": "Sweets_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-017261d204df2bd9-stand",
+      "name": "Sweets_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-25eab7997a881622-stand",
+      "name": "Sweets_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-df7fb1e411265069-stand",
+      "name": "Sweets_04展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-854e142fab8d9919-stand",
+      "name": "Sweets_05展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9e8a7d2e087832a2-stand",
+      "name": "Sweets_06展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b05dec6a5bd9a06d-stand",
+      "name": "Sweets_07展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -18
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-44da9fd91cdc15c5-stand",
+      "name": "Sweets_08展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-08f523f6e2e48835-stand",
+      "name": "Sweets_09展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-809763abebca3459-stand",
+      "name": "Sweets_10展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a74cff0ed94d3f45-stand",
+      "name": "Sweets_11展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-67697e4b9a1d4157-stand",
+      "name": "Sweets_12展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-54814d1f9b8e6309-stand",
+      "name": "Sweets_13展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-22f5d1e377dffdab-stand",
+      "name": "Sweets_14展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f5bb5425d8550535-stand",
+      "name": "Sweets_15展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0b159687359f9ca3-stand",
+      "name": "Sweets_16展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-05c3a8dcd5c406da-stand",
+      "name": "Sweets_17展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cf9a6596d2596f51-stand",
+      "name": "Sweets_18展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9a85803f1118cae8-stand",
+      "name": "Sweets_19展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -26
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-746f3d9278c98e60-stand",
+      "name": "Sweets_20展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-76d6f59c2672a5a5-stand",
+      "name": "Sweets_21展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-02a96b308f0de2f7-stand",
+      "name": "Sweets_22展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-01497e79052c888c-stand",
+      "name": "Tree展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9d1e1c9086f1cdc9-stand",
+      "name": "Tree_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-48dd0bf8ae9d990f-stand",
+      "name": "Tree_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -30
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ddffad2bc739afdc-stand",
+      "name": "Tree_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -34
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-6bc322ceded940ca",
+      "name": "Christmas · Aluminum_tray",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Aluminum_tray_cd311e0f.glb",
+      "position": [
+        -22,
+        0,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.62746442,
+        4.62746442,
+        4.62746442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ea713247360a849b",
+      "name": "Christmas · Champam",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Champam_28f3f046.glb",
+      "position": [
+        -18,
+        0,
+        37.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.55338286,
+        6.55338286,
+        6.55338286
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3ae67794535ae6b8",
+      "name": "Christmas · Christmas_cookie",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_6358ff95.glb",
+      "position": [
+        -14,
+        0,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.53196063,
+        12.53196063,
+        12.53196063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dc0e595516c2f3d8",
+      "name": "Christmas · Christmas_cookie_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_01_5cc20e16.glb",
+      "position": [
+        -10.00000037,
+        0,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.53196397,
+        12.53196397,
+        12.53196397
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-03dfffce621de1fa",
+      "name": "Christmas · Christmas_cookie_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_02_861e37fb.glb",
+      "position": [
+        -6.00000035,
+        0,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.57907543,
+        11.57907543,
+        11.57907543
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e7ac19eff59fd9de",
+      "name": "Christmas · Christmas_cookie_03",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_03_c58fe947.glb",
+      "position": [
+        -2,
+        0,
+        38.00000068
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.42004733,
+        11.42004733,
+        11.42004733
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1bcf60e5da99032a",
+      "name": "Christmas · Christmas_cookie_04",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_04_cc770702.glb",
+      "position": [
+        -22.00000031,
+        0,
+        34
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.25705514,
+        10.25705514,
+        10.25705514
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b46b92a30ace5809",
+      "name": "Christmas · Christmas_cookie_05",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_05_866f44fd.glb",
+      "position": [
+        -18.00000034,
+        0,
+        33.99999932
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.42504398,
+        11.42504398,
+        11.42504398
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-abf315681b00f415",
+      "name": "Christmas · Christmas_cookie_06",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_06_866f5f26.glb",
+      "position": [
+        -14,
+        0,
+        33.99999901
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.2922696,
+        8.2922696,
+        8.2922696
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-23b1115d2293e895",
+      "name": "Christmas · Christmas_cookie_07",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_07_c05ddb10.glb",
+      "position": [
+        -10,
+        0,
+        33.99999884
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.68919565,
+        9.68919565,
+        9.68919565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5a91da99c50be33a",
+      "name": "Christmas · Christmas_cookie_08",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_08_36b22817.glb",
+      "position": [
+        -6,
+        0,
+        34.00000047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.96440394,
+        7.96440394,
+        7.96440394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fc6e94bbb5797f57",
+      "name": "Christmas · Christmas_cookie_09",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_09_ec1dbc03.glb",
+      "position": [
+        -2,
+        0,
+        33.99999887
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.89163529,
+        18.89163529,
+        18.89163529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4cce875d8565c41e",
+      "name": "Christmas · Christmas_cookie_10",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_10_06aacc58.glb",
+      "position": [
+        -22,
+        0,
+        30.00000089
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.90455454,
+        14.90455454,
+        14.90455454
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b226f67d81938fc8",
+      "name": "Christmas · Christmas_cookie_11",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_cookie_11_b2f5a8bd.glb",
+      "position": [
+        -17.99999934,
+        0,
+        29.99999934
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.11380404,
+        11.11380404,
+        11.11380404
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4ad4c59066bf46bc",
+      "name": "Christmas · Christmas_decoration",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_decoration_27355ee9.glb",
+      "position": [
+        -13.99999963,
+        0,
+        29.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.12134334,
+        3.12134334,
+        3.12134334
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bd3360f95fcab237",
+      "name": "Christmas · Christmas_decoration_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_decoration_01_82ba5a1e.glb",
+      "position": [
+        -10.00000013,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.21614159,
+        2.21614159,
+        2.21614159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c04037eb9f27ed3",
+      "name": "Christmas · Christmas_decoration_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_decoration_02_78721038.glb",
+      "position": [
+        -6.00000013,
+        0,
+        29.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.21614159,
+        2.21614159,
+        2.21614159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-357f2dfb2dece5c1",
+      "name": "Christmas · Christmas_food",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_food_d70cc867.glb",
+      "position": [
+        -1.99999943,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.76032925,
+        4.76032925,
+        4.76032925
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a0d9357ac185b65e",
+      "name": "Christmas · Christmas_food_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_food_01_ba3a497e.glb",
+      "position": [
+        -22,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.93270996,
+        3.93270996,
+        3.93270996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e67273d110c3698",
+      "name": "Christmas · Christmas_food_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_food_02_fddd8d8f.glb",
+      "position": [
+        -17.99999955,
+        0,
+        25.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.79821649,
+        3.79821649,
+        3.79821649
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed4bb49c1093a733",
+      "name": "Christmas · Christmas_food_03",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_food_03_d6bff93e.glb",
+      "position": [
+        -14.00000057,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.59003764,
+        9.59003764,
+        9.59003764
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ba30cf98933c8e92",
+      "name": "Christmas · Christmas_hat",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_hat_6c7d8539.glb",
+      "position": [
+        -9.99999946,
+        0,
+        25.99999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.05873085,
+        9.05873085,
+        9.05873085
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-84cd05dfb077ef23",
+      "name": "Christmas · Christmas_hat_001",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_hat_001_192d5ee2.glb",
+      "position": [
+        -6,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3926179,
+        1.3926179,
+        1.3926179
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b2ece6df3d618335",
+      "name": "Christmas · Christmas_hat_002",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_hat_002_39861fe7.glb",
+      "position": [
+        -2,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39004898,
+        1.39004898,
+        1.39004898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c2872395b86b2d57",
+      "name": "Christmas · Christmas_sphere",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_sphere_714138ce.glb",
+      "position": [
+        -22,
+        0,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.5910261,
+        19.5910261,
+        19.5910261
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0184e99ece376dfa",
+      "name": "Christmas · Christmas_sphere_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_sphere_01_bf3b5c46.glb",
+      "position": [
+        -18,
+        0,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.5910261,
+        19.5910261,
+        19.5910261
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dfc1c527c119dddf",
+      "name": "Christmas · Christmas_sphere_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_sphere_02_c7d0d9b2.glb",
+      "position": [
+        -14,
+        0,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.5910261,
+        19.5910261,
+        19.5910261
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-68c3854eb31f176e",
+      "name": "Christmas · Christmas_sphere_03",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_sphere_03_98ada1b9.glb",
+      "position": [
+        -10,
+        0,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.59102406,
+        19.59102406,
+        19.59102406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4a8d9d630ba55123",
+      "name": "Christmas · Christmas_sphere_04",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_sphere_04_d6f1498c.glb",
+      "position": [
+        -6,
+        0,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.59102406,
+        19.59102406,
+        19.59102406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9555a709dfa4ae5e",
+      "name": "Christmas · Christmas_sphere_05",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_sphere_05_c8681651.glb",
+      "position": [
+        -2,
+        0,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.59102406,
+        19.59102406,
+        19.59102406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1b5f809b0d028c2a",
+      "name": "Christmas · Christmas_sphere_06",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_sphere_06_cda73eee.glb",
+      "position": [
+        -22,
+        0,
+        17.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.59102406,
+        19.59102406,
+        19.59102406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2a5cc12aec242654",
+      "name": "Christmas · Christmas_stocking",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_stocking_dbf7f55f.glb",
+      "position": [
+        -18,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.96510012,
+        6.96510012,
+        6.96510012
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7877fdfe577ee43a",
+      "name": "Christmas · Christmas_stocking_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_stocking_01_7de61ddc.glb",
+      "position": [
+        -14,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.96510012,
+        6.96510012,
+        6.96510012
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5172e4b0e95f7deb",
+      "name": "Christmas · Christmas_tree_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_tree_01_fc1f076c.glb",
+      "position": [
+        -10,
+        0,
+        18.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.17590817,
+        1.17590817,
+        1.17590817
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f7b2bfdc265d54b0",
+      "name": "Christmas · Christmas_wreath",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_wreath_cee1f77b.glb",
+      "position": [
+        -6,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.08592413,
+        4.08592413,
+        4.08592413
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c443cc199523cf2b",
+      "name": "Christmas · Christmas_wreath_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Christmas_wreath_01_0fde06d4.glb",
+      "position": [
+        -2,
+        0,
+        17.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.86212536,
+        3.86212536,
+        3.86212536
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f94904774d713d7a",
+      "name": "Christmas · Cup_chocolate",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Cup_chocolate_12177d4e.glb",
+      "position": [
+        -21.99999923,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.87166717,
+        12.87166717,
+        12.87166717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e8826b82cb2fe79",
+      "name": "Christmas · Cup_chocolate_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Cup_chocolate_01_c20232da.glb",
+      "position": [
+        -18.00000041,
+        0,
+        13.99999837
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.65997545,
+        13.65997545,
+        13.65997545
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9e9fc834ff74890f",
+      "name": "Christmas · Flan",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Flan_de310470.glb",
+      "position": [
+        -14,
+        0,
+        14.00000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.47985179,
+        5.47985179,
+        5.47985179
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a500a7c79f42e287",
+      "name": "Christmas · Gift",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Gift_04f8113c.glb",
+      "position": [
+        -10,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.64633591,
+        5.64633591,
+        5.64633591
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-498e9477ee1ce593",
+      "name": "Christmas · Gift_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Gift_01_f73cdd6c.glb",
+      "position": [
+        -5.99999965,
+        0,
+        14.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.81075267,
+        5.81075267,
+        5.81075267
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9e6bdfa3e189a471",
+      "name": "Christmas · Gift_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Gift_02_ea087921.glb",
+      "position": [
+        -2,
+        0,
+        14.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.11993911,
+        7.11993911,
+        7.11993911
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a6c343486a6fc795",
+      "name": "Christmas · Gift_03",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Gift_03_0845e9b8.glb",
+      "position": [
+        -21.99999974,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.64400119,
+        8.64400119,
+        8.64400119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f6f24e3aacebad2d",
+      "name": "Christmas · Hammer",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Hammer_b12d9332.glb",
+      "position": [
+        -18,
+        0,
+        9.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.93496813,
+        2.93496813,
+        2.93496813
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-22ef3dfe74fe0c02",
+      "name": "Christmas · Hammer_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Hammer_01_f3ade432.glb",
+      "position": [
+        -14,
+        0,
+        9.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.93496813,
+        2.93496813,
+        2.93496813
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8ff445a5f2f327d8",
+      "name": "Christmas · Ponche",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Ponche_6d32d583.glb",
+      "position": [
+        -10.00000068,
+        0,
+        10.00000136
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.39482129,
+        11.39482129,
+        11.39482129
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3914100290023858",
+      "name": "Christmas · Ponche_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Ponche_01_a87a24ec.glb",
+      "position": [
+        -6.000001,
+        0,
+        9.999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.75515007,
+        16.75515007,
+        16.75515007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e90bd5afd0498c45",
+      "name": "Christmas · Ponche_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Ponche_02_9dbdd3d9.glb",
+      "position": [
+        -2.00000078,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.0118836,
+        13.0118836,
+        13.0118836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-802ff43f8d2d8e8b",
+      "name": "Christmas · Ribbon",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Ribbon_4a686abd.glb",
+      "position": [
+        -21.99999993,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14996728,
+        1.14996728,
+        1.14996728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-73047612e56d5970",
+      "name": "Christmas · Road",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_08adb806.glb",
+      "position": [
+        -18,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03544653,
+        0.03544653,
+        0.03544653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fd4459c5773aef4a",
+      "name": "Christmas · Road_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_01_f476144b.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03544653,
+        0.03544653,
+        0.03544653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-55d4bdd283ea9b99",
+      "name": "Christmas · Road_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_02_cc2787b4.glb",
+      "position": [
+        -10,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03544653,
+        0.03544653,
+        0.03544653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aea0b3daabe02209",
+      "name": "Christmas · Road_03",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_03_1a030e60.glb",
+      "position": [
+        -6,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03544653,
+        0.03544653,
+        0.03544653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ae6ad472dbf67552",
+      "name": "Christmas · Road_V",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_V_0c9a216e.glb",
+      "position": [
+        -2,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11003252,
+        0.11003252,
+        0.11003252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d626eabcba1c48df",
+      "name": "Christmas · Road_V_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_V_01_f328f65f.glb",
+      "position": [
+        -22,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03544653,
+        0.03544653,
+        0.03544653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3418dcba65775745",
+      "name": "Christmas · Road_V_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_V_02_e49e15b3.glb",
+      "position": [
+        -18.00000007,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03544653,
+        0.03544653,
+        0.03544653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-605f2538a41a8885",
+      "name": "Christmas · Road_V_03",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_V_03_5fbf8c23.glb",
+      "position": [
+        -13.99999955,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.05840811,
+        0.05840811,
+        0.05840811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e5ce389b02205061",
+      "name": "Christmas · Road_V2",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_V2_8abdbe95.glb",
+      "position": [
+        -10,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11003252,
+        0.11003252,
+        0.11003252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b23bd4bf919ffa92",
+      "name": "Christmas · Road_V2_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_V2_01_680d53a5.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03544653,
+        0.03544653,
+        0.03544653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-209befa20748004f",
+      "name": "Christmas · Road_V2_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_V2_02_913fc6b7.glb",
+      "position": [
+        -2,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03544653,
+        0.03544653,
+        0.03544653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5cc251c9e8a1d93e",
+      "name": "Christmas · Road_V2_03",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Road_V2_03_45eb9c45.glb",
+      "position": [
+        -21.99999978,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.05840811,
+        0.05840811,
+        0.05840811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f9e6006785939ecf",
+      "name": "Christmas · Snow",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Snow_37b9c635.glb",
+      "position": [
+        -18,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15886148,
+        0.15886148,
+        0.15886148
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a0ce73bf93512755",
+      "name": "Christmas · Snowman",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Snowman_181addf1.glb",
+      "position": [
+        -13.99999967,
+        0,
+        -2.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.38608889,
+        1.38608889,
+        1.38608889
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5a3a57e1e320960",
+      "name": "Christmas · Snowman_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Snowman_01_2098c214.glb",
+      "position": [
+        -9.9999996,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67394947,
+        1.67394947,
+        1.67394947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-067895337a890d40",
+      "name": "Christmas · Snowman_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Snowman_02_28400a9a.glb",
+      "position": [
+        -5.99999961,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65321167,
+        1.65321167,
+        1.65321167
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7631b47bc25b7c29",
+      "name": "Christmas · Tree_N",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Tree_N_34025d54.glb",
+      "position": [
+        -2,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81804694,
+        0.81804694,
+        0.81804694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a0cd11a2a8d2cea1",
+      "name": "Christmas · Tree_N_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Tree_N_01_bfe030ca.glb",
+      "position": [
+        -19.99999986,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20769847,
+        1.20769847,
+        1.20769847
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-781cde3edd0a7955",
+      "name": "Christmas · Tree_N_P",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Tree_N_P_0fce1a18.glb",
+      "position": [
+        -16,
+        0,
+        -5.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48433811,
+        0.48433811,
+        0.48433811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6d92b83466e9055f",
+      "name": "Christmas · Trees_01",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Trees_01_52690021.glb",
+      "position": [
+        -12,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28653087,
+        0.28653087,
+        0.28653087
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-948fcfb39e13d321",
+      "name": "Christmas · Trees_02",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Trees_02_1f112a6d.glb",
+      "position": [
+        -7.99999998,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28653087,
+        0.28653087,
+        0.28653087
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c7e53bb1be9d5413",
+      "name": "Christmas · Trees_03",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/Trees_03_df9c0224.glb",
+      "position": [
+        -4,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.285903,
+        0.285903,
+        0.285903
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-95a156407c2182b9",
+      "name": "halloween · Body",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_a0d7fb7e.glb",
+      "position": [
+        1.99999984,
+        0,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.34006824,
+        1.34006824,
+        1.34006824
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-333174a6609ec606",
+      "name": "halloween · Body_001",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_001_1cdf02fb.glb",
+      "position": [
+        6,
+        0,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85134584,
+        1.85134584,
+        1.85134584
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f84478f1a256a4b3",
+      "name": "halloween · Body_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_01_c23bd56b.glb",
+      "position": [
+        9.99999982,
+        0,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49923662,
+        1.49923662,
+        1.49923662
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e4a98dedca65a05b",
+      "name": "halloween · Body_01_001",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_01_001_f4151aba.glb",
+      "position": [
+        13.99999972,
+        0,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.32453098,
+        2.32453098,
+        2.32453098
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0333a8a4c0242346",
+      "name": "halloween · Body_part",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_4819fb33.glb",
+      "position": [
+        17.9999994,
+        0,
+        38.0000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.04496533,
+        5.04496533,
+        5.04496533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-df59f5df1fa4c73f",
+      "name": "halloween · Body_part_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_01_475f6fc3.glb",
+      "position": [
+        22,
+        0,
+        38.00000215
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0014276,
+        9.0014276,
+        9.0014276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-66d26c5de73f2758",
+      "name": "halloween · Body_part_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_02_028e122b.glb",
+      "position": [
+        1.99999933,
+        0,
+        33.99999933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.81150361,
+        2.81150361,
+        2.81150361
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-250edc8795e01fca",
+      "name": "halloween · Body_part_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_03_7754bc3d.glb",
+      "position": [
+        5.99999892,
+        0,
+        34
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.50983804,
+        4.50983804,
+        4.50983804
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ec13e28788b98db0",
+      "name": "halloween · Body_part_04",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_04_89147b5e.glb",
+      "position": [
+        10,
+        0,
+        34
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.64371622,
+        4.64371622,
+        4.64371622
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ac1893dbeefa43be",
+      "name": "halloween · Body_part_05",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_05_f357c192.glb",
+      "position": [
+        14,
+        0,
+        34.00000312
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.06747255,
+        13.06747255,
+        13.06747255
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4a744751473f1a68",
+      "name": "halloween · Body_part_06",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_06_b56e32d9.glb",
+      "position": [
+        18,
+        0,
+        34
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.38956246,
+        11.38956246,
+        11.38956246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3a7ae026455714e8",
+      "name": "halloween · Body_part_07",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_07_d9df49f0.glb",
+      "position": [
+        21.99999699,
+        0,
+        34
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.6082185,
+        12.6082185,
+        12.6082185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ad622d8af3dc2538",
+      "name": "halloween · Body_part_08",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_08_1c6d437d.glb",
+      "position": [
+        2.00000309,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.97731102,
+        12.97731102,
+        12.97731102
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6a380d592c08f55c",
+      "name": "halloween · Body_part_09",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Body_part_09_f9236138.glb",
+      "position": [
+        5.99999623,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.81102674,
+        15.81102674,
+        15.81102674
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ae80665f9a6d459e",
+      "name": "halloween · Brick",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Brick_0034e3cd.glb",
+      "position": [
+        10,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.16027303,
+        12.16027303,
+        12.16027303
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-50581e65ff4950a7",
+      "name": "halloween · Bricks",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Bricks_59eeb5a0.glb",
+      "position": [
+        14,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.42224502,
+        6.42224502,
+        6.42224502
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e9fdd0de4c75da3b",
+      "name": "halloween · Bricks_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Bricks_01_f01ea3d1.glb",
+      "position": [
+        18,
+        0,
+        29.99999864
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.71214273,
+        5.71214273,
+        5.71214273
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e5f98408ed67cd24",
+      "name": "halloween · Candle",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Candle_96fce1de.glb",
+      "position": [
+        21.9999934,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.83429569,
+        13.83429569,
+        13.83429569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-74584a17f014b995",
+      "name": "halloween · Candle_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Candle_01_4edb655e.glb",
+      "position": [
+        1.99999677,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.78252537,
+        6.78252537,
+        6.78252537
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-53f758362ea7ebb2",
+      "name": "halloween · Candle_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Candle_02_530affc1.glb",
+      "position": [
+        6,
+        0,
+        25.99999943
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.57625907,
+        9.57625907,
+        9.57625907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-36f8627749cfc8a8",
+      "name": "halloween · Candle_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Candle_03_c23e54dc.glb",
+      "position": [
+        10,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.60248888,
+        4.60248888,
+        4.60248888
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-27bcd7644f982af5",
+      "name": "halloween · Candy_Bowl_S",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Candy_Bowl_S_fda02e52.glb",
+      "position": [
+        14,
+        0,
+        25.99999856
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.02716482,
+        6.02716482,
+        6.02716482
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fe86cf126d9797f6",
+      "name": "halloween · Candy_Container_D",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Candy_Container_D_33b86e98.glb",
+      "position": [
+        18,
+        0,
+        26.00000133
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.56279669,
+        5.56279669,
+        5.56279669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-43edcf583fb26d97",
+      "name": "halloween · Candy_Container_D_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Candy_Container_D_01_66c11ba0.glb",
+      "position": [
+        22,
+        0,
+        26.00000133
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.56197076,
+        5.56197076,
+        5.56197076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1fc137e03665084d",
+      "name": "halloween · Candy_Container_D_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Candy_Container_D_02_b8efc236.glb",
+      "position": [
+        2,
+        0,
+        21.99999867
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.57795114,
+        5.57795114,
+        5.57795114
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d1e7dc8f49cb2234",
+      "name": "halloween · Coffin",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Coffin_6d4d9654.glb",
+      "position": [
+        6.00000012,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.04372937,
+        1.04372937,
+        1.04372937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-312b47dc3646cce3",
+      "name": "halloween · Coffin_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Coffin_01_384d55f0.glb",
+      "position": [
+        10,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.04372937,
+        1.04372937,
+        1.04372937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-46199ea313b42886",
+      "name": "halloween · Coffin_Top",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Coffin_Top_cb314303.glb",
+      "position": [
+        14.00000013,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.05279413,
+        1.05279413,
+        1.05279413
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3dad93f3ad6b296f",
+      "name": "halloween · Coffin_Top_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Coffin_Top_01_dee3bd59.glb",
+      "position": [
+        18,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.05368988,
+        1.05368988,
+        1.05368988
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1bf6c6dde9b932bc",
+      "name": "halloween · Concrete",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Concrete_c30bd456.glb",
+      "position": [
+        22,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87047702,
+        0.87047702,
+        0.87047702
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a6abfbbed51007f4",
+      "name": "halloween · Concrete_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Concrete_01_f6019931.glb",
+      "position": [
+        2,
+        0,
+        18.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06194705,
+        1.06194705,
+        1.06194705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e68b4f8c876f7090",
+      "name": "halloween · Farmland",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Farmland_0b63a669.glb",
+      "position": [
+        6,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.71835878,
+        0.71835878,
+        0.71835878
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-220d7f3d9067a820",
+      "name": "halloween · Farmland_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Farmland_01_b3d36c2b.glb",
+      "position": [
+        10,
+        0,
+        18.0000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.22464753,
+        4.22464753,
+        4.22464753
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-efa86e7ee95ead4f",
+      "name": "halloween · Farmland_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Farmland_02_0c76bb81.glb",
+      "position": [
+        14.00000131,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.73862375,
+        2.73862375,
+        2.73862375
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-95d8458421f05755",
+      "name": "halloween · Farmland_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Farmland_03_a5761344.glb",
+      "position": [
+        18,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.50164258,
+        11.50164258,
+        11.50164258
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0737db5f58ffd170",
+      "name": "halloween · Farmland_04",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Farmland_04_ed26ad03.glb",
+      "position": [
+        22,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.55116755,
+        4.55116755,
+        4.55116755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a645ed57a7d4ddc0",
+      "name": "halloween · Fence",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_0dd7ad7c.glb",
+      "position": [
+        2,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70083547,
+        1.70083547,
+        1.70083547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1edcfffb6eec0fc5",
+      "name": "halloween · Fence_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_01_922a9de8.glb",
+      "position": [
+        6,
+        0,
+        14.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70083547,
+        1.70083547,
+        1.70083547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eea193ec743076f9",
+      "name": "halloween · Fence_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_03_092f4664.glb",
+      "position": [
+        10,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70083547,
+        1.70083547,
+        1.70083547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e1c4bc0118c181f0",
+      "name": "halloween · Fence_04",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_04_e583db6e.glb",
+      "position": [
+        14,
+        0,
+        14.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70083547,
+        1.70083547,
+        1.70083547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-49be0b2add34dad3",
+      "name": "halloween · Fence_05",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_05_14117a31.glb",
+      "position": [
+        18,
+        0,
+        14.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.26524643,
+        2.26524643,
+        2.26524643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2a1bb881734ec92c",
+      "name": "halloween · Fence_06",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_06_4db31eee.glb",
+      "position": [
+        22,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.94731188,
+        3.94731188,
+        3.94731188
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3b4b95d95acf220c",
+      "name": "halloween · Fence_07",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_07_5c7fa0ee.glb",
+      "position": [
+        2,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.26859498,
+        5.26859498,
+        5.26859498
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4861fe8f38e5a350",
+      "name": "halloween · Fence_08",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_08_915a8c90.glb",
+      "position": [
+        6,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70083547,
+        1.70083547,
+        1.70083547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7e7f494c9e2835fe",
+      "name": "halloween · Fence_09",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_09_b4f04224.glb",
+      "position": [
+        10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.42249861,
+        4.42249861,
+        4.42249861
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-95c9a614c0501e70",
+      "name": "halloween · Fence_10",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_10_e05ee98f.glb",
+      "position": [
+        14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.10080509,
+        3.10080509,
+        3.10080509
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-87d3601d02481298",
+      "name": "halloween · Fence_Metal",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_Metal_df93518f.glb",
+      "position": [
+        18,
+        0,
+        10.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7725585,
+        0.7725585,
+        0.7725585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d50fc8d8fea2daec",
+      "name": "halloween · Fence_Metal_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_Metal_01_8cd7b0ef.glb",
+      "position": [
+        21.99999991,
+        0,
+        10.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.77255856,
+        0.77255856,
+        0.77255856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fb6e259cc4496f87",
+      "name": "halloween · Fence_Metal_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_Metal_03_6bd7f2a1.glb",
+      "position": [
+        2,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84184448,
+        0.84184448,
+        0.84184448
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2630c13bc9d7c05f",
+      "name": "halloween · Fence_Metal_04",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_Metal_04_2c582d4d.glb",
+      "position": [
+        6.0000001,
+        0,
+        6.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84184436,
+        0.84184436,
+        0.84184436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cde4c9181ae9c2c2",
+      "name": "halloween · Fence_Metal_05",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Fence_Metal_05_02a2d8b4.glb",
+      "position": [
+        10.0000004,
+        0,
+        5.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84184454,
+        0.84184454,
+        0.84184454
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7b75d31eeaf9f30c",
+      "name": "halloween · Metal",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Metal_2df641df.glb",
+      "position": [
+        14,
+        0,
+        6.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13059284,
+        1.13059284,
+        1.13059284
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ff228025f47cf250",
+      "name": "halloween · Pumpkin",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_ff97b624.glb",
+      "position": [
+        18.00000251,
+        0,
+        6.00000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.26103586,
+        5.26103586,
+        5.26103586
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-79ad6c935a85e7c3",
+      "name": "halloween · Pumpkin_001",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_001_5778bc6e.glb",
+      "position": [
+        22,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.70569323,
+        5.70569323,
+        5.70569323
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-55e8f2e9cb3c9381",
+      "name": "halloween · Pumpkin_002",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_002_8a6db724.glb",
+      "position": [
+        2.00000602,
+        0,
+        1.99999925
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.62513406,
+        12.62513406,
+        12.62513406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-35de318729fb6bad",
+      "name": "halloween · Pumpkin_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_01_e2ce6aea.glb",
+      "position": [
+        5.99999792,
+        0,
+        1.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.36258406,
+        4.36258406,
+        4.36258406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0f48246d8b1db898",
+      "name": "halloween · Pumpkin_01_001",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_01_001_af838e81.glb",
+      "position": [
+        10,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.61702568,
+        4.61702568,
+        4.61702568
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b46a4989051c2947",
+      "name": "halloween · Pumpkin_01_002",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_01_002_b55e0123.glb",
+      "position": [
+        14,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.45610946,
+        10.45610946,
+        10.45610946
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b8b3cd69a541975b",
+      "name": "halloween · Pumpkin_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_02_ffd65b08.glb",
+      "position": [
+        18,
+        0,
+        1.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.95315159,
+        4.95315159,
+        4.95315159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-79650a624a2aed09",
+      "name": "halloween · Pumpkin_02_001",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_02_001_c07bb163.glb",
+      "position": [
+        22,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.32668661,
+        6.32668661,
+        6.32668661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-822ad93d75c542d7",
+      "name": "halloween · Pumpkin_02_002",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_02_002_21a0b340.glb",
+      "position": [
+        2.0000059,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.37899459,
+        12.37899459,
+        12.37899459
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6b34bfc0f84f217e",
+      "name": "halloween · Pumpkin_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_03_bd4cc68d.glb",
+      "position": [
+        6,
+        0,
+        -1.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.22482206,
+        6.22482206,
+        6.22482206
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-21aaf2a3a3fbdf74",
+      "name": "halloween · Pumpkin_03_001",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_03_001_7594b529.glb",
+      "position": [
+        9.99999687,
+        0,
+        -1.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.55765554,
+        6.55765554,
+        6.55765554
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bfb69af82c7b5eed",
+      "name": "halloween · Pumpkin_03_002",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Pumpkin_03_002_f3e8f67b.glb",
+      "position": [
+        14.00000581,
+        0,
+        -2.00000073
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.1767079,
+        12.1767079,
+        12.1767079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cc44e1f484bac109",
+      "name": "halloween · Scarecrow",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Scarecrow_ac394a91.glb",
+      "position": [
+        18,
+        0,
+        -2.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06440368,
+        1.06440368,
+        1.06440368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a671e7102dd86421",
+      "name": "halloween · Scarecrow_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Scarecrow_01_886efe0a.glb",
+      "position": [
+        21.99999993,
+        0,
+        -2.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1274291,
+        1.1274291,
+        1.1274291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-def03be32d45117e",
+      "name": "halloween · Shovel",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Shovel_3575e4d0.glb",
+      "position": [
+        2,
+        0,
+        -6.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.46674592,
+        1.46674592,
+        1.46674592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd140d8006db637e",
+      "name": "halloween · Spiderweb",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Spiderweb_b3b305f0.glb",
+      "position": [
+        6.00000031,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.61516943,
+        2.61516943,
+        2.61516943
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a32291ccf827b878",
+      "name": "halloween · Spiderweb_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Spiderweb_01_3a471869.glb",
+      "position": [
+        9.99999971,
+        0,
+        -6.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.40524745,
+        2.40524745,
+        2.40524745
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ca365f397ca84c28",
+      "name": "halloween · Spiderweb_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Spiderweb_02_4cb2f719.glb",
+      "position": [
+        14,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33049442,
+        2.33049442,
+        2.33049442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f65a0b4932fc8009",
+      "name": "halloween · Spiderweb_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Spiderweb_03_f190f53d.glb",
+      "position": [
+        18,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.83016464,
+        2.83016464,
+        2.83016464
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c9d3b9d6ba91bc41",
+      "name": "halloween · Stone",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_1cc00dab.glb",
+      "position": [
+        22,
+        0,
+        -6.00000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.90421134,
+        3.90421134,
+        3.90421134
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-89701b46a93cc5da",
+      "name": "halloween · Stone_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_01_b87a081a.glb",
+      "position": [
+        2,
+        0,
+        -9.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.89557626,
+        3.89557626,
+        3.89557626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-22fcc6629eacc67f",
+      "name": "halloween · Stone_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_02_9584872b.glb",
+      "position": [
+        6,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.66463807,
+        2.66463807,
+        2.66463807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd4e741b2cb11f31",
+      "name": "halloween · Stone_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_03_69494e7b.glb",
+      "position": [
+        10.00000053,
+        0,
+        -10.00000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.22174403,
+        2.22174403,
+        2.22174403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0fb2225e585298cb",
+      "name": "halloween · Stone_04",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_04_77d8d917.glb",
+      "position": [
+        13.99999923,
+        0,
+        -10.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.21825188,
+        3.21825188,
+        3.21825188
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-82a7cf21880ebb01",
+      "name": "halloween · Stone_05",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_05_c0999c3c.glb",
+      "position": [
+        18,
+        0,
+        -9.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.62148535,
+        2.62148535,
+        2.62148535
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8a3d7e9b9f379d47",
+      "name": "halloween · Stone_06",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_06_534cfc11.glb",
+      "position": [
+        22,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55605438,
+        1.55605438,
+        1.55605438
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-695dc8695f73e45a",
+      "name": "halloween · Stone_07",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_07_7c23b76b.glb",
+      "position": [
+        1.99999965,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.45308656,
+        1.45308656,
+        1.45308656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-52a8702db5e591e2",
+      "name": "halloween · Stone_08",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Stone_08_73a78fff.glb",
+      "position": [
+        6,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37324109,
+        1.37324109,
+        1.37324109
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cd98f047852d122d",
+      "name": "halloween · Straw",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Straw_4a30fbee.glb",
+      "position": [
+        10,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.06434804,
+        2.06434804,
+        2.06434804
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-da312220d657bfa9",
+      "name": "halloween · Straw_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Straw_01_2ce08bc5.glb",
+      "position": [
+        14,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.55071239,
+        2.55071239,
+        2.55071239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cfb320070a75a480",
+      "name": "halloween · Sweets",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_6e972c6a.glb",
+      "position": [
+        18,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.74978972,
+        15.74978972,
+        15.74978972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-66e61f03c0f1e1f9",
+      "name": "halloween · Sweets_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_01_e8b5adeb.glb",
+      "position": [
+        22,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.95242237,
+        14.95242237,
+        14.95242237
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-017261d204df2bd9",
+      "name": "halloween · Sweets_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_02_9079dead.glb",
+      "position": [
+        2,
+        0,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.81754371,
+        8.81754371,
+        8.81754371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-25eab7997a881622",
+      "name": "halloween · Sweets_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_03_fb9c9f75.glb",
+      "position": [
+        6,
+        0,
+        -18.00000207
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.68701953,
+        8.68701953,
+        8.68701953
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-df7fb1e411265069",
+      "name": "halloween · Sweets_04",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_04_f6256565.glb",
+      "position": [
+        10,
+        0,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.78643256,
+        8.78643256,
+        8.78643256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-854e142fab8d9919",
+      "name": "halloween · Sweets_05",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_05_3893c8dd.glb",
+      "position": [
+        14,
+        0,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.37923299,
+        11.37923299,
+        11.37923299
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9e8a7d2e087832a2",
+      "name": "halloween · Sweets_06",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_06_e31b22cc.glb",
+      "position": [
+        18,
+        0,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.52463685,
+        8.52463685,
+        8.52463685
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b05dec6a5bd9a06d",
+      "name": "halloween · Sweets_07",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_07_b0440083.glb",
+      "position": [
+        22.0000061,
+        0,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.60334865,
+        25.60334865,
+        25.60334865
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-44da9fd91cdc15c5",
+      "name": "halloween · Sweets_08",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_08_9bb4b627.glb",
+      "position": [
+        2,
+        0,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.06880382,
+        23.06880382,
+        23.06880382
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-08f523f6e2e48835",
+      "name": "halloween · Sweets_09",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_09_a8f15ad6.glb",
+      "position": [
+        5.99999495,
+        0,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.17976245,
+        21.17976245,
+        21.17976245
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-809763abebca3459",
+      "name": "halloween · Sweets_10",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_10_b3963686.glb",
+      "position": [
+        10.00000654,
+        0,
+        -22.00000654
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        27.44924856,
+        27.44924856,
+        27.44924856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a74cff0ed94d3f45",
+      "name": "halloween · Sweets_11",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_11_57e1afbf.glb",
+      "position": [
+        14,
+        0,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.88801033,
+        17.88801033,
+        17.88801033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-67697e4b9a1d4157",
+      "name": "halloween · Sweets_12",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_12_2061324f.glb",
+      "position": [
+        18,
+        0,
+        -21.99999546
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.04183413,
+        19.04183413,
+        19.04183413
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-54814d1f9b8e6309",
+      "name": "halloween · Sweets_13",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_13_27ef2930.glb",
+      "position": [
+        21.99999637,
+        0,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.20674978,
+        15.20674978,
+        15.20674978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-22f5d1e377dffdab",
+      "name": "halloween · Sweets_14",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_14_15ca9b84.glb",
+      "position": [
+        1.99999575,
+        0,
+        -26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.81426045,
+        17.81426045,
+        17.81426045
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5bb5425d8550535",
+      "name": "halloween · Sweets_15",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_15_5b75711c.glb",
+      "position": [
+        6,
+        0,
+        -26.00000376
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.76408103,
+        15.76408103,
+        15.76408103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b159687359f9ca3",
+      "name": "halloween · Sweets_16",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_16_a97a23ca.glb",
+      "position": [
+        10.00000452,
+        0,
+        -26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.94624277,
+        18.94624277,
+        18.94624277
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-05c3a8dcd5c406da",
+      "name": "halloween · Sweets_17",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_17_46e2743d.glb",
+      "position": [
+        14,
+        0,
+        -26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.4829893,
+        4.4829893,
+        4.4829893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cf9a6596d2596f51",
+      "name": "halloween · Sweets_18",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_18_df13f456.glb",
+      "position": [
+        18,
+        0,
+        -26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.83881585,
+        7.83881585,
+        7.83881585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9a85803f1118cae8",
+      "name": "halloween · Sweets_19",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_19_0467aab0.glb",
+      "position": [
+        22,
+        0,
+        -26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.83881585,
+        7.83881585,
+        7.83881585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-746f3d9278c98e60",
+      "name": "halloween · Sweets_20",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_20_ce2f8e8a.glb",
+      "position": [
+        2,
+        0,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.83881585,
+        7.83881585,
+        7.83881585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-76d6f59c2672a5a5",
+      "name": "halloween · Sweets_21",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_21_1c6ba218.glb",
+      "position": [
+        6,
+        0,
+        -29.99999794
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.63632558,
+        8.63632558,
+        8.63632558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-02a96b308f0de2f7",
+      "name": "halloween · Sweets_22",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Sweets_22_82d9f47b.glb",
+      "position": [
+        10,
+        0,
+        -30.00000116
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.85030418,
+        4.85030418,
+        4.85030418
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-01497e79052c888c",
+      "name": "halloween · Tree",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Tree_3105bfe3.glb",
+      "position": [
+        14,
+        0,
+        -30.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38979198,
+        0.38979198,
+        0.38979198
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9d1e1c9086f1cdc9",
+      "name": "halloween · Tree_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Tree_01_a79dd7ed.glb",
+      "position": [
+        18,
+        0,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41335011,
+        0.41335011,
+        0.41335011
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-48dd0bf8ae9d990f",
+      "name": "halloween · Tree_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Tree_02_24d5e634.glb",
+      "position": [
+        22,
+        0,
+        -29.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38330013,
+        0.38330013,
+        0.38330013
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ddffad2bc739afdc",
+      "name": "halloween · Tree_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Tree_03_fbc36b41.glb",
+      "position": [
+        12.00000032,
+        0,
+        -34
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67173151,
+        0.67173151,
+        0.67173151
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

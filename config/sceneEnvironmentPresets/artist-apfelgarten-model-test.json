@@ -1,0 +1,5388 @@
+{
+  "presetKey": "artist-apfelgarten-model-test",
+  "name": "Apfelgarten 资源 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "apfelgarten-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "apfelgarten-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          45,
+          80,
+          -40
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "apfelgarten-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 124,
+        "height": 169
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#303942",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-section-1",
+      "name": "桌椅和衣柜展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 120,
+        "height": 16.5
+      },
+      "position": [
+        0,
+        -0.045,
+        -71.0
+      ],
+      "color": "#514b43"
+    },
+    {
+      "id": "apfelgarten-section-2",
+      "name": "办公室展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 120,
+        "height": 16.5
+      },
+      "position": [
+        0,
+        -0.045,
+        -51.0
+      ],
+      "color": "#48535c"
+    },
+    {
+      "id": "apfelgarten-section-3",
+      "name": "建筑模块展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 120,
+        "height": 118.5
+      },
+      "position": [
+        0,
+        -0.045,
+        20.0
+      ],
+      "color": "#4f524c"
+    }
+  ],
+  "models": [
+    {
+      "id": "apfelgarten-model-001",
+      "name": "桌椅和衣柜 · wood_chair01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_chair01_apfelgarten_itch_io.glb",
+      "position": [
+        -32.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-002",
+      "name": "桌椅和衣柜 · wood_chair02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_chair02_apfelgarten_itch_io.glb",
+      "position": [
+        -24.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5833,
+        2.5833,
+        2.5833
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-003",
+      "name": "桌椅和衣柜 · wood_chair03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_chair03_apfelgarten_itch_io.glb",
+      "position": [
+        -16.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-004",
+      "name": "桌椅和衣柜 · wood_chair04",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_chair04_apfelgarten_itch_io.glb",
+      "position": [
+        -8.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.4444,
+        3.4444,
+        3.4444
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-005",
+      "name": "桌椅和衣柜 · wood_chair05",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_chair05_apfelgarten_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-006",
+      "name": "桌椅和衣柜 · wood_table01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table01_apfelgarten_itch_io.glb",
+      "position": [
+        8.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5833,
+        2.5833,
+        2.5833
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-007",
+      "name": "桌椅和衣柜 · wood_table02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table02_apfelgarten_itch_io.glb",
+      "position": [
+        16.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2513,
+        2.2513,
+        2.2513
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-008",
+      "name": "桌椅和衣柜 · wood_table03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table03_apfelgarten_itch_io.glb",
+      "position": [
+        24.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9683,
+        1.9683,
+        1.9683
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-009",
+      "name": "桌椅和衣柜 · wood_table04",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table04_apfelgarten_itch_io.glb",
+      "position": [
+        32.0,
+        0.025,
+        -75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7614,
+        1.7614,
+        1.7614
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-010",
+      "name": "桌椅和衣柜 · wood_table05",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table05_apfelgarten_itch_io.glb",
+      "position": [
+        -32.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.8089,
+        4.8089,
+        4.8089
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-011",
+      "name": "桌椅和衣柜 · wood_table06",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table06_apfelgarten_itch_io.glb",
+      "position": [
+        -24.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6496,
+        2.6496,
+        2.6496
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-012",
+      "name": "桌椅和衣柜 · wood_table07",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table07_apfelgarten_itch_io.glb",
+      "position": [
+        -16.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55,
+        1.55,
+        1.55
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-013",
+      "name": "桌椅和衣柜 · wood_table08",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table08_apfelgarten_itch_io.glb",
+      "position": [
+        -8.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3596,
+        1.3596,
+        1.3596
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-014",
+      "name": "桌椅和衣柜 · wood_table09",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table09_apfelgarten_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2292,
+        3.2292,
+        3.2292
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-015",
+      "name": "桌椅和衣柜 · wood_table10",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_table10_apfelgarten_itch_io.glb",
+      "position": [
+        8.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.875,
+        3.875,
+        3.875
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-016",
+      "name": "桌椅和衣柜 · wood_wardrobe01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_wardrobe01_apfelgarten_itch_io.glb",
+      "position": [
+        16.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55,
+        1.55,
+        1.55
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-017",
+      "name": "桌椅和衣柜 · wood_wardrobe02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_wardrobe02_apfelgarten_itch_io.glb",
+      "position": [
+        24.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-018",
+      "name": "桌椅和衣柜 · wood_wardrobe03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/chairs-and-tables-psx-asset-pack/wood_wardrobe03_apfelgarten_itch_io.glb",
+      "position": [
+        32.0,
+        0.025,
+        -66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-019",
+      "name": "办公室 · cabinet01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/cabinet01_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -55.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.875,
+        3.875,
+        3.875
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-020",
+      "name": "办公室 · cabinet02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/cabinet02_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        -55.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.875,
+        3.875,
+        3.875
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-021",
+      "name": "办公室 · chair01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/chair01_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        -55.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.96,
+        4.96,
+        4.96
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-022",
+      "name": "办公室 · chair02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/chair02_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        -55.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.1594,
+        5.1594,
+        5.1594
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-023",
+      "name": "办公室 · cupboard01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/cupboard01_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        -55.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-024",
+      "name": "办公室 · cupboard02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/cupboard02_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -55.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-025",
+      "name": "办公室 · desk01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/desk01_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -46.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-026",
+      "name": "办公室 · desk02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/desk02_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        -46.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-027",
+      "name": "办公室 · desk03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/desk03_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        -46.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.4444,
+        3.4444,
+        3.4444
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-028",
+      "name": "办公室 · desk04",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/desk04_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        -46.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-029",
+      "name": "办公室 · file_cabinet01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/file_cabinet01_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        -46.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.1667,
+        5.1667,
+        5.1667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-030",
+      "name": "办公室 · file_cabinet02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/demo-office-psx-asset-pack/file_cabinet02_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -46.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.7692,
+        4.7692,
+        4.7692
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-031",
+      "name": "建筑模块 · ac_unit",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/ac_unit_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.75,
+        7.75,
+        7.75
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-032",
+      "name": "建筑模块 · base_concrete",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/base_concrete_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-033",
+      "name": "建筑模块 · base_concrete_windows",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/base_concrete_windows_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-034",
+      "name": "建筑模块 · base_dark_concrete",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/base_dark_concrete_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-035",
+      "name": "建筑模块 · base_dark_concrete_windows",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/base_dark_concrete_windows_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-036",
+      "name": "建筑模块 · building01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/building01_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5082,
+        0.5082,
+        0.5082
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-037",
+      "name": "建筑模块 · building02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/building02_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4429,
+        0.4429,
+        0.4429
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-038",
+      "name": "建筑模块 · GreyBrick_door01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_door01_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-039",
+      "name": "建筑模块 · GreyBrick_door02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_door02_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-040",
+      "name": "建筑模块 · GreyBrick_door03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_door03_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-041",
+      "name": "建筑模块 · GreyBrick_roof_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-042",
+      "name": "建筑模块 · GreyBrick_roof_long_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_long_left_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-043",
+      "name": "建筑模块 · GreyBrick_roof_long_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_long_mid_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-044",
+      "name": "建筑模块 · GreyBrick_roof_long_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_long_norm_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        -35.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-045",
+      "name": "建筑模块 · GreyBrick_roof_long_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_long_right_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-046",
+      "name": "建筑模块 · GreyBrick_roof_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-047",
+      "name": "建筑模块 · GreyBrick_roof_short_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_short_left_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-048",
+      "name": "建筑模块 · GreyBrick_roof_short_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_short_mid_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.1667,
+        5.1667,
+        5.1667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-049",
+      "name": "建筑模块 · GreyBrick_roof_short_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_short_norm_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.2,
+        6.2,
+        6.2
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-050",
+      "name": "建筑模块 · GreyBrick_roof_short_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_roof_short_right_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-051",
+      "name": "建筑模块 · GreyBrick_wall",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_wall_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-052",
+      "name": "建筑模块 · GreyBrick_wall_horizontal_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_wall_horizontal_half_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-053",
+      "name": "建筑模块 · GreyBrick_wall_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_wall_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-054",
+      "name": "建筑模块 · GreyBrick_wall_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_wall_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-055",
+      "name": "建筑模块 · GreyBrick_wall_vertical_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_wall_vertical_half_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-056",
+      "name": "建筑模块 · GreyBrick_window01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window01_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-057",
+      "name": "建筑模块 · GreyBrick_window02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window02_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-058",
+      "name": "建筑模块 · GreyBrick_window03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window03_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        -26.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-059",
+      "name": "建筑模块 · GreyBrick_window04",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window04_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-060",
+      "name": "建筑模块 · GreyBrick_window05",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window05_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-061",
+      "name": "建筑模块 · GreyBrick_window06",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window06_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-062",
+      "name": "建筑模块 · GreyBrick_window07",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window07_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-063",
+      "name": "建筑模块 · GreyBrick_window08",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window08_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-064",
+      "name": "建筑模块 · GreyBrick_window09",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window09_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-065",
+      "name": "建筑模块 · GreyBrick_window09_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window09_small_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-066",
+      "name": "建筑模块 · GreyBrick_window10",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window10_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-067",
+      "name": "建筑模块 · GreyBrick_window10_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window10_small_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-068",
+      "name": "建筑模块 · GreyBrick_window11",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window11_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-069",
+      "name": "建筑模块 · GreyBrick_window11_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window11_small_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-070",
+      "name": "建筑模块 · GreyBrick_window12",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window12_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-071",
+      "name": "建筑模块 · GreyBrick_window12_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyBrick_window12_small_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-072",
+      "name": "建筑模块 · GreyPlaster_door01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_door01_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        -18.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-073",
+      "name": "建筑模块 · GreyPlaster_door02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_door02_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-074",
+      "name": "建筑模块 · GreyPlaster_door03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_door03_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-075",
+      "name": "建筑模块 · GreyPlaster_roof_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-076",
+      "name": "建筑模块 · GreyPlaster_roof_long_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_long_left_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-077",
+      "name": "建筑模块 · GreyPlaster_roof_long_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_long_mid_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-078",
+      "name": "建筑模块 · GreyPlaster_roof_long_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_long_norm_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-079",
+      "name": "建筑模块 · GreyPlaster_roof_long_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_long_right_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-080",
+      "name": "建筑模块 · GreyPlaster_roof_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-081",
+      "name": "建筑模块 · GreyPlaster_roof_short_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_short_left_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-082",
+      "name": "建筑模块 · GreyPlaster_roof_short_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_short_mid_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.1667,
+        5.1667,
+        5.1667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-083",
+      "name": "建筑模块 · GreyPlaster_roof_short_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_short_norm_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.2,
+        6.2,
+        6.2
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-084",
+      "name": "建筑模块 · GreyPlaster_roof_short_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_roof_short_right_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-085",
+      "name": "建筑模块 · GreyPlaster_wall",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_wall_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-086",
+      "name": "建筑模块 · GreyPlaster_wall_horizontal_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_wall_horizontal_half_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        -9.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-087",
+      "name": "建筑模块 · GreyPlaster_wall_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_wall_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-088",
+      "name": "建筑模块 · GreyPlaster_wall_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_wall_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-089",
+      "name": "建筑模块 · GreyPlaster_wall_vertical_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_wall_vertical_half_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-090",
+      "name": "建筑模块 · GreyPlaster_window01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window01_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-091",
+      "name": "建筑模块 · GreyPlaster_window02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window02_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-092",
+      "name": "建筑模块 · GreyPlaster_window03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window03_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-093",
+      "name": "建筑模块 · GreyPlaster_window04",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window04_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-094",
+      "name": "建筑模块 · GreyPlaster_window05",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window05_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-095",
+      "name": "建筑模块 · GreyPlaster_window06",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window06_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-096",
+      "name": "建筑模块 · GreyPlaster_window07",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window07_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-097",
+      "name": "建筑模块 · GreyPlaster_window08",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window08_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-098",
+      "name": "建筑模块 · GreyPlaster_window09",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window09_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-099",
+      "name": "建筑模块 · GreyPlaster_window09_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window09_small_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-100",
+      "name": "建筑模块 · GreyPlaster_window10",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window10_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-101",
+      "name": "建筑模块 · GreyPlaster_window10_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window10_small_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-102",
+      "name": "建筑模块 · GreyPlaster_window11",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window11_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-103",
+      "name": "建筑模块 · GreyPlaster_window11_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window11_small_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-104",
+      "name": "建筑模块 · GreyPlaster_window12",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window12_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-105",
+      "name": "建筑模块 · GreyPlaster_window12_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/GreyPlaster_window12_small_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-106",
+      "name": "建筑模块 · gutter",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/gutter_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-107",
+      "name": "建筑模块 · gutter_end",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/gutter_end_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0513,
+        4.0513,
+        4.0513
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-108",
+      "name": "建筑模块 · gutter_rusty",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/gutter_rusty_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-109",
+      "name": "建筑模块 · gutter_rusty_end",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/gutter_rusty_end_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0513,
+        4.0513,
+        4.0513
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-110",
+      "name": "建筑模块 · OrangePlaster_door01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_door01_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-111",
+      "name": "建筑模块 · OrangePlaster_door02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_door02_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-112",
+      "name": "建筑模块 · OrangePlaster_door03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_door03_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-113",
+      "name": "建筑模块 · OrangePlaster_roof_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-114",
+      "name": "建筑模块 · OrangePlaster_roof_long_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_long_left_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        7.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-115",
+      "name": "建筑模块 · OrangePlaster_roof_long_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_long_mid_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-116",
+      "name": "建筑模块 · OrangePlaster_roof_long_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_long_norm_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-117",
+      "name": "建筑模块 · OrangePlaster_roof_long_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_long_right_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-118",
+      "name": "建筑模块 · OrangePlaster_roof_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-119",
+      "name": "建筑模块 · OrangePlaster_roof_short_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_short_left_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-120",
+      "name": "建筑模块 · OrangePlaster_roof_short_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_short_mid_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.1667,
+        5.1667,
+        5.1667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-121",
+      "name": "建筑模块 · OrangePlaster_roof_short_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_short_norm_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.2,
+        6.2,
+        6.2
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-122",
+      "name": "建筑模块 · OrangePlaster_roof_short_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_roof_short_right_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-123",
+      "name": "建筑模块 · OrangePlaster_wall",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_wall_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-124",
+      "name": "建筑模块 · OrangePlaster_wall_horizontal_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_wall_horizontal_half_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-125",
+      "name": "建筑模块 · OrangePlaster_wall_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_wall_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-126",
+      "name": "建筑模块 · OrangePlaster_wall_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_wall_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-127",
+      "name": "建筑模块 · OrangePlaster_wall_vertical_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_wall_vertical_half_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-128",
+      "name": "建筑模块 · OrangePlaster_window01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window01_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        15.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-129",
+      "name": "建筑模块 · OrangePlaster_window02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window02_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-130",
+      "name": "建筑模块 · OrangePlaster_window03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window03_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-131",
+      "name": "建筑模块 · OrangePlaster_window04",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window04_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-132",
+      "name": "建筑模块 · OrangePlaster_window05",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window05_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-133",
+      "name": "建筑模块 · OrangePlaster_window06",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window06_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-134",
+      "name": "建筑模块 · OrangePlaster_window07",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window07_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-135",
+      "name": "建筑模块 · OrangePlaster_window08",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window08_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-136",
+      "name": "建筑模块 · OrangePlaster_window09",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window09_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-137",
+      "name": "建筑模块 · OrangePlaster_window09_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window09_small_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-138",
+      "name": "建筑模块 · OrangePlaster_window10",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window10_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-139",
+      "name": "建筑模块 · OrangePlaster_window10_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window10_small_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-140",
+      "name": "建筑模块 · OrangePlaster_window11",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window11_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-141",
+      "name": "建筑模块 · OrangePlaster_window11_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window11_small_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-142",
+      "name": "建筑模块 · OrangePlaster_window12",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window12_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        24.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-143",
+      "name": "建筑模块 · OrangePlaster_window12_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/OrangePlaster_window12_small_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-144",
+      "name": "建筑模块 · RedBrick_door01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_door01_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-145",
+      "name": "建筑模块 · RedBrick_door02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_door02_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-146",
+      "name": "建筑模块 · RedBrick_door03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_door03_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-147",
+      "name": "建筑模块 · RedBrick_roof_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-148",
+      "name": "建筑模块 · RedBrick_roof_long_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_long_left_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-149",
+      "name": "建筑模块 · RedBrick_roof_long_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_long_mid_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-150",
+      "name": "建筑模块 · RedBrick_roof_long_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_long_norm_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-151",
+      "name": "建筑模块 · RedBrick_roof_long_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_long_right_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-152",
+      "name": "建筑模块 · RedBrick_roof_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-153",
+      "name": "建筑模块 · RedBrick_roof_short_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_short_left_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-154",
+      "name": "建筑模块 · RedBrick_roof_short_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_short_mid_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.1667,
+        5.1667,
+        5.1667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-155",
+      "name": "建筑模块 · RedBrick_roof_short_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_short_norm_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.2,
+        6.2,
+        6.2
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-156",
+      "name": "建筑模块 · RedBrick_roof_short_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_roof_short_right_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        32.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-157",
+      "name": "建筑模块 · RedBrick_wall",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_wall_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-158",
+      "name": "建筑模块 · RedBrick_wall_horizontal_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_wall_horizontal_half_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-159",
+      "name": "建筑模块 · RedBrick_wall_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_wall_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-160",
+      "name": "建筑模块 · RedBrick_wall_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_wall_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-161",
+      "name": "建筑模块 · RedBrick_wall_vertical_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_wall_vertical_half_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-162",
+      "name": "建筑模块 · RedBrick_window01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window01_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-163",
+      "name": "建筑模块 · RedBrick_window02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window02_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-164",
+      "name": "建筑模块 · RedBrick_window03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window03_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-165",
+      "name": "建筑模块 · RedBrick_window04",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window04_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-166",
+      "name": "建筑模块 · RedBrick_window05",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window05_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-167",
+      "name": "建筑模块 · RedBrick_window06",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window06_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-168",
+      "name": "建筑模块 · RedBrick_window07",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window07_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-169",
+      "name": "建筑模块 · RedBrick_window08",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window08_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-170",
+      "name": "建筑模块 · RedBrick_window09",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window09_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        41.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-171",
+      "name": "建筑模块 · RedBrick_window09_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window09_small_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-172",
+      "name": "建筑模块 · RedBrick_window10",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window10_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-173",
+      "name": "建筑模块 · RedBrick_window10_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window10_small_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-174",
+      "name": "建筑模块 · RedBrick_window11",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window11_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-175",
+      "name": "建筑模块 · RedBrick_window11_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window11_small_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-176",
+      "name": "建筑模块 · RedBrick_window12",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window12_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-177",
+      "name": "建筑模块 · RedBrick_window12_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedBrick_window12_small_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-178",
+      "name": "建筑模块 · RedPlaster_door01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_door01_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-179",
+      "name": "建筑模块 · RedPlaster_door02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_door02_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-180",
+      "name": "建筑模块 · RedPlaster_door03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_door03_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-181",
+      "name": "建筑模块 · RedPlaster_roof_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-182",
+      "name": "建筑模块 · RedPlaster_roof_long_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_long_left_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-183",
+      "name": "建筑模块 · RedPlaster_roof_long_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_long_mid_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8182,
+        2.8182,
+        2.8182
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-184",
+      "name": "建筑模块 · RedPlaster_roof_long_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_long_norm_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        49.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-185",
+      "name": "建筑模块 · RedPlaster_roof_long_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_long_right_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9524,
+        2.9524,
+        2.9524
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-186",
+      "name": "建筑模块 · RedPlaster_roof_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-187",
+      "name": "建筑模块 · RedPlaster_roof_short_left",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_short_left_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-188",
+      "name": "建筑模块 · RedPlaster_roof_short_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_short_mid_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.1667,
+        5.1667,
+        5.1667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-189",
+      "name": "建筑模块 · RedPlaster_roof_short_norm",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_short_norm_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.2,
+        6.2,
+        6.2
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-190",
+      "name": "建筑模块 · RedPlaster_roof_short_right",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_roof_short_right_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6364,
+        5.6364,
+        5.6364
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-191",
+      "name": "建筑模块 · RedPlaster_wall",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_wall_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-192",
+      "name": "建筑模块 · RedPlaster_wall_horizontal_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_wall_horizontal_half_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-193",
+      "name": "建筑模块 · RedPlaster_wall_long_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_wall_long_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-194",
+      "name": "建筑模块 · RedPlaster_wall_short_diagonal",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_wall_short_diagonal_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-195",
+      "name": "建筑模块 · RedPlaster_wall_vertical_half",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_wall_vertical_half_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-196",
+      "name": "建筑模块 · RedPlaster_window01",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window01_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-197",
+      "name": "建筑模块 · RedPlaster_window02",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window02_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-198",
+      "name": "建筑模块 · RedPlaster_window03",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window03_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        58.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-199",
+      "name": "建筑模块 · RedPlaster_window04",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window04_apfelgarten_itch_io.glb",
+      "position": [
+        -52.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-200",
+      "name": "建筑模块 · RedPlaster_window05",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window05_apfelgarten_itch_io.glb",
+      "position": [
+        -44.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-201",
+      "name": "建筑模块 · RedPlaster_window06",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window06_apfelgarten_itch_io.glb",
+      "position": [
+        -36.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-202",
+      "name": "建筑模块 · RedPlaster_window07",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window07_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-203",
+      "name": "建筑模块 · RedPlaster_window08",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window08_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-204",
+      "name": "建筑模块 · RedPlaster_window09",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window09_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-205",
+      "name": "建筑模块 · RedPlaster_window09_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window09_small_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-206",
+      "name": "建筑模块 · RedPlaster_window10",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window10_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-207",
+      "name": "建筑模块 · RedPlaster_window10_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window10_small_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-208",
+      "name": "建筑模块 · RedPlaster_window11",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window11_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-209",
+      "name": "建筑模块 · RedPlaster_window11_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window11_small_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-210",
+      "name": "建筑模块 · RedPlaster_window12",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window12_apfelgarten_itch_io.glb",
+      "position": [
+        36.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-211",
+      "name": "建筑模块 · RedPlaster_window12_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/RedPlaster_window12_small_apfelgarten_itch_io.glb",
+      "position": [
+        44.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-212",
+      "name": "建筑模块 · roof_black_corner",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_black_corner_apfelgarten_itch_io.glb",
+      "position": [
+        52.0,
+        0.025,
+        66.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62,
+        0.62,
+        0.62
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-213",
+      "name": "建筑模块 · roof_black_end",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_black_end_apfelgarten_itch_io.glb",
+      "position": [
+        -28.0,
+        0.025,
+        75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.775,
+        0.775,
+        0.775
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-214",
+      "name": "建筑模块 · roof_black_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_black_mid_apfelgarten_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.775,
+        0.775,
+        0.775
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-215",
+      "name": "建筑模块 · roof_corner",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_corner_apfelgarten_itch_io.glb",
+      "position": [
+        -12.0,
+        0.025,
+        75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62,
+        0.62,
+        0.62
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-216",
+      "name": "建筑模块 · roof_end",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_end_apfelgarten_itch_io.glb",
+      "position": [
+        -4.0,
+        0.025,
+        75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.775,
+        0.775,
+        0.775
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-217",
+      "name": "建筑模块 · roof_inner_corner",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_inner_corner_apfelgarten_itch_io.glb",
+      "position": [
+        4.0,
+        0.025,
+        75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8,
+        8,
+        8
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-218",
+      "name": "建筑模块 · roof_mid",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_mid_apfelgarten_itch_io.glb",
+      "position": [
+        12.0,
+        0.025,
+        75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.775,
+        0.775,
+        0.775
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-219",
+      "name": "建筑模块 · roof_tile_large",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_tile_large_apfelgarten_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1,
+        3.1,
+        3.1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "apfelgarten-model-220",
+      "name": "建筑模块 · roof_tile_small",
+      "modelPath": "resources/Model/GLB/artist_apfelgarten/modular-building-kit/roof_tile_small_apfelgarten_itch_io.glb",
+      "position": [
+        28.0,
+        0.025,
+        75.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.2,
+        6.2,
+        6.2
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

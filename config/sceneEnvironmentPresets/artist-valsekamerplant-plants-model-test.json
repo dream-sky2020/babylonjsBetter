@@ -1,0 +1,542 @@
+{
+  "presetKey": "artist-valsekamerplant-plants-model-test",
+  "name": "Valsekamerplant · 盆栽 · 植物与花盆（10 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "valse-ambient",
+      "name": "柔和展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.25,
+          1,
+          0.2
+        ],
+        "groundColor": "#66737f"
+      }
+    },
+    {
+      "id": "valse-key",
+      "name": "暖色展示主光",
+      "intensity": 0.8,
+      "color": "#fff2df",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -20,
+          30,
+          -20
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "valse-plants",
+      "name": "盆栽 · 植物与花盆",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "valse-ground",
+      "name": "盆栽 · 植物与花盆展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 20,
+        "height": 16
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-zone",
+      "name": "盆栽 · 植物与花盆展示分区",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 17,
+        "height": 0.1,
+        "depth": 13
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#64866a"
+    },
+    {
+      "id": "valse-plants-001-stand",
+      "name": "pots & plants/Plants/Bird_of_paradise_cluster_1.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-002-stand",
+      "name": "pots & plants/Plants/Bird_of_paradise_cluster_2.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-003-stand",
+      "name": "pots & plants/Plants/Bird_of_paradise_single.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-004-stand",
+      "name": "pots & plants/Plants/calathea.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -4
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-005-stand",
+      "name": "pots & plants/Plants/sanseveria.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-006-stand",
+      "name": "pots & plants/Pots/pot.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-007-stand",
+      "name": "pots & plants/Pots/pot2.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-008-stand",
+      "name": "pots & plants/Pots/pot3.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-009-stand",
+      "name": "pots & plants/Pots/pot4.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-010-stand",
+      "name": "pots & plants/Pots/pot5.glb 展台",
+      "parentId": "transform:valse-plants",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#64866a",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "valse-plants-001",
+      "name": "pots & plants/Plants/Bird_of_paradise_cluster_1.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Plants/Bird_of_paradise_cluster_1.glb",
+      "position": [
+        -5.7922019,
+        0,
+        -4.1717959
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7887978,
+        1.7887978,
+        1.7887978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-002",
+      "name": "pots & plants/Plants/Bird_of_paradise_cluster_2.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Plants/Bird_of_paradise_cluster_2.glb",
+      "position": [
+        -1.8418756,
+        0.0099943,
+        -3.9432594
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8754334,
+        1.8754334,
+        1.8754334
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-003",
+      "name": "pots & plants/Plants/Bird_of_paradise_single.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Plants/Bird_of_paradise_single.glb",
+      "position": [
+        2.6351732,
+        0.0094852,
+        -4.5393395
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3675038,
+        3.3675038,
+        3.3675038
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-004",
+      "name": "pots & plants/Plants/calathea.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Plants/calathea.glb",
+      "position": [
+        5.90083,
+        0.2508457,
+        -3.9139651
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.2561054,
+        5.2561054,
+        5.2561054
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-005",
+      "name": "pots & plants/Plants/sanseveria.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Plants/sanseveria.glb",
+      "position": [
+        -6.0041293,
+        0.0555764,
+        -0.0432862
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8206595,
+        2.8206595,
+        2.8206595
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-006",
+      "name": "pots & plants/Pots/pot.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Pots/pot.glb",
+      "position": [
+        -2.0000004,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.9092788,
+        5.9092788,
+        5.9092788
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-007",
+      "name": "pots & plants/Pots/pot2.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Pots/pot2.glb",
+      "position": [
+        2.0000001,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.9761053,
+        6.9761053,
+        6.9761053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-008",
+      "name": "pots & plants/Pots/pot3.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Pots/pot3.glb",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.867521,
+        7.867521,
+        7.867521
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-009",
+      "name": "pots & plants/Pots/pot4.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Pots/pot4.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.2516266,
+        8.2516266,
+        8.2516266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-plants-010",
+      "name": "pots & plants/Pots/pot5.glb",
+      "parentId": "transform:valse-plants",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/pots & plants/pots & plants/Pots/pot5.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6228345,
+        5.6228345,
+        5.6228345
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

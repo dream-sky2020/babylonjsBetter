@@ -16,7 +16,7 @@ test('right-click object templates create valid, unique scene declarations', () 
   const kinds: EnvironmentObjectKind[] = ['ground', 'box', 'cylinder', 'model', 'hemispheric', 'directional', 'point', 'box'];
   const selected = new Set<string>();
   for (const kind of kinds) {
-    const result = addEnvironmentObject(preset, kind, kind === 'model' ? '/resources/Model/GLB/cuboid.glb' : undefined);
+    const result = addEnvironmentObject(preset, kind, kind === 'model' ? '/resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox02.glb' : undefined);
     assert.ok(!selected.has(result.selectedId));
     selected.add(result.selectedId);
     preset = parseSceneEnvironmentPresetLibrary(editSceneEnvironmentDeclaration(raw, 'child', result.preset)).child;
@@ -29,19 +29,19 @@ test('right-click object templates create valid, unique scene declarations', () 
 test('model menu keeps distinct files and collapses shared public directories', () => {
   const chosen: string[] = [];
   const entries = modelAssetMenuEntries([
-    '/resources/Model/GLB/cuboid.glb',
-    '/resources/Model/GLB/cuboid2.glb',
+    '/resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox01.glb',
+    '/resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox02.glb',
     '/resources/Model/Characters/Hero/hero.gltf',
   ], path => chosen.push(path));
-  assert.deepEqual(entries.map(item => 'label' in item ? item.label : ''), ['Characters / Hero', 'GLB']);
-  const glb = entries.find(item => 'label' in item && item.label === 'GLB');
+  assert.deepEqual(entries.map(item => 'label' in item ? item.label : ''), ['Characters / Hero', 'GLB / artist_t4kum / ClosedBoxes']);
+  const glb = entries.find(item => 'label' in item && item.label === 'GLB / artist_t4kum / ClosedBoxes');
   assert.ok(glb && 'children' in glb);
-  assert.deepEqual(glb.children?.map(item => 'label' in item ? item.label : ''), ['cuboid.glb', 'cuboid2.glb']);
+  assert.deepEqual(glb.children?.map(item => 'label' in item ? item.label : ''), ['ClosedBox01.glb', 'ClosedBox02.glb']);
   const leaf = glb.children?.[1];
   if (leaf && 'action' in leaf) leaf.action?.();
-  assert.deepEqual(chosen, ['/resources/Model/GLB/cuboid2.glb']);
-  const flat = modelAssetMenuEntries(['/resources/Model/GLB/cuboid.glb'], () => {});
-  assert.equal('label' in flat[0] ? flat[0].label : '', 'cuboid.glb');
+  assert.deepEqual(chosen, ['/resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox02.glb']);
+  const flat = modelAssetMenuEntries(['/resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox01.glb'], () => {});
+  assert.equal('label' in flat[0] ? flat[0].label : '', 'ClosedBox01.glb');
 });
 test('applicable fields come from explicit declaration variants including scene and all light types', () => {
   const p = parseSceneEnvironmentPresetLibrary(raw).base;

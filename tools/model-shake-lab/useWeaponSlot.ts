@@ -39,13 +39,13 @@ export function useWeaponSlot(runtimeRef: RefObject<WeaponLabRuntime | null>, ha
     let cancelled = false; let owned: ModelEntity | null = null;
     queueMicrotask(() => { if (!cancelled) setLoading(track.enabled && Boolean(track.asset.path)); });
     if (track.enabled && track.asset.path) {
-      void createModelEntity(runtime.scene, track.asset.path).then(entity => {
+      void createModelEntity(runtime.scene, track.asset.path, { materialOverrides: track.asset.materialOverrides }).then(entity => {
         if (cancelled || runtimeRef.current !== runtime) { entity.dispose(); return; }
         owned = entity; entity.root.parent = runtime.slots[hand].weaponAsset; entity.stopAnimations();
         setLoading(false); setStatus(name + '模型已挂载 · 继承项目级规范化');
       }).catch(error => { if (!cancelled) { setLoading(false); setStatus(name + '模型加载失败：' + String(error)); } });
     }
     return () => { cancelled = true; owned?.dispose(); };
-  }, [runtimeRef, hand, name, track.asset.path, track.enabled, setStatus]);
+  }, [runtimeRef, hand, name, track.asset.path, track.asset.materialOverrides, track.enabled, setStatus]);
   return loading;
 }

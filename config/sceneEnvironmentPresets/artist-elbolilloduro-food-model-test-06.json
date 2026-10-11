@@ -1,0 +1,7822 @@
+{
+  "presetKey": "artist-elbolilloduro-food-model-test-06",
+  "name": "Elbolilloduro · 餐饮、厨房与商店 6/8（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-pizzeria",
+      "name": "Pizzeria",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-tacos",
+      "name": "Tacos",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 85
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-367e974ab46ba8ac-stand",
+      "name": "Pepperoni展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f44f6eccd682837a-stand",
+      "name": "Pepperoni_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e3a87f8ed5e0c243-stand",
+      "name": "Phone展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d0e1fa548884780b-stand",
+      "name": "Phone_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a08a3b3a7b57137f-stand",
+      "name": "Pineapple展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7ae56a68b26f8b89-stand",
+      "name": "Pineapple_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-91a6a1f12fa1b1c9-stand",
+      "name": "Pineapple_Pizza展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cdb5718975e55109-stand",
+      "name": "Pizza_box_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-407151caffcd9cc6-stand",
+      "name": "Pizza_box_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-239efdad06e111c0-stand",
+      "name": "Pizza_M展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b473bcc6e2fca1aa-stand",
+      "name": "Pizza_oven展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-554b52eb6aa7431c-stand",
+      "name": "Pizza_oven_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-05efc5bd81cdc0be-stand",
+      "name": "Pizza_Peperoni展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d74e2735bac21b02-stand",
+      "name": "Pizza_S展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3c0afb39a27b637e-stand",
+      "name": "Pizza_S_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c7d9c56c42cacc9b-stand",
+      "name": "Pizza_S_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e2f311764828c2d0-stand",
+      "name": "Pizza_S_004展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-657d10124fbdda33-stand",
+      "name": "Pizza_S_005展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-685e762e42dc91f2-stand",
+      "name": "Pizza_S_006展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5fcc0892c06f81c0-stand",
+      "name": "Pizza_S_007展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7b21a222df407c7e-stand",
+      "name": "Pizza_S_008展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-696a69c0187e7df3-stand",
+      "name": "Pizza_S_009展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b6ce039df31fcab1-stand",
+      "name": "Pizza_S_010展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8448ca0a6cca8480-stand",
+      "name": "Pizza_S_011展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cb7b6e23a6967081-stand",
+      "name": "Plane展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0dc56ed8220714b2-stand",
+      "name": "Preparation_table展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d47e2af81c077509-stand",
+      "name": "Preparation_table_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-db5539aea24482c7-stand",
+      "name": "Preparation_table_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ba63e6a7c43c5792-stand",
+      "name": "Preparation_table_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9258d722afcd89e1-stand",
+      "name": "Preparation_table_004展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b034aef21ce72d65-stand",
+      "name": "Preparation_table_005展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-faffc710e96e9a1c-stand",
+      "name": "Preparation_table_006展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-879dccf394802535-stand",
+      "name": "Preparation_table_007展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-442ce686bf8d4a56-stand",
+      "name": "Preparation_table_008展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-11d745e81b0de2d3-stand",
+      "name": "Preparation_table_018展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c6810c690f2198f3-stand",
+      "name": "Preparation_table_020展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-57863d3684e906c1-stand",
+      "name": "Preparation_table_021展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8b3a807f2243e7a2-stand",
+      "name": "Refrigerator展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-38f511369486adb9-stand",
+      "name": "Refrigerator_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ad3871b4476897d3-stand",
+      "name": "Refrigerator_01展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-def57d0164f1bbd4-stand",
+      "name": "Refrigerator_01_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5deddbe9688f485f-stand",
+      "name": "Road展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6c854daf00c995f2-stand",
+      "name": "Road_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-500ccf6a1ca4003e-stand",
+      "name": "Road_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-65de5b759e778525-stand",
+      "name": "Road_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c7bf8f7106e02cbb-stand",
+      "name": "Road_004展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1489b08bb0b3460c-stand",
+      "name": "Road_005展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-019e934d97d99b05-stand",
+      "name": "Road_006展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ce87adefb5780718-stand",
+      "name": "Road_007展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a12c390eb89b05e2-stand",
+      "name": "Road_008展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4b72c8a17e141223-stand",
+      "name": "Road_009展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fe4c4fed16a12ab9-stand",
+      "name": "Road_010展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a68a1bf707ec4283-stand",
+      "name": "Road_011展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f7d4cbbe8b1a45ee-stand",
+      "name": "Road_012展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e73956cf280398cc-stand",
+      "name": "Roller展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8c5b6fa92d41eb39-stand",
+      "name": "Roller_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2beff92bac522160-stand",
+      "name": "Sauce_bottle展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-beceeb435d9392d6-stand",
+      "name": "Sauce_capsules展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-37a509a46b8c5caf-stand",
+      "name": "Sauce_capsules_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-188f97fd9293dd49-stand",
+      "name": "Sauce_capsules_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9aeecd0f6ee3df31-stand",
+      "name": "Sauces展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3eeec2e36a0af269-stand",
+      "name": "Sauces_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1c3b4b38d8a9d8dc-stand",
+      "name": "Sauces_bottle_01展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dd3e864f7a6344c2-stand",
+      "name": "Sauces_bottle_01_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-41f3592c01677635-stand",
+      "name": "Sauces_bottle_01_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-617e8c61b1e2db70-stand",
+      "name": "Soap展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-97494e907690d2e1-stand",
+      "name": "Soda_machine展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-336bca0f663360a2-stand",
+      "name": "Soda_machine_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b23f7b7faf87b131-stand",
+      "name": "Soft_drinks展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c881404cefdf60a2-stand",
+      "name": "Soft_drinks_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0dbe9ce9a95eea79-stand",
+      "name": "Soft_drinks_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-49f10c5516840ec0-stand",
+      "name": "Soft_drinks_01展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ed6c02fe223b6c9b-stand",
+      "name": "Soft_drinks_01_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ca8cf66dcd14ab86-stand",
+      "name": "Soft_drinks_01_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5b572780542364aa-stand",
+      "name": "Soft_drinks_01_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4a0411a4914ae120-stand",
+      "name": "Soft_drinks_01_004展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a822279399decbd5-stand",
+      "name": "Soft_drinks_01_005展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-eca58c6ab3ab30a1-stand",
+      "name": "Soft_drinks_01_006展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7832206901a4e76b-stand",
+      "name": "Soft_drinks_01_007展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cea951132349b1d1-stand",
+      "name": "sponge展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-33e4dbcd61143198-stand",
+      "name": "Stove展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7000afbde4904f00-stand",
+      "name": "Straw展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-89462a37ae917bd5-stand",
+      "name": "streetlight展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fd33e46feb40b08f-stand",
+      "name": "streetlight_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6a0407a5c22b91a5-stand",
+      "name": "streetlight_010展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bc87fb62089f4bd2-stand",
+      "name": "tongs展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d03bc3f215c97acc-stand",
+      "name": "tongs_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5cc70232054daec6-stand",
+      "name": "traffic_light展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ebb0ab4fe3a95057-stand",
+      "name": "Trash_展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6c7cbae210c3fa76-stand",
+      "name": "Trash__001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7bf9579b6e2b033f-stand",
+      "name": "Trash__002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aac453b27b20d876-stand",
+      "name": "Trash__003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c95af81df6ceab51-stand",
+      "name": "trash_can展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-269b9968760993d9-stand",
+      "name": "Tree展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7d6fa4c0493cb72d-stand",
+      "name": "Tree_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0163acaddc2d9a0c-stand",
+      "name": "Tree_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-640eae05bb4b7743-stand",
+      "name": "Tree_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-654f3a917230d689-stand",
+      "name": "Tree_004展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-33077e7139ef3f02-stand",
+      "name": "Tree_005展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aa80fae2a84dcc0e-stand",
+      "name": "Tree_006展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b37a7bae7cd96db4-stand",
+      "name": "Tree_008展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d4c0d0bc81f22e78-stand",
+      "name": "Tree_009展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-482cf25a34386111-stand",
+      "name": "Tree_010展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-89f57f5cc05910b6-stand",
+      "name": "Tree_011展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f875059ade115fcd-stand",
+      "name": "Tree_013展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-676ab1ff1a1a3c21-stand",
+      "name": "Tree_014展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c6fe61fe90e3f284-stand",
+      "name": "Tree_015展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3d35b0fb7729714e-stand",
+      "name": "Tree_016展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ea8bbe8af60d552a-stand",
+      "name": "Tree_019展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c5484006802268b5-stand",
+      "name": "vessel_Soda展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b011d045bcb0204b-stand",
+      "name": "vessel_Soda_001展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-85824e4635543ffc-stand",
+      "name": "vessel_Soda_002展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2d4230f1b3f0983d-stand",
+      "name": "vessel_Soda_003展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-02b7f78aed050049-stand",
+      "name": "vessel_Soda_004展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a09490bc3a484fa5-stand",
+      "name": "washbasin展台",
+      "parentId": "transform:category-pizzeria",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cf5a3b5e4c952830-stand",
+      "name": "Board_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3835ca590105d1ff-stand",
+      "name": "brick_展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e31da9f5f405adc8-stand",
+      "name": "bucket_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-efb523f4e34380df-stand",
+      "name": "buildings_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-97f72766ecb5d6a8-stand",
+      "name": "buildings_002展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2c409847f5395df4-stand",
+      "name": "buildings_01_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dd7d28e106acb066-stand",
+      "name": "buildings_01_002展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0382b0fa28299df8-stand",
+      "name": "buildings_02展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4fdded6f011eb3cc-stand",
+      "name": "buildings_02_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a2dd430459ec71ba-stand",
+      "name": "buildings_03_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8bf96f01d83c7d65-stand",
+      "name": "buildings_03_002展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1ec01e171f67dfcb-stand",
+      "name": "buildings_04_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-23a5eef8bbd46028-stand",
+      "name": "buildings_04_003展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f58c9fb5303cf436-stand",
+      "name": "buildings_06_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4192a338a9aa660c-stand",
+      "name": "buildings_06_003展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2e73c05680ba5e65-stand",
+      "name": "buildings_07展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-79cc28bb629bcb2e-stand",
+      "name": "buildings_07_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-193a8b52bd09add6-stand",
+      "name": "buildings_07_003展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d4e27d193d03c7ba-stand",
+      "name": "buildings_08展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0d5f0e65a5f61401-stand",
+      "name": "buildings_08_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3fe1b8f4a9d1f303-stand",
+      "name": "buildings_09_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d840c87dcb67ca9e-stand",
+      "name": "buildings_10_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5c8ba2d050cef8ac-stand",
+      "name": "buildings_11展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-df2b0d44ea746330-stand",
+      "name": "buildings_11_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d1470be11f70131f-stand",
+      "name": "buildings_12_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-222738fb23774e44-stand",
+      "name": "buildings_12_003展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1862353a419e5c82-stand",
+      "name": "buildings_13展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8d60432f2c6b566d-stand",
+      "name": "buildings_13_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2900a9ac987eb729-stand",
+      "name": "buildings_14展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e2d913996a170ee5-stand",
+      "name": "buildings_14_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-86a7d55fb3ad5d16-stand",
+      "name": "buildings_15展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-815735d6605bd1c2-stand",
+      "name": "buildings_15_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-020946abd71b7189-stand",
+      "name": "buildings_16展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bfd002d00b257009-stand",
+      "name": "buildings_16_002展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ae7d0528cb936871-stand",
+      "name": "buildings_16_003展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-593127f161dbadf1-stand",
+      "name": "buildings_17展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1ea49aa9d24f9733-stand",
+      "name": "buildings_17_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3534e7282e1a065d-stand",
+      "name": "buildings_18展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-596bd99ce4c90c7e-stand",
+      "name": "buildings_18_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-088ac206268ebab2-stand",
+      "name": "buildings_19展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ea28b8c8ae666e54-stand",
+      "name": "buildings_19_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ff6c98410aeb7486-stand",
+      "name": "buildings_20展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7e534529d892788a-stand",
+      "name": "buildings_20_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f5669630c06f802f-stand",
+      "name": "buildings_20_002展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0137c9f509b8e906-stand",
+      "name": "buildings_21_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ddb8880d8dc98836-stand",
+      "name": "buildings_21_002展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b3025446dc0ea5ed-stand",
+      "name": "buildings_22_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0426d91345c75de0-stand",
+      "name": "buildings_22_002展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-610433b5fa8cc417-stand",
+      "name": "buildings_23_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0448bff905e27b84-stand",
+      "name": "buildings_23_002展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a2da70a627b6391c-stand",
+      "name": "buildings_24展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-259d7a55cd12f2f4-stand",
+      "name": "buildings_24_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-67aa2b4ed3566b68-stand",
+      "name": "buildings_25_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-362e1addc852eae0-stand",
+      "name": "buildings_26_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dd9af5e23ea784ff-stand",
+      "name": "buildings_27展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-49eff424110ebde0-stand",
+      "name": "buildings_27_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9b3d239742b8aee3-stand",
+      "name": "buildings_28展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-95382c053c0d6abb-stand",
+      "name": "buildings_29展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f8ae9e1b198a9dd3-stand",
+      "name": "Cable展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ff9e435d599f6e1e-stand",
+      "name": "Cable_001展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0b17f9485498c0fb-stand",
+      "name": "Cable_003展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6d3575a4ce1d8f9d-stand",
+      "name": "Cable_004展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-abf3c03661330ebe-stand",
+      "name": "Cable_005展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0f14ec8cc3080d15-stand",
+      "name": "Cable_006展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3648f54055e4ea7e-stand",
+      "name": "Cable_007展台",
+      "parentId": "transform:category-tacos",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-367e974ab46ba8ac",
+      "name": "Pizzeria · Pepperoni",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pepperoni_401aee40.glb",
+      "position": [
+        -22.00000079,
+        2.5e-7,
+        39.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.34927661,
+        10.34927661,
+        10.34927661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f44f6eccd682837a",
+      "name": "Pizzeria · Pepperoni_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pepperoni_001_d9ddc3cf.glb",
+      "position": [
+        -18.00000115,
+        -1.7e-7,
+        39.99998794
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.92817303,
+        13.92817303,
+        13.92817303
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e3a87f8ed5e0c243",
+      "name": "Pizzeria · Phone",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Phone_1d155644.glb",
+      "position": [
+        -14.00000007,
+        -1.7e-7,
+        39.99999903
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.18146981,
+        5.18146981,
+        5.18146981
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d0e1fa548884780b",
+      "name": "Pizzeria · Phone_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Phone_001_3efa7a80.glb",
+      "position": [
+        -9.99999596,
+        0.00000229,
+        40.00000201
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.99211599,
+        4.99211599,
+        4.99211599
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a08a3b3a7b57137f",
+      "name": "Pizzeria · Pineapple",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pineapple_0d54c0bf.glb",
+      "position": [
+        -5.99999963,
+        -1e-8,
+        40.00000323
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.03330253,
+        5.03330253,
+        5.03330253
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7ae56a68b26f8b89",
+      "name": "Pizzeria · Pineapple_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pineapple_001_cffe56ff.glb",
+      "position": [
+        -2.00000006,
+        2.5e-7,
+        40.00001123
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.95101902,
+        11.95101902,
+        11.95101902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-91a6a1f12fa1b1c9",
+      "name": "Pizzeria · Pineapple_Pizza",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pineapple_Pizza_3f7c6d20.glb",
+      "position": [
+        -22,
+        1.2e-7,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.44344669,
+        4.44344669,
+        4.44344669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cdb5718975e55109",
+      "name": "Pizzeria · Pizza_box_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_box_001_8ffc8b5f.glb",
+      "position": [
+        -18,
+        -4.2e-7,
+        35.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.00049995,
+        4.00049995,
+        4.00049995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-407151caffcd9cc6",
+      "name": "Pizzeria · Pizza_box_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_box_003_ce143f26.glb",
+      "position": [
+        -14,
+        -8e-8,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.11880239,
+        4.11880239,
+        4.11880239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-239efdad06e111c0",
+      "name": "Pizzeria · Pizza_M",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_M_625cf366.glb",
+      "position": [
+        -10,
+        1.2e-7,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.44344669,
+        4.44344669,
+        4.44344669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b473bcc6e2fca1aa",
+      "name": "Pizzeria · Pizza_oven",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_oven_b8f51230.glb",
+      "position": [
+        -6,
+        0,
+        35.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54006241,
+        1.54006241,
+        1.54006241
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-554b52eb6aa7431c",
+      "name": "Pizzeria · Pizza_oven_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_oven_003_ab4f6ab8.glb",
+      "position": [
+        -2.00000073,
+        0,
+        35.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54006241,
+        1.54006241,
+        1.54006241
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-05efc5bd81cdc0be",
+      "name": "Pizzeria · Pizza_Peperoni",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_Peperoni_8bbdf7f2.glb",
+      "position": [
+        -22,
+        1.2e-7,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.44344669,
+        4.44344669,
+        4.44344669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d74e2735bac21b02",
+      "name": "Pizzeria · Pizza_S",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_915afc9f.glb",
+      "position": [
+        -18,
+        1.2e-7,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.44344669,
+        4.44344669,
+        4.44344669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3c0afb39a27b637e",
+      "name": "Pizzeria · Pizza_S_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_002_07bf1c67.glb",
+      "position": [
+        -13.99999996,
+        -1.9e-7,
+        31.99999776
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.36547931,
+        9.36547931,
+        9.36547931
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c7d9c56c42cacc9b",
+      "name": "Pizzeria · Pizza_S_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_003_e8b87498.glb",
+      "position": [
+        -9.99999951,
+        -2.1e-7,
+        32.00000261
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.84744797,
+        9.84744797,
+        9.84744797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e2f311764828c2d0",
+      "name": "Pizzeria · Pizza_S_004",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_004_a23a1275.glb",
+      "position": [
+        -6.00000006,
+        -2.4e-7,
+        32.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.84744822,
+        9.84744822,
+        9.84744822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-657d10124fbdda33",
+      "name": "Pizzeria · Pizza_S_005",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_005_2090af7e.glb",
+      "position": [
+        -1.99999951,
+        -2.3e-7,
+        31.99999764
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.84744797,
+        9.84744797,
+        9.84744797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-685e762e42dc91f2",
+      "name": "Pizzeria · Pizza_S_006",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_006_ceb8d262.glb",
+      "position": [
+        -21.99999996,
+        -2.2e-7,
+        28.00000211
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.36548019,
+        9.36548019,
+        9.36548019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5fcc0892c06f81c0",
+      "name": "Pizzeria · Pizza_S_007",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_007_cf8a25da.glb",
+      "position": [
+        -18.00000004,
+        -2.3e-7,
+        28.00000237
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.36548019,
+        9.36548019,
+        9.36548019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7b21a222df407c7e",
+      "name": "Pizzeria · Pizza_S_008",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_008_c372c4e1.glb",
+      "position": [
+        -14.00000049,
+        -2.3e-7,
+        27.99999764
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.84744797,
+        9.84744797,
+        9.84744797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-696a69c0187e7df3",
+      "name": "Pizzeria · Pizza_S_009",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_009_9312b637.glb",
+      "position": [
+        -10.00000008,
+        -2.4e-7,
+        28.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.84744822,
+        9.84744822,
+        9.84744822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b6ce039df31fcab1",
+      "name": "Pizzeria · Pizza_S_010",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_010_b65abdb9.glb",
+      "position": [
+        -6.00000021,
+        -2.3e-7,
+        28.00000261
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.84744797,
+        9.84744797,
+        9.84744797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8448ca0a6cca8480",
+      "name": "Pizzeria · Pizza_S_011",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Pizza_S_011_f6f1beb0.glb",
+      "position": [
+        -2.00000004,
+        -1.9e-7,
+        27.99999789
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.36547931,
+        9.36547931,
+        9.36547931
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cb7b6e23a6967081",
+      "name": "Pizzeria · Plane",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Plane_ce0e6794.glb",
+      "position": [
+        -22.00000003,
+        -2e-8,
+        23.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.05870049,
+        0.05870049,
+        0.05870049
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0dc56ed8220714b2",
+      "name": "Pizzeria · Preparation_table",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_911cbc39.glb",
+      "position": [
+        -17.99999988,
+        -2e-8,
+        23.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44472485,
+        1.44472485,
+        1.44472485
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d47e2af81c077509",
+      "name": "Pizzeria · Preparation_table_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_001_7831d2d8.glb",
+      "position": [
+        -13.99999997,
+        1.9e-7,
+        23.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.87518061,
+        9.87518061,
+        9.87518061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db5539aea24482c7",
+      "name": "Pizzeria · Preparation_table_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_002_667a738b.glb",
+      "position": [
+        -9.99999997,
+        1.9e-7,
+        23.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.87518061,
+        9.87518061,
+        9.87518061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ba63e6a7c43c5792",
+      "name": "Pizzeria · Preparation_table_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_003_54123229.glb",
+      "position": [
+        -5.99999997,
+        1.9e-7,
+        23.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.87518061,
+        9.87518061,
+        9.87518061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9258d722afcd89e1",
+      "name": "Pizzeria · Preparation_table_004",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_004_d0dad4ca.glb",
+      "position": [
+        -1.99999997,
+        1.9e-7,
+        23.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.87518061,
+        9.87518061,
+        9.87518061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b034aef21ce72d65",
+      "name": "Pizzeria · Preparation_table_005",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_005_08294503.glb",
+      "position": [
+        -21.99999997,
+        1.9e-7,
+        19.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.87518061,
+        9.87518061,
+        9.87518061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-faffc710e96e9a1c",
+      "name": "Pizzeria · Preparation_table_006",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_006_09eeb7c9.glb",
+      "position": [
+        -17.99999997,
+        1.9e-7,
+        19.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.87518061,
+        9.87518061,
+        9.87518061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-879dccf394802535",
+      "name": "Pizzeria · Preparation_table_007",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_007_6e64a4f9.glb",
+      "position": [
+        -13.99999997,
+        1.9e-7,
+        19.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.87518061,
+        9.87518061,
+        9.87518061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-442ce686bf8d4a56",
+      "name": "Pizzeria · Preparation_table_008",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_008_8170cff0.glb",
+      "position": [
+        -9.99999997,
+        1.9e-7,
+        19.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.87518061,
+        9.87518061,
+        9.87518061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-11d745e81b0de2d3",
+      "name": "Pizzeria · Preparation_table_018",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_018_2a75e495.glb",
+      "position": [
+        -5.99999991,
+        0,
+        19.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44472484,
+        1.44472484,
+        1.44472484
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c6810c690f2198f3",
+      "name": "Pizzeria · Preparation_table_020",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_020_5a73c439.glb",
+      "position": [
+        -1.99999988,
+        -2e-8,
+        19.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44472485,
+        1.44472485,
+        1.44472485
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-57863d3684e906c1",
+      "name": "Pizzeria · Preparation_table_021",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Preparation_table_021_5922a568.glb",
+      "position": [
+        -21.99999911,
+        4.9e-7,
+        15.99999954
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.72822208,
+        1.72822208,
+        1.72822208
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8b3a807f2243e7a2",
+      "name": "Pizzeria · Refrigerator",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Refrigerator_ca5a994c.glb",
+      "position": [
+        -18.00000007,
+        -5e-8,
+        16.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.05013218,
+        1.05013218,
+        1.05013218
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-38f511369486adb9",
+      "name": "Pizzeria · Refrigerator_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Refrigerator_003_728bebbb.glb",
+      "position": [
+        -14.0000003,
+        -5e-8,
+        15.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.05013218,
+        1.05013218,
+        1.05013218
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ad3871b4476897d3",
+      "name": "Pizzeria · Refrigerator_01",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Refrigerator_01_51c8bee8.glb",
+      "position": [
+        -9.99999998,
+        3e-8,
+        16.00000046
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16492557,
+        1.16492557,
+        1.16492557
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-def57d0164f1bbd4",
+      "name": "Pizzeria · Refrigerator_01_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Refrigerator_01_001_d93fe70d.glb",
+      "position": [
+        -6.00000114,
+        3e-7,
+        16.00000079
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16492557,
+        1.16492557,
+        1.16492557
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5deddbe9688f485f",
+      "name": "Pizzeria · Road",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_54f9fdfe.glb",
+      "position": [
+        -2,
+        0,
+        16.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13966567,
+        0.13966567,
+        0.13966567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6c854daf00c995f2",
+      "name": "Pizzeria · Road_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_001_5d4d4dcc.glb",
+      "position": [
+        -21.99999998,
+        0,
+        12.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13966564,
+        0.13966564,
+        0.13966564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-500ccf6a1ca4003e",
+      "name": "Pizzeria · Road_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_002_09144e6e.glb",
+      "position": [
+        -17.99999997,
+        0,
+        11.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02856338,
+        0.02856338,
+        0.02856338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-65de5b759e778525",
+      "name": "Pizzeria · Road_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_003_a5b11f69.glb",
+      "position": [
+        -13.99999999,
+        -2e-8,
+        12.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02856338,
+        0.02856338,
+        0.02856338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c7bf8f7106e02cbb",
+      "name": "Pizzeria · Road_004",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_004_e1fda49f.glb",
+      "position": [
+        -9.99999992,
+        0,
+        12.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02856338,
+        0.02856338,
+        0.02856338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1489b08bb0b3460c",
+      "name": "Pizzeria · Road_005",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_005_da5f694c.glb",
+      "position": [
+        -6.00000006,
+        2e-8,
+        11.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02976192,
+        0.02976192,
+        0.02976192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-019e934d97d99b05",
+      "name": "Pizzeria · Road_006",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_006_d173cd6e.glb",
+      "position": [
+        -2.00000001,
+        2e-8,
+        11.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02976192,
+        0.02976192,
+        0.02976192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ce87adefb5780718",
+      "name": "Pizzeria · Road_007",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_007_0dd9980d.glb",
+      "position": [
+        -22.00000006,
+        2e-8,
+        7.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02976192,
+        0.02976192,
+        0.02976192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a12c390eb89b05e2",
+      "name": "Pizzeria · Road_008",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_008_5c98c412.glb",
+      "position": [
+        -18,
+        1e-8,
+        8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03782145,
+        0.03782145,
+        0.03782145
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4b72c8a17e141223",
+      "name": "Pizzeria · Road_009",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_009_2487d18c.glb",
+      "position": [
+        -14,
+        1e-8,
+        7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.01344811,
+        0.01344811,
+        0.01344811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fe4c4fed16a12ab9",
+      "name": "Pizzeria · Road_010",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_010_c1ec1ebf.glb",
+      "position": [
+        -9.99999997,
+        2e-8,
+        7.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02142961,
+        0.02142961,
+        0.02142961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a68a1bf707ec4283",
+      "name": "Pizzeria · Road_011",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_011_78ee8fb6.glb",
+      "position": [
+        -6.00000001,
+        0,
+        7.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13966564,
+        0.13966564,
+        0.13966564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f7d4cbbe8b1a45ee",
+      "name": "Pizzeria · Road_012",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Road_012_02f8000c.glb",
+      "position": [
+        -2.00000002,
+        -1e-8,
+        8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.01344811,
+        0.01344811,
+        0.01344811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e73956cf280398cc",
+      "name": "Pizzeria · Roller",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Roller_199f4302.glb",
+      "position": [
+        -22,
+        1e-7,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.75328214,
+        3.75328214,
+        3.75328214
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c5b6fa92d41eb39",
+      "name": "Pizzeria · Roller_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Roller_001_922c7abd.glb",
+      "position": [
+        -18,
+        -0.00000256,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.29953403,
+        5.29953403,
+        5.29953403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2beff92bac522160",
+      "name": "Pizzeria · Sauce_bottle",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauce_bottle_5482475a.glb",
+      "position": [
+        -14,
+        -7.1e-7,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.00869022,
+        12.00869022,
+        12.00869022
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-beceeb435d9392d6",
+      "name": "Pizzeria · Sauce_capsules",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauce_capsules_89b279be.glb",
+      "position": [
+        -10.00000062,
+        -0.0000011,
+        4.00000074
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        42.65906091,
+        42.65906091,
+        42.65906091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-37a509a46b8c5caf",
+      "name": "Pizzeria · Sauce_capsules_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauce_capsules_001_5df93851.glb",
+      "position": [
+        -6.00000092,
+        -0.00000187,
+        4.00000074
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        42.65906091,
+        42.65906091,
+        42.65906091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-188f97fd9293dd49",
+      "name": "Pizzeria · Sauce_capsules_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauce_capsules_002_0712aa4e.glb",
+      "position": [
+        -2.00000062,
+        2.3e-7,
+        4.00000074
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        42.65906091,
+        42.65906091,
+        42.65906091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9aeecd0f6ee3df31",
+      "name": "Pizzeria · Sauces",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauces_783c6695.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.8351231,
+        11.8351231,
+        11.8351231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3eeec2e36a0af269",
+      "name": "Pizzeria · Sauces_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauces_001_f1e1de35.glb",
+      "position": [
+        -18,
+        3.9e-7,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.04227499,
+        13.04227499,
+        13.04227499
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1c3b4b38d8a9d8dc",
+      "name": "Pizzeria · Sauces_bottle_01",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauces_bottle_01_81fb3797.glb",
+      "position": [
+        -14,
+        6e-8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.52879017,
+        10.52879017,
+        10.52879017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd3e864f7a6344c2",
+      "name": "Pizzeria · Sauces_bottle_01_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauces_bottle_01_001_eae1c209.glb",
+      "position": [
+        -10,
+        6e-8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.52879017,
+        10.52879017,
+        10.52879017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-41f3592c01677635",
+      "name": "Pizzeria · Sauces_bottle_01_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Sauces_bottle_01_002_686de195.glb",
+      "position": [
+        -6,
+        6e-8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.52879017,
+        10.52879017,
+        10.52879017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-617e8c61b1e2db70",
+      "name": "Pizzeria · Soap",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soap_198f1fe1.glb",
+      "position": [
+        -2,
+        1.1e-7,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.91720442,
+        8.91720442,
+        8.91720442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-97494e907690d2e1",
+      "name": "Pizzeria · Soda_machine",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soda_machine_806d8cd7.glb",
+      "position": [
+        -22.00000014,
+        -6e-8,
+        -4.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.61721922,
+        2.61721922,
+        2.61721922
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-336bca0f663360a2",
+      "name": "Pizzeria · Soda_machine_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soda_machine_001_9e8b5f70.glb",
+      "position": [
+        -18.00000025,
+        5.6e-7,
+        -4.00000048
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.61721922,
+        2.61721922,
+        2.61721922
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b23f7b7faf87b131",
+      "name": "Pizzeria · Soft_drinks",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_0e06cdb3.glb",
+      "position": [
+        -14.00000009,
+        -6e-8,
+        -3.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.85892304,
+        5.85892304,
+        5.85892304
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c881404cefdf60a2",
+      "name": "Pizzeria · Soft_drinks_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_001_59fb73ba.glb",
+      "position": [
+        -10.00000001,
+        -3e-8,
+        -4.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.10667894,
+        3.10667894,
+        3.10667894
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0dbe9ce9a95eea79",
+      "name": "Pizzeria · Soft_drinks_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_002_2c1120c7.glb",
+      "position": [
+        -6,
+        -6e-8,
+        -4.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.85892319,
+        5.85892319,
+        5.85892319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-49f10c5516840ec0",
+      "name": "Pizzeria · Soft_drinks_01",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_01_ef1cdd09.glb",
+      "position": [
+        -2.00000003,
+        5.2e-7,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.70559752,
+        8.70559752,
+        8.70559752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed6c02fe223b6c9b",
+      "name": "Pizzeria · Soft_drinks_01_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_01_001_82f1cf81.glb",
+      "position": [
+        -22,
+        5.2e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.70559752,
+        8.70559752,
+        8.70559752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ca8cf66dcd14ab86",
+      "name": "Pizzeria · Soft_drinks_01_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_01_002_f89e0694.glb",
+      "position": [
+        -17.99999996,
+        5.2e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.70559752,
+        8.70559752,
+        8.70559752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5b572780542364aa",
+      "name": "Pizzeria · Soft_drinks_01_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_01_003_a0bd15dc.glb",
+      "position": [
+        -13.99999996,
+        5.2e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.70559752,
+        8.70559752,
+        8.70559752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4a0411a4914ae120",
+      "name": "Pizzeria · Soft_drinks_01_004",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_01_004_7a283b45.glb",
+      "position": [
+        -9.99999899,
+        3.1e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.18720396,
+        8.18720396,
+        8.18720396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a822279399decbd5",
+      "name": "Pizzeria · Soft_drinks_01_005",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_01_005_9135c56a.glb",
+      "position": [
+        -6.00000061,
+        3.1e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.18720396,
+        8.18720396,
+        8.18720396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eca58c6ab3ab30a1",
+      "name": "Pizzeria · Soft_drinks_01_006",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_01_006_7ec3b3e2.glb",
+      "position": [
+        -2.00000061,
+        3.1e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.18720396,
+        8.18720396,
+        8.18720396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7832206901a4e76b",
+      "name": "Pizzeria · Soft_drinks_01_007",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Soft_drinks_01_007_081cb754.glb",
+      "position": [
+        -22.00000061,
+        3.1e-7,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.18720396,
+        8.18720396,
+        8.18720396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cea951132349b1d1",
+      "name": "Pizzeria · sponge",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/sponge_854371a9.glb",
+      "position": [
+        -18,
+        -3.7e-7,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.12217094,
+        17.12217094,
+        17.12217094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-33e4dbcd61143198",
+      "name": "Pizzeria · Stove",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Stove_742f1bd3.glb",
+      "position": [
+        -14,
+        1e-8,
+        -11.99999936
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3240978,
+        1.3240978,
+        1.3240978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7000afbde4904f00",
+      "name": "Pizzeria · Straw",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Straw_063bc77b.glb",
+      "position": [
+        -10,
+        -5.4e-7,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.50205376,
+        12.50205376,
+        12.50205376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-89462a37ae917bd5",
+      "name": "Pizzeria · streetlight",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/streetlight_49c90b6e.glb",
+      "position": [
+        -6,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25346227,
+        0.25346227,
+        0.25346227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fd33e46feb40b08f",
+      "name": "Pizzeria · streetlight_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/streetlight_002_d9a303c2.glb",
+      "position": [
+        -2.00000002,
+        -1e-7,
+        -12.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25346227,
+        0.25346227,
+        0.25346227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6a0407a5c22b91a5",
+      "name": "Pizzeria · streetlight_010",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/streetlight_010_1467c206.glb",
+      "position": [
+        -22,
+        -1e-7,
+        -15.99999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25346227,
+        0.25346227,
+        0.25346227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bc87fb62089f4bd2",
+      "name": "Pizzeria · tongs",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/tongs_30ecae39.glb",
+      "position": [
+        -17.9999997,
+        -1.3e-7,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.74692288,
+        4.74692288,
+        4.74692288
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d03bc3f215c97acc",
+      "name": "Pizzeria · tongs_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/tongs_001_2e7bd1d9.glb",
+      "position": [
+        -14,
+        -0.0000014,
+        -15.99999644
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.48660432,
+        6.48660432,
+        6.48660432
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5cc70232054daec6",
+      "name": "Pizzeria · traffic_light",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/traffic_light_a49c513b.glb",
+      "position": [
+        -9.99999995,
+        0,
+        -16.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37959418,
+        0.37959418,
+        0.37959418
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ebb0ab4fe3a95057",
+      "name": "Pizzeria · Trash_",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Trash__4d2b775b.glb",
+      "position": [
+        -6.00000004,
+        1.1e-7,
+        -15.9999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.81178743,
+        3.81178743,
+        3.81178743
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6c7cbae210c3fa76",
+      "name": "Pizzeria · Trash__001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Trash__001_21d30174.glb",
+      "position": [
+        -1.99999995,
+        -3e-8,
+        -16.00000076
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.00261491,
+        5.00261491,
+        5.00261491
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7bf9579b6e2b033f",
+      "name": "Pizzeria · Trash__002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Trash__002_8d3cfe4a.glb",
+      "position": [
+        -22.00000018,
+        -9e-8,
+        -19.99999964
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.43926866,
+        3.43926866,
+        3.43926866
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aac453b27b20d876",
+      "name": "Pizzeria · Trash__003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Trash__003_402771ed.glb",
+      "position": [
+        -18,
+        1.2e-7,
+        -20.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.13303973,
+        4.13303973,
+        4.13303973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c95af81df6ceab51",
+      "name": "Pizzeria · trash_can",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/trash_can_443686ce.glb",
+      "position": [
+        -14,
+        -3e-8,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.86540259,
+        2.86540259,
+        2.86540259
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-269b9968760993d9",
+      "name": "Pizzeria · Tree",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_95d93dad.glb",
+      "position": [
+        -9.99999999,
+        0,
+        -19.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36481488,
+        0.36481488,
+        0.36481488
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7d6fa4c0493cb72d",
+      "name": "Pizzeria · Tree_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_001_63fc5765.glb",
+      "position": [
+        -5.99999993,
+        1.4e-7,
+        -19.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35469354,
+        0.35469354,
+        0.35469354
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0163acaddc2d9a0c",
+      "name": "Pizzeria · Tree_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_002_cac1d12c.glb",
+      "position": [
+        -1.99999998,
+        3e-8,
+        -20.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38276624,
+        0.38276624,
+        0.38276624
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-640eae05bb4b7743",
+      "name": "Pizzeria · Tree_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_003_1f44feac.glb",
+      "position": [
+        -22.00000001,
+        2.8e-7,
+        -23.99999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35767194,
+        0.35767194,
+        0.35767194
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-654f3a917230d689",
+      "name": "Pizzeria · Tree_004",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_004_57bb2120.glb",
+      "position": [
+        -17.99999989,
+        -2.6e-7,
+        -24.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3539915,
+        0.3539915,
+        0.3539915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-33077e7139ef3f02",
+      "name": "Pizzeria · Tree_005",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_005_550b34f0.glb",
+      "position": [
+        -13.99999998,
+        -3.1e-7,
+        -24.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37861971,
+        0.37861971,
+        0.37861971
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aa80fae2a84dcc0e",
+      "name": "Pizzeria · Tree_006",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_006_048aee4d.glb",
+      "position": [
+        -10.00000004,
+        3.2e-7,
+        -23.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33626628,
+        0.33626628,
+        0.33626628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b37a7bae7cd96db4",
+      "name": "Pizzeria · Tree_008",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_008_179e3ad0.glb",
+      "position": [
+        -5.99999969,
+        -1.4e-7,
+        -24.00000054
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32831714,
+        0.32831714,
+        0.32831714
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d4c0d0bc81f22e78",
+      "name": "Pizzeria · Tree_009",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_009_5a3a3301.glb",
+      "position": [
+        -2.00000002,
+        2.5e-7,
+        -23.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30105714,
+        0.30105714,
+        0.30105714
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-482cf25a34386111",
+      "name": "Pizzeria · Tree_010",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_010_76749b25.glb",
+      "position": [
+        -22.00000067,
+        9e-8,
+        -28.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36103937,
+        0.36103937,
+        0.36103937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-89f57f5cc05910b6",
+      "name": "Pizzeria · Tree_011",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_011_c1d77475.glb",
+      "position": [
+        -17.99999997,
+        -1.3e-7,
+        -28.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29230686,
+        0.29230686,
+        0.29230686
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f875059ade115fcd",
+      "name": "Pizzeria · Tree_013",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_013_056a6bca.glb",
+      "position": [
+        -13.99999999,
+        2.7e-7,
+        -27.99999896
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39325968,
+        0.39325968,
+        0.39325968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-676ab1ff1a1a3c21",
+      "name": "Pizzeria · Tree_014",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_014_0137779e.glb",
+      "position": [
+        -10,
+        -3e-7,
+        -27.99999879
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34507018,
+        0.34507018,
+        0.34507018
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c6fe61fe90e3f284",
+      "name": "Pizzeria · Tree_015",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_015_cd3f0fbc.glb",
+      "position": [
+        -6,
+        -1.3e-7,
+        -27.99999951
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32928841,
+        0.32928841,
+        0.32928841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3d35b0fb7729714e",
+      "name": "Pizzeria · Tree_016",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_016_060c36b2.glb",
+      "position": [
+        -2.00000011,
+        2.7e-7,
+        -27.99999896
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39325968,
+        0.39325968,
+        0.39325968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ea8bbe8af60d552a",
+      "name": "Pizzeria · Tree_019",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/Tree_019_ee5c67fa.glb",
+      "position": [
+        -21.99999993,
+        2e-7,
+        -32.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35529853,
+        0.35529853,
+        0.35529853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c5484006802268b5",
+      "name": "Pizzeria · vessel_Soda",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/vessel_Soda_24c14e0e.glb",
+      "position": [
+        -18,
+        -1.8e-7,
+        -32.00000094
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.05416976,
+        11.05416976,
+        11.05416976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b011d045bcb0204b",
+      "name": "Pizzeria · vessel_Soda_001",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/vessel_Soda_001_df69ea8b.glb",
+      "position": [
+        -14,
+        -1.8e-7,
+        -32.00000094
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.05416976,
+        11.05416976,
+        11.05416976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-85824e4635543ffc",
+      "name": "Pizzeria · vessel_Soda_002",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/vessel_Soda_002_d64f8d36.glb",
+      "position": [
+        -9.99999995,
+        -1.1e-7,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.49716757,
+        6.49716757,
+        6.49716757
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d4230f1b3f0983d",
+      "name": "Pizzeria · vessel_Soda_003",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/vessel_Soda_003_8c511fda.glb",
+      "position": [
+        -5.99999985,
+        -9.1e-7,
+        -31.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.57168511,
+        16.57168511,
+        16.57168511
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-02b7f78aed050049",
+      "name": "Pizzeria · vessel_Soda_004",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/vessel_Soda_004_0887bdeb.glb",
+      "position": [
+        -1.99999997,
+        0.00000241,
+        -32.00000047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.52708454,
+        5.52708454,
+        5.52708454
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a09490bc3a484fa5",
+      "name": "Pizzeria · washbasin",
+      "parentId": "transform:category-pizzeria",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Pizzeria/washbasin_a64fb8e4.glb",
+      "position": [
+        -12,
+        -8e-8,
+        -36.00000055
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86811122,
+        1.86811122,
+        1.86811122
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cf5a3b5e4c952830",
+      "name": "Tacos · Board_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/Board_001_2d469304.glb",
+      "position": [
+        1.99999926,
+        -1.5e-7,
+        40.00000167
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.14758248,
+        6.14758248,
+        6.14758248
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3835ca590105d1ff",
+      "name": "Tacos · brick_",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/brick__fb872983.glb",
+      "position": [
+        6,
+        7e-8,
+        40.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.55512109,
+        10.55512109,
+        10.55512109
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e31da9f5f405adc8",
+      "name": "Tacos · bucket_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/bucket_001_30891b2f.glb",
+      "position": [
+        10,
+        -1e-8,
+        39.99999658
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.52343875,
+        6.52343875,
+        6.52343875
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-efb523f4e34380df",
+      "name": "Tacos · buildings_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_001_94731563.glb",
+      "position": [
+        13.99999999,
+        -2e-8,
+        40.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17021053,
+        0.17021053,
+        0.17021053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-97f72766ecb5d6a8",
+      "name": "Tacos · buildings_002",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_002_94c06873.glb",
+      "position": [
+        18.00000007,
+        -2e-8,
+        39.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1702105,
+        0.1702105,
+        0.1702105
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2c409847f5395df4",
+      "name": "Tacos · buildings_01_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_01_001_67941e29.glb",
+      "position": [
+        22.00000009,
+        0,
+        39.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25564269,
+        0.25564269,
+        0.25564269
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd7d28e106acb066",
+      "name": "Tacos · buildings_01_002",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_01_002_8bb3ee9e.glb",
+      "position": [
+        1.99999945,
+        0,
+        35.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25564265,
+        0.25564265,
+        0.25564265
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0382b0fa28299df8",
+      "name": "Tacos · buildings_02",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_02_6a0e6783.glb",
+      "position": [
+        5.99999949,
+        -1e-8,
+        36.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27302735,
+        0.27302735,
+        0.27302735
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4fdded6f011eb3cc",
+      "name": "Tacos · buildings_02_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_02_001_6fb50e36.glb",
+      "position": [
+        10.00000019,
+        -1e-8,
+        35.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27302729,
+        0.27302729,
+        0.27302729
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a2dd430459ec71ba",
+      "name": "Tacos · buildings_03_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_03_001_2a16efd1.glb",
+      "position": [
+        14.00000004,
+        0,
+        35.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25965616,
+        0.25965616,
+        0.25965616
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8bf96f01d83c7d65",
+      "name": "Tacos · buildings_03_002",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_03_002_a326087b.glb",
+      "position": [
+        17.99999956,
+        0,
+        36.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25965609,
+        0.25965609,
+        0.25965609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ec01e171f67dfcb",
+      "name": "Tacos · buildings_04_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_04_001_d2ea737f.glb",
+      "position": [
+        22,
+        2e-8,
+        36.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23366342,
+        0.23366342,
+        0.23366342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-23a5eef8bbd46028",
+      "name": "Tacos · buildings_04_003",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_04_003_06ac034a.glb",
+      "position": [
+        2.00000007,
+        2e-8,
+        32.00000051
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23366341,
+        0.23366341,
+        0.23366341
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f58c9fb5303cf436",
+      "name": "Tacos · buildings_06_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_06_001_897ed53b.glb",
+      "position": [
+        5.99999989,
+        -2e-8,
+        32.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27664617,
+        0.27664617,
+        0.27664617
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4192a338a9aa660c",
+      "name": "Tacos · buildings_06_003",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_06_003_b4f54830.glb",
+      "position": [
+        9.9999998,
+        -2e-8,
+        31.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2766462,
+        0.2766462,
+        0.2766462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2e73c05680ba5e65",
+      "name": "Tacos · buildings_07",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_07_f4030bf5.glb",
+      "position": [
+        14,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34454498,
+        0.34454498,
+        0.34454498
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-79cc28bb629bcb2e",
+      "name": "Tacos · buildings_07_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_07_001_8f159eaf.glb",
+      "position": [
+        18.00000002,
+        0,
+        31.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20051354,
+        0.20051354,
+        0.20051354
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-193a8b52bd09add6",
+      "name": "Tacos · buildings_07_003",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_07_003_76971675.glb",
+      "position": [
+        22,
+        0,
+        32.0000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20051354,
+        0.20051354,
+        0.20051354
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d4e27d193d03c7ba",
+      "name": "Tacos · buildings_08",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_08_ea778d66.glb",
+      "position": [
+        2,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34552579,
+        0.34552579,
+        0.34552579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0d5f0e65a5f61401",
+      "name": "Tacos · buildings_08_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_08_001_c0879242.glb",
+      "position": [
+        5.99999999,
+        0,
+        27.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20364546,
+        0.20364546,
+        0.20364546
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3fe1b8f4a9d1f303",
+      "name": "Tacos · buildings_09_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_09_001_690bf56f.glb",
+      "position": [
+        9.99999967,
+        0,
+        27.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41483091,
+        0.41483091,
+        0.41483091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d840c87dcb67ca9e",
+      "name": "Tacos · buildings_10_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_10_001_69ee81bc.glb",
+      "position": [
+        13.99999992,
+        -1e-8,
+        28.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22297362,
+        0.22297362,
+        0.22297362
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c8ba2d050cef8ac",
+      "name": "Tacos · buildings_11",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_11_b9e49bad.glb",
+      "position": [
+        18,
+        0,
+        28.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26140033,
+        0.26140033,
+        0.26140033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-df2b0d44ea746330",
+      "name": "Tacos · buildings_11_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_11_001_0cad3f1b.glb",
+      "position": [
+        22.00000005,
+        0,
+        27.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26140027,
+        0.26140027,
+        0.26140027
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d1470be11f70131f",
+      "name": "Tacos · buildings_12_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_12_001_381cdad6.glb",
+      "position": [
+        2.00000025,
+        0,
+        23.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31437662,
+        0.31437662,
+        0.31437662
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-222738fb23774e44",
+      "name": "Tacos · buildings_12_003",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_12_003_1ed2d12e.glb",
+      "position": [
+        6.0000002,
+        0,
+        23.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31437659,
+        0.31437659,
+        0.31437659
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1862353a419e5c82",
+      "name": "Tacos · buildings_13",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_13_15926c29.glb",
+      "position": [
+        10,
+        0,
+        23.9999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21087627,
+        0.21087627,
+        0.21087627
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8d60432f2c6b566d",
+      "name": "Tacos · buildings_13_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_13_001_3e635419.glb",
+      "position": [
+        14.00000005,
+        0,
+        23.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21087622,
+        0.21087622,
+        0.21087622
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2900a9ac987eb729",
+      "name": "Tacos · buildings_14",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_14_d03a6412.glb",
+      "position": [
+        18,
+        0,
+        24.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27324,
+        0.27324,
+        0.27324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e2d913996a170ee5",
+      "name": "Tacos · buildings_14_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_14_001_59a86bd5.glb",
+      "position": [
+        22,
+        0,
+        23.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27323994,
+        0.27323994,
+        0.27323994
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-86a7d55fb3ad5d16",
+      "name": "Tacos · buildings_15",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_15_fe10202d.glb",
+      "position": [
+        1.99999996,
+        -2e-8,
+        19.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24731243,
+        0.24731243,
+        0.24731243
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-815735d6605bd1c2",
+      "name": "Tacos · buildings_15_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_15_001_05c1d231.glb",
+      "position": [
+        5.99999999,
+        -2e-8,
+        19.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24731236,
+        0.24731236,
+        0.24731236
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-020946abd71b7189",
+      "name": "Tacos · buildings_16",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_16_849116de.glb",
+      "position": [
+        10,
+        3e-8,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28789557,
+        0.28789557,
+        0.28789557
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bfd002d00b257009",
+      "name": "Tacos · buildings_16_002",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_16_002_9ae82883.glb",
+      "position": [
+        14,
+        2e-8,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31688016,
+        0.31688016,
+        0.31688016
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ae7d0528cb936871",
+      "name": "Tacos · buildings_16_003",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_16_003_4afe970e.glb",
+      "position": [
+        18,
+        2e-8,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31688017,
+        0.31688017,
+        0.31688017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-593127f161dbadf1",
+      "name": "Tacos · buildings_17",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_17_f07e9477.glb",
+      "position": [
+        22.00000011,
+        2e-8,
+        20.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32112133,
+        0.32112133,
+        0.32112133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ea49aa9d24f9733",
+      "name": "Tacos · buildings_17_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_17_001_92f2bf6f.glb",
+      "position": [
+        1.99999976,
+        -1e-8,
+        15.99999964
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32112124,
+        0.32112124,
+        0.32112124
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3534e7282e1a065d",
+      "name": "Tacos · buildings_18",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_18_cb9d24b3.glb",
+      "position": [
+        6.00000061,
+        3e-8,
+        16.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26605978,
+        0.26605978,
+        0.26605978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-596bd99ce4c90c7e",
+      "name": "Tacos · buildings_18_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_18_001_deb4a409.glb",
+      "position": [
+        10.00000013,
+        3e-8,
+        16.0000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2660597,
+        0.2660597,
+        0.2660597
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-088ac206268ebab2",
+      "name": "Tacos · buildings_19",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_19_04bcd38e.glb",
+      "position": [
+        14,
+        0,
+        15.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2727452,
+        0.2727452,
+        0.2727452
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ea28b8c8ae666e54",
+      "name": "Tacos · buildings_19_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_19_001_75e63c36.glb",
+      "position": [
+        18.00000001,
+        0,
+        15.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27274512,
+        0.27274512,
+        0.27274512
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ff6c98410aeb7486",
+      "name": "Tacos · buildings_20",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_20_553abc19.glb",
+      "position": [
+        22.00000012,
+        3e-8,
+        15.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18211993,
+        0.18211993,
+        0.18211993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7e534529d892788a",
+      "name": "Tacos · buildings_20_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_20_001_06cf6c2c.glb",
+      "position": [
+        1.99999998,
+        3e-8,
+        12.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16486653,
+        0.16486653,
+        0.16486653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5669630c06f802f",
+      "name": "Tacos · buildings_20_002",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_20_002_edd60c01.glb",
+      "position": [
+        5.9999994,
+        3e-8,
+        12.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16486651,
+        0.16486651,
+        0.16486651
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0137c9f509b8e906",
+      "name": "Tacos · buildings_21_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_21_001_138102fb.glb",
+      "position": [
+        10,
+        0,
+        12.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29658073,
+        0.29658073,
+        0.29658073
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ddb8880d8dc98836",
+      "name": "Tacos · buildings_21_002",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_21_002_5ba042b6.glb",
+      "position": [
+        13.99999999,
+        0,
+        11.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29658065,
+        0.29658065,
+        0.29658065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b3025446dc0ea5ed",
+      "name": "Tacos · buildings_22_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_22_001_8ffab6b8.glb",
+      "position": [
+        18,
+        0,
+        12.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36276738,
+        0.36276738,
+        0.36276738
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0426d91345c75de0",
+      "name": "Tacos · buildings_22_002",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_22_002_b960970e.glb",
+      "position": [
+        22.00000106,
+        0,
+        11.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3627673,
+        0.3627673,
+        0.3627673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-610433b5fa8cc417",
+      "name": "Tacos · buildings_23_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_23_001_618875dc.glb",
+      "position": [
+        2,
+        6e-8,
+        8.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28031807,
+        0.28031807,
+        0.28031807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0448bff905e27b84",
+      "name": "Tacos · buildings_23_002",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_23_002_ab982757.glb",
+      "position": [
+        6.0000004,
+        6e-8,
+        7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28031807,
+        0.28031807,
+        0.28031807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a2da70a627b6391c",
+      "name": "Tacos · buildings_24",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_24_4d165a37.glb",
+      "position": [
+        10,
+        0,
+        8.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51372475,
+        0.51372475,
+        0.51372475
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-259d7a55cd12f2f4",
+      "name": "Tacos · buildings_24_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_24_001_f08b6137.glb",
+      "position": [
+        14,
+        0,
+        7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51372462,
+        0.51372462,
+        0.51372462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-67aa2b4ed3566b68",
+      "name": "Tacos · buildings_25_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_25_001_75871ecb.glb",
+      "position": [
+        18.0000001,
+        -1e-8,
+        7.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29412857,
+        0.29412857,
+        0.29412857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-362e1addc852eae0",
+      "name": "Tacos · buildings_26_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_26_001_129d5642.glb",
+      "position": [
+        21.99999995,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18056688,
+        0.18056688,
+        0.18056688
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd9af5e23ea784ff",
+      "name": "Tacos · buildings_27",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_27_241cc98d.glb",
+      "position": [
+        2,
+        -1e-8,
+        3.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07278571,
+        0.07278571,
+        0.07278571
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-49eff424110ebde0",
+      "name": "Tacos · buildings_27_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_27_001_7ed1cd51.glb",
+      "position": [
+        6.00000014,
+        1e-8,
+        3.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07278571,
+        0.07278571,
+        0.07278571
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9b3d239742b8aee3",
+      "name": "Tacos · buildings_28",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_28_3af2fe8a.glb",
+      "position": [
+        10.00000025,
+        3e-8,
+        3.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31719264,
+        0.31719264,
+        0.31719264
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-95382c053c0d6abb",
+      "name": "Tacos · buildings_29",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/buildings_29_e3900870.glb",
+      "position": [
+        14,
+        0,
+        3.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21874894,
+        0.21874894,
+        0.21874894
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f8ae9e1b198a9dd3",
+      "name": "Tacos · Cable",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/Cable_46cf7235.glb",
+      "position": [
+        18.00000004,
+        -4e-8,
+        4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1310276,
+        0.1310276,
+        0.1310276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ff9e435d599f6e1e",
+      "name": "Tacos · Cable_001",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/Cable_001_5ff1231a.glb",
+      "position": [
+        22.00000001,
+        -4e-8,
+        3.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1309119,
+        0.1309119,
+        0.1309119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b17f9485498c0fb",
+      "name": "Tacos · Cable_003",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/Cable_003_91d44fc4.glb",
+      "position": [
+        4,
+        -4e-8,
+        -5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1309119,
+        0.1309119,
+        0.1309119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6d3575a4ce1d8f9d",
+      "name": "Tacos · Cable_004",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/Cable_004_9331e640.glb",
+      "position": [
+        7.99999999,
+        -1e-8,
+        1e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0476068,
+        0.0476068,
+        0.0476068
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-abf3c03661330ebe",
+      "name": "Tacos · Cable_005",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/Cable_005_50e8f61a.glb",
+      "position": [
+        11.99999998,
+        0,
+        9e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04759152,
+        0.04759152,
+        0.04759152
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0f14ec8cc3080d15",
+      "name": "Tacos · Cable_006",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/Cable_006_530d3dbc.glb",
+      "position": [
+        16,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04759152,
+        0.04759152,
+        0.04759152
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3648f54055e4ea7e",
+      "name": "Tacos · Cable_007",
+      "parentId": "transform:category-tacos",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Tacos/Cable_007_8b44911a.glb",
+      "position": [
+        20,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04759152,
+        0.04759152,
+        0.04759152
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

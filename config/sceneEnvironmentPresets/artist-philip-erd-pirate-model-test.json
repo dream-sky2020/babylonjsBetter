@@ -1,0 +1,2172 @@
+{
+  "presetKey": "artist-philip-erd-pirate-model-test",
+  "name": "Philip Erd · 海盗道具（52 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "philip-erd-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "philip-erd-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "philip-erd-Pirate",
+      "name": "海盗道具",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "philip-erd-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 36
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-zone",
+      "name": "海盗道具分区",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 32.5,
+        "height": 0.1,
+        "depth": 28.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#8e9675"
+    },
+    {
+      "id": "philip-erd-Pirate-1-stand",
+      "name": "amphora展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-2-stand",
+      "name": "barrel_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-3-stand",
+      "name": "barrel_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-4-stand",
+      "name": "barrel_003展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-5-stand",
+      "name": "box_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-6-stand",
+      "name": "box_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-7-stand",
+      "name": "box_003展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-8-stand",
+      "name": "bucket展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-9-stand",
+      "name": "cannon_barrel展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-10-stand",
+      "name": "cannon_carrier_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-11-stand",
+      "name": "cannon_carrier_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-12-stand",
+      "name": "cannon_wheel展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-13-stand",
+      "name": "cannonball展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-14-stand",
+      "name": "chest_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-15-stand",
+      "name": "chest_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-16-stand",
+      "name": "dimond_blue展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-17-stand",
+      "name": "dimond_green展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-18-stand",
+      "name": "dimond_red展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-19-stand",
+      "name": "dimond_yellow展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-20-stand",
+      "name": "door_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-21-stand",
+      "name": "door_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-22-stand",
+      "name": "flag_pole_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-23-stand",
+      "name": "flag_pole_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-24-stand",
+      "name": "goblet_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-25-stand",
+      "name": "lamb_holder展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        0
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-26-stand",
+      "name": "lantern_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        0
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-27-stand",
+      "name": "paddle展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-28-stand",
+      "name": "plank_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-29-stand",
+      "name": "plank_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-30-stand",
+      "name": "plank_003展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-31-stand",
+      "name": "plank_004展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        0
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-32-stand",
+      "name": "plank_005展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        0
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-33-stand",
+      "name": "plank_006展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-34-stand",
+      "name": "plank_007展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-35-stand",
+      "name": "plank_008展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-36-stand",
+      "name": "plank_009展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-37-stand",
+      "name": "pole_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-38-stand",
+      "name": "pole_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-39-stand",
+      "name": "pole_003展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-40-stand",
+      "name": "pole_004展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -4
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-41-stand",
+      "name": "ring展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-42-stand",
+      "name": "saber_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-43-stand",
+      "name": "saber_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-44-stand",
+      "name": "shovel_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-45-stand",
+      "name": "wagon_wheel_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-46-stand",
+      "name": "window_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-47-stand",
+      "name": "window_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-48-stand",
+      "name": "window_003展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-49-stand",
+      "name": "window_004展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-50-stand",
+      "name": "window_005展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-51-stand",
+      "name": "window_blend_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-52-stand",
+      "name": "window_blend_002展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -12
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "philip-erd-Pirate-1",
+      "name": "amphora",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/amphora.glb",
+      "position": [
+        -14,
+        0,
+        11.99999992
+      ],
+      "scaling": [
+        3.60734154,
+        3.60734154,
+        3.60734154
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-2",
+      "name": "barrel_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/barrel_001.glb",
+      "position": [
+        -10,
+        0,
+        12
+      ],
+      "scaling": [
+        3.20307913,
+        3.20307913,
+        3.20307913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-3",
+      "name": "barrel_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/barrel_002.glb",
+      "position": [
+        -6,
+        0,
+        12
+      ],
+      "scaling": [
+        3.20307913,
+        3.20307913,
+        3.20307913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-4",
+      "name": "barrel_003",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/barrel_003.glb",
+      "position": [
+        -2,
+        -4e-8,
+        12
+      ],
+      "scaling": [
+        6.70953559,
+        6.70953559,
+        6.70953559
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-5",
+      "name": "box_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/box_001.glb",
+      "position": [
+        2,
+        0,
+        12
+      ],
+      "scaling": [
+        4.18180414,
+        4.18180414,
+        4.18180414
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-6",
+      "name": "box_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/box_002.glb",
+      "position": [
+        6,
+        0,
+        12
+      ],
+      "scaling": [
+        6.63316857,
+        6.63316857,
+        6.63316857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-7",
+      "name": "box_003",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/box_003.glb",
+      "position": [
+        10,
+        0,
+        12
+      ],
+      "scaling": [
+        3.33287771,
+        3.33287771,
+        3.33287771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-8",
+      "name": "bucket",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/bucket.glb",
+      "position": [
+        14,
+        0,
+        12
+      ],
+      "scaling": [
+        6.76626636,
+        6.76626636,
+        6.76626636
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-9",
+      "name": "cannon_barrel",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_barrel.glb",
+      "position": [
+        -14,
+        7e-8,
+        7.99999986
+      ],
+      "scaling": [
+        1.04995533,
+        1.04995533,
+        1.04995533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-10",
+      "name": "cannon_carrier_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_carrier_001.glb",
+      "position": [
+        -10,
+        0,
+        7.9999999
+      ],
+      "scaling": [
+        1.72734044,
+        1.72734044,
+        1.72734044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-11",
+      "name": "cannon_carrier_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_carrier_002.glb",
+      "position": [
+        -6,
+        0,
+        7.99999989
+      ],
+      "scaling": [
+        0.8930853,
+        0.8930853,
+        0.8930853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-12",
+      "name": "cannon_wheel",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_wheel.glb",
+      "position": [
+        -1.99999986,
+        -4e-8,
+        7.9999999
+      ],
+      "scaling": [
+        6.47678985,
+        6.47678985,
+        6.47678985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-13",
+      "name": "cannonball",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/cannonball.glb",
+      "position": [
+        1.99999889,
+        0,
+        8.00000111
+      ],
+      "scaling": [
+        14.95369441,
+        14.95369441,
+        14.95369441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-14",
+      "name": "chest_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/chest_001.glb",
+      "position": [
+        6,
+        0,
+        8
+      ],
+      "scaling": [
+        2.13525583,
+        2.13525583,
+        2.13525583
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-15",
+      "name": "chest_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/chest_002.glb",
+      "position": [
+        10,
+        0,
+        8
+      ],
+      "scaling": [
+        2.13525583,
+        2.13525583,
+        2.13525583
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-16",
+      "name": "dimond_blue",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/dimond_blue.glb",
+      "position": [
+        14,
+        0,
+        8
+      ],
+      "scaling": [
+        16.2054529,
+        16.2054529,
+        16.2054529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-17",
+      "name": "dimond_green",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/dimond_green.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "scaling": [
+        16.2054529,
+        16.2054529,
+        16.2054529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-18",
+      "name": "dimond_red",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/dimond_red.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "scaling": [
+        16.2054529,
+        16.2054529,
+        16.2054529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-19",
+      "name": "dimond_yellow",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/dimond_yellow.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "scaling": [
+        16.2054529,
+        16.2054529,
+        16.2054529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-20",
+      "name": "door_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/door_001.glb",
+      "position": [
+        -2,
+        0,
+        3.99999979
+      ],
+      "scaling": [
+        1.20440535,
+        1.20440535,
+        1.20440535
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-21",
+      "name": "door_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/door_002.glb",
+      "position": [
+        2,
+        0,
+        4.00000094
+      ],
+      "scaling": [
+        1.20440535,
+        1.20440535,
+        1.20440535
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-22",
+      "name": "flag_pole_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/flag_pole_001.glb",
+      "position": [
+        5.99999997,
+        0,
+        3.9999997
+      ],
+      "scaling": [
+        1.12903566,
+        1.12903566,
+        1.12903566
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-23",
+      "name": "flag_pole_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/flag_pole_002.glb",
+      "position": [
+        10.00000011,
+        0,
+        3.99999997
+      ],
+      "scaling": [
+        0.7216627,
+        0.7216627,
+        0.7216627
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-24",
+      "name": "goblet_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/goblet_001.glb",
+      "position": [
+        14,
+        0,
+        4
+      ],
+      "scaling": [
+        9.17784534,
+        9.17784534,
+        9.17784534
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-25",
+      "name": "lamb_holder",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/lamb_holder.glb",
+      "position": [
+        -13.99999973,
+        -1.8e-7,
+        2.6e-7
+      ],
+      "scaling": [
+        3.00412705,
+        3.00412705,
+        3.00412705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-26",
+      "name": "lantern_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/lantern_001.glb",
+      "position": [
+        -10,
+        2.8e-7,
+        0
+      ],
+      "scaling": [
+        4.70432367,
+        4.70432367,
+        4.70432367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-27",
+      "name": "paddle",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/paddle.glb",
+      "position": [
+        -5.9999999,
+        6e-8,
+        6.2e-7
+      ],
+      "scaling": [
+        1.16453372,
+        1.16453372,
+        1.16453372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-28",
+      "name": "plank_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_001.glb",
+      "position": [
+        -2,
+        0,
+        3.3e-7
+      ],
+      "scaling": [
+        1.396503,
+        1.396503,
+        1.396503
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-29",
+      "name": "plank_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_002.glb",
+      "position": [
+        2,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-30",
+      "name": "plank_003",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_003.glb",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-31",
+      "name": "plank_004",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_004.glb",
+      "position": [
+        10,
+        0,
+        1.9e-7
+      ],
+      "scaling": [
+        1.59831133,
+        1.59831133,
+        1.59831133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-32",
+      "name": "plank_005",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_005.glb",
+      "position": [
+        14,
+        0,
+        -3.1e-7
+      ],
+      "scaling": [
+        1.71168597,
+        1.71168597,
+        1.71168597
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-33",
+      "name": "plank_006",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_006.glb",
+      "position": [
+        -14,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-34",
+      "name": "plank_007",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_007.glb",
+      "position": [
+        -10,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-35",
+      "name": "plank_008",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_008.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-36",
+      "name": "plank_009",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/plank_009.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-37",
+      "name": "pole_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/pole_001.glb",
+      "position": [
+        1.99999979,
+        0,
+        -4.00000199
+      ],
+      "scaling": [
+        4.60982656,
+        4.60982656,
+        4.60982656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-38",
+      "name": "pole_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/pole_002.glb",
+      "position": [
+        5.99999991,
+        0,
+        -4.00000008
+      ],
+      "scaling": [
+        1.24910409,
+        1.24910409,
+        1.24910409
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-39",
+      "name": "pole_003",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/pole_003.glb",
+      "position": [
+        10.00000005,
+        0,
+        -3.99999997
+      ],
+      "scaling": [
+        2.36044584,
+        2.36044584,
+        2.36044584
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-40",
+      "name": "pole_004",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/pole_004.glb",
+      "position": [
+        13.99999981,
+        0,
+        -3.99999946
+      ],
+      "scaling": [
+        1.32652315,
+        1.32652315,
+        1.32652315
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-41",
+      "name": "ring",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/ring.glb",
+      "position": [
+        -14,
+        1.7e-7,
+        -8
+      ],
+      "scaling": [
+        16.27754003,
+        16.27754003,
+        16.27754003
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-42",
+      "name": "saber_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/saber_001.glb",
+      "position": [
+        -10,
+        0,
+        -7.99999961
+      ],
+      "scaling": [
+        2.578145,
+        2.578145,
+        2.578145
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-43",
+      "name": "saber_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/saber_002.glb",
+      "position": [
+        -6,
+        0,
+        -8.00000024
+      ],
+      "scaling": [
+        2.578145,
+        2.578145,
+        2.578145
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-44",
+      "name": "shovel_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/shovel_001.glb",
+      "position": [
+        -2,
+        0,
+        -8.00000032
+      ],
+      "scaling": [
+        2.16125949,
+        2.16125949,
+        2.16125949
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-45",
+      "name": "wagon_wheel_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/wagon_wheel_001.glb",
+      "position": [
+        2,
+        1.9e-7,
+        -8
+      ],
+      "scaling": [
+        2.05882323,
+        2.05882323,
+        2.05882323
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-46",
+      "name": "window_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/window_001.glb",
+      "position": [
+        6,
+        1.8e-7,
+        -7.99999987
+      ],
+      "scaling": [
+        1.86666644,
+        1.86666644,
+        1.86666644
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-47",
+      "name": "window_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/window_002.glb",
+      "position": [
+        10,
+        1.8e-7,
+        -7.99999987
+      ],
+      "scaling": [
+        1.86666644,
+        1.86666644,
+        1.86666644
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-48",
+      "name": "window_003",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/window_003.glb",
+      "position": [
+        14,
+        1e-8,
+        -8.00000001
+      ],
+      "scaling": [
+        1.90578947,
+        1.90578947,
+        1.90578947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-49",
+      "name": "window_004",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/window_004.glb",
+      "position": [
+        -14,
+        2e-8,
+        -12.00000002
+      ],
+      "scaling": [
+        2.88883239,
+        2.88883239,
+        2.88883239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-50",
+      "name": "window_005",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/window_005.glb",
+      "position": [
+        -10,
+        0,
+        -11.99999878
+      ],
+      "scaling": [
+        3.6470657,
+        3.6470657,
+        3.6470657
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-51",
+      "name": "window_blend_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/window_blend_001.glb",
+      "position": [
+        -6.00000012,
+        -5e-8,
+        -11.99999955
+      ],
+      "scaling": [
+        1.80976163,
+        1.80976163,
+        1.80976163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-52",
+      "name": "window_blend_002",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/window_blend_002.glb",
+      "position": [
+        -2.0000002,
+        -1.1e-7,
+        -12.00000012
+      ],
+      "scaling": [
+        1.83058355,
+        1.83058355,
+        1.83058355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

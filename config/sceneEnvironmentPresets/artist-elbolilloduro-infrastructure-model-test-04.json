@@ -1,0 +1,7822 @@
+{
+  "presetKey": "artist-elbolilloduro-infrastructure-model-test-04",
+  "name": "Elbolilloduro · 道路、交通与地下设施 4/5（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-minas",
+      "name": "Minas",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-roads",
+      "name": "Roads",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 77
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-d0458ea03a6e139b-stand",
+      "name": "Mine_06展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-83f0707a3b7e95cc-stand",
+      "name": "Mine_07展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5faf6481edf5df46-stand",
+      "name": "Mine_08展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b1bd2ca00d546c71-stand",
+      "name": "Mine_09展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-45753b1177bda5c7-stand",
+      "name": "Mine_10展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-69ea6e5aef6a2e3f-stand",
+      "name": "Mine_11展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a331268c373c6f37-stand",
+      "name": "Mine_12展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c747fcad939b8e80-stand",
+      "name": "Mining_Helmet展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-71306c8c62856741-stand",
+      "name": "Petrol_Can展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b2168d85fb5555b1-stand",
+      "name": "Rails_01展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c405574f3cafcdc-stand",
+      "name": "Rails_04展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e4945ef1c8519bf2-stand",
+      "name": "Rails_05展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c89c80e6f33af3a3-stand",
+      "name": "Rails_06展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9253184226863af3-stand",
+      "name": "Rails_09展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d385f6d756a70c5f-stand",
+      "name": "Rails_10展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3230ddc3ee0871c8-stand",
+      "name": "Rails_11展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-545b430e688c5eb7-stand",
+      "name": "Rails_M展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fece14dac47070df-stand",
+      "name": "Rails_M_01展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6d34f2834ebd73d9-stand",
+      "name": "Rails_M_03展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2717fe7dfefd55fd-stand",
+      "name": "Rails_M_04展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8bc01c2181eb2bfd-stand",
+      "name": "Rails_M_05展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4fdc45b7bb5f8956-stand",
+      "name": "Rails_M_06展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-76b3933be6afb33a-stand",
+      "name": "Rails_M_07展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-399de7757094f0c4-stand",
+      "name": "Rails_M_08展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ffd41ebf2c82a44c-stand",
+      "name": "Rails_M_09展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5e7f67b90308b42c-stand",
+      "name": "Rock展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ba8c960c7bc8be59-stand",
+      "name": "Rock_01展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9c5b095270c3591f-stand",
+      "name": "Rock_02展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a40f6688b9a0949b-stand",
+      "name": "Rock_03展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ac1ab28fa3a05cc7-stand",
+      "name": "Rock_04展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4a0978c550bfcb5d-stand",
+      "name": "Rock_05展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b7ffed55a9d01af0-stand",
+      "name": "Rock_06展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2cc3c1c2af48439f-stand",
+      "name": "Rock_07展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-050f9abe5482b748-stand",
+      "name": "Rock_08展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b37069d77653a0a-stand",
+      "name": "Rock_09展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5363e9fbe5df6c40-stand",
+      "name": "Rock_10展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-880057bf81cd3a1d-stand",
+      "name": "Rock_11展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7acb3bfe7b77d285-stand",
+      "name": "Rock_12展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-102f832f755d38ca-stand",
+      "name": "Shelving展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e0e841d1f9e4210c-stand",
+      "name": "Shovel展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-38120c4a5e64757d-stand",
+      "name": "Tb展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d2651e33c4dead3a-stand",
+      "name": "Tb_01展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c7403c3b3dc5a2b-stand",
+      "name": "Tb_01_006展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4ee30bc7236cfcfb-stand",
+      "name": "Tb_02展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a5678c5e630d0617-stand",
+      "name": "Tb_R展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-715f748f88dc1d9a-stand",
+      "name": "TNT展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-350008960d216e68-stand",
+      "name": "TNT_01展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b153bb0d7e01ba90-stand",
+      "name": "Tray展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-46345ade34371e96-stand",
+      "name": "Wagon展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aad0a9ec5039da8f-stand",
+      "name": "Wood_B展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-162711f0ce3331d2-stand",
+      "name": "Wood_B_01展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8f6fb7a080ce8888-stand",
+      "name": "Wood_B_02展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f1143a1f6c957d09-stand",
+      "name": "Wood_B_03展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a113d15f4aa2b114-stand",
+      "name": "Wood_M展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-611cb5240936dc54-stand",
+      "name": "Wood_M_01展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f8c9393be151b276-stand",
+      "name": "Wood_M_02展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ee46b8d869f5481d-stand",
+      "name": "Wood_M_03展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cfdda2a7b5312c63-stand",
+      "name": "Wood_M_04展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6602406791f5f933-stand",
+      "name": "Wood_M_05展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1f21da36c4d9724f-stand",
+      "name": "Wood_M_06展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-524703550d001679-stand",
+      "name": "Wood_M_07展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f89cfd9fedb94815-stand",
+      "name": "Wood_M_08展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a1aeb306295cab19-stand",
+      "name": "Wood_M_09展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2b0c05e3273513d1-stand",
+      "name": "Wood_M_10展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cdd1342ff52dedb2-stand",
+      "name": "Wood_M_P展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6cd81aa6d719b83e-stand",
+      "name": "Wood_P展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ed5bc7b8456c3090-stand",
+      "name": "Wood_T展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2e4cb5de2b907264-stand",
+      "name": "Wood_T_01展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ab987b159ce39f7a-stand",
+      "name": "Wood_T_02展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bcf76584a67cf463-stand",
+      "name": "Wood_T_03展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ddab8cf3f76ca619-stand",
+      "name": "Wood_T_04展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7276bc3de38bfbfa-stand",
+      "name": "Wood_T_05展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a9bb3d3305288222-stand",
+      "name": "Wood_T_06展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b3d5271166c10dd8-stand",
+      "name": "Wood_T_07展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a04d1ccdf2fa315b-stand",
+      "name": "WoodRough展台",
+      "parentId": "transform:category-minas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d4684f707b0548aa-stand",
+      "name": "Bridge展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a980529ce38917cf-stand",
+      "name": "Bridge_001展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-92e8ec7e4f0d8437-stand",
+      "name": "Bridge_002展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ea273691d31373c6-stand",
+      "name": "Bridge_003展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-685acdc5c25a5950-stand",
+      "name": "Bridge_004展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-331dd9173458aa68-stand",
+      "name": "Bridge_005展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-823400efa108f211-stand",
+      "name": "Bridge_007展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a89a4d877779005b-stand",
+      "name": "Bridge_008展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b1ed863677b34d9a-stand",
+      "name": "Bridge_009展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bd5ba4d5a9faaf9b-stand",
+      "name": "Bridge_010展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-99e6a1025433e601-stand",
+      "name": "Bridge_011展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-df85f8392a32b2f3-stand",
+      "name": "Bridge_012展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-464bed810c864f11-stand",
+      "name": "Bridge_013展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b8bcacc3993fa962-stand",
+      "name": "Bridge_014展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9df426fe8b9a5c5f-stand",
+      "name": "Bridge_015展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2d9daad569d1b8b3-stand",
+      "name": "Bridge_016展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b8741db90fc69a56-stand",
+      "name": "Bridge_017展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-be3fa738efc8d256-stand",
+      "name": "Bridge_018展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-eff650c2e34c5a14-stand",
+      "name": "road展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e4b7f7dcfe9a3abc-stand",
+      "name": "road_001展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e44c49cb45eb2eb3-stand",
+      "name": "road_002展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c697332b21774eb0-stand",
+      "name": "road_003展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0c9771ae7fc74080-stand",
+      "name": "road_004展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d304ead352203cbe-stand",
+      "name": "road_005展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7e300f4e19b02792-stand",
+      "name": "road_006展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-508771abc99295d8-stand",
+      "name": "road_007展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-826aa4eaa6801fad-stand",
+      "name": "road_008展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ce2ce71b86f37ddc-stand",
+      "name": "road_009展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a2d59f7a819e9b36-stand",
+      "name": "road_010展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-db678bb304b33c50-stand",
+      "name": "road_011展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-026be1de9d2093e6-stand",
+      "name": "road_012展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-da048d25255e3ad6-stand",
+      "name": "road_013展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ddeba44d0bbbbae0-stand",
+      "name": "road_014展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-075db717eac5e48c-stand",
+      "name": "road_015展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d56b0ad098b58ed2-stand",
+      "name": "road_016展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e8f5caf6369e3d6a-stand",
+      "name": "road_017展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-33ea90212a0a808b-stand",
+      "name": "road_018展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5bc16afd5e409fa0-stand",
+      "name": "road_019展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-567b45b57699c064-stand",
+      "name": "road_020展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1db2a1a3bd67a6f7-stand",
+      "name": "road_021展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e53d7d9e18140961-stand",
+      "name": "road_022展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dac25814abfeb08c-stand",
+      "name": "road_023展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8b2cdcf5ae4d0578-stand",
+      "name": "road_024展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b59ef104d1b0ab04-stand",
+      "name": "road_025展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5d92dd4894dfd341-stand",
+      "name": "road_026展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-86764deff4eb89a6-stand",
+      "name": "road_027展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-41ebde259fbc668b-stand",
+      "name": "road_028展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e05364e131848f0e-stand",
+      "name": "road_029展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ad462b9db4e43012-stand",
+      "name": "road_030展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e5542d1bc3766343-stand",
+      "name": "road_031展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e760f256af847e51-stand",
+      "name": "road_032展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-581de20d45692825-stand",
+      "name": "road_033展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c682206eefb25b76-stand",
+      "name": "road_034展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f5c5506745260567-stand",
+      "name": "road_035展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a2cc94d6f1ce3974-stand",
+      "name": "road_036展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9347ccee0ee378d9-stand",
+      "name": "road_037展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1a0f35e1a90f9337-stand",
+      "name": "road_038展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d7305fb1647da63b-stand",
+      "name": "road_039展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0f91cff65d1e7f62-stand",
+      "name": "road_040展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-808af60a3d6ad5ea-stand",
+      "name": "road_041展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-78304f84a1fd073c-stand",
+      "name": "road_042展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b4a7fdc0206548b4-stand",
+      "name": "road_043展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7120b5a6d5d8e00b-stand",
+      "name": "road_044展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-03a063c16f67a8c4-stand",
+      "name": "road_045展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bb39a225ac13037e-stand",
+      "name": "road_046展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2bd05ed94950b748-stand",
+      "name": "road_047展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-22329cb9f32a055d-stand",
+      "name": "road_048展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3bfebc4fdec4c119-stand",
+      "name": "road_049展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9afdb10b729517e6-stand",
+      "name": "road_050展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3f720dea148d7f7b-stand",
+      "name": "road_051展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c88ca416a1cf28b6-stand",
+      "name": "road_052展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7f50db28dcb7dd5e-stand",
+      "name": "road_053展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5e1cc6a58445c7c6-stand",
+      "name": "road_054展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b4bc93f19eb59f4c-stand",
+      "name": "road_055展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e10c85266bebcef9-stand",
+      "name": "road_056展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-96d9b6118e4410e9-stand",
+      "name": "road_057展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-061de59ceca3ca97-stand",
+      "name": "road_058展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b7a1f66769f8d658-stand",
+      "name": "road_059展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ba31f74fc2a77a01-stand",
+      "name": "road_060展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7c1e0916b7234f52-stand",
+      "name": "road_061展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-14de1fc6e879ac68-stand",
+      "name": "road_062展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a5e9b4e6af87c541-stand",
+      "name": "road_063展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c2c1cc96343d8ec2-stand",
+      "name": "road_064展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-45989b728377bb34-stand",
+      "name": "road_065展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-41ad01b2eb6d7dc9-stand",
+      "name": "road_066展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cf68220601d6796c-stand",
+      "name": "road_067展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-eacd216f35720ae0-stand",
+      "name": "road_068展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2c3102c3160e52f0-stand",
+      "name": "road_069展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8378afa4f3997837-stand",
+      "name": "road_070展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5a3f62811f082995-stand",
+      "name": "road_071展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a31098bb4d5d46bd-stand",
+      "name": "Sign展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-aa0507164225535c-stand",
+      "name": "Sign_001展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9ec92a063765e4f6-stand",
+      "name": "Sign_002展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-43b10b0d4d356f83-stand",
+      "name": "Sign_003展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-50afc7c2df4f1579-stand",
+      "name": "Sign_004展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9cb38ecdfdf3ca45-stand",
+      "name": "Sign_005展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -24
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-408fbf7ca4831a68-stand",
+      "name": "Sign_006展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b6df6078a905ab0d-stand",
+      "name": "Sign_007展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-802c408da56e7f26-stand",
+      "name": "Sign_008展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-748a38de9c8c86ed-stand",
+      "name": "Sign_009展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d26067ee5427e32b-stand",
+      "name": "Sign_010展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0b80b391fe23cd14-stand",
+      "name": "Sign_011展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-826d0233c97c4835-stand",
+      "name": "Sign_012展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-560d9626d87635b3-stand",
+      "name": "Sign_013展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-809fc469da353e65-stand",
+      "name": "Sign_014展台",
+      "parentId": "transform:category-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-d0458ea03a6e139b",
+      "name": "Minas · Mine_06",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Mine_06_2824e94d.glb",
+      "position": [
+        -21.99999978,
+        0,
+        36.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46596416,
+        0.46596416,
+        0.46596416
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-83f0707a3b7e95cc",
+      "name": "Minas · Mine_07",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Mine_07_ea0e8196.glb",
+      "position": [
+        -18,
+        0,
+        36.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21728504,
+        0.21728504,
+        0.21728504
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5faf6481edf5df46",
+      "name": "Minas · Mine_08",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Mine_08_5ff71a7d.glb",
+      "position": [
+        -13.99999992,
+        0,
+        35.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16917163,
+        0.16917163,
+        0.16917163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b1bd2ca00d546c71",
+      "name": "Minas · Mine_09",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Mine_09_4b5ef8aa.glb",
+      "position": [
+        -10.00000004,
+        0,
+        35.99999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16917164,
+        0.16917164,
+        0.16917164
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-45753b1177bda5c7",
+      "name": "Minas · Mine_10",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Mine_10_e752d1c3.glb",
+      "position": [
+        -6,
+        0,
+        35.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15136293,
+        0.15136293,
+        0.15136293
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-69ea6e5aef6a2e3f",
+      "name": "Minas · Mine_11",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Mine_11_1037c1ec.glb",
+      "position": [
+        -1.99999978,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23034579,
+        0.23034579,
+        0.23034579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a331268c373c6f37",
+      "name": "Minas · Mine_12",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Mine_12_123c2c89.glb",
+      "position": [
+        -22,
+        0,
+        32.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30377601,
+        0.30377601,
+        0.30377601
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c747fcad939b8e80",
+      "name": "Minas · Mining_Helmet",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Mining_Helmet_ecfdcc2b.glb",
+      "position": [
+        -17.99999905,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.98477243,
+        7.98477243,
+        7.98477243
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-71306c8c62856741",
+      "name": "Minas · Petrol_Can",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Petrol_Can_e40f9ca8.glb",
+      "position": [
+        -14,
+        0,
+        31.99999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.8362362,
+        4.8362362,
+        4.8362362
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b2168d85fb5555b1",
+      "name": "Minas · Rails_01",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_01_9fe187a9.glb",
+      "position": [
+        -10,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33834325,
+        0.33834325,
+        0.33834325
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c405574f3cafcdc",
+      "name": "Minas · Rails_04",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_04_3ec571a8.glb",
+      "position": [
+        -5.99999992,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33834325,
+        0.33834325,
+        0.33834325
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e4945ef1c8519bf2",
+      "name": "Minas · Rails_05",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_05_a712fc37.glb",
+      "position": [
+        -2.00000008,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33834335,
+        0.33834335,
+        0.33834335
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c89c80e6f33af3a3",
+      "name": "Minas · Rails_06",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_06_696ba4c6.glb",
+      "position": [
+        -22.00000026,
+        0,
+        27.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55294752,
+        0.55294752,
+        0.55294752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9253184226863af3",
+      "name": "Minas · Rails_09",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_09_0cbd7c42.glb",
+      "position": [
+        -17.99999981,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81526505,
+        0.81526505,
+        0.81526505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d385f6d756a70c5f",
+      "name": "Minas · Rails_10",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_10_d86ba356.glb",
+      "position": [
+        -14.00000039,
+        0,
+        27.99999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81526494,
+        0.81526494,
+        0.81526494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3230ddc3ee0871c8",
+      "name": "Minas · Rails_11",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_11_4a1181e3.glb",
+      "position": [
+        -10,
+        0,
+        28.00000065
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37143284,
+        1.37143284,
+        1.37143284
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-545b430e688c5eb7",
+      "name": "Minas · Rails_M",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_e1379279.glb",
+      "position": [
+        -6,
+        0,
+        27.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33834323,
+        0.33834323,
+        0.33834323
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fece14dac47070df",
+      "name": "Minas · Rails_M_01",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_01_01034578.glb",
+      "position": [
+        -2,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33834325,
+        0.33834325,
+        0.33834325
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6d34f2834ebd73d9",
+      "name": "Minas · Rails_M_03",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_03_9fdd8bfa.glb",
+      "position": [
+        -22,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3107541,
+        0.3107541,
+        0.3107541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2717fe7dfefd55fd",
+      "name": "Minas · Rails_M_04",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_04_40d5ea4c.glb",
+      "position": [
+        -17.99999992,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33834325,
+        0.33834325,
+        0.33834325
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8bc01c2181eb2bfd",
+      "name": "Minas · Rails_M_05",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_05_dc26563d.glb",
+      "position": [
+        -14,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33834333,
+        0.33834333,
+        0.33834333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4fdc45b7bb5f8956",
+      "name": "Minas · Rails_M_06",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_06_2cbde8f4.glb",
+      "position": [
+        -10.00000026,
+        0,
+        23.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55294752,
+        0.55294752,
+        0.55294752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-76b3933be6afb33a",
+      "name": "Minas · Rails_M_07",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_07_58cd1ac2.glb",
+      "position": [
+        -6.00000004,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16917159,
+        0.16917159,
+        0.16917159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-399de7757094f0c4",
+      "name": "Minas · Rails_M_08",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_08_3e53e24a.glb",
+      "position": [
+        -2,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16917159,
+        0.16917159,
+        0.16917159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ffd41ebf2c82a44c",
+      "name": "Minas · Rails_M_09",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rails_M_09_ef422ae0.glb",
+      "position": [
+        -22.00000014,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15136298,
+        0.15136298,
+        0.15136298
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5e7f67b90308b42c",
+      "name": "Minas · Rock",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_7d4e23c0.glb",
+      "position": [
+        -18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.46387242,
+        1.46387242,
+        1.46387242
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ba8c960c7bc8be59",
+      "name": "Minas · Rock_01",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_01_ae127ea7.glb",
+      "position": [
+        -14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.84997491,
+        2.84997491,
+        2.84997491
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9c5b095270c3591f",
+      "name": "Minas · Rock_02",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_02_6164641f.glb",
+      "position": [
+        -10,
+        0,
+        19.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73344908,
+        1.73344908,
+        1.73344908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a40f6688b9a0949b",
+      "name": "Minas · Rock_03",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_03_ed9bb149.glb",
+      "position": [
+        -5.99999919,
+        0,
+        19.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.39277977,
+        3.39277977,
+        3.39277977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ac1ab28fa3a05cc7",
+      "name": "Minas · Rock_04",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_04_878afd75.glb",
+      "position": [
+        -2,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.19740179,
+        2.19740179,
+        2.19740179
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4a0978c550bfcb5d",
+      "name": "Minas · Rock_05",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_05_640fb2d2.glb",
+      "position": [
+        -22.0000001,
+        0,
+        16.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81678196,
+        0.81678196,
+        0.81678196
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b7ffed55a9d01af0",
+      "name": "Minas · Rock_06",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_06_83f6fc5d.glb",
+      "position": [
+        -17.9999999,
+        0,
+        16.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81678196,
+        0.81678196,
+        0.81678196
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2cc3c1c2af48439f",
+      "name": "Minas · Rock_07",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_07_f5cfb011.glb",
+      "position": [
+        -13.99999992,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.41911505,
+        1.41911505,
+        1.41911505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-050f9abe5482b748",
+      "name": "Minas · Rock_08",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_08_c02195cc.glb",
+      "position": [
+        -10.00000004,
+        0,
+        16.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39288002,
+        1.39288002,
+        1.39288002
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b37069d77653a0a",
+      "name": "Minas · Rock_09",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_09_8d820f0c.glb",
+      "position": [
+        -6.00000008,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.57327763,
+        2.57327763,
+        2.57327763
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5363e9fbe5df6c40",
+      "name": "Minas · Rock_10",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_10_3eb1459f.glb",
+      "position": [
+        -2,
+        0,
+        16.00000037
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.07453723,
+        3.07453723,
+        3.07453723
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-880057bf81cd3a1d",
+      "name": "Minas · Rock_11",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_11_be3bdf60.glb",
+      "position": [
+        -21.99999984,
+        0,
+        12.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65835057,
+        0.65835057,
+        0.65835057
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7acb3bfe7b77d285",
+      "name": "Minas · Rock_12",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Rock_12_67a8f6f8.glb",
+      "position": [
+        -17.99999984,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65835057,
+        0.65835057,
+        0.65835057
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-102f832f755d38ca",
+      "name": "Minas · Shelving",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Shelving_fe916192.glb",
+      "position": [
+        -14.00000017,
+        0,
+        12.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40093706,
+        1.40093706,
+        1.40093706
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e0e841d1f9e4210c",
+      "name": "Minas · Shovel",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Shovel_220fa03f.glb",
+      "position": [
+        -10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8499571,
+        1.8499571,
+        1.8499571
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-38120c4a5e64757d",
+      "name": "Minas · Tb",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Tb_4a74f4fe.glb",
+      "position": [
+        -6,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08920328,
+        1.08920328,
+        1.08920328
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d2651e33c4dead3a",
+      "name": "Minas · Tb_01",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Tb_01_4be87121.glb",
+      "position": [
+        -2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03430554,
+        1.03430554,
+        1.03430554
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c7403c3b3dc5a2b",
+      "name": "Minas · Tb_01_006",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Tb_01_006_b3ec9320.glb",
+      "position": [
+        -21.99999947,
+        0,
+        8.00000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55061538,
+        0.55061538,
+        0.55061538
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4ee30bc7236cfcfb",
+      "name": "Minas · Tb_02",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Tb_02_f9287004.glb",
+      "position": [
+        -18,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08920328,
+        1.08920328,
+        1.08920328
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a5678c5e630d0617",
+      "name": "Minas · Tb_R",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Tb_R_d1db89e9.glb",
+      "position": [
+        -14,
+        0,
+        7.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55665529,
+        1.55665529,
+        1.55665529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-715f748f88dc1d9a",
+      "name": "Minas · TNT",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/TNT_67e8f7f8.glb",
+      "position": [
+        -10,
+        0,
+        8.00000034
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.63966506,
+        5.63966506,
+        5.63966506
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-350008960d216e68",
+      "name": "Minas · TNT_01",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/TNT_01_58780bae.glb",
+      "position": [
+        -6.00000057,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.82061757,
+        4.82061757,
+        4.82061757
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b153bb0d7e01ba90",
+      "name": "Minas · Tray",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Tray_111b6f78.glb",
+      "position": [
+        -2,
+        0,
+        7.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.6894648,
+        4.6894648,
+        4.6894648
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-46345ade34371e96",
+      "name": "Minas · Wagon",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wagon_f1606a12.glb",
+      "position": [
+        -22,
+        0,
+        3.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.58441495,
+        1.58441495,
+        1.58441495
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aad0a9ec5039da8f",
+      "name": "Minas · Wood_B",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_B_23168a37.glb",
+      "position": [
+        -18,
+        0,
+        3.99999958
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8773436,
+        0.8773436,
+        0.8773436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-162711f0ce3331d2",
+      "name": "Minas · Wood_B_01",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_B_01_e68146e4.glb",
+      "position": [
+        -13.99999916,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88183011,
+        0.88183011,
+        0.88183011
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8f6fb7a080ce8888",
+      "name": "Minas · Wood_B_02",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_B_02_fe443c75.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87853756,
+        0.87853756,
+        0.87853756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f1143a1f6c957d09",
+      "name": "Minas · Wood_B_03",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_B_03_e388b832.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87566265,
+        0.87566265,
+        0.87566265
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a113d15f4aa2b114",
+      "name": "Minas · Wood_M",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_23722714.glb",
+      "position": [
+        -1.99999983,
+        0,
+        3.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36430208,
+        0.36430208,
+        0.36430208
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-611cb5240936dc54",
+      "name": "Minas · Wood_M_01",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_01_4b988742.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.36546837,
+        0.36546837,
+        0.36546837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f8c9393be151b276",
+      "name": "Minas · Wood_M_02",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_02_4f431516.glb",
+      "position": [
+        -18,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26634483,
+        0.26634483,
+        0.26634483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ee46b8d869f5481d",
+      "name": "Minas · Wood_M_03",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_03_2e9bdd00.glb",
+      "position": [
+        -13.99999992,
+        0,
+        8e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32155159,
+        0.32155159,
+        0.32155159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cfdda2a7b5312c63",
+      "name": "Minas · Wood_M_04",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_04_dd1a7694.glb",
+      "position": [
+        -10.00000008,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33386745,
+        0.33386745,
+        0.33386745
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6602406791f5f933",
+      "name": "Minas · Wood_M_05",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_05_20c53a20.glb",
+      "position": [
+        -5.99999978,
+        0,
+        -1.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45326442,
+        0.45326442,
+        0.45326442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1f21da36c4d9724f",
+      "name": "Minas · Wood_M_06",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_06_75a9d5fd.glb",
+      "position": [
+        -2,
+        0,
+        4.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85110011,
+        0.85110011,
+        0.85110011
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-524703550d001679",
+      "name": "Minas · Wood_M_07",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_07_21d881ee.glb",
+      "position": [
+        -22,
+        0,
+        -4.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86771146,
+        0.86771146,
+        0.86771146
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f89cfd9fedb94815",
+      "name": "Minas · Wood_M_08",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_08_91b66ff2.glb",
+      "position": [
+        -18,
+        0,
+        -3.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16954989,
+        0.16954989,
+        0.16954989
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a1aeb306295cab19",
+      "name": "Minas · Wood_M_09",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_09_4b8a1cc6.glb",
+      "position": [
+        -14.00000004,
+        0,
+        -4.00000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16954988,
+        0.16954988,
+        0.16954988
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2b0c05e3273513d1",
+      "name": "Minas · Wood_M_10",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_10_bfcef3ff.glb",
+      "position": [
+        -10.00000015,
+        0,
+        -4.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1522956,
+        0.1522956,
+        0.1522956
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cdd1342ff52dedb2",
+      "name": "Minas · Wood_M_P",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_M_P_6be09cba.glb",
+      "position": [
+        -5.9999995,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.52521049,
+        0.52521049,
+        0.52521049
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6cd81aa6d719b83e",
+      "name": "Minas · Wood_P",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_P_20c9daa6.glb",
+      "position": [
+        -1.9999995,
+        0,
+        -4.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.52521047,
+        0.52521047,
+        0.52521047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed5bc7b8456c3090",
+      "name": "Minas · Wood_T",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_T_d9770413.glb",
+      "position": [
+        -22.00000049,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03430554,
+        1.03430554,
+        1.03430554
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2e4cb5de2b907264",
+      "name": "Minas · Wood_T_01",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_T_01_467bfad7.glb",
+      "position": [
+        -17.99999951,
+        0,
+        -8.00000049
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0343059,
+        1.0343059,
+        1.0343059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ab987b159ce39f7a",
+      "name": "Minas · Wood_T_02",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_T_02_806a1141.glb",
+      "position": [
+        -13.99999951,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0343059,
+        1.0343059,
+        1.0343059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bcf76584a67cf463",
+      "name": "Minas · Wood_T_03",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_T_03_5bce7c56.glb",
+      "position": [
+        -10.00000047,
+        0,
+        -7.99999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98641992,
+        0.98641992,
+        0.98641992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ddab8cf3f76ca619",
+      "name": "Minas · Wood_T_04",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_T_04_1d915e97.glb",
+      "position": [
+        -5.99999953,
+        0,
+        -8.00000047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98641992,
+        0.98641992,
+        0.98641992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7276bc3de38bfbfa",
+      "name": "Minas · Wood_T_05",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_T_05_689c1561.glb",
+      "position": [
+        -2,
+        0,
+        -7.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93304666,
+        0.93304666,
+        0.93304666
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a9bb3d3305288222",
+      "name": "Minas · Wood_T_06",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_T_06_1472d822.glb",
+      "position": [
+        -16.00000031,
+        0,
+        -11.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64767993,
+        0.64767993,
+        0.64767993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b3d5271166c10dd8",
+      "name": "Minas · Wood_T_07",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/Wood_T_07_66b715a0.glb",
+      "position": [
+        -11.9999997,
+        0,
+        -12.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63075432,
+        0.63075432,
+        0.63075432
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a04d1ccdf2fa315b",
+      "name": "Minas · WoodRough",
+      "parentId": "transform:category-minas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Minas/WoodRough_c4a26255.glb",
+      "position": [
+        -8,
+        0,
+        -11.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59593128,
+        0.59593128,
+        0.59593128
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d4684f707b0548aa",
+      "name": "Roads · Bridge",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_af662d37.glb",
+      "position": [
+        1.99999899,
+        0,
+        35.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26471288,
+        0.26471288,
+        0.26471288
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a980529ce38917cf",
+      "name": "Roads · Bridge_001",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_001_5b2e110b.glb",
+      "position": [
+        5.9999995,
+        0,
+        35.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26232866,
+        0.26232866,
+        0.26232866
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-92e8ec7e4f0d8437",
+      "name": "Roads · Bridge_002",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_002_4cb71620.glb",
+      "position": [
+        10,
+        0,
+        35.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26232857,
+        0.26232857,
+        0.26232857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ea273691d31373c6",
+      "name": "Roads · Bridge_003",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_003_0b4c5c83.glb",
+      "position": [
+        14,
+        0,
+        35.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26406583,
+        0.26406583,
+        0.26406583
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-685acdc5c25a5950",
+      "name": "Roads · Bridge_004",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_004_1a9af774.glb",
+      "position": [
+        18,
+        0,
+        35.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26419985,
+        0.26419985,
+        0.26419985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-331dd9173458aa68",
+      "name": "Roads · Bridge_005",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_005_e6f877b1.glb",
+      "position": [
+        22,
+        0,
+        35.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26419985,
+        0.26419985,
+        0.26419985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-823400efa108f211",
+      "name": "Roads · Bridge_007",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_007_4042a629.glb",
+      "position": [
+        2,
+        0,
+        31.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28660133,
+        0.28660133,
+        0.28660133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a89a4d877779005b",
+      "name": "Roads · Bridge_008",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_008_100fed33.glb",
+      "position": [
+        6.0000005,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26419976,
+        0.26419976,
+        0.26419976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b1ed863677b34d9a",
+      "name": "Roads · Bridge_009",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_009_41b82e02.glb",
+      "position": [
+        10.0000005,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26419976,
+        0.26419976,
+        0.26419976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bd5ba4d5a9faaf9b",
+      "name": "Roads · Bridge_010",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_010_e971ab7a.glb",
+      "position": [
+        14,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26232857,
+        0.26232857,
+        0.26232857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-99e6a1025433e601",
+      "name": "Roads · Bridge_011",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_011_80124e2e.glb",
+      "position": [
+        18,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26232857,
+        0.26232857,
+        0.26232857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-df85f8392a32b2f3",
+      "name": "Roads · Bridge_012",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_012_69f0e462.glb",
+      "position": [
+        22,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26609783,
+        0.26609783,
+        0.26609783
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-464bed810c864f11",
+      "name": "Roads · Bridge_013",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_013_17a72d4a.glb",
+      "position": [
+        2,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26609783,
+        0.26609783,
+        0.26609783
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b8bcacc3993fa962",
+      "name": "Roads · Bridge_014",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_014_6c669b31.glb",
+      "position": [
+        5.99999944,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29115309,
+        0.29115309,
+        0.29115309
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9df426fe8b9a5c5f",
+      "name": "Roads · Bridge_015",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_015_ed131510.glb",
+      "position": [
+        10,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31824813,
+        0.31824813,
+        0.31824813
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d9daad569d1b8b3",
+      "name": "Roads · Bridge_016",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_016_eb9f8013.glb",
+      "position": [
+        14.00000056,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29115309,
+        0.29115309,
+        0.29115309
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b8741db90fc69a56",
+      "name": "Roads · Bridge_017",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_017_0b74aef1.glb",
+      "position": [
+        18,
+        0,
+        28.00000061
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31824817,
+        0.31824817,
+        0.31824817
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-be3fa738efc8d256",
+      "name": "Roads · Bridge_018",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Bridge_018_8efcd5e7.glb",
+      "position": [
+        22,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29448766,
+        0.29448766,
+        0.29448766
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eff650c2e34c5a14",
+      "name": "Roads · road",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_68df5d28.glb",
+      "position": [
+        2,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.18792273,
+        1.18792273,
+        1.18792273
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e4b7f7dcfe9a3abc",
+      "name": "Roads · road_001",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_001_0ec39977.glb",
+      "position": [
+        6,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63025219,
+        0.63025219,
+        0.63025219
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e44c49cb45eb2eb3",
+      "name": "Roads · road_002",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_002_9fa2d319.glb",
+      "position": [
+        10,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29111801,
+        0.29111801,
+        0.29111801
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c697332b21774eb0",
+      "name": "Roads · road_003",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_003_1efa9fc2.glb",
+      "position": [
+        14,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13326393,
+        0.13326393,
+        0.13326393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c9771ae7fc74080",
+      "name": "Roads · road_004",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_004_c83cce17.glb",
+      "position": [
+        18,
+        0,
+        24.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93936944,
+        0.93936944,
+        0.93936944
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d304ead352203cbe",
+      "name": "Roads · road_005",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_005_27cdf8b9.glb",
+      "position": [
+        22,
+        0,
+        24.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63025219,
+        0.63025219,
+        0.63025219
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7e300f4e19b02792",
+      "name": "Roads · road_006",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_006_0b874c92.glb",
+      "position": [
+        2,
+        0,
+        20.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29111801,
+        0.29111801,
+        0.29111801
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-508771abc99295d8",
+      "name": "Roads · road_007",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_007_492eb41f.glb",
+      "position": [
+        6,
+        0,
+        20.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13326393,
+        0.13326393,
+        0.13326393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-826aa4eaa6801fad",
+      "name": "Roads · road_008",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_008_6240d165.glb",
+      "position": [
+        10,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.669134,
+        0.669134,
+        0.669134
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ce2ce71b86f37ddc",
+      "name": "Roads · road_009",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_009_871369dd.glb",
+      "position": [
+        14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63025219,
+        0.63025219,
+        0.63025219
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a2d59f7a819e9b36",
+      "name": "Roads · road_010",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_010_89778edb.glb",
+      "position": [
+        18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29111801,
+        0.29111801,
+        0.29111801
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db678bb304b33c50",
+      "name": "Roads · road_011",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_011_0f830f60.glb",
+      "position": [
+        22,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13326393,
+        0.13326393,
+        0.13326393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-026be1de9d2093e6",
+      "name": "Roads · road_012",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_012_80472443.glb",
+      "position": [
+        2,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58234094,
+        0.58234094,
+        0.58234094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-da048d25255e3ad6",
+      "name": "Roads · road_013",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_013_61380e78.glb",
+      "position": [
+        6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58234094,
+        0.58234094,
+        0.58234094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ddeba44d0bbbbae0",
+      "name": "Roads · road_014",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_014_b6f3f20d.glb",
+      "position": [
+        10,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29111801,
+        0.29111801,
+        0.29111801
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-075db717eac5e48c",
+      "name": "Roads · road_015",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_015_35adfdde.glb",
+      "position": [
+        14,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13326393,
+        0.13326393,
+        0.13326393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d56b0ad098b58ed2",
+      "name": "Roads · road_016",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_016_375d3f35.glb",
+      "position": [
+        18,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50261058,
+        0.50261058,
+        0.50261058
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e8f5caf6369e3d6a",
+      "name": "Roads · road_017",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_017_2e11dd44.glb",
+      "position": [
+        22,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50261058,
+        0.50261058,
+        0.50261058
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-33ea90212a0a808b",
+      "name": "Roads · road_018",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_018_fe576d30.glb",
+      "position": [
+        2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29111801,
+        0.29111801,
+        0.29111801
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5bc16afd5e409fa0",
+      "name": "Roads · road_019",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_019_e928e614.glb",
+      "position": [
+        6,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13326393,
+        0.13326393,
+        0.13326393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-567b45b57699c064",
+      "name": "Roads · road_020",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_020_4cec5c4b.glb",
+      "position": [
+        10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75960925,
+        0.75960925,
+        0.75960925
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1db2a1a3bd67a6f7",
+      "name": "Roads · road_021",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_021_a931b284.glb",
+      "position": [
+        14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63025219,
+        0.63025219,
+        0.63025219
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e53d7d9e18140961",
+      "name": "Roads · road_022",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_022_e142be09.glb",
+      "position": [
+        18,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29111801,
+        0.29111801,
+        0.29111801
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dac25814abfeb08c",
+      "name": "Roads · road_023",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_023_30381b40.glb",
+      "position": [
+        22,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13326393,
+        0.13326393,
+        0.13326393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8b2cdcf5ae4d0578",
+      "name": "Roads · road_024",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_024_a48b4584.glb",
+      "position": [
+        2.00000022,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23294749,
+        0.23294749,
+        0.23294749
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b59ef104d1b0ab04",
+      "name": "Roads · road_025",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_025_c9fa5dfb.glb",
+      "position": [
+        5.99999989,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11959312,
+        0.11959312,
+        0.11959312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5d92dd4894dfd341",
+      "name": "Roads · road_026",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_026_43c844b1.glb",
+      "position": [
+        10.00000022,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23294749,
+        0.23294749,
+        0.23294749
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-86764deff4eb89a6",
+      "name": "Roads · road_027",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_027_b80a6fb0.glb",
+      "position": [
+        13.99999989,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11959312,
+        0.11959312,
+        0.11959312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-41ebde259fbc668b",
+      "name": "Roads · road_028",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_028_c8b37be4.glb",
+      "position": [
+        18.00000022,
+        0,
+        7.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23294749,
+        0.23294749,
+        0.23294749
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e05364e131848f0e",
+      "name": "Roads · road_029",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_029_5c50e44c.glb",
+      "position": [
+        21.99999989,
+        0,
+        7.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11959312,
+        0.11959312,
+        0.11959312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ad462b9db4e43012",
+      "name": "Roads · road_030",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_030_641380b7.glb",
+      "position": [
+        2.00000022,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23294749,
+        0.23294749,
+        0.23294749
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e5542d1bc3766343",
+      "name": "Roads · road_031",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_031_975d25df.glb",
+      "position": [
+        5.99999989,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11959312,
+        0.11959312,
+        0.11959312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e760f256af847e51",
+      "name": "Roads · road_032",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_032_fcd57971.glb",
+      "position": [
+        10.00000022,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23294749,
+        0.23294749,
+        0.23294749
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-581de20d45692825",
+      "name": "Roads · road_033",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_033_33b33fb3.glb",
+      "position": [
+        13.99999989,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11959312,
+        0.11959312,
+        0.11959312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c682206eefb25b76",
+      "name": "Roads · road_034",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_034_cbe8639f.glb",
+      "position": [
+        18.00000022,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23294749,
+        0.23294749,
+        0.23294749
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5c5506745260567",
+      "name": "Roads · road_035",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_035_e5987882.glb",
+      "position": [
+        21.99999989,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11959312,
+        0.11959312,
+        0.11959312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a2cc94d6f1ce3974",
+      "name": "Roads · road_036",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_036_89a39636.glb",
+      "position": [
+        2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25941761,
+        0.25941761,
+        0.25941761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9347ccee0ee378d9",
+      "name": "Roads · road_037",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_037_84374767.glb",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25213323,
+        0.25213323,
+        0.25213323
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1a0f35e1a90f9337",
+      "name": "Roads · road_038",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_038_955ac01c.glb",
+      "position": [
+        9.99999994,
+        0,
+        -2.3e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23917036,
+        0.23917036,
+        0.23917036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d7305fb1647da63b",
+      "name": "Roads · road_039",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_039_c59dce49.glb",
+      "position": [
+        13.99999994,
+        0,
+        -2.2e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23296508,
+        0.23296508,
+        0.23296508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0f91cff65d1e7f62",
+      "name": "Roads · road_040",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_040_cf5eaa28.glb",
+      "position": [
+        17.99999994,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24437221,
+        0.24437221,
+        0.24437221
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-808af60a3d6ad5ea",
+      "name": "Roads · road_041",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_041_844aafc7.glb",
+      "position": [
+        21.99999995,
+        0,
+        -2.2e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22580035,
+        0.22580035,
+        0.22580035
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-78304f84a1fd073c",
+      "name": "Roads · road_042",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_042_7d749a9d.glb",
+      "position": [
+        2,
+        0,
+        -3.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13398582,
+        0.13398582,
+        0.13398582
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b4a7fdc0206548b4",
+      "name": "Roads · road_043",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_043_59d12224.glb",
+      "position": [
+        6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1320159,
+        0.1320159,
+        0.1320159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7120b5a6d5d8e00b",
+      "name": "Roads · road_044",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_044_24964dc5.glb",
+      "position": [
+        10,
+        0,
+        -3.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12837287,
+        0.12837287,
+        0.12837287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-03a063c16f67a8c4",
+      "name": "Roads · road_045",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_045_b3fdeb0a.glb",
+      "position": [
+        14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12656342,
+        0.12656342,
+        0.12656342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bb39a225ac13037e",
+      "name": "Roads · road_046",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_046_61348f17.glb",
+      "position": [
+        18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12985653,
+        0.12985653,
+        0.12985653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2bd05ed94950b748",
+      "name": "Roads · road_047",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_047_64c2834c.glb",
+      "position": [
+        22,
+        0,
+        -4.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12441867,
+        0.12441867,
+        0.12441867
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-22329cb9f32a055d",
+      "name": "Roads · road_048",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_048_c2082265.glb",
+      "position": [
+        2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23382399,
+        0.23382399,
+        0.23382399
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3bfebc4fdec4c119",
+      "name": "Roads · road_049",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_049_619eb89e.glb",
+      "position": [
+        6,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22788959,
+        0.22788959,
+        0.22788959
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9afdb10b729517e6",
+      "name": "Roads · road_050",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_050_4a08cbb9.glb",
+      "position": [
+        10,
+        0,
+        -7.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21724713,
+        0.21724713,
+        0.21724713
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3f720dea148d7f7b",
+      "name": "Roads · road_051",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_051_22dbe081.glb",
+      "position": [
+        14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21211507,
+        0.21211507,
+        0.21211507
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c88ca416a1cf28b6",
+      "name": "Roads · road_052",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_052_5439fadc.glb",
+      "position": [
+        18,
+        0,
+        -8.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22153046,
+        0.22153046,
+        0.22153046
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7f50db28dcb7dd5e",
+      "name": "Roads · road_053",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_053_0c055025.glb",
+      "position": [
+        22,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20615902,
+        0.20615902,
+        0.20615902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5e1cc6a58445c7c6",
+      "name": "Roads · road_054",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_054_1907fcd0.glb",
+      "position": [
+        1.99999987,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13398582,
+        0.13398582,
+        0.13398582
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b4bc93f19eb59f4c",
+      "name": "Roads · road_055",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_055_d34b8d54.glb",
+      "position": [
+        6.00000013,
+        0,
+        -11.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1320159,
+        0.1320159,
+        0.1320159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e10c85266bebcef9",
+      "name": "Roads · road_056",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_056_3c8acbf2.glb",
+      "position": [
+        10,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12837287,
+        0.12837287,
+        0.12837287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-96d9b6118e4410e9",
+      "name": "Roads · road_057",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_057_224a1099.glb",
+      "position": [
+        14,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12656345,
+        0.12656345,
+        0.12656345
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-061de59ceca3ca97",
+      "name": "Roads · road_058",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_058_09004a74.glb",
+      "position": [
+        18.00000025,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12985652,
+        0.12985652,
+        0.12985652
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b7a1f66769f8d658",
+      "name": "Roads · road_059",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_059_3033000b.glb",
+      "position": [
+        22,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12441867,
+        0.12441867,
+        0.12441867
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ba31f74fc2a77a01",
+      "name": "Roads · road_060",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_060_679a9c70.glb",
+      "position": [
+        2,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72383977,
+        0.72383977,
+        0.72383977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7c1e0916b7234f52",
+      "name": "Roads · road_061",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_061_459ba44f.glb",
+      "position": [
+        6,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72383977,
+        0.72383977,
+        0.72383977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-14de1fc6e879ac68",
+      "name": "Roads · road_062",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_062_33ed584a.glb",
+      "position": [
+        10,
+        0,
+        -16.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72383977,
+        0.72383977,
+        0.72383977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a5e9b4e6af87c541",
+      "name": "Roads · road_063",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_063_c4a7dd51.glb",
+      "position": [
+        14,
+        0,
+        -16.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72383977,
+        0.72383977,
+        0.72383977
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c2c1cc96343d8ec2",
+      "name": "Roads · road_064",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_064_7dd05817.glb",
+      "position": [
+        18.00000023,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47895031,
+        0.47895031,
+        0.47895031
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-45989b728377bb34",
+      "name": "Roads · road_065",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_065_3f638d3d.glb",
+      "position": [
+        22.00000011,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47895039,
+        0.47895039,
+        0.47895039
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-41ad01b2eb6d7dc9",
+      "name": "Roads · road_066",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_066_c7196624.glb",
+      "position": [
+        2.00000023,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47895031,
+        0.47895031,
+        0.47895031
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cf68220601d6796c",
+      "name": "Roads · road_067",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_067_b493184a.glb",
+      "position": [
+        6.00000011,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47895039,
+        0.47895039,
+        0.47895039
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eacd216f35720ae0",
+      "name": "Roads · road_068",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_068_791cfdd3.glb",
+      "position": [
+        10.00000019,
+        0,
+        -19.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39259806,
+        0.39259806,
+        0.39259806
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2c3102c3160e52f0",
+      "name": "Roads · road_069",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_069_17f103bf.glb",
+      "position": [
+        14.00000009,
+        0,
+        -19.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.39259806,
+        0.39259806,
+        0.39259806
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8378afa4f3997837",
+      "name": "Roads · road_070",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_070_0afd082c.glb",
+      "position": [
+        18,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54325497,
+        0.54325497,
+        0.54325497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5a3f62811f082995",
+      "name": "Roads · road_071",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/road_071_325aff5e.glb",
+      "position": [
+        22,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54325497,
+        0.54325497,
+        0.54325497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a31098bb4d5d46bd",
+      "name": "Roads · Sign",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_4ae34de1.glb",
+      "position": [
+        1.99999908,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.92778317,
+        1.92778317,
+        1.92778317
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aa0507164225535c",
+      "name": "Roads · Sign_001",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_001_9fcc8249.glb",
+      "position": [
+        5.99999908,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.92778317,
+        1.92778317,
+        1.92778317
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9ec92a063765e4f6",
+      "name": "Roads · Sign_002",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_002_efeb229c.glb",
+      "position": [
+        10,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.89962846,
+        1.89962846,
+        1.89962846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-43b10b0d4d356f83",
+      "name": "Roads · Sign_003",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_003_19349cac.glb",
+      "position": [
+        14.00000088,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.84132533,
+        1.84132533,
+        1.84132533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-50afc7c2df4f1579",
+      "name": "Roads · Sign_004",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_004_fb04ce0d.glb",
+      "position": [
+        18.00000088,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.84132533,
+        1.84132533,
+        1.84132533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9cb38ecdfdf3ca45",
+      "name": "Roads · Sign_005",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_005_cdc047ee.glb",
+      "position": [
+        21.99999909,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91047287,
+        1.91047287,
+        1.91047287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-408fbf7ca4831a68",
+      "name": "Roads · Sign_006",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_006_3ea98a19.glb",
+      "position": [
+        1.99999909,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91047287,
+        1.91047287,
+        1.91047287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b6df6078a905ab0d",
+      "name": "Roads · Sign_007",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_007_294b6204.glb",
+      "position": [
+        6,
+        0,
+        -28.00000182
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91027834,
+        1.91027834,
+        1.91027834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-802c408da56e7f26",
+      "name": "Roads · Sign_008",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_008_6b142c15.glb",
+      "position": [
+        10,
+        0,
+        -27.99999818
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91027834,
+        1.91027834,
+        1.91027834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-748a38de9c8c86ed",
+      "name": "Roads · Sign_009",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_009_bbd7dda5.glb",
+      "position": [
+        14,
+        0,
+        -27.99999818
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91027834,
+        1.91027834,
+        1.91027834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d26067ee5427e32b",
+      "name": "Roads · Sign_010",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_010_3cb65010.glb",
+      "position": [
+        18,
+        0,
+        -28.00000182
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91027834,
+        1.91027834,
+        1.91027834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b80b391fe23cd14",
+      "name": "Roads · Sign_011",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_011_331b8e5c.glb",
+      "position": [
+        22,
+        0,
+        -27.99999818
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91027834,
+        1.91027834,
+        1.91027834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-826d0233c97c4835",
+      "name": "Roads · Sign_012",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_012_6efd6cdb.glb",
+      "position": [
+        8,
+        0,
+        -32.00000182
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91027834,
+        1.91027834,
+        1.91027834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-560d9626d87635b3",
+      "name": "Roads · Sign_013",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_013_2939e763.glb",
+      "position": [
+        12,
+        0,
+        -31.99999818
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91027834,
+        1.91027834,
+        1.91027834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-809fc469da353e65",
+      "name": "Roads · Sign_014",
+      "parentId": "transform:category-roads",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Roads/Sign_014_04778be9.glb",
+      "position": [
+        16,
+        0,
+        -31.99999818
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91027834,
+        1.91027834,
+        1.91027834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

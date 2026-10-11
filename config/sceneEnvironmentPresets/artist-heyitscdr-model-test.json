@@ -1,0 +1,680 @@
+{
+  "presetKey": "artist-heyitscdr-model-test",
+  "name": "heyitscdr · 模型展示（13 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "trees",
+      "name": "树木分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "retro-junk",
+      "name": "复古杂物分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "living-room",
+      "name": "客厅家具分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 24
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "trees-big_tree-stand",
+      "name": "big_tree展台",
+      "parentId": "transform:trees",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        11
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "trees-med_tree-stand",
+      "name": "med_tree展台",
+      "parentId": "transform:trees",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        11
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "trees-small_tree-stand",
+      "name": "small_tree展台",
+      "parentId": "transform:trees",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        11
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-box-stand",
+      "name": "box展台",
+      "parentId": "transform:retro-junk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        4
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-painting-stand",
+      "name": "painting展台",
+      "parentId": "transform:retro-junk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        4
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-shelf-stand",
+      "name": "shelf展台",
+      "parentId": "transform:retro-junk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        4
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-soda-stand",
+      "name": "soda展台",
+      "parentId": "transform:retro-junk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        4
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-trash_can-stand",
+      "name": "trash_can展台",
+      "parentId": "transform:retro-junk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        4
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-vending_machine-stand",
+      "name": "vending_machine展台",
+      "parentId": "transform:retro-junk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        0
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "living-room-carpet-stand",
+      "name": "carpet展台",
+      "parentId": "transform:living-room",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "living-room-coffee_table-stand",
+      "name": "coffee_table展台",
+      "parentId": "transform:living-room",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "living-room-sofa-stand",
+      "name": "sofa展台",
+      "parentId": "transform:living-room",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "living-room-sofa_chair-stand",
+      "name": "sofa_chair展台",
+      "parentId": "transform:living-room",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "trees-big_tree",
+      "name": "big_tree",
+      "parentId": "transform:trees",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/Trees/big_tree.glb",
+      "position": [
+        -4,
+        1e-8,
+        10.99999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30658205,
+        0.30658205,
+        0.30658205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "trees-med_tree",
+      "name": "med_tree",
+      "parentId": "transform:trees",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/Trees/med_tree.glb",
+      "position": [
+        0,
+        0,
+        10.99999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40476861,
+        0.40476861,
+        0.40476861
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "trees-small_tree",
+      "name": "small_tree",
+      "parentId": "transform:trees",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/Trees/small_tree.glb",
+      "position": [
+        4,
+        0,
+        10.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53690949,
+        0.53690949,
+        0.53690949
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-box",
+      "name": "box",
+      "parentId": "transform:retro-junk",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/RetroJunk/box.glb",
+      "position": [
+        -8,
+        1.9e-7,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.05077756,
+        5.05077756,
+        5.05077756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-painting",
+      "name": "painting",
+      "parentId": "transform:retro-junk",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/RetroJunk/painting.glb",
+      "position": [
+        -4,
+        1.3e-7,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.76961176,
+        2.76961176,
+        2.76961176
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-shelf",
+      "name": "shelf",
+      "parentId": "transform:retro-junk",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/RetroJunk/shelf.glb",
+      "position": [
+        0,
+        1.4e-7,
+        3.9999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23556581,
+        1.23556581,
+        1.23556581
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-soda",
+      "name": "soda",
+      "parentId": "transform:retro-junk",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/RetroJunk/soda.glb",
+      "position": [
+        4,
+        1.8e-7,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.18446694,
+        14.18446694,
+        14.18446694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-trash_can",
+      "name": "trash_can",
+      "parentId": "transform:retro-junk",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/RetroJunk/trash_can.glb",
+      "position": [
+        8,
+        -1.1e-7,
+        3.99999946
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.26389834,
+        4.26389834,
+        4.26389834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "retro-junk-vending_machine",
+      "name": "vending_machine",
+      "parentId": "transform:retro-junk",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/RetroJunk/vending_machine.glb",
+      "position": [
+        0,
+        4e-8,
+        -1.9e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40191256,
+        1.40191256,
+        1.40191256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "living-room-carpet",
+      "name": "carpet",
+      "parentId": "transform:living-room",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/LivingRoom/carpet.glb",
+      "position": [
+        -6,
+        0.02000009,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.52574596,
+        0.52574596,
+        0.52574596
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "living-room-coffee_table",
+      "name": "coffee_table",
+      "parentId": "transform:living-room",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/LivingRoom/coffee_table.glb",
+      "position": [
+        -2,
+        5e-8,
+        -7.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.51909067,
+        1.51909067,
+        1.51909067
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "living-room-sofa",
+      "name": "sofa",
+      "parentId": "transform:living-room",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/LivingRoom/sofa.glb",
+      "position": [
+        2,
+        1.1e-7,
+        -7.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.78224441,
+        0.78224441,
+        0.78224441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "living-room-sofa_chair",
+      "name": "sofa_chair",
+      "parentId": "transform:living-room",
+      "modelPath": "resources/Model/GLB/artist_heyitscdr/LivingRoom/sofa_chair.glb",
+      "position": [
+        6,
+        1.2e-7,
+        -7.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59129609,
+        1.59129609,
+        1.59129609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

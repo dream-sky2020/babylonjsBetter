@@ -1,4 +1,5 @@
 import { createDefaultSignalGraph, parseSignalGraphDocument, type SignalGraphDocument } from '../../core/animation/signal/index.ts';
+import { parseModelMaterialBindings } from '../../core/model/material/modelMaterialBindings.ts';
 import type { AnimationEventMarker, AnimationMountPoint, AnimationSceneObject, AnimationSignalBinding, AnimationTransport, AnimationVec3 } from '../../core/animation/preset/index.ts';
 
 export type WorkbenchVec3 = AnimationVec3;
@@ -128,6 +129,7 @@ export const parseAnimationWorkspace = (value: unknown): AnimationWorkspace => {
     if (typeof object.enabled !== 'boolean' || !isFiniteVector(object.position) || !isFiniteVector(object.rotation) || !isFiniteVector(object.scaling)) throw new Error(`动画对象 ${object.id} 的变换无效`);
     const config = object.config === undefined ? {} : object.config;
     if (!config || typeof config !== 'object' || Array.isArray(config)) throw new Error(`动画对象 ${object.id} 的配置无效`);
+    if (object.factoryTypeId === 'asset.model') parseModelMaterialBindings(config.materialOverrides);
     return { ...object, config } as AnimationObjectRecord;
   });
   objects.forEach((object) => {

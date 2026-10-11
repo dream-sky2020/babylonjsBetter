@@ -10,3 +10,4 @@ export {
   readBundledModelAssetPaths,
   readBundledResourceAssetPaths
 } from './resourceManifest.ts';
+export { readBundledPublicAssetPaths, readBundledPublicImageModules } from './publicAssetManifest.ts';

@@ -4,6 +4,9 @@ export type {
   ModelFileFormat,
   ModelLoader
 } from '@/core/model/types/model.types.ts';
+export { parseModelMaterialBindings, MODEL_TEXTURE_SLOTS } from './material/modelMaterialBindings.ts';
+export type { ModelMaterialBindings, ModelMaterialBinding, ModelTextureBinding } from './material/modelMaterialBindings.ts';
+export { getModelTextureCacheStats } from './material/modelTextureCache.ts';
 export { createModelEntity } from '@/core/model/entity/createModelEntity.ts';
 export { applyModelAssetProfile } from '@/core/model/entity/applyModelAssetProfile.ts';
 export type {

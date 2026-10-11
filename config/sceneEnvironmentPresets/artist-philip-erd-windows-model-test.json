@@ -1,0 +1,1132 @@
+{
+  "presetKey": "artist-philip-erd-windows-model-test",
+  "name": "Philip Erd · 窗户套件（26 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "philip-erd-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "philip-erd-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "philip-erd-Windows",
+      "name": "窗户套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "philip-erd-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 24
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-zone",
+      "name": "窗户套件分区",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 32.5,
+        "height": 0.1,
+        "depth": 16.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#809295"
+    },
+    {
+      "id": "philip-erd-Windows-1-stand",
+      "name": "window_arch_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-2-stand",
+      "name": "window_arch_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-3-stand",
+      "name": "window_basic_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-4-stand",
+      "name": "window_basic_large_double展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-5-stand",
+      "name": "window_basic_long_small展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-6-stand",
+      "name": "window_basic_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-7-stand",
+      "name": "window_basic_round_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-8-stand",
+      "name": "window_basic_round_small展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-9-stand",
+      "name": "window_basic_small展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-10-stand",
+      "name": "window_gothic_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-11-stand",
+      "name": "window_gothic_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-12-stand",
+      "name": "window_gothic_pillar_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-13-stand",
+      "name": "window_gothic_round_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-14-stand",
+      "name": "window_gothic_small展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-15-stand",
+      "name": "window_lattice_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-16-stand",
+      "name": "window_lattice_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-17-stand",
+      "name": "window_light_arch_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-18-stand",
+      "name": "window_light_arch_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-19-stand",
+      "name": "window_spooky_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-20-stand",
+      "name": "window_spooky_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-21-stand",
+      "name": "window_spooky_round_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-22-stand",
+      "name": "window_spooky_small展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-23-stand",
+      "name": "window_square_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-24-stand",
+      "name": "window_western_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -2
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-25-stand",
+      "name": "window_western_medium展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-26-stand",
+      "name": "window_western_small展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -6
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "philip-erd-Windows-1",
+      "name": "window_arch_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_arch_large.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "scaling": [
+        1.40385765,
+        1.40385765,
+        1.40385765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-2",
+      "name": "window_arch_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_arch_medium.glb",
+      "position": [
+        -10,
+        0,
+        6
+      ],
+      "scaling": [
+        1.91721676,
+        1.91721676,
+        1.91721676
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-3",
+      "name": "window_basic_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_large.glb",
+      "position": [
+        -6,
+        -1.7e-7,
+        6
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-4",
+      "name": "window_basic_large_double",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_large_double.glb",
+      "position": [
+        -2,
+        -1.7e-7,
+        6
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-5",
+      "name": "window_basic_long_small",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_long_small.glb",
+      "position": [
+        2,
+        0,
+        6
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-6",
+      "name": "window_basic_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_medium.glb",
+      "position": [
+        6,
+        0,
+        6
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-7",
+      "name": "window_basic_round_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_round_medium.glb",
+      "position": [
+        10,
+        0,
+        6
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-8",
+      "name": "window_basic_round_small",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_round_small.glb",
+      "position": [
+        14.00000008,
+        0,
+        6
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-9",
+      "name": "window_basic_small",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_small.glb",
+      "position": [
+        -14,
+        0,
+        2
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-10",
+      "name": "window_gothic_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_large.glb",
+      "position": [
+        -10,
+        0,
+        2
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-11",
+      "name": "window_gothic_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_medium.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "scaling": [
+        1.51070207,
+        1.51070207,
+        1.51070207
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-12",
+      "name": "window_gothic_pillar_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_pillar_medium.glb",
+      "position": [
+        -2,
+        0,
+        2
+      ],
+      "scaling": [
+        1.50176989,
+        1.50176989,
+        1.50176989
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-13",
+      "name": "window_gothic_round_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_round_large.glb",
+      "position": [
+        2,
+        0,
+        2
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-14",
+      "name": "window_gothic_small",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_small.glb",
+      "position": [
+        6,
+        0,
+        2
+      ],
+      "scaling": [
+        2.54850373,
+        2.54850373,
+        2.54850373
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-15",
+      "name": "window_lattice_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_lattice_large.glb",
+      "position": [
+        10,
+        -7e-8,
+        2
+      ],
+      "scaling": [
+        1.12000003,
+        1.12000003,
+        1.12000003
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-16",
+      "name": "window_lattice_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_lattice_medium.glb",
+      "position": [
+        14,
+        -1e-7,
+        2.00000001
+      ],
+      "scaling": [
+        1.64705884,
+        1.64705884,
+        1.64705884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-17",
+      "name": "window_light_arch_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_light_arch_large.glb",
+      "position": [
+        -14,
+        0,
+        -2
+      ],
+      "scaling": [
+        1.29954335,
+        1.29954335,
+        1.29954335
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-18",
+      "name": "window_light_arch_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_light_arch_medium.glb",
+      "position": [
+        -10,
+        0,
+        -2
+      ],
+      "scaling": [
+        1.94689951,
+        1.94689951,
+        1.94689951
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-19",
+      "name": "window_spooky_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_large.glb",
+      "position": [
+        -6,
+        1e-8,
+        -2
+      ],
+      "scaling": [
+        1.27621712,
+        1.27621712,
+        1.27621712
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-20",
+      "name": "window_spooky_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_medium.glb",
+      "position": [
+        -2.00000014,
+        -2.6e-7,
+        -2
+      ],
+      "scaling": [
+        1.54379308,
+        1.54379308,
+        1.54379308
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-21",
+      "name": "window_spooky_round_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_round_medium.glb",
+      "position": [
+        2,
+        0,
+        -2
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-22",
+      "name": "window_spooky_small",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_small.glb",
+      "position": [
+        5.99999994,
+        -3.5e-7,
+        -2.00000001
+      ],
+      "scaling": [
+        1.96079376,
+        1.96079376,
+        1.96079376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-23",
+      "name": "window_square_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_square_large.glb",
+      "position": [
+        10,
+        0,
+        -2
+      ],
+      "scaling": [
+        1.31654926,
+        1.31654926,
+        1.31654926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-24",
+      "name": "window_western_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_western_large.glb",
+      "position": [
+        14.00000028,
+        2.8e-7,
+        -2.00000002
+      ],
+      "scaling": [
+        1.36389503,
+        1.36389503,
+        1.36389503
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-25",
+      "name": "window_western_medium",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_western_medium.glb",
+      "position": [
+        -14.00000012,
+        4.1e-7,
+        -5.99999999
+      ],
+      "scaling": [
+        1.94455661,
+        1.94455661,
+        1.94455661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-26",
+      "name": "window_western_small",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_western_small.glb",
+      "position": [
+        -9.99999958,
+        4.2e-7,
+        -6.00000001
+      ],
+      "scaling": [
+        1.99381193,
+        1.99381193,
+        1.99381193
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,2877 @@
+{
+  "presetKey": "artist-loafbrr-showcase-alley",
+  "name": "Loafbrr · Alley · 65模型 · 模型 0.64 MiB + 贴图 0.21 MiB · 合计 0.85 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-alley-0",
+      "name": "Alley 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-alley-1",
+      "name": "Alley 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 45
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-c888a15cef97a0ce-stand",
+      "name": "13x13_LRoad_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5cd52e7405a21e1c-stand",
+      "name": "13x13_LRoad_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-21e9c516ca9991a4-stand",
+      "name": "13x13x3_OuterLWall_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6a46cb5735bc4229-stand",
+      "name": "13x13x3_OuterLWall_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a1e9fe4093e499d5-stand",
+      "name": "20mx0_105x2_5WoodFence展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-53a7c0ba6823dde5-stand",
+      "name": "20mx2x3wall展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-77bd33d66be24a86-stand",
+      "name": "20mx6floor展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5fa622eb8e514632-stand",
+      "name": "20x13_TRoad展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2fe48b51a985634a-stand",
+      "name": "2mWoodFence展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5d06d5a1997e0563-stand",
+      "name": "2mx2x3wall展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ab9376943049deb1-stand",
+      "name": "9x9x3_InnerLWall_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-082221c1bc8188d3-stand",
+      "name": "9x9x3_InnerLWalls_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8a1079b738bc860e-stand",
+      "name": "DOOR_DoorFrame_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-03d41a2f15b68e76-stand",
+      "name": "DOOR_DoorFrame_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-541b1dc7104a9ad0-stand",
+      "name": "DOOR_DoorFrame_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3e637fa2171fe363-stand",
+      "name": "DOOR_DoorFrame_4展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b77b71018127285a-stand",
+      "name": "DOOR_GarageDoorFrame展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1f94da3d3de32783-stand",
+      "name": "GroundCover_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3779867820421517-stand",
+      "name": "GroundCover_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3689441553ff0191-stand",
+      "name": "GroundCover_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c23754e983c5a2ea-stand",
+      "name": "Pipe_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9863ccf216bd2e27-stand",
+      "name": "Pipe_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0b2a462525e0beaf-stand",
+      "name": "Pipe_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-52059c51512274df-stand",
+      "name": "PipeCover展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fe9c9733cb886a41-stand",
+      "name": "Plant1_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-23d5281443e94b9c-stand",
+      "name": "Plant1_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e7e068db192d1c42-stand",
+      "name": "Plant1_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4718ab01ee1cf4bc-stand",
+      "name": "Plant1_4展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1c9627553306332f-stand",
+      "name": "Plant2_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a545f13a2543351d-stand",
+      "name": "Plant2_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aa1bdc6a75f3c417-stand",
+      "name": "Plant2_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-32e3518969201b35-stand",
+      "name": "Plant2_4展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ec87ea0a9d681d0f-stand",
+      "name": "Plant3_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-71fc69aa5a5ad691-stand",
+      "name": "Plant3_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e115c5036cd1d308-stand",
+      "name": "Plant3_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bed0a012ada2730f-stand",
+      "name": "Plant3_4展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6bd1557508106e2c-stand",
+      "name": "Plant4_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d57584c7df52192a-stand",
+      "name": "Plant4_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-328305eb55bd8f3d-stand",
+      "name": "Plant4_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e9781a4e7c0ece44-stand",
+      "name": "Plant4_4展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b3f9261a3e5e6cc0-stand",
+      "name": "Ramp_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-df69a735b7179946-stand",
+      "name": "Ramp_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fe11633ca27e0742-stand",
+      "name": "Set1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-02c86ef78da73fe4-stand",
+      "name": "Set2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4cb0b26d76d88531-stand",
+      "name": "Set3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-112be437f2306a21-stand",
+      "name": "Set4展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1bfe23d9ec4f5034-stand",
+      "name": "Signs_Danger展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c07d007d382ecfea-stand",
+      "name": "Signs_FireExit展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ce7d0e792676ed83-stand",
+      "name": "Signs_NoParking展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-da94dc904869ee4f-stand",
+      "name": "Signs_NoSmoking展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-82eef1fd80076647-stand",
+      "name": "Signs_Push展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4efda6a44cd74014-stand",
+      "name": "Stairs_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4d892661870fbbc4-stand",
+      "name": "Stairs_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e292269e0560a853-stand",
+      "name": "Vent1Cover展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d21460621ea6f9b9-stand",
+      "name": "Vent1Covered_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9f5ebeb5c03bccfd-stand",
+      "name": "Vent1Covered_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a849252fa195d122-stand",
+      "name": "Vent1Covered_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a535c3210e18549b-stand",
+      "name": "Vent2Convered_1展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f18480f66f4d04d7-stand",
+      "name": "Vent2Convered_2展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bdbccc6c3f96a8a8-stand",
+      "name": "Vent2Convered_3展台",
+      "parentId": "transform:category-alley-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0adfdf888ea53698-stand",
+      "name": "Vent2Cover展台",
+      "parentId": "transform:category-alley-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-396a6e80543b17ba-stand",
+      "name": "WINDOW_WindowFrame_1展台",
+      "parentId": "transform:category-alley-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e7c1b4fc1f2cc776-stand",
+      "name": "WINDOW_WindowFrame_2展台",
+      "parentId": "transform:category-alley-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-cbce11ba34fc6a5b-stand",
+      "name": "WINDOW_WindowFrame_3展台",
+      "parentId": "transform:category-alley-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3b803a54236aaa34-stand",
+      "name": "WINDOW_WindowFrame_4展台",
+      "parentId": "transform:category-alley-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-c888a15cef97a0ce",
+      "name": "Alley · 13x13_LRoad_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/13x13_LRoad_1.glb",
+      "position": [
+        -21.99999999,
+        0,
+        20.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21538456,
+        0.21538456,
+        0.21538456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5cd52e7405a21e1c",
+      "name": "Alley · 13x13_LRoad_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/13x13_LRoad_2.glb",
+      "position": [
+        -18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2153846,
+        0.2153846,
+        0.2153846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-21e9c516ca9991a4",
+      "name": "Alley · 13x13x3_OuterLWall_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/13x13x3_OuterLWall_1.glb",
+      "position": [
+        -14.00000005,
+        0,
+        20.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21538448,
+        0.21538448,
+        0.21538448
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6a46cb5735bc4229",
+      "name": "Alley · 13x13x3_OuterLWall_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/13x13x3_OuterLWall_2.glb",
+      "position": [
+        -10.00000004,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21538458,
+        0.21538458,
+        0.21538458
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a1e9fe4093e499d5",
+      "name": "Alley · 20mx0_105x2_5WoodFence · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/20mx0_105x2_5WoodFence.glb",
+      "position": [
+        -6,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14,
+        0.14,
+        0.14
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-53a7c0ba6823dde5",
+      "name": "Alley · 20mx2x3wall · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/20mx2x3wall.glb",
+      "position": [
+        -2,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14,
+        0.14,
+        0.14
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-77bd33d66be24a86",
+      "name": "Alley · 20mx6floor · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/20mx6floor.glb",
+      "position": [
+        -22,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14,
+        0.14,
+        0.14
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5fa622eb8e514632",
+      "name": "Alley · 20x13_TRoad · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/20x13_TRoad.glb",
+      "position": [
+        -17.99999999,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13999998,
+        0.13999998,
+        0.13999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2fe48b51a985634a",
+      "name": "Alley · 2mWoodFence · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/2mWoodFence.glb",
+      "position": [
+        -14,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11999983,
+        1.11999983,
+        1.11999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5d06d5a1997e0563",
+      "name": "Alley · 2mx2x3wall · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/2mx2x3wall.glb",
+      "position": [
+        -10,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ab9376943049deb1",
+      "name": "Alley · 9x9x3_InnerLWall_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/9x9x3_InnerLWall_2.glb",
+      "position": [
+        -5.99999998,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31111107,
+        0.31111107,
+        0.31111107
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-082221c1bc8188d3",
+      "name": "Alley · 9x9x3_InnerLWalls_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/9x9x3_InnerLWalls_1.glb",
+      "position": [
+        -2.00000004,
+        0,
+        16.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31111105,
+        0.31111105,
+        0.31111105
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8a1079b738bc860e",
+      "name": "Alley · DOOR_DoorFrame_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/DOOR_DoorFrame_1.glb",
+      "position": [
+        -22.00000001,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87388892,
+        0.87388892,
+        0.87388892
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-03d41a2f15b68e76",
+      "name": "Alley · DOOR_DoorFrame_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/DOOR_DoorFrame_2.glb",
+      "position": [
+        -17.99999999,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87388892,
+        0.87388892,
+        0.87388892
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-541b1dc7104a9ad0",
+      "name": "Alley · DOOR_DoorFrame_3 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/DOOR_DoorFrame_3.glb",
+      "position": [
+        -14.00000001,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87388892,
+        0.87388892,
+        0.87388892
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3e637fa2171fe363",
+      "name": "Alley · DOOR_DoorFrame_4 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/DOOR_DoorFrame_4.glb",
+      "position": [
+        -10.00000001,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87388892,
+        0.87388892,
+        0.87388892
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b77b71018127285a",
+      "name": "Alley · DOOR_GarageDoorFrame · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/DOOR_GarageDoorFrame.glb",
+      "position": [
+        -5.99999999,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87388892,
+        0.87388892,
+        0.87388892
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1f94da3d3de32783",
+      "name": "Alley · GroundCover_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/GroundCover_1.glb",
+      "position": [
+        -2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.99736722,
+        2.99736722,
+        2.99736722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3779867820421517",
+      "name": "Alley · GroundCover_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/GroundCover_2.glb",
+      "position": [
+        -22,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.04906429,
+        3.04906429,
+        3.04906429
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3689441553ff0191",
+      "name": "Alley · GroundCover_3 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/GroundCover_3.glb",
+      "position": [
+        -18,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.25155444,
+        5.25155444,
+        5.25155444
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c23754e983c5a2ea",
+      "name": "Alley · Pipe_1 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Pipe_1.glb",
+      "position": [
+        -14,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8167295,
+        2.8167295,
+        2.8167295
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9863ccf216bd2e27",
+      "name": "Alley · Pipe_2 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Pipe_2.glb",
+      "position": [
+        -10,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.07820771,
+        6.07820771,
+        6.07820771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0b2a462525e0beaf",
+      "name": "Alley · Pipe_3 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Pipe_3.glb",
+      "position": [
+        -6,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.49933096,
+        5.49933096,
+        5.49933096
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-52059c51512274df",
+      "name": "Alley · PipeCover · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/PipeCover.glb",
+      "position": [
+        -2,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.71608283,
+        10.71608283,
+        10.71608283
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe9c9733cb886a41",
+      "name": "Alley · Plant1_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant1_1.glb",
+      "position": [
+        -22,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.14729946,
+        6.14729946,
+        6.14729946
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-23d5281443e94b9c",
+      "name": "Alley · Plant1_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant1_2.glb",
+      "position": [
+        -18,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.14729946,
+        6.14729946,
+        6.14729946
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e7e068db192d1c42",
+      "name": "Alley · Plant1_3 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant1_3.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.14729946,
+        6.14729946,
+        6.14729946
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4718ab01ee1cf4bc",
+      "name": "Alley · Plant1_4 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant1_4.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.1226789,
+        4.1226789,
+        4.1226789
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1c9627553306332f",
+      "name": "Alley · Plant2_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant2_1.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13948339,
+        3.13948339,
+        3.13948339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a545f13a2543351d",
+      "name": "Alley · Plant2_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant2_2.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13948342,
+        3.13948342,
+        3.13948342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aa1bdc6a75f3c417",
+      "name": "Alley · Plant2_3 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant2_3.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13948342,
+        3.13948342,
+        3.13948342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-32e3518969201b35",
+      "name": "Alley · Plant2_4 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant2_4.glb",
+      "position": [
+        -18,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13948343,
+        3.13948343,
+        3.13948343
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ec87ea0a9d681d0f",
+      "name": "Alley · Plant3_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant3_1.glb",
+      "position": [
+        -14,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.93176982,
+        3.93176982,
+        3.93176982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-71fc69aa5a5ad691",
+      "name": "Alley · Plant3_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant3_2.glb",
+      "position": [
+        -10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.1192481,
+        4.1192481,
+        4.1192481
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e115c5036cd1d308",
+      "name": "Alley · Plant3_3 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant3_3.glb",
+      "position": [
+        -6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.1192481,
+        4.1192481,
+        4.1192481
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bed0a012ada2730f",
+      "name": "Alley · Plant3_4 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant3_4.glb",
+      "position": [
+        -2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.93021523,
+        3.93021523,
+        3.93021523
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6bd1557508106e2c",
+      "name": "Alley · Plant4_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant4_1.glb",
+      "position": [
+        -22,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.76114654,
+        3.76114654,
+        3.76114654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d57584c7df52192a",
+      "name": "Alley · Plant4_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant4_2.glb",
+      "position": [
+        -18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.76114649,
+        3.76114649,
+        3.76114649
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-328305eb55bd8f3d",
+      "name": "Alley · Plant4_3 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant4_3.glb",
+      "position": [
+        -14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.76114649,
+        3.76114649,
+        3.76114649
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e9781a4e7c0ece44",
+      "name": "Alley · Plant4_4 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Plant4_4.glb",
+      "position": [
+        -10,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97251792,
+        2.97251792,
+        2.97251792
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b3f9261a3e5e6cc0",
+      "name": "Alley · Ramp_1 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Ramp_1.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999998,
+        0.69999998,
+        0.69999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-df69a735b7179946",
+      "name": "Alley · Ramp_2 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Ramp_2.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999998,
+        0.69999998,
+        0.69999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe11633ca27e0742",
+      "name": "Alley · Set1 · 模型 0.04 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Set1.glb",
+      "position": [
+        -22,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14,
+        0.14,
+        0.14
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-02c86ef78da73fe4",
+      "name": "Alley · Set2 · 模型 0.17 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Set2.glb",
+      "position": [
+        -18.00000001,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13999998,
+        0.13999998,
+        0.13999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4cb0b26d76d88531",
+      "name": "Alley · Set3 · 模型 0.05 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Set3.glb",
+      "position": [
+        -13.99999999,
+        0,
+        -8.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21538445,
+        0.21538445,
+        0.21538445
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-112be437f2306a21",
+      "name": "Alley · Set4 · 模型 0.09 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Set4.glb",
+      "position": [
+        -9.99999983,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21538452,
+        0.21538452,
+        0.21538452
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1bfe23d9ec4f5034",
+      "name": "Alley · Signs_Danger · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Signs_Danger.glb",
+      "position": [
+        -6,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.17033056,
+        4.17033056,
+        4.17033056
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c07d007d382ecfea",
+      "name": "Alley · Signs_FireExit · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Signs_FireExit.glb",
+      "position": [
+        -2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.64340668,
+        1.64340668,
+        1.64340668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ce7d0e792676ed83",
+      "name": "Alley · Signs_NoParking · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Signs_NoParking.glb",
+      "position": [
+        -22,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0884646,
+        4.0884646,
+        4.0884646
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-da94dc904869ee4f",
+      "name": "Alley · Signs_NoSmoking · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Signs_NoSmoking.glb",
+      "position": [
+        -18,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.16437257,
+        4.16437257,
+        4.16437257
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-82eef1fd80076647",
+      "name": "Alley · Signs_Push · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Signs_Push.glb",
+      "position": [
+        -14,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.99776053,
+        3.99776053,
+        3.99776053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4efda6a44cd74014",
+      "name": "Alley · Stairs_1 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Stairs_1.glb",
+      "position": [
+        -10,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73043478,
+        0.73043478,
+        0.73043478
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4d892661870fbbc4",
+      "name": "Alley · Stairs_2 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Stairs_2.glb",
+      "position": [
+        -6,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73043478,
+        0.73043478,
+        0.73043478
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e292269e0560a853",
+      "name": "Alley · Vent1Cover · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Vent1Cover.glb",
+      "position": [
+        -2,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.65317236,
+        2.65317236,
+        2.65317236
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d21460621ea6f9b9",
+      "name": "Alley · Vent1Covered_1 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Vent1Covered_1.glb",
+      "position": [
+        -22,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36585369,
+        1.36585369,
+        1.36585369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9f5ebeb5c03bccfd",
+      "name": "Alley · Vent1Covered_2 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Vent1Covered_2.glb",
+      "position": [
+        -18,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.04338115,
+        2.04338115,
+        2.04338115
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a849252fa195d122",
+      "name": "Alley · Vent1Covered_3 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Vent1Covered_3.glb",
+      "position": [
+        -14,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.65317041,
+        2.65317041,
+        2.65317041
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a535c3210e18549b",
+      "name": "Alley · Vent2Convered_1 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Vent2Convered_1.glb",
+      "position": [
+        -10,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36585353,
+        1.36585353,
+        1.36585353
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f18480f66f4d04d7",
+      "name": "Alley · Vent2Convered_2 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Vent2Convered_2.glb",
+      "position": [
+        -6,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.74914644,
+        2.74914644,
+        2.74914644
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bdbccc6c3f96a8a8",
+      "name": "Alley · Vent2Convered_3 · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Vent2Convered_3.glb",
+      "position": [
+        -2,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.66666467,
+        2.66666467,
+        2.66666467
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0adfdf888ea53698",
+      "name": "Alley · Vent2Cover · 模型 0.00 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/Vent2Cover.glb",
+      "position": [
+        4,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.97975808,
+        3.97975808,
+        3.97975808
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-396a6e80543b17ba",
+      "name": "Alley · WINDOW_WindowFrame_1 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/WINDOW_WindowFrame_1.glb",
+      "position": [
+        8,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80645167,
+        1.80645167,
+        1.80645167
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e7c1b4fc1f2cc776",
+      "name": "Alley · WINDOW_WindowFrame_2 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/WINDOW_WindowFrame_2.glb",
+      "position": [
+        12,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.30894197,
+        2.30894197,
+        2.30894197
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cbce11ba34fc6a5b",
+      "name": "Alley · WINDOW_WindowFrame_3 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/WINDOW_WindowFrame_3.glb",
+      "position": [
+        16,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.30894197,
+        2.30894197,
+        2.30894197
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3b803a54236aaa34",
+      "name": "Alley · WINDOW_WindowFrame_4 · 模型 0.01 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-alley-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Alley/WINDOW_WindowFrame_4.glb",
+      "position": [
+        20,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.30894197,
+        2.30894197,
+        2.30894197
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

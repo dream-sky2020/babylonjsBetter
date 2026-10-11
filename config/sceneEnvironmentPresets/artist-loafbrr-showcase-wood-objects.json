@@ -1,0 +1,3221 @@
+{
+  "presetKey": "artist-loafbrr-showcase-wood-objects",
+  "name": "Loafbrr · WoodObjects · 73模型 · 模型 1.12 MiB + 贴图 0.53 MiB · 合计 1.65 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-woodobjects-0",
+      "name": "WoodObjects 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-woodobjects-1",
+      "name": "WoodObjects 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 45
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-e71e6505c368d622-stand",
+      "name": "Axe展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0701c808a6f34d15-stand",
+      "name": "Barrel_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d00f53bdd40f1bdc-stand",
+      "name": "Barrel_A_Open展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ca92d6b06dfd06de-stand",
+      "name": "Barrel_B_Grp展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dc2697a2c0d46bf5-stand",
+      "name": "Barrel_B_Open展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-16e9da99b6914482-stand",
+      "name": "Barrel_B_Static展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9b5227f6e0adc318-stand",
+      "name": "Basin展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4b2aac65adb34c91-stand",
+      "name": "Basket_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2f3ebadd9566fcd0-stand",
+      "name": "Basket_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-03cc77483853c0a4-stand",
+      "name": "Basket_C展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0f1740a58be9c8f8-stand",
+      "name": "Basket_D展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d668cd531d15388f-stand",
+      "name": "Basket_E展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b6df218e9844f8ea-stand",
+      "name": "Bench_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8116dfb34fc5eda7-stand",
+      "name": "Bench_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a592331ac75423ab-stand",
+      "name": "BookShelf_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b6e53b540e5eddfd-stand",
+      "name": "BookShelf_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6c1dc8bedf79a287-stand",
+      "name": "BookShelf_C展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b8125b83f7a4adbb-stand",
+      "name": "Cabinet_A_Grp展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-312e3d9ab211cdb9-stand",
+      "name": "Cabinet_A_Static展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-899e458cdc247961-stand",
+      "name": "Cabinet_B_grp展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-45d60ee9066abaaf-stand",
+      "name": "Cabinet_B_Static展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-591e1f2058738732-stand",
+      "name": "CandleHoler展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-305d28408b3b8aea-stand",
+      "name": "Chair_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-30b8ff3795f78367-stand",
+      "name": "Chair_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e0129ad41900a569-stand",
+      "name": "Chair_Basket_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-01ae0786992c2e15-stand",
+      "name": "Chair_Basket_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-86c6f14527495063-stand",
+      "name": "Chair_Rockign展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-45cc190ef10e32fe-stand",
+      "name": "Container_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-84a2d68f4478df30-stand",
+      "name": "Container_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b1562be55150b95f-stand",
+      "name": "Container_C展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ad034b1108f9e452-stand",
+      "name": "Container_D展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e4beb6937cd7eb22-stand",
+      "name": "Crate_A_Grp展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3dfb9836d3ff6fd8-stand",
+      "name": "Crate_Lid展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ab509aca47921e0d-stand",
+      "name": "Crate_Open展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-908214e6f58698c4-stand",
+      "name": "Crate_Static展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b85f3b442199d85e-stand",
+      "name": "FirePoker展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9846570e284eaffb-stand",
+      "name": "Kettle展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ede3c45d1e7740f9-stand",
+      "name": "Mortar展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-76c8b61fa8a4a8a7-stand",
+      "name": "MortarPestle展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6981aabb4195736e-stand",
+      "name": "Mug展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7ade3ae6d8eb5373-stand",
+      "name": "Pestle展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d2fdf7c9a4ec183d-stand",
+      "name": "Plate_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-98c22724c11ce662-stand",
+      "name": "Plate_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2fa608abb17c463a-stand",
+      "name": "Pot_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c2b34bff823f9a21-stand",
+      "name": "Pot_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-532323dcf038a067-stand",
+      "name": "Pot_C展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-690b31b9b215ab9e-stand",
+      "name": "Pot_Lid展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-913b0bce66ea0c09-stand",
+      "name": "RollingPin展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aaa420b645a8f9d2-stand",
+      "name": "Shelf_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-78dd8b04ceeeb59b-stand",
+      "name": "Shelf_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a36a95821299a4f5-stand",
+      "name": "Shelf_C展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7d4c0afd8b3bbb4b-stand",
+      "name": "Shelf_D展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-88a9b3c7f4c7ec46-stand",
+      "name": "Shovel展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7752d529566768a0-stand",
+      "name": "Stool_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0a9503bf9b901018-stand",
+      "name": "Stool_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b43e7d097c7b846b-stand",
+      "name": "Table_Rect_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1cbc5a0d8d52a83f-stand",
+      "name": "Table_Rect_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-702da813bff69bcc-stand",
+      "name": "Table_Rect_c展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a58b6015ce463d6a-stand",
+      "name": "Table_Rect_Small_A展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dc70bd1878b570ab-stand",
+      "name": "Table_Rect_Small_B展台",
+      "parentId": "transform:category-woodobjects-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9f5c85cd4487e806-stand",
+      "name": "Table_Round_A展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-76c3c82556cd00fd-stand",
+      "name": "Table_Round_B展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-06e573c730f16170-stand",
+      "name": "Table_Round_C展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a3492e606c68d68b-stand",
+      "name": "Table_Round_Mini_A展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-02c1297f2b7afe73-stand",
+      "name": "Table_Round_Mini_B展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a32d37f669b6283a-stand",
+      "name": "Table_Side_A展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-18b3c4116c0e93ff-stand",
+      "name": "Table_Side_B展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2997a328904daf66-stand",
+      "name": "Table_Square_A展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-550c8630d97f039e-stand",
+      "name": "Table_Square_B展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1212268492d9c563-stand",
+      "name": "Table_Square_Mini_A展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c258c3189a69287c-stand",
+      "name": "Table_Square_Mini_B展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c4747d499dcb4e86-stand",
+      "name": "Tray_A展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f6b871fdd73d9a1d-stand",
+      "name": "Tray_B展台",
+      "parentId": "transform:category-woodobjects-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-e71e6505c368d622",
+      "name": "WoodObjects · Axe · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Axe.glb",
+      "position": [
+        -22.00000003,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.43162169,
+        8.43162169,
+        8.43162169
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0701c808a6f34d15",
+      "name": "WoodObjects · Barrel_A · 模型 0.03 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Barrel_A.glb",
+      "position": [
+        -18,
+        0,
+        19.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.39581726,
+        7.39581726,
+        7.39581726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d00f53bdd40f1bdc",
+      "name": "WoodObjects · Barrel_A_Open · 模型 0.03 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Barrel_A_Open.glb",
+      "position": [
+        -14,
+        0,
+        19.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.39581726,
+        7.39581726,
+        7.39581726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ca92d6b06dfd06de",
+      "name": "WoodObjects · Barrel_B_Grp · 模型 0.03 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Barrel_B_Grp.glb",
+      "position": [
+        -10,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.30089861,
+        7.30089861,
+        7.30089861
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dc2697a2c0d46bf5",
+      "name": "WoodObjects · Barrel_B_Open · 模型 0.03 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Barrel_B_Open.glb",
+      "position": [
+        -6,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.00000014,
+        8.00000014,
+        8.00000014
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-16e9da99b6914482",
+      "name": "WoodObjects · Barrel_B_Static · 模型 0.03 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Barrel_B_Static.glb",
+      "position": [
+        -2,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.39488355,
+        7.39488355,
+        7.39488355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b5227f6e0adc318",
+      "name": "WoodObjects · Basin · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Basin.glb",
+      "position": [
+        -22,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.33333296,
+        9.33333296,
+        9.33333296
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4b2aac65adb34c91",
+      "name": "WoodObjects · Basket_A · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Basket_A.glb",
+      "position": [
+        -18,
+        2.6e-7,
+        16.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.72017838,
+        8.72017838,
+        8.72017838
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2f3ebadd9566fcd0",
+      "name": "WoodObjects · Basket_B · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Basket_B.glb",
+      "position": [
+        -13.99999971,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.4241693,
+        6.4241693,
+        6.4241693
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-03cc77483853c0a4",
+      "name": "WoodObjects · Basket_C · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Basket_C.glb",
+      "position": [
+        -10,
+        -1.4e-7,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.31045022,
+        9.31045022,
+        9.31045022
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0f1740a58be9c8f8",
+      "name": "WoodObjects · Basket_D · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Basket_D.glb",
+      "position": [
+        -6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.62714905,
+        3.62714905,
+        3.62714905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d668cd531d15388f",
+      "name": "WoodObjects · Basket_E · 模型 0.03 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Basket_E.glb",
+      "position": [
+        -1.99999952,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.57911612,
+        4.57911612,
+        4.57911612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b6df218e9844f8ea",
+      "name": "WoodObjects · Bench_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Bench_A.glb",
+      "position": [
+        -22,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.46941628,
+        2.46941628,
+        2.46941628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8116dfb34fc5eda7",
+      "name": "WoodObjects · Bench_B · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Bench_B.glb",
+      "position": [
+        -18,
+        0,
+        11.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.19380231,
+        2.19380231,
+        2.19380231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a592331ac75423ab",
+      "name": "WoodObjects · BookShelf_A · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/BookShelf_A.glb",
+      "position": [
+        -14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.62168318,
+        1.62168318,
+        1.62168318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b6e53b540e5eddfd",
+      "name": "WoodObjects · BookShelf_B · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/BookShelf_B.glb",
+      "position": [
+        -10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.62168318,
+        1.62168318,
+        1.62168318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6c1dc8bedf79a287",
+      "name": "WoodObjects · BookShelf_C · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/BookShelf_C.glb",
+      "position": [
+        -6,
+        0,
+        11.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65501456,
+        1.65501456,
+        1.65501456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b8125b83f7a4adbb",
+      "name": "WoodObjects · Cabinet_A_Grp · 模型 0.03 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Cabinet_A_Grp.glb",
+      "position": [
+        -2,
+        0,
+        11.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.90638855,
+        1.90638855,
+        1.90638855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-312e3d9ab211cdb9",
+      "name": "WoodObjects · Cabinet_A_Static · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Cabinet_A_Static.glb",
+      "position": [
+        -22.00000011,
+        0,
+        7.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.90638855,
+        1.90638855,
+        1.90638855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-899e458cdc247961",
+      "name": "WoodObjects · Cabinet_B_grp · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Cabinet_B_grp.glb",
+      "position": [
+        -18,
+        0,
+        8.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-45d60ee9066abaaf",
+      "name": "WoodObjects · Cabinet_B_Static · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Cabinet_B_Static.glb",
+      "position": [
+        -14,
+        0,
+        8.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-591e1f2058738732",
+      "name": "WoodObjects · CandleHoler · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/CandleHoler.glb",
+      "position": [
+        -10,
+        0,
+        7.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.47340868,
+        13.47340868,
+        13.47340868
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-305d28408b3b8aea",
+      "name": "WoodObjects · Chair_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Chair_A.glb",
+      "position": [
+        -6,
+        0,
+        8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.89555948,
+        2.89555948,
+        2.89555948
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-30b8ff3795f78367",
+      "name": "WoodObjects · Chair_B · 模型 0.04 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Chair_B.glb",
+      "position": [
+        -1.99999994,
+        0,
+        7.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.83031009,
+        2.83031009,
+        2.83031009
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e0129ad41900a569",
+      "name": "WoodObjects · Chair_Basket_A · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Chair_Basket_A.glb",
+      "position": [
+        -22,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79299504,
+        2.79299504,
+        2.79299504
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-01ae0786992c2e15",
+      "name": "WoodObjects · Chair_Basket_B · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Chair_Basket_B.glb",
+      "position": [
+        -18,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.00483285,
+        4.00483285,
+        4.00483285
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-86c6f14527495063",
+      "name": "WoodObjects · Chair_Rockign · 模型 0.03 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Chair_Rockign.glb",
+      "position": [
+        -13.99999997,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9378532,
+        1.9378532,
+        1.9378532
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-45cc190ef10e32fe",
+      "name": "WoodObjects · Container_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Container_A.glb",
+      "position": [
+        -9.99999964,
+        0,
+        3.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40584669,
+        3.40584669,
+        3.40584669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-84a2d68f4478df30",
+      "name": "WoodObjects · Container_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Container_B.glb",
+      "position": [
+        -5.99999964,
+        0,
+        3.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40584669,
+        3.40584669,
+        3.40584669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b1562be55150b95f",
+      "name": "WoodObjects · Container_C · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Container_C.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.29016662,
+        4.29016662,
+        4.29016662
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ad034b1108f9e452",
+      "name": "WoodObjects · Container_D · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Container_D.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.58033325,
+        8.58033325,
+        8.58033325
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e4beb6937cd7eb22",
+      "name": "WoodObjects · Crate_A_Grp · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Crate_A_Grp.glb",
+      "position": [
+        -18,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.99997289,
+        7.99997289,
+        7.99997289
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3dfb9836d3ff6fd8",
+      "name": "WoodObjects · Crate_Lid · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Crate_Lid.glb",
+      "position": [
+        -14,
+        0,
+        4.2e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.99999537,
+        7.99999537,
+        7.99999537
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ab509aca47921e0d",
+      "name": "WoodObjects · Crate_Open · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Crate_Open.glb",
+      "position": [
+        -10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.99997289,
+        7.99997289,
+        7.99997289
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-908214e6f58698c4",
+      "name": "WoodObjects · Crate_Static · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Crate_Static.glb",
+      "position": [
+        -6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.99997289,
+        7.99997289,
+        7.99997289
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b85f3b442199d85e",
+      "name": "WoodObjects · FirePoker · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/FirePoker.glb",
+      "position": [
+        -1.99999999,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.76694599,
+        3.76694599,
+        3.76694599
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9846570e284eaffb",
+      "name": "WoodObjects · Kettle · 模型 0.05 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Kettle.glb",
+      "position": [
+        -21.99999971,
+        0,
+        -4.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.94391809,
+        10.94391809,
+        10.94391809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ede3c45d1e7740f9",
+      "name": "WoodObjects · Mortar · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Mortar.glb",
+      "position": [
+        -18,
+        5.4e-7,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.26331741,
+        32.26331741,
+        32.26331741
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-76c8b61fa8a4a8a7",
+      "name": "WoodObjects · MortarPestle · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/MortarPestle.glb",
+      "position": [
+        -14,
+        4.2e-7,
+        -4.00000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.89859703,
+        24.89859703,
+        24.89859703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6981aabb4195736e",
+      "name": "WoodObjects · Mug · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Mug.glb",
+      "position": [
+        -10.00000065,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.37127835,
+        20.37127835,
+        20.37127835
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7ade3ae6d8eb5373",
+      "name": "WoodObjects · Pestle · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Pestle.glb",
+      "position": [
+        -6.00000055,
+        -2e-7,
+        -3.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.98645623,
+        26.98645623,
+        26.98645623
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d2fdf7c9a4ec183d",
+      "name": "WoodObjects · Plate_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Plate_A.glb",
+      "position": [
+        -2,
+        -2.4e-7,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.32352141,
+        15.32352141,
+        15.32352141
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-98c22724c11ce662",
+      "name": "WoodObjects · Plate_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Plate_B.glb",
+      "position": [
+        -22,
+        -1.1e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.32352141,
+        15.32352141,
+        15.32352141
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2fa608abb17c463a",
+      "name": "WoodObjects · Pot_A · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Pot_A.glb",
+      "position": [
+        -18,
+        1.5e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.20456834,
+        10.20456834,
+        10.20456834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c2b34bff823f9a21",
+      "name": "WoodObjects · Pot_B · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Pot_B.glb",
+      "position": [
+        -14,
+        1.5e-7,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.20456834,
+        10.20456834,
+        10.20456834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-532323dcf038a067",
+      "name": "WoodObjects · Pot_C · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Pot_C.glb",
+      "position": [
+        -10,
+        0,
+        -8.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.2268484,
+        7.2268484,
+        7.2268484
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-690b31b9b215ab9e",
+      "name": "WoodObjects · Pot_Lid · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Pot_Lid.glb",
+      "position": [
+        -6,
+        9e-8,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.24173591,
+        12.24173591,
+        12.24173591
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-913b0bce66ea0c09",
+      "name": "WoodObjects · RollingPin · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/RollingPin.glb",
+      "position": [
+        -2,
+        8e-8,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.1211685,
+        8.1211685,
+        8.1211685
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aaa420b645a8f9d2",
+      "name": "WoodObjects · Shelf_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Shelf_A.glb",
+      "position": [
+        -22,
+        0,
+        -11.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.66666679,
+        2.66666679,
+        2.66666679
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-78dd8b04ceeeb59b",
+      "name": "WoodObjects · Shelf_B · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Shelf_B.glb",
+      "position": [
+        -17.99999996,
+        2e-8,
+        -11.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.80000008,
+        2.80000008,
+        2.80000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a36a95821299a4f5",
+      "name": "WoodObjects · Shelf_C · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Shelf_C.glb",
+      "position": [
+        -14.00000016,
+        8e-8,
+        -11.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.65525059,
+        2.65525059,
+        2.65525059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7d4c0afd8b3bbb4b",
+      "name": "WoodObjects · Shelf_D · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Shelf_D.glb",
+      "position": [
+        -10,
+        0,
+        -12.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.31050117,
+        5.31050117,
+        5.31050117
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-88a9b3c7f4c7ec46",
+      "name": "WoodObjects · Shovel · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Shovel.glb",
+      "position": [
+        -6.00000003,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.30559871,
+        2.30559871,
+        2.30559871
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7752d529566768a0",
+      "name": "WoodObjects · Stool_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Stool_A.glb",
+      "position": [
+        -2,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.9331995,
+        4.9331995,
+        4.9331995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0a9503bf9b901018",
+      "name": "WoodObjects · Stool_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Stool_B.glb",
+      "position": [
+        -22,
+        0,
+        -15.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.93319942,
+        4.93319942,
+        4.93319942
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b43e7d097c7b846b",
+      "name": "WoodObjects · Table_Rect_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Rect_A.glb",
+      "position": [
+        -18,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1cbc5a0d8d52a83f",
+      "name": "WoodObjects · Table_Rect_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Rect_B.glb",
+      "position": [
+        -14,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-702da813bff69bcc",
+      "name": "WoodObjects · Table_Rect_c · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Rect_c.glb",
+      "position": [
+        -10,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a58b6015ce463d6a",
+      "name": "WoodObjects · Table_Rect_Small_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Rect_Small_A.glb",
+      "position": [
+        -6,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dc70bd1878b570ab",
+      "name": "WoodObjects · Table_Rect_Small_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Rect_Small_B.glb",
+      "position": [
+        -2,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9f5c85cd4487e806",
+      "name": "WoodObjects · Table_Round_A · 模型 0.03 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Round_A.glb",
+      "position": [
+        2,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.78321994,
+        2.78321994,
+        2.78321994
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-76c3c82556cd00fd",
+      "name": "WoodObjects · Table_Round_B · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Round_B.glb",
+      "position": [
+        6,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6606302,
+        3.6606302,
+        3.6606302
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-06e573c730f16170",
+      "name": "WoodObjects · Table_Round_C · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Round_C.glb",
+      "position": [
+        10,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.78321994,
+        2.78321994,
+        2.78321994
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a3492e606c68d68b",
+      "name": "WoodObjects · Table_Round_Mini_A · 模型 0.03 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Round_Mini_A.glb",
+      "position": [
+        14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.38570559,
+        4.38570559,
+        4.38570559
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-02c1297f2b7afe73",
+      "name": "WoodObjects · Table_Round_Mini_B · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Round_Mini_B.glb",
+      "position": [
+        18,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.17365262,
+        4.17365262,
+        4.17365262
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a32d37f669b6283a",
+      "name": "WoodObjects · Table_Side_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Side_A.glb",
+      "position": [
+        21.99999997,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.73021823,
+        3.73021823,
+        3.73021823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-18b3c4116c0e93ff",
+      "name": "WoodObjects · Table_Side_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Side_B.glb",
+      "position": [
+        1.99999997,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.73021823,
+        3.73021823,
+        3.73021823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2997a328904daf66",
+      "name": "WoodObjects · Table_Square_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Square_A.glb",
+      "position": [
+        6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.00000007,
+        4.00000007,
+        4.00000007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-550c8630d97f039e",
+      "name": "WoodObjects · Table_Square_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Square_B.glb",
+      "position": [
+        10,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.99999973,
+        3.99999973,
+        3.99999973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1212268492d9c563",
+      "name": "WoodObjects · Table_Square_Mini_A · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Square_Mini_A.glb",
+      "position": [
+        14,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.00000007,
+        4.00000007,
+        4.00000007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c258c3189a69287c",
+      "name": "WoodObjects · Table_Square_Mini_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Table_Square_Mini_B.glb",
+      "position": [
+        18,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.99999973,
+        3.99999973,
+        3.99999973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c4747d499dcb4e86",
+      "name": "WoodObjects · Tray_A · 模型 0.02 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Tray_A.glb",
+      "position": [
+        21.99999992,
+        3e-7,
+        15.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.66413128,
+        10.66413128,
+        10.66413128
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f6b871fdd73d9a1d",
+      "name": "WoodObjects · Tray_B · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-woodobjects-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/WoodObjects/Tray_B.glb",
+      "position": [
+        12,
+        2e-7,
+        12.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.61525236,
+        9.61525236,
+        9.61525236
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

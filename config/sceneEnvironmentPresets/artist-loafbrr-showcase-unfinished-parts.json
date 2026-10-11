@@ -1,0 +1,2437 @@
+{
+  "presetKey": "artist-loafbrr-showcase-unfinished-parts",
+  "name": "Loafbrr · UnfinishedParts · 55模型 · 模型 0.18 MiB + 贴图 0.16 MiB · 合计 0.34 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-unfinishedparts-0",
+      "name": "UnfinishedParts",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 45
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-700ce9386040da7c-stand",
+      "name": "Wall_Concrete_Plane_2_001展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74748883d7df080b-stand",
+      "name": "Wall_Concrete_Plane_2_Half展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-239ccf56de802b86-stand",
+      "name": "Wall_Concrete_Plane_3展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e760f7bbcc131db7-stand",
+      "name": "Wall_Concrete_Plane_3_008展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fce7e4a94ecbf5d2-stand",
+      "name": "Wall_Concrete_Plane_3_Half展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-233cb02223461067-stand",
+      "name": "Wall_Concrete_Top_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a495262f345051c1-stand",
+      "name": "Wall_Concrete_Top_L展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7eee17561b63646c-stand",
+      "name": "Wall_Concrete_Top_R展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-41b7f9dcb96da125-stand",
+      "name": "Wall_Concrete_Window_1展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3d137a1033dc4792-stand",
+      "name": "Wall_Concrete_Window_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-45d790e3cc7271e5-stand",
+      "name": "Wall_Concrete_Window_3展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a0183d7c13ac83aa-stand",
+      "name": "Wall_Concrete_Window_4展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cadcec3f161b3430-stand",
+      "name": "Wall_Concrete_Window_5展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e2473adfdba8a590-stand",
+      "name": "Wall_Concrete_Window_6展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bc649e365880f550-stand",
+      "name": "Wall_Wood_1展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f6cec4841ccd0be8-stand",
+      "name": "Wall_Wood_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6b0e4e14a8cc0c17-stand",
+      "name": "Wall_Wood_3展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bdf2a41db513b2b4-stand",
+      "name": "Wall_Wood_4展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e4bac8f43850e382-stand",
+      "name": "Wall_Wood_5展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4807fcd1c4e26582-stand",
+      "name": "Wall_Wood_6展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2151271a26ce3bd9-stand",
+      "name": "Wall_Wood_7展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-11877e5d4c41a482-stand",
+      "name": "Wall_Wood_8展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9e8d1c272f6d52e5-stand",
+      "name": "Wall_Wood_9展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3116f20c26e31fe5-stand",
+      "name": "Wall_Wood_Arch_Beam展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-101a2c97731aa980-stand",
+      "name": "Wall_Wood_Arch_Column_L展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-666114d058e8f0f7-stand",
+      "name": "Wall_Wood_Arch_Column_R展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-54a9ee318d083ce7-stand",
+      "name": "Wall_Wood_Arch_L展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-610fb35436eae8bc-stand",
+      "name": "Wall_Wood_Arch_R展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-520f44eef9b82dcd-stand",
+      "name": "Wall_Wood_Beam展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-67596fe507b9fb82-stand",
+      "name": "Wall_Wood_Beam_1展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-db99f110958b951c-stand",
+      "name": "Wall_Wood_Beam_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-240cfae03438fa2a-stand",
+      "name": "Wall_Wood_Beam_3展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aadb2d8203df2422-stand",
+      "name": "Wall_Wood_Door_1展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-452e0845e957e5cf-stand",
+      "name": "Wall_Wood_Door_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b8b9bd26cf13faa1-stand",
+      "name": "Wall_Wood_Door_3展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d970dda5a5401334-stand",
+      "name": "Wall_Wood_Plane_1展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-782a3f4292113796-stand",
+      "name": "Wall_Wood_Plane_1_Half展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ae37bae2fcd72bb2-stand",
+      "name": "Wall_Wood_Plane_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-820a08f3a9f1c239-stand",
+      "name": "Wall_Wood_Plane_2_Half展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fe704cc91d286b5e-stand",
+      "name": "Wall_Wood_Plane_3展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-027b2ee8aec2b507-stand",
+      "name": "Wall_Wood_Plane_3_Half展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a407f13867ad5616-stand",
+      "name": "Wall_Wood_Top_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d16fa0542984d613-stand",
+      "name": "Wall_Wood_Top_L展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5e2511e7a6fc229a-stand",
+      "name": "Wall_Wood_Top_R展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c00a5dd0fcd56adc-stand",
+      "name": "Wall_Wood_Window_1展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e358ea484cc9ccbd-stand",
+      "name": "Wall_Wood_Window_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ed5286b2bcbef2b6-stand",
+      "name": "Wall_Wood_Window_3展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2e792e90877f4389-stand",
+      "name": "Wall_Wood_Window_4展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e022bcfb181454b7-stand",
+      "name": "Wall_Wood_Window_5展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f87bd7414f24b174-stand",
+      "name": "Wall_Wood_Window_6展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2ea18606edc44640-stand",
+      "name": "Wood_Stairs_1展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a2625c166522353f-stand",
+      "name": "Wood_Stairs_2展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a51e8c29f15afd0f-stand",
+      "name": "Wood_Stairs_3展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-66084fe525cd0abf-stand",
+      "name": "Wood_Stairs_4展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0cb9ca4ec72df1f8-stand",
+      "name": "Wood_Support展台",
+      "parentId": "transform:category-unfinishedparts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-700ce9386040da7c",
+      "name": "UnfinishedParts · Wall_Concrete_Plane_2_001 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Plane_2_001.glb",
+      "position": [
+        -22,
+        0,
+        20.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74748883d7df080b",
+      "name": "UnfinishedParts · Wall_Concrete_Plane_2_Half · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Plane_2_Half.glb",
+      "position": [
+        -18,
+        0,
+        20.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-239ccf56de802b86",
+      "name": "UnfinishedParts · Wall_Concrete_Plane_3 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Plane_3.glb",
+      "position": [
+        -14,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e760f7bbcc131db7",
+      "name": "UnfinishedParts · Wall_Concrete_Plane_3_008 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Plane_3_008.glb",
+      "position": [
+        -10,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fce7e4a94ecbf5d2",
+      "name": "UnfinishedParts · Wall_Concrete_Plane_3_Half · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Plane_3_Half.glb",
+      "position": [
+        -6,
+        0,
+        20.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-233cb02223461067",
+      "name": "UnfinishedParts · Wall_Concrete_Top_2 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Top_2.glb",
+      "position": [
+        -2,
+        0,
+        20.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a495262f345051c1",
+      "name": "UnfinishedParts · Wall_Concrete_Top_L · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Top_L.glb",
+      "position": [
+        -22,
+        0,
+        16.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7eee17561b63646c",
+      "name": "UnfinishedParts · Wall_Concrete_Top_R · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Top_R.glb",
+      "position": [
+        -18,
+        0,
+        16.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-41b7f9dcb96da125",
+      "name": "UnfinishedParts · Wall_Concrete_Window_1 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Window_1.glb",
+      "position": [
+        -14,
+        0,
+        15.99999929
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3d137a1033dc4792",
+      "name": "UnfinishedParts · Wall_Concrete_Window_2 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Window_2.glb",
+      "position": [
+        -10,
+        0,
+        15.99999929
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-45d790e3cc7271e5",
+      "name": "UnfinishedParts · Wall_Concrete_Window_3 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Window_3.glb",
+      "position": [
+        -6,
+        0,
+        15.99999929
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a0183d7c13ac83aa",
+      "name": "UnfinishedParts · Wall_Concrete_Window_4 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Window_4.glb",
+      "position": [
+        -2,
+        0,
+        15.9999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cadcec3f161b3430",
+      "name": "UnfinishedParts · Wall_Concrete_Window_5 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Window_5.glb",
+      "position": [
+        -22,
+        0,
+        11.9999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e2473adfdba8a590",
+      "name": "UnfinishedParts · Wall_Concrete_Window_6 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Concrete_Window_6.glb",
+      "position": [
+        -18,
+        0,
+        11.9999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bc649e365880f550",
+      "name": "UnfinishedParts · Wall_Wood_1 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_1.glb",
+      "position": [
+        -14,
+        0,
+        12.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f6cec4841ccd0be8",
+      "name": "UnfinishedParts · Wall_Wood_2 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_2.glb",
+      "position": [
+        -10,
+        0,
+        12.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6b0e4e14a8cc0c17",
+      "name": "UnfinishedParts · Wall_Wood_3 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_3.glb",
+      "position": [
+        -6,
+        0,
+        12.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bdf2a41db513b2b4",
+      "name": "UnfinishedParts · Wall_Wood_4 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_4.glb",
+      "position": [
+        -2,
+        0,
+        12.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e4bac8f43850e382",
+      "name": "UnfinishedParts · Wall_Wood_5 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_5.glb",
+      "position": [
+        -22.00000008,
+        0,
+        8.00000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999992,
+        1.39999992,
+        1.39999992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4807fcd1c4e26582",
+      "name": "UnfinishedParts · Wall_Wood_6 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_6.glb",
+      "position": [
+        -18,
+        0,
+        8.00000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2151271a26ce3bd9",
+      "name": "UnfinishedParts · Wall_Wood_7 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_7.glb",
+      "position": [
+        -14,
+        0,
+        8.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-11877e5d4c41a482",
+      "name": "UnfinishedParts · Wall_Wood_8 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_8.glb",
+      "position": [
+        -10,
+        8e-8,
+        8.00000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9e8d1c272f6d52e5",
+      "name": "UnfinishedParts · Wall_Wood_9 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_9.glb",
+      "position": [
+        -6.00000008,
+        0,
+        8.00000052
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79999983,
+        2.79999983,
+        2.79999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3116f20c26e31fe5",
+      "name": "UnfinishedParts · Wall_Wood_Arch_Beam · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Arch_Beam.glb",
+      "position": [
+        -2,
+        0,
+        7.99999912
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-101a2c97731aa980",
+      "name": "UnfinishedParts · Wall_Wood_Arch_Column_L · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Arch_Column_L.glb",
+      "position": [
+        -22,
+        0,
+        3.99999929
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-666114d058e8f0f7",
+      "name": "UnfinishedParts · Wall_Wood_Arch_Column_R · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Arch_Column_R.glb",
+      "position": [
+        -17.99999889,
+        0,
+        3.99999955
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-54a9ee318d083ce7",
+      "name": "UnfinishedParts · Wall_Wood_Arch_L · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Arch_L.glb",
+      "position": [
+        -13.99999911,
+        0,
+        4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-610fb35436eae8bc",
+      "name": "UnfinishedParts · Wall_Wood_Arch_R · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Arch_R.glb",
+      "position": [
+        -10.00000095,
+        0,
+        3.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-520f44eef9b82dcd",
+      "name": "UnfinishedParts · Wall_Wood_Beam · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Beam.glb",
+      "position": [
+        -6.00000009,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333337,
+        0.93333337,
+        0.93333337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-67596fe507b9fb82",
+      "name": "UnfinishedParts · Wall_Wood_Beam_1 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Beam_1.glb",
+      "position": [
+        -2,
+        7.2e-7,
+        3.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-db99f110958b951c",
+      "name": "UnfinishedParts · Wall_Wood_Beam_2 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Beam_2.glb",
+      "position": [
+        -22,
+        0.000001,
+        2.4e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-240cfae03438fa2a",
+      "name": "UnfinishedParts · Wall_Wood_Beam_3 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Beam_3.glb",
+      "position": [
+        -18,
+        -0.00000163,
+        -0.00000111
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aadb2d8203df2422",
+      "name": "UnfinishedParts · Wall_Wood_Door_1 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Door_1.glb",
+      "position": [
+        -14,
+        0,
+        1.8e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-452e0845e957e5cf",
+      "name": "UnfinishedParts · Wall_Wood_Door_2 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Door_2.glb",
+      "position": [
+        -10,
+        0,
+        1.9e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b8b9bd26cf13faa1",
+      "name": "UnfinishedParts · Wall_Wood_Door_3 · 模型 0.01 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Door_3.glb",
+      "position": [
+        -6,
+        0,
+        1.9e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d970dda5a5401334",
+      "name": "UnfinishedParts · Wall_Wood_Plane_1 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Plane_1.glb",
+      "position": [
+        -2.00000008,
+        0,
+        -2e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79999983,
+        2.79999983,
+        2.79999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-782a3f4292113796",
+      "name": "UnfinishedParts · Wall_Wood_Plane_1_Half · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Plane_1_Half.glb",
+      "position": [
+        -22,
+        0,
+        -4.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ae37bae2fcd72bb2",
+      "name": "UnfinishedParts · Wall_Wood_Plane_2 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Plane_2.glb",
+      "position": [
+        -18,
+        8e-8,
+        -3.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-820a08f3a9f1c239",
+      "name": "UnfinishedParts · Wall_Wood_Plane_2_Half · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Plane_2_Half.glb",
+      "position": [
+        -14,
+        8e-8,
+        -3.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe704cc91d286b5e",
+      "name": "UnfinishedParts · Wall_Wood_Plane_3 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Plane_3.glb",
+      "position": [
+        -10,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-027b2ee8aec2b507",
+      "name": "UnfinishedParts · Wall_Wood_Plane_3_Half · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Plane_3_Half.glb",
+      "position": [
+        -6,
+        0,
+        -3.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a407f13867ad5616",
+      "name": "UnfinishedParts · Wall_Wood_Top_2 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Top_2.glb",
+      "position": [
+        -2,
+        0,
+        -3.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d16fa0542984d613",
+      "name": "UnfinishedParts · Wall_Wood_Top_L · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Top_L.glb",
+      "position": [
+        -22,
+        0,
+        -7.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5e2511e7a6fc229a",
+      "name": "UnfinishedParts · Wall_Wood_Top_R · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Top_R.glb",
+      "position": [
+        -18,
+        0,
+        -7.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c00a5dd0fcd56adc",
+      "name": "UnfinishedParts · Wall_Wood_Window_1 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Window_1.glb",
+      "position": [
+        -14,
+        0,
+        -7.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e358ea484cc9ccbd",
+      "name": "UnfinishedParts · Wall_Wood_Window_2 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Window_2.glb",
+      "position": [
+        -10,
+        0,
+        -7.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ed5286b2bcbef2b6",
+      "name": "UnfinishedParts · Wall_Wood_Window_3 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Window_3.glb",
+      "position": [
+        -6,
+        0,
+        -7.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2e792e90877f4389",
+      "name": "UnfinishedParts · Wall_Wood_Window_4 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Window_4.glb",
+      "position": [
+        -2,
+        0,
+        -7.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e022bcfb181454b7",
+      "name": "UnfinishedParts · Wall_Wood_Window_5 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Window_5.glb",
+      "position": [
+        -22,
+        0,
+        -11.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f87bd7414f24b174",
+      "name": "UnfinishedParts · Wall_Wood_Window_6 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wall_Wood_Window_6.glb",
+      "position": [
+        -18,
+        0,
+        -11.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2ea18606edc44640",
+      "name": "UnfinishedParts · Wood_Stairs_1 · 模型 0.01 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wood_Stairs_1.glb",
+      "position": [
+        -14.00000045,
+        0,
+        -12.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333329,
+        0.93333329,
+        0.93333329
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a2625c166522353f",
+      "name": "UnfinishedParts · Wood_Stairs_2 · 模型 0.01 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wood_Stairs_2.glb",
+      "position": [
+        -10.00000067,
+        0,
+        -11.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a51e8c29f15afd0f",
+      "name": "UnfinishedParts · Wood_Stairs_3 · 模型 0.00 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wood_Stairs_3.glb",
+      "position": [
+        -6.00000089,
+        0,
+        -12.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-66084fe525cd0abf",
+      "name": "UnfinishedParts · Wood_Stairs_4 · 模型 0.01 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wood_Stairs_4.glb",
+      "position": [
+        -2.00000045,
+        0,
+        -12.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333329,
+        0.93333329,
+        0.93333329
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0cb9ca4ec72df1f8",
+      "name": "UnfinishedParts · Wood_Support · 模型 0.01 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-unfinishedparts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/UnfinishedParts/Wood_Support.glb",
+      "position": [
+        -12.00000006,
+        0,
+        -15.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

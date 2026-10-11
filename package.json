@@ -5,6 +5,12 @@
   "main": "electron/main.cjs",
   "type": "module",
   "scripts": {
+    "test:model-materials": "node --experimental-strip-types --test core/model/material/*.test.ts core/scene/updateSceneModelMaterials.test.ts scripts/sharedTextureMigration.test.mjs core/model/preset/firstPersonWeaponPreset.test.ts core/animation/preset/animationScenePreset.test.ts tools/animation-workbench-lab/animationWorkspace.test.ts",
+    "test:model-materials-browser": "node scripts/runSharedTextureBrowser.mjs",
+    "test:model-shared-assets-browser": "node scripts/runSharedTextureBrowser.mjs --all",
+    "verify:model-shared-assets": "node scripts/sharedTextureMigration.mjs --verify",
+    "build:model-validation": "vite build --outDir .asset-migration/full-production-build",
+    "test:model-materials-production": "node scripts/runSharedTextureProduction.mjs",
     "migrate:scene-environment-presets": "node --experimental-strip-types scripts/migrateSceneEnvironmentPresets.ts",
     "typecheck:scene-environment": "tsc --noEmit -p tsconfig.scene-environment.json",
     "test:scene-environment": "node --experimental-strip-types --test scripts/sceneEnvironmentPresetStore.test.ts tools/scene-environment-lab/*.test.ts tools/scene-environment-lab/*.test.mjs",
@@ -54,7 +60,7 @@
     "migrate:dungeon-map-definitions": "node --experimental-strip-types scripts/migrateDungeonMapDefinitions.ts",
     "migrate:animation-scene-presets": "node --experimental-strip-types scripts/migrateFirstPersonWeaponPresetsToAnimationScenes.ts",
     "preview": "vite preview",
-    "verify:file": "electron scripts/verifyFileProtocol.cjs",
+    "verify:file": "node scripts/runElectronVerification.mjs scripts/verifyFileProtocol.cjs",
     "electron:start": "electron .",
     "electron:dev": "concurrently -k \"npm run dev\" \"wait-on http://localhost:1184/apps/mainGame/index.html && cross-env ELECTRON_RENDERER_URL=http://localhost:1184 electron .\""
   },

@@ -1,4 +1,5 @@
 import type { ModelDisplayConfig, ModelDisplayConfigLibrary } from '@/core/model/types/model-display-config.types.ts';
+import { parseModelMaterialBindings } from '../material/modelMaterialBindings.ts';
 
 const finiteInRange = (value: unknown, fallback: number, min: number, max: number) => {
   const number = Number(value);
@@ -21,6 +22,7 @@ export const sanitizeModelDisplayConfig = (raw: unknown, fallbackPath = ''): Mod
   const modelPath = typeof value.modelPath === 'string' && value.modelPath.trim() ? value.modelPath.trim() : fallbackPath;
   return {
     modelPath,
+    materialOverrides: parseModelMaterialBindings(value.materialOverrides),
     rotationDeg: {
       x: finiteInRange(rotation.x, 0, -360, 360),
       y: finiteInRange(rotation.y, 0, -360, 360),

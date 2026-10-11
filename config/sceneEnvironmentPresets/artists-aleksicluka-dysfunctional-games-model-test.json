@@ -1,0 +1,1875 @@
+{
+  "presetKey": "artists-aleksicluka-dysfunctional-games-model-test",
+  "name": "Aleksicluka 与 Dysfunctional-games · PSX 道具与角色（41 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "aleksicluka-props",
+      "name": "aleksicluka · 场景道具与建筑",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "dysfunctional-games-props",
+      "name": "dysfunctional-games · 场景道具与建筑",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "dysfunctional-games-tools",
+      "name": "dysfunctional-games · 工具",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "dysfunctional-games-weapons",
+      "name": "dysfunctional-games · 武器",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "dysfunctional-games-characters",
+      "name": "dysfunctional-games · 角色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 36
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "aleksicluka-hammer-stand",
+      "name": "hammer展台",
+      "parentId": "transform:aleksicluka-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "aleksicluka-radio-stand",
+      "name": "radio展台",
+      "parentId": "transform:aleksicluka-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "aleksicluka-stool-stand",
+      "name": "stool展台",
+      "parentId": "transform:aleksicluka-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-angelicdemonstatue-stand",
+      "name": "AngelicDemonStatue展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-apple-stand",
+      "name": "Apple展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-bigtree-stand",
+      "name": "BigTree展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-bush-stand",
+      "name": "Bush展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-casefile-stand",
+      "name": "CaseFile展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-doublebed-stand",
+      "name": "DoubleBed展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-fence_main-stand",
+      "name": "Fence_Main展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-fence_connect-stand",
+      "name": "Fence_Connect展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-fence_corner-stand",
+      "name": "Fence_Corner展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-gravefence_se-stand",
+      "name": "GraveFence_SE展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-gravefence_s-stand",
+      "name": "GraveFence_S展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-gravefence_j-stand",
+      "name": "GraveFence_J展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-gravefence_c-stand",
+      "name": "GraveFence_C展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-polybuckscoffee-stand",
+      "name": "PolybucksCoffee展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-rock-stand",
+      "name": "Rock展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-stickgrave-stand",
+      "name": "StickGrave展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-gravedirt-stand",
+      "name": "GraveDirt展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-stonewall_s-stand",
+      "name": "Stonewall_S展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-stonewall_se-stand",
+      "name": "Stonewall_SE展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-cb_c-stand",
+      "name": "CB_C展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-woodchair-stand",
+      "name": "WoodChair展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-xmastree-stand",
+      "name": "XmasTree展台",
+      "parentId": "transform:dysfunctional-games-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-axe-stand",
+      "name": "Axe展台",
+      "parentId": "transform:dysfunctional-games-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-flashlight-stand",
+      "name": "Flashlight展台",
+      "parentId": "transform:dysfunctional-games-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-flashlightchest-stand",
+      "name": "FlashlightChest展台",
+      "parentId": "transform:dysfunctional-games-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-flashlightgun-stand",
+      "name": "FlashlightGun展台",
+      "parentId": "transform:dysfunctional-games-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        8.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-oldcamera-stand",
+      "name": "OldCamera展台",
+      "parentId": "transform:dysfunctional-games-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-spade-stand",
+      "name": "Spade展台",
+      "parentId": "transform:dysfunctional-games-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-baseballbat-stand",
+      "name": "BaseballBat展台",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-claymore-stand",
+      "name": "Claymore展台",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-deagle-stand",
+      "name": "Deagle展台",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-flintlock-stand",
+      "name": "Flintlock展台",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-gladiatorbaton-stand",
+      "name": "GladiatorBaton展台",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-glock17-stand",
+      "name": "Glock17展台",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-katana-stand",
+      "name": "Katana展台",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "dysfunctional-games-baconleaf-stand",
+      "name": "Baconleaf展台",
+      "parentId": "transform:dysfunctional-games-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-malehead01-stand",
+      "name": "MaleHead01展台",
+      "parentId": "transform:dysfunctional-games-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "dysfunctional-games-malehead02-stand",
+      "name": "MaleHead02展台",
+      "parentId": "transform:dysfunctional-games-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -11.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "aleksicluka-hammer",
+      "name": "aleksicluka · hammer",
+      "parentId": "transform:aleksicluka-props",
+      "modelPath": "resources/Model/GLB/artist_aleksicluka/Props/hammer.glb",
+      "position": [
+        -14,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.42536361,
+        31.42536361,
+        31.42536361
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "aleksicluka-radio",
+      "name": "aleksicluka · radio",
+      "parentId": "transform:aleksicluka-props",
+      "modelPath": "resources/Model/GLB/artist_aleksicluka/Props/radio.glb",
+      "position": [
+        -10,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.07006656,
+        5.07006656,
+        5.07006656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "aleksicluka-stool",
+      "name": "aleksicluka · stool",
+      "parentId": "transform:aleksicluka-props",
+      "modelPath": "resources/Model/GLB/artist_aleksicluka/Props/stool.glb",
+      "position": [
+        -6,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.8333331,
+        5.8333331,
+        5.8333331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-angelicdemonstatue",
+      "name": "dysfunctional-games · AngelicDemonStatue",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/AngelicDemonStatue.glb",
+      "position": [
+        3.99999994,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.92544573,
+        1.92544573,
+        1.92544573
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-apple",
+      "name": "dysfunctional-games · Apple",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/Apple.glb",
+      "position": [
+        8,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.89787577,
+        3.89787577,
+        3.89787577
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-bigtree",
+      "name": "dysfunctional-games · BigTree",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/BigTree.glb",
+      "position": [
+        11.99999997,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12572929,
+        0.12572929,
+        0.12572929
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-bush",
+      "name": "dysfunctional-games · Bush",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/Bush.glb",
+      "position": [
+        16,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.81258435,
+        1.81258435,
+        1.81258435
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-casefile",
+      "name": "dysfunctional-games · CaseFile",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/CaseFile.glb",
+      "position": [
+        4,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.09520377,
+        3.09520377,
+        3.09520377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-doublebed",
+      "name": "dysfunctional-games · DoubleBed",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/DoubleBed.glb",
+      "position": [
+        8,
+        0,
+        11.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31802854,
+        0.31802854,
+        0.31802854
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-fence_main",
+      "name": "dysfunctional-games · Fence_Main",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/Fence_Main.glb",
+      "position": [
+        11.99999995,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21475866,
+        0.21475866,
+        0.21475866
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-fence_connect",
+      "name": "dysfunctional-games · Fence_Connect",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/Fence_Connect.glb",
+      "position": [
+        16,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21396435,
+        0.21396435,
+        0.21396435
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-fence_corner",
+      "name": "dysfunctional-games · Fence_Corner",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/Fence_Corner.glb",
+      "position": [
+        3.99999995,
+        0,
+        7.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20796064,
+        0.20796064,
+        0.20796064
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-gravefence_se",
+      "name": "dysfunctional-games · GraveFence_SE",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/GraveFence_SE.glb",
+      "position": [
+        8.00000008,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67632389,
+        0.67632389,
+        0.67632389
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-gravefence_s",
+      "name": "dysfunctional-games · GraveFence_S",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/GraveFence_S.glb",
+      "position": [
+        12,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67880279,
+        0.67880279,
+        0.67880279
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-gravefence_j",
+      "name": "dysfunctional-games · GraveFence_J",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/GraveFence_J.glb",
+      "position": [
+        16,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42290234,
+        0.42290234,
+        0.42290234
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-gravefence_c",
+      "name": "dysfunctional-games · GraveFence_C",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/GraveFence_C.glb",
+      "position": [
+        4,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.78004165,
+        0.78004165,
+        0.78004165
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-polybuckscoffee",
+      "name": "dysfunctional-games · PolybucksCoffee",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/PolybucksCoffee.glb",
+      "position": [
+        8,
+        3e-8,
+        3.50000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.58176776,
+        2.58176776,
+        2.58176776
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-rock",
+      "name": "dysfunctional-games · Rock",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/Rock.glb",
+      "position": [
+        12,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12227972,
+        1.12227972,
+        1.12227972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-stickgrave",
+      "name": "dysfunctional-games · StickGrave",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/StickGrave.glb",
+      "position": [
+        16,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.60673387,
+        0.60673387,
+        0.60673387
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-gravedirt",
+      "name": "dysfunctional-games · GraveDirt",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/GraveDirt.glb",
+      "position": [
+        3.99999996,
+        0,
+        -0.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67847577,
+        0.67847577,
+        0.67847577
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-stonewall_s",
+      "name": "dysfunctional-games · Stonewall_S",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/Stonewall_S.glb",
+      "position": [
+        8,
+        0,
+        -0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40015156,
+        1.40015156,
+        1.40015156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-stonewall_se",
+      "name": "dysfunctional-games · Stonewall_SE",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/Stonewall_SE.glb",
+      "position": [
+        12,
+        0,
+        -0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39975821,
+        1.39975821,
+        1.39975821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-cb_c",
+      "name": "dysfunctional-games · CB_C",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/CB_C.glb",
+      "position": [
+        16.00000004,
+        0,
+        -0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000622,
+        1.40000622,
+        1.40000622
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-woodchair",
+      "name": "dysfunctional-games · WoodChair",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/WoodChair.glb",
+      "position": [
+        8,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7041007,
+        0.7041007,
+        0.7041007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-xmastree",
+      "name": "dysfunctional-games · XmasTree",
+      "parentId": "transform:dysfunctional-games-props",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Props/XmasTree.glb",
+      "position": [
+        12,
+        1e-8,
+        -4.49999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21314626,
+        0.21314626,
+        0.21314626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-axe",
+      "name": "dysfunctional-games · Axe",
+      "parentId": "transform:dysfunctional-games-tools",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Tools/Axe.glb",
+      "position": [
+        -16,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08167646,
+        1.08167646,
+        1.08167646
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-flashlight",
+      "name": "dysfunctional-games · Flashlight",
+      "parentId": "transform:dysfunctional-games-tools",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Tools/Flashlight.glb",
+      "position": [
+        -12,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.49258451,
+        2.49258451,
+        2.49258451
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-flashlightchest",
+      "name": "dysfunctional-games · FlashlightChest",
+      "parentId": "transform:dysfunctional-games-tools",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Tools/FlashlightChest.glb",
+      "position": [
+        -8,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.30520453,
+        4.30520453,
+        4.30520453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-flashlightgun",
+      "name": "dysfunctional-games · FlashlightGun",
+      "parentId": "transform:dysfunctional-games-tools",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Tools/FlashlightGun.glb",
+      "position": [
+        -4,
+        0,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.09696038,
+        6.09696038,
+        6.09696038
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-oldcamera",
+      "name": "dysfunctional-games · OldCamera",
+      "parentId": "transform:dysfunctional-games-tools",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Tools/OldCamera.glb",
+      "position": [
+        -12,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.61499589,
+        6.61499589,
+        6.61499589
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-spade",
+      "name": "dysfunctional-games · Spade",
+      "parentId": "transform:dysfunctional-games-tools",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Tools/Spade.glb",
+      "position": [
+        -8,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54722347,
+        1.54722347,
+        1.54722347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-baseballbat",
+      "name": "dysfunctional-games · BaseballBat",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Weapons/BaseballBat.glb",
+      "position": [
+        -16,
+        0,
+        -2.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66394797,
+        0.66394797,
+        0.66394797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-claymore",
+      "name": "dysfunctional-games · Claymore",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Weapons/Claymore.glb",
+      "position": [
+        -12,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55356355,
+        0.55356355,
+        0.55356355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-deagle",
+      "name": "dysfunctional-games · Deagle",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Weapons/Deagle.glb",
+      "position": [
+        -8,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.46421588,
+        2.46421588,
+        2.46421588
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-flintlock",
+      "name": "dysfunctional-games · Flintlock",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Weapons/Flintlock.glb",
+      "position": [
+        -4,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37544513,
+        1.37544513,
+        1.37544513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-gladiatorbaton",
+      "name": "dysfunctional-games · GladiatorBaton",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Weapons/GladiatorBaton.glb",
+      "position": [
+        -14,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5826358,
+        0.5826358,
+        0.5826358
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-glock17",
+      "name": "dysfunctional-games · Glock17",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Weapons/Glock17.glb",
+      "position": [
+        -10,
+        0,
+        -6.50000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.05225803,
+        2.05225803,
+        2.05225803
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-katana",
+      "name": "dysfunctional-games · Katana",
+      "parentId": "transform:dysfunctional-games-weapons",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Weapons/Katana.glb",
+      "position": [
+        -6,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.78336352,
+        0.78336352,
+        0.78336352
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-baconleaf",
+      "name": "dysfunctional-games · Baconleaf",
+      "parentId": "transform:dysfunctional-games-characters",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Characters/Baconleaf.glb",
+      "position": [
+        6.00000014,
+        -2.9e-7,
+        -11.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38463771,
+        0.38463771,
+        0.38463771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-malehead01",
+      "name": "dysfunctional-games · MaleHead01",
+      "parentId": "transform:dysfunctional-games-characters",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Characters/MaleHead01.glb",
+      "position": [
+        10,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26393843,
+        0.26393843,
+        0.26393843
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "dysfunctional-games-malehead02",
+      "name": "dysfunctional-games · MaleHead02",
+      "parentId": "transform:dysfunctional-games-characters",
+      "modelPath": "resources/Model/GLB/artist_dysfunctional-games/Characters/MaleHead02.glb",
+      "position": [
+        14,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26393843,
+        0.26393843,
+        0.26393843
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

@@ -1,0 +1,1138 @@
+{
+  "presetKey": "artist-comp3interactive-model-test",
+  "name": "Comp3Interactive · 球棒与斧枪展示（25 件）",
+  "clearColor": "#202833",
+  "lights": [
+    {
+      "id": "comp3-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.25,
+          1,
+          0.15
+        ],
+        "groundColor": "#59616a"
+      }
+    },
+    {
+      "id": "comp3-key",
+      "name": "暖色主光",
+      "intensity": 0.95,
+      "color": "#fff1dc",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.35
+        ],
+        "position": [
+          -12,
+          18,
+          -9
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "comp3-floor",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 14,
+        "height": 16.5
+      },
+      "position": [
+        0,
+        -0.14,
+        -0.9
+      ],
+      "color": "#434b55",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-axegun-stand",
+      "name": "斧枪展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.6,
+        "height": 0.24,
+        "depth": 1.8
+      },
+      "position": [
+        0,
+        0,
+        -6.3
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-raw-wood-clean",
+      "name": "原木 · 木质 · 干净展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -5,
+        0,
+        -3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-raw-wood-grime",
+      "name": "原木 · 木质 · 污渍展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -3,
+        0,
+        -3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-raw-wood-blood",
+      "name": "原木 · 木质 · 血污展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -1,
+        0,
+        -3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-raw-metal-clean",
+      "name": "原木 · 金属 · 干净展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        1,
+        0,
+        -3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-raw-metal-grime",
+      "name": "原木 · 金属 · 污渍展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        3,
+        0,
+        -3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-raw-metal-blood",
+      "name": "原木 · 金属 · 血污展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        5,
+        0,
+        -3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-princess-wood-clean",
+      "name": "公主 · 木质 · 干净展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -5,
+        0,
+        -1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-princess-wood-grime",
+      "name": "公主 · 木质 · 污渍展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -3,
+        0,
+        -1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-princess-wood-blood",
+      "name": "公主 · 木质 · 血污展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -1,
+        0,
+        -1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-princess-metal-clean",
+      "name": "公主 · 金属 · 干净展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        1,
+        0,
+        -1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-princess-metal-grime",
+      "name": "公主 · 金属 · 污渍展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        3,
+        0,
+        -1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-princess-metal-blood",
+      "name": "公主 · 金属 · 血污展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        5,
+        0,
+        -1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-killer-wood-clean",
+      "name": "杀手 · 木质 · 干净展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -5,
+        0,
+        1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-killer-wood-grime",
+      "name": "杀手 · 木质 · 污渍展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -3,
+        0,
+        1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-killer-wood-blood",
+      "name": "杀手 · 木质 · 血污展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -1,
+        0,
+        1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-killer-metal-clean",
+      "name": "杀手 · 金属 · 干净展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        1,
+        0,
+        1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-killer-metal-grime",
+      "name": "杀手 · 金属 · 污渍展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        3,
+        0,
+        1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-killer-metal-blood",
+      "name": "杀手 · 金属 · 血污展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        5,
+        0,
+        1.2
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-usa-wood-clean",
+      "name": "美国 · 木质 · 干净展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -5,
+        0,
+        3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-usa-wood-grime",
+      "name": "美国 · 木质 · 污渍展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -3,
+        0,
+        3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-usa-wood-blood",
+      "name": "美国 · 木质 · 血污展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        -1,
+        0,
+        3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-usa-metal-clean",
+      "name": "美国 · 金属 · 干净展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        1,
+        0,
+        3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-usa-metal-grime",
+      "name": "美国 · 金属 · 污渍展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        3,
+        0,
+        3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-stand-usa-metal-blood",
+      "name": "美国 · 金属 · 血污展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 1.3,
+        "height": 0.24,
+        "depth": 1.5
+      },
+      "position": [
+        5,
+        0,
+        3.6
+      ],
+      "color": "#697985",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "comp3-axegun",
+      "name": "AxeGun · 斧枪",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/axe-gun/AxeGun_comp3interactive_itch_io.glb",
+      "position": [
+        0,
+        0.12,
+        -6.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-raw-wood-clean",
+      "name": "原木 · 木质 · 干净",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Raw_Wood_Clean_comp3interactive_itch_io.glb",
+      "position": [
+        -5,
+        0.12,
+        -3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-raw-wood-grime",
+      "name": "原木 · 木质 · 污渍",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Raw_Wood_Grime_comp3interactive_itch_io.glb",
+      "position": [
+        -3,
+        0.12,
+        -3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-raw-wood-blood",
+      "name": "原木 · 木质 · 血污",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Raw_Wood_Blood_comp3interactive_itch_io.glb",
+      "position": [
+        -1,
+        0.12,
+        -3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-raw-metal-clean",
+      "name": "原木 · 金属 · 干净",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Raw_Metal_Clean_comp3interactive_itch_io.glb",
+      "position": [
+        1,
+        0.12,
+        -3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-raw-metal-grime",
+      "name": "原木 · 金属 · 污渍",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Raw_Metal_Grime_comp3interactive_itch_io.glb",
+      "position": [
+        3,
+        0.12,
+        -3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-raw-metal-blood",
+      "name": "原木 · 金属 · 血污",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Raw_Metal_Blood_comp3interactive_itch_io.glb",
+      "position": [
+        5,
+        0.12,
+        -3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-princess-wood-clean",
+      "name": "公主 · 木质 · 干净",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Princess_Wood_Clean_comp3interactive_itch_io.glb",
+      "position": [
+        -5,
+        0.12,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-princess-wood-grime",
+      "name": "公主 · 木质 · 污渍",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Princess_Wood_Grime_comp3interactive_itch_io.glb",
+      "position": [
+        -3,
+        0.12,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-princess-wood-blood",
+      "name": "公主 · 木质 · 血污",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Princess_Wood_Blood_comp3interactive_itch_io.glb",
+      "position": [
+        -1,
+        0.12,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-princess-metal-clean",
+      "name": "公主 · 金属 · 干净",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Princess_Metal_Clean_comp3interactive_itch_io.glb",
+      "position": [
+        1,
+        0.12,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-princess-metal-grime",
+      "name": "公主 · 金属 · 污渍",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Princess_Metal_Grime_comp3interactive_itch_io.glb",
+      "position": [
+        3,
+        0.12,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-princess-metal-blood",
+      "name": "公主 · 金属 · 血污",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Princess_Metal_Blood_comp3interactive_itch_io.glb",
+      "position": [
+        5,
+        0.12,
+        -1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-killer-wood-clean",
+      "name": "杀手 · 木质 · 干净",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Killer_Wood_Clean_comp3interactive_itch_io.glb",
+      "position": [
+        -5,
+        0.12,
+        1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-killer-wood-grime",
+      "name": "杀手 · 木质 · 污渍",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Killer_Wood_Grime_comp3interactive_itch_io.glb",
+      "position": [
+        -3,
+        0.12,
+        1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-killer-wood-blood",
+      "name": "杀手 · 木质 · 血污",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Killer_Wood_Blood_comp3interactive_itch_io.glb",
+      "position": [
+        -1,
+        0.12,
+        1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-killer-metal-clean",
+      "name": "杀手 · 金属 · 干净",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Killer_Metal_Clean_comp3interactive_itch_io.glb",
+      "position": [
+        1,
+        0.12,
+        1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-killer-metal-grime",
+      "name": "杀手 · 金属 · 污渍",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Killer_Metal_Grime_comp3interactive_itch_io.glb",
+      "position": [
+        3,
+        0.12,
+        1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-killer-metal-blood",
+      "name": "杀手 · 金属 · 血污",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_Killer_Metal_Blood_comp3interactive_itch_io.glb",
+      "position": [
+        5,
+        0.12,
+        1.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-usa-wood-clean",
+      "name": "美国 · 木质 · 干净",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_USA_Wood_Clean_comp3interactive_itch_io.glb",
+      "position": [
+        -5,
+        0.12,
+        3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-usa-wood-grime",
+      "name": "美国 · 木质 · 污渍",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_USA_Wood_Grime_comp3interactive_itch_io.glb",
+      "position": [
+        -3,
+        0.12,
+        3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-usa-wood-blood",
+      "name": "美国 · 木质 · 血污",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_USA_Wood_Blood_comp3interactive_itch_io.glb",
+      "position": [
+        -1,
+        0.12,
+        3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-usa-metal-clean",
+      "name": "美国 · 金属 · 干净",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_USA_Metal_Clean_comp3interactive_itch_io.glb",
+      "position": [
+        1,
+        0.12,
+        3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-usa-metal-grime",
+      "name": "美国 · 金属 · 污渍",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_USA_Metal_Grime_comp3interactive_itch_io.glb",
+      "position": [
+        3,
+        0.12,
+        3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "comp3-bat-usa-metal-blood",
+      "name": "美国 · 金属 · 血污",
+      "modelPath": "resources/Model/GLB/artist_comp3interactive/baseball-bats/BaseballBat_USA_Metal_Blood_comp3interactive_itch_io.glb",
+      "position": [
+        5,
+        0.12,
+        3.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3,
+        3,
+        3
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

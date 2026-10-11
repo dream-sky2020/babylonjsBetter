@@ -1,0 +1,7812 @@
+{
+  "presetKey": "artist-elbolilloduro-residential-model-test-06",
+  "name": "Elbolilloduro · 住宅与营地构件 6/11（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-quequis_house",
+      "name": "Quequis_House",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 125
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-f093263384642000-stand",
+      "name": "Knife展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f5abc00454ed0d23-stand",
+      "name": "Knife_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-850c0cb5c87b9dfa-stand",
+      "name": "Ladle展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-eb6bc12d520a2d42-stand",
+      "name": "Ladle_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5d71c9b089d164c8-stand",
+      "name": "Lamp展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4049ab01b4162206-stand",
+      "name": "Lamp_004展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-db316cab7ffe99bc-stand",
+      "name": "lettuce_bag展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b156972dba59f912-stand",
+      "name": "lettuce_bag展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-04a91430cabaf83e-stand",
+      "name": "lettuce_bag_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7d37270126a383f2-stand",
+      "name": "lettuce_bag_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d66adb86dabb186e-stand",
+      "name": "lettuce_bag_006展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8d431c7d8f464ce6-stand",
+      "name": "Light展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-785cb47e66b9ae64-stand",
+      "name": "Light_014展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a639720da1e2268f-stand",
+      "name": "Light_015展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dfb54cf64745b2fa-stand",
+      "name": "Light_018展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1b9e3f4a38a4e5d3-stand",
+      "name": "Light_025展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1ebe410c89fcf4f5-stand",
+      "name": "Light_040展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-318cbf4691645341-stand",
+      "name": "Light_040展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1b46f0eb57c858b5-stand",
+      "name": "Light_041展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1b4d6ef01b75fac5-stand",
+      "name": "M_carwash展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-559abd00585f5f22-stand",
+      "name": "M_carwash展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9f45f90378f485d0-stand",
+      "name": "M_carwash_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3756e8c58eb2015d-stand",
+      "name": "M_carwash_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-24db24a5444609f5-stand",
+      "name": "M_carwash_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f3b4ccefdcea8762-stand",
+      "name": "M_carwash_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8c02f473b6271197-stand",
+      "name": "Mayonnaise_Jar展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f0ec9adf4ff26431-stand",
+      "name": "Mayonnaise_Jar_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3a4c8ab4ab20c885-stand",
+      "name": "Mirror_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-de0c83d78d4c51a7-stand",
+      "name": "Mirror_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cc7cad3ef6438a7b-stand",
+      "name": "mustard展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-15ca4e86ced7511d-stand",
+      "name": "mustard_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4d80a61739e0eafc-stand",
+      "name": "Mustard_Jar展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fb8d352d93b5b575-stand",
+      "name": "Mustard_Jar_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cfd43aded012c492-stand",
+      "name": "Napkinholder展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2546b2419103fa9c-stand",
+      "name": "Napkinholder_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b28764a14bb76f99-stand",
+      "name": "Oven展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-68bba9638b32de40-stand",
+      "name": "Oven_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-873c565a122163f0-stand",
+      "name": "Painting展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f0ee8391a646f5a1-stand",
+      "name": "Painting_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-433725db740ab91e-stand",
+      "name": "Painting_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bd0442d1edec09f2-stand",
+      "name": "Painting_01_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1bdad093f17a3e08-stand",
+      "name": "Painting_02展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b5e262f26b2f4be-stand",
+      "name": "Painting_02_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e7accedc931f0f55-stand",
+      "name": "Painting_03展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2162420ce6e0b028-stand",
+      "name": "Painting_03_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0541d88400172a46-stand",
+      "name": "Painting_04展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e31b32f9d9bd53dc-stand",
+      "name": "Painting_04_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e5e0abb1fe81be73-stand",
+      "name": "Painting_05展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8899b4bd78b4a9b6-stand",
+      "name": "Painting_05_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fec70d61d5a32fb3-stand",
+      "name": "Painting_06展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cd0da5fdfc38bba8-stand",
+      "name": "Painting_06_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c20551fa3dc9595e-stand",
+      "name": "Painting_07展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ce8706335e5c7e69-stand",
+      "name": "Painting_07_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a48942a49268aa7e-stand",
+      "name": "Paper_dispenser_003展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f1bb3248ca1a0d6b-stand",
+      "name": "Paper_dispenser_004展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e199b5e7072d1aa1-stand",
+      "name": "Parking展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d5ca8e62afdc8c8a-stand",
+      "name": "Parking展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-85f8628aed2dec00-stand",
+      "name": "Parking_B展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fb6bbdeb1a90b16d-stand",
+      "name": "Parking_B_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-63797587df11bc17-stand",
+      "name": "Parking_B_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c2350ab83308790b-stand",
+      "name": "Parking_B_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f104fcb6613429a7-stand",
+      "name": "Pepper展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2e5ef49c1cb8336a-stand",
+      "name": "Pepper_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-978eefe022a16d00-stand",
+      "name": "Phone展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-78686dd7e25ac3a9-stand",
+      "name": "Phone展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-44fc454e129544e2-stand",
+      "name": "Phone_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-db3d30bdb5f8cb52-stand",
+      "name": "Phone_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-626ce59dc4d1e668-stand",
+      "name": "Pickle_Jar展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4e335def074ef10e-stand",
+      "name": "Pickle_Jar_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bbaa43c20442f0ca-stand",
+      "name": "Plane_013展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b6fb792a5be4cc7f-stand",
+      "name": "Plane_020展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8810fbeb6c56cb32-stand",
+      "name": "Plane_021展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bf41bea8a09b849f-stand",
+      "name": "Plane_021展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-71bf9b9eaebef486-stand",
+      "name": "Plane_055展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ba61ce966a1e57ea-stand",
+      "name": "Plane_060展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5c00520b77d9c979-stand",
+      "name": "Plane_066展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c8477c7b7d54eb51-stand",
+      "name": "Plane_067展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-35e7773d74614722-stand",
+      "name": "Plane_068展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2240f044cc30162b-stand",
+      "name": "Plane_069展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6444a1a6e97fbe2d-stand",
+      "name": "Plane_069展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-22163b4e23ac8e6f-stand",
+      "name": "Plane_071展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4454d29ba2436639-stand",
+      "name": "Plane_071展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3861f4939158c95d-stand",
+      "name": "Plastic_box_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6bcf55a80adc7dea-stand",
+      "name": "Plastic_box_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f11102dd1b9268bd-stand",
+      "name": "plastic_cups展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-56504284b9e50f94-stand",
+      "name": "plastic_cups_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-860f253f0b0ed863-stand",
+      "name": "plastic_cups_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3df8c6164828a8e8-stand",
+      "name": "plastic_cups_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0536e54c2aecac1f-stand",
+      "name": "plastic_cups_003展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-58080a0416865754-stand",
+      "name": "plastic_cups_004展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fd0f36e5463cc4ae-stand",
+      "name": "plastic_cups_005展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c9cb1f82e318894-stand",
+      "name": "plastic_cups_006展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-52558fe4eaaf29de-stand",
+      "name": "plastic_cups_007展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-44528719c41204fd-stand",
+      "name": "plastic_cups_008展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-73674326be1affe8-stand",
+      "name": "Plates展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5d3cdd398e635be2-stand",
+      "name": "Plates展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b74ce06204c95d66-stand",
+      "name": "Plates_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6bd7d187ae373dc6-stand",
+      "name": "Plates_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-99b125a8d0e0161a-stand",
+      "name": "Plates_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-11aceaa897434860-stand",
+      "name": "Plates_003展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f5c5ef37c792bde7-stand",
+      "name": "Plates_003展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c3af18b024bd0ae8-stand",
+      "name": "Plates_004展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-21455673ba339dcc-stand",
+      "name": "Quequis_House展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-01e640b9851a01d5-stand",
+      "name": "Quequis_House展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0309c47dd571712e-stand",
+      "name": "Refrigerator展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7ac842143581335a-stand",
+      "name": "Refrigerator展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7724443d2f7e5cec-stand",
+      "name": "Refrigerator_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-834f3eb218076723-stand",
+      "name": "Refrigerator_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f77de48a357566b9-stand",
+      "name": "Refrijerator_M_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1eb4dfa5cb310d2c-stand",
+      "name": "Refrijerator_M_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ab91e23aca3a69ad-stand",
+      "name": "Road展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a16b99f10a573ef0-stand",
+      "name": "Road展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f5da7ef3dbbd6d99-stand",
+      "name": "Road_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2d1a0d49acc6ee96-stand",
+      "name": "Road_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-eb37a98d8591b354-stand",
+      "name": "Roofing展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7b50b4481072290a-stand",
+      "name": "Roofing展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-58a6276b8c7c7d7e-stand",
+      "name": "RooftilesMetal展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-19a049610d477a72-stand",
+      "name": "RooftilesMetal展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b90fe86c843eb95c-stand",
+      "name": "RooftilesMetal_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ffdf579768834147-stand",
+      "name": "RooftilesMetal_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5d39fbbc913de403-stand",
+      "name": "RooftilesMetal_01_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9cb94e61d7274681-stand",
+      "name": "RooftilesMetal_01_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bea099bc6e7d3b2a-stand",
+      "name": "RooftilesMetal_02展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-53be924944d2e1ce-stand",
+      "name": "RooftilesMetal_02展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-02b2280d0e02aff8-stand",
+      "name": "sack_flour展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-17fa2752bca7c0ec-stand",
+      "name": "sack_flour展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-27eaf5062eb26bbc-stand",
+      "name": "sack_flour_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-08ce3e7928ea3f57-stand",
+      "name": "sack_flour_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d469f3539b301b4c-stand",
+      "name": "sack_potatoes展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-63d0abe0e52be4fa-stand",
+      "name": "sack_potatoes展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8684167f877822f3-stand",
+      "name": "sack_potatoes_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bd0000f14ff0fd6b-stand",
+      "name": "sack_potatoes_004展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ed938b82b6e18d17-stand",
+      "name": "Salt展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9cbdd676f3e15750-stand",
+      "name": "Salt_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fa69e1aac5792c99-stand",
+      "name": "Sauce展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-21a4f86d3acd6a5b-stand",
+      "name": "Sauce展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cd54778d51211299-stand",
+      "name": "Sauce_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-28a5c27301cd0351-stand",
+      "name": "Sauce_01展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-31741e521def611d-stand",
+      "name": "Sauce_02展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-715a21bd5829c337-stand",
+      "name": "Sauce_02展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4f6f28435620b636-stand",
+      "name": "Shelf_B_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a82f381313d165a2-stand",
+      "name": "Shelf_B_003展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bdd4a0599814a14f-stand",
+      "name": "Shelf_B_005展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e20d02f7431a72b2-stand",
+      "name": "Shelf_B_006展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fda1c59f0f9d1f88-stand",
+      "name": "Shelf_B_G_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ad2d27d7b037a26f-stand",
+      "name": "Shelf_B_G_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-153e6790b65f4897-stand",
+      "name": "Shelf_FR_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9adae9298e549846-stand",
+      "name": "Shelf_FR_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8ed42a44ccc25515-stand",
+      "name": "Shelf_FR_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-23a108f9c2ec5734-stand",
+      "name": "Shelf_FR_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4a20f1a052a2e159-stand",
+      "name": "Shelf_FR_I展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-68c99fd8aa459b92-stand",
+      "name": "Shelf_FR_I_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-51774981c9c1f63a-stand",
+      "name": "Shelf_S_003展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-867a353e70d52327-stand",
+      "name": "Shelf_S_004展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b34ed75cce97caf9-stand",
+      "name": "Shelving_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-575c53e967bb5de8-stand",
+      "name": "Shelving_004展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-658152613de12cd8-stand",
+      "name": "Shelving_007展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-af5792e172eff2a1-stand",
+      "name": "sidewalk展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3676c74b84faf874-stand",
+      "name": "sidewalk展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-08396a32bc8ec925-stand",
+      "name": "sidewalk_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fb440737503804df-stand",
+      "name": "sidewalk_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e55416385c3efcec-stand",
+      "name": "sidewalk_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cceb7c59277ef2e0-stand",
+      "name": "sidewalk_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a97f7461474cb394-stand",
+      "name": "sidewalk_02展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9139fcde68a0a094-stand",
+      "name": "sidewalk_02展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f88b904f4366f5e1-stand",
+      "name": "sidewalk_02_001展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a440f40a889403ad-stand",
+      "name": "sidewalk_02_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7ab8bedef8989659-stand",
+      "name": "sidewalk_02_002展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b19579d9d0b4ed20-stand",
+      "name": "sidewalk_02_003展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ed01febac08bad5f-stand",
+      "name": "sidewalk_02_003展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9173c330590b750e-stand",
+      "name": "sidewalk_02_004展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1b07aeea29065508-stand",
+      "name": "sidewalk_02_005展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7994f39bba10be0b-stand",
+      "name": "sidewalk_02_005展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-647654f2237d49d9-stand",
+      "name": "sidewalk_02_006展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-91a96aa4f503b301-stand",
+      "name": "sidewalk_02_006展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ded520fa73539bbd-stand",
+      "name": "sidewalk_02_007展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ceb49617329f00e4-stand",
+      "name": "sidewalk_02_007展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-76664fbb86af8d02-stand",
+      "name": "sidewalk_02_008展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b9a36d57cbe8aee5-stand",
+      "name": "sidewalk_02_009展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8208bfcb3cd5a2f9-stand",
+      "name": "sidewalk_02_010展台",
+      "parentId": "transform:category-quequis_house",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-f093263384642000",
+      "name": "Quequis_House · Knife",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Knife_23ddab61.glb",
+      "position": [
+        -22,
+        0,
+        60
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.35814385,
+        6.35814385,
+        6.35814385
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5abc00454ed0d23",
+      "name": "Quequis_House · Knife_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Knife_001_94ceb5e3.glb",
+      "position": [
+        -17.99999971,
+        -2.7e-7,
+        60.00000221
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.36051668,
+        6.36051668,
+        6.36051668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-850c0cb5c87b9dfa",
+      "name": "Quequis_House · Ladle",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Ladle_d196df4c.glb",
+      "position": [
+        -14,
+        0,
+        59.99999763
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.96094548,
+        4.96094548,
+        4.96094548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eb6bc12d520a2d42",
+      "name": "Quequis_House · Ladle_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Ladle_001_2027ebc2.glb",
+      "position": [
+        -10.00000002,
+        -2e-7,
+        60.00000175
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.9437725,
+        4.9437725,
+        4.9437725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5d71c9b089d164c8",
+      "name": "Quequis_House · Lamp",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Lamp_80c5408a.glb",
+      "position": [
+        -5.99999956,
+        0,
+        59.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.24902177,
+        3.24902177,
+        3.24902177
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4049ab01b4162206",
+      "name": "Quequis_House · Lamp_004",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Lamp_004_a69c2a31.glb",
+      "position": [
+        -2,
+        0,
+        60.00000077
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.24902195,
+        3.24902195,
+        3.24902195
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db316cab7ffe99bc",
+      "name": "Quequis_House · lettuce_bag",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/lettuce_bag_5d236327.glb",
+      "position": [
+        -22.00000011,
+        3e-8,
+        56.00000103
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.52997786,
+        4.52997786,
+        4.52997786
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b156972dba59f912",
+      "name": "Quequis_House · lettuce_bag",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/lettuce_bag_c2363b12.glb",
+      "position": [
+        -18,
+        0,
+        55.99999892
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.52997691,
+        4.52997691,
+        4.52997691
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-04a91430cabaf83e",
+      "name": "Quequis_House · lettuce_bag_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/lettuce_bag_001_0b88df6e.glb",
+      "position": [
+        -13.9999996,
+        1.5e-7,
+        56.00000197
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.98412115,
+        5.98412115,
+        5.98412115
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7d37270126a383f2",
+      "name": "Quequis_House · lettuce_bag_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/lettuce_bag_002_d1716236.glb",
+      "position": [
+        -9.99999919,
+        9e-8,
+        56.00000225
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.8581257,
+        5.8581257,
+        5.8581257
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d66adb86dabb186e",
+      "name": "Quequis_House · lettuce_bag_006",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/lettuce_bag_006_9e4f1cf1.glb",
+      "position": [
+        -6.00000136,
+        0,
+        56
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.69649384,
+        5.69649384,
+        5.69649384
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8d431c7d8f464ce6",
+      "name": "Quequis_House · Light",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Light_4d55328b.glb",
+      "position": [
+        -2,
+        1.8e-7,
+        56
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82784983,
+        1.82784983,
+        1.82784983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-785cb47e66b9ae64",
+      "name": "Quequis_House · Light_014",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Light_014_302b6dbc.glb",
+      "position": [
+        -22,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.59425363,
+        3.59425363,
+        3.59425363
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a639720da1e2268f",
+      "name": "Quequis_House · Light_015",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Light_015_ec39f4ec.glb",
+      "position": [
+        -18,
+        6e-8,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.21992198,
+        3.21992198,
+        3.21992198
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dfb54cf64745b2fa",
+      "name": "Quequis_House · Light_018",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Light_018_0db3fb03.glb",
+      "position": [
+        -14,
+        1.3e-7,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.59425287,
+        3.59425287,
+        3.59425287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1b9e3f4a38a4e5d3",
+      "name": "Quequis_House · Light_025",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Light_025_06e91a87.glb",
+      "position": [
+        -10,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.21993367,
+        3.21993367,
+        3.21993367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ebe410c89fcf4f5",
+      "name": "Quequis_House · Light_040",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Light_040_63b450b8.glb",
+      "position": [
+        -6.00000063,
+        -5e-8,
+        52.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82785,
+        1.82785,
+        1.82785
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-318cbf4691645341",
+      "name": "Quequis_House · Light_040",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Light_040_6f3d6b12.glb",
+      "position": [
+        -2,
+        0,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82785196,
+        1.82785196,
+        1.82785196
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1b46f0eb57c858b5",
+      "name": "Quequis_House · Light_041",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Light_041_5cb96bd9.glb",
+      "position": [
+        -22,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82784968,
+        1.82784968,
+        1.82784968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1b4d6ef01b75fac5",
+      "name": "Quequis_House · M_carwash",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/M_carwash_0a3dbc9d.glb",
+      "position": [
+        -18,
+        -2e-8,
+        47.99999904
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68974256,
+        0.68974256,
+        0.68974256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-559abd00585f5f22",
+      "name": "Quequis_House · M_carwash",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/M_carwash_bf71702f.glb",
+      "position": [
+        -14,
+        0,
+        47.99999868
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68974372,
+        0.68974372,
+        0.68974372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9f45f90378f485d0",
+      "name": "Quequis_House · M_carwash_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/M_carwash_001_3e08e394.glb",
+      "position": [
+        -10,
+        0,
+        47.99999868
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68974372,
+        0.68974372,
+        0.68974372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3756e8c58eb2015d",
+      "name": "Quequis_House · M_carwash_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/M_carwash_001_b3fd23e8.glb",
+      "position": [
+        -6,
+        -2e-8,
+        48.00000096
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68974256,
+        0.68974256,
+        0.68974256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-24db24a5444609f5",
+      "name": "Quequis_House · M_carwash_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/M_carwash_002_b6f6f324.glb",
+      "position": [
+        -2,
+        -2e-8,
+        47.99999904
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68974256,
+        0.68974256,
+        0.68974256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f3b4ccefdcea8762",
+      "name": "Quequis_House · M_carwash_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/M_carwash_002_e30a6dd9.glb",
+      "position": [
+        -22,
+        0,
+        44.00000132
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68974372,
+        0.68974372,
+        0.68974372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c02f473b6271197",
+      "name": "Quequis_House · Mayonnaise_Jar",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Mayonnaise_Jar_be84fa4f.glb",
+      "position": [
+        -18,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.21621608,
+        10.21621608,
+        10.21621608
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f0ec9adf4ff26431",
+      "name": "Quequis_House · Mayonnaise_Jar_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Mayonnaise_Jar_001_69245e71.glb",
+      "position": [
+        -14,
+        1.7e-7,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.21621191,
+        10.21621191,
+        10.21621191
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3a4c8ab4ab20c885",
+      "name": "Quequis_House · Mirror_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Mirror_001_387eddbe.glb",
+      "position": [
+        -9.99999995,
+        -1e-8,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83195646,
+        0.83195646,
+        0.83195646
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-de0c83d78d4c51a7",
+      "name": "Quequis_House · Mirror_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Mirror_001_6b67cb32.glb",
+      "position": [
+        -6,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83195639,
+        0.83195639,
+        0.83195639
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cc7cad3ef6438a7b",
+      "name": "Quequis_House · mustard",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/mustard_d1b0316b.glb",
+      "position": [
+        -2,
+        0,
+        44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.56110215,
+        10.56110215,
+        10.56110215
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-15ca4e86ced7511d",
+      "name": "Quequis_House · mustard_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/mustard_001_4b5ffbbb.glb",
+      "position": [
+        -22,
+        -2.3e-7,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.56110908,
+        10.56110908,
+        10.56110908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4d80a61739e0eafc",
+      "name": "Quequis_House · Mustard_Jar",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Mustard_Jar_40a9a6e9.glb",
+      "position": [
+        -18,
+        0,
+        40.00000217
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.12084225,
+        9.12084225,
+        9.12084225
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fb8d352d93b5b575",
+      "name": "Quequis_House · Mustard_Jar_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Mustard_Jar_001_0ccecb56.glb",
+      "position": [
+        -14,
+        1.6e-7,
+        39.99999859
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.12084373,
+        9.12084373,
+        9.12084373
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cfd43aded012c492",
+      "name": "Quequis_House · Napkinholder",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Napkinholder_cabbaad3.glb",
+      "position": [
+        -10,
+        0,
+        40.00000281
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.79517147,
+        11.79517147,
+        11.79517147
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2546b2419103fa9c",
+      "name": "Quequis_House · Napkinholder_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Napkinholder_001_9cfe68dd.glb",
+      "position": [
+        -6.0000013,
+        1e-7,
+        39.99999959
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.68346265,
+        11.68346265,
+        11.68346265
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b28764a14bb76f99",
+      "name": "Quequis_House · Oven",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Oven_47e6e28a.glb",
+      "position": [
+        -1.99999999,
+        2e-8,
+        39.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44290165,
+        1.44290165,
+        1.44290165
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-68bba9638b32de40",
+      "name": "Quequis_House · Oven_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Oven_001_b97d0972.glb",
+      "position": [
+        -22,
+        0,
+        35.99999966
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44290136,
+        1.44290136,
+        1.44290136
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-873c565a122163f0",
+      "name": "Quequis_House · Painting",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_917f6503.glb",
+      "position": [
+        -18,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.52168059,
+        7.52168059,
+        7.52168059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f0ee8391a646f5a1",
+      "name": "Quequis_House · Painting_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_001_552acd29.glb",
+      "position": [
+        -14,
+        -5e-7,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.52165464,
+        7.52165464,
+        7.52165464
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-433725db740ab91e",
+      "name": "Quequis_House · Painting_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_01_c959e9dd.glb",
+      "position": [
+        -10,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.15353923,
+        7.15353923,
+        7.15353923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bd0442d1edec09f2",
+      "name": "Quequis_House · Painting_01_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_01_001_ffa8400f.glb",
+      "position": [
+        -6,
+        -4.7e-7,
+        36.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.15354618,
+        7.15354618,
+        7.15354618
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1bdad093f17a3e08",
+      "name": "Quequis_House · Painting_02",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_02_c7aa09b2.glb",
+      "position": [
+        -2,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.07466502,
+        8.07466502,
+        8.07466502
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b5e262f26b2f4be",
+      "name": "Quequis_House · Painting_02_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_02_001_88d9548d.glb",
+      "position": [
+        -22,
+        -5.3e-7,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.07463875,
+        8.07463875,
+        8.07463875
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e7accedc931f0f55",
+      "name": "Quequis_House · Painting_03",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_03_ea57d7aa.glb",
+      "position": [
+        -18,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.61935024,
+        6.61935024,
+        6.61935024
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2162420ce6e0b028",
+      "name": "Quequis_House · Painting_03_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_03_001_e6b582a1.glb",
+      "position": [
+        -14,
+        7.2e-7,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.61934682,
+        6.61934682,
+        6.61934682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0541d88400172a46",
+      "name": "Quequis_House · Painting_04",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_04_6a4898fb.glb",
+      "position": [
+        -10,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.30224184,
+        6.30224184,
+        6.30224184
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e31b32f9d9bd53dc",
+      "name": "Quequis_House · Painting_04_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_04_001_ca69b79b.glb",
+      "position": [
+        -6,
+        5.8e-7,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.30223921,
+        6.30223921,
+        6.30223921
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e5e0abb1fe81be73",
+      "name": "Quequis_House · Painting_05",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_05_9d8873b3.glb",
+      "position": [
+        -2,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.40023289,
+        7.40023289,
+        7.40023289
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8899b4bd78b4a9b6",
+      "name": "Quequis_House · Painting_05_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_05_001_dbe9ec1b.glb",
+      "position": [
+        -22,
+        3.5e-7,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.40023529,
+        7.40023529,
+        7.40023529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fec70d61d5a32fb3",
+      "name": "Quequis_House · Painting_06",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_06_1d37160a.glb",
+      "position": [
+        -18,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.48210788,
+        7.48210788,
+        7.48210788
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cd0da5fdfc38bba8",
+      "name": "Quequis_House · Painting_06_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_06_001_3f63ccf4.glb",
+      "position": [
+        -14,
+        2e-8,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.48210254,
+        7.48210254,
+        7.48210254
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c20551fa3dc9595e",
+      "name": "Quequis_House · Painting_07",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_07_c975e282.glb",
+      "position": [
+        -10,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.48210788,
+        7.48210788,
+        7.48210788
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ce8706335e5c7e69",
+      "name": "Quequis_House · Painting_07_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Painting_07_001_ad5c8845.glb",
+      "position": [
+        -6,
+        -8.7e-7,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.48210254,
+        7.48210254,
+        7.48210254
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a48942a49268aa7e",
+      "name": "Quequis_House · Paper_dispenser_003",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Paper_dispenser_003_f8626cb0.glb",
+      "position": [
+        -1.99999894,
+        0,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45449376,
+        4.45449376,
+        4.45449376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f1bb3248ca1a0d6b",
+      "name": "Quequis_House · Paper_dispenser_004",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Paper_dispenser_004_3532eecb.glb",
+      "position": [
+        -21.99999977,
+        1e-8,
+        23.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45449456,
+        4.45449456,
+        4.45449456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e199b5e7072d1aa1",
+      "name": "Quequis_House · Parking",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Parking_0a2da649.glb",
+      "position": [
+        -18.00000005,
+        0,
+        24.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02550592,
+        0.02550592,
+        0.02550592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d5ca8e62afdc8c8a",
+      "name": "Quequis_House · Parking",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Parking_6e424d92.glb",
+      "position": [
+        -13.99999995,
+        0,
+        24.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02550591,
+        0.02550591,
+        0.02550591
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-85f8628aed2dec00",
+      "name": "Quequis_House · Parking_B",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Parking_B_7e3843ff.glb",
+      "position": [
+        -10.00000005,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17856408,
+        0.17856408,
+        0.17856408
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fb6bbdeb1a90b16d",
+      "name": "Quequis_House · Parking_B_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Parking_B_001_ed0d9332.glb",
+      "position": [
+        -6.00000017,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17856406,
+        0.17856406,
+        0.17856406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-63797587df11bc17",
+      "name": "Quequis_House · Parking_B_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Parking_B_002_242971be.glb",
+      "position": [
+        -2.00000001,
+        0,
+        23.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09725365,
+        0.09725365,
+        0.09725365
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c2350ab83308790b",
+      "name": "Quequis_House · Parking_B_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Parking_B_002_9cc8e51a.glb",
+      "position": [
+        -21.99999991,
+        0,
+        20.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09725366,
+        0.09725366,
+        0.09725366
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f104fcb6613429a7",
+      "name": "Quequis_House · Pepper",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Pepper_db43c8ec.glb",
+      "position": [
+        -18,
+        0,
+        20.00000577
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.1815818,
+        24.1815818,
+        24.1815818
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2e5ef49c1cb8336a",
+      "name": "Quequis_House · Pepper_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Pepper_001_6f1b0a33.glb",
+      "position": [
+        -13.99999892,
+        7e-8,
+        19.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.18160552,
+        24.18160552,
+        24.18160552
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-978eefe022a16d00",
+      "name": "Quequis_House · Phone",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Phone_ba1daff9.glb",
+      "position": [
+        -9.99999933,
+        7.4e-7,
+        20.00000042
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65293402,
+        7.65293402,
+        7.65293402
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-78686dd7e25ac3a9",
+      "name": "Quequis_House · Phone",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Phone_f4cdd40c.glb",
+      "position": [
+        -6,
+        0,
+        20.00000182
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65293168,
+        7.65293168,
+        7.65293168
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-44fc454e129544e2",
+      "name": "Quequis_House · Phone_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Phone_001_1afbe1c7.glb",
+      "position": [
+        -2.00000069,
+        -2.7e-7,
+        19.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65293532,
+        7.65293532,
+        7.65293532
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db3d30bdb5f8cb52",
+      "name": "Quequis_House · Phone_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Phone_001_fbc461b4.glb",
+      "position": [
+        -22,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65293417,
+        7.65293417,
+        7.65293417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-626ce59dc4d1e668",
+      "name": "Quequis_House · Pickle_Jar",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Pickle_Jar_68304d1b.glb",
+      "position": [
+        -18,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.89021959,
+        8.89021959,
+        8.89021959
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4e335def074ef10e",
+      "name": "Quequis_House · Pickle_Jar_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Pickle_Jar_001_40ebafea.glb",
+      "position": [
+        -14,
+        -1e-8,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.89021798,
+        8.89021798,
+        8.89021798
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bbaa43c20442f0ca",
+      "name": "Quequis_House · Plane_013",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_013_17b42536.glb",
+      "position": [
+        -10,
+        0,
+        15.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56507454,
+        0.56507454,
+        0.56507454
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b6fb792a5be4cc7f",
+      "name": "Quequis_House · Plane_020",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_020_5d7b7ca1.glb",
+      "position": [
+        -6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56507425,
+        0.56507425,
+        0.56507425
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8810fbeb6c56cb32",
+      "name": "Quequis_House · Plane_021",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_021_7c3e2391.glb",
+      "position": [
+        -1.99999977,
+        0,
+        16.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2826978,
+        0.2826978,
+        0.2826978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bf41bea8a09b849f",
+      "name": "Quequis_House · Plane_021",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_021_c64ae094.glb",
+      "position": [
+        -22,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48379823,
+        0.48379823,
+        0.48379823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-71bf9b9eaebef486",
+      "name": "Quequis_House · Plane_055",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_055_e0d493f1.glb",
+      "position": [
+        -18.00000028,
+        0,
+        11.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47515162,
+        0.47515162,
+        0.47515162
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ba61ce966a1e57ea",
+      "name": "Quequis_House · Plane_060",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_060_62f36787.glb",
+      "position": [
+        -14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47515156,
+        0.47515156,
+        0.47515156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c00520b77d9c979",
+      "name": "Quequis_House · Plane_066",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_066_b409c62f.glb",
+      "position": [
+        -10.00000003,
+        0,
+        12.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13139476,
+        0.13139476,
+        0.13139476
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c8477c7b7d54eb51",
+      "name": "Quequis_House · Plane_067",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_067_f5eb4078.glb",
+      "position": [
+        -5.99999999,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10975328,
+        0.10975328,
+        0.10975328
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-35e7773d74614722",
+      "name": "Quequis_House · Plane_068",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_068_c20f88b9.glb",
+      "position": [
+        -1.99999882,
+        0,
+        12.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49644119,
+        0.49644119,
+        0.49644119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2240f044cc30162b",
+      "name": "Quequis_House · Plane_069",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_069_bf790692.glb",
+      "position": [
+        -21.99999941,
+        0,
+        7.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32169053,
+        0.32169053,
+        0.32169053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6444a1a6e97fbe2d",
+      "name": "Quequis_House · Plane_069",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_069_dcc4fc44.glb",
+      "position": [
+        -17.99999811,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49644119,
+        0.49644119,
+        0.49644119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-22163b4e23ac8e6f",
+      "name": "Quequis_House · Plane_071",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_071_51cd6fb7.glb",
+      "position": [
+        -14,
+        0,
+        8.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49644124,
+        0.49644124,
+        0.49644124
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4454d29ba2436639",
+      "name": "Quequis_House · Plane_071",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plane_071_6bf88216.glb",
+      "position": [
+        -10.00000002,
+        0,
+        7.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08255778,
+        0.08255778,
+        0.08255778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3861f4939158c95d",
+      "name": "Quequis_House · Plastic_box_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plastic_box_01_50329807.glb",
+      "position": [
+        -6,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.24556618,
+        4.24556618,
+        4.24556618
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6bcf55a80adc7dea",
+      "name": "Quequis_House · Plastic_box_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plastic_box_01_ffcf49f1.glb",
+      "position": [
+        -2.00000006,
+        -4.4e-7,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.24556308,
+        4.24556308,
+        4.24556308
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f11102dd1b9268bd",
+      "name": "Quequis_House · plastic_cups",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_f695b8ea.glb",
+      "position": [
+        -21.99999896,
+        8e-8,
+        3.99999513
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.62202029,
+        11.62202029,
+        11.62202029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-56504284b9e50f94",
+      "name": "Quequis_House · plastic_cups_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_001_2bdaeea7.glb",
+      "position": [
+        -17.9999999,
+        -5.5e-7,
+        4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.28691431,
+        5.28691431,
+        5.28691431
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-860f253f0b0ed863",
+      "name": "Quequis_House · plastic_cups_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_002_aa2c3a02.glb",
+      "position": [
+        -14.00000016,
+        -3.6e-7,
+        4.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.0102547,
+        6.0102547,
+        6.0102547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3df8c6164828a8e8",
+      "name": "Quequis_House · plastic_cups_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_002_f78c476b.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.01025239,
+        6.01025239,
+        6.01025239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0536e54c2aecac1f",
+      "name": "Quequis_House · plastic_cups_003",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_003_608114d5.glb",
+      "position": [
+        -5.99999974,
+        -7.2e-7,
+        4.00000288
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.33774923,
+        6.33774923,
+        6.33774923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-58080a0416865754",
+      "name": "Quequis_House · plastic_cups_004",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_004_fb2ff21b.glb",
+      "position": [
+        -1.99999934,
+        4.7e-7,
+        3.99999554
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.22837143,
+        11.22837143,
+        11.22837143
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fd0f36e5463cc4ae",
+      "name": "Quequis_House · plastic_cups_005",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_005_ebf53cc6.glb",
+      "position": [
+        -21.99998892,
+        0,
+        -0.00000554
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.62197399,
+        11.62197399,
+        11.62197399
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c9cb1f82e318894",
+      "name": "Quequis_House · plastic_cups_006",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_006_da1bc6f9.glb",
+      "position": [
+        -18.00000504,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.28691481,
+        5.28691481,
+        5.28691481
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-52558fe4eaaf29de",
+      "name": "Quequis_House · plastic_cups_007",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_007_c4188073.glb",
+      "position": [
+        -14,
+        0,
+        -0.00000302
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.33774873,
+        6.33774873,
+        6.33774873
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-44528719c41204fd",
+      "name": "Quequis_House · plastic_cups_008",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/plastic_cups_008_21b8977c.glb",
+      "position": [
+        -10,
+        0,
+        0.00000535
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.22844118,
+        11.22844118,
+        11.22844118
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-73674326be1affe8",
+      "name": "Quequis_House · Plates",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plates_4ebea6f6.glb",
+      "position": [
+        -6,
+        -5.5e-7,
+        1.6e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.8774354,
+        7.8774354,
+        7.8774354
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5d3cdd398e635be2",
+      "name": "Quequis_House · Plates",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plates_92242361.glb",
+      "position": [
+        -2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.87743029,
+        7.87743029,
+        7.87743029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b74ce06204c95d66",
+      "name": "Quequis_House · Plates_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plates_001_4c047658.glb",
+      "position": [
+        -22,
+        -5.5e-7,
+        -3.99999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.8774354,
+        7.8774354,
+        7.8774354
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6bd7d187ae373dc6",
+      "name": "Quequis_House · Plates_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plates_002_9e0e4fe1.glb",
+      "position": [
+        -18,
+        -5.5e-7,
+        -3.99999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.8774354,
+        7.8774354,
+        7.8774354
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-99b125a8d0e0161a",
+      "name": "Quequis_House · Plates_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plates_002_f0be6e93.glb",
+      "position": [
+        -14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.87743029,
+        7.87743029,
+        7.87743029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-11aceaa897434860",
+      "name": "Quequis_House · Plates_003",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plates_003_dd9663a8.glb",
+      "position": [
+        -10,
+        -5.1e-7,
+        -3.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.36303521,
+        7.36303521,
+        7.36303521
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5c5ef37c792bde7",
+      "name": "Quequis_House · Plates_003",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plates_003_e0144e9b.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.36303227,
+        7.36303227,
+        7.36303227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c3af18b024bd0ae8",
+      "name": "Quequis_House · Plates_004",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Plates_004_0ad38c48.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.87743029,
+        7.87743029,
+        7.87743029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-21455673ba339dcc",
+      "name": "Quequis_House · Quequis_House",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Quequis_House_53938a73.glb",
+      "position": [
+        -22,
+        0,
+        -7.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09028114,
+        0.09028114,
+        0.09028114
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-01e640b9851a01d5",
+      "name": "Quequis_House · Quequis_House",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Quequis_House_cd320ea6.glb",
+      "position": [
+        -18,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09028114,
+        0.09028114,
+        0.09028114
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0309c47dd571712e",
+      "name": "Quequis_House · Refrigerator",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Refrigerator_22997c6c.glb",
+      "position": [
+        -14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06541962,
+        1.06541962,
+        1.06541962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7ac842143581335a",
+      "name": "Quequis_House · Refrigerator",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Refrigerator_66c9a363.glb",
+      "position": [
+        -10.00000002,
+        -2e-8,
+        -8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06541971,
+        1.06541971,
+        1.06541971
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7724443d2f7e5cec",
+      "name": "Quequis_House · Refrigerator_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Refrigerator_01_2e50a23f.glb",
+      "position": [
+        -6,
+        -1e-8,
+        -8.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03370174,
+        1.03370174,
+        1.03370174
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-834f3eb218076723",
+      "name": "Quequis_House · Refrigerator_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Refrigerator_01_d44855cc.glb",
+      "position": [
+        -1.99999994,
+        0,
+        -8.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03370195,
+        1.03370195,
+        1.03370195
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f77de48a357566b9",
+      "name": "Quequis_House · Refrijerator_M_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Refrijerator_M_001_9f87f9c9.glb",
+      "position": [
+        -21.99999996,
+        8e-8,
+        -11.99999651
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.83953576,
+        2.83953576,
+        2.83953576
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1eb4dfa5cb310d2c",
+      "name": "Quequis_House · Refrijerator_M_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Refrijerator_M_001_f9bdaa54.glb",
+      "position": [
+        -18.00000017,
+        0,
+        -12.00000542
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.83953567,
+        2.83953567,
+        2.83953567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ab91e23aca3a69ad",
+      "name": "Quequis_House · Road",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Road_05bcf085.glb",
+      "position": [
+        -13.99999998,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.00652671,
+        0.00652671,
+        0.00652671
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a16b99f10a573ef0",
+      "name": "Quequis_House · Road",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Road_6992e7b8.glb",
+      "position": [
+        -10,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.00652671,
+        0.00652671,
+        0.00652671
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5da7ef3dbbd6d99",
+      "name": "Quequis_House · Road_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Road_001_0c86b7ba.glb",
+      "position": [
+        -5.99999998,
+        0,
+        -11.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0040344,
+        0.0040344,
+        0.0040344
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d1a0d49acc6ee96",
+      "name": "Quequis_House · Road_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Road_001_8534bfb9.glb",
+      "position": [
+        -2,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0040344,
+        0.0040344,
+        0.0040344
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eb37a98d8591b354",
+      "name": "Quequis_House · Roofing",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Roofing_50a7eaf0.glb",
+      "position": [
+        -22,
+        0,
+        -16.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06451512,
+        0.06451512,
+        0.06451512
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7b50b4481072290a",
+      "name": "Quequis_House · Roofing",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Roofing_d95d518d.glb",
+      "position": [
+        -18,
+        0,
+        -15.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06451512,
+        0.06451512,
+        0.06451512
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-58a6276b8c7c7d7e",
+      "name": "Quequis_House · RooftilesMetal",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/RooftilesMetal_2ee98b44.glb",
+      "position": [
+        -13.99999982,
+        -1e-8,
+        -15.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28347172,
+        0.28347172,
+        0.28347172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-19a049610d477a72",
+      "name": "Quequis_House · RooftilesMetal",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/RooftilesMetal_f9470c44.glb",
+      "position": [
+        -9.99999973,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2834717,
+        0.2834717,
+        0.2834717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b90fe86c843eb95c",
+      "name": "Quequis_House · RooftilesMetal_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/RooftilesMetal_01_905e444d.glb",
+      "position": [
+        -5.9999999,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22007892,
+        0.22007892,
+        0.22007892
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ffdf579768834147",
+      "name": "Quequis_House · RooftilesMetal_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/RooftilesMetal_01_e4a07482.glb",
+      "position": [
+        -1.99999998,
+        -1e-8,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22007888,
+        0.22007888,
+        0.22007888
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5d39fbbc913de403",
+      "name": "Quequis_House · RooftilesMetal_01_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/RooftilesMetal_01_001_588297fd.glb",
+      "position": [
+        -22.00000019,
+        7e-8,
+        -19.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83287362,
+        0.83287362,
+        0.83287362
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9cb94e61d7274681",
+      "name": "Quequis_House · RooftilesMetal_01_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/RooftilesMetal_01_001_f27b24e0.glb",
+      "position": [
+        -17.9999996,
+        0,
+        -20.0000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83287386,
+        0.83287386,
+        0.83287386
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bea099bc6e7d3b2a",
+      "name": "Quequis_House · RooftilesMetal_02",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/RooftilesMetal_02_922c3e3a.glb",
+      "position": [
+        -13.99999987,
+        1e-7,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10410628,
+        1.10410628,
+        1.10410628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-53be924944d2e1ce",
+      "name": "Quequis_House · RooftilesMetal_02",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/RooftilesMetal_02_cb4ae1ea.glb",
+      "position": [
+        -9.99999987,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10410675,
+        1.10410675,
+        1.10410675
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-02b2280d0e02aff8",
+      "name": "Quequis_House · sack_flour",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sack_flour_a8dcbc30.glb",
+      "position": [
+        -6,
+        0,
+        -20.00000066
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.78554068,
+        2.78554068,
+        2.78554068
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-17fa2752bca7c0ec",
+      "name": "Quequis_House · sack_flour",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sack_flour_e7ff5cf9.glb",
+      "position": [
+        -2.00000052,
+        1.3e-7,
+        -19.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.78553983,
+        2.78553983,
+        2.78553983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-27eaf5062eb26bbc",
+      "name": "Quequis_House · sack_flour_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sack_flour_001_79068f96.glb",
+      "position": [
+        -21.99999963,
+        3e-8,
+        -24.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.78553909,
+        2.78553909,
+        2.78553909
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-08ce3e7928ea3f57",
+      "name": "Quequis_House · sack_flour_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sack_flour_001_fdf0b435.glb",
+      "position": [
+        -18,
+        0,
+        -23.99999867
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.78554068,
+        2.78554068,
+        2.78554068
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d469f3539b301b4c",
+      "name": "Quequis_House · sack_potatoes",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sack_potatoes_851c11ff.glb",
+      "position": [
+        -13.99999792,
+        -2.6e-7,
+        -23.99999952
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.43975772,
+        2.43975772,
+        2.43975772
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-63d0abe0e52be4fa",
+      "name": "Quequis_House · sack_potatoes",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sack_potatoes_8d263cd1.glb",
+      "position": [
+        -10.00000233,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.43975808,
+        2.43975808,
+        2.43975808
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8684167f877822f3",
+      "name": "Quequis_House · sack_potatoes_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sack_potatoes_001_3b6aad4e.glb",
+      "position": [
+        -6.00000039,
+        -1e-8,
+        -23.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.43975748,
+        2.43975748,
+        2.43975748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bd0000f14ff0fd6b",
+      "name": "Quequis_House · sack_potatoes_004",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sack_potatoes_004_b47a4395.glb",
+      "position": [
+        -2,
+        0,
+        -24.00000056
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.36715379,
+        2.36715379,
+        2.36715379
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed938b82b6e18d17",
+      "name": "Quequis_House · Salt",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Salt_3479ae7d.glb",
+      "position": [
+        -22,
+        0,
+        -28.00000577
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.1815818,
+        24.1815818,
+        24.1815818
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9cbdd676f3e15750",
+      "name": "Quequis_House · Salt_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Salt_001_0817dd05.glb",
+      "position": [
+        -17.99999892,
+        7e-8,
+        -28.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.18160552,
+        24.18160552,
+        24.18160552
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fa69e1aac5792c99",
+      "name": "Quequis_House · Sauce",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Sauce_1cd68efa.glb",
+      "position": [
+        -14,
+        6.7e-7,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.06880875,
+        11.06880875,
+        11.06880875
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-21a4f86d3acd6a5b",
+      "name": "Quequis_House · Sauce",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Sauce_ee2a66b0.glb",
+      "position": [
+        -10,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.06880954,
+        11.06880954,
+        11.06880954
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cd54778d51211299",
+      "name": "Quequis_House · Sauce_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Sauce_01_3179962d.glb",
+      "position": [
+        -6,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.70978577,
+        10.70978577,
+        10.70978577
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-28a5c27301cd0351",
+      "name": "Quequis_House · Sauce_01",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Sauce_01_90b7c89a.glb",
+      "position": [
+        -2,
+        0.0000012,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.7097798,
+        10.7097798,
+        10.7097798
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-31741e521def611d",
+      "name": "Quequis_House · Sauce_02",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Sauce_02_0420f500.glb",
+      "position": [
+        -21.9999981,
+        -1.9e-7,
+        -32.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.36029349,
+        9.36029349,
+        9.36029349
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-715a21bd5829c337",
+      "name": "Quequis_House · Sauce_02",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Sauce_02_29ac6565.glb",
+      "position": [
+        -18,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.36029337,
+        9.36029337,
+        9.36029337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4f6f28435620b636",
+      "name": "Quequis_House · Shelf_B_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_B_001_29622e6f.glb",
+      "position": [
+        -14.00000018,
+        0,
+        -32.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961631,
+        1.59961631,
+        1.59961631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a82f381313d165a2",
+      "name": "Quequis_House · Shelf_B_003",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_B_003_dae83ac5.glb",
+      "position": [
+        -10.00000015,
+        0,
+        -31.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961634,
+        1.59961634,
+        1.59961634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bdd4a0599814a14f",
+      "name": "Quequis_House · Shelf_B_005",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_B_005_6b47735e.glb",
+      "position": [
+        -6.00000005,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961628,
+        1.59961628,
+        1.59961628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e20d02f7431a72b2",
+      "name": "Quequis_House · Shelf_B_006",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_B_006_478763f0.glb",
+      "position": [
+        -2,
+        0,
+        -32.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961644,
+        1.59961644,
+        1.59961644
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fda1c59f0f9d1f88",
+      "name": "Quequis_House · Shelf_B_G_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_B_G_001_43c6e51a.glb",
+      "position": [
+        -21.9999999,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961633,
+        1.59961633,
+        1.59961633
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ad2d27d7b037a26f",
+      "name": "Quequis_House · Shelf_B_G_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_B_G_001_eefb1c48.glb",
+      "position": [
+        -17.99999999,
+        0,
+        -36.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961631,
+        1.59961631,
+        1.59961631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-153e6790b65f4897",
+      "name": "Quequis_House · Shelf_FR_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_FR_001_07826e62.glb",
+      "position": [
+        -14.00000008,
+        2e-7,
+        -35.99999622
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.04509876,
+        2.04509876,
+        2.04509876
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9adae9298e549846",
+      "name": "Quequis_House · Shelf_FR_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_FR_001_d2e9d18b.glb",
+      "position": [
+        -10,
+        0,
+        -35.9999961
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.04509911,
+        2.04509911,
+        2.04509911
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8ed42a44ccc25515",
+      "name": "Quequis_House · Shelf_FR_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_FR_002_b7848749.glb",
+      "position": [
+        -6.00000008,
+        3e-8,
+        -35.99999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.98269399,
+        1.98269399,
+        1.98269399
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-23a108f9c2ec5734",
+      "name": "Quequis_House · Shelf_FR_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_FR_002_fc087b11.glb",
+      "position": [
+        -1.99999953,
+        0,
+        -35.99999905
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.98269391,
+        1.98269391,
+        1.98269391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4a20f1a052a2e159",
+      "name": "Quequis_House · Shelf_FR_I",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_FR_I_c0d4c0a6.glb",
+      "position": [
+        -22,
+        0,
+        -39.99999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44985409,
+        1.44985409,
+        1.44985409
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-68c99fd8aa459b92",
+      "name": "Quequis_House · Shelf_FR_I_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_FR_I_001_58195746.glb",
+      "position": [
+        -18,
+        0,
+        -40.00000069
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44985387,
+        1.44985387,
+        1.44985387
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-51774981c9c1f63a",
+      "name": "Quequis_House · Shelf_S_003",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_S_003_fe88ac50.glb",
+      "position": [
+        -14,
+        -2e-8,
+        -39.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961474,
+        1.59961474,
+        1.59961474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-867a353e70d52327",
+      "name": "Quequis_House · Shelf_S_004",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelf_S_004_7d4b988d.glb",
+      "position": [
+        -10,
+        0,
+        -40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5996147,
+        1.5996147,
+        1.5996147
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b34ed75cce97caf9",
+      "name": "Quequis_House · Shelving_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelving_001_0a608d3c.glb",
+      "position": [
+        -6.00000007,
+        2e-8,
+        -39.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28686458,
+        1.28686458,
+        1.28686458
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-575c53e967bb5de8",
+      "name": "Quequis_House · Shelving_004",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelving_004_672ed261.glb",
+      "position": [
+        -1.99999991,
+        2e-8,
+        -39.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28686449,
+        1.28686449,
+        1.28686449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-658152613de12cd8",
+      "name": "Quequis_House · Shelving_007",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/Shelving_007_e4a0928f.glb",
+      "position": [
+        -22,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28686474,
+        1.28686474,
+        1.28686474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-af5792e172eff2a1",
+      "name": "Quequis_House · sidewalk",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_038378e5.glb",
+      "position": [
+        -17.99999983,
+        0,
+        -43.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11601651,
+        0.11601651,
+        0.11601651
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3676c74b84faf874",
+      "name": "Quequis_House · sidewalk",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_ae2a4d09.glb",
+      "position": [
+        -14,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1160165,
+        0.1160165,
+        0.1160165
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-08396a32bc8ec925",
+      "name": "Quequis_House · sidewalk_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_001_4c8cedc7.glb",
+      "position": [
+        -9.99999994,
+        0,
+        -44.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07966055,
+        0.07966055,
+        0.07966055
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fb440737503804df",
+      "name": "Quequis_House · sidewalk_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_001_774951af.glb",
+      "position": [
+        -6.00000008,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07966056,
+        0.07966056,
+        0.07966056
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e55416385c3efcec",
+      "name": "Quequis_House · sidewalk_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_002_1a0a09c3.glb",
+      "position": [
+        -2,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47819527,
+        0.47819527,
+        0.47819527
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cceb7c59277ef2e0",
+      "name": "Quequis_House · sidewalk_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_002_3e373c54.glb",
+      "position": [
+        -22,
+        0,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47819527,
+        0.47819527,
+        0.47819527
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a97f7461474cb394",
+      "name": "Quequis_House · sidewalk_02",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_0637b620.glb",
+      "position": [
+        -18.00000007,
+        0,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07619822,
+        0.07619822,
+        0.07619822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9139fcde68a0a094",
+      "name": "Quequis_House · sidewalk_02",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_b63ce8a4.glb",
+      "position": [
+        -14,
+        0,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.07619821,
+        0.07619821,
+        0.07619821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f88b904f4366f5e1",
+      "name": "Quequis_House · sidewalk_02_001",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_001_781a28f5.glb",
+      "position": [
+        -10.00000002,
+        0,
+        -47.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3586319,
+        0.3586319,
+        0.3586319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a440f40a889403ad",
+      "name": "Quequis_House · sidewalk_02_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_002_05777ab0.glb",
+      "position": [
+        -6,
+        0,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40732471,
+        0.40732471,
+        0.40732471
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7ab8bedef8989659",
+      "name": "Quequis_House · sidewalk_02_002",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_002_d42aedcd.glb",
+      "position": [
+        -1.99999996,
+        0,
+        -48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40732482,
+        0.40732482,
+        0.40732482
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b19579d9d0b4ed20",
+      "name": "Quequis_House · sidewalk_02_003",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_003_a94cdca6.glb",
+      "position": [
+        -22,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12767827,
+        0.12767827,
+        0.12767827
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed01febac08bad5f",
+      "name": "Quequis_House · sidewalk_02_003",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_003_aea75527.glb",
+      "position": [
+        -18,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1276783,
+        0.1276783,
+        0.1276783
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9173c330590b750e",
+      "name": "Quequis_House · sidewalk_02_004",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_004_67819e35.glb",
+      "position": [
+        -14,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35863185,
+        0.35863185,
+        0.35863185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1b07aeea29065508",
+      "name": "Quequis_House · sidewalk_02_005",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_005_27726c43.glb",
+      "position": [
+        -9.99999951,
+        0,
+        -51.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3586319,
+        0.3586319,
+        0.3586319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7994f39bba10be0b",
+      "name": "Quequis_House · sidewalk_02_005",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_005_91616eea.glb",
+      "position": [
+        -6,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35863185,
+        0.35863185,
+        0.35863185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-647654f2237d49d9",
+      "name": "Quequis_House · sidewalk_02_006",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_006_d61d0936.glb",
+      "position": [
+        -2.00000002,
+        0,
+        -51.99999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29513922,
+        0.29513922,
+        0.29513922
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-91a96aa4f503b301",
+      "name": "Quequis_House · sidewalk_02_006",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_006_f0210373.glb",
+      "position": [
+        -22,
+        0,
+        -56.00000056
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29513919,
+        0.29513919,
+        0.29513919
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ded520fa73539bbd",
+      "name": "Quequis_House · sidewalk_02_007",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_007_3fa10aca.glb",
+      "position": [
+        -18.00000023,
+        0,
+        -56.00000046
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38496359,
+        0.38496359,
+        0.38496359
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ceb49617329f00e4",
+      "name": "Quequis_House · sidewalk_02_007",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_007_b6ccabca.glb",
+      "position": [
+        -14,
+        0,
+        -56.00000037
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38496352,
+        0.38496352,
+        0.38496352
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-76664fbb86af8d02",
+      "name": "Quequis_House · sidewalk_02_008",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_008_b2d22ad6.glb",
+      "position": [
+        -9.99999956,
+        0,
+        -55.99999954
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32811756,
+        0.32811756,
+        0.32811756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b9a36d57cbe8aee5",
+      "name": "Quequis_House · sidewalk_02_009",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_009_fab3a813.glb",
+      "position": [
+        -6.00000063,
+        0,
+        -56
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32811754,
+        0.32811754,
+        0.32811754
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8208bfcb3cd5a2f9",
+      "name": "Quequis_House · sidewalk_02_010",
+      "parentId": "transform:category-quequis_house",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Quequis_House/sidewalk_02_010_d3a5f18e.glb",
+      "position": [
+        -2.00000036,
+        0,
+        -55.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12560912,
+        0.12560912,
+        0.12560912
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

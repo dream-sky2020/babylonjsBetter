@@ -1,0 +1,591 @@
+{
+  "presetKey": "artist-stay-retro-cardboard-boxes-model-test",
+  "name": "Stay Retro · 纸箱模型展示（22 件）",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "stay-retro-cardboard-boxes-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          25,
+          45,
+          -25
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "stay-retro-cardboard-boxes-ground",
+      "name": "纸箱模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 29,
+        "height": 20
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#555047",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "stay-retro-cardboard-boxes-01",
+      "name": "纸箱 · BoxTapeLong1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/BoxTapeLong1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -11.25,
+        0.025,
+        -6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.313,
+        2.313,
+        2.313
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-02",
+      "name": "纸箱 · BoxTapeLong2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/BoxTapeLong2_SM_stay-retro_itch_io.glb",
+      "position": [
+        -6.75,
+        0.025,
+        -6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.313,
+        2.313,
+        2.313
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-03",
+      "name": "纸箱 · BoxTapeMid1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/BoxTapeMid1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -2.25,
+        0.025,
+        -6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.506,
+        3.506,
+        3.506
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-04",
+      "name": "纸箱 · BoxTapeMid2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/BoxTapeMid2_SM_stay-retro_itch_io.glb",
+      "position": [
+        2.25,
+        0.025,
+        -6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.382,
+        3.382,
+        3.382
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-05",
+      "name": "纸箱 · BoxTapeShort1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/BoxTapeShort1_SM_stay-retro_itch_io.glb",
+      "position": [
+        6.75,
+        0.025,
+        -6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.324,
+        9.324,
+        9.324
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-06",
+      "name": "纸箱 · BoxTapeShort2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/BoxTapeShort2_SM_stay-retro_itch_io.glb",
+      "position": [
+        11.25,
+        0.025,
+        -6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.535,
+        9.535,
+        9.535
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-07",
+      "name": "纸箱 · CardboardBoxClosed1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxClosed1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -11.25,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.309,
+        2.309,
+        2.309
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-08",
+      "name": "纸箱 · CardboardBoxClosed2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxClosed2_SM_stay-retro_itch_io.glb",
+      "position": [
+        -6.75,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.309,
+        2.309,
+        2.309
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-09",
+      "name": "纸箱 · CardboardBoxClosed3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxClosed3_SM_stay-retro_itch_io.glb",
+      "position": [
+        -2.25,
+        0.09,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.528,
+        2.528,
+        2.528
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-10",
+      "name": "纸箱 · CardboardBoxClosed4_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxClosed4_SM_stay-retro_itch_io.glb",
+      "position": [
+        2.25,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.525,
+        2.525,
+        2.525
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-11",
+      "name": "纸箱 · CardboardBoxClosed5_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxClosed5_SM_stay-retro_itch_io.glb",
+      "position": [
+        6.75,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9,
+        3.9,
+        3.9
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-12",
+      "name": "纸箱 · CardboardBoxClosed6_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxClosed6_SM_stay-retro_itch_io.glb",
+      "position": [
+        11.25,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9,
+        3.9,
+        3.9
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-13",
+      "name": "纸箱 · CardboardBoxClosed7_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxClosed7_SM_stay-retro_itch_io.glb",
+      "position": [
+        -11.25,
+        0.024,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.309,
+        2.309,
+        2.309
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-14",
+      "name": "纸箱 · CardboardBoxFlattened1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxFlattened1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -6.75,
+        0.028,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.739,
+        2.739,
+        2.739
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-15",
+      "name": "纸箱 · CardboardBoxFlattened2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxFlattened2_SM_stay-retro_itch_io.glb",
+      "position": [
+        -2.25,
+        0.028,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.814,
+        2.814,
+        2.814
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-16",
+      "name": "纸箱 · CardboardBoxFlattened3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxFlattened3_SM_stay-retro_itch_io.glb",
+      "position": [
+        2.25,
+        0.032,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.309,
+        2.309,
+        2.309
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-17",
+      "name": "纸箱 · CardboardBoxOpen1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxOpen1_SM_stay-retro_itch_io.glb",
+      "position": [
+        6.75,
+        0.025,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.309,
+        2.309,
+        2.309
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-18",
+      "name": "纸箱 · CardboardBoxOpen2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxOpen2_SM_stay-retro_itch_io.glb",
+      "position": [
+        11.25,
+        0.025,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.309,
+        2.309,
+        2.309
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-19",
+      "name": "纸箱 · CardboardBoxOpen3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxOpen3_SM_stay-retro_itch_io.glb",
+      "position": [
+        -11.25,
+        0.025,
+        6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9,
+        3.9,
+        3.9
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-20",
+      "name": "纸箱 · CardboardBoxOpen4_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxOpen4_SM_stay-retro_itch_io.glb",
+      "position": [
+        -6.75,
+        0.025,
+        6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9,
+        3.9,
+        3.9
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-21",
+      "name": "纸箱 · CardboardBoxSlimClosed1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxSlimClosed1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -2.25,
+        0.025,
+        6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.099,
+        2.099,
+        2.099
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-cardboard-boxes-22",
+      "name": "纸箱 · CardboardBoxSlimClosed2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/psx-cardboard-boxes-asset-pack/CardboardBoxSlimClosed2_SM_stay-retro_itch_io.glb",
+      "position": [
+        2.25,
+        0.079,
+        6.75
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.099,
+        2.099,
+        2.099
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

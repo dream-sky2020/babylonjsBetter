@@ -42,7 +42,7 @@ export function formatField(value: unknown, type: EnvironmentField['type']) {
 export type EnvironmentVectorChanges = Record<string, Partial<Record<0 | 1 | 2, string>>>;
 export function commonEnvironmentFields(preset: SceneEnvironmentPreset, ids: readonly string[], shadowKeys: readonly string[]): EnvironmentField[] {
   if (!ids.length) return [];
-  const [first, ...rest] = ids.map(id => environmentFields(preset, id, shadowKeys));
+  const [first, ...rest] = ids.map(id => [...environmentFields(preset, id, shadowKeys), ...(id.startsWith('model:') ? [field('materialOverrides', '材质覆盖（按 glTF 索引，JSON）', 'json', true)] : [])]);
   return first.filter(field => field.path !== 'name' && rest.every(fields => fields.some(candidate => candidate.path === field.path && candidate.type === field.type))).map(field => {
     const variants = [field, ...rest.map(fields => fields.find(candidate => candidate.path === field.path)!)];
     const minimums = variants.flatMap(candidate => candidate.min === undefined ? [] : [candidate.min]);

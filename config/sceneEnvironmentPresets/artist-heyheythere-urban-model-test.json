@@ -1,0 +1,7879 @@
+{
+  "presetKey": "artist-heyheythere-urban-model-test",
+  "name": "Heyheythere · 城市与交通（179 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-buildingkit",
+      "name": "BuildingKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-factorykit",
+      "name": "FactoryKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-gasstationkit",
+      "name": "GasStationKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-japanesetownkit",
+      "name": "JapaneseTownKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-metrokit",
+      "name": "MetroKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-prison",
+      "name": "Prison",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-sewers",
+      "name": "Sewers",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-sovietblockkit",
+      "name": "SovietBlockKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-streetprops",
+      "name": "StreetProps",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-subway",
+      "name": "Subway",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-vehicles",
+      "name": "Vehicles",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-westerntownkit",
+      "name": "WesternTownKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 92
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "heyheythere-d78d032186c102b8-stand",
+      "name": "Brick Doorway展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-465baf1ef01207fd-stand",
+      "name": "Brick Gable展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e355d7bbe2600e0f-stand",
+      "name": "Brick Post展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d95c6fc62d8fac73-stand",
+      "name": "Brick Wall展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-38437f3d6a6860f8-stand",
+      "name": "Brick Window Wall展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f4a042b095cf42b2-stand",
+      "name": "Chimney展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b379f98ea467dafa-stand",
+      "name": "Clay Tile Roof展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-ca64a1aa6ff42aee-stand",
+      "name": "Clay Tile Verge展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e49295c6203b8303-stand",
+      "name": "Front Door展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-0e89c7dc0dd439f2-stand",
+      "name": "Grass Ground展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-173143ebc373d152-stand",
+      "name": "Stone Floor展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c0ac76672da3e790-stand",
+      "name": "Stone Low Post展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-5b1fdd4a76a00d21-stand",
+      "name": "Stone Low Wall展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-73fa7278b7dccd34-stand",
+      "name": "Wall Lamp展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-553a1608366d5d31-stand",
+      "name": "White Window展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f7aa362c16367342-stand",
+      "name": "Wood Floor展台",
+      "parentId": "transform:category-buildingkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-813f67c880d4029a-stand",
+      "name": "Bay 1 Sign展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d5897fb851018e1b-stand",
+      "name": "Bay Guards展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b511bb4ebf628e84-stand",
+      "name": "Belt Conveyor展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c377cf33161243be-stand",
+      "name": "Factory Floor展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c209a869cffdbebf-stand",
+      "name": "Factory Post展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d1e6801bad5d14d9-stand",
+      "name": "Factory Strip Window Wall展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        43.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d546e163195591f8-stand",
+      "name": "Factory Wall展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-5ca9eff6f3358f9b-stand",
+      "name": "Keep-Clear Floor展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b985c1e7cfd0ea8c-stand",
+      "name": "Loaded Pallet Rack展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-aec22483fdfacba6-stand",
+      "name": "Loading Bay Wall展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d4eeb081204d40f6-stand",
+      "name": "Pallet of Cartons展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-20cb0b357236b24c-stand",
+      "name": "Pallet Stack展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-e8efc738d571ed2a-stand",
+      "name": "Roller Shutter展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2e14482e5ebb6060-stand",
+      "name": "Strip Window展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-04ddfbd1144b8297-stand",
+      "name": "Wrapped Pallet展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-cc093d367fd4d406-stand",
+      "name": "Yard展台",
+      "parentId": "transform:category-factorykit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1fc7fbbb0ea54748-stand",
+      "name": "Bollard展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-1bc895b6dd5ab15b-stand",
+      "name": "Canopy Column展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-93dba57dba407fab-stand",
+      "name": "Canopy Corner展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2471ada5c9560a5d-stand",
+      "name": "Canopy Deck展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-5137597e3df007ae-stand",
+      "name": "Canopy Fascia展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-26bbe748050f3755-stand",
+      "name": "Canopy Fascia, NOVA展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a0b793a61290ec2f-stand",
+      "name": "Forecourt Slab展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6bdf5606ae27bb67-stand",
+      "name": "Fuel Pump展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f43d1d7e25c95845-stand",
+      "name": "Oily Forecourt Slab展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-23e76c9bfa6b63e5-stand",
+      "name": "Pay Phone展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a36e3c145ce483d3-stand",
+      "name": "Pump Island展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-0d545c9328f5c465-stand",
+      "name": "Shop Doors展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-ae7eaad7f94206f9-stand",
+      "name": "Shop Window展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-50766195b7ab2f97-stand",
+      "name": "Shopfront Doorway展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-187f3a08e2cf46a1-stand",
+      "name": "Shopfront Wall展台",
+      "parentId": "transform:category-gasstationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-5a9c9ddc332548c1-stand",
+      "name": "Block Wall展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-49de386da66dbbfc-stand",
+      "name": "Block Wall Post展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-70a1531ae027056f-stand",
+      "name": "Can Bin展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-47f89369cba47c54-stand",
+      "name": "Cedar and Plaster Post展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-4955191ac44ecc41-stand",
+      "name": "Cedar and Plaster Wall展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-5e0828ae86ad2a68-stand",
+      "name": "Curve Mirror展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-a17daab7078d30c0-stand",
+      "name": "Drinks Machine展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8f0f852d56733cec-stand",
+      "name": "Gatepost展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-fb35dc000004a5ac-stand",
+      "name": "Gravel展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-65ff26cf3d615ecf-stand",
+      "name": "Gutter展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c7b2e7ff8e9cbac7-stand",
+      "name": "Lane展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-fdce9b4321008ea4-stand",
+      "name": "Post Box展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-ca21da5662016b08-stand",
+      "name": "Power Lines展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d60fdaf383d7b08c-stand",
+      "name": "Road Marking, Stop展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-87cc2f59ce3fddd0-stand",
+      "name": "Utility Pole展台",
+      "parentId": "transform:category-japanesetownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-fb08b0ec1b377625-stand",
+      "name": "Chandelier展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-ea0d91b4b5e24fe9-stand",
+      "name": "Coffered Ceiling展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2a194c218c1d8c9f-stand",
+      "name": "Column展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-4d66fab5da8e9650-stand",
+      "name": "Fire Hose Cabinet展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6235abec3cc5c17b-stand",
+      "name": "Granite Floor展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-26bac8827df1e1d6-stand",
+      "name": "Granite Floor, Band展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-852483e99c4a0c55-stand",
+      "name": "Hall Bench展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bce465206a97fb4b-stand",
+      "name": "Marble Post展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-30157ce281ab7bac-stand",
+      "name": "Marble Wall展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-052e03df4adcc95f-stand",
+      "name": "Platform Edge展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-8345ce97dec9dd64-stand",
+      "name": "Station Name展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-36bc0229ba601725-stand",
+      "name": "Track展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-63bf00600058ef1a-stand",
+      "name": "Track Wall展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c0b2f1fec33a9a50-stand",
+      "name": "Track Wall Post展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e025d7f4a86409fd-stand",
+      "name": "Track Wall, Vent展台",
+      "parentId": "transform:category-metrokit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-20e276e6e92f7b8d-stand",
+      "name": "Caged Bulkhead展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-cbb8ada123b0d0f9-stand",
+      "name": "Cell Call Point展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-61dc7ded56540310-stand",
+      "name": "Cell Floor展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-e0e99f0c301b3124-stand",
+      "name": "Cell Front with a Door展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-4c86f180ab2727a4-stand",
+      "name": "Cell Locking Box展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-351b67b64bed98b0-stand",
+      "name": "Cell Shelf展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-20c9ab5eb8ad692f-stand",
+      "name": "Cell Wall展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7bf66780fc621a22-stand",
+      "name": "Cell Window Wall展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-01bf64c92d2d6055-stand",
+      "name": "Painted Block Wall展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d638113c93c3d231-stand",
+      "name": "Polished Concrete Floor展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-3eb9213b85fb17db-stand",
+      "name": "Prison Ceiling展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-4ea6994ddf39b773-stand",
+      "name": "Sliding Cell Door展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-03a5c394d32da382-stand",
+      "name": "Stack of Paperbacks展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-ac1b48a46db752cc-stand",
+      "name": "Steel Bunk Bed展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-6bdfc5be1253979f-stand",
+      "name": "Steel Toilet and Basin展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c82e398e36c69950-stand",
+      "name": "Wing A Sign展台",
+      "parentId": "transform:category-prison",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b565ae6022910b17-stand",
+      "name": "Brick Vault展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-281a51898762425b-stand",
+      "name": "Channel展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7c2f69e140a09cec-stand",
+      "name": "Channel Railing展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b206f8c614d3568f-stand",
+      "name": "Channel Water展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b3dfec67de16a4a0-stand",
+      "name": "Culvert Wall展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-88f0e7351295b74d-stand",
+      "name": "Deep Water Sign展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-76b523a19bbfa0d0-stand",
+      "name": "Dripping Water展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-8e1f007b81aa70b7-stand",
+      "name": "Flood Siren展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-08afd23e97cc4b78-stand",
+      "name": "Rat展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-1b1beec3d9906efb-stand",
+      "name": "Sewer Post展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b15ca98c0a5b5976-stand",
+      "name": "Sewer Wall展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-0f2b684b4064a5f0-stand",
+      "name": "Sluice Gate展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-00f83086fe9bc5b3-stand",
+      "name": "Sluice Headstock展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7c85dad11831a1e8-stand",
+      "name": "Stained Sewer Wall展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7bf6da822ec67beb-stand",
+      "name": "Well-Glass Lamp展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e5dec250cbc4f42b-stand",
+      "name": "Wet Sewer Floor展台",
+      "parentId": "transform:category-sewers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a9be2b76649ce892-stand",
+      "name": "Asphalt展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-920359098e8dc455-stand",
+      "name": "Concrete Panel Entrance展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-60083e4d54101c4c-stand",
+      "name": "Concrete Panel Post展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-e7b0a62d5e55abea-stand",
+      "name": "Concrete Panel Wall展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d5184c899a4d1c55-stand",
+      "name": "Concrete Panel Window Wall展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-e8f3abd75fa27ef5-stand",
+      "name": "Curtained Window展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d64912717ed92334-stand",
+      "name": "Entrance Bench展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-007420ea8d7f6575-stand",
+      "name": "Entrance Canopy展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1b4b832a1188a20f-stand",
+      "name": "Entrance Door展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-bc8d624b82336650-stand",
+      "name": "Entrance Plate展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c2ce8e4dae18200e-stand",
+      "name": "Low Fence展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-78cfc92eb03a0a66-stand",
+      "name": "Panel Wall, Graffiti展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-68f9de6cc6605478-stand",
+      "name": "Refuse Container展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-785ec4c7ba1e5d05-stand",
+      "name": "Rocket Climber展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-92fc1ec565a5db41-stand",
+      "name": "Worn Grass展台",
+      "parentId": "transform:category-sovietblockkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-177ab8500c9ca5bf-stand",
+      "name": "Dumpster, Green展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-4277ff9c34be9d5b-stand",
+      "name": "Fire Hydrant, Yellow展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-56117890f539cc61-stand",
+      "name": "Litter Bin展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bca6c28b33340d4c-stand",
+      "name": "No Parking Sign展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-9d7037c223ded768-stand",
+      "name": "Oil Drum展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-900501f2b19d9ea1-stand",
+      "name": "Park Bench展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-89a08513cc596a59-stand",
+      "name": "Pavement, Kerb展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-000570376c1fffae-stand",
+      "name": "Road展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b7c4d8ec09762a59-stand",
+      "name": "Street Light展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f3131567672f5892-stand",
+      "name": "Traffic Cone, Tall展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-714b6747eaae7e6f-stand",
+      "name": "Water Barrier, Red展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7d07f7741814967a-stand",
+      "name": "Wheelie Bin, Green展台",
+      "parentId": "transform:category-streetprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-033601e054230c47-stand",
+      "name": "Departure Board展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-72ab11b0eb5b9b86-stand",
+      "name": "Fare Gate展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-35b5d10b619cb5ba-stand",
+      "name": "Litter Bin展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-ca0005c66df22c63-stand",
+      "name": "Metro Tile Wall展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8656063d82e69ef5-stand",
+      "name": "Metro Wall, Station Name展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-46d08f7a2edbcc98-stand",
+      "name": "Platform Bench展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1ed84885599df27a-stand",
+      "name": "Platform Edge展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-81f90f89dad5f806-stand",
+      "name": "Platform Paving展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-82cf3063f2343379-stand",
+      "name": "Poster: Hills展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1d17df600d107123-stand",
+      "name": "Station Ceiling展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-ff16262610314b23-stand",
+      "name": "Ticket展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1cd4b8522dbe2edb-stand",
+      "name": "Ticket Machine展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-5205f3a575722fc5-stand",
+      "name": "Track展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8b078c9fcfbe7b0a-stand",
+      "name": "Trackway Ceiling展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-67f5b403204af209-stand",
+      "name": "Trough Light展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-470c5616721a551f-stand",
+      "name": "Way Out Sign展台",
+      "parentId": "transform:category-subway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1604575aaea558b0-stand",
+      "name": "Bicycle, Red展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f7f6145fc4d0b6f0-stand",
+      "name": "Fence, Corrugated展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-1b4bfb16ecc86821-stand",
+      "name": "Fire Hydrant展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-93de11251de150f3-stand",
+      "name": "Jerry Can展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2c54334f2ae68418-stand",
+      "name": "Pickup, Red展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-143c8f6137362fe7-stand",
+      "name": "Road展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-36ea2818481e43d7-stand",
+      "name": "Sedan, Blue展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-0f3234828c01f81b-stand",
+      "name": "Sedan, Rusted展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f961bc52a533fc7e-stand",
+      "name": "Sidewalk and Kerb展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7cdfa840866e57b7-stand",
+      "name": "Tire展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-573cb6ed0b87c448-stand",
+      "name": "Tire Stack展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-8a8932441b513665-stand",
+      "name": "Traffic Cone展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d224f3a7bc1f6851-stand",
+      "name": "Boardwalk展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-baa8c0ae331ffde6-stand",
+      "name": "General Store Sign展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d667aa36748296b5-stand",
+      "name": "Hitching Post展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-51ada6d63954aaad-stand",
+      "name": "Plank Floor展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-caa244fbeb4e6653-stand",
+      "name": "Porch Post展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-a430a1213b28b089-stand",
+      "name": "Store Door展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-a3efa189b703e92c-stand",
+      "name": "Store Window展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-365d1da785f1d75a-stand",
+      "name": "Tin Awning展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2e25b7816849fb00-stand",
+      "name": "Tumbleweed展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8edd63d7a2a80ff4-stand",
+      "name": "White Clapboard Doorway展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-359cdca9966656df-stand",
+      "name": "White Clapboard False Front展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-793b9e05a18fc7bb-stand",
+      "name": "White Clapboard False Front, Peak展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-aa3431d1fa2c9f82-stand",
+      "name": "White Clapboard Post展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-5cf79c230f2d6fd0-stand",
+      "name": "White Clapboard Wall展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-94438741cbd85ec1-stand",
+      "name": "White Shopfront Wall展台",
+      "parentId": "transform:category-westerntownkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -39.5
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "heyheythere-d78d032186c102b8",
+      "name": "BuildingKit · Brick Doorway",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/wall_doorway_brick.glb",
+      "position": [
+        -22,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-465baf1ef01207fd",
+      "name": "BuildingKit · Brick Gable",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/wall_gable_brick.glb",
+      "position": [
+        -18,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e355d7bbe2600e0f",
+      "name": "BuildingKit · Brick Post",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/wall_post_brick.glb",
+      "position": [
+        -14,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d95c6fc62d8fac73",
+      "name": "BuildingKit · Brick Wall",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/wall_brick.glb",
+      "position": [
+        -10,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-38437f3d6a6860f8",
+      "name": "BuildingKit · Brick Window Wall",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/wall_window_brick.glb",
+      "position": [
+        -6,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f4a042b095cf42b2",
+      "name": "BuildingKit · Chimney",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/chimney.glb",
+      "position": [
+        -2,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.89189187,
+        1.89189187,
+        1.89189187
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b379f98ea467dafa",
+      "name": "BuildingKit · Clay Tile Roof",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/roof_clay.glb",
+      "position": [
+        -22,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5447471,
+        0.5447471,
+        0.5447471
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ca64a1aa6ff42aee",
+      "name": "BuildingKit · Clay Tile Verge",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/roof_clay_verge.glb",
+      "position": [
+        -18,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5447471,
+        0.5447471,
+        0.5447471
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e49295c6203b8303",
+      "name": "BuildingKit · Front Door",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/door_front.glb",
+      "position": [
+        -14,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0e89c7dc0dd439f2",
+      "name": "BuildingKit · Grass Ground",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/ground_grass.glb",
+      "position": [
+        -10,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-173143ebc373d152",
+      "name": "BuildingKit · Stone Floor",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/floor_stone.glb",
+      "position": [
+        -6,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c0ac76672da3e790",
+      "name": "BuildingKit · Stone Low Post",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/wall_post_low_stone.glb",
+      "position": [
+        -2,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.64150958,
+        2.64150958,
+        2.64150958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5b1fdd4a76a00d21",
+      "name": "BuildingKit · Stone Low Wall",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/wall_low_stone.glb",
+      "position": [
+        -18,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-73fa7278b7dccd34",
+      "name": "BuildingKit · Wall Lamp",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/lamp_wall.glb",
+      "position": [
+        -14,
+        0,
+        35.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.72727107,
+        12.72727107,
+        12.72727107
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-553a1608366d5d31",
+      "name": "BuildingKit · White Window",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/window_white.glb",
+      "position": [
+        -10,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f7aa362c16367342",
+      "name": "BuildingKit · Wood Floor",
+      "parentId": "transform:category-buildingkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BuildingKit/floor_wood.glb",
+      "position": [
+        -6,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-813f67c880d4029a",
+      "name": "FactoryKit · Bay 1 Sign",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/sign_bay_1.glb",
+      "position": [
+        2,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999995,
+        3.49999995,
+        3.49999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d5897fb851018e1b",
+      "name": "FactoryKit · Bay Guards",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/bay_guards.glb",
+      "position": [
+        6,
+        0,
+        43.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72538862,
+        0.72538862,
+        0.72538862
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b511bb4ebf628e84",
+      "name": "FactoryKit · Belt Conveyor",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/conveyor.glb",
+      "position": [
+        10,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c377cf33161243be",
+      "name": "FactoryKit · Factory Floor",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/floor_factory.glb",
+      "position": [
+        14,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c209a869cffdbebf",
+      "name": "FactoryKit · Factory Post",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/wall_post_factory.glb",
+      "position": [
+        18,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d1e6801bad5d14d9",
+      "name": "FactoryKit · Factory Strip Window Wall",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/wall_strip_factory.glb",
+      "position": [
+        22,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d546e163195591f8",
+      "name": "FactoryKit · Factory Wall",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/wall_factory.glb",
+      "position": [
+        2,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5ca9eff6f3358f9b",
+      "name": "FactoryKit · Keep-Clear Floor",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/floor_factory_hatch.glb",
+      "position": [
+        6,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b985c1e7cfd0ea8c",
+      "name": "FactoryKit · Loaded Pallet Rack",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/rack_loaded.glb",
+      "position": [
+        10,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5105762,
+        0.5105762,
+        0.5105762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-aec22483fdfacba6",
+      "name": "FactoryKit · Loading Bay Wall",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/wall_bay.glb",
+      "position": [
+        14,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666667,
+        0.46666667,
+        0.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d4eeb081204d40f6",
+      "name": "FactoryKit · Pallet of Cartons",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/pallet_boxes.glb",
+      "position": [
+        18,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.18068529,
+        2.18068529,
+        2.18068529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-20cb0b357236b24c",
+      "name": "FactoryKit · Pallet Stack",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/pallet_stack.glb",
+      "position": [
+        22,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.16267367,
+        2.16267367,
+        2.16267367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e8efc738d571ed2a",
+      "name": "FactoryKit · Roller Shutter",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/shutter_roller.glb",
+      "position": [
+        6,
+        0,
+        35.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58333331,
+        0.58333331,
+        0.58333331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2e14482e5ebb6060",
+      "name": "FactoryKit · Strip Window",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/window_strip.glb",
+      "position": [
+        10,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-04ddfbd1144b8297",
+      "name": "FactoryKit · Wrapped Pallet",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/pallet_wrapped.glb",
+      "position": [
+        14,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.25080393,
+        2.25080393,
+        2.25080393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-cc093d367fd4d406",
+      "name": "FactoryKit · Yard",
+      "parentId": "transform:category-factorykit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/FactoryKit/yard.glb",
+      "position": [
+        18,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1fc7fbbb0ea54748",
+      "name": "GasStationKit · Bollard",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/bollard.glb",
+      "position": [
+        -22,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.59259249,
+        2.59259249,
+        2.59259249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1bc895b6dd5ab15b",
+      "name": "GasStationKit · Canopy Column",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/canopy_column.glb",
+      "position": [
+        -18,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.60869566,
+        0.60869566,
+        0.60869566
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-93dba57dba407fab",
+      "name": "GasStationKit · Canopy Corner",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/canopy_corner.glb",
+      "position": [
+        -14,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2471ada5c9560a5d",
+      "name": "GasStationKit · Canopy Deck",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/canopy_deck.glb",
+      "position": [
+        -10,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5137597e3df007ae",
+      "name": "GasStationKit · Canopy Fascia",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/canopy_fascia.glb",
+      "position": [
+        -6,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-26bbe748050f3755",
+      "name": "GasStationKit · Canopy Fascia, NOVA",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/canopy_fascia_logo.glb",
+      "position": [
+        -2,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a0b793a61290ec2f",
+      "name": "GasStationKit · Forecourt Slab",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/forecourt.glb",
+      "position": [
+        -22,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6bdf5606ae27bb67",
+      "name": "GasStationKit · Fuel Pump",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/fuel_pump.glb",
+      "position": [
+        -18,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36585369,
+        1.36585369,
+        1.36585369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f43d1d7e25c95845",
+      "name": "GasStationKit · Oily Forecourt Slab",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/forecourt_oil.glb",
+      "position": [
+        -14,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-23e76c9bfa6b63e5",
+      "name": "GasStationKit · Pay Phone",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/payphone.glb",
+      "position": [
+        -10,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.42131978,
+        1.42131978,
+        1.42131978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a36e3c145ce483d3",
+      "name": "GasStationKit · Pump Island",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/pump_island.glb",
+      "position": [
+        -6,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0d545c9328f5c465",
+      "name": "GasStationKit · Shop Doors",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/door_shop.glb",
+      "position": [
+        -2,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.09803924,
+        1.09803924,
+        1.09803924
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ae7eaad7f94206f9",
+      "name": "GasStationKit · Shop Window",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/window_shop.glb",
+      "position": [
+        -16,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.30232563,
+        1.30232563,
+        1.30232563
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-50766195b7ab2f97",
+      "name": "GasStationKit · Shopfront Doorway",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/wall_shopfront_doorway.glb",
+      "position": [
+        -12,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-187f3a08e2cf46a1",
+      "name": "GasStationKit · Shopfront Wall",
+      "parentId": "transform:category-gasstationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/GasStationKit/wall_shopfront.glb",
+      "position": [
+        -8,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5a9c9ddc332548c1",
+      "name": "JapaneseTownKit · Block Wall",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/wall_block.glb",
+      "position": [
+        2,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-49de386da66dbbfc",
+      "name": "JapaneseTownKit · Block Wall Post",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/wall_block_post.glb",
+      "position": [
+        6,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.79487186,
+        1.79487186,
+        1.79487186
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-70a1531ae027056f",
+      "name": "JapaneseTownKit · Can Bin",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/can_bin.glb",
+      "position": [
+        10,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.41463418,
+        3.41463418,
+        3.41463418
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-47f89369cba47c54",
+      "name": "JapaneseTownKit · Cedar and Plaster Post",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/wall_post_board.glb",
+      "position": [
+        14,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4955191ac44ecc41",
+      "name": "JapaneseTownKit · Cedar and Plaster Wall",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/wall_board.glb",
+      "position": [
+        18,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5e0828ae86ad2a68",
+      "name": "JapaneseTownKit · Curve Mirror",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/curve_mirror.glb",
+      "position": [
+        22,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88888886,
+        0.88888886,
+        0.88888886
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a17daab7078d30c0",
+      "name": "JapaneseTownKit · Drinks Machine",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/vending_drinks.glb",
+      "position": [
+        2,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53005461,
+        1.53005461,
+        1.53005461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8f0f852d56733cec",
+      "name": "JapaneseTownKit · Gatepost",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/gatepost.glb",
+      "position": [
+        6,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57303373,
+        1.57303373,
+        1.57303373
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fb35dc000004a5ac",
+      "name": "JapaneseTownKit · Gravel",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/ground_gravel.glb",
+      "position": [
+        10,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-65ff26cf3d615ecf",
+      "name": "JapaneseTownKit · Gutter",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/gutter.glb",
+      "position": [
+        14,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c7b2e7ff8e9cbac7",
+      "name": "JapaneseTownKit · Lane",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/ground_lane.glb",
+      "position": [
+        18,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fdce9b4321008ea4",
+      "name": "JapaneseTownKit · Post Box",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/post_box.glb",
+      "position": [
+        22,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.04379561,
+        2.04379561,
+        2.04379561
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ca21da5662016b08",
+      "name": "JapaneseTownKit · Power Lines",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/wires.glb",
+      "position": [
+        8.00000008,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34958936,
+        0.34958936,
+        0.34958936
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d60fdaf383d7b08c",
+      "name": "JapaneseTownKit · Road Marking, Stop",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/marking_stop.glb",
+      "position": [
+        12,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16666662,
+        1.16666662,
+        1.16666662
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-87cc2f59ce3fddd0",
+      "name": "JapaneseTownKit · Utility Pole",
+      "parentId": "transform:category-japanesetownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/JapaneseTownKit/utility_pole.glb",
+      "position": [
+        16,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31111111,
+        0.31111111,
+        0.31111111
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fb08b0ec1b377625",
+      "name": "MetroKit · Chandelier",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/chandelier.glb",
+      "position": [
+        -22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ea0d91b4b5e24fe9",
+      "name": "MetroKit · Coffered Ceiling",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/ceiling_hall.glb",
+      "position": [
+        -18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2a194c218c1d8c9f",
+      "name": "MetroKit · Column",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/column.glb",
+      "position": [
+        -14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4d66fab5da8e9650",
+      "name": "MetroKit · Fire Hose Cabinet",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/fire_cabinet.glb",
+      "position": [
+        -10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999995,
+        3.49999995,
+        3.49999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6235abec3cc5c17b",
+      "name": "MetroKit · Granite Floor",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/floor_granite.glb",
+      "position": [
+        -6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-26bac8827df1e1d6",
+      "name": "MetroKit · Granite Floor, Band",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/floor_granite_band.glb",
+      "position": [
+        -2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-852483e99c4a0c55",
+      "name": "MetroKit · Hall Bench",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/bench_hall.glb",
+      "position": [
+        -22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.35922334,
+        1.35922334,
+        1.35922334
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bce465206a97fb4b",
+      "name": "MetroKit · Marble Post",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/wall_post_hall.glb",
+      "position": [
+        -18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-30157ce281ab7bac",
+      "name": "MetroKit · Marble Wall",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/wall_hall.glb",
+      "position": [
+        -14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-052e03df4adcc95f",
+      "name": "MetroKit · Platform Edge",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/platform_edge.glb",
+      "position": [
+        -10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8345ce97dec9dd64",
+      "name": "MetroKit · Station Name",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/station_name.glb",
+      "position": [
+        -6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00358424,
+        1.00358424,
+        1.00358424
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-36bc0229ba601725",
+      "name": "MetroKit · Track",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/track.glb",
+      "position": [
+        -2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-63bf00600058ef1a",
+      "name": "MetroKit · Track Wall",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/track_wall.glb",
+      "position": [
+        -16,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5233645,
+        0.5233645,
+        0.5233645
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c0b2f1fec33a9a50",
+      "name": "MetroKit · Track Wall Post",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/track_post.glb",
+      "position": [
+        -12,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5233645,
+        0.5233645,
+        0.5233645
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e025d7f4a86409fd",
+      "name": "MetroKit · Track Wall, Vent",
+      "parentId": "transform:category-metrokit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MetroKit/track_wall_vent.glb",
+      "position": [
+        -8,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5233645,
+        0.5233645,
+        0.5233645
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-20e276e6e92f7b8d",
+      "name": "Prison · Caged Bulkhead",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/lamp_cage_prison.glb",
+      "position": [
+        2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.89863565,
+        3.89863565,
+        3.89863565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-cbb8ada123b0d0f9",
+      "name": "Prison · Cell Call Point",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/cell_intercom.glb",
+      "position": [
+        6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.72727797,
+        12.72727797,
+        12.72727797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-61dc7ded56540310",
+      "name": "Prison · Cell Floor",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/floor_cell.glb",
+      "position": [
+        10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e0e99f0c301b3124",
+      "name": "Prison · Cell Front with a Door",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/bars_cell_door.glb",
+      "position": [
+        14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4c86f180ab2727a4",
+      "name": "Prison · Cell Locking Box",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/locking_box.glb",
+      "position": [
+        17.99999999,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.45829688,
+        2.45829688,
+        2.45829688
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-351b67b64bed98b0",
+      "name": "Prison · Cell Shelf",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/shelf_cell.glb",
+      "position": [
+        22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.11111119,
+        3.11111119,
+        3.11111119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-20c9ab5eb8ad692f",
+      "name": "Prison · Cell Wall",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/wall_cell.glb",
+      "position": [
+        2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7bf66780fc621a22",
+      "name": "Prison · Cell Window Wall",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/wall_cell_window.glb",
+      "position": [
+        6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-01bf64c92d2d6055",
+      "name": "Prison · Painted Block Wall",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/wall_prison.glb",
+      "position": [
+        10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d638113c93c3d231",
+      "name": "Prison · Polished Concrete Floor",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/floor_prison.glb",
+      "position": [
+        14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3eb9213b85fb17db",
+      "name": "Prison · Prison Ceiling",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/ceiling_prison.glb",
+      "position": [
+        18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4ea6994ddf39b773",
+      "name": "Prison · Sliding Cell Door",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/cell_door.glb",
+      "position": [
+        22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14285712,
+        1.14285712,
+        1.14285712
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-03a5c394d32da382",
+      "name": "Prison · Stack of Paperbacks",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/books_prison.glb",
+      "position": [
+        6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.90930475,
+        12.90930475,
+        12.90930475
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ac1b48a46db752cc",
+      "name": "Prison · Steel Bunk Bed",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/bunk_bed.glb",
+      "position": [
+        10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.35567469,
+        1.35567469,
+        1.35567469
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6bdfc5be1253979f",
+      "name": "Prison · Steel Toilet and Basin",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/toilet_sink.glb",
+      "position": [
+        14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.54545449,
+        2.54545449,
+        2.54545449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c82e398e36c69950",
+      "name": "Prison · Wing A Sign",
+      "parentId": "transform:category-prison",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Prison/sign_wing_a.glb",
+      "position": [
+        18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999995,
+        3.49999995,
+        3.49999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b565ae6022910b17",
+      "name": "Sewers · Brick Vault",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/ceiling_sewer_vault.glb",
+      "position": [
+        -22,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-281a51898762425b",
+      "name": "Sewers · Channel",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/channel_straight.glb",
+      "position": [
+        -18,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7c2f69e140a09cec",
+      "name": "Sewers · Channel Railing",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/railing_channel.glb",
+      "position": [
+        -14,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b206f8c614d3568f",
+      "name": "Sewers · Channel Water",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/water_channel.glb",
+      "position": [
+        -10,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b3dfec67de16a4a0",
+      "name": "Sewers · Culvert Wall",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/wall_sewer_culvert.glb",
+      "position": [
+        -6,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66666667,
+        0.66666667,
+        0.66666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-88f0e7351295b74d",
+      "name": "Sewers · Deep Water Sign",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/sign_sewer_deep.glb",
+      "position": [
+        -2,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-76b523a19bbfa0d0",
+      "name": "Sewers · Dripping Water",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/water_drips.glb",
+      "position": [
+        -22,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75716603,
+        0.75716603,
+        0.75716603
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8e1f007b81aa70b7",
+      "name": "Sewers · Flood Siren",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/flood_siren.glb",
+      "position": [
+        -18.00000002,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.06858473,
+        4.06858473,
+        4.06858473
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-08afd23e97cc4b78",
+      "name": "Sewers · Rat",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/rat.glb",
+      "position": [
+        -14,
+        0,
+        -5.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.69108229,
+        7.69108229,
+        7.69108229
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1b1beec3d9906efb",
+      "name": "Sewers · Sewer Post",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/wall_sewer_post.glb",
+      "position": [
+        -10,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b15ca98c0a5b5976",
+      "name": "Sewers · Sewer Wall",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/wall_sewer.glb",
+      "position": [
+        -6,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0f2b684b4064a5f0",
+      "name": "Sewers · Sluice Gate",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/sluice_gate.glb",
+      "position": [
+        -2,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.95563142,
+        0.95563142,
+        0.95563142
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-00f83086fe9bc5b3",
+      "name": "Sewers · Sluice Headstock",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/sluice_headstock.glb",
+      "position": [
+        -18,
+        0,
+        -9.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.76100625,
+        1.76100625,
+        1.76100625
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7c85dad11831a1e8",
+      "name": "Sewers · Stained Sewer Wall",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/wall_sewer_stained.glb",
+      "position": [
+        -14,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7bf6da822ec67beb",
+      "name": "Sewers · Well-Glass Lamp",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/lamp_well_sewer.glb",
+      "position": [
+        -10,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.27802551,
+        6.27802551,
+        6.27802551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e5dec250cbc4f42b",
+      "name": "Sewers · Wet Sewer Floor",
+      "parentId": "transform:category-sewers",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Sewers/floor_sewer_wet.glb",
+      "position": [
+        -6,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a9be2b76649ce892",
+      "name": "SovietBlockKit · Asphalt",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/ground_asphalt.glb",
+      "position": [
+        2,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-920359098e8dc455",
+      "name": "SovietBlockKit · Concrete Panel Entrance",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/wall_doorway_panel.glb",
+      "position": [
+        6,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-60083e4d54101c4c",
+      "name": "SovietBlockKit · Concrete Panel Post",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/wall_post_panel.glb",
+      "position": [
+        10,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e7b0a62d5e55abea",
+      "name": "SovietBlockKit · Concrete Panel Wall",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/wall_panel.glb",
+      "position": [
+        14,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d5184c899a4d1c55",
+      "name": "SovietBlockKit · Concrete Panel Window Wall",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/wall_window_panel.glb",
+      "position": [
+        18,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e8f3abd75fa27ef5",
+      "name": "SovietBlockKit · Curtained Window",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/window_curtains.glb",
+      "position": [
+        22,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.84210529,
+        1.84210529,
+        1.84210529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d64912717ed92334",
+      "name": "SovietBlockKit · Entrance Bench",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/bench_entrance.glb",
+      "position": [
+        2,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47368423,
+        1.47368423,
+        1.47368423
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-007420ea8d7f6575",
+      "name": "SovietBlockKit · Entrance Canopy",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/entrance_canopy.glb",
+      "position": [
+        6,
+        0,
+        -5.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.99999997,
+        0.99999997,
+        0.99999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1b4b832a1188a20f",
+      "name": "SovietBlockKit · Entrance Door",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/door_entrance.glb",
+      "position": [
+        10,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bc8d624b82336650",
+      "name": "SovietBlockKit · Entrance Plate",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/sign_entrance.glb",
+      "position": [
+        14,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.66666648,
+        4.66666648,
+        4.66666648
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c2ce8e4dae18200e",
+      "name": "SovietBlockKit · Low Fence",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/fence_low.glb",
+      "position": [
+        18,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3703314,
+        1.3703314,
+        1.3703314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-78cfc92eb03a0a66",
+      "name": "SovietBlockKit · Panel Wall, Graffiti",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/wall_panel_graffiti.glb",
+      "position": [
+        22,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-68f9de6cc6605478",
+      "name": "SovietBlockKit · Refuse Container",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/bin_container.glb",
+      "position": [
+        8,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44387714,
+        1.44387714,
+        1.44387714
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-785ec4c7ba1e5d05",
+      "name": "SovietBlockKit · Rocket Climber",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/rocket.glb",
+      "position": [
+        12,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49122809,
+        0.49122809,
+        0.49122809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-92fc1ec565a5db41",
+      "name": "SovietBlockKit · Worn Grass",
+      "parentId": "transform:category-sovietblockkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SovietBlockKit/ground_grass.glb",
+      "position": [
+        16,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-177ab8500c9ca5bf",
+      "name": "StreetProps · Dumpster, Green",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/dumpster_green.glb",
+      "position": [
+        -22,
+        0,
+        -16.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4277ff9c34be9d5b",
+      "name": "StreetProps · Fire Hydrant, Yellow",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/hydrant_yellow.glb",
+      "position": [
+        -18,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.88888873,
+        3.88888873,
+        3.88888873
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-56117890f539cc61",
+      "name": "StreetProps · Litter Bin",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/litter_bin.glb",
+      "position": [
+        -14,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bca6c28b33340d4c",
+      "name": "StreetProps · No Parking Sign",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/sign_no_parking.glb",
+      "position": [
+        -10,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9d7037c223ded768",
+      "name": "StreetProps · Oil Drum",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/oil_drum.glb",
+      "position": [
+        -6,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.14606747,
+        3.14606747,
+        3.14606747
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-900501f2b19d9ea1",
+      "name": "StreetProps · Park Bench",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/bench_park.glb",
+      "position": [
+        -2,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555556,
+        1.5555556,
+        1.5555556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-89a08513cc596a59",
+      "name": "StreetProps · Pavement, Kerb",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/pavement_kerb.glb",
+      "position": [
+        -22,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-000570376c1fffae",
+      "name": "StreetProps · Road",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/road.glb",
+      "position": [
+        -18,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666667,
+        0.46666667,
+        0.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b7c4d8ec09762a59",
+      "name": "StreetProps · Street Light",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/lamp_cobra.glb",
+      "position": [
+        -14,
+        0,
+        -20.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33694342,
+        0.33694342,
+        0.33694342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f3131567672f5892",
+      "name": "StreetProps · Traffic Cone, Tall",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/cone_tall.glb",
+      "position": [
+        -10,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-714b6747eaae7e6f",
+      "name": "StreetProps · Water Barrier, Red",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/water_barrier_red.glb",
+      "position": [
+        -6,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70731709,
+        1.70731709,
+        1.70731709
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7d07f7741814967a",
+      "name": "StreetProps · Wheelie Bin, Green",
+      "parentId": "transform:category-streetprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/StreetProps/wheelie_bin_green.glb",
+      "position": [
+        -2,
+        0,
+        -20.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-033601e054230c47",
+      "name": "Subway · Departure Board",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/departure_board.glb",
+      "position": [
+        2,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74999997,
+        1.74999997,
+        1.74999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-72ab11b0eb5b9b86",
+      "name": "Subway · Fare Gate",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/fare_gate.glb",
+      "position": [
+        6,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.93236715,
+        1.93236715,
+        1.93236715
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-35b5d10b619cb5ba",
+      "name": "Subway · Litter Bin",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/bin_metro.glb",
+      "position": [
+        10,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ca0005c66df22c63",
+      "name": "Subway · Metro Tile Wall",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/wall_metro.glb",
+      "position": [
+        14,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8656063d82e69ef5",
+      "name": "Subway · Metro Wall, Station Name",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/wall_metro_name.glb",
+      "position": [
+        18,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-46d08f7a2edbcc98",
+      "name": "Subway · Platform Bench",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/bench_metro.glb",
+      "position": [
+        22,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5909091,
+        1.5909091,
+        1.5909091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1ed84885599df27a",
+      "name": "Subway · Platform Edge",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/platform_edge.glb",
+      "position": [
+        2,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16666668,
+        1.16666668,
+        1.16666668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-81f90f89dad5f806",
+      "name": "Subway · Platform Paving",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/floor_platform.glb",
+      "position": [
+        6,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-82cf3063f2343379",
+      "name": "Subway · Poster: Hills",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/poster_hills.glb",
+      "position": [
+        10,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.79487186,
+        1.79487186,
+        1.79487186
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1d17df600d107123",
+      "name": "Subway · Station Ceiling",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/ceiling_metro.glb",
+      "position": [
+        14,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ff16262610314b23",
+      "name": "Subway · Ticket",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/metro_ticket.glb",
+      "position": [
+        18,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        35.00000078,
+        35.00000078,
+        35.00000078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1cd4b8522dbe2edb",
+      "name": "Subway · Ticket Machine",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/ticket_machine.glb",
+      "position": [
+        22,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47368423,
+        1.47368423,
+        1.47368423
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5205f3a575722fc5",
+      "name": "Subway · Track",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/track_straight.glb",
+      "position": [
+        6,
+        0,
+        -24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8b078c9fcfbe7b0a",
+      "name": "Subway · Trackway Ceiling",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/ceiling_track.glb",
+      "position": [
+        10,
+        0,
+        -24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-67f5b403204af209",
+      "name": "Subway · Trough Light",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/lamp_trough_metro.glb",
+      "position": [
+        14,
+        0,
+        -24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74999997,
+        1.74999997,
+        1.74999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-470c5616721a551f",
+      "name": "Subway · Way Out Sign",
+      "parentId": "transform:category-subway",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Subway/sign_way_out.glb",
+      "position": [
+        18,
+        0,
+        -24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70731709,
+        1.70731709,
+        1.70731709
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1604575aaea558b0",
+      "name": "Vehicles · Bicycle, Red",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/bicycle_red.glb",
+      "position": [
+        -22.00000001,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65989797,
+        1.65989797,
+        1.65989797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f7f6145fc4d0b6f0",
+      "name": "Vehicles · Fence, Corrugated",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/fence_corrugated.glb",
+      "position": [
+        -18,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.33333339,
+        1.33333339,
+        1.33333339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1b4bfb16ecc86821",
+      "name": "Vehicles · Fire Hydrant",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/hydrant.glb",
+      "position": [
+        -14,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999995,
+        3.49999995,
+        3.49999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-93de11251de150f3",
+      "name": "Vehicles · Jerry Can",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/jerry_can.glb",
+      "position": [
+        -10,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6565656,
+        5.6565656,
+        5.6565656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2c54334f2ae68418",
+      "name": "Vehicles · Pickup, Red",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/pickup_red.glb",
+      "position": [
+        -6,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53846156,
+        0.53846156,
+        0.53846156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-143c8f6137362fe7",
+      "name": "Vehicles · Road",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/road.glb",
+      "position": [
+        -2,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666667,
+        0.46666667,
+        0.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-36ea2818481e43d7",
+      "name": "Vehicles · Sedan, Blue",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/sedan_blue.glb",
+      "position": [
+        -22,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59829062,
+        0.59829062,
+        0.59829062
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0f3234828c01f81b",
+      "name": "Vehicles · Sedan, Rusted",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/sedan_rusted.glb",
+      "position": [
+        -18,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59829062,
+        0.59829062,
+        0.59829062
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f961bc52a533fc7e",
+      "name": "Vehicles · Sidewalk and Kerb",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/sidewalk.glb",
+      "position": [
+        -14,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31455399,
+        1.31455399,
+        1.31455399
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7cdfa840866e57b7",
+      "name": "Vehicles · Tire",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/tire.glb",
+      "position": [
+        -10,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.3750001,
+        4.3750001,
+        4.3750001
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-573cb6ed0b87c448",
+      "name": "Vehicles · Tire Stack",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/tire_stack.glb",
+      "position": [
+        -6,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999995,
+        3.49999995,
+        3.49999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8a8932441b513665",
+      "name": "Vehicles · Traffic Cone",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Vehicles/traffic_cone.glb",
+      "position": [
+        -2,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.00000007,
+        4.00000007,
+        4.00000007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d224f3a7bc1f6851",
+      "name": "WesternTownKit · Boardwalk",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/boardwalk.glb",
+      "position": [
+        2,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-baa8c0ae331ffde6",
+      "name": "WesternTownKit · General Store Sign",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/sign_store.glb",
+      "position": [
+        6,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14285712,
+        1.14285712,
+        1.14285712
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d667aa36748296b5",
+      "name": "WesternTownKit · Hitching Post",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/hitching_post.glb",
+      "position": [
+        10,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.33333339,
+        1.33333339,
+        1.33333339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-51ada6d63954aaad",
+      "name": "WesternTownKit · Plank Floor",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/floor_planks.glb",
+      "position": [
+        14,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-caa244fbeb4e6653",
+      "name": "WesternTownKit · Porch Post",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/porch_post.glb",
+      "position": [
+        18,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.99830688,
+        0.99830688,
+        0.99830688
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a430a1213b28b089",
+      "name": "WesternTownKit · Store Door",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/door_store.glb",
+      "position": [
+        22,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a3efa189b703e92c",
+      "name": "WesternTownKit · Store Window",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/window_store.glb",
+      "position": [
+        2,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.32387714,
+        1.32387714,
+        1.32387714
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-365d1da785f1d75a",
+      "name": "WesternTownKit · Tin Awning",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/awning.glb",
+      "position": [
+        6,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2e25b7816849fb00",
+      "name": "WesternTownKit · Tumbleweed",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/tumbleweed.glb",
+      "position": [
+        10,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.34239211,
+        3.34239211,
+        3.34239211
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8edd63d7a2a80ff4",
+      "name": "WesternTownKit · White Clapboard Doorway",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/wall_doorway_white.glb",
+      "position": [
+        14,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-359cdca9966656df",
+      "name": "WesternTownKit · White Clapboard False Front",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/front_white.glb",
+      "position": [
+        18,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-793b9e05a18fc7bb",
+      "name": "WesternTownKit · White Clapboard False Front, Peak",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/front_white_peak.glb",
+      "position": [
+        22,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27272725,
+        1.27272725,
+        1.27272725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-aa3431d1fa2c9f82",
+      "name": "WesternTownKit · White Clapboard Post",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/wall_post_white.glb",
+      "position": [
+        8,
+        0,
+        -39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5cf79c230f2d6fd0",
+      "name": "WesternTownKit · White Clapboard Wall",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/wall_white.glb",
+      "position": [
+        12,
+        0,
+        -39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-94438741cbd85ec1",
+      "name": "WesternTownKit · White Shopfront Wall",
+      "parentId": "transform:category-westerntownkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/WesternTownKit/wall_shopfront_white.glb",
+      "position": [
+        16,
+        0,
+        -39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

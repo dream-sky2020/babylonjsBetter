@@ -1,0 +1,8505 @@
+{
+  "presetKey": "artist-craigsnedeker-model-test",
+  "name": "Craigsnedeker · Classic64 道具、建筑与车辆（191 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-books",
+      "name": "Books",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-boxes",
+      "name": "Boxes",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-buildings",
+      "name": "Buildings",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-doors",
+      "name": "Doors",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-electrical",
+      "name": "Electrical",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-food",
+      "name": "Food",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-foodshelfscene",
+      "name": "FoodShelfScene",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-gems",
+      "name": "Gems",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-industrial",
+      "name": "Industrial",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-misc",
+      "name": "Misc",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-nature",
+      "name": "Nature",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-panels",
+      "name": "Panels",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-papers",
+      "name": "Papers",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-products",
+      "name": "Products",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-rocks",
+      "name": "Rocks",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-shelves",
+      "name": "Shelves",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-signs",
+      "name": "Signs",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-tools",
+      "name": "Tools",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-units",
+      "name": "Units",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-vehicles",
+      "name": "Vehicles",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-walls",
+      "name": "Walls",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-windows",
+      "name": "Windows",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-wood",
+      "name": "Wood",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 122
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "craigsnedeker-c17fef23c03500e3-stand",
+      "name": "book_black_01展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        58.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-d45dd0bd984c59a8-stand",
+      "name": "book_blue_01展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        58.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-6a0d27fff77b8f90-stand",
+      "name": "book_blue_02展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        58.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-dba734db8dd97c01-stand",
+      "name": "book_blue_03展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        58.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-3a6d8486c0e546ca-stand",
+      "name": "book_blue_04展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        58.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-702faa57f574009e-stand",
+      "name": "book_blue_05展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        58.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-3661e44bc82d513e-stand",
+      "name": "book_blue_06展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        54.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-efe455efeb2ab9db-stand",
+      "name": "book_blue_07展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        54.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-b9a90b4fb24bdd89-stand",
+      "name": "book_brown_01展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        54.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-c0670d4c3a7e9648-stand",
+      "name": "book_brown_02展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        54.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-eea36d33e760afcb-stand",
+      "name": "book_brown_03展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        54.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-1e9be8c3651b49e3-stand",
+      "name": "book_red_01展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        54.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-75e825e35d45f8e0-stand",
+      "name": "book_yellow_01展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        50.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-ada540d11f22e304-stand",
+      "name": "catalog_01展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        50.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-8cc07094e4ae94ae-stand",
+      "name": "catalog_02展台",
+      "parentId": "transform:category-books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        50.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-3ccf7bfb58780387-stand",
+      "name": "box_01展台",
+      "parentId": "transform:category-boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        58.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-adebea47adff621c-stand",
+      "name": "box_02展台",
+      "parentId": "transform:category-boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        58.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-726337c1eb94c887-stand",
+      "name": "box_03展台",
+      "parentId": "transform:category-boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        58.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-67013da65e6a645b-stand",
+      "name": "box_04展台",
+      "parentId": "transform:category-boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        58.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-56ef3e5ff48f6280-stand",
+      "name": "building_01展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        51.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-6be2e401d6ca5fcb-stand",
+      "name": "Pallet展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        51.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-500d99da736f702c-stand",
+      "name": "Pallet_001展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        51.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-9bb87dac1c8e9925-stand",
+      "name": "Propane_Storage展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        51.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-cc397d487bb6be6e-stand",
+      "name": "shed_01展台",
+      "parentId": "transform:category-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        51.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-bf37c4ad5ac7f141-stand",
+      "name": "door_brown_a展台",
+      "parentId": "transform:category-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-673e3b1d128b0d92-stand",
+      "name": "door_brown_b展台",
+      "parentId": "transform:category-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-5d23c92dc4f88970-stand",
+      "name": "door_double_brown展台",
+      "parentId": "transform:category-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-5e564ffbadfa84ef-stand",
+      "name": "door_plain展台",
+      "parentId": "transform:category-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-0e92c45b670979ac-stand",
+      "name": "door_pushbar展台",
+      "parentId": "transform:category-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-9248de2bb87aa8c3-stand",
+      "name": "door_shed_a展台",
+      "parentId": "transform:category-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-d07470dc058a2f4a-stand",
+      "name": "door_shed_b展台",
+      "parentId": "transform:category-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        40.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-61bdc7da7a6f4cea-stand",
+      "name": "door_shed_double展台",
+      "parentId": "transform:category-doors",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        40.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-399d179a92794a5e-stand",
+      "name": "electrical_junctionbox_small展台",
+      "parentId": "transform:category-electrical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        43.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-e297db66f7c6d170-stand",
+      "name": "drink_can_soda展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        36.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-2157add1a804e8f3-stand",
+      "name": "drink_can_soda_2展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        36.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-0dec3d19950d4002-stand",
+      "name": "drink_can_soda_3展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        36.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-22f486f190b81c94-stand",
+      "name": "drink_can_soda_4展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        36.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-44800f70d1e63eb7-stand",
+      "name": "drink_can_soda_5展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        36.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-e6cb2747b66467f5-stand",
+      "name": "drink_can_soda_6展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        36.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-baa61093dd600763-stand",
+      "name": "drink_can_soda_7展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        32.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-dd203db75039581d-stand",
+      "name": "drink_can_soda_8展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        32.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-2b424dad5b882dd1-stand",
+      "name": "food_baking_flour展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        32.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-f8bc5be08996b2d4-stand",
+      "name": "food_baking_sugar展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        32.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-a32e1c17f8da0a1d-stand",
+      "name": "food_canned_soup_1展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        32.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-540aebbf7b42481e-stand",
+      "name": "food_canned_soup_10展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        32.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-320440394b20e6d6-stand",
+      "name": "food_canned_soup_2展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-0de4003b0f12445d-stand",
+      "name": "food_canned_soup_3展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-864145bd43d9e992-stand",
+      "name": "food_canned_soup_5展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-2249e273809cdc27-stand",
+      "name": "food_canned_soup_6展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-5018c0f454c6e7a7-stand",
+      "name": "food_canned_soup_7展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-731cc0bd19bc5e50-stand",
+      "name": "food_canned_soup_8展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-2a5658cb961f7b82-stand",
+      "name": "food_cereal_1展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-099f686a2d6d4f11-stand",
+      "name": "food_cereal_2展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-dc48212791ca66df-stand",
+      "name": "food_cereal_3展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-1173540d0622e8ff-stand",
+      "name": "food_cereal_4展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-e149fcad9e736743-stand",
+      "name": "food_cereal_5展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-6f27f05d545a0a5b-stand",
+      "name": "food_cereal_6展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-02067c8586bb7f4a-stand",
+      "name": "food_cereal_7展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-0853fef1593321ed-stand",
+      "name": "food_cereal_8展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-45f54467ac0b126f-stand",
+      "name": "food_pet展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-84f9070f196d70df-stand",
+      "name": "food_pet_2展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-4f2352b1b1fe6c69-stand",
+      "name": "food_snack_chips_1展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-3c366906ed37168f-stand",
+      "name": "food_snack_chips_2展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-a18780a83b9139c9-stand",
+      "name": "food_snack_chips_3展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-22750876f5f63386-stand",
+      "name": "food_snack_chips_4展台",
+      "parentId": "transform:category-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-47fc38ca1ba3ee7b-stand",
+      "name": "food_baking_flour展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-31f975e6ae91e13b-stand",
+      "name": "food_baking_flour_001展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-04bb79f1ca84254a-stand",
+      "name": "food_baking_flour_003展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-bcbd8a16fef91ca3-stand",
+      "name": "food_baking_flour_005展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-a9fe0a1c4ff3e8b0-stand",
+      "name": "food_baking_flour_009展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-61bd37ef0843ccab-stand",
+      "name": "food_baking_flour_012展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-fbc623563fd889e4-stand",
+      "name": "Food_Baking_Sugar展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-f92b7794176d477e-stand",
+      "name": "Food_Baking_Sugar_002展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-07e649508943fd79-stand",
+      "name": "Food_Baking_Sugar_007展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-5680b4d79e4404d1-stand",
+      "name": "Food_Canned_Soup_1_001展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-e7b9c84eacd41f4e-stand",
+      "name": "Food_Canned_Soup_1_002展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-5e747f860db63d0b-stand",
+      "name": "Food_Canned_Soup_2_001展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-6fe0b9e4ba64db6b-stand",
+      "name": "Food_Canned_Soup_2_002展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-ac2727db3cbee955-stand",
+      "name": "Food_Canned_Soup_2_003展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-dc7934a5ba76caee-stand",
+      "name": "Food_Canned_Soup_3_001展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-5d2f30a93f4d6668-stand",
+      "name": "Food_Canned_Soup_5_001展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-a5653c4387f7ce3c-stand",
+      "name": "Food_Canned_Soup_6_001展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-f2b407986c1fc589-stand",
+      "name": "Food_Canned_Soup_6_002展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-98a6ad34841ec374-stand",
+      "name": "Food_Canned_Soup_7_007展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-1c91f5052e8e6109-stand",
+      "name": "Food_Canned_Soup_7_014展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-5873cd4bd1dac98d-stand",
+      "name": "Food_Canned_Soup_7_015展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-af553480a7290791-stand",
+      "name": "Food_Canned_Soup_8_001展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-77af26e2eea9aa89-stand",
+      "name": "Food_Canned_Soup_8_003展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-e076ae4e9dcc9362-stand",
+      "name": "Food_Canned_Soup_8_007展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-cdeb88f30ba88f75-stand",
+      "name": "Food_Canned_Soup_8_012展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-05c8dd4b47d43647-stand",
+      "name": "Food_Cereal_1_010展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-757d60bdea9c5f8f-stand",
+      "name": "Food_Cereal_2_004展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-a68e5f3f86bab5a5-stand",
+      "name": "Food_Cereal_3展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-f6f95fddd580efda-stand",
+      "name": "Food_Cereal_3_001展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-45422e74d874989e-stand",
+      "name": "Food_Cereal_4展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-3fa041c5bdb6f3ca-stand",
+      "name": "Food_Cereal_4_003展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-04459e8e459ae3f3-stand",
+      "name": "Food_Cereal_5_002展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-4eb35bdcd0529828-stand",
+      "name": "Food_Cereal_6_003展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-3c92fd68b19aaa59-stand",
+      "name": "Food_Cereal_6_008展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-f9afaedc50c48972-stand",
+      "name": "Food_Cereal_7展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-4bbadb8c0fe6b7fa-stand",
+      "name": "Food_Cereal_8_002展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-dd9cc2bde84a4b2c-stand",
+      "name": "Food_Pet展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-ac8fa82af1e98897-stand",
+      "name": "Food_Pet_002展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-ffb86d9b17b58001-stand",
+      "name": "Food_Pet_008展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-5c0fd0f866526382-stand",
+      "name": "Food_Pet_2_007展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-077ef049973f3943-stand",
+      "name": "Food_Pet_2_013展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-c16b03d6f511976f-stand",
+      "name": "Food_Pet_2_022展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-83162bf617bc8e8a-stand",
+      "name": "food_snack_chips_1展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-244ec272f17f3e5d-stand",
+      "name": "food_snack_chips_1_004展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-76c311efb405622c-stand",
+      "name": "food_snack_chips_2展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-2b30a0cec6befa3b-stand",
+      "name": "food_snack_chips_2_004展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-b0e063880a1e7886-stand",
+      "name": "food_snack_chips_2_005展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-f5d09efa5fe77ec8-stand",
+      "name": "food_snack_chips_3展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-2d9d385afcda8edf-stand",
+      "name": "food_snack_chips_3_004展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-2df3a48a6387fd0a-stand",
+      "name": "food_snack_chips_4展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-67abe9780530bb30-stand",
+      "name": "food_snack_chips_4_003展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-356d91ea2f9fdc95-stand",
+      "name": "food_snack_chips_4_012展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-60647cc087faca9a-stand",
+      "name": "food_snack_chips_4_013展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-35d781e240a9d9d2-stand",
+      "name": "products_papertowels_pack展台",
+      "parentId": "transform:category-foodshelfscene",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-7d4603367ef92662-stand",
+      "name": "blue_gemstone_pile展台",
+      "parentId": "transform:category-gems",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-81c1ee13753096c0-stand",
+      "name": "red_gemstone_pile展台",
+      "parentId": "transform:category-gems",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-7cf4b7e9bb44e82a-stand",
+      "name": "red_gemstone_pile_2展台",
+      "parentId": "transform:category-gems",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-1f064a0aea30c1a4-stand",
+      "name": "fire_extenguisher_case展台",
+      "parentId": "transform:category-industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-ca2695d6d6990b48-stand",
+      "name": "Guardrail展台",
+      "parentId": "transform:category-industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-a9421e20df5af5b7-stand",
+      "name": "Guardrail_Example展台",
+      "parentId": "transform:category-industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-6dc95ee94aa34f55-stand",
+      "name": "manhole_cover展台",
+      "parentId": "transform:category-industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-ac1552a184a22a01-stand",
+      "name": "pump_station展台",
+      "parentId": "transform:category-industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-a267832b64c7512c-stand",
+      "name": "yellow_post展台",
+      "parentId": "transform:category-industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-4bd12151b1dfd127-stand",
+      "name": "garbage_bag_1展台",
+      "parentId": "transform:category-misc",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-320482735c5aa736-stand",
+      "name": "garbage_bag_2展台",
+      "parentId": "transform:category-misc",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-526683d041bf2955-stand",
+      "name": "pvc_pipe展台",
+      "parentId": "transform:category-misc",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-6cc33ee777f99e4b-stand",
+      "name": "pvc_pipe_pallet展台",
+      "parentId": "transform:category-misc",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-cfd04d7ec46671ad-stand",
+      "name": "pvc_pipe_pallet_broken展台",
+      "parentId": "transform:category-misc",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-28111d26ef705b01-stand",
+      "name": "bush_01展台",
+      "parentId": "transform:category-nature",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-8445b7f746277771-stand",
+      "name": "bush_02展台",
+      "parentId": "transform:category-nature",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-414b62a1fc5d2153-stand",
+      "name": "bush_03展台",
+      "parentId": "transform:category-nature",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-85299ceeedf4364d-stand",
+      "name": "bush_04展台",
+      "parentId": "transform:category-nature",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-bbff0abda55e8959-stand",
+      "name": "bush_05展台",
+      "parentId": "transform:category-nature",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-39b6ffbc2f6fd54a-stand",
+      "name": "sapling展台",
+      "parentId": "transform:category-nature",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-b3affbedc087e6a0-stand",
+      "name": "tree_trunk展台",
+      "parentId": "transform:category-nature",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-ef051c41c2857c3c-stand",
+      "name": "panel_amp_controls展台",
+      "parentId": "transform:category-panels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-fbee7a5ac04afe12-stand",
+      "name": "panel_electric展台",
+      "parentId": "transform:category-panels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-8b8a1d155708617b-stand",
+      "name": "panel_electrical_closed展台",
+      "parentId": "transform:category-panels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-48a27d6f3efb7461-stand",
+      "name": "panel_electrical_open展台",
+      "parentId": "transform:category-panels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-8483226bebea0cdd-stand",
+      "name": "panel_heater展台",
+      "parentId": "transform:category-panels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-7082f96a395aa32c-stand",
+      "name": "panel_misc展台",
+      "parentId": "transform:category-panels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-144e81a11f5c71a1-stand",
+      "name": "panel_thermostat展台",
+      "parentId": "transform:category-panels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-66215912ec4de7dd-stand",
+      "name": "propane_storage展台",
+      "parentId": "transform:category-panels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-100ed726d146f08b-stand",
+      "name": "papers_envolope_redacted展台",
+      "parentId": "transform:category-papers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-479edbf86f2e1b1d-stand",
+      "name": "papers_log_1展台",
+      "parentId": "transform:category-papers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-f3a69c8cd2e89593-stand",
+      "name": "papers_log_1_stack展台",
+      "parentId": "transform:category-papers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-1399355f0b7578fa-stand",
+      "name": "products_papertowels_pack展台",
+      "parentId": "transform:category-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-0e8c7a6f0e4f2dd0-stand",
+      "name": "rock_handpainted_1展台",
+      "parentId": "transform:category-rocks",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-592a2bc0fc84c15f-stand",
+      "name": "rock_handpainted_2展台",
+      "parentId": "transform:category-rocks",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-1323168833741bbe-stand",
+      "name": "rock_handpainted_3展台",
+      "parentId": "transform:category-rocks",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-b8f99c4248c7b85d-stand",
+      "name": "rock_handpainted_4展台",
+      "parentId": "transform:category-rocks",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-4289013d81c427dd-stand",
+      "name": "rock_handpainted_5展台",
+      "parentId": "transform:category-rocks",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-291aece73e5f957c-stand",
+      "name": "commerical_shelf展台",
+      "parentId": "transform:category-shelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-dba89d0fb47655b7-stand",
+      "name": "commerical_shelf_end展台",
+      "parentId": "transform:category-shelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-09f25c915b4f3dcf-stand",
+      "name": "commerical_shelf_one_side展台",
+      "parentId": "transform:category-shelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-135ba7d72edc7b1b-stand",
+      "name": "commerical_shelf_short展台",
+      "parentId": "transform:category-shelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-c931dd21fb5949da-stand",
+      "name": "commerical_shelf_short_end展台",
+      "parentId": "transform:category-shelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-41e8ad63a25343f1-stand",
+      "name": "metal_rack_stackable展台",
+      "parentId": "transform:category-shelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-e1f267950493f225-stand",
+      "name": "metal_rack_stackable_small展台",
+      "parentId": "transform:category-shelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-36707f61a2aede1d-stand",
+      "name": "sign_chemical_rusty展台",
+      "parentId": "transform:category-signs",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        -30.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-6679520bc2e3456d-stand",
+      "name": "sign_confined_space展台",
+      "parentId": "transform:category-signs",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -30.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-33a240dffc33a5ff-stand",
+      "name": "sign_no_parking展台",
+      "parentId": "transform:category-signs",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -30.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-143134ed10bfc87f-stand",
+      "name": "sign_nosmoking展台",
+      "parentId": "transform:category-signs",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -30.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-30a9b76011b8f981-stand",
+      "name": "sign_reserved_parking展台",
+      "parentId": "transform:category-signs",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        -30.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-3cb6030e73ba48a6-stand",
+      "name": "rolling_tool_chest展台",
+      "parentId": "transform:category-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -37.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-2e34c0bab22549d9-stand",
+      "name": "shovel展台",
+      "parentId": "transform:category-tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -37.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-e1b7ace694660df0-stand",
+      "name": "Gen01展台",
+      "parentId": "transform:category-units",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -40.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-33ca29860639cb01-stand",
+      "name": "Gen02展台",
+      "parentId": "transform:category-units",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -40.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-7bc873b4885b4b50-stand",
+      "name": "Gen03展台",
+      "parentId": "transform:category-units",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -40.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-5d3219d0bc6e9fc0-stand",
+      "name": "generator展台",
+      "parentId": "transform:category-units",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -40.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-51a412f0cdbe6345-stand",
+      "name": "walkin_cooler_display_unfinished展台",
+      "parentId": "transform:category-units",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -40.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-bc4035201a57cbf1-stand",
+      "name": "bike_vintage_unfinished展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-92ee835fb31f51e4-stand",
+      "name": "car_parts_brakes_unfinished展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-8d2dc26f9189535a-stand",
+      "name": "car_ramp_01展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-79bf1cbc8eafe599-stand",
+      "name": "volvo展台",
+      "parentId": "transform:category-vehicles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -44.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-7b6aced91f2a11ac-stand",
+      "name": "wood_plank_2_001展台",
+      "parentId": "transform:category-walls",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -47.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-074bef5138261625-stand",
+      "name": "wood_plank_2_door展台",
+      "parentId": "transform:category-walls",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -47.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-396b2e73cf7305c3-stand",
+      "name": "wood_plank_2_door_001展台",
+      "parentId": "transform:category-walls",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -47.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-a78cf5fad1a5bd0a-stand",
+      "name": "wood_plank_2_end展台",
+      "parentId": "transform:category-walls",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -47.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "craigsnedeker-6f867783c3018998-stand",
+      "name": "window_boarded展台",
+      "parentId": "transform:category-windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -51.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-6e4891dfa239164c-stand",
+      "name": "window_frame_green展台",
+      "parentId": "transform:category-windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -51.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-62ffa309cf6a976e-stand",
+      "name": "window_modern展台",
+      "parentId": "transform:category-windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -51.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-f0ddecec2e293312-stand",
+      "name": "window_shutter_black展台",
+      "parentId": "transform:category-windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -51.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-1630868f6da29966-stand",
+      "name": "window_shutter_green展台",
+      "parentId": "transform:category-windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -51.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-ac9e9522c23a10fd-stand",
+      "name": "window_shutter_red展台",
+      "parentId": "transform:category-windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -51.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "craigsnedeker-5325a5239c339531-stand",
+      "name": "Wood_Pallet展台",
+      "parentId": "transform:category-wood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -54.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "craigsnedeker-c17fef23c03500e3",
+      "name": "Books · book_black_01",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_black_01_d64c308b.glb",
+      "position": [
+        -22,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-d45dd0bd984c59a8",
+      "name": "Books · book_blue_01",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_blue_01_71eff412.glb",
+      "position": [
+        -18,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6a0d27fff77b8f90",
+      "name": "Books · book_blue_02",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_blue_02_dc47715f.glb",
+      "position": [
+        -14,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-dba734db8dd97c01",
+      "name": "Books · book_blue_03",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_blue_03_c01e6ea2.glb",
+      "position": [
+        -10,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-3a6d8486c0e546ca",
+      "name": "Books · book_blue_04",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_blue_04_a9a8a67c.glb",
+      "position": [
+        -6,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-702faa57f574009e",
+      "name": "Books · book_blue_05",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_blue_05_d6ca8524.glb",
+      "position": [
+        -2,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-3661e44bc82d513e",
+      "name": "Books · book_blue_06",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_blue_06_92c4dbdd.glb",
+      "position": [
+        -22,
+        0,
+        54.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-efe455efeb2ab9db",
+      "name": "Books · book_blue_07",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_blue_07_7d01acfc.glb",
+      "position": [
+        -18,
+        0,
+        54.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-b9a90b4fb24bdd89",
+      "name": "Books · book_brown_01",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_brown_01_1959b13c.glb",
+      "position": [
+        -14,
+        0,
+        54.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-c0670d4c3a7e9648",
+      "name": "Books · book_brown_02",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_brown_02_4111d4f2.glb",
+      "position": [
+        -10,
+        0,
+        54.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-eea36d33e760afcb",
+      "name": "Books · book_brown_03",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_brown_03_3b4909b5.glb",
+      "position": [
+        -6,
+        0,
+        54.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-1e9be8c3651b49e3",
+      "name": "Books · book_red_01",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_red_01_44367b43.glb",
+      "position": [
+        -2,
+        0,
+        54.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-75e825e35d45f8e0",
+      "name": "Books · book_yellow_01",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/book_yellow_01_457ddd85.glb",
+      "position": [
+        -16,
+        0,
+        50.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.71245539,
+        11.71245539,
+        11.71245539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-ada540d11f22e304",
+      "name": "Books · catalog_01",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/catalog_01_e428551b.glb",
+      "position": [
+        -12,
+        0,
+        50.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529374,
+        7.65529374,
+        7.65529374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-8cc07094e4ae94ae",
+      "name": "Books · catalog_02",
+      "parentId": "transform:category-books",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Books/catalog_02_54d3708d.glb",
+      "position": [
+        -8,
+        0,
+        50.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.06642446,
+        7.06642446,
+        7.06642446
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-3ccf7bfb58780387",
+      "name": "Boxes · box_01",
+      "parentId": "transform:category-boxes",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Boxes/box_01_f02e87a7.glb",
+      "position": [
+        6,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529312,
+        7.65529312,
+        7.65529312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-adebea47adff621c",
+      "name": "Boxes · box_02",
+      "parentId": "transform:category-boxes",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Boxes/box_02_0f4f2555.glb",
+      "position": [
+        10,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529312,
+        7.65529312,
+        7.65529312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-726337c1eb94c887",
+      "name": "Boxes · box_03",
+      "parentId": "transform:category-boxes",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Boxes/box_03_75fe5631.glb",
+      "position": [
+        14,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529312,
+        7.65529312,
+        7.65529312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-67013da65e6a645b",
+      "name": "Boxes · box_04",
+      "parentId": "transform:category-boxes",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Boxes/box_04_0bad33d5.glb",
+      "position": [
+        18,
+        0,
+        58.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.10352861,
+        5.10352861,
+        5.10352861
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-56ef3e5ff48f6280",
+      "name": "Buildings · building_01",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Buildings/building_01_7b4e6aca.glb",
+      "position": [
+        4,
+        0,
+        51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33824471,
+        0.33824471,
+        0.33824471
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6be2e401d6ca5fcb",
+      "name": "Buildings · Pallet",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Buildings/Pallet_2e94f81c.glb",
+      "position": [
+        8,
+        0,
+        51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74344965,
+        1.74344965,
+        1.74344965
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-500d99da736f702c",
+      "name": "Buildings · Pallet_001",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Buildings/Pallet_001_b48b587d.glb",
+      "position": [
+        12,
+        0,
+        51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.72311232,
+        1.72311232,
+        1.72311232
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-9bb87dac1c8e9925",
+      "name": "Buildings · Propane_Storage",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Buildings/Propane_Storage_889ea2de.glb",
+      "position": [
+        16,
+        0,
+        51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.45420707,
+        1.45420707,
+        1.45420707
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-cc397d487bb6be6e",
+      "name": "Buildings · shed_01",
+      "parentId": "transform:category-buildings",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Buildings/shed_01_3852db85.glb",
+      "position": [
+        20,
+        0,
+        51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2142543,
+        0.2142543,
+        0.2142543
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-bf37c4ad5ac7f141",
+      "name": "Doors · door_brown_a",
+      "parentId": "transform:category-doors",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Doors/door_brown_a_0ca66393.glb",
+      "position": [
+        2,
+        0,
+        44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48166962,
+        1.48166962,
+        1.48166962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-673e3b1d128b0d92",
+      "name": "Doors · door_brown_b",
+      "parentId": "transform:category-doors",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Doors/door_brown_b_294df7e9.glb",
+      "position": [
+        6,
+        0,
+        44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48166962,
+        1.48166962,
+        1.48166962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5d23c92dc4f88970",
+      "name": "Doors · door_double_brown",
+      "parentId": "transform:category-doors",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Doors/door_double_brown_d6d3b0be.glb",
+      "position": [
+        10,
+        0,
+        44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48166962,
+        1.48166962,
+        1.48166962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5e564ffbadfa84ef",
+      "name": "Doors · door_plain",
+      "parentId": "transform:category-doors",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Doors/door_plain_42cdfe2f.glb",
+      "position": [
+        14,
+        0,
+        44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.30097474,
+        1.30097474,
+        1.30097474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-0e92c45b670979ac",
+      "name": "Doors · door_pushbar",
+      "parentId": "transform:category-doors",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Doors/door_pushbar_995096eb.glb",
+      "position": [
+        18,
+        0,
+        44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.4091381,
+        3.4091381,
+        3.4091381
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-9248de2bb87aa8c3",
+      "name": "Doors · door_shed_a",
+      "parentId": "transform:category-doors",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Doors/door_shed_a_60a91f37.glb",
+      "position": [
+        22,
+        0,
+        44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48166962,
+        1.48166962,
+        1.48166962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-d07470dc058a2f4a",
+      "name": "Doors · door_shed_b",
+      "parentId": "transform:category-doors",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Doors/door_shed_b_3d6c615a.glb",
+      "position": [
+        10,
+        0,
+        40.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48166962,
+        1.48166962,
+        1.48166962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-61bdc7da7a6f4cea",
+      "name": "Doors · door_shed_double",
+      "parentId": "transform:category-doors",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Doors/door_shed_double_648ef70d.glb",
+      "position": [
+        14,
+        0,
+        40.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48166962,
+        1.48166962,
+        1.48166962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-399d179a92794a5e",
+      "name": "Electrical · electrical_junctionbox_small",
+      "parentId": "transform:category-electrical",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Electrical/electrical_junctionbox_small_1e9e380a.glb",
+      "position": [
+        -12,
+        0,
+        43.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270139,
+        18.37270139,
+        18.37270139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-e297db66f7c6d170",
+      "name": "Food · drink_can_soda",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/drink_can_soda_5e72a2eb.glb",
+      "position": [
+        -22,
+        0,
+        36.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270319,
+        18.37270319,
+        18.37270319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-2157add1a804e8f3",
+      "name": "Food · drink_can_soda_2",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/drink_can_soda_2_43680d02.glb",
+      "position": [
+        -18,
+        0,
+        36.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270319,
+        18.37270319,
+        18.37270319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-0dec3d19950d4002",
+      "name": "Food · drink_can_soda_3",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/drink_can_soda_3_b47f3b54.glb",
+      "position": [
+        -14,
+        0,
+        36.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270319,
+        18.37270319,
+        18.37270319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-22f486f190b81c94",
+      "name": "Food · drink_can_soda_4",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/drink_can_soda_4_7068ac35.glb",
+      "position": [
+        -10,
+        0,
+        36.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270319,
+        18.37270319,
+        18.37270319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-44800f70d1e63eb7",
+      "name": "Food · drink_can_soda_5",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/drink_can_soda_5_d8382c89.glb",
+      "position": [
+        -6,
+        0,
+        36.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270319,
+        18.37270319,
+        18.37270319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-e6cb2747b66467f5",
+      "name": "Food · drink_can_soda_6",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/drink_can_soda_6_1fc28dce.glb",
+      "position": [
+        -2,
+        0,
+        36.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270319,
+        18.37270319,
+        18.37270319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-baa61093dd600763",
+      "name": "Food · drink_can_soda_7",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/drink_can_soda_7_e8f2d665.glb",
+      "position": [
+        -22,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270319,
+        18.37270319,
+        18.37270319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-dd203db75039581d",
+      "name": "Food · drink_can_soda_8",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/drink_can_soda_8_3e61d568.glb",
+      "position": [
+        -18,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270319,
+        18.37270319,
+        18.37270319
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-2b424dad5b882dd1",
+      "name": "Food · food_baking_flour",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_baking_flour_ab06da29.glb",
+      "position": [
+        -14,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.19313498,
+        15.19313498,
+        15.19313498
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-f8bc5be08996b2d4",
+      "name": "Food · food_baking_sugar",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_baking_sugar_6ef2b01e.glb",
+      "position": [
+        -10,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.74803152,
+        15.74803152,
+        15.74803152
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-a32e1c17f8da0a1d",
+      "name": "Food · food_canned_soup_1",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_canned_soup_1_605a4676.glb",
+      "position": [
+        -6,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724339,
+        22.04724339,
+        22.04724339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-540aebbf7b42481e",
+      "name": "Food · food_canned_soup_10",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_canned_soup_10_1d0d8a18.glb",
+      "position": [
+        -2,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724339,
+        22.04724339,
+        22.04724339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-320440394b20e6d6",
+      "name": "Food · food_canned_soup_2",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_canned_soup_2_15f73fac.glb",
+      "position": [
+        -22,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724339,
+        22.04724339,
+        22.04724339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-0de4003b0f12445d",
+      "name": "Food · food_canned_soup_3",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_canned_soup_3_0a1c2e3b.glb",
+      "position": [
+        -18,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724339,
+        22.04724339,
+        22.04724339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-864145bd43d9e992",
+      "name": "Food · food_canned_soup_5",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_canned_soup_5_128a08b6.glb",
+      "position": [
+        -14,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        27.55905545,
+        27.55905545,
+        27.55905545
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-2249e273809cdc27",
+      "name": "Food · food_canned_soup_6",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_canned_soup_6_eae9398b.glb",
+      "position": [
+        -10,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724339,
+        22.04724339,
+        22.04724339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5018c0f454c6e7a7",
+      "name": "Food · food_canned_soup_7",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_canned_soup_7_30fa1023.glb",
+      "position": [
+        -6,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724339,
+        22.04724339,
+        22.04724339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-731cc0bd19bc5e50",
+      "name": "Food · food_canned_soup_8",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_canned_soup_8_0937e1cb.glb",
+      "position": [
+        -2,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724339,
+        22.04724339,
+        22.04724339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-2a5658cb961f7b82",
+      "name": "Food · food_cereal_1",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_cereal_1_18576d67.glb",
+      "position": [
+        -22,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-099f686a2d6d4f11",
+      "name": "Food · food_cereal_2",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_cereal_2_e707b68f.glb",
+      "position": [
+        -18,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-dc48212791ca66df",
+      "name": "Food · food_cereal_3",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_cereal_3_072edefd.glb",
+      "position": [
+        -14,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-1173540d0622e8ff",
+      "name": "Food · food_cereal_4",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_cereal_4_0a81bd04.glb",
+      "position": [
+        -10,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-e149fcad9e736743",
+      "name": "Food · food_cereal_5",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_cereal_5_b3edc788.glb",
+      "position": [
+        -6,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6f27f05d545a0a5b",
+      "name": "Food · food_cereal_6",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_cereal_6_ba6972c8.glb",
+      "position": [
+        -2,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-02067c8586bb7f4a",
+      "name": "Food · food_cereal_7",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_cereal_7_4fed7b9a.glb",
+      "position": [
+        -22,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-0853fef1593321ed",
+      "name": "Food · food_cereal_8",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_cereal_8_256e60f1.glb",
+      "position": [
+        -18,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-45f54467ac0b126f",
+      "name": "Food · food_pet",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_pet_776f555a.glb",
+      "position": [
+        -14,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635159,
+        9.18635159,
+        9.18635159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-84f9070f196d70df",
+      "name": "Food · food_pet_2",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_pet_2_0606ba3e.glb",
+      "position": [
+        -10,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529374,
+        7.65529374,
+        7.65529374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-4f2352b1b1fe6c69",
+      "name": "Food · food_snack_chips_1",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_snack_chips_1_6df5d3b6.glb",
+      "position": [
+        -6,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635249,
+        9.18635249,
+        9.18635249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-3c366906ed37168f",
+      "name": "Food · food_snack_chips_2",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_snack_chips_2_33110995.glb",
+      "position": [
+        -2,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635249,
+        9.18635249,
+        9.18635249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-a18780a83b9139c9",
+      "name": "Food · food_snack_chips_3",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_snack_chips_3_8b99123f.glb",
+      "position": [
+        -14,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635249,
+        9.18635249,
+        9.18635249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-22750876f5f63386",
+      "name": "Food · food_snack_chips_4",
+      "parentId": "transform:category-food",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Food/food_snack_chips_4_ae21ec7b.glb",
+      "position": [
+        -10,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635249,
+        9.18635249,
+        9.18635249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-47fc38ca1ba3ee7b",
+      "name": "FoodShelfScene · food_baking_flour",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_baking_flour_bddde5b8.glb",
+      "position": [
+        2,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.04593127,
+        12.04593127,
+        12.04593127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-31f975e6ae91e13b",
+      "name": "FoodShelfScene · food_baking_flour_001",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_baking_flour_001_3263add2.glb",
+      "position": [
+        6,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.04593127,
+        12.04593127,
+        12.04593127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-04bb79f1ca84254a",
+      "name": "FoodShelfScene · food_baking_flour_003",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_baking_flour_003_c012b52a.glb",
+      "position": [
+        10,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.04593127,
+        12.04593127,
+        12.04593127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-bcbd8a16fef91ca3",
+      "name": "FoodShelfScene · food_baking_flour_005",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_baking_flour_005_bc83ea16.glb",
+      "position": [
+        14,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.04593127,
+        12.04593127,
+        12.04593127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-a9fe0a1c4ff3e8b0",
+      "name": "FoodShelfScene · food_baking_flour_009",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_baking_flour_009_3046b1de.glb",
+      "position": [
+        18,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.04593127,
+        12.04593127,
+        12.04593127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-61bd37ef0843ccab",
+      "name": "FoodShelfScene · food_baking_flour_012",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_baking_flour_012_940df00c.glb",
+      "position": [
+        22,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.62167928,
+        11.62167928,
+        11.62167928
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-fbc623563fd889e4",
+      "name": "FoodShelfScene · Food_Baking_Sugar",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Baking_Sugar_7e9fc3c2.glb",
+      "position": [
+        2,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.7480368,
+        15.7480368,
+        15.7480368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-f92b7794176d477e",
+      "name": "FoodShelfScene · Food_Baking_Sugar_002",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Baking_Sugar_002_4acb0375.glb",
+      "position": [
+        6,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.7480368,
+        15.7480368,
+        15.7480368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-07e649508943fd79",
+      "name": "FoodShelfScene · Food_Baking_Sugar_007",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Baking_Sugar_007_6ce718ff.glb",
+      "position": [
+        10,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.7480368,
+        15.7480368,
+        15.7480368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5680b4d79e4404d1",
+      "name": "FoodShelfScene · Food_Canned_Soup_1_001",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_1_001_ba498c46.glb",
+      "position": [
+        14,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-e7b9c84eacd41f4e",
+      "name": "FoodShelfScene · Food_Canned_Soup_1_002",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_1_002_7db84623.glb",
+      "position": [
+        18,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5e747f860db63d0b",
+      "name": "FoodShelfScene · Food_Canned_Soup_2_001",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_2_001_6359520e.glb",
+      "position": [
+        22,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04723822,
+        22.04723822,
+        22.04723822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6fe0b9e4ba64db6b",
+      "name": "FoodShelfScene · Food_Canned_Soup_2_002",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_2_002_ed97ab25.glb",
+      "position": [
+        2,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04723822,
+        22.04723822,
+        22.04723822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-ac2727db3cbee955",
+      "name": "FoodShelfScene · Food_Canned_Soup_2_003",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_2_003_6f4d3e32.glb",
+      "position": [
+        6,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04723822,
+        22.04723822,
+        22.04723822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-dc7934a5ba76caee",
+      "name": "FoodShelfScene · Food_Canned_Soup_3_001",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_3_001_a481fade.glb",
+      "position": [
+        10,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04723822,
+        22.04723822,
+        22.04723822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5d2f30a93f4d6668",
+      "name": "FoodShelfScene · Food_Canned_Soup_5_001",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_5_001_7b179e53.glb",
+      "position": [
+        14,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        27.39789704,
+        27.39789704,
+        27.39789704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-a5653c4387f7ce3c",
+      "name": "FoodShelfScene · Food_Canned_Soup_6_001",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_6_001_c0ebdcd6.glb",
+      "position": [
+        18,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-f2b407986c1fc589",
+      "name": "FoodShelfScene · Food_Canned_Soup_6_002",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_6_002_d51dd8d1.glb",
+      "position": [
+        22,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-98a6ad34841ec374",
+      "name": "FoodShelfScene · Food_Canned_Soup_7_007",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_7_007_7d41f877.glb",
+      "position": [
+        2,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-1c91f5052e8e6109",
+      "name": "FoodShelfScene · Food_Canned_Soup_7_014",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_7_014_315f49a6.glb",
+      "position": [
+        6,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5873cd4bd1dac98d",
+      "name": "FoodShelfScene · Food_Canned_Soup_7_015",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_7_015_6f544e4c.glb",
+      "position": [
+        10,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-af553480a7290791",
+      "name": "FoodShelfScene · Food_Canned_Soup_8_001",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_8_001_b1859bb7.glb",
+      "position": [
+        14,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.99914525,
+        21.99914525,
+        21.99914525
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-77af26e2eea9aa89",
+      "name": "FoodShelfScene · Food_Canned_Soup_8_003",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_8_003_da529009.glb",
+      "position": [
+        18,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-e076ae4e9dcc9362",
+      "name": "FoodShelfScene · Food_Canned_Soup_8_007",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_8_007_482b930f.glb",
+      "position": [
+        22,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-cdeb88f30ba88f75",
+      "name": "FoodShelfScene · Food_Canned_Soup_8_012",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Canned_Soup_8_012_c105f2f5.glb",
+      "position": [
+        2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724856,
+        22.04724856,
+        22.04724856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-05c8dd4b47d43647",
+      "name": "FoodShelfScene · Food_Cereal_1_010",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_1_010_cd40c78a.glb",
+      "position": [
+        6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-757d60bdea9c5f8f",
+      "name": "FoodShelfScene · Food_Cereal_2_004",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_2_004_9b373b9d.glb",
+      "position": [
+        10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970884,
+        8.47970884,
+        8.47970884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-a68e5f3f86bab5a5",
+      "name": "FoodShelfScene · Food_Cereal_3",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_3_73d8c80d.glb",
+      "position": [
+        14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47971037,
+        8.47971037,
+        8.47971037
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-f6f95fddd580efda",
+      "name": "FoodShelfScene · Food_Cereal_3_001",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_3_001_ca72d644.glb",
+      "position": [
+        18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47971037,
+        8.47971037,
+        8.47971037
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-45422e74d874989e",
+      "name": "FoodShelfScene · Food_Cereal_4",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_4_102cedd9.glb",
+      "position": [
+        22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970884,
+        8.47970884,
+        8.47970884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-3fa041c5bdb6f3ca",
+      "name": "FoodShelfScene · Food_Cereal_4_003",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_4_003_023ed10b.glb",
+      "position": [
+        2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970884,
+        8.47970884,
+        8.47970884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-04459e8e459ae3f3",
+      "name": "FoodShelfScene · Food_Cereal_5_002",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_5_002_da725275.glb",
+      "position": [
+        6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970884,
+        8.47970884,
+        8.47970884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-4eb35bdcd0529828",
+      "name": "FoodShelfScene · Food_Cereal_6_003",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_6_003_984361dd.glb",
+      "position": [
+        10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-3c92fd68b19aaa59",
+      "name": "FoodShelfScene · Food_Cereal_6_008",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_6_008_936865cc.glb",
+      "position": [
+        14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-f9afaedc50c48972",
+      "name": "FoodShelfScene · Food_Cereal_7",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_7_39376ab6.glb",
+      "position": [
+        18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-4bbadb8c0fe6b7fa",
+      "name": "FoodShelfScene · Food_Cereal_8_002",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Cereal_8_002_41c975d5.glb",
+      "position": [
+        22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47970961,
+        8.47970961,
+        8.47970961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-dd9cc2bde84a4b2c",
+      "name": "FoodShelfScene · Food_Pet",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Pet_aa0fd014.glb",
+      "position": [
+        2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635159,
+        9.18635159,
+        9.18635159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-ac8fa82af1e98897",
+      "name": "FoodShelfScene · Food_Pet_002",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Pet_002_331fe9f1.glb",
+      "position": [
+        6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635159,
+        9.18635159,
+        9.18635159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-ffb86d9b17b58001",
+      "name": "FoodShelfScene · Food_Pet_008",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Pet_008_3a38eec0.glb",
+      "position": [
+        10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635159,
+        9.18635159,
+        9.18635159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5c0fd0f866526382",
+      "name": "FoodShelfScene · Food_Pet_2_007",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Pet_2_007_718a1416.glb",
+      "position": [
+        14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529374,
+        7.65529374,
+        7.65529374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-077ef049973f3943",
+      "name": "FoodShelfScene · Food_Pet_2_013",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Pet_2_013_a2d87c9d.glb",
+      "position": [
+        18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529374,
+        7.65529374,
+        7.65529374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-c16b03d6f511976f",
+      "name": "FoodShelfScene · Food_Pet_2_022",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/Food_Pet_2_022_060d0fea.glb",
+      "position": [
+        22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529374,
+        7.65529374,
+        7.65529374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-83162bf617bc8e8a",
+      "name": "FoodShelfScene · food_snack_chips_1",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_1_700cc1e3.glb",
+      "position": [
+        2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.4956633,
+        9.4956633,
+        9.4956633
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-244ec272f17f3e5d",
+      "name": "FoodShelfScene · food_snack_chips_1_004",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_1_004_64af5f00.glb",
+      "position": [
+        6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.4956633,
+        9.4956633,
+        9.4956633
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-76c311efb405622c",
+      "name": "FoodShelfScene · food_snack_chips_2",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_2_b0669eed.glb",
+      "position": [
+        10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.40868032,
+        9.40868032,
+        9.40868032
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-2b30a0cec6befa3b",
+      "name": "FoodShelfScene · food_snack_chips_2_004",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_2_004_c0c75baa.glb",
+      "position": [
+        14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.40868032,
+        9.40868032,
+        9.40868032
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-b0e063880a1e7886",
+      "name": "FoodShelfScene · food_snack_chips_2_005",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_2_005_88f6fa82.glb",
+      "position": [
+        18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.40868032,
+        9.40868032,
+        9.40868032
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-f5d09efa5fe77ec8",
+      "name": "FoodShelfScene · food_snack_chips_3",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_3_31713650.glb",
+      "position": [
+        22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.38447978,
+        9.38447978,
+        9.38447978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-2d9d385afcda8edf",
+      "name": "FoodShelfScene · food_snack_chips_3_004",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_3_004_2e910508.glb",
+      "position": [
+        2,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.38447978,
+        9.38447978,
+        9.38447978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-2df3a48a6387fd0a",
+      "name": "FoodShelfScene · food_snack_chips_4",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_4_44911e07.glb",
+      "position": [
+        6,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.50433841,
+        9.50433841,
+        9.50433841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-67abe9780530bb30",
+      "name": "FoodShelfScene · food_snack_chips_4_003",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_4_003_d0e19e18.glb",
+      "position": [
+        10,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.50433937,
+        9.50433937,
+        9.50433937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-356d91ea2f9fdc95",
+      "name": "FoodShelfScene · food_snack_chips_4_012",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_4_012_a5992dd4.glb",
+      "position": [
+        14,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.50433745,
+        9.50433745,
+        9.50433745
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-60647cc087faca9a",
+      "name": "FoodShelfScene · food_snack_chips_4_013",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/food_snack_chips_4_013_3b9c7b24.glb",
+      "position": [
+        18,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.50433937,
+        9.50433937,
+        9.50433937
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-35d781e240a9d9d2",
+      "name": "FoodShelfScene · products_papertowels_pack",
+      "parentId": "transform:category-foodshelfscene",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/FoodShelfScene/products_papertowels_pack_1fedd1d4.glb",
+      "position": [
+        22,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40940829,
+        3.40940829,
+        3.40940829
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-7d4603367ef92662",
+      "name": "Gems · blue_gemstone_pile",
+      "parentId": "transform:category-gems",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Gems/blue_gemstone_pile_0a3589f4.glb",
+      "position": [
+        -16,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2965879,
+        2.2965879,
+        2.2965879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-81c1ee13753096c0",
+      "name": "Gems · red_gemstone_pile",
+      "parentId": "transform:category-gems",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Gems/red_gemstone_pile_8495a459.glb",
+      "position": [
+        -12,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2965879,
+        2.2965879,
+        2.2965879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-7cf4b7e9bb44e82a",
+      "name": "Gems · red_gemstone_pile_2",
+      "parentId": "transform:category-gems",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Gems/red_gemstone_pile_2_10784a20.glb",
+      "position": [
+        -8,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2965879,
+        2.2965879,
+        2.2965879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-1f064a0aea30c1a4",
+      "name": "Industrial · fire_extenguisher_case",
+      "parentId": "transform:category-industrial",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Industrial/fire_extenguisher_case_96c0a27d.glb",
+      "position": [
+        -22,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.01015281,
+        5.01015281,
+        5.01015281
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-ca2695d6d6990b48",
+      "name": "Industrial · Guardrail",
+      "parentId": "transform:category-industrial",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Industrial/Guardrail_b707cc4d.glb",
+      "position": [
+        -18,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32324612,
+        0.32324612,
+        0.32324612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-a9421e20df5af5b7",
+      "name": "Industrial · Guardrail_Example",
+      "parentId": "transform:category-industrial",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Industrial/Guardrail_Example_5122e7ef.glb",
+      "position": [
+        -14,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.03206573,
+        0.03206573,
+        0.03206573
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6dc95ee94aa34f55",
+      "name": "Industrial · manhole_cover",
+      "parentId": "transform:category-industrial",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Industrial/manhole_cover_56ca051e.glb",
+      "position": [
+        -10,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-ac1552a184a22a01",
+      "name": "Industrial · pump_station",
+      "parentId": "transform:category-industrial",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Industrial/pump_station_1bde9a67.glb",
+      "position": [
+        -6,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.30618,
+        1.30618,
+        1.30618
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-a267832b64c7512c",
+      "name": "Industrial · yellow_post",
+      "parentId": "transform:category-industrial",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Industrial/yellow_post_d921ce2d.glb",
+      "position": [
+        -2,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91187742,
+        1.91187742,
+        1.91187742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-4bd12151b1dfd127",
+      "name": "Misc · garbage_bag_1",
+      "parentId": "transform:category-misc",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Misc/garbage_bag_1_37c030df.glb",
+      "position": [
+        -20,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85626906,
+        0.85626906,
+        0.85626906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-320482735c5aa736",
+      "name": "Misc · garbage_bag_2",
+      "parentId": "transform:category-misc",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Misc/garbage_bag_2_b0789340.glb",
+      "position": [
+        -16,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11867156,
+        1.11867156,
+        1.11867156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-526683d041bf2955",
+      "name": "Misc · pvc_pipe",
+      "parentId": "transform:category-misc",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Misc/pvc_pipe_839c10b2.glb",
+      "position": [
+        -12,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91863514,
+        0.91863514,
+        0.91863514
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6cc33ee777f99e4b",
+      "name": "Misc · pvc_pipe_pallet",
+      "parentId": "transform:category-misc",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Misc/pvc_pipe_pallet_7b5cb6d9.glb",
+      "position": [
+        -8,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91863514,
+        0.91863514,
+        0.91863514
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-cfd04d7ec46671ad",
+      "name": "Misc · pvc_pipe_pallet_broken",
+      "parentId": "transform:category-misc",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Misc/pvc_pipe_pallet_broken_fdca01ab.glb",
+      "position": [
+        -4,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91759425,
+        0.91759425,
+        0.91759425
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-28111d26ef705b01",
+      "name": "Nature · bush_01",
+      "parentId": "transform:category-nature",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Nature/bush_01_1b921a33.glb",
+      "position": [
+        2,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24737153,
+        2.24737153,
+        2.24737153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-8445b7f746277771",
+      "name": "Nature · bush_02",
+      "parentId": "transform:category-nature",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Nature/bush_02_f3a6adb4.glb",
+      "position": [
+        6,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.1192807,
+        2.1192807,
+        2.1192807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-414b62a1fc5d2153",
+      "name": "Nature · bush_03",
+      "parentId": "transform:category-nature",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Nature/bush_03_a6057b86.glb",
+      "position": [
+        10,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.77774882,
+        2.77774882,
+        2.77774882
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-85299ceeedf4364d",
+      "name": "Nature · bush_04",
+      "parentId": "transform:category-nature",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Nature/bush_04_be088d06.glb",
+      "position": [
+        14,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.52308177,
+        2.52308177,
+        2.52308177
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-bbff0abda55e8959",
+      "name": "Nature · bush_05",
+      "parentId": "transform:category-nature",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Nature/bush_05_d6b970e2.glb",
+      "position": [
+        18,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.53496214,
+        2.53496214,
+        2.53496214
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-39b6ffbc2f6fd54a",
+      "name": "Nature · sapling",
+      "parentId": "transform:category-nature",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Nature/sapling_878e1f98.glb",
+      "position": [
+        22,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.79781514,
+        1.79781514,
+        1.79781514
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-b3affbedc087e6a0",
+      "name": "Nature · tree_trunk",
+      "parentId": "transform:category-nature",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Nature/tree_trunk_dd686e5c.glb",
+      "position": [
+        12,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.52073441,
+        2.52073441,
+        2.52073441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-ef051c41c2857c3c",
+      "name": "Panels · panel_amp_controls",
+      "parentId": "transform:category-panels",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Panels/panel_amp_controls_ce3f9d75.glb",
+      "position": [
+        -22,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.65529312,
+        7.65529312,
+        7.65529312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-fbee7a5ac04afe12",
+      "name": "Panels · panel_electric",
+      "parentId": "transform:category-panels",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Panels/panel_electric_cf8b4a68.glb",
+      "position": [
+        -18,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.28083995,
+        3.28083995,
+        3.28083995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-8b8a1d155708617b",
+      "name": "Panels · panel_electrical_closed",
+      "parentId": "transform:category-panels",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Panels/panel_electrical_closed_c403531e.glb",
+      "position": [
+        -14,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.1242342,
+        6.1242342,
+        6.1242342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-48a27d6f3efb7461",
+      "name": "Panels · panel_electrical_open",
+      "parentId": "transform:category-panels",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Panels/panel_electrical_open_9540c3d8.glb",
+      "position": [
+        -10,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.1242338,
+        6.1242338,
+        6.1242338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-8483226bebea0cdd",
+      "name": "Panels · panel_heater",
+      "parentId": "transform:category-panels",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Panels/panel_heater_1f9ea5a2.glb",
+      "position": [
+        -6,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.40373645,
+        5.40373645,
+        5.40373645
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-7082f96a395aa32c",
+      "name": "Panels · panel_misc",
+      "parentId": "transform:category-panels",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Panels/panel_misc_fb0a0077.glb",
+      "position": [
+        -2,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.18635159,
+        9.18635159,
+        9.18635159
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-144e81a11f5c71a1",
+      "name": "Panels · panel_thermostat",
+      "parentId": "transform:category-panels",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Panels/panel_thermostat_91fabc68.glb",
+      "position": [
+        -14,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.08319978,
+        21.08319978,
+        21.08319978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-66215912ec4de7dd",
+      "name": "Panels · propane_storage",
+      "parentId": "transform:category-panels",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Panels/propane_storage_7b4334a5.glb",
+      "position": [
+        -10,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.45420707,
+        1.45420707,
+        1.45420707
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-100ed726d146f08b",
+      "name": "Papers · papers_envolope_redacted",
+      "parentId": "transform:category-papers",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Papers/papers_envolope_redacted_f456131a.glb",
+      "position": [
+        8,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.68330974,
+        9.68330974,
+        9.68330974
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-479edbf86f2e1b1d",
+      "name": "Papers · papers_log_1",
+      "parentId": "transform:category-papers",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Papers/papers_log_1_3c8ef02a.glb",
+      "position": [
+        12,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.02147384,
+        10.02147384,
+        10.02147384
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-f3a69c8cd2e89593",
+      "name": "Papers · papers_log_1_stack",
+      "parentId": "transform:category-papers",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Papers/papers_log_1_stack_c3aa2282.glb",
+      "position": [
+        16,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.09706731,
+        8.09706731,
+        8.09706731
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-1399355f0b7578fa",
+      "name": "Products · products_papertowels_pack",
+      "parentId": "transform:category-products",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Products/products_papertowels_pack_4d2fef43.glb",
+      "position": [
+        -12,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.40940866,
+        3.40940866,
+        3.40940866
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-0e8c7a6f0e4f2dd0",
+      "name": "Rocks · rock_handpainted_1",
+      "parentId": "transform:category-rocks",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Rocks/rock_handpainted_1_5bc19f3f.glb",
+      "position": [
+        4,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6952248,
+        1.6952248,
+        1.6952248
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-592a2bc0fc84c15f",
+      "name": "Rocks · rock_handpainted_2",
+      "parentId": "transform:category-rocks",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Rocks/rock_handpainted_2_69dada51.glb",
+      "position": [
+        8,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.42594148,
+        1.42594148,
+        1.42594148
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-1323168833741bbe",
+      "name": "Rocks · rock_handpainted_3",
+      "parentId": "transform:category-rocks",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Rocks/rock_handpainted_3_4e0539c2.glb",
+      "position": [
+        12,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48804987,
+        1.48804987,
+        1.48804987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-b8f99c4248c7b85d",
+      "name": "Rocks · rock_handpainted_4",
+      "parentId": "transform:category-rocks",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Rocks/rock_handpainted_4_3ccee54d.glb",
+      "position": [
+        16,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1385764,
+        1.1385764,
+        1.1385764
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-4289013d81c427dd",
+      "name": "Rocks · rock_handpainted_5",
+      "parentId": "transform:category-rocks",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Rocks/rock_handpainted_5_cc99e573.glb",
+      "position": [
+        20,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.68076619,
+        1.68076619,
+        1.68076619
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-291aece73e5f957c",
+      "name": "Shelves · commerical_shelf",
+      "parentId": "transform:category-shelves",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Shelves/commerical_shelf_162798af.glb",
+      "position": [
+        -22,
+        0,
+        -29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.66979853,
+        1.66979853,
+        1.66979853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-dba89d0fb47655b7",
+      "name": "Shelves · commerical_shelf_end",
+      "parentId": "transform:category-shelves",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Shelves/commerical_shelf_end_69ec5d31.glb",
+      "position": [
+        -18,
+        0,
+        -29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.66979853,
+        1.66979853,
+        1.66979853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-09f25c915b4f3dcf",
+      "name": "Shelves · commerical_shelf_one_side",
+      "parentId": "transform:category-shelves",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Shelves/commerical_shelf_one_side_3bad17be.glb",
+      "position": [
+        -14,
+        0,
+        -29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.66979853,
+        1.66979853,
+        1.66979853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-135ba7d72edc7b1b",
+      "name": "Shelves · commerical_shelf_short",
+      "parentId": "transform:category-shelves",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Shelves/commerical_shelf_short_35b54521.glb",
+      "position": [
+        -10,
+        0,
+        -29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.92779646,
+        1.92779646,
+        1.92779646
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-c931dd21fb5949da",
+      "name": "Shelves · commerical_shelf_short_end",
+      "parentId": "transform:category-shelves",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Shelves/commerical_shelf_short_end_95ad454a.glb",
+      "position": [
+        -6,
+        0,
+        -29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.96446912,
+        1.96446912,
+        1.96446912
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-41e8ad63a25343f1",
+      "name": "Shelves · metal_rack_stackable",
+      "parentId": "transform:category-shelves",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Shelves/metal_rack_stackable_a5247341.glb",
+      "position": [
+        -2,
+        0,
+        -29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.92410756,
+        1.92410756,
+        1.92410756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-e1f267950493f225",
+      "name": "Shelves · metal_rack_stackable_small",
+      "parentId": "transform:category-shelves",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Shelves/metal_rack_stackable_small_9b7ad7c2.glb",
+      "position": [
+        -12,
+        0,
+        -33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.1342287,
+        2.1342287,
+        2.1342287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-36707f61a2aede1d",
+      "name": "Signs · sign_chemical_rusty",
+      "parentId": "transform:category-signs",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Signs/sign_chemical_rusty_1af83a9b.glb",
+      "position": [
+        4,
+        0,
+        -30.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.34908113,
+        7.34908113,
+        7.34908113
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6679520bc2e3456d",
+      "name": "Signs · sign_confined_space",
+      "parentId": "transform:category-signs",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Signs/sign_confined_space_2cb281c6.glb",
+      "position": [
+        8,
+        0,
+        -30.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.37270139,
+        18.37270139,
+        18.37270139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-33a240dffc33a5ff",
+      "name": "Signs · sign_no_parking",
+      "parentId": "transform:category-signs",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Signs/sign_no_parking_793dcf13.glb",
+      "position": [
+        12,
+        0,
+        -30.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53105865,
+        1.53105865,
+        1.53105865
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-143134ed10bfc87f",
+      "name": "Signs · sign_nosmoking",
+      "parentId": "transform:category-signs",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Signs/sign_nosmoking_83fc938b.glb",
+      "position": [
+        16,
+        0,
+        -30.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.1242342,
+        6.1242342,
+        6.1242342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-30a9b76011b8f981",
+      "name": "Signs · sign_reserved_parking",
+      "parentId": "transform:category-signs",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Signs/sign_reserved_parking_6ccd06eb.glb",
+      "position": [
+        20,
+        0,
+        -30.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53105865,
+        1.53105865,
+        1.53105865
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-3cb6030e73ba48a6",
+      "name": "Tools · rolling_tool_chest",
+      "parentId": "transform:category-tools",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Tools/rolling_tool_chest_425b7a18.glb",
+      "position": [
+        10,
+        0,
+        -37.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57756406,
+        0.57756406,
+        0.57756406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-2e34c0bab22549d9",
+      "name": "Tools · shovel",
+      "parentId": "transform:category-tools",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Tools/shovel_23d439b3.glb",
+      "position": [
+        14,
+        0,
+        -37.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28680952,
+        0.28680952,
+        0.28680952
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-e1b7ace694660df0",
+      "name": "Units · Gen01",
+      "parentId": "transform:category-units",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Units/Gen01_d31fcf34.glb",
+      "position": [
+        -20,
+        0,
+        -40.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83035065,
+        0.83035065,
+        0.83035065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-33ca29860639cb01",
+      "name": "Units · Gen02",
+      "parentId": "transform:category-units",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Units/Gen02_c3af8e63.glb",
+      "position": [
+        -16,
+        0,
+        -40.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11418974,
+        1.11418974,
+        1.11418974
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-7bc873b4885b4b50",
+      "name": "Units · Gen03",
+      "parentId": "transform:category-units",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Units/Gen03_36d4d801.glb",
+      "position": [
+        -12,
+        0,
+        -40.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51872216,
+        0.51872216,
+        0.51872216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5d3219d0bc6e9fc0",
+      "name": "Units · generator",
+      "parentId": "transform:category-units",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Units/generator_647059a1.glb",
+      "position": [
+        -8,
+        0,
+        -40.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22484689,
+        1.22484689,
+        1.22484689
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-51a412f0cdbe6345",
+      "name": "Units · walkin_cooler_display_unfinished",
+      "parentId": "transform:category-units",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Units/walkin_cooler_display_unfinished_2b02fdc1.glb",
+      "position": [
+        -4,
+        0,
+        -40.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63603297,
+        0.63603297,
+        0.63603297
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-bc4035201a57cbf1",
+      "name": "Vehicles · bike_vintage_unfinished",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Vehicles/bike_vintage_unfinished_8033c0b9.glb",
+      "position": [
+        6,
+        0,
+        -44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49720164,
+        1.49720164,
+        1.49720164
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-92ee835fb31f51e4",
+      "name": "Vehicles · car_parts_brakes_unfinished",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Vehicles/car_parts_brakes_unfinished_442d0a78.glb",
+      "position": [
+        10,
+        0,
+        -44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2703031,
+        1.2703031,
+        1.2703031
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-8d2dc26f9189535a",
+      "name": "Vehicles · car_ramp_01",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Vehicles/car_ramp_01_e4ff0cdf.glb",
+      "position": [
+        14,
+        0,
+        -44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.61208361,
+        0.61208361,
+        0.61208361
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-79bf1cbc8eafe599",
+      "name": "Vehicles · volvo",
+      "parentId": "transform:category-vehicles",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Vehicles/volvo_d846d53c.glb",
+      "position": [
+        18,
+        0,
+        -44.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12580329,
+        0.12580329,
+        0.12580329
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-7b6aced91f2a11ac",
+      "name": "Walls · wood_plank_2_001",
+      "parentId": "transform:category-walls",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Walls/wood_plank_2_001_c89cebac.glb",
+      "position": [
+        -18,
+        0,
+        -47.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14829395,
+        1.14829395,
+        1.14829395
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-074bef5138261625",
+      "name": "Walls · wood_plank_2_door",
+      "parentId": "transform:category-walls",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Walls/wood_plank_2_door_84dcfc2d.glb",
+      "position": [
+        -14,
+        0,
+        -47.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14829395,
+        1.14829395,
+        1.14829395
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-396b2e73cf7305c3",
+      "name": "Walls · wood_plank_2_door_001",
+      "parentId": "transform:category-walls",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Walls/wood_plank_2_door_001_321bd762.glb",
+      "position": [
+        -10,
+        0,
+        -47.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14829395,
+        1.14829395,
+        1.14829395
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-a78cf5fad1a5bd0a",
+      "name": "Walls · wood_plank_2_end",
+      "parentId": "transform:category-walls",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Walls/wood_plank_2_end_0f4de3fe.glb",
+      "position": [
+        -6,
+        0,
+        -47.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14829395,
+        1.14829395,
+        1.14829395
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6f867783c3018998",
+      "name": "Windows · window_boarded",
+      "parentId": "transform:category-windows",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Windows/window_boarded_8e71d523.glb",
+      "position": [
+        2,
+        0,
+        -51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44969377,
+        2.44969377,
+        2.44969377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-6e4891dfa239164c",
+      "name": "Windows · window_frame_green",
+      "parentId": "transform:category-windows",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Windows/window_frame_green_30ba7a67.glb",
+      "position": [
+        6,
+        0,
+        -51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.29658767,
+        2.29658767,
+        2.29658767
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-62ffa309cf6a976e",
+      "name": "Windows · window_modern",
+      "parentId": "transform:category-windows",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Windows/window_modern_d1926145.glb",
+      "position": [
+        10,
+        0,
+        -51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0621173,
+        3.0621173,
+        3.0621173
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-f0ddecec2e293312",
+      "name": "Windows · window_shutter_black",
+      "parentId": "transform:category-windows",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Windows/window_shutter_black_597ba0d9.glb",
+      "position": [
+        14,
+        0,
+        -51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44969377,
+        2.44969377,
+        2.44969377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-1630868f6da29966",
+      "name": "Windows · window_shutter_green",
+      "parentId": "transform:category-windows",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Windows/window_shutter_green_9fc6d0c3.glb",
+      "position": [
+        18,
+        0,
+        -51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44969377,
+        2.44969377,
+        2.44969377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-ac9e9522c23a10fd",
+      "name": "Windows · window_shutter_red",
+      "parentId": "transform:category-windows",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Windows/window_shutter_red_305382f7.glb",
+      "position": [
+        22,
+        0,
+        -51.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44969377,
+        2.44969377,
+        2.44969377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "craigsnedeker-5325a5239c339531",
+      "name": "Wood · Wood_Pallet",
+      "parentId": "transform:category-wood",
+      "modelPath": "resources/Model/GLB/artist_craigsnedeker/Wood/Wood_Pallet_9c2f3835.glb",
+      "position": [
+        -12,
+        0,
+        -54.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333326,
+        0.93333326,
+        0.93333326
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

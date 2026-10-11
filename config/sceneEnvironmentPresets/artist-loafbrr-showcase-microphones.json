@@ -1,0 +1,760 @@
+{
+  "presetKey": "artist-loafbrr-showcase-microphones",
+  "name": "Loafbrr · Microphones · 16模型 · 模型 0.66 MiB + 贴图 0.13 MiB · 合计 0.79 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-microphones-0",
+      "name": "Microphones",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 17
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-2d161426361ff344-stand",
+      "name": "Mic_A展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7f622237ed21e5fa-stand",
+      "name": "Mic_A_Alt展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ffef814fadd43bcf-stand",
+      "name": "Mic_A_grp展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-05b734475a145b59-stand",
+      "name": "Mic_A_grp_Alt展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c53b52dea3d5cbc6-stand",
+      "name": "Mic_B展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-573b140ad1254c03-stand",
+      "name": "Mic_B_Alt展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-88d1c1c3273a00ce-stand",
+      "name": "Mic_B_grp展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cf06f407b6c676ce-stand",
+      "name": "Mic_B_grp_Alt展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ff1ede393fd6a0b3-stand",
+      "name": "Mic_C展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0e60470a447aa28e-stand",
+      "name": "Mic_C_Alt展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-92f769464bcdaa8b-stand",
+      "name": "Mic_C_grp展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-596abfbbf1fd2aae-stand",
+      "name": "Mic_C_grp_Alt展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4efd4a6a546aa717-stand",
+      "name": "Mic_D_grp展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eae7d550803bf108-stand",
+      "name": "Mic_D_grp_Alt展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-06aaf189d5629d3a-stand",
+      "name": "Mic_E_grp展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2410d0f213b610b7-stand",
+      "name": "Mic_E_grp_Alt展台",
+      "parentId": "transform:category-microphones-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-2d161426361ff344",
+      "name": "Microphones · Mic_A · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_A.glb",
+      "position": [
+        -22.00000026,
+        -7.3e-7,
+        5.99999948
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.32787469,
+        12.32787469,
+        12.32787469
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7f622237ed21e5fa",
+      "name": "Microphones · Mic_A_Alt · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_A_Alt.glb",
+      "position": [
+        -18.00000026,
+        -7.3e-7,
+        5.99999948
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.32787469,
+        12.32787469,
+        12.32787469
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ffef814fadd43bcf",
+      "name": "Microphones · Mic_A_grp · 模型 0.04 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_A_grp.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.94948638,
+        1.94948638,
+        1.94948638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-05b734475a145b59",
+      "name": "Microphones · Mic_A_grp_Alt · 模型 0.04 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_A_grp_Alt.glb",
+      "position": [
+        -10,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.94948638,
+        1.94948638,
+        1.94948638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c53b52dea3d5cbc6",
+      "name": "Microphones · Mic_B · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_B.glb",
+      "position": [
+        -6.00000101,
+        -7.1e-7,
+        6.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.96064046,
+        11.96064046,
+        11.96064046
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-573b140ad1254c03",
+      "name": "Microphones · Mic_B_Alt · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_B_Alt.glb",
+      "position": [
+        -1.99999885,
+        -7.1e-7,
+        5.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.96064046,
+        11.96064046,
+        11.96064046
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-88d1c1c3273a00ce",
+      "name": "Microphones · Mic_B_grp · 模型 0.07 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_B_grp.glb",
+      "position": [
+        -22.00000015,
+        0,
+        1.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.32084252,
+        2.32084252,
+        2.32084252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cf06f407b6c676ce",
+      "name": "Microphones · Mic_B_grp_Alt · 模型 0.07 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_B_grp_Alt.glb",
+      "position": [
+        -17.99999981,
+        0,
+        1.99999936
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.32084252,
+        2.32084252,
+        2.32084252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ff1ede393fd6a0b3",
+      "name": "Microphones · Mic_C · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_C.glb",
+      "position": [
+        -13.99999982,
+        -7.1e-7,
+        2.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.96064046,
+        11.96064046,
+        11.96064046
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0e60470a447aa28e",
+      "name": "Microphones · Mic_C_Alt · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_C_Alt.glb",
+      "position": [
+        -10.00000056,
+        -7.1e-7,
+        2.00000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.96064046,
+        11.96064046,
+        11.96064046
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-92f769464bcdaa8b",
+      "name": "Microphones · Mic_C_grp · 模型 0.09 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_C_grp.glb",
+      "position": [
+        -6,
+        1e-8,
+        1.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.824952,
+        1.824952,
+        1.824952
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-596abfbbf1fd2aae",
+      "name": "Microphones · Mic_C_grp_Alt · 模型 0.09 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_C_grp_Alt.glb",
+      "position": [
+        -2,
+        1e-8,
+        1.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.824952,
+        1.824952,
+        1.824952
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4efd4a6a546aa717",
+      "name": "Microphones · Mic_D_grp · 模型 0.05 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_D_grp.glb",
+      "position": [
+        -18,
+        -1.5e-7,
+        -1.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.134595,
+        4.134595,
+        4.134595
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eae7d550803bf108",
+      "name": "Microphones · Mic_D_grp_Alt · 模型 0.05 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_D_grp_Alt.glb",
+      "position": [
+        -14,
+        -1.5e-7,
+        -2.00000112
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.13459472,
+        4.13459472,
+        4.13459472
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-06aaf189d5629d3a",
+      "name": "Microphones · Mic_E_grp · 模型 0.05 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_E_grp.glb",
+      "position": [
+        -10,
+        -1.6e-7,
+        -1.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.94684642,
+        5.94684642,
+        5.94684642
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2410d0f213b610b7",
+      "name": "Microphones · Mic_E_grp_Alt · 模型 0.05 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-microphones-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Microphones/Mic_E_grp_Alt.glb",
+      "position": [
+        -6,
+        -1.6e-7,
+        -2.00000129
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.94684642,
+        5.94684642,
+        5.94684642
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

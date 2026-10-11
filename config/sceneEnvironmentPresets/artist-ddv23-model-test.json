@@ -1,0 +1,773 @@
+{
+  "presetKey": "artist-ddv23-model-test",
+  "name": "DDV23 · 油桶与刀具（3 类模型 / 11 种配色）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ddv23-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "ddv23-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          20,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "ddv23-jerrycan",
+      "name": "油桶（5 种配色）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ddv23-kukri",
+      "name": "廓尔喀刀（2 种配色）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ddv23-m9-bayonet",
+      "name": "M9 刺刀（4 种配色）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ddv23-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 23,
+        "height": 19
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-jerrycan-zone",
+      "name": "油桶分区",
+      "parentId": "transform:ddv23-jerrycan",
+      "geometry": {
+        "primitive": "box",
+        "width": 21,
+        "height": 0.1,
+        "depth": 4.2
+      },
+      "position": [
+        0,
+        -0.15,
+        5
+      ],
+      "color": "#71846e"
+    },
+    {
+      "id": "ddv23-jerrycan-1-stand",
+      "name": "油桶 · 橄榄色展台",
+      "parentId": "transform:ddv23-jerrycan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        5
+      ],
+      "color": "#71846e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-jerrycan-2-stand",
+      "name": "油桶 · 黑色展台",
+      "parentId": "transform:ddv23-jerrycan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        5
+      ],
+      "color": "#71846e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-jerrycan-3-stand",
+      "name": "油桶 · 绿色展台",
+      "parentId": "transform:ddv23-jerrycan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        5
+      ],
+      "color": "#71846e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-jerrycan-4-stand",
+      "name": "油桶 · 红色展台",
+      "parentId": "transform:ddv23-jerrycan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        5
+      ],
+      "color": "#71846e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-jerrycan-5-stand",
+      "name": "油桶 · 白色展台",
+      "parentId": "transform:ddv23-jerrycan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        5
+      ],
+      "color": "#71846e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-kukri-zone",
+      "name": "廓尔喀刀分区",
+      "parentId": "transform:ddv23-kukri",
+      "geometry": {
+        "primitive": "box",
+        "width": 9,
+        "height": 0.1,
+        "depth": 4.2
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#788693"
+    },
+    {
+      "id": "ddv23-kukri-1-stand",
+      "name": "廓尔喀刀 · 原色展台",
+      "parentId": "transform:ddv23-kukri",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#788693",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-kukri-2-stand",
+      "name": "廓尔喀刀 · 血迹展台",
+      "parentId": "transform:ddv23-kukri",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#788693",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-m9-bayonet-zone",
+      "name": "M9 刺刀分区",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "geometry": {
+        "primitive": "box",
+        "width": 17,
+        "height": 0.1,
+        "depth": 4.2
+      },
+      "position": [
+        0,
+        -0.15,
+        -5
+      ],
+      "color": "#83796e"
+    },
+    {
+      "id": "ddv23-m9-bayonet-1-stand",
+      "name": "M9 刺刀 · 原色展台",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -5
+      ],
+      "color": "#83796e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-m9-bayonet-2-stand",
+      "name": "M9 刺刀 · 黑色展台",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -5
+      ],
+      "color": "#83796e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-m9-bayonet-3-stand",
+      "name": "M9 刺刀 · 血迹展台",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -5
+      ],
+      "color": "#83796e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "ddv23-m9-bayonet-4-stand",
+      "name": "M9 刺刀 · 黑色血迹展台",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -5
+      ],
+      "color": "#83796e",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "ddv23-jerrycan-1",
+      "name": "油桶 · 橄榄色",
+      "parentId": "transform:ddv23-jerrycan",
+      "modelPath": "resources/Model/GLB/artist_ddv23/JerryCan.glb",
+      "position": [
+        -8.01006965,
+        1.39116543,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.10809954,
+        6.10809954,
+        6.10809954
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/3e33fd4b018a86dd4ad9ba3d3e34aaf97bed39710f54bb9c82429e823fdb6dc3.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-jerrycan-2",
+      "name": "油桶 · 黑色",
+      "parentId": "transform:ddv23-jerrycan",
+      "modelPath": "resources/Model/GLB/artist_ddv23/JerryCan.glb",
+      "position": [
+        -4.01006965,
+        1.39116543,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.10809954,
+        6.10809954,
+        6.10809954
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/8591fed8f035fc5bb6591ba8488e8f10295be44a25291996fec0ca92c375e002.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-jerrycan-3",
+      "name": "油桶 · 绿色",
+      "parentId": "transform:ddv23-jerrycan",
+      "modelPath": "resources/Model/GLB/artist_ddv23/JerryCan.glb",
+      "position": [
+        -0.01006965,
+        1.39116543,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.10809954,
+        6.10809954,
+        6.10809954
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/70517cd085a7b68e5edd269487ea32b7b1c983b5b37b7428d39d2b96148f4fa2.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-jerrycan-4",
+      "name": "油桶 · 红色",
+      "parentId": "transform:ddv23-jerrycan",
+      "modelPath": "resources/Model/GLB/artist_ddv23/JerryCan.glb",
+      "position": [
+        3.98993035,
+        1.39116543,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.10809954,
+        6.10809954,
+        6.10809954
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/b329b0d788001820496faac1d11ee4e6d81d2fd9576181f10d1b9ddf2d37525b.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-jerrycan-5",
+      "name": "油桶 · 白色",
+      "parentId": "transform:ddv23-jerrycan",
+      "modelPath": "resources/Model/GLB/artist_ddv23/JerryCan.glb",
+      "position": [
+        7.98993035,
+        1.39116543,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.10809954,
+        6.10809954,
+        6.10809954
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/7f275dc86030c10584eed0ed7176178c806317b3ef9e4a89ac97fbd28b537f1c.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-kukri-1",
+      "name": "廓尔喀刀 · 原色",
+      "parentId": "transform:ddv23-kukri",
+      "modelPath": "resources/Model/GLB/artist_ddv23/Kukri Knife.glb",
+      "position": [
+        -1.99649593,
+        0.98496329,
+        1.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.85668357,
+        9.85668357,
+        9.85668357
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/6836b6de3ff0e9658504c3a7653127175f3cf63fc6928d5cdba8c895b6d2477f.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-kukri-2",
+      "name": "廓尔喀刀 · 血迹",
+      "parentId": "transform:ddv23-kukri",
+      "modelPath": "resources/Model/GLB/artist_ddv23/Kukri Knife.glb",
+      "position": [
+        2.00350407,
+        0.98496329,
+        1.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.85668357,
+        9.85668357,
+        9.85668357
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/5432d7f4f8d2252a9c50841a00abc26a09c72e1d2d2179d68c4565846c52478d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-m9-bayonet-1",
+      "name": "M9 刺刀 · 原色",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "modelPath": "resources/Model/GLB/artist_ddv23/M9 Bayonet.glb",
+      "position": [
+        -5.97028636,
+        1.40471447,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0504884,
+        9.0504884,
+        9.0504884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/3f31a0583b3f85182da47b8d5f394cbfd25eb2aa3a8146323bfba31138727e62.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-m9-bayonet-2",
+      "name": "M9 刺刀 · 黑色",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "modelPath": "resources/Model/GLB/artist_ddv23/M9 Bayonet.glb",
+      "position": [
+        -1.97028636,
+        1.40471447,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0504884,
+        9.0504884,
+        9.0504884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/4605c8a20492319cc1fe2b5e32d3672f9b5bef40466a2d5c9a18cffb5eaf5965.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-m9-bayonet-3",
+      "name": "M9 刺刀 · 血迹",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "modelPath": "resources/Model/GLB/artist_ddv23/M9 Bayonet.glb",
+      "position": [
+        2.02971364,
+        1.40471447,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0504884,
+        9.0504884,
+        9.0504884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/225ce3f0b96b0be3b445043ab995f9ba8f123ef86582c8183bff53c66323ddfa.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ddv23-m9-bayonet-4",
+      "name": "M9 刺刀 · 黑色血迹",
+      "parentId": "transform:ddv23-m9-bayonet",
+      "modelPath": "resources/Model/GLB/artist_ddv23/M9 Bayonet.glb",
+      "position": [
+        6.02971364,
+        1.40471447,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0504884,
+        9.0504884,
+        9.0504884
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ddv23/3032412c801a9c006cd04c12533d36b495a366374f6835cb0cffa5a4b78a2a50.png"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

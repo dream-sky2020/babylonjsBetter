@@ -1,0 +1,381 @@
+{
+  "presetKey": "artist-daniel-jurys-model-test",
+  "name": "Daniel Jurys 资源 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "daniel-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "daniel-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          20,
+          35,
+          -20
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "daniel-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 20
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#303942",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-furniture-ground",
+      "name": "废弃家具展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 38,
+        "height": 8
+      },
+      "position": [
+        0,
+        -0.045,
+        -5
+      ],
+      "color": "#4d5555"
+    },
+    {
+      "id": "daniel-waste-ground",
+      "name": "废品展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 38,
+        "height": 8
+      },
+      "position": [
+        0,
+        -0.045,
+        5
+      ],
+      "color": "#514f49"
+    }
+  ],
+  "models": [
+    {
+      "id": "daniel-model-01",
+      "name": "废弃家具 · 椅子",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-derelict-furniture-standard/chair_daniel-jurys_itch_io.glb",
+      "position": [
+        -15,
+        0.025,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4,
+        2.4,
+        2.4
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-02",
+      "name": "废弃家具 · 沙发",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-derelict-furniture-standard/couch_daniel-jurys_itch_io.glb",
+      "position": [
+        -9,
+        0.025,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8,
+        1.8,
+        1.8
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-03",
+      "name": "废弃家具 · 冰箱",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-derelict-furniture-standard/fridge_daniel-jurys_itch_io.glb",
+      "position": [
+        -3,
+        0.025,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3,
+        1.3,
+        1.3
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-04",
+      "name": "废弃家具 · 床垫",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-derelict-furniture-standard/mattress_daniel-jurys_itch_io.glb",
+      "position": [
+        3,
+        0.025,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6,
+        1.6,
+        1.6
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-05",
+      "name": "废弃家具 · 架子",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-derelict-furniture-standard/shelf_daniel-jurys_itch_io.glb",
+      "position": [
+        9,
+        0.025,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-06",
+      "name": "废弃家具 · 花瓶",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-derelict-furniture-standard/vase_daniel-jurys_itch_io.glb",
+      "position": [
+        15,
+        0.025,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6,
+        6,
+        6
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-07",
+      "name": "废品 · 油桶",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-waste/barrel_daniel-jurys_itch_io.glb",
+      "position": [
+        -15,
+        0.025,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2,
+        2,
+        2
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-08",
+      "name": "废品 · 纸箱",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-waste/cardboard-box_daniel-jurys_itch_io.glb",
+      "position": [
+        -9,
+        0.025,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4,
+        4,
+        4
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-09",
+      "name": "废品 · 压扁的罐子",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-waste/crumpled-can_daniel-jurys_itch_io.glb",
+      "position": [
+        -3,
+        0.025,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8,
+        8,
+        8
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-10",
+      "name": "废品 · 垃圾箱",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-waste/dumpster_daniel-jurys_itch_io.glb",
+      "position": [
+        3,
+        0.025,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-11",
+      "name": "废品 · 玻璃瓶",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-waste/glass-bottle_daniel-jurys_itch_io.glb",
+      "position": [
+        9,
+        0.025,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6,
+        6,
+        6
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "daniel-model-12",
+      "name": "废品 · 垃圾袋",
+      "modelPath": "resources/Model/GLB/artist_daniel-jurys/psx-waste/trash-bag_daniel-jurys_itch_io.glb",
+      "position": [
+        15,
+        0.025,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8,
+        1.8,
+        1.8
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

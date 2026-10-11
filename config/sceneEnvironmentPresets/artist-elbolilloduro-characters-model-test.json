@@ -1,0 +1,5636 @@
+{
+  "presetKey": "artist-elbolilloduro-characters-model-test",
+  "name": "Elbolilloduro · 人物与生物（128 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-characters",
+      "name": "Characters",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-christmas",
+      "name": "Christmas",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-criaturas1",
+      "name": "Criaturas1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-halloween",
+      "name": "halloween",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-personajes",
+      "name": "Personajes",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-personajes_terror",
+      "name": "Personajes_terror",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-trailer_park",
+      "name": "Trailer_Park",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 90
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-6e8f58fc2e6c7415-stand",
+      "name": "Blender_Head_Blender_Head展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        42.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5e868c95c63a91c1-stand",
+      "name": "Character_01_Character_01展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        42.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c0651f69ca0fe01-stand",
+      "name": "Character_02_Character_02展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        42.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4daba38ddab9d259-stand",
+      "name": "Character_03_Character_03展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        42.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-17eb5ef52a68aa0a-stand",
+      "name": "Character_04_Character_04展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        42.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-deb7d62c42f4a739-stand",
+      "name": "Character_05_Character_05展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        42.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-31cb58452abd798e-stand",
+      "name": "Character_06_Character_06展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        38.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-afe9368c998126fa-stand",
+      "name": "Character_07_Character_07展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        38.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-90ec368f746476de-stand",
+      "name": "Character_08_Character_08展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        38.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-673128d0ef57f400-stand",
+      "name": "Character_09_Character_09展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        38.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9da8d044980b5e8f-stand",
+      "name": "Character_Character展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        38.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-23da7f891ae5fba3-stand",
+      "name": "Clown_Clown展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        38.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-eed6474e0fc50147-stand",
+      "name": "Creature_Creature展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        34.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-059956de9979c178-stand",
+      "name": "Killer_01_Killer_01展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        34.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6f0a55bca7e786ab-stand",
+      "name": "Killer_Armature展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        34.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8bd44ded4d205641-stand",
+      "name": "Man_Pot_Man_Pot展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        34.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6cceeddf1a396a4c-stand",
+      "name": "Mr_Smiles_Mr_Smiles展台",
+      "parentId": "transform:category-characters",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        34.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0ada540a6345eeda-stand",
+      "name": "SantaClaus_Armature展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        42.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-372d87303af1e36a-stand",
+      "name": "SantaClaus_B_Armature展台",
+      "parentId": "transform:category-christmas",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        42.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-febc84a458733d27-stand",
+      "name": "Criaturas_W_001展台",
+      "parentId": "transform:category-criaturas1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6b333c89d7d9186a-stand",
+      "name": "Criaturas_W2_001展台",
+      "parentId": "transform:category-criaturas1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-370ec84db8cf16d5-stand",
+      "name": "W3展台",
+      "parentId": "transform:category-criaturas1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5f77e7666e2d80c1-stand",
+      "name": "Character_Character展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4af76ab26c8ee2d9-stand",
+      "name": "Character_Ghost_Character_Ghost展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3deae70f86abbf7e-stand",
+      "name": "Character_Witch_Armature展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        28.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a4ea66d01a0ed241-stand",
+      "name": "Characters_01_Characters_01展台",
+      "parentId": "transform:category-personajes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a31dac3ae7c3aea4-stand",
+      "name": "Characters_02_Characters_02展台",
+      "parentId": "transform:category-personajes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-88dca642dd938678-stand",
+      "name": "Characters_03_Characters_03展台",
+      "parentId": "transform:category-personajes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ca9ed8f5999fd696-stand",
+      "name": "Characters_04_Characters_04展台",
+      "parentId": "transform:category-personajes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2b4f28799a49c1c1-stand",
+      "name": "Characters_Characters展台",
+      "parentId": "transform:category-personajes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-49a0435cd9ba2c0c-stand",
+      "name": "Characters_Characters展台",
+      "parentId": "transform:category-personajes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d35b025a1e9061c0-stand",
+      "name": "Cube_015展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-293ec5479cb5846a-stand",
+      "name": "Cube_016展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-55b65807f9ed3193-stand",
+      "name": "Cube_017展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-be8eb2f11e21ce87-stand",
+      "name": "Cube_018展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-19f80c79f475ff2c-stand",
+      "name": "Cube_019展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5697137961f42c3e-stand",
+      "name": "Cube_020展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8e16cf8790bcadc7-stand",
+      "name": "Cube_021展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c75f28191a430661-stand",
+      "name": "Cube_022展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3f25301146a80ce6-stand",
+      "name": "Cube_023展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6955404a44ba76a6-stand",
+      "name": "Cube_024展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-52847b0fa7f72b3d-stand",
+      "name": "Cube_025展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-41a9dc068c97bca1-stand",
+      "name": "Cube_026展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a5409732f0c11c5d-stand",
+      "name": "Cube_027展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-afd3b73c2cf0bed2-stand",
+      "name": "Cube_028展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-84bdc67eb789d32f-stand",
+      "name": "Cube_029展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ee1e9bba8eac8f13-stand",
+      "name": "Cube_030展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d99054687131209e-stand",
+      "name": "Cube_031展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d1f314b98ebee219-stand",
+      "name": "Cube_032展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cf98daf1f4fe583c-stand",
+      "name": "Cube_033展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cd9e9f6a19e43229-stand",
+      "name": "Cube_034展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7bd80cd06a60ec29-stand",
+      "name": "Cube_035展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-fb0f3f10804c555f-stand",
+      "name": "Cube_036展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7e8b57e6a04196c8-stand",
+      "name": "Cube_037展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-544ab2ad05e3c3b0-stand",
+      "name": "Cube_038展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-a20d4ec38ad027fe-stand",
+      "name": "Cube_039展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ed1e54a0d09f6b19-stand",
+      "name": "Cube_040展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1647145115ae1804-stand",
+      "name": "Cube_041展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-37f31f5b952ba2dc-stand",
+      "name": "Cube_042展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2d627958c61a5213-stand",
+      "name": "Cube_043展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7b242d2da615179a-stand",
+      "name": "Cube_044展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2bb7ff802f72763c-stand",
+      "name": "Cube_045展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-57ac0fa78b636f3d-stand",
+      "name": "Cube_046展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7f1ac76adf79b716-stand",
+      "name": "Cube_047展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-dfa351dae761f5fb-stand",
+      "name": "Cube_048展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-07698cc0851f0608-stand",
+      "name": "Cube_049展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-184c718f42a0ed08-stand",
+      "name": "Cube_050展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-d8b16958d5fb597f-stand",
+      "name": "Cube_051展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cbe461df69728d3a-stand",
+      "name": "Cube_052展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5edca753169fe991-stand",
+      "name": "Cube_053展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c68e9840d8243320-stand",
+      "name": "Cube_054展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e8c33aec172281f1-stand",
+      "name": "Cube_055展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-782c91cb9b602422-stand",
+      "name": "Cube_056展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-01ee2ba1a1fe5596-stand",
+      "name": "Cube_057展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-28a53269caebcefe-stand",
+      "name": "Cube_058展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-03421a904a8b5d5d-stand",
+      "name": "Cube_059展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-671ec738d834db6f-stand",
+      "name": "Cube_060展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2ebd81cacb400129-stand",
+      "name": "Cube_061展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-df3b133c57f6efd1-stand",
+      "name": "Cube_062展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9392dc51a34e254e-stand",
+      "name": "Cube_063展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ff43c62fd5b36abd-stand",
+      "name": "Cube_064展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-3364898eacb697a0-stand",
+      "name": "Cube_065展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e3345f17af9ab08e-stand",
+      "name": "Cube_066展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-27f4a6f76dda0768-stand",
+      "name": "Cube_067展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-fce93aa42548b663-stand",
+      "name": "Cube_068展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4ed2d33d7024e212-stand",
+      "name": "Cube_069展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-9cd6dece4eae9b1d-stand",
+      "name": "Cube_070展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1e952adc20a9521a-stand",
+      "name": "Cube_071展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5855e1a9368d4983-stand",
+      "name": "Cube_072展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-aff622a1d18118b6-stand",
+      "name": "Cube_073展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4f6e10300f5c7e94-stand",
+      "name": "Cube_074展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-acf25ea3437e6743-stand",
+      "name": "Cube_075展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8eda2b4bb566751a-stand",
+      "name": "Cube_076展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-240db9cd1c510c7a-stand",
+      "name": "Cube_077展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-446f65bedb0ecb95-stand",
+      "name": "Cube_078展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-1c0cb9259f23a592-stand",
+      "name": "Cube_079展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-bd34f1d282f0abe3-stand",
+      "name": "Cube_080展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-0d89908401ad38b5-stand",
+      "name": "Cube_081展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5e7ceb0aaaed45c5-stand",
+      "name": "Cube_082展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-337ddff97e2b1686-stand",
+      "name": "Cube_083展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5a06c4ddd070eb29-stand",
+      "name": "Cube_084展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-15d6aa64a1eb8d0c-stand",
+      "name": "Cube_085展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-eb222a33a3728676-stand",
+      "name": "Cube_086展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-faaa26df235026d0-stand",
+      "name": "Cube_087展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-ccfdd7cda0af64fa-stand",
+      "name": "Cube_088展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6cb7d08a2dce851a-stand",
+      "name": "Cube_089展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4b097e3d37e6b2dd-stand",
+      "name": "Cube_090展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-2e1f63cde04ffbfb-stand",
+      "name": "Cube_091展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-c1eb41474d405a00-stand",
+      "name": "Cube_092展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f19a92f34df2748a-stand",
+      "name": "Pesonajes_2_Cube_001展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -30.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-b35171977b9ee310-stand",
+      "name": "Pesonajes_2_Cube_002展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -30.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-7c3ce99c8adcb5a1-stand",
+      "name": "Pesonajes_2_Cube_003展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -30.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-f025f5e6d2ae5b17-stand",
+      "name": "Pesonajes_2_Cube_004展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -30.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-6241644bcdc6c1b0-stand",
+      "name": "Pesonajes_2_Cube_005展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -30.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-18b975bf1596e375-stand",
+      "name": "Pesonajes_2_Cube_006展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -30.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-266e70adb9ead22a-stand",
+      "name": "Pesonajes_2_Cube_007展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -34.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-e60cdb6d01e8beba-stand",
+      "name": "Pesonajes_2_Cube_008展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -34.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-cf7f3417400e1197-stand",
+      "name": "Pesonajes_2_Cube_009展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -34.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-955f8ab25a9448fe-stand",
+      "name": "Pesonajes_2_Cube_010展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -34.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-864e8b12c91396f7-stand",
+      "name": "Pesonajes_2_Cube_011展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -34.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-4c54cccf0b8706e8-stand",
+      "name": "Pesonajes_2_Cube_012展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -34.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5c9aaf43d30f3909-stand",
+      "name": "Pesonajes_2_Cube_013展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -38.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-5eef8035906275c3-stand",
+      "name": "Pesonajes_2_Cube_014展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -38.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-8c5d32c9b6d2c8e1-stand",
+      "name": "Torus展台",
+      "parentId": "transform:category-personajes_terror",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -38.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "elbolilloduro-054d05321244add4-stand",
+      "name": "Character_Female_01_Character_Female_01展台",
+      "parentId": "transform:category-trailer_park",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-491a688716b41695-stand",
+      "name": "Character_Female_Character_Female展台",
+      "parentId": "transform:category-trailer_park",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-734d16c2e5158988-stand",
+      "name": "Character_Male_01_Character_Male_01展台",
+      "parentId": "transform:category-trailer_park",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d04384137b23e34f-stand",
+      "name": "Character_Male_Character_Male展台",
+      "parentId": "transform:category-trailer_park",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-6e8f58fc2e6c7415",
+      "name": "Characters · Blender_Head_Blender_Head",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Blender_Head_Blender_Head_c3953102.glb",
+      "position": [
+        -22.00000035,
+        0.01208694,
+        42.51443819
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16502416,
+        1.16502416,
+        1.16502416
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5e868c95c63a91c1",
+      "name": "Characters · Character_01_Character_01",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_01_Character_01_6b880651.glb",
+      "position": [
+        -18.00000012,
+        0.00986313,
+        42.56499985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53266692,
+        1.53266692,
+        1.53266692
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c0651f69ca0fe01",
+      "name": "Characters · Character_02_Character_02",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_02_Character_02_29a9deda.glb",
+      "position": [
+        -13.99999995,
+        0.00065101,
+        42.50820908
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.38683247,
+        1.38683247,
+        1.38683247
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4daba38ddab9d259",
+      "name": "Characters · Character_03_Character_03",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_03_Character_03_0b286d86.glb",
+      "position": [
+        -10.00000006,
+        0.00436008,
+        42.51691017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43676077,
+        1.43676077,
+        1.43676077
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-17eb5ef52a68aa0a",
+      "name": "Characters · Character_04_Character_04",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_04_Character_04_62c760b5.glb",
+      "position": [
+        -6.00000022,
+        0.00066225,
+        42.51089441
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4326695,
+        1.4326695,
+        1.4326695
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-deb7d62c42f4a739",
+      "name": "Characters · Character_05_Character_05",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_05_Character_05_846f03f8.glb",
+      "position": [
+        -1.99999979,
+        0.00064317,
+        42.51098446
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39109844,
+        1.39109844,
+        1.39109844
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-31cb58452abd798e",
+      "name": "Characters · Character_06_Character_06",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_06_Character_06_62c51555.glb",
+      "position": [
+        -22.00000017,
+        0.00066235,
+        38.55824415
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.46104676,
+        1.46104676,
+        1.46104676
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-afe9368c998126fa",
+      "name": "Characters · Character_07_Character_07",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_07_Character_07_c0b826f1.glb",
+      "position": [
+        -18,
+        0.00066251,
+        38.53010305
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.38915902,
+        1.38915902,
+        1.38915902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-90ec368f746476de",
+      "name": "Characters · Character_08_Character_08",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_08_Character_08_1fa03bb0.glb",
+      "position": [
+        -13.99999989,
+        -0.00417679,
+        38.49925748
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.46908683,
+        1.46908683,
+        1.46908683
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-673128d0ef57f400",
+      "name": "Characters · Character_09_Character_09",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_09_Character_09_b7e8d3af.glb",
+      "position": [
+        -9.99999989,
+        0.00561263,
+        38.50886445
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44611579,
+        1.44611579,
+        1.44611579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9da8d044980b5e8f",
+      "name": "Characters · Character_Character",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Character_Character_63df7b5b.glb",
+      "position": [
+        -6,
+        0.00066249,
+        38.5081039
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.45967267,
+        1.45967267,
+        1.45967267
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-23da7f891ae5fba3",
+      "name": "Characters · Clown_Clown",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Clown_Clown_5f398d82.glb",
+      "position": [
+        -1.92087521,
+        0.01673835,
+        38.51371947
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31470541,
+        1.31470541,
+        1.31470541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eed6474e0fc50147",
+      "name": "Characters · Creature_Creature",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Creature_Creature_1dbf8c32.glb",
+      "position": [
+        -20.00000023,
+        0.0079081,
+        34.41967989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87480032,
+        0.87480032,
+        0.87480032
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-059956de9979c178",
+      "name": "Characters · Killer_01_Killer_01",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Killer_01_Killer_01_d11adb34.glb",
+      "position": [
+        -16.12628938,
+        0.00068188,
+        34.50793288
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31686667,
+        1.31686667,
+        1.31686667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6f0a55bca7e786ab",
+      "name": "Characters · Killer_Armature",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Killer_Armature_1e596cf8.glb",
+      "position": [
+        -12.00088535,
+        0.00322848,
+        34.22973079
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23960316,
+        1.23960316,
+        1.23960316
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8bd44ded4d205641",
+      "name": "Characters · Man_Pot_Man_Pot",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Man_Pot_Man_Pot_36504a3d.glb",
+      "position": [
+        -8.00000024,
+        0.0131428,
+        34.51447646
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26680042,
+        1.26680042,
+        1.26680042
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6cceeddf1a396a4c",
+      "name": "Characters · Mr_Smiles_Mr_Smiles",
+      "parentId": "transform:category-characters",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Characters/Mr_Smiles_Mr_Smiles_059addde.glb",
+      "position": [
+        -4.00051432,
+        -0.00905313,
+        34.51395386
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14121855,
+        1.14121855,
+        1.14121855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0ada540a6345eeda",
+      "name": "Christmas · SantaClaus_Armature",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/SantaClaus_Armature_ac232168.glb",
+      "position": [
+        10,
+        0.00110525,
+        42.47514317
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3900499,
+        1.3900499,
+        1.3900499
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-372d87303af1e36a",
+      "name": "Christmas · SantaClaus_B_Armature",
+      "parentId": "transform:category-christmas",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Christmas/SantaClaus_B_Armature_de42f31c.glb",
+      "position": [
+        13.99999989,
+        0.00110709,
+        42.47623473
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39261802,
+        1.39261802,
+        1.39261802
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-febc84a458733d27",
+      "name": "Criaturas1 · Criaturas_W_001",
+      "parentId": "transform:category-criaturas1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Criaturas1/Criaturas_W_001_a6fb1545.glb",
+      "position": [
+        7.99999999,
+        -0.36886848,
+        35.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32543046,
+        0.32543046,
+        0.32543046
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6b333c89d7d9186a",
+      "name": "Criaturas1 · Criaturas_W2_001",
+      "parentId": "transform:category-criaturas1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Criaturas1/Criaturas_W2_001_b34d0be2.glb",
+      "position": [
+        12.00000003,
+        -0.38526984,
+        33.87946691
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.33990054,
+        0.33990054,
+        0.33990054
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-370ec84db8cf16d5",
+      "name": "Criaturas1 · W3",
+      "parentId": "transform:category-criaturas1",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Criaturas1/W3_bfbfab31.glb",
+      "position": [
+        16,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32538657,
+        0.32538657,
+        0.32538657
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5f77e7666e2d80c1",
+      "name": "halloween · Character_Character",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Character_Character_7b3589de.glb",
+      "position": [
+        7.99999995,
+        0.00529201,
+        28.51865974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44021185,
+        1.44021185,
+        1.44021185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4af76ab26c8ee2d9",
+      "name": "halloween · Character_Ghost_Character_Ghost",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Character_Ghost_Character_Ghost_af853463.glb",
+      "position": [
+        11.99999987,
+        1e-8,
+        28.49999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49928442,
+        1.49928442,
+        1.49928442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3deae70f86abbf7e",
+      "name": "halloween · Character_Witch_Armature",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Character_Witch_Armature_91acebb5.glb",
+      "position": [
+        15.99999996,
+        0.00200632,
+        28.50382948
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.35059451,
+        1.35059451,
+        1.35059451
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a4ea66d01a0ed241",
+      "name": "Personajes · Characters_01_Characters_01",
+      "parentId": "transform:category-personajes",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes/Characters_01_Characters_01_494a79b6.glb",
+      "position": [
+        -22.02686894,
+        -0.00356618,
+        27.51389081
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799908,
+        0.28799908,
+        0.28799908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a31dac3ae7c3aea4",
+      "name": "Personajes · Characters_02_Characters_02",
+      "parentId": "transform:category-personajes",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes/Characters_02_Characters_02_77aa0dad.glb",
+      "position": [
+        -18.04911853,
+        0.04495185,
+        27.51341458
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27386339,
+        0.27386339,
+        0.27386339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-88dca642dd938678",
+      "name": "Personajes · Characters_03_Characters_03",
+      "parentId": "transform:category-personajes",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes/Characters_03_Characters_03_67892d1a.glb",
+      "position": [
+        -14.01500376,
+        0.09845699,
+        27.51407686
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2709276,
+        0.2709276,
+        0.2709276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ca9ed8f5999fd696",
+      "name": "Personajes · Characters_04_Characters_04",
+      "parentId": "transform:category-personajes",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes/Characters_04_Characters_04_919401d7.glb",
+      "position": [
+        -10.02617936,
+        0.05813605,
+        27.51327801
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26810137,
+        0.26810137,
+        0.26810137
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2b4f28799a49c1c1",
+      "name": "Personajes · Characters_Characters",
+      "parentId": "transform:category-personajes",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes/Characters_Characters_2b0e4a59.glb",
+      "position": [
+        -6.02475697,
+        0.05497693,
+        27.51331686
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25353551,
+        0.25353551,
+        0.25353551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-49a0435cd9ba2c0c",
+      "name": "Personajes · Characters_Characters",
+      "parentId": "transform:category-personajes",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes/Characters_Characters_86302106.glb",
+      "position": [
+        -2.02686901,
+        0.07764461,
+        27.51307896
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27151442,
+        0.27151442,
+        0.27151442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d35b025a1e9061c0",
+      "name": "Personajes_terror · Cube_015",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_015_4fa68162.glb",
+      "position": [
+        2,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.66456063,
+        1.66456063,
+        1.66456063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-293ec5479cb5846a",
+      "name": "Personajes_terror · Cube_016",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_016_5c9da306.glb",
+      "position": [
+        6,
+        0,
+        21.50000319
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67159163,
+        1.67159163,
+        1.67159163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-55b65807f9ed3193",
+      "name": "Personajes_terror · Cube_017",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_017_0a50ea5a.glb",
+      "position": [
+        10,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57728742,
+        0.57728742,
+        0.57728742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-be8eb2f11e21ce87",
+      "name": "Personajes_terror · Cube_018",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_018_838ee084.glb",
+      "position": [
+        14,
+        0,
+        21.49999945
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57622275,
+        0.57622275,
+        0.57622275
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-19f80c79f475ff2c",
+      "name": "Personajes_terror · Cube_019",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_019_44f232d0.glb",
+      "position": [
+        18,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59089048,
+        0.59089048,
+        0.59089048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5697137961f42c3e",
+      "name": "Personajes_terror · Cube_020",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_020_1a4a88d6.glb",
+      "position": [
+        22,
+        0,
+        21.50000056
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58983973,
+        0.58983973,
+        0.58983973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8e16cf8790bcadc7",
+      "name": "Personajes_terror · Cube_021",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_021_b1a89f54.glb",
+      "position": [
+        2,
+        0,
+        17.49999891
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57348979,
+        0.57348979,
+        0.57348979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c75f28191a430661",
+      "name": "Personajes_terror · Cube_022",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_022_82f0e752.glb",
+      "position": [
+        6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57348979,
+        0.57348979,
+        0.57348979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3f25301146a80ce6",
+      "name": "Personajes_terror · Cube_023",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_023_55cce809.glb",
+      "position": [
+        10,
+        0,
+        17.49999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58875033,
+        0.58875033,
+        0.58875033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6955404a44ba76a6",
+      "name": "Personajes_terror · Cube_024",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_024_0906c63d.glb",
+      "position": [
+        14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58770717,
+        0.58770717,
+        0.58770717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-52847b0fa7f72b3d",
+      "name": "Personajes_terror · Cube_025",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_025_3e081596.glb",
+      "position": [
+        18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57338865,
+        0.57338865,
+        0.57338865
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-41a9dc068c97bca1",
+      "name": "Personajes_terror · Cube_026",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_026_8391f02c.glb",
+      "position": [
+        22,
+        0,
+        17.50000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57338865,
+        0.57338865,
+        0.57338865
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a5409732f0c11c5d",
+      "name": "Personajes_terror · Cube_027",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_027_4472a116.glb",
+      "position": [
+        2,
+        0,
+        13.50000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58983973,
+        0.58983973,
+        0.58983973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-afd3b73c2cf0bed2",
+      "name": "Personajes_terror · Cube_028",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_028_0918e300.glb",
+      "position": [
+        6.00000056,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58875033,
+        0.58875033,
+        0.58875033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-84bdc67eb789d32f",
+      "name": "Personajes_terror · Cube_029",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_029_8eb4154f.glb",
+      "position": [
+        10,
+        0,
+        13.50000056
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58875033,
+        0.58875033,
+        0.58875033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ee1e9bba8eac8f13",
+      "name": "Personajes_terror · Cube_030",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_030_a88f3f8f.glb",
+      "position": [
+        14.00000377,
+        0,
+        13.50000189
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.97759574,
+        1.97759574,
+        1.97759574
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d99054687131209e",
+      "name": "Personajes_terror · Cube_031",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_031_6c143c4d.glb",
+      "position": [
+        17.9999967,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73123915,
+        1.73123915,
+        1.73123915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d1f314b98ebee219",
+      "name": "Personajes_terror · Cube_032",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_032_8f979387.glb",
+      "position": [
+        22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.69870694,
+        1.69870694,
+        1.69870694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cf98daf1f4fe583c",
+      "name": "Personajes_terror · Cube_033",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_033_4b2dd48a.glb",
+      "position": [
+        2,
+        0,
+        9.49999838
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.69870694,
+        1.69870694,
+        1.69870694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cd9e9f6a19e43229",
+      "name": "Personajes_terror · Cube_034",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_034_ebd15599.glb",
+      "position": [
+        6.00000332,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73818563,
+        1.73818563,
+        1.73818563
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7bd80cd06a60ec29",
+      "name": "Personajes_terror · Cube_035",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_035_f59f9a61.glb",
+      "position": [
+        10.00000332,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73818563,
+        1.73818563,
+        1.73818563
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fb0f3f10804c555f",
+      "name": "Personajes_terror · Cube_036",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_036_e89e8d96.glb",
+      "position": [
+        13.99999836,
+        0,
+        9.50000082
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.71587732,
+        1.71587732,
+        1.71587732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7e8b57e6a04196c8",
+      "name": "Personajes_terror · Cube_037",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_037_3d47702f.glb",
+      "position": [
+        18.00000361,
+        0,
+        9.5000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.89044044,
+        1.89044044,
+        1.89044044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-544ab2ad05e3c3b0",
+      "name": "Personajes_terror · Cube_038",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_038_3dbba18c.glb",
+      "position": [
+        22,
+        0,
+        9.50000083
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73818563,
+        1.73818563,
+        1.73818563
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a20d4ec38ad027fe",
+      "name": "Personajes_terror · Cube_039",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_039_08fa826c.glb",
+      "position": [
+        2.00000349,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82747708,
+        1.82747708,
+        1.82747708
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ed1e54a0d09f6b19",
+      "name": "Personajes_terror · Cube_040",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_040_c620136a.glb",
+      "position": [
+        5.99999836,
+        0,
+        5.49999918
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.71587732,
+        1.71587732,
+        1.71587732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1647145115ae1804",
+      "name": "Personajes_terror · Cube_041",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_041_79fd6ac8.glb",
+      "position": [
+        10,
+        0,
+        5.50000169
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88517199,
+        0.88517199,
+        0.88517199
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-37f31f5b952ba2dc",
+      "name": "Personajes_terror · Cube_042",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_042_59068c8c.glb",
+      "position": [
+        14,
+        0,
+        5.5000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89287081,
+        0.89287081,
+        0.89287081
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d627958c61a5213",
+      "name": "Personajes_terror · Cube_043",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_043_1df8d1c6.glb",
+      "position": [
+        18,
+        0,
+        5.49999823
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9276701,
+        0.9276701,
+        0.9276701
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7b242d2da615179a",
+      "name": "Personajes_terror · Cube_044",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_044_6cc34fde.glb",
+      "position": [
+        22.00000081,
+        0,
+        5.49999838
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85006908,
+        0.85006908,
+        0.85006908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2bb7ff802f72763c",
+      "name": "Personajes_terror · Cube_045",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_045_f5507da4.glb",
+      "position": [
+        2,
+        0,
+        1.50000183
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.96107053,
+        0.96107053,
+        0.96107053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-57ac0fa78b636f3d",
+      "name": "Personajes_terror · Cube_046",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_046_bb742f0c.glb",
+      "position": [
+        6.00000176,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.92390202,
+        0.92390202,
+        0.92390202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7f1ac76adf79b716",
+      "name": "Personajes_terror · Cube_047",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_047_c14edbc7.glb",
+      "position": [
+        10,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91593775,
+        0.91593775,
+        0.91593775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dfa351dae761f5fb",
+      "name": "Personajes_terror · Cube_048",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_048_ee15f756.glb",
+      "position": [
+        14.00000168,
+        0,
+        1.49999832
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8831038,
+        0.8831038,
+        0.8831038
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-07698cc0851f0608",
+      "name": "Personajes_terror · Cube_049",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_049_c086a69d.glb",
+      "position": [
+        18,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84334256,
+        0.84334256,
+        0.84334256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-184c718f42a0ed08",
+      "name": "Personajes_terror · Cube_050",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_050_952c0576.glb",
+      "position": [
+        22,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84643519,
+        0.84643519,
+        0.84643519
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d8b16958d5fb597f",
+      "name": "Personajes_terror · Cube_051",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_051_b65b9527.glb",
+      "position": [
+        1.99999832,
+        0,
+        -2.49999832
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87998686,
+        0.87998686,
+        0.87998686
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cbe461df69728d3a",
+      "name": "Personajes_terror · Cube_052",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_052_72d85338.glb",
+      "position": [
+        5.9999983,
+        0,
+        -2.4999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89256246,
+        0.89256246,
+        0.89256246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5edca753169fe991",
+      "name": "Personajes_terror · Cube_053",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_053_a852fd91.glb",
+      "position": [
+        10.00000087,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91259765,
+        0.91259765,
+        0.91259765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c68e9840d8243320",
+      "name": "Personajes_terror · Cube_054",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_054_b52d1057.glb",
+      "position": [
+        14,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90966045,
+        0.90966045,
+        0.90966045
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e8c33aec172281f1",
+      "name": "Personajes_terror · Cube_055",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_055_e049664a.glb",
+      "position": [
+        18,
+        0,
+        -2.50000084
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87767668,
+        0.87767668,
+        0.87767668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-782c91cb9b602422",
+      "name": "Personajes_terror · Cube_056",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_056_80566108.glb",
+      "position": [
+        22.00000165,
+        0,
+        -2.49999918
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86450295,
+        0.86450295,
+        0.86450295
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-01ee2ba1a1fe5596",
+      "name": "Personajes_terror · Cube_057",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_057_d1cfc834.glb",
+      "position": [
+        2,
+        0,
+        -6.4999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8685283,
+        0.8685283,
+        0.8685283
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-28a53269caebcefe",
+      "name": "Personajes_terror · Cube_058",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_058_78a50f4e.glb",
+      "position": [
+        6.00000083,
+        0,
+        -6.49999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86725562,
+        0.86725562,
+        0.86725562
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-03421a904a8b5d5d",
+      "name": "Personajes_terror · Cube_059",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_059_9e80f41b.glb",
+      "position": [
+        10.00000174,
+        0,
+        -6.49999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91087574,
+        0.91087574,
+        0.91087574
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-671ec738d834db6f",
+      "name": "Personajes_terror · Cube_060",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_060_6bbd3268.glb",
+      "position": [
+        14.00000169,
+        0,
+        -6.49999958
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88864121,
+        0.88864121,
+        0.88864121
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2ebd81cacb400129",
+      "name": "Personajes_terror · Cube_061",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_061_42221301.glb",
+      "position": [
+        18,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88987343,
+        0.88987343,
+        0.88987343
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-df3b133c57f6efd1",
+      "name": "Personajes_terror · Cube_062",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_062_9cdcf30c.glb",
+      "position": [
+        22,
+        0,
+        -6.4999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84524725,
+        0.84524725,
+        0.84524725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9392dc51a34e254e",
+      "name": "Personajes_terror · Cube_063",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_063_8da912aa.glb",
+      "position": [
+        2.00000084,
+        0,
+        -10.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87682235,
+        0.87682235,
+        0.87682235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ff43c62fd5b36abd",
+      "name": "Personajes_terror · Cube_064",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_064_b01c1c7f.glb",
+      "position": [
+        6.00000171,
+        0,
+        -10.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89473983,
+        0.89473983,
+        0.89473983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3364898eacb697a0",
+      "name": "Personajes_terror · Cube_065",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_065_eae61a3a.glb",
+      "position": [
+        10.00000164,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86229958,
+        0.86229958,
+        0.86229958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e3345f17af9ab08e",
+      "name": "Personajes_terror · Cube_066",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_066_59a407a5.glb",
+      "position": [
+        14,
+        0,
+        -10.50000084
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88067156,
+        0.88067156,
+        0.88067156
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-27f4a6f76dda0768",
+      "name": "Personajes_terror · Cube_067",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_067_cbc44f57.glb",
+      "position": [
+        17.9999984,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fce93aa42548b663",
+      "name": "Personajes_terror · Cube_068",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_068_65a460c9.glb",
+      "position": [
+        21.9999984,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4ed2d33d7024e212",
+      "name": "Personajes_terror · Cube_069",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_069_5662be79.glb",
+      "position": [
+        1.9999984,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9cd6dece4eae9b1d",
+      "name": "Personajes_terror · Cube_070",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_070_68868d83.glb",
+      "position": [
+        5.9999984,
+        0,
+        -14.4999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1e952adc20a9521a",
+      "name": "Personajes_terror · Cube_071",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_071_9959dd6b.glb",
+      "position": [
+        10.0000016,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5855e1a9368d4983",
+      "name": "Personajes_terror · Cube_072",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_072_713593e8.glb",
+      "position": [
+        14.0000016,
+        0,
+        -14.4999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aff622a1d18118b6",
+      "name": "Personajes_terror · Cube_073",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_073_b43776cb.glb",
+      "position": [
+        18,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4f6e10300f5c7e94",
+      "name": "Personajes_terror · Cube_074",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_074_cf10aecf.glb",
+      "position": [
+        22,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-acf25ea3437e6743",
+      "name": "Personajes_terror · Cube_075",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_075_7042af03.glb",
+      "position": [
+        2,
+        0,
+        -18.5000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916254,
+        0.83916254,
+        0.83916254
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8eda2b4bb566751a",
+      "name": "Personajes_terror · Cube_076",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_076_98d42d15.glb",
+      "position": [
+        6.0000016,
+        0,
+        -18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-240db9cd1c510c7a",
+      "name": "Personajes_terror · Cube_077",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_077_f6738cb4.glb",
+      "position": [
+        9.9999984,
+        0,
+        -18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-446f65bedb0ecb95",
+      "name": "Personajes_terror · Cube_078",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_078_08d6e486.glb",
+      "position": [
+        14,
+        0,
+        -18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1c0cb9259f23a592",
+      "name": "Personajes_terror · Cube_079",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_079_0bb7eb2c.glb",
+      "position": [
+        18,
+        0,
+        -18.4999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bd34f1d282f0abe3",
+      "name": "Personajes_terror · Cube_080",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_080_394f50db.glb",
+      "position": [
+        22,
+        0,
+        -18.4999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0d89908401ad38b5",
+      "name": "Personajes_terror · Cube_081",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_081_174b2519.glb",
+      "position": [
+        2,
+        0,
+        -22.4999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5e7ceb0aaaed45c5",
+      "name": "Personajes_terror · Cube_082",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_082_6615aa7b.glb",
+      "position": [
+        6,
+        0,
+        -22.4999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-337ddff97e2b1686",
+      "name": "Personajes_terror · Cube_083",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_083_9cfbba24.glb",
+      "position": [
+        10,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5a06c4ddd070eb29",
+      "name": "Personajes_terror · Cube_084",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_084_0e28648b.glb",
+      "position": [
+        14,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-15d6aa64a1eb8d0c",
+      "name": "Personajes_terror · Cube_085",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_085_4dbd21f8.glb",
+      "position": [
+        18,
+        0,
+        -22.4999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eb222a33a3728676",
+      "name": "Personajes_terror · Cube_086",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_086_d5e0beae.glb",
+      "position": [
+        22,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-faaa26df235026d0",
+      "name": "Personajes_terror · Cube_087",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_087_a9354a4e.glb",
+      "position": [
+        2,
+        0,
+        -26.5000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ccfdd7cda0af64fa",
+      "name": "Personajes_terror · Cube_088",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_088_882cd747.glb",
+      "position": [
+        6,
+        0,
+        -26.4999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6cb7d08a2dce851a",
+      "name": "Personajes_terror · Cube_089",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_089_1078a8c3.glb",
+      "position": [
+        10.0000016,
+        0,
+        -26.5000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916254,
+        0.83916254,
+        0.83916254
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4b097e3d37e6b2dd",
+      "name": "Personajes_terror · Cube_090",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_090_ed551c22.glb",
+      "position": [
+        14,
+        0,
+        -26.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2e1f63cde04ffbfb",
+      "name": "Personajes_terror · Cube_091",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_091_7470f38e.glb",
+      "position": [
+        18,
+        0,
+        -26.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c1eb41474d405a00",
+      "name": "Personajes_terror · Cube_092",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Cube_092_745e9b09.glb",
+      "position": [
+        21.9999992,
+        0,
+        -26.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83916266,
+        0.83916266,
+        0.83916266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f19a92f34df2748a",
+      "name": "Personajes_terror · Pesonajes_2_Cube_001",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_001_430d4f76.glb",
+      "position": [
+        2.01987099,
+        0.16038187,
+        -40.08619235
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2865165,
+        0.2865165,
+        0.2865165
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b35171977b9ee310",
+      "name": "Personajes_terror · Pesonajes_2_Cube_002",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_002_f205fd5d.glb",
+      "position": [
+        6.02574446,
+        0.16057876,
+        -42.89963678
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28686847,
+        0.28686847,
+        0.28686847
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7c3ce99c8adcb5a1",
+      "name": "Personajes_terror · Pesonajes_2_Cube_003",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_003_51d23d26.glb",
+      "position": [
+        11.5034311,
+        0.1612115,
+        -42.91440745
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799906,
+        0.28799906,
+        0.28799906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f025f5e6d2ae5b17",
+      "name": "Personajes_terror · Pesonajes_2_Cube_004",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_004_7843665f.glb",
+      "position": [
+        14.02128556,
+        0.17394382,
+        -46.21771556
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799906,
+        0.28799906,
+        0.28799906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6241644bcdc6c1b0",
+      "name": "Personajes_terror · Pesonajes_2_Cube_005",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_005_051e4385.glb",
+      "position": [
+        19.53524652,
+        0.16462318,
+        -40.32027854
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29409369,
+        0.29409369,
+        0.29409369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-18b975bf1596e375",
+      "name": "Personajes_terror · Pesonajes_2_Cube_006",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_006_b679b1d2.glb",
+      "position": [
+        25.11765775,
+        0.16121175,
+        -42.79661986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799904,
+        0.28799904,
+        0.28799904
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-266e70adb9ead22a",
+      "name": "Personajes_terror · Pesonajes_2_Cube_007",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_007_16c984c9.glb",
+      "position": [
+        5.1176578,
+        0.16121174,
+        -44.10224263
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799903,
+        0.28799903,
+        0.28799903
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e60cdb6d01e8beba",
+      "name": "Personajes_terror · Pesonajes_2_Cube_008",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_008_d513c081.glb",
+      "position": [
+        10.60813486,
+        0.16121165,
+        -46.70653694
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2879991,
+        0.2879991,
+        0.2879991
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cf7f3417400e1197",
+      "name": "Personajes_terror · Pesonajes_2_Cube_009",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_009_b81e4799.glb",
+      "position": [
+        14.60138066,
+        0.16121189,
+        -43.90918401
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799906,
+        0.28799906,
+        0.28799906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-955f8ab25a9448fe",
+      "name": "Personajes_terror · Pesonajes_2_Cube_010",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_010_e7b2536b.glb",
+      "position": [
+        14.01997377,
+        0.16121176,
+        -41.0241252
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799906,
+        0.28799906,
+        0.28799906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-864e8b12c91396f7",
+      "name": "Personajes_terror · Pesonajes_2_Cube_011",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_011_81513682.glb",
+      "position": [
+        18.01997377,
+        0.16121175,
+        -38.13101174
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799904,
+        0.28799904,
+        0.28799904
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4c54cccf0b8706e8",
+      "name": "Personajes_terror · Pesonajes_2_Cube_012",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_012_c9d79f28.glb",
+      "position": [
+        23.49585947,
+        0.16359727,
+        -41.17180541
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29226069,
+        0.29226069,
+        0.29226069
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5c9aaf43d30f3909",
+      "name": "Personajes_terror · Pesonajes_2_Cube_013",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_013_c79f1dc5.glb",
+      "position": [
+        9.47446261,
+        0.16121163,
+        -42.11866579
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28799907,
+        0.28799907,
+        0.28799907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5eef8035906275c3",
+      "name": "Personajes_terror · Pesonajes_2_Cube_014",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Pesonajes_2_Cube_014_d1946644.glb",
+      "position": [
+        15.15250417,
+        0.16348754,
+        -45.10989201
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29206467,
+        0.29206467,
+        0.29206467
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c5d32c9b6d2c8e1",
+      "name": "Personajes_terror · Torus",
+      "parentId": "transform:category-personajes_terror",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Personajes_terror/Torus_b27653a9.glb",
+      "position": [
+        16,
+        0,
+        -38.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72248929,
+        0.72248929,
+        0.72248929
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-054d05321244add4",
+      "name": "Trailer_Park · Character_Female_01_Character_Female_01",
+      "parentId": "transform:category-trailer_park",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Trailer_Park/Character_Female_01_Character_Female_01_691718aa.glb",
+      "position": [
+        -17.99999997,
+        0.00733825,
+        20.57036081
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55041376,
+        1.55041376,
+        1.55041376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-491a688716b41695",
+      "name": "Trailer_Park · Character_Female_Character_Female",
+      "parentId": "transform:category-trailer_park",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Trailer_Park/Character_Female_Character_Female_fa625c3a.glb",
+      "position": [
+        -14.00000015,
+        0.01632057,
+        20.57029254
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.56613046,
+        1.56613046,
+        1.56613046
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-734d16c2e5158988",
+      "name": "Trailer_Park · Character_Male_01_Character_Male_01",
+      "parentId": "transform:category-trailer_park",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Trailer_Park/Character_Male_01_Character_Male_01_aeb93bce.glb",
+      "position": [
+        -10.00000003,
+        0.00534373,
+        20.55157222
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44483565,
+        1.44483565,
+        1.44483565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d04384137b23e34f",
+      "name": "Trailer_Park · Character_Male_Character_Male",
+      "parentId": "transform:category-trailer_park",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Trailer_Park/Character_Male_Character_Male_5df0b0ad.glb",
+      "position": [
+        -5.99999992,
+        0.00829897,
+        20.55262158
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43844656,
+        1.43844656,
+        1.43844656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

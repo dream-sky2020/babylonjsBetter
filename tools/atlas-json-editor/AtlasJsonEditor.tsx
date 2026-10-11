@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
 import { resolveAppAssetUrl } from '@/core/resources';
+import { readBundledPublicAssetPaths } from '@/core/resources/publicAssetManifest.ts';
 
 type EditorMode = 'manual' | 'grid' | 'irregular';
 type GridSplitMode = 'cell-size' | 'rows-columns';
@@ -83,11 +84,11 @@ const normalizeResourcePath = (rawPath: string): string => {
   return rawPath.trim().replace(/^\/+/, '').replace(/^public\//, '');
 };
 
-const RESOURCE_ATLAS_JSON_OPTIONS = Object.keys(import.meta.glob('/public/**/*.json'))
+const RESOURCE_ATLAS_JSON_OPTIONS = readBundledPublicAssetPaths(/\.json$/i)
   .map((path) => normalizeResourcePath(path).replace(/^public\/+/, ''))
   .sort((a, b) => a.localeCompare(b, 'zh-CN'));
 
-const RESOURCE_IMAGE_OPTIONS = Object.keys(import.meta.glob('/public/**/*.{png,jpg,jpeg,webp}'))
+const RESOURCE_IMAGE_OPTIONS = readBundledPublicAssetPaths(/\.(?:png|jpe?g|webp)$/i)
   .map((path) => normalizeResourcePath(path).replace(/^public\/+/, ''))
   .sort((a, b) => a.localeCompare(b, 'zh-CN'));
 
@@ -580,19 +581,20 @@ export const AtlasJsonEditor: React.FC = () => {
   };
 
   const loadImageByUrl = useCallback((url: string): Promise<void> => {
+    const assetUrl = resolveAppAssetUrl(url);
     return new Promise((resolve, reject) => {
       const image = new Image();
       image.onload = () => {
         if (imageSrc.startsWith('blob:')) {
           URL.revokeObjectURL(imageSrc);
         }
-        setImageSrc(url);
+        setImageSrc(assetUrl);
         setImageWidth(image.width);
         setImageHeight(image.height);
         resolve();
       };
       image.onerror = reject;
-      image.src = url;
+      image.src = assetUrl;
     });
   }, [imageSrc]);
 

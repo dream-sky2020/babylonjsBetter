@@ -1,0 +1,420 @@
+{
+  "presetKey": "artist-luriddream-model-test",
+  "name": "luriddream · 模型展示（7 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "barrels",
+      "name": "桶分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "containers",
+      "name": "集装箱分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "crates",
+      "name": "箱子分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "buildings",
+      "name": "建筑与围栏分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 27
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "barrels-barrel-1-stand",
+      "name": "barrel-1展台",
+      "parentId": "transform:barrels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        12.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "containers-container-1-stand",
+      "name": "container-1展台",
+      "parentId": "transform:containers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "containers-container-2-stand",
+      "name": "container-2展台",
+      "parentId": "transform:containers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "crates-crate-1-stand",
+      "name": "crate-1展台",
+      "parentId": "transform:crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -1.5
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "crates-crate-2-stand",
+      "name": "crate-2展台",
+      "parentId": "transform:crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -1.5
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "crates-crate-3-stand",
+      "name": "crate-3展台",
+      "parentId": "transform:crates",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -1.5
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "buildings-warehouse-stand",
+      "name": "warehouse展台",
+      "parentId": "transform:buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -8.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "barrels-barrel-1",
+      "name": "barrel-1",
+      "parentId": "transform:barrels",
+      "modelPath": "resources/Model/GLB/artist_luriddream/Barrels/barrel-1.glb",
+      "position": [
+        0,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999995,
+        3.49999995,
+        3.49999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "containers-container-1",
+      "name": "container-1",
+      "parentId": "transform:containers",
+      "modelPath": "resources/Model/GLB/artist_luriddream/Containers/container-1.glb",
+      "position": [
+        -2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15555556,
+        0.15555556,
+        0.15555556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "containers-container-2",
+      "name": "container-2",
+      "parentId": "transform:containers",
+      "modelPath": "resources/Model/GLB/artist_luriddream/Containers/container-2.glb",
+      "position": [
+        2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15555556,
+        0.15555556,
+        0.15555556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "crates-crate-1",
+      "name": "crate-1",
+      "parentId": "transform:crates",
+      "modelPath": "resources/Model/GLB/artist_luriddream/Crates/crate-1.glb",
+      "position": [
+        -4,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "crates-crate-2",
+      "name": "crate-2",
+      "parentId": "transform:crates",
+      "modelPath": "resources/Model/GLB/artist_luriddream/Crates/crate-2.glb",
+      "position": [
+        0,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "crates-crate-3",
+      "name": "crate-3",
+      "parentId": "transform:crates",
+      "modelPath": "resources/Model/GLB/artist_luriddream/Crates/crate-3.glb",
+      "position": [
+        4,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "buildings-warehouse",
+      "name": "warehouse",
+      "parentId": "transform:buildings",
+      "modelPath": "resources/Model/GLB/artist_luriddream/Buildings/warehouse.glb",
+      "position": [
+        0,
+        0,
+        -8.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06021467,
+        0.06021467,
+        0.06021467
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

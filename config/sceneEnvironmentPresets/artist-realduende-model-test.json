@@ -1,0 +1,1265 @@
+{
+  "presetKey": "artist-realduende-model-test",
+  "name": "realduende · 模型展示（26 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "computer",
+      "name": "电脑设备分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "industrial",
+      "name": "工业道具分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "weapons",
+      "name": "武器分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 36
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-computer-stand",
+      "name": "computer展台",
+      "parentId": "transform:computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        17
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-crtmonitor-stand",
+      "name": "CrtMonitor展台",
+      "parentId": "transform:computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        17
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-desk-stand",
+      "name": "desk展台",
+      "parentId": "transform:computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        17
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-disk-stand",
+      "name": "disk展台",
+      "parentId": "transform:computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        17
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-floppy35-stand",
+      "name": "floppy35展台",
+      "parentId": "transform:computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        17
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-keyboard-stand",
+      "name": "keyboard展台",
+      "parentId": "transform:computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        13
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-mouse-stand",
+      "name": "mouse展台",
+      "parentId": "transform:computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        13
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-speaker-stand",
+      "name": "speaker展台",
+      "parentId": "transform:computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        13
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-barrel-stand",
+      "name": "barrel展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        6
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-barrel_plastic-stand",
+      "name": "barrel_plastic展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        6
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-brick-stand",
+      "name": "brick展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        6
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-cable_drum-stand",
+      "name": "cable_drum展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        6
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-cement-stand",
+      "name": "cement展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        6
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-cinder_block-stand",
+      "name": "cinder_block展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-container-stand",
+      "name": "container展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-crate-stand",
+      "name": "crate展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-dumpster-stand",
+      "name": "dumpster展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-fire_extinguisher-stand",
+      "name": "fire_extinguisher展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-gas_cylinder-stand",
+      "name": "gas_cylinder展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-gas_tank-stand",
+      "name": "gas_tank展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-jerrycan-stand",
+      "name": "jerrycan展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-pallet-stand",
+      "name": "pallet展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-plank-stand",
+      "name": "plank展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -2
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-small_crate-stand",
+      "name": "small_crate展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -6
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-trash_bin-stand",
+      "name": "trash_bin展台",
+      "parentId": "transform:industrial",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -6
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-throwingknife-stand",
+      "name": "ThrowingKnife展台",
+      "parentId": "transform:weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -13
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "computer-computer",
+      "name": "computer",
+      "parentId": "transform:computer",
+      "modelPath": "resources/Model/GLB/artist_realduende/Computer/computer.glb",
+      "position": [
+        -8,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.66667436,
+        4.66667436,
+        4.66667436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-crtmonitor",
+      "name": "CrtMonitor",
+      "parentId": "transform:computer",
+      "modelPath": "resources/Model/GLB/artist_realduende/Computer/CrtMonitor.glb",
+      "position": [
+        -4,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.25340374,
+        5.25340374,
+        5.25340374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-desk",
+      "name": "desk",
+      "parentId": "transform:computer",
+      "modelPath": "resources/Model/GLB/artist_realduende/Computer/desk.glb",
+      "position": [
+        0,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666845,
+        1.86666845,
+        1.86666845
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-disk",
+      "name": "disk",
+      "parentId": "transform:computer",
+      "modelPath": "resources/Model/GLB/artist_realduende/Computer/disk.glb",
+      "position": [
+        4,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.33333385,
+        23.33333385,
+        23.33333385
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-floppy35",
+      "name": "floppy35",
+      "parentId": "transform:computer",
+      "modelPath": "resources/Model/GLB/artist_realduende/Computer/floppy35.glb",
+      "position": [
+        8,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.49606304,
+        31.49606304,
+        31.49606304
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-keyboard",
+      "name": "keyboard",
+      "parentId": "transform:computer",
+      "modelPath": "resources/Model/GLB/artist_realduende/Computer/keyboard.glb",
+      "position": [
+        -4,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.83333346,
+        5.83333346,
+        5.83333346
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-mouse",
+      "name": "mouse",
+      "parentId": "transform:computer",
+      "modelPath": "resources/Model/GLB/artist_realduende/Computer/mouse.glb",
+      "position": [
+        0,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.40300848,
+        22.40300848,
+        22.40300848
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "computer-speaker",
+      "name": "speaker",
+      "parentId": "transform:computer",
+      "modelPath": "resources/Model/GLB/artist_realduende/Computer/speaker.glb",
+      "position": [
+        4,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.72728486,
+        12.72728486,
+        12.72728486
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-barrel",
+      "name": "barrel",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/barrel.glb",
+      "position": [
+        -8,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.29063347,
+        3.29063347,
+        3.29063347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-barrel_plastic",
+      "name": "barrel_plastic",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/barrel_plastic.glb",
+      "position": [
+        -4,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.71550738,
+        2.71550738,
+        2.71550738
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-brick",
+      "name": "brick",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/brick.glb",
+      "position": [
+        0,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.7272728,
+        12.7272728,
+        12.7272728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-cable_drum",
+      "name": "cable_drum",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/cable_drum.glb",
+      "position": [
+        4,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.37700557,
+        2.37700557,
+        2.37700557
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-cement",
+      "name": "cement",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/cement.glb",
+      "position": [
+        8,
+        1e-8,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08347771,
+        2.08347771,
+        2.08347771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-cinder_block",
+      "name": "cinder_block",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/cinder_block.glb",
+      "position": [
+        -8,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.17948689,
+        7.17948689,
+        7.17948689
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-container",
+      "name": "container",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/container.glb",
+      "position": [
+        -4,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47473722,
+        0.47473722,
+        0.47473722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-crate",
+      "name": "crate",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/crate.glb",
+      "position": [
+        0,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-dumpster",
+      "name": "dumpster",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/dumpster.glb",
+      "position": [
+        4,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4676836,
+        1.4676836,
+        1.4676836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-fire_extinguisher",
+      "name": "fire_extinguisher",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/fire_extinguisher.glb",
+      "position": [
+        8,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.81787672,
+        4.81787672,
+        4.81787672
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-gas_cylinder",
+      "name": "gas_cylinder",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/gas_cylinder.glb",
+      "position": [
+        -8,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.58164478,
+        2.58164478,
+        2.58164478
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-gas_tank",
+      "name": "gas_tank",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/gas_tank.glb",
+      "position": [
+        -4,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88895506,
+        0.88895506,
+        0.88895506
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-jerrycan",
+      "name": "jerrycan",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/jerrycan.glb",
+      "position": [
+        0,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.1071787,
+        6.1071787,
+        6.1071787
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-pallet",
+      "name": "pallet",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/pallet.glb",
+      "position": [
+        3.99999999,
+        0,
+        -2.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33313853,
+        2.33313853,
+        2.33313853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-plank",
+      "name": "plank",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/plank.glb",
+      "position": [
+        8,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-small_crate",
+      "name": "small_crate",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/small_crate.glb",
+      "position": [
+        -2,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.74999979,
+        8.74999979,
+        8.74999979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "industrial-trash_bin",
+      "name": "trash_bin",
+      "parentId": "transform:industrial",
+      "modelPath": "resources/Model/GLB/artist_realduende/Industrial/trash_bin.glb",
+      "position": [
+        2,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.90180116,
+        2.90180116,
+        2.90180116
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-throwingknife",
+      "name": "ThrowingKnife",
+      "parentId": "transform:weapons",
+      "modelPath": "resources/Model/GLB/artist_realduende/Weapons/ThrowingKnife.glb",
+      "position": [
+        -1e-8,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.13473558,
+        12.13473558,
+        12.13473558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

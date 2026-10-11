@@ -1,0 +1,5682 @@
+{
+  "presetKey": "artist-loafbrr-showcase-halloween",
+  "name": "Loafbrr · Halloween · 130模型 · 模型 1.80 MiB + 贴图 0.47 MiB · 合计 2.27 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-halloween-0",
+      "name": "Halloween 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-halloween-1",
+      "name": "Halloween 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-halloween-2",
+      "name": "Halloween 3",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 56
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-65315fee90afa254-stand",
+      "name": "Balloon展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6298fa0f81941c04-stand",
+      "name": "Bloodstains_1展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2558c9e3e072b4c5-stand",
+      "name": "Bloodstains_10展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-94422018cd48ea64-stand",
+      "name": "Bloodstains_11展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e00f508211ae51a4-stand",
+      "name": "Bloodstains_12展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4d79717371534201-stand",
+      "name": "Bloodstains_13展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2e3d173d473a04b4-stand",
+      "name": "Bloodstains_14展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d92d88f4ffb364d3-stand",
+      "name": "Bloodstains_15展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6d4ce3658fd69204-stand",
+      "name": "Bloodstains_16展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e40d6a8b60d3b28b-stand",
+      "name": "Bloodstains_17展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-048c6b5662b82a23-stand",
+      "name": "Bloodstains_18展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-01fc139a8ab165ad-stand",
+      "name": "Bloodstains_19展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f73a4650445182cf-stand",
+      "name": "Bloodstains_2展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bd0c9b6d4ba2d4b8-stand",
+      "name": "Bloodstains_20展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-158a864aa5310398-stand",
+      "name": "Bloodstains_21展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-942140c3d2b0bc49-stand",
+      "name": "Bloodstains_22展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a4ee71c25e22167a-stand",
+      "name": "Bloodstains_23展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-49e7dd30de910bf7-stand",
+      "name": "Bloodstains_3展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b0a8082272c68107-stand",
+      "name": "Bloodstains_4展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-04afc93a736bf555-stand",
+      "name": "Bloodstains_5展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74589d97240907d7-stand",
+      "name": "Bloodstains_6展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dba327f0a65ad5f6-stand",
+      "name": "Bloodstains_7展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bde509f983574ee5-stand",
+      "name": "Bloodstains_8展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-493aaeba66a74cb2-stand",
+      "name": "Bloodstains_9展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2aa1a4f1a4cd2363-stand",
+      "name": "Board_1展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0f57458948689972-stand",
+      "name": "Board_2展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-21010f9c82768918-stand",
+      "name": "Board_3展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fafe40f497e4dec7-stand",
+      "name": "Board_Beer展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-81352ead2ccbce42-stand",
+      "name": "Board_Free展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f6f3fb97016a3c63-stand",
+      "name": "Board_HappyHalloween展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fe041b687c639b75-stand",
+      "name": "Board_Party展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-38bf618b06acc616-stand",
+      "name": "Board_Peace展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5da82126087ec038-stand",
+      "name": "Board_Run展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6efd6d33b2dd290c-stand",
+      "name": "Board_Treat展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f1d313690da6fcd7-stand",
+      "name": "Board_Trick展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2911ee661e7fda18-stand",
+      "name": "Board_TrickOrTreat展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-72fa274fc3fbf45c-stand",
+      "name": "Board_Walk展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9e6e88d03e7cdd0d-stand",
+      "name": "Board_Welcome展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-701d8b27baac65f7-stand",
+      "name": "BodyBag展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0dfab1a54f02942f-stand",
+      "name": "BodyBag_2展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fa69780eb9f226a2-stand",
+      "name": "Bottles_1展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ed711217aa17948c-stand",
+      "name": "Bottles_2展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d9ab2b59ff71f115-stand",
+      "name": "Bottles_3展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-15c1303af4e9eed2-stand",
+      "name": "Bottles_4展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bb0d4a3669e6e772-stand",
+      "name": "Cobwebs_8展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-992c3b7b1b76c4db-stand",
+      "name": "Cobwebs_9展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-460c0ef7e2bbfcf9-stand",
+      "name": "Cobwebs_Corner展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74443c29ea92337c-stand",
+      "name": "Cobwebs_LowerCorner展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b0e16d2c934dc56b-stand",
+      "name": "Cobwebs_UpperCorner展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8984f9fd5534adcd-stand",
+      "name": "Coffin_1展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2eecdce9054de516-stand",
+      "name": "Coffin_2展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8c7ee4ef93c855e5-stand",
+      "name": "Coffin_3展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a81df5444a92e2f1-stand",
+      "name": "Containters_1展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f04b51d816e6b9a6-stand",
+      "name": "Containters_2展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8314b1b935659c16-stand",
+      "name": "Containters_3展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-57db8171fab5af1f-stand",
+      "name": "Containters_4展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-152c9234d7b85515-stand",
+      "name": "Ghosts_Ground_1展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7a673ff1952955cd-stand",
+      "name": "Ghosts_Ground_2展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c0a5a4a76cd42322-stand",
+      "name": "Ghosts_Ground_3展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9201e29dfb34858f-stand",
+      "name": "Ghosts_Hanging_1展台",
+      "parentId": "transform:category-halloween-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d0d54ed4efd924b6-stand",
+      "name": "Ghosts_Hanging_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-6a90de09035214dc-stand",
+      "name": "Ghosts_Hanging_3展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-88ffc99c3e9a6fbc-stand",
+      "name": "HDO_Cracks_1展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d6d613302cb2a956-stand",
+      "name": "HDO_Cracks_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a8481aa140b0f278-stand",
+      "name": "HDO_Cracks_3展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-530c70114f460986-stand",
+      "name": "HDO_Cracks_4展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f34b3a5a75499d98-stand",
+      "name": "HDO_Faces_1展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0920487eb33bc3df-stand",
+      "name": "HDO_Faces_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2df0935725fea8b5-stand",
+      "name": "HDO_Faces_3展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-87d30b6357a09bde-stand",
+      "name": "HDO_Faces_4展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b9ca53eb6d153be6-stand",
+      "name": "HDO_Faces_5展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ebd0f93c924c6624-stand",
+      "name": "HDO_Faces_6展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9fcd7951ff12b227-stand",
+      "name": "HDO_Faces_7展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1246422d287353b6-stand",
+      "name": "HDO_Faces_8展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e6e41d1268452a71-stand",
+      "name": "HDO_Faces_9展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d3b0813293608f46-stand",
+      "name": "HDO_Text_1展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-01531fa92f8faf29-stand",
+      "name": "HDO_Text_10展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-315ee6674df3bb28-stand",
+      "name": "HDO_Text_11展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5d12a6d969cd7edc-stand",
+      "name": "HDO_Text_12展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d32514788cb6d570-stand",
+      "name": "HDO_Text_13展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d9bfeb9adc680750-stand",
+      "name": "HDO_Text_14展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dab815a3e859fd39-stand",
+      "name": "HDO_Text_15展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a5c930932c627308-stand",
+      "name": "HDO_Text_16展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-01b863502f9a9286-stand",
+      "name": "HDO_Text_17展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-91375e3ea1fbc9aa-stand",
+      "name": "HDO_Text_18展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f2ac11a92fb58254-stand",
+      "name": "HDO_Text_19展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7f3b0880d633b842-stand",
+      "name": "HDO_Text_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-55097f05cbb7fe32-stand",
+      "name": "HDO_Text_20展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-979cca957e250b7c-stand",
+      "name": "HDO_Text_21展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dfa7cf08757cb793-stand",
+      "name": "HDO_Text_3展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1512ad13c6721c41-stand",
+      "name": "HDO_Text_4展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-985451d0e7cc67d6-stand",
+      "name": "HDO_Text_5展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-93547511aa6d7c13-stand",
+      "name": "HDO_Text_6展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-617f2d680ef161dd-stand",
+      "name": "HDO_Text_7展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-71d7445da0bf4d58-stand",
+      "name": "HDO_Text_8展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dee7a0a9bbb7b503-stand",
+      "name": "HDO_Text_9展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8004516aa02981e8-stand",
+      "name": "Limb_Foot展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-086d616f1f5f7ed2-stand",
+      "name": "Limb_Hand展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-cd1fcd3a9d830b6e-stand",
+      "name": "Limb_Legs展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5086e0c2e6ac4ad5-stand",
+      "name": "Pot展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-22983a92d7ca83ed-stand",
+      "name": "Pot_Leg展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-56b1cdd35b33f7f7-stand",
+      "name": "PotHand展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4ecdbf3cc94664f8-stand",
+      "name": "PotShoe展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-09772b848e2d2011-stand",
+      "name": "Pumpkin1_1展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2504aec3adee1d6c-stand",
+      "name": "Pumpkin1_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-31cfad7f0bb7b7d0-stand",
+      "name": "Pumpkin1_3展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ef2faa3c4ec9ee03-stand",
+      "name": "Pumpkin1_4展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4a9be1415dbab2d6-stand",
+      "name": "Pumpkin1_5展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c3e0371f1862c150-stand",
+      "name": "Pumpkin2_1展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f18143b6f293312c-stand",
+      "name": "Pumpkin2_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4a614c2b54d13728-stand",
+      "name": "Pumpkin2_3展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-029b1b3f2dc69a6b-stand",
+      "name": "Pumpkin2_4展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e68e79850682bc87-stand",
+      "name": "Pumpkin2_5展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9d8e417b6e219dc8-stand",
+      "name": "RagDollLimb_Legs_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-efe6b30084a03560-stand",
+      "name": "Test_BodyBag_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ca9400f1a1035e8c-stand",
+      "name": "Test_Group展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-cb9677dcc8e51a5c-stand",
+      "name": "Test_Limb_Legs_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d52687bbc8ea7c05-stand",
+      "name": "Tombstone1_1展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-df23fc840c8ecfa9-stand",
+      "name": "Tombstone1_2展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8e21ff420cdbfec0-stand",
+      "name": "Tombstone1_3展台",
+      "parentId": "transform:category-halloween-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a713a444b06b3eda-stand",
+      "name": "Tombstone2_1展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-90c69a9ce968a3ab-stand",
+      "name": "Tombstone2_2展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6a6657304aae1258-stand",
+      "name": "Tombstone2_3展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-796f823d546d1fc7-stand",
+      "name": "Tombstone3_1展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a587e97f5437b149-stand",
+      "name": "Tombstone3_2展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3117788a3a53a394-stand",
+      "name": "Tombstone3_3展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8984849bce145d4d-stand",
+      "name": "Tombstone4_1展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d44e0179a7d4a636-stand",
+      "name": "Tombstone4_2展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e722b12733c69b67-stand",
+      "name": "Tombstone4_3展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fe5243224feb1d68-stand",
+      "name": "WitchHat展台",
+      "parentId": "transform:category-halloween-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-65315fee90afa254",
+      "name": "Halloween · Balloon · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Balloon.glb",
+      "position": [
+        -22,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.01707398,
+        2.01707398,
+        2.01707398
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6298fa0f81941c04",
+      "name": "Halloween · Bloodstains_1 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_1.glb",
+      "position": [
+        -18,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57974856,
+        0.57974856,
+        0.57974856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2558c9e3e072b4c5",
+      "name": "Halloween · Bloodstains_10 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_10.glb",
+      "position": [
+        -13.99999997,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.47345585,
+        3.47345585,
+        3.47345585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-94422018cd48ea64",
+      "name": "Halloween · Bloodstains_11 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_11.glb",
+      "position": [
+        -9.99999997,
+        6.5e-7,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.34294879,
+        4.34294879,
+        4.34294879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e00f508211ae51a4",
+      "name": "Halloween · Bloodstains_12 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_12.glb",
+      "position": [
+        -6,
+        9e-8,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.93678573,
+        2.93678573,
+        2.93678573
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4d79717371534201",
+      "name": "Halloween · Bloodstains_13 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_13.glb",
+      "position": [
+        -1.99999995,
+        0.00000132,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.83112369,
+        6.83112369,
+        6.83112369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2e3d173d473a04b4",
+      "name": "Halloween · Bloodstains_14 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_14.glb",
+      "position": [
+        -22,
+        2.5e-7,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.11357581,
+        4.11357581,
+        4.11357581
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d92d88f4ffb364d3",
+      "name": "Halloween · Bloodstains_15 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_15.glb",
+      "position": [
+        -18,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.92379993,
+        1.92379993,
+        1.92379993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6d4ce3658fd69204",
+      "name": "Halloween · Bloodstains_16 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_16.glb",
+      "position": [
+        -14,
+        1.1e-7,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91993544,
+        1.91993544,
+        1.91993544
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e40d6a8b60d3b28b",
+      "name": "Halloween · Bloodstains_17 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_17.glb",
+      "position": [
+        -10,
+        2e-7,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.88263242,
+        1.88263242,
+        1.88263242
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-048c6b5662b82a23",
+      "name": "Halloween · Bloodstains_18 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_18.glb",
+      "position": [
+        -6,
+        -1.6e-7,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82399393,
+        1.82399393,
+        1.82399393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-01fc139a8ab165ad",
+      "name": "Halloween · Bloodstains_19 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_19.glb",
+      "position": [
+        -2.00000004,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.33260446,
+        1.33260446,
+        1.33260446
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f73a4650445182cf",
+      "name": "Halloween · Bloodstains_2 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_2.glb",
+      "position": [
+        -22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93749932,
+        0.93749932,
+        0.93749932
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bd0c9b6d4ba2d4b8",
+      "name": "Halloween · Bloodstains_20 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_20.glb",
+      "position": [
+        -17.99999998,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55236564,
+        1.55236564,
+        1.55236564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-158a864aa5310398",
+      "name": "Halloween · Bloodstains_21 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_21.glb",
+      "position": [
+        -14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5555142,
+        0.5555142,
+        0.5555142
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-942140c3d2b0bc49",
+      "name": "Halloween · Bloodstains_22 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_22.glb",
+      "position": [
+        -10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59303949,
+        1.59303949,
+        1.59303949
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a4ee71c25e22167a",
+      "name": "Halloween · Bloodstains_23 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_23.glb",
+      "position": [
+        -6.00000015,
+        1.5e-7,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.54648716,
+        2.54648716,
+        2.54648716
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-49e7dd30de910bf7",
+      "name": "Halloween · Bloodstains_3 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_3.glb",
+      "position": [
+        -2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53576548,
+        0.53576548,
+        0.53576548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b0a8082272c68107",
+      "name": "Halloween · Bloodstains_4 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_4.glb",
+      "position": [
+        -22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86476808,
+        0.86476808,
+        0.86476808
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-04afc93a736bf555",
+      "name": "Halloween · Bloodstains_5 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_5.glb",
+      "position": [
+        -18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00616705,
+        1.00616705,
+        1.00616705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74589d97240907d7",
+      "name": "Halloween · Bloodstains_6 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_6.glb",
+      "position": [
+        -14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.10674276,
+        2.10674276,
+        2.10674276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dba327f0a65ad5f6",
+      "name": "Halloween · Bloodstains_7 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_7.glb",
+      "position": [
+        -10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.60269028,
+        1.60269028,
+        1.60269028
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bde509f983574ee5",
+      "name": "Halloween · Bloodstains_8 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_8.glb",
+      "position": [
+        -5.99999994,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.39920653,
+        3.39920653,
+        3.39920653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-493aaeba66a74cb2",
+      "name": "Halloween · Bloodstains_9 · 模型 0.00 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bloodstains_9.glb",
+      "position": [
+        -2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79784407,
+        2.79784407,
+        2.79784407
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2aa1a4f1a4cd2363",
+      "name": "Halloween · Board_1 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_1.glb",
+      "position": [
+        -22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.10141966,
+        2.10141966,
+        2.10141966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0f57458948689972",
+      "name": "Halloween · Board_2 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_2.glb",
+      "position": [
+        -18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.69992417,
+        2.69992417,
+        2.69992417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-21010f9c82768918",
+      "name": "Halloween · Board_3 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_3.glb",
+      "position": [
+        -14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45902052,
+        4.45902052,
+        4.45902052
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fafe40f497e4dec7",
+      "name": "Halloween · Board_Beer · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Beer.glb",
+      "position": [
+        -10,
+        0,
+        9.49999954
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45902052,
+        4.45902052,
+        4.45902052
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-81352ead2ccbce42",
+      "name": "Halloween · Board_Free · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Free.glb",
+      "position": [
+        -6,
+        0,
+        9.49999954
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45902052,
+        4.45902052,
+        4.45902052
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f6f3fb97016a3c63",
+      "name": "Halloween · Board_HappyHalloween · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_HappyHalloween.glb",
+      "position": [
+        -2.00000006,
+        -9e-8,
+        9.49999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.10141966,
+        2.10141966,
+        2.10141966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe041b687c639b75",
+      "name": "Halloween · Board_Party · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Party.glb",
+      "position": [
+        -22.00000008,
+        -1.2e-7,
+        5.49999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.69992417,
+        2.69992417,
+        2.69992417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-38bf618b06acc616",
+      "name": "Halloween · Board_Peace · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Peace.glb",
+      "position": [
+        -18.00000008,
+        -2.4e-7,
+        5.49999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.69992417,
+        2.69992417,
+        2.69992417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5da82126087ec038",
+      "name": "Halloween · Board_Run · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Run.glb",
+      "position": [
+        -14,
+        -2.7e-7,
+        5.49999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45902052,
+        4.45902052,
+        4.45902052
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6efd6d33b2dd290c",
+      "name": "Halloween · Board_Treat · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Treat.glb",
+      "position": [
+        -10,
+        0,
+        5.49999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.10141966,
+        2.10141966,
+        2.10141966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f1d313690da6fcd7",
+      "name": "Halloween · Board_Trick · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Trick.glb",
+      "position": [
+        -6,
+        0,
+        5.49999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.10141966,
+        2.10141966,
+        2.10141966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2911ee661e7fda18",
+      "name": "Halloween · Board_TrickOrTreat · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_TrickOrTreat.glb",
+      "position": [
+        -2.00000006,
+        -9e-8,
+        5.49999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.10141966,
+        2.10141966,
+        2.10141966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-72fa274fc3fbf45c",
+      "name": "Halloween · Board_Walk · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Walk.glb",
+      "position": [
+        -22,
+        -2.7e-7,
+        1.49999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45902052,
+        4.45902052,
+        4.45902052
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9e6e88d03e7cdd0d",
+      "name": "Halloween · Board_Welcome · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Board_Welcome.glb",
+      "position": [
+        -18.00000008,
+        -1.2e-7,
+        1.49999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.69992417,
+        2.69992417,
+        2.69992417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-701d8b27baac65f7",
+      "name": "Halloween · BodyBag · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/BodyBag.glb",
+      "position": [
+        -13.99999988,
+        0,
+        1.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.34120169,
+        1.34120169,
+        1.34120169
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0dfab1a54f02942f",
+      "name": "Halloween · BodyBag_2 · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/BodyBag_2.glb",
+      "position": [
+        -10,
+        0,
+        1.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.94842143,
+        1.94842143,
+        1.94842143
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fa69780eb9f226a2",
+      "name": "Halloween · Bottles_1 · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bottles_1.glb",
+      "position": [
+        -5.99999969,
+        0,
+        1.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.6463972,
+        4.6463972,
+        4.6463972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ed711217aa17948c",
+      "name": "Halloween · Bottles_2 · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bottles_2.glb",
+      "position": [
+        -2.00000054,
+        0,
+        1.49999966
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.96482207,
+        6.96482207,
+        6.96482207
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d9ab2b59ff71f115",
+      "name": "Halloween · Bottles_3 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bottles_3.glb",
+      "position": [
+        -22.00000046,
+        -1.1e-7,
+        -2.50000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.33736724,
+        15.33736724,
+        15.33736724
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-15c1303af4e9eed2",
+      "name": "Halloween · Bottles_4 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Bottles_4.glb",
+      "position": [
+        -18,
+        -4.6e-7,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.41377391,
+        12.41377391,
+        12.41377391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bb0d4a3669e6e772",
+      "name": "Halloween · Cobwebs_8 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Cobwebs_8.glb",
+      "position": [
+        -14,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63790254,
+        0.63790254,
+        0.63790254
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-992c3b7b1b76c4db",
+      "name": "Halloween · Cobwebs_9 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Cobwebs_9.glb",
+      "position": [
+        -10,
+        1.7e-7,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70809549,
+        0.70809549,
+        0.70809549
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-460c0ef7e2bbfcf9",
+      "name": "Halloween · Cobwebs_Corner · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Cobwebs_Corner.glb",
+      "position": [
+        -5.9999996,
+        -1.2e-7,
+        -2.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.02431407,
+        1.02431407,
+        1.02431407
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74443c29ea92337c",
+      "name": "Halloween · Cobwebs_LowerCorner · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Cobwebs_LowerCorner.glb",
+      "position": [
+        -1.99999977,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55578153,
+        0.55578153,
+        0.55578153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b0e16d2c934dc56b",
+      "name": "Halloween · Cobwebs_UpperCorner · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Cobwebs_UpperCorner.glb",
+      "position": [
+        -22.00000032,
+        -3.2e-7,
+        -6.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.35587049,
+        1.35587049,
+        1.35587049
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8984f9fd5534adcd",
+      "name": "Halloween · Coffin_1 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Coffin_1.glb",
+      "position": [
+        -18,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.42352895,
+        1.42352895,
+        1.42352895
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2eecdce9054de516",
+      "name": "Halloween · Coffin_2 · 模型 0.01 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Coffin_2.glb",
+      "position": [
+        -14,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.42352895,
+        1.42352895,
+        1.42352895
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8c7ee4ef93c855e5",
+      "name": "Halloween · Coffin_3 · 模型 0.08 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Coffin_3.glb",
+      "position": [
+        -10,
+        -2e-8,
+        -6.50000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31144261,
+        1.31144261,
+        1.31144261
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a81df5444a92e2f1",
+      "name": "Halloween · Containters_1 · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Containters_1.glb",
+      "position": [
+        -6,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.46593596,
+        6.46593596,
+        6.46593596
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f04b51d816e6b9a6",
+      "name": "Halloween · Containters_2 · 模型 0.02 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Containters_2.glb",
+      "position": [
+        -2,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.45417748,
+        6.45417748,
+        6.45417748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8314b1b935659c16",
+      "name": "Halloween · Containters_3 · 模型 0.02 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Containters_3.glb",
+      "position": [
+        -22,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.45417748,
+        6.45417748,
+        6.45417748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-57db8171fab5af1f",
+      "name": "Halloween · Containters_4 · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Containters_4.glb",
+      "position": [
+        -17.99999992,
+        0,
+        -10.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.31339366,
+        5.31339366,
+        5.31339366
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-152c9234d7b85515",
+      "name": "Halloween · Ghosts_Ground_1 · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Ghosts_Ground_1.glb",
+      "position": [
+        -13.99999979,
+        0,
+        -10.50000037
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.09987807,
+        7.09987807,
+        7.09987807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7a673ff1952955cd",
+      "name": "Halloween · Ghosts_Ground_2 · 模型 0.01 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Ghosts_Ground_2.glb",
+      "position": [
+        -10.00000102,
+        0,
+        -10.50000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.18781211,
+        7.18781211,
+        7.18781211
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c0a5a4a76cd42322",
+      "name": "Halloween · Ghosts_Ground_3 · 模型 0.01 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Ghosts_Ground_3.glb",
+      "position": [
+        -6.00000048,
+        0,
+        -10.50000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.12354496,
+        7.12354496,
+        7.12354496
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9201e29dfb34858f",
+      "name": "Halloween · Ghosts_Hanging_1 · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Ghosts_Hanging_1.glb",
+      "position": [
+        -2.00000029,
+        0,
+        -10.49999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.26577555,
+        4.26577555,
+        4.26577555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d0d54ed4efd924b6",
+      "name": "Halloween · Ghosts_Hanging_2 · 模型 0.01 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Ghosts_Hanging_2.glb",
+      "position": [
+        2.00000006,
+        0,
+        25.49999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.26577555,
+        4.26577555,
+        4.26577555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6a90de09035214dc",
+      "name": "Halloween · Ghosts_Hanging_3 · 模型 0.01 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Ghosts_Hanging_3.glb",
+      "position": [
+        5.99999975,
+        0,
+        25.49999968
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.26577555,
+        4.26577555,
+        4.26577555
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-88ffc99c3e9a6fbc",
+      "name": "Halloween · HDO_Cracks_1 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Cracks_1.glb",
+      "position": [
+        10,
+        5e-8,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.14305991,
+        3.14305991,
+        3.14305991
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d6d613302cb2a956",
+      "name": "Halloween · HDO_Cracks_2 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Cracks_2.glb",
+      "position": [
+        14,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.02518719,
+        3.02518719,
+        3.02518719
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a8481aa140b0f278",
+      "name": "Halloween · HDO_Cracks_3 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Cracks_3.glb",
+      "position": [
+        18,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.19881113,
+        3.19881113,
+        3.19881113
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-530c70114f460986",
+      "name": "Halloween · HDO_Cracks_4 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Cracks_4.glb",
+      "position": [
+        22,
+        0,
+        25.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.75799136,
+        7.75799136,
+        7.75799136
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f34b3a5a75499d98",
+      "name": "Halloween · HDO_Faces_1 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_1.glb",
+      "position": [
+        2,
+        1.5e-7,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.29025988,
+        1.29025988,
+        1.29025988
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0920487eb33bc3df",
+      "name": "Halloween · HDO_Faces_2 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_2.glb",
+      "position": [
+        6,
+        2.9e-7,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.46895035,
+        2.46895035,
+        2.46895035
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2df0935725fea8b5",
+      "name": "Halloween · HDO_Faces_3 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_3.glb",
+      "position": [
+        9.99999985,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22262655,
+        1.22262655,
+        1.22262655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-87d30b6357a09bde",
+      "name": "Halloween · HDO_Faces_4 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_4.glb",
+      "position": [
+        14,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51627609,
+        0.51627609,
+        0.51627609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b9ca53eb6d153be6",
+      "name": "Halloween · HDO_Faces_5 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_5.glb",
+      "position": [
+        18,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.26696619,
+        2.26696619,
+        2.26696619
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ebd0f93c924c6624",
+      "name": "Halloween · HDO_Faces_6 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_6.glb",
+      "position": [
+        22,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33076453,
+        2.33076453,
+        2.33076453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9fcd7951ff12b227",
+      "name": "Halloween · HDO_Faces_7 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_7.glb",
+      "position": [
+        2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.69981199,
+        2.69981199,
+        2.69981199
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1246422d287353b6",
+      "name": "Halloween · HDO_Faces_8 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_8.glb",
+      "position": [
+        6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.32263806,
+        2.32263806,
+        2.32263806
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e6e41d1268452a71",
+      "name": "Halloween · HDO_Faces_9 · 模型 0.00 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Faces_9.glb",
+      "position": [
+        10,
+        -1.4e-7,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.41467112,
+        2.41467112,
+        2.41467112
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d3b0813293608f46",
+      "name": "Halloween · HDO_Text_1 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_1.glb",
+      "position": [
+        14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7004265,
+        0.7004265,
+        0.7004265
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-01531fa92f8faf29",
+      "name": "Halloween · HDO_Text_10 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_10.glb",
+      "position": [
+        18,
+        4e-8,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.45260012,
+        1.45260012,
+        1.45260012
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-315ee6674df3bb28",
+      "name": "Halloween · HDO_Text_11 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_11.glb",
+      "position": [
+        22,
+        -3.1e-7,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48944765,
+        1.48944765,
+        1.48944765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5d12a6d969cd7edc",
+      "name": "Halloween · HDO_Text_12 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_12.glb",
+      "position": [
+        2,
+        1.1e-7,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.87500059,
+        1.87500059,
+        1.87500059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d32514788cb6d570",
+      "name": "Halloween · HDO_Text_13 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_13.glb",
+      "position": [
+        6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.26657674,
+        0.26657674,
+        0.26657674
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d9bfeb9adc680750",
+      "name": "Halloween · HDO_Text_14 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_14.glb",
+      "position": [
+        10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3357065,
+        0.3357065,
+        0.3357065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dab815a3e859fd39",
+      "name": "Halloween · HDO_Text_15 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_15.glb",
+      "position": [
+        14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.31826996,
+        4.31826996,
+        4.31826996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a5c930932c627308",
+      "name": "Halloween · HDO_Text_16 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_16.glb",
+      "position": [
+        18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.94598348,
+        2.94598348,
+        2.94598348
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-01b863502f9a9286",
+      "name": "Halloween · HDO_Text_17 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_17.glb",
+      "position": [
+        22,
+        8e-8,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6547398,
+        2.6547398,
+        2.6547398
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-91375e3ea1fbc9aa",
+      "name": "Halloween · HDO_Text_18 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_18.glb",
+      "position": [
+        2,
+        -5e-8,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.75357931,
+        1.75357931,
+        1.75357931
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f2ac11a92fb58254",
+      "name": "Halloween · HDO_Text_19 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_19.glb",
+      "position": [
+        6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.43747814,
+        2.43747814,
+        2.43747814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7f3b0880d633b842",
+      "name": "Halloween · HDO_Text_2 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_2.glb",
+      "position": [
+        10,
+        6.3e-7,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.255512,
+        5.255512,
+        5.255512
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-55097f05cbb7fe32",
+      "name": "Halloween · HDO_Text_20 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_20.glb",
+      "position": [
+        14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.67177788,
+        3.67177788,
+        3.67177788
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-979cca957e250b7c",
+      "name": "Halloween · HDO_Text_21 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_21.glb",
+      "position": [
+        18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.44584418,
+        3.44584418,
+        3.44584418
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dfa7cf08757cb793",
+      "name": "Halloween · HDO_Text_3 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_3.glb",
+      "position": [
+        22,
+        6.3e-7,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.00622468,
+        3.00622468,
+        3.00622468
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1512ad13c6721c41",
+      "name": "Halloween · HDO_Text_4 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_4.glb",
+      "position": [
+        2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.71228229,
+        0.71228229,
+        0.71228229
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-985451d0e7cc67d6",
+      "name": "Halloween · HDO_Text_5 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_5.glb",
+      "position": [
+        6,
+        -1.1e-7,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8559033,
+        1.8559033,
+        1.8559033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-93547511aa6d7c13",
+      "name": "Halloween · HDO_Text_6 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_6.glb",
+      "position": [
+        10,
+        -3e-8,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08734318,
+        1.08734318,
+        1.08734318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-617f2d680ef161dd",
+      "name": "Halloween · HDO_Text_7 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_7.glb",
+      "position": [
+        14,
+        -7e-8,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22299126,
+        1.22299126,
+        1.22299126
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-71d7445da0bf4d58",
+      "name": "Halloween · HDO_Text_8 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_8.glb",
+      "position": [
+        18,
+        1.2e-7,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.93962453,
+        1.93962453,
+        1.93962453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dee7a0a9bbb7b503",
+      "name": "Halloween · HDO_Text_9 · 模型 0.00 MiB · 贴图 0.07 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/HDO_Text_9.glb",
+      "position": [
+        22,
+        3.6e-7,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70349129,
+        1.70349129,
+        1.70349129
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8004516aa02981e8",
+      "name": "Halloween · Limb_Foot · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Limb_Foot.glb",
+      "position": [
+        1.99999771,
+        -8e-8,
+        1.49999954
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.17356494,
+        11.17356494,
+        11.17356494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-086d616f1f5f7ed2",
+      "name": "Halloween · Limb_Hand · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Limb_Hand.glb",
+      "position": [
+        6.00000079,
+        0,
+        1.49999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.15875912,
+        12.15875912,
+        12.15875912
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cd1fcd3a9d830b6e",
+      "name": "Halloween · Limb_Legs · 模型 0.04 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Limb_Legs.glb",
+      "position": [
+        9.99999967,
+        0,
+        1.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.94971589,
+        2.94971589,
+        2.94971589
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5086e0c2e6ac4ad5",
+      "name": "Halloween · Pot · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pot.glb",
+      "position": [
+        14.00000008,
+        0,
+        1.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.14472119,
+        5.14472119,
+        5.14472119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-22983a92d7ca83ed",
+      "name": "Halloween · Pot_Leg · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pot_Leg.glb",
+      "position": [
+        18.00000004,
+        0,
+        1.49999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.72633256,
+        2.72633256,
+        2.72633256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-56b1cdd35b33f7f7",
+      "name": "Halloween · PotHand · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/PotHand.glb",
+      "position": [
+        21.99999974,
+        2.6e-7,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.92465126,
+        9.92465126,
+        9.92465126
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4ecdbf3cc94664f8",
+      "name": "Halloween · PotShoe · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/PotShoe.glb",
+      "position": [
+        2,
+        1.4e-7,
+        -2.50000077
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.35725658,
+        9.35725658,
+        9.35725658
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-09772b848e2d2011",
+      "name": "Halloween · Pumpkin1_1 · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin1_1.glb",
+      "position": [
+        6.00000025,
+        0,
+        -2.49999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08531625,
+        2.08531625,
+        2.08531625
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2504aec3adee1d6c",
+      "name": "Halloween · Pumpkin1_2 · 模型 0.03 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin1_2.glb",
+      "position": [
+        10.00000025,
+        0,
+        -2.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.07143906,
+        2.07143906,
+        2.07143906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-31cfad7f0bb7b7d0",
+      "name": "Halloween · Pumpkin1_3 · 模型 0.03 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin1_3.glb",
+      "position": [
+        14.00000074,
+        0,
+        -2.50000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.07790062,
+        2.07790062,
+        2.07790062
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ef2faa3c4ec9ee03",
+      "name": "Halloween · Pumpkin1_4 · 模型 0.03 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin1_4.glb",
+      "position": [
+        17.99999957,
+        0,
+        -2.50000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.05803158,
+        2.05803158,
+        2.05803158
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4a9be1415dbab2d6",
+      "name": "Halloween · Pumpkin1_5 · 模型 0.03 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin1_5.glb",
+      "position": [
+        21.99999994,
+        0,
+        -2.49999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.05803293,
+        2.05803293,
+        2.05803293
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c3e0371f1862c150",
+      "name": "Halloween · Pumpkin2_1 · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin2_1.glb",
+      "position": [
+        1.99999917,
+        0,
+        -6.50000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.71276897,
+        3.71276897,
+        3.71276897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f18143b6f293312c",
+      "name": "Halloween · Pumpkin2_2 · 模型 0.02 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin2_2.glb",
+      "position": [
+        5.99999956,
+        0,
+        -6.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68249982,
+        3.68249982,
+        3.68249982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4a614c2b54d13728",
+      "name": "Halloween · Pumpkin2_3 · 模型 0.02 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin2_3.glb",
+      "position": [
+        10.00000022,
+        0,
+        -6.49999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.67690632,
+        3.67690632,
+        3.67690632
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-029b1b3f2dc69a6b",
+      "name": "Halloween · Pumpkin2_4 · 模型 0.02 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin2_4.glb",
+      "position": [
+        13.99999923,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.67903481,
+        3.67903481,
+        3.67903481
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e68e79850682bc87",
+      "name": "Halloween · Pumpkin2_5 · 模型 0.02 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Pumpkin2_5.glb",
+      "position": [
+        17.99999923,
+        0,
+        -6.49999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.67904374,
+        3.67904374,
+        3.67904374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9d8e417b6e219dc8",
+      "name": "Halloween · RagDollLimb_Legs_2 · 模型 0.06 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/RagDollLimb_Legs_2.glb",
+      "position": [
+        17.01298283,
+        -2.46595757,
+        -13.46277764
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.94971654,
+        2.94971654,
+        2.94971654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-efe6b30084a03560",
+      "name": "Halloween · Test_BodyBag_2 · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Test_BodyBag_2.glb",
+      "position": [
+        1.99999936,
+        0,
+        -10.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39359408,
+        1.39359408,
+        1.39359408
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ca9400f1a1035e8c",
+      "name": "Halloween · Test_Group · 模型 0.75 MiB · 贴图 0.47 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Test_Group.glb",
+      "position": [
+        6.00000002,
+        0,
+        -10.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06194564,
+        0.06194564,
+        0.06194564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb9677dcc8e51a5c",
+      "name": "Halloween · Test_Limb_Legs_2 · 模型 0.04 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Test_Limb_Legs_2.glb",
+      "position": [
+        10.0000016,
+        0,
+        -10.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.94971591,
+        2.94971591,
+        2.94971591
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d52687bbc8ea7c05",
+      "name": "Halloween · Tombstone1_1 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone1_1.glb",
+      "position": [
+        14,
+        0,
+        -10.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.10449048,
+        5.10449048,
+        5.10449048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-df23fc840c8ecfa9",
+      "name": "Halloween · Tombstone1_2 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone1_2.glb",
+      "position": [
+        18,
+        0,
+        -10.50000047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.10449048,
+        5.10449048,
+        5.10449048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8e21ff420cdbfec0",
+      "name": "Halloween · Tombstone1_3 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone1_3.glb",
+      "position": [
+        22,
+        0,
+        -10.49999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.10449048,
+        5.10449048,
+        5.10449048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a713a444b06b3eda",
+      "name": "Halloween · Tombstone2_1 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone2_1.glb",
+      "position": [
+        -22,
+        0,
+        -17.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.81555696,
+        4.81555696,
+        4.81555696
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-90c69a9ce968a3ab",
+      "name": "Halloween · Tombstone2_2 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone2_2.glb",
+      "position": [
+        -18,
+        0,
+        -17.50000043
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.81555696,
+        4.81555696,
+        4.81555696
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6a6657304aae1258",
+      "name": "Halloween · Tombstone2_3 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone2_3.glb",
+      "position": [
+        -14.000001,
+        0,
+        -17.49999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.81555696,
+        4.81555696,
+        4.81555696
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-796f823d546d1fc7",
+      "name": "Halloween · Tombstone3_1 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone3_1.glb",
+      "position": [
+        -10,
+        0,
+        -17.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.76285753,
+        2.76285753,
+        2.76285753
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a587e97f5437b149",
+      "name": "Halloween · Tombstone3_2 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone3_2.glb",
+      "position": [
+        -6,
+        0,
+        -17.50000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.76285757,
+        2.76285757,
+        2.76285757
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3117788a3a53a394",
+      "name": "Halloween · Tombstone3_3 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone3_3.glb",
+      "position": [
+        -2,
+        0,
+        -17.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.76285753,
+        2.76285753,
+        2.76285753
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8984849bce145d4d",
+      "name": "Halloween · Tombstone4_1 · 模型 0.00 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone4_1.glb",
+      "position": [
+        -18,
+        0,
+        -21.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.84994826,
+        5.84994826,
+        5.84994826
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d44e0179a7d4a636",
+      "name": "Halloween · Tombstone4_2 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone4_2.glb",
+      "position": [
+        -14,
+        0,
+        -21.49999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.84994826,
+        5.84994826,
+        5.84994826
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e722b12733c69b67",
+      "name": "Halloween · Tombstone4_3 · 模型 0.01 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/Tombstone4_3.glb",
+      "position": [
+        -10,
+        0,
+        -21.49999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.84994826,
+        5.84994826,
+        5.84994826
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe5243224feb1d68",
+      "name": "Halloween · WitchHat · 模型 0.01 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-halloween-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Halloween/WitchHat.glb",
+      "position": [
+        -6.00000031,
+        -4e-8,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.41644927,
+        3.41644927,
+        3.41644927
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

@@ -1,0 +1,1273 @@
+{
+  "presetKey": "artist-t4kum-model-test",
+  "name": "t4kum · 书架、书籍、纸箱与时钟（27 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "bookshelves",
+      "name": "书架分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "books",
+      "name": "书籍分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "closedboxes",
+      "name": "封闭纸箱分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "openboxes",
+      "name": "开放纸箱分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "clocks",
+      "name": "落地钟与挂钟分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 27
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "bookshelf01-stand",
+      "name": "书架 1展台",
+      "parentId": "transform:bookshelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bookshelf02-stand",
+      "name": "书架 2展台",
+      "parentId": "transform:bookshelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bookshelf03-stand",
+      "name": "书架 3展台",
+      "parentId": "transform:bookshelves",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "book01-stand",
+      "name": "书籍 1展台",
+      "parentId": "transform:books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "book02-stand",
+      "name": "书籍 2展台",
+      "parentId": "transform:books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "book03-stand",
+      "name": "书籍 3展台",
+      "parentId": "transform:books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "book04-stand",
+      "name": "书籍 4展台",
+      "parentId": "transform:books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "book05-stand",
+      "name": "书籍 5展台",
+      "parentId": "transform:books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        7
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "book06-stand",
+      "name": "书籍 6展台",
+      "parentId": "transform:books",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        7
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "closedbox01-stand",
+      "name": "封闭纸箱 1展台",
+      "parentId": "transform:closedboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "closedbox02-stand",
+      "name": "封闭纸箱 2展台",
+      "parentId": "transform:closedboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "closedbox03-stand",
+      "name": "封闭纸箱 3展台",
+      "parentId": "transform:closedboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "closedbox04-stand",
+      "name": "封闭纸箱 4展台",
+      "parentId": "transform:closedboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "closedbox05-stand",
+      "name": "封闭纸箱 5展台",
+      "parentId": "transform:closedboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "closedbox06-stand",
+      "name": "封闭纸箱 6展台",
+      "parentId": "transform:closedboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "closedbox07-stand",
+      "name": "封闭纸箱 7展台",
+      "parentId": "transform:closedboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "closedbox08-stand",
+      "name": "封闭纸箱 8展台",
+      "parentId": "transform:closedboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "openbox01-stand",
+      "name": "开放纸箱 1展台",
+      "parentId": "transform:openboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "openbox02-stand",
+      "name": "开放纸箱 2展台",
+      "parentId": "transform:openboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "openbox03-stand",
+      "name": "开放纸箱 3展台",
+      "parentId": "transform:openboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "openbox04-stand",
+      "name": "开放纸箱 4展台",
+      "parentId": "transform:openboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "openbox05-stand",
+      "name": "开放纸箱 5展台",
+      "parentId": "transform:openboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "openbox06-stand",
+      "name": "开放纸箱 6展台",
+      "parentId": "transform:openboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "openbox07-stand",
+      "name": "开放纸箱 7展台",
+      "parentId": "transform:openboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "openbox08-stand",
+      "name": "开放纸箱 8展台",
+      "parentId": "transform:openboxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "clock01-stand",
+      "name": "落地摆钟展台",
+      "parentId": "transform:clocks",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "clock02-stand",
+      "name": "挂钟展台",
+      "parentId": "transform:clocks",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -7
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "bookshelf01",
+      "name": "书架 1",
+      "parentId": "transform:bookshelves",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Bookshelves/Bookshelf01.glb",
+      "position": [
+        -14,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59733333,
+        0.59733333,
+        0.59733333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bookshelf02",
+      "name": "书架 2",
+      "parentId": "transform:bookshelves",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Bookshelves/Bookshelf02.glb",
+      "position": [
+        -10,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48249866,
+        0.48249866,
+        0.48249866
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bookshelf03",
+      "name": "书架 3",
+      "parentId": "transform:bookshelves",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Bookshelves/Bookshelf03.glb",
+      "position": [
+        -6,
+        0,
+        10.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.95319149,
+        0.95319149,
+        0.95319149
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "book01",
+      "name": "书籍 1",
+      "parentId": "transform:books",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Books/Book01.glb",
+      "position": [
+        4,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.98666667,
+        2.98666667,
+        2.98666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "book02",
+      "name": "书籍 2",
+      "parentId": "transform:books",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Books/Book02.glb",
+      "position": [
+        8,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "book03",
+      "name": "书籍 3",
+      "parentId": "transform:books",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Books/Book03.glb",
+      "position": [
+        12,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "book04",
+      "name": "书籍 4",
+      "parentId": "transform:books",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Books/Book04.glb",
+      "position": [
+        16,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.98666667,
+        2.98666667,
+        2.98666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "book05",
+      "name": "书籍 5",
+      "parentId": "transform:books",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Books/Book05.glb",
+      "position": [
+        8,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.98666667,
+        2.98666667,
+        2.98666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "book06",
+      "name": "书籍 6",
+      "parentId": "transform:books",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Books/Book06.glb",
+      "position": [
+        12,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.97777778,
+        4.97777778,
+        4.97777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "closedbox01",
+      "name": "封闭纸箱 1",
+      "parentId": "transform:closedboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox01.glb",
+      "position": [
+        -16,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "closedbox02",
+      "name": "封闭纸箱 2",
+      "parentId": "transform:closedboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox02.glb",
+      "position": [
+        -12,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "closedbox03",
+      "name": "封闭纸箱 3",
+      "parentId": "transform:closedboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox03.glb",
+      "position": [
+        -8,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "closedbox04",
+      "name": "封闭纸箱 4",
+      "parentId": "transform:closedboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox04.glb",
+      "position": [
+        -4,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.03636364,
+        2.03636364,
+        2.03636364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "closedbox05",
+      "name": "封闭纸箱 5",
+      "parentId": "transform:closedboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox05.glb",
+      "position": [
+        -16,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "closedbox06",
+      "name": "封闭纸箱 6",
+      "parentId": "transform:closedboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox06.glb",
+      "position": [
+        -12,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24,
+        2.24,
+        2.24
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "closedbox07",
+      "name": "封闭纸箱 7",
+      "parentId": "transform:closedboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox07.glb",
+      "position": [
+        -8,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "closedbox08",
+      "name": "封闭纸箱 8",
+      "parentId": "transform:closedboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox08.glb",
+      "position": [
+        -4,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.03636364,
+        2.03636364,
+        2.03636364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "openbox01",
+      "name": "开放纸箱 1",
+      "parentId": "transform:openboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox01.glb",
+      "position": [
+        4,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79172809,
+        2.79172809,
+        2.79172809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "openbox02",
+      "name": "开放纸箱 2",
+      "parentId": "transform:openboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox02.glb",
+      "position": [
+        8,
+        1e-8,
+        1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08640682,
+        2.08640682,
+        2.08640682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "openbox03",
+      "name": "开放纸箱 3",
+      "parentId": "transform:openboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox03.glb",
+      "position": [
+        12,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "openbox04",
+      "name": "开放纸箱 4",
+      "parentId": "transform:openboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox04.glb",
+      "position": [
+        15.9999999,
+        -3e-8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.19805638,
+        2.19805638,
+        2.19805638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "openbox05",
+      "name": "开放纸箱 5",
+      "parentId": "transform:openboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox05.glb",
+      "position": [
+        4.00000008,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.32385534,
+        1.32385534,
+        1.32385534
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "openbox06",
+      "name": "开放纸箱 6",
+      "parentId": "transform:openboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox06.glb",
+      "position": [
+        8.00000068,
+        -2e-8,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.03636364,
+        2.03636364,
+        2.03636364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "openbox07",
+      "name": "开放纸箱 7",
+      "parentId": "transform:openboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox07.glb",
+      "position": [
+        11.99999998,
+        1e-8,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666661,
+        1.86666661,
+        1.86666661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "openbox08",
+      "name": "开放纸箱 8",
+      "parentId": "transform:openboxes",
+      "modelPath": "resources/Model/GLB/artist_t4kum/OpenBoxes/OpenBox08.glb",
+      "position": [
+        15.99999992,
+        2e-8,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.03636364,
+        2.03636364,
+        2.03636364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "clock01",
+      "name": "落地摆钟",
+      "parentId": "transform:clocks",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Clocks/Clock01.glb",
+      "position": [
+        -12,
+        0,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81454545,
+        0.81454545,
+        0.81454545
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "clock02",
+      "name": "挂钟",
+      "parentId": "transform:clocks",
+      "modelPath": "resources/Model/GLB/artist_t4kum/Clocks/Clock02.glb",
+      "position": [
+        -8,
+        -1.5e-7,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.50804957,
+        2.50804957,
+        2.50804957
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

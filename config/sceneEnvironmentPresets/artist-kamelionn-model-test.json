@@ -1,0 +1,540 @@
+{
+  "presetKey": "artist-kamelionn-model-test",
+  "name": "Kamelionn 资源 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "kamelionn-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "kamelionn-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          25,
+          45,
+          -25
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "kamelionn-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 44,
+        "height": 70
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#303942",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-section-1",
+      "name": "农具展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 16.5
+      },
+      "position": [
+        0,
+        -0.045,
+        -15.25
+      ],
+      "color": "#4b554b"
+    },
+    {
+      "id": "kamelionn-section-2",
+      "name": "盘子展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 16.5
+      },
+      "position": [
+        0,
+        -0.045,
+        4.25
+      ],
+      "color": "#55504d"
+    },
+    {
+      "id": "kamelionn-section-3",
+      "name": "其他模型展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 18
+      },
+      "position": [
+        0,
+        -0.045,
+        24.5
+      ],
+      "color": "#4b5260"
+    }
+  ],
+  "models": [
+    {
+      "id": "kamelionn-model-01",
+      "name": "农具 · Axe",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/farm-pack-1/Axe_kamelionn_itch_io.glb",
+      "position": [
+        -9.0,
+        0.025,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.642,
+        0.642,
+        0.642
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-02",
+      "name": "农具 · Bucket",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/farm-pack-1/Bucket_kamelionn_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.1982,
+        2.1982,
+        2.1982
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-03",
+      "name": "农具 · Butcher-Knife",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/farm-pack-1/Butcher-Knife_kamelionn_itch_io.glb",
+      "position": [
+        9.0,
+        0.025,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8522,
+        1.8522,
+        1.8522
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-04",
+      "name": "农具 · Pitchfork",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/farm-pack-1/Pitchfork_kamelionn_itch_io.glb",
+      "position": [
+        -9.0,
+        0.025,
+        -11.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2815,
+        0.2815,
+        0.2815
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-05",
+      "name": "农具 · Shovel",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/farm-pack-1/Shovel_kamelionn_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -11.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2879,
+        0.2879,
+        0.2879
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-06",
+      "name": "农具 · Sickle",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/farm-pack-1/Sickle_kamelionn_itch_io.glb",
+      "position": [
+        9.0,
+        0.025,
+        -11.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0045,
+        1.0045,
+        1.0045
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-07",
+      "name": "盘子 · Plate-Blue-Black-3",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/plate/Plate-Blue-Black-3_kamelionn_itch_io.glb",
+      "position": [
+        -9.0,
+        0.025,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-08",
+      "name": "盘子 · Plate-White-Blue-1",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/plate/Plate-White-Blue-1_kamelionn_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-09",
+      "name": "盘子 · Plate-White-Blue-2",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/plate/Plate-White-Blue-2_kamelionn_itch_io.glb",
+      "position": [
+        9.0,
+        0.025,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-10",
+      "name": "盘子 · Plate-White-Blue-3",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/plate/Plate-White-Blue-3_kamelionn_itch_io.glb",
+      "position": [
+        -9.0,
+        0.025,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-11",
+      "name": "盘子 · Plate-White",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/plate/Plate-White_kamelionn_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-12",
+      "name": "盘子 · Plate-Yellow",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/plate/Plate-Yellow_kamelionn_itch_io.glb",
+      "position": [
+        9.0,
+        0.025,
+        8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-13",
+      "name": "燃料罐 · Benzin-Fuel",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/benzin-fuel/Benzin-Fuel_kamelionn_itch_io.glb",
+      "position": [
+        -9,
+        0.025,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7089,
+        2.7089,
+        2.7089
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-14",
+      "name": "面包车 · Pejo9-Van",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/pejo-9/Pejo9-Van_kamelionn_itch_io.glb",
+      "position": [
+        0,
+        0.025,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0122,
+        1.0122,
+        1.0122
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-15",
+      "name": "雪茄 · Puro-Cigar-1",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/puro-cigar/Puro-Cigar-1_kamelionn_itch_io.glb",
+      "position": [
+        -9,
+        0.025,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9708,
+        1.9708,
+        1.9708
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-16",
+      "name": "折刀 · Stiletto",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/stiletto/Stiletto_kamelionn_itch_io.glb",
+      "position": [
+        9,
+        0.025,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3696,
+        0.3696,
+        0.3696
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-17",
+      "name": "雪茄 · Puro-Cigar-2",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/puro-cigar/Puro-Cigar-2_kamelionn_itch_io.glb",
+      "position": [
+        0,
+        0.025,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kamelionn-model-18",
+      "name": "雪茄 · Puro-Cigar-3",
+      "modelPath": "resources/Model/GLB/artist_kamelionn/puro-cigar/Puro-Cigar-3_kamelionn_itch_io.glb",
+      "position": [
+        9,
+        0.025,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

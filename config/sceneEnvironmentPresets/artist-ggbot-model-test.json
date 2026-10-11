@@ -1,0 +1,2243 @@
+{
+  "presetKey": "artist-ggbot-model-test",
+  "name": "ggbot · PSX 汽车与全部原作者配色（12 款 / 41 件展示）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "car01",
+      "name": "经典轿车配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car02",
+      "name": "紧凑轿车配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car03",
+      "name": "轿车 03配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car04",
+      "name": "轿车 04配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car05",
+      "name": "轿车 05配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car05police",
+      "name": "警车配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car05taxi",
+      "name": "出租车配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car06",
+      "name": "车型 06配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car07",
+      "name": "车型 07配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "car08",
+      "name": "厢式车配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "accessories",
+      "name": "车轮与透明车影配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 48,
+        "height": 46
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "car01-0-stand",
+      "name": "经典轿车 · 原版展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-1-stand",
+      "name": "经典轿车 · 蓝色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-2-stand",
+      "name": "经典轿车 · 灰色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-3-stand",
+      "name": "经典轿车 · 红色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-4-stand",
+      "name": "经典轿车 · 少量积雪 · 蓝色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-5-stand",
+      "name": "经典轿车 · 少量积雪 · 灰色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-6-stand",
+      "name": "经典轿车 · 少量积雪 · 红色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-7-stand",
+      "name": "经典轿车 · 少量积雪展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-8-stand",
+      "name": "经典轿车 · 厚积雪 · 蓝色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-9-stand",
+      "name": "经典轿车 · 厚积雪 · 灰色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-10-stand",
+      "name": "经典轿车 · 厚积雪 · 红色展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car01-11-stand",
+      "name": "经典轿车 · 厚积雪展台",
+      "parentId": "transform:car01",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car02-0-stand",
+      "name": "紧凑轿车 · 原版展台",
+      "parentId": "transform:car02",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car02-1-stand",
+      "name": "紧凑轿车 · 黑色展台",
+      "parentId": "transform:car02",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car02-2-stand",
+      "name": "紧凑轿车 · 红色展台",
+      "parentId": "transform:car02",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        22
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car03-0-stand",
+      "name": "轿车 03 · 原版展台",
+      "parentId": "transform:car03",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car03-1-stand",
+      "name": "轿车 03 · 红色展台",
+      "parentId": "transform:car03",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car03-2-stand",
+      "name": "轿车 03 · 黄色展台",
+      "parentId": "transform:car03",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car04-0-stand",
+      "name": "轿车 04 · 原版展台",
+      "parentId": "transform:car04",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car04-1-stand",
+      "name": "轿车 04 · 灰色展台",
+      "parentId": "transform:car04",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car04-2-stand",
+      "name": "轿车 04 · 浅灰色展台",
+      "parentId": "transform:car04",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car04-3-stand",
+      "name": "轿车 04 · 浅橙色展台",
+      "parentId": "transform:car04",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car05-0-stand",
+      "name": "轿车 05 · 原版展台",
+      "parentId": "transform:car05",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car05-1-stand",
+      "name": "轿车 05 · 绿色展台",
+      "parentId": "transform:car05",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car05-2-stand",
+      "name": "轿车 05 · 灰色展台",
+      "parentId": "transform:car05",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car05police-0-stand",
+      "name": "警车 · 原版展台",
+      "parentId": "transform:car05police",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        1
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car05police-1-stand",
+      "name": "警车 · 洛杉矶警车展台",
+      "parentId": "transform:car05police",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        1
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car05taxi-0-stand",
+      "name": "出租车 · 原版展台",
+      "parentId": "transform:car05taxi",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car06-0-stand",
+      "name": "车型 06 · 原版展台",
+      "parentId": "transform:car06",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car07-0-stand",
+      "name": "车型 07 · 原版展台",
+      "parentId": "transform:car07",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car07-1-stand",
+      "name": "车型 07 · 黑色展台",
+      "parentId": "transform:car07",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car07-2-stand",
+      "name": "车型 07 · 棕色展台",
+      "parentId": "transform:car07",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car07-3-stand",
+      "name": "车型 07 · 绿色展台",
+      "parentId": "transform:car07",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car07-4-stand",
+      "name": "车型 07 · 灰色展台",
+      "parentId": "transform:car07",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car07-5-stand",
+      "name": "车型 07 · 红色展台",
+      "parentId": "transform:car07",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "car08-0-stand",
+      "name": "厢式车 · 原版展台",
+      "parentId": "transform:car08",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car08-1-stand",
+      "name": "厢式车 · 灰色展台",
+      "parentId": "transform:car08",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car08-2-stand",
+      "name": "厢式车 · 邮政展台",
+      "parentId": "transform:car08",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "car08-3-stand",
+      "name": "厢式车 · 紫色展台",
+      "parentId": "transform:car08",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "carshadow-0-stand",
+      "name": "透明车影 · 原版展台",
+      "parentId": "transform:accessories",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "wheel-0-stand",
+      "name": "独立车轮 · 原版展台",
+      "parentId": "transform:accessories",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -18
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "car01-0",
+      "name": "经典轿车 · 原版",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -20,
+        1.4e-7,
+        21.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car01-1",
+      "name": "经典轿车 · 蓝色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -16,
+        1.4e-7,
+        21.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/99bb01f86fc7d60dfe1b8c8bb557c66a0418dcf31c61eb124329d7268163c70c.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-2",
+      "name": "经典轿车 · 灰色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -12,
+        1.4e-7,
+        21.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/ad69d6fb264476cc8217097668ef1e874bc15076ecc8d23238105cb1e9253ea3.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-3",
+      "name": "经典轿车 · 红色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -8,
+        1.4e-7,
+        21.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/777b1b8d2b845d7d52413ef6ef76d9958cf1e602785a28bf2b9c738aa3b60278.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-4",
+      "name": "经典轿车 · 少量积雪 · 蓝色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -4,
+        1.4e-7,
+        21.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/1636694ec83cbd0f87fee6da4982716a14c53998f2d30d43775497e5ca1f195d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-5",
+      "name": "经典轿车 · 少量积雪 · 灰色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -20,
+        1.4e-7,
+        17.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/2392d1eafa91205dd0c336a6d9f9405901536c11d634766909787a22e2b0aead.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-6",
+      "name": "经典轿车 · 少量积雪 · 红色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -16,
+        1.4e-7,
+        17.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/9ddae4ab74d337fbfea4a808c89abc0d1a3df19fa37c22d27f27be1c100937f3.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-7",
+      "name": "经典轿车 · 少量积雪",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -12,
+        1.4e-7,
+        17.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/59de6fc658deec4b1bd67774b9105c378724d93f43a78f9d92852586ba5d837d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-8",
+      "name": "经典轿车 · 厚积雪 · 蓝色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -8,
+        1.4e-7,
+        17.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/639eab1186f4ef9334d51c9f84784ac0fa9bbdc381775c9ed254ad8467f6291f.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-9",
+      "name": "经典轿车 · 厚积雪 · 灰色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -4,
+        1.4e-7,
+        17.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/937df2ff0b009bfc270a7549312b46b781cea94e4b88d663d6731fdda02ea89b.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-10",
+      "name": "经典轿车 · 厚积雪 · 红色",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -14,
+        1.4e-7,
+        13.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/f91e22fa7a8d9dd6db7c9300116b66eaee2395edbbbf5e626fd7d0355e6da5b6.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car01-11",
+      "name": "经典轿车 · 厚积雪",
+      "parentId": "transform:car01",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car01.glb",
+      "position": [
+        -10,
+        1.4e-7,
+        13.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45525898,
+        0.45525898,
+        0.45525898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/e206056fcc93d40c7f4bb179a44a7dfb2f504cbcafc8e36136339d2105cdc67c.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car02-0",
+      "name": "紧凑轿车 · 原版",
+      "parentId": "transform:car02",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car02.glb",
+      "position": [
+        8.0000002,
+        1.1e-7,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4285926,
+        0.4285926,
+        0.4285926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car02-1",
+      "name": "紧凑轿车 · 黑色",
+      "parentId": "transform:car02",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car02.glb",
+      "position": [
+        12.0000002,
+        1.1e-7,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4285926,
+        0.4285926,
+        0.4285926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/49c6c9269d188cdb5a032008fdb1d7c7a55b14c67b59cbe4c2f45e2d81d4d9c8.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car02-2",
+      "name": "紧凑轿车 · 红色",
+      "parentId": "transform:car02",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car02.glb",
+      "position": [
+        16.0000002,
+        1.1e-7,
+        21.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4285926,
+        0.4285926,
+        0.4285926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/10a18ee2d8a45acb2589102242c93a4713fd463d8e5e9e2fdf5d8d1c1e34c7b6.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car03-0",
+      "name": "轿车 03 · 原版",
+      "parentId": "transform:car03",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car03.glb",
+      "position": [
+        8.00000024,
+        1.2e-7,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49898469,
+        0.49898469,
+        0.49898469
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car03-1",
+      "name": "轿车 03 · 红色",
+      "parentId": "transform:car03",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car03.glb",
+      "position": [
+        12.00000024,
+        1.2e-7,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49898469,
+        0.49898469,
+        0.49898469
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/e87ca54e7a8b7ff0d3b071e9fcd5c31abe63cdcb53f4d55374b630ce009bab49.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car03-2",
+      "name": "轿车 03 · 黄色",
+      "parentId": "transform:car03",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car03.glb",
+      "position": [
+        16.00000024,
+        1.2e-7,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49898469,
+        0.49898469,
+        0.49898469
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/e301bf10edb6672db92fefee48f350b4e3b1c00150763d677a49d26ed2eca456.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car04-0",
+      "name": "轿车 04 · 原版",
+      "parentId": "transform:car04",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car04.glb",
+      "position": [
+        6,
+        1.4e-7,
+        7.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44455886,
+        0.44455886,
+        0.44455886
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car04-1",
+      "name": "轿车 04 · 灰色",
+      "parentId": "transform:car04",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car04.glb",
+      "position": [
+        10,
+        1.4e-7,
+        7.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44455886,
+        0.44455886,
+        0.44455886
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/7f5e0cd0e85e36265a84cf66c73f2ece3cfbb13bf70d446ce5b2a08f3f559772.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car04-2",
+      "name": "轿车 04 · 浅灰色",
+      "parentId": "transform:car04",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car04.glb",
+      "position": [
+        14,
+        1.4e-7,
+        7.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44455886,
+        0.44455886,
+        0.44455886
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/1dd03e9311967ddd9ab591a4ef089f7a63ef196d30cb51418fba5c0a35cc178d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car04-3",
+      "name": "轿车 04 · 浅橙色",
+      "parentId": "transform:car04",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car04.glb",
+      "position": [
+        18,
+        1.4e-7,
+        7.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44455886,
+        0.44455886,
+        0.44455886
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/6c19eb41958439bd475fe8b1ef5dc54099947926f62a0c86b24872bf5de630ad.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car05-0",
+      "name": "轿车 05 · 原版",
+      "parentId": "transform:car05",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car05.glb",
+      "position": [
+        -16,
+        1.2e-7,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38013339,
+        0.38013339,
+        0.38013339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car05-1",
+      "name": "轿车 05 · 绿色",
+      "parentId": "transform:car05",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car05.glb",
+      "position": [
+        -12,
+        1.2e-7,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38013339,
+        0.38013339,
+        0.38013339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/50db299757e36137f4e5576b7f69bad29d40d32ad2ae8cf5766a16baad279dce.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car05-2",
+      "name": "轿车 05 · 灰色",
+      "parentId": "transform:car05",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car05.glb",
+      "position": [
+        -8,
+        1.2e-7,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38013339,
+        0.38013339,
+        0.38013339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/73945deab92e4a986772cd2c3cd3be96e2f36f20384748a4c5ff8487f6c7277b.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car05police-0",
+      "name": "警车 · 原版",
+      "parentId": "transform:car05police",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car05Police.glb",
+      "position": [
+        10,
+        1.2e-7,
+        1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38013339,
+        0.38013339,
+        0.38013339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car05police-1",
+      "name": "警车 · 洛杉矶警车",
+      "parentId": "transform:car05police",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car05Police.glb",
+      "position": [
+        14,
+        1.2e-7,
+        1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38013339,
+        0.38013339,
+        0.38013339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/66c1da103eaf258291f0d261c37096e726d060288b87d93c46486c9ac295c75d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car05taxi-0",
+      "name": "出租车 · 原版",
+      "parentId": "transform:car05taxi",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car05Taxi.glb",
+      "position": [
+        -12,
+        1.2e-7,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38345945,
+        0.38345945,
+        0.38345945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car06-0",
+      "name": "车型 06 · 原版",
+      "parentId": "transform:car06",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car06.glb",
+      "position": [
+        12,
+        4.1e-7,
+        -6.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44026281,
+        0.44026281,
+        0.44026281
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car07-0",
+      "name": "车型 07 · 原版",
+      "parentId": "transform:car07",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car07.glb",
+      "position": [
+        -20,
+        1.5e-7,
+        -7.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48430076,
+        0.48430076,
+        0.48430076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car07-1",
+      "name": "车型 07 · 黑色",
+      "parentId": "transform:car07",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car07.glb",
+      "position": [
+        -16,
+        1.5e-7,
+        -7.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48430076,
+        0.48430076,
+        0.48430076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/83c6aa825ea76fc4387382723ce4d7f6ff0007022e831fa4772fa4a34ddd6b5c.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car07-2",
+      "name": "车型 07 · 棕色",
+      "parentId": "transform:car07",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car07.glb",
+      "position": [
+        -12,
+        1.5e-7,
+        -7.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48430076,
+        0.48430076,
+        0.48430076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/ab2a9c96a3b2654dfcb562989cf807588a41f1b9854ef2d1f9e37236fc044c82.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car07-3",
+      "name": "车型 07 · 绿色",
+      "parentId": "transform:car07",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car07.glb",
+      "position": [
+        -8,
+        1.5e-7,
+        -7.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48430076,
+        0.48430076,
+        0.48430076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/90589bc81cf5e12c7c7350b5be5f77c7c521388a1748ecdf78825b18eda4d716.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car07-4",
+      "name": "车型 07 · 灰色",
+      "parentId": "transform:car07",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car07.glb",
+      "position": [
+        -4,
+        1.5e-7,
+        -7.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48430076,
+        0.48430076,
+        0.48430076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/4a00cc3ee0d57e07da808c468a963b1a2c708c6a03dcf894450dc73fb01e5850.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car07-5",
+      "name": "车型 07 · 红色",
+      "parentId": "transform:car07",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car07.glb",
+      "position": [
+        -12,
+        1.5e-7,
+        -11.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48430076,
+        0.48430076,
+        0.48430076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/82c6b8551f62f35caf44aab0a494f71d2c7cc3d884bec6fd780d302043aaeab2.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car08-0",
+      "name": "厢式车 · 原版",
+      "parentId": "transform:car08",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car08.glb",
+      "position": [
+        6,
+        1.1e-7,
+        -13.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40626025,
+        0.40626025,
+        0.40626025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "car08-1",
+      "name": "厢式车 · 灰色",
+      "parentId": "transform:car08",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car08.glb",
+      "position": [
+        10,
+        1.1e-7,
+        -13.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40626025,
+        0.40626025,
+        0.40626025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/9c290adb439fe4016799a0fcb3397c9083cf0f0bf738d2d6a1b2ab2ae5555669.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car08-2",
+      "name": "厢式车 · 邮政",
+      "parentId": "transform:car08",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car08.glb",
+      "position": [
+        14,
+        1.1e-7,
+        -13.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40626025,
+        0.40626025,
+        0.40626025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/33e0750be75f351ab8de8b15bfb3f9ec1b03e9603645ffdb0366b7b5e523c542.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "car08-3",
+      "name": "厢式车 · 紫色",
+      "parentId": "transform:car08",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Cars/Car08.glb",
+      "position": [
+        18,
+        1.1e-7,
+        -13.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.40626025,
+        0.40626025,
+        0.40626025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_ggbot/2747c9e1dce5930989d01d72c78e0941412bfb8e3c94e2bb3f68c43018b9b90f.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "carshadow-0",
+      "name": "透明车影 · 原版",
+      "parentId": "transform:accessories",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Accessories/CarShadow.glb",
+      "position": [
+        -14,
+        0.0200002,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54752693,
+        0.54752693,
+        0.54752693
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "wheel-0",
+      "name": "独立车轮 · 原版",
+      "parentId": "transform:accessories",
+      "modelPath": "resources/Model/GLB/artist_ggbot/Accessories/Wheel.glb",
+      "position": [
+        -10,
+        -8e-8,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.05292254,
+        3.05292254,
+        3.05292254
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

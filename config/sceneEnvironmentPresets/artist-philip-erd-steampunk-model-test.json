@@ -1,0 +1,2612 @@
+{
+  "presetKey": "artist-philip-erd-steampunk-model-test",
+  "name": "Philip Erd · 蒸汽朋克建筑与机械（63 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "philip-erd-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "philip-erd-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "philip-erd-Steampunk",
+      "name": "蒸汽朋克建筑与机械",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "philip-erd-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 40
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-zone",
+      "name": "蒸汽朋克建筑与机械分区",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 32.5,
+        "height": 0.1,
+        "depth": 32.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#918775"
+    },
+    {
+      "id": "philip-erd-Steampunk-1-stand",
+      "name": "airship_pier展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-2-stand",
+      "name": "baloon展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-3-stand",
+      "name": "building_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-4-stand",
+      "name": "building_2展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-5-stand",
+      "name": "building_3展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-6-stand",
+      "name": "building_crane展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-7-stand",
+      "name": "building_small_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-8-stand",
+      "name": "building_small_2展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-9-stand",
+      "name": "building_small_3展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-10-stand",
+      "name": "building_small_4展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-11-stand",
+      "name": "building_small_5展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-12-stand",
+      "name": "building_small_6展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-13-stand",
+      "name": "cabin_door展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-14-stand",
+      "name": "chimney_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-15-stand",
+      "name": "chimney_2展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-16-stand",
+      "name": "chimney_3展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-17-stand",
+      "name": "chimney_4展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-18-stand",
+      "name": "controll_box展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-19-stand",
+      "name": "crane_small_arm展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-20-stand",
+      "name": "crane_small_base展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-21-stand",
+      "name": "dial展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-22-stand",
+      "name": "door_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-23-stand",
+      "name": "dormer展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-24-stand",
+      "name": "double_gate展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-25-stand",
+      "name": "fence_pole展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-26-stand",
+      "name": "fence_pole_with_section展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-27-stand",
+      "name": "fence_section展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-28-stand",
+      "name": "folding_rail展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-29-stand",
+      "name": "hotel_back_wall展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-30-stand",
+      "name": "hotel_block_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-31-stand",
+      "name": "hotel_block_2展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-32-stand",
+      "name": "hotel_block_3展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-33-stand",
+      "name": "hotel_block_4展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-34-stand",
+      "name": "hotel_floor_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-35-stand",
+      "name": "lamp_1_hang展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-36-stand",
+      "name": "lamp_1_wall展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-37-stand",
+      "name": "lamp_2_hang展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-38-stand",
+      "name": "lamp_2_standing展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-39-stand",
+      "name": "lamp_3展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-40-stand",
+      "name": "metal_frame_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -2
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-41-stand",
+      "name": "metal_frame_2展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-42-stand",
+      "name": "metal_frame_3展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-43-stand",
+      "name": "metal_frame_4展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-44-stand",
+      "name": "metal_frame_arch展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-45-stand",
+      "name": "metal_frame_gate展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-46-stand",
+      "name": "metal_tower_top展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-47-stand",
+      "name": "overhang展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-48-stand",
+      "name": "rail_house展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -6
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-49-stand",
+      "name": "rope_hook_empty展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-50-stand",
+      "name": "tank展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-51-stand",
+      "name": "turntable展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-52-stand",
+      "name": "turntable_base展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-53-stand",
+      "name": "turntable_rail展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-54-stand",
+      "name": "wall_frame展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-55-stand",
+      "name": "window_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-56-stand",
+      "name": "window_2展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -10
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-57-stand",
+      "name": "window_3展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-58-stand",
+      "name": "window_large展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-59-stand",
+      "name": "window_light_arch_large展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-60-stand",
+      "name": "window_light_arch_medium展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-61-stand",
+      "name": "window_round_2展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-62-stand",
+      "name": "window_round_concrete展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-63-stand",
+      "name": "window_round_small展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -14
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "philip-erd-Steampunk-1",
+      "name": "airship_pier",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/airship_pier.glb",
+      "position": [
+        -13.99999996,
+        1.6e-7,
+        14.00000017
+      ],
+      "scaling": [
+        0.17383611,
+        0.17383611,
+        0.17383611
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-2",
+      "name": "baloon",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/baloon.glb",
+      "position": [
+        -10,
+        0,
+        14
+      ],
+      "scaling": [
+        0.51394294,
+        0.51394294,
+        0.51394294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-3",
+      "name": "building_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_1.glb",
+      "position": [
+        -6.00000024,
+        0,
+        14.00000028
+      ],
+      "scaling": [
+        0.14596779,
+        0.14596779,
+        0.14596779
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-4",
+      "name": "building_2",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_2.glb",
+      "position": [
+        -2.00000105,
+        0,
+        13.99999991
+      ],
+      "scaling": [
+        0.19147423,
+        0.19147423,
+        0.19147423
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-5",
+      "name": "building_3",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_3.glb",
+      "position": [
+        2,
+        0,
+        13.99999997
+      ],
+      "scaling": [
+        0.18018794,
+        0.18018794,
+        0.18018794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-6",
+      "name": "building_crane",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_crane.glb",
+      "position": [
+        6,
+        0,
+        13.99999998
+      ],
+      "scaling": [
+        0.16754958,
+        0.16754958,
+        0.16754958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-7",
+      "name": "building_small_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_1.glb",
+      "position": [
+        9.9999988,
+        0,
+        13.99999998
+      ],
+      "scaling": [
+        0.28690519,
+        0.28690519,
+        0.28690519
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-8",
+      "name": "building_small_2",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_2.glb",
+      "position": [
+        14,
+        0,
+        14.00000005
+      ],
+      "scaling": [
+        0.2153487,
+        0.2153487,
+        0.2153487
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-9",
+      "name": "building_small_3",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_3.glb",
+      "position": [
+        -14.0000007,
+        0,
+        10
+      ],
+      "scaling": [
+        0.22456189,
+        0.22456189,
+        0.22456189
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-10",
+      "name": "building_small_4",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_4.glb",
+      "position": [
+        -9.99999967,
+        0,
+        10
+      ],
+      "scaling": [
+        0.39246025,
+        0.39246025,
+        0.39246025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-11",
+      "name": "building_small_5",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_5.glb",
+      "position": [
+        -6,
+        0,
+        10
+      ],
+      "scaling": [
+        0.28765229,
+        0.28765229,
+        0.28765229
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-12",
+      "name": "building_small_6",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_6.glb",
+      "position": [
+        -2.00000225,
+        0,
+        10.00000016
+      ],
+      "scaling": [
+        0.30500786,
+        0.30500786,
+        0.30500786
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-13",
+      "name": "cabin_door",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/cabin_door.glb",
+      "position": [
+        2,
+        0,
+        9.99999979
+      ],
+      "scaling": [
+        1.10521694,
+        1.10521694,
+        1.10521694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-14",
+      "name": "chimney_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/chimney_1.glb",
+      "position": [
+        6,
+        0,
+        10.00000061
+      ],
+      "scaling": [
+        0.56748479,
+        0.56748479,
+        0.56748479
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-15",
+      "name": "chimney_2",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/chimney_2.glb",
+      "position": [
+        9.99999995,
+        0,
+        10
+      ],
+      "scaling": [
+        0.52324665,
+        0.52324665,
+        0.52324665
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-16",
+      "name": "chimney_3",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/chimney_3.glb",
+      "position": [
+        14,
+        3e-8,
+        10.00000032
+      ],
+      "scaling": [
+        0.46512,
+        0.46512,
+        0.46512
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-17",
+      "name": "chimney_4",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/chimney_4.glb",
+      "position": [
+        -14,
+        0,
+        6.00000009
+      ],
+      "scaling": [
+        0.73733263,
+        0.73733263,
+        0.73733263
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-18",
+      "name": "controll_box",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/controll_box.glb",
+      "position": [
+        -10.00000023,
+        0,
+        6.00000124
+      ],
+      "scaling": [
+        1.91565834,
+        1.91565834,
+        1.91565834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-19",
+      "name": "crane_small_arm",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/crane_small_arm.glb",
+      "position": [
+        -6,
+        0,
+        6.00000018
+      ],
+      "scaling": [
+        0.45773106,
+        0.45773106,
+        0.45773106
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-20",
+      "name": "crane_small_base",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/crane_small_base.glb",
+      "position": [
+        -1.99999859,
+        -5e-8,
+        5.99999896
+      ],
+      "scaling": [
+        1.750178,
+        1.750178,
+        1.750178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-21",
+      "name": "dial",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/dial.glb",
+      "position": [
+        1.99999984,
+        0,
+        5.99999866
+      ],
+      "scaling": [
+        7.34282457,
+        7.34282457,
+        7.34282457
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-22",
+      "name": "door_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/door_1.glb",
+      "position": [
+        5.99999988,
+        0,
+        5.99999891
+      ],
+      "scaling": [
+        1.01532765,
+        1.01532765,
+        1.01532765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-23",
+      "name": "dormer",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/dormer.glb",
+      "position": [
+        10,
+        0,
+        6.00000006
+      ],
+      "scaling": [
+        0.50643241,
+        0.50643241,
+        0.50643241
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-24",
+      "name": "double_gate",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/double_gate.glb",
+      "position": [
+        14,
+        0,
+        6
+      ],
+      "scaling": [
+        0.18160777,
+        0.18160777,
+        0.18160777
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-25",
+      "name": "fence_pole",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/fence_pole.glb",
+      "position": [
+        -14,
+        0,
+        2
+      ],
+      "scaling": [
+        1.27881806,
+        1.27881806,
+        1.27881806
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-26",
+      "name": "fence_pole_with_section",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/fence_pole_with_section.glb",
+      "position": [
+        -10.00000007,
+        0,
+        2
+      ],
+      "scaling": [
+        0.92067453,
+        0.92067453,
+        0.92067453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-27",
+      "name": "fence_section",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/fence_section.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "scaling": [
+        0.95384613,
+        0.95384613,
+        0.95384613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-28",
+      "name": "folding_rail",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/folding_rail.glb",
+      "position": [
+        -2,
+        -1.7e-7,
+        2.00000156
+      ],
+      "scaling": [
+        0.40597133,
+        0.40597133,
+        0.40597133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-29",
+      "name": "hotel_back_wall",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_back_wall.glb",
+      "position": [
+        2.0000003,
+        0,
+        1.99999997
+      ],
+      "scaling": [
+        0.10576673,
+        0.10576673,
+        0.10576673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-30",
+      "name": "hotel_block_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_1.glb",
+      "position": [
+        6.00000016,
+        0,
+        1.99999942
+      ],
+      "scaling": [
+        0.13473291,
+        0.13473291,
+        0.13473291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-31",
+      "name": "hotel_block_2",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_2.glb",
+      "position": [
+        10.0000003,
+        0,
+        2.00000031
+      ],
+      "scaling": [
+        0.13104201,
+        0.13104201,
+        0.13104201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-32",
+      "name": "hotel_block_3",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_3.glb",
+      "position": [
+        14.00000023,
+        0,
+        1.99999923
+      ],
+      "scaling": [
+        0.14613146,
+        0.14613146,
+        0.14613146
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-33",
+      "name": "hotel_block_4",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_4.glb",
+      "position": [
+        -14.00000017,
+        0,
+        -2.00000033
+      ],
+      "scaling": [
+        0.0699519,
+        0.0699519,
+        0.0699519
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-34",
+      "name": "hotel_floor_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_floor_1.glb",
+      "position": [
+        -10,
+        0,
+        -1.99999944
+      ],
+      "scaling": [
+        0.16641959,
+        0.16641959,
+        0.16641959
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-35",
+      "name": "lamp_1_hang",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_1_hang.glb",
+      "position": [
+        -6,
+        0,
+        -2.00000182
+      ],
+      "scaling": [
+        1.74113511,
+        1.74113511,
+        1.74113511
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-36",
+      "name": "lamp_1_wall",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_1_wall.glb",
+      "position": [
+        -2,
+        0,
+        -1.99999958
+      ],
+      "scaling": [
+        1.42029986,
+        1.42029986,
+        1.42029986
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-37",
+      "name": "lamp_2_hang",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_2_hang.glb",
+      "position": [
+        1.99999998,
+        0,
+        -2.00000357
+      ],
+      "scaling": [
+        3.33180925,
+        3.33180925,
+        3.33180925
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-38",
+      "name": "lamp_2_standing",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_2_standing.glb",
+      "position": [
+        6.00000024,
+        0,
+        -2.00000122
+      ],
+      "scaling": [
+        0.81987305,
+        0.81987305,
+        0.81987305
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-39",
+      "name": "lamp_3",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_3.glb",
+      "position": [
+        10,
+        0,
+        -1.99999769
+      ],
+      "scaling": [
+        2.74565227,
+        2.74565227,
+        2.74565227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-40",
+      "name": "metal_frame_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_1.glb",
+      "position": [
+        14.00000045,
+        -2e-8,
+        -2.00000037
+      ],
+      "scaling": [
+        0.56,
+        0.56,
+        0.56
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-41",
+      "name": "metal_frame_2",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_2.glb",
+      "position": [
+        -14,
+        0,
+        -5.99999941
+      ],
+      "scaling": [
+        0.90579647,
+        0.90579647,
+        0.90579647
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-42",
+      "name": "metal_frame_3",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_3.glb",
+      "position": [
+        -10,
+        -2e-8,
+        -5.99999973
+      ],
+      "scaling": [
+        0.56,
+        0.56,
+        0.56
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-43",
+      "name": "metal_frame_4",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_4.glb",
+      "position": [
+        -5.99999989,
+        0,
+        -6.00000044
+      ],
+      "scaling": [
+        0.92659528,
+        0.92659528,
+        0.92659528
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-44",
+      "name": "metal_frame_arch",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_arch.glb",
+      "position": [
+        -2,
+        -1e-8,
+        -6.00000023
+      ],
+      "scaling": [
+        0.34775534,
+        0.34775534,
+        0.34775534
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-45",
+      "name": "metal_frame_gate",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_gate.glb",
+      "position": [
+        2.00000005,
+        0,
+        -6
+      ],
+      "scaling": [
+        0.20957694,
+        0.20957694,
+        0.20957694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-46",
+      "name": "metal_tower_top",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_tower_top.glb",
+      "position": [
+        6.00000005,
+        0,
+        -6
+      ],
+      "scaling": [
+        0.80332403,
+        0.80332403,
+        0.80332403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-47",
+      "name": "overhang",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/overhang.glb",
+      "position": [
+        9.99999965,
+        0,
+        -5.99999914
+      ],
+      "scaling": [
+        0.97181384,
+        0.97181384,
+        0.97181384
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-48",
+      "name": "rail_house",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/rail_house.glb",
+      "position": [
+        13.9999995,
+        0,
+        -6.00000008
+      ],
+      "scaling": [
+        0.17516953,
+        0.17516953,
+        0.17516953
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-49",
+      "name": "rope_hook_empty",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/rope_hook_empty.glb",
+      "position": [
+        -14,
+        0,
+        -9.99999987
+      ],
+      "scaling": [
+        1.11924812,
+        1.11924812,
+        1.11924812
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-50",
+      "name": "tank",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/tank.glb",
+      "position": [
+        -10,
+        0,
+        -10
+      ],
+      "scaling": [
+        0.89993047,
+        0.89993047,
+        0.89993047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-51",
+      "name": "turntable",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/turntable.glb",
+      "position": [
+        -5.99999999,
+        0,
+        -10.00000006
+      ],
+      "scaling": [
+        0.08719644,
+        0.08719644,
+        0.08719644
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-52",
+      "name": "turntable_base",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/turntable_base.glb",
+      "position": [
+        -1.999999,
+        0,
+        -10
+      ],
+      "scaling": [
+        0.15029143,
+        0.15029143,
+        0.15029143
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-53",
+      "name": "turntable_rail",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/turntable_rail.glb",
+      "position": [
+        2.0000004,
+        -1e-8,
+        -10.00000025
+      ],
+      "scaling": [
+        0.10546781,
+        0.10546781,
+        0.10546781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-54",
+      "name": "wall_frame",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/wall_frame.glb",
+      "position": [
+        6,
+        0,
+        -9.99999995
+      ],
+      "scaling": [
+        0.46744978,
+        0.46744978,
+        0.46744978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-55",
+      "name": "window_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_1.glb",
+      "position": [
+        10.00000117,
+        0,
+        -10.00000252
+      ],
+      "scaling": [
+        1.51254455,
+        1.51254455,
+        1.51254455
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-56",
+      "name": "window_2",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_2.glb",
+      "position": [
+        13.99999966,
+        2e-8,
+        -10.00000077
+      ],
+      "scaling": [
+        1.62019306,
+        1.62019306,
+        1.62019306
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-57",
+      "name": "window_3",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_3.glb",
+      "position": [
+        -14.00000099,
+        4e-8,
+        -13.99999903
+      ],
+      "scaling": [
+        1.18876759,
+        1.18876759,
+        1.18876759
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-58",
+      "name": "window_large",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_large.glb",
+      "position": [
+        -10.00000036,
+        0,
+        -14.00000044
+      ],
+      "scaling": [
+        0.46381888,
+        0.46381888,
+        0.46381888
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-59",
+      "name": "window_light_arch_large",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_light_arch_large.glb",
+      "position": [
+        -6,
+        0,
+        -14.00000012
+      ],
+      "scaling": [
+        1.29954335,
+        1.29954335,
+        1.29954335
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-60",
+      "name": "window_light_arch_medium",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_light_arch_medium.glb",
+      "position": [
+        -2,
+        0,
+        -14.00000018
+      ],
+      "scaling": [
+        1.94689951,
+        1.94689951,
+        1.94689951
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-61",
+      "name": "window_round_2",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_round_2.glb",
+      "position": [
+        2,
+        0,
+        -13.99999913
+      ],
+      "scaling": [
+        2.02403395,
+        2.02403395,
+        2.02403395
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-62",
+      "name": "window_round_concrete",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_round_concrete.glb",
+      "position": [
+        6,
+        0,
+        -14.00000042
+      ],
+      "scaling": [
+        2.02183329,
+        2.02183329,
+        2.02183329
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-63",
+      "name": "window_round_small",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/window_round_small.glb",
+      "position": [
+        10,
+        1.2e-7,
+        -14.00000065
+      ],
+      "scaling": [
+        4.15810951,
+        4.15810951,
+        4.15810951
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

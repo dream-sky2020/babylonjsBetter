@@ -25,13 +25,11 @@ export type TexturePackerAtlas = {
   };
 };
 
-export const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-}) as Record<string, string>;
+import { readBundledPublicAssetPaths, readBundledPublicImageModules } from '@/core/resources/publicAssetManifest.ts';
 
-export const RESOURCE_ATLAS_PATHS = Object.keys(import.meta.glob('/public/**/*.json'));
+export const RESOURCE_IMAGE_MODULES = readBundledPublicImageModules();
+
+export const RESOURCE_ATLAS_PATHS = readBundledPublicAssetPaths(/\.json$/i);
 
 export const LAST_ATLAS_JSON_STORAGE_KEY = 'sprite-anchor-editor.last-atlas-json-path';
 export const LAST_EDITOR_MODE_STORAGE_KEY = 'sprite-anchor-editor.last-mode';

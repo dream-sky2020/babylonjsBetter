@@ -1,0 +1,1548 @@
+{
+  "presetKey": "artist-mcnuty-model-test",
+  "name": "McNuty 资源 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "mcnuty-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "mcnuty-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          35,
+          65,
+          -30
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "mcnuty-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 80,
+        "height": 88
+      },
+      "position": [
+        0,
+        -0.06,
+        2
+      ],
+      "color": "#303942",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-soda-1-ground",
+      "name": "汽水套件 1 展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 28,
+        "height": 26
+      },
+      "position": [
+        -22,
+        -0.045,
+        -21.5
+      ],
+      "color": "#48545a"
+    },
+    {
+      "id": "mcnuty-soda-2-ground",
+      "name": "汽水套件 2 展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 28,
+        "height": 26
+      },
+      "position": [
+        22,
+        -0.045,
+        -21.5
+      ],
+      "color": "#55504c"
+    },
+    {
+      "id": "mcnuty-western-ground",
+      "name": "西部套件展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 74,
+        "height": 44
+      },
+      "position": [
+        0,
+        -0.045,
+        18
+      ],
+      "color": "#4d5148"
+    }
+  ],
+  "models": [
+    {
+      "id": "mcnuty-model-01",
+      "name": "汽水套件 1 · flush_grape_box",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/flush_grape_box_mcnuty_itch_io.glb",
+      "position": [
+        -32.5,
+        0.6017,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.267,
+        6.267,
+        6.267
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-02",
+      "name": "汽水套件 1 · flush_grape_can_closed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/flush_grape_can_closed_mcnuty_itch_io.glb",
+      "position": [
+        -25.5,
+        1.9734,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-03",
+      "name": "汽水套件 1 · flush_grape_can_crushed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/flush_grape_can_crushed_mcnuty_itch_io.glb",
+      "position": [
+        -18.5,
+        1.1618,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30,
+        30,
+        30
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-04",
+      "name": "汽水套件 1 · flush_grape_can_open",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/flush_grape_can_open_mcnuty_itch_io.glb",
+      "position": [
+        -11.5,
+        1.9734,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-05",
+      "name": "汽水套件 1 · professor_pop_box",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/professor_pop_box_mcnuty_itch_io.glb",
+      "position": [
+        -32.5,
+        0.6017,
+        -25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.267,
+        6.267,
+        6.267
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-06",
+      "name": "汽水套件 1 · professor_pop_can_closed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/professor_pop_can_closed_mcnuty_itch_io.glb",
+      "position": [
+        -25.5,
+        1.9734,
+        -25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-07",
+      "name": "汽水套件 1 · professor_pop_can_crushed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/professor_pop_can_crushed_mcnuty_itch_io.glb",
+      "position": [
+        -18.5,
+        1.1618,
+        -25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30,
+        30,
+        30
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-08",
+      "name": "汽水套件 1 · professor_pop_can_open",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/professor_pop_can_open_mcnuty_itch_io.glb",
+      "position": [
+        -11.5,
+        1.9734,
+        -25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-09",
+      "name": "汽水套件 1 · queensland_ginger_ale_box",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/queensland_ginger_ale_box_mcnuty_itch_io.glb",
+      "position": [
+        -32.5,
+        0.6017,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.267,
+        6.267,
+        6.267
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-10",
+      "name": "汽水套件 1 · queensland_ginger_ale_can_closed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/queensland_ginger_ale_can_closed_mcnuty_itch_io.glb",
+      "position": [
+        -25.5,
+        1.9734,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-11",
+      "name": "汽水套件 1 · queensland_ginger_ale_can_crushed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/queensland_ginger_ale_can_crushed_mcnuty_itch_io.glb",
+      "position": [
+        -18.5,
+        1.1618,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30,
+        30,
+        30
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-12",
+      "name": "汽水套件 1 · queensland_ginger_ale_can_open",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/queensland_ginger_ale_can_open_mcnuty_itch_io.glb",
+      "position": [
+        -11.5,
+        1.9734,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-13",
+      "name": "汽水套件 1 · sprint_box",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/sprint_box_mcnuty_itch_io.glb",
+      "position": [
+        -32.5,
+        0.6017,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.267,
+        6.267,
+        6.267
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-14",
+      "name": "汽水套件 1 · sprint_can_closed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/sprint_can_closed_mcnuty_itch_io.glb",
+      "position": [
+        -25.5,
+        1.9734,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-15",
+      "name": "汽水套件 1 · sprint_can_crushed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/sprint_can_crushed_mcnuty_itch_io.glb",
+      "position": [
+        -18.5,
+        1.1618,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30,
+        30,
+        30
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-16",
+      "name": "汽水套件 1 · sprint_can_open",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-1/sprint_can_open_mcnuty_itch_io.glb",
+      "position": [
+        -11.5,
+        1.9734,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-17",
+      "name": "汽水套件 2 · classic_cola_box",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/classic_cola_box_mcnuty_itch_io.glb",
+      "position": [
+        11.5,
+        0.6017,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.267,
+        6.267,
+        6.267
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-18",
+      "name": "汽水套件 2 · classic_cola_can_closed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/classic_cola_can_closed_mcnuty_itch_io.glb",
+      "position": [
+        18.5,
+        1.9734,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-19",
+      "name": "汽水套件 2 · classic_cola_can_crushed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/classic_cola_can_crushed_mcnuty_itch_io.glb",
+      "position": [
+        25.5,
+        1.1618,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30,
+        30,
+        30
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-20",
+      "name": "汽水套件 2 · classic_cola_can_open",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/classic_cola_can_open_mcnuty_itch_io.glb",
+      "position": [
+        32.5,
+        1.9734,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-21",
+      "name": "汽水套件 2 · flush_orange_box",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/flush_orange_box_mcnuty_itch_io.glb",
+      "position": [
+        11.5,
+        0.6017,
+        -25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.267,
+        6.267,
+        6.267
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-22",
+      "name": "汽水套件 2 · flush_orange_can_closed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/flush_orange_can_closed_mcnuty_itch_io.glb",
+      "position": [
+        18.5,
+        1.9734,
+        -25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-23",
+      "name": "汽水套件 2 · flush_orange_can_crushed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/flush_orange_can_crushed_mcnuty_itch_io.glb",
+      "position": [
+        25.5,
+        1.1618,
+        -25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30,
+        30,
+        30
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-24",
+      "name": "汽水套件 2 · flush_orange_can_open",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/flush_orange_can_open_mcnuty_itch_io.glb",
+      "position": [
+        32.5,
+        1.9734,
+        -25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-25",
+      "name": "汽水套件 2 · pug_root_beer_box",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/pug_root_beer_box_mcnuty_itch_io.glb",
+      "position": [
+        11.5,
+        0.6017,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.267,
+        6.267,
+        6.267
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-26",
+      "name": "汽水套件 2 · pug_root_beer_can_closed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/pug_root_beer_can_closed_mcnuty_itch_io.glb",
+      "position": [
+        18.5,
+        1.9734,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-27",
+      "name": "汽水套件 2 · pug_root_beer_can_crushed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/pug_root_beer_can_crushed_mcnuty_itch_io.glb",
+      "position": [
+        25.5,
+        1.1618,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30,
+        30,
+        30
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-28",
+      "name": "汽水套件 2 · pug_root_beer_can_open",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/pug_root_beer_can_open_mcnuty_itch_io.glb",
+      "position": [
+        32.5,
+        1.9734,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-29",
+      "name": "汽水套件 2 · sierra_peak_box",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/sierra_peak_box_mcnuty_itch_io.glb",
+      "position": [
+        11.5,
+        0.6017,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.267,
+        6.267,
+        6.267
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-30",
+      "name": "汽水套件 2 · sierra_peak_can_closed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/sierra_peak_can_closed_mcnuty_itch_io.glb",
+      "position": [
+        18.5,
+        1.9734,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-31",
+      "name": "汽水套件 2 · sierra_peak_can_crushed",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/sierra_peak_can_crushed_mcnuty_itch_io.glb",
+      "position": [
+        25.5,
+        1.1618,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30,
+        30,
+        30
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-32",
+      "name": "汽水套件 2 · sierra_peak_can_open",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/psx-sodas-pack-2/sierra_peak_can_open_mcnuty_itch_io.glb",
+      "position": [
+        32.5,
+        1.9734,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.3601,
+        25.3601,
+        25.3601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-33",
+      "name": "西部套件 · BagArmy",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/BagArmy_mcnuty_itch_io.glb",
+      "position": [
+        -31.5,
+        0.9816,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.7334,
+        3.7334,
+        3.7334
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-34",
+      "name": "西部套件 · BagArmySlouched",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/BagArmySlouched_mcnuty_itch_io.glb",
+      "position": [
+        -22.5,
+        1.2242,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0656,
+        5.0656,
+        5.0656
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-39",
+      "name": "西部套件 · BountyPoster",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/BountyPoster_mcnuty_itch_io.glb",
+      "position": [
+        22.5,
+        2.7922,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.4728,
+        13.4728,
+        13.4728
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-40",
+      "name": "西部套件 · Campfire",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Campfire_mcnuty_itch_io.glb",
+      "position": [
+        31.5,
+        0.2615,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8452,
+        2.8452,
+        2.8452
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-41",
+      "name": "西部套件 · CardStack",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/CardStack_mcnuty_itch_io.glb",
+      "position": [
+        -31.5,
+        0.2071,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-42",
+      "name": "西部套件 · Chair",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Chair_mcnuty_itch_io.glb",
+      "position": [
+        -22.5,
+        -0.0132,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.7603,
+        5.7603,
+        5.7603
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-43",
+      "name": "西部套件 · CoffeeMug",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/CoffeeMug_mcnuty_itch_io.glb",
+      "position": [
+        -13.5,
+        1.1364,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-44",
+      "name": "西部套件 · CoffeePot",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/CoffeePot_mcnuty_itch_io.glb",
+      "position": [
+        -4.5,
+        2.6552,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-45",
+      "name": "西部套件 · DynamiteCrate",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/DynamiteCrate_mcnuty_itch_io.glb",
+      "position": [
+        4.5,
+        -0.0481,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.3113,
+        8.3113,
+        8.3113
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-46",
+      "name": "西部套件 · DynamiteStick",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/DynamiteStick_mcnuty_itch_io.glb",
+      "position": [
+        13.5,
+        1.7621,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-47",
+      "name": "西部套件 · Fence1",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Fence1_mcnuty_itch_io.glb",
+      "position": [
+        22.5,
+        -0.3662,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6269,
+        2.6269,
+        2.6269
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-48",
+      "name": "西部套件 · Fence2",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Fence2_mcnuty_itch_io.glb",
+      "position": [
+        31.5,
+        0.0065,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6226,
+        2.6226,
+        2.6226
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-49",
+      "name": "西部套件 · FenceEnd",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/FenceEnd_mcnuty_itch_io.glb",
+      "position": [
+        -31.5,
+        -0.0261,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6022,
+        5.6022,
+        5.6022
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-50",
+      "name": "西部套件 · GoldCrate",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/GoldCrate_mcnuty_itch_io.glb",
+      "position": [
+        -22.5,
+        0.0268,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6422,
+        5.6422,
+        5.6422
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-52",
+      "name": "西部套件 · Hat",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Hat_mcnuty_itch_io.glb",
+      "position": [
+        -4.5,
+        0.1224,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.9783,
+        16.9783,
+        16.9783
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-53",
+      "name": "西部套件 · Horseshoe1",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Horseshoe1_mcnuty_itch_io.glb",
+      "position": [
+        4.5,
+        0.4356,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-54",
+      "name": "西部套件 · Horseshoe2",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Horseshoe2_mcnuty_itch_io.glb",
+      "position": [
+        13.5,
+        0.4356,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-55",
+      "name": "西部套件 · LogStump",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/LogStump_mcnuty_itch_io.glb",
+      "position": [
+        22.5,
+        2.072,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.1313,
+        11.1313,
+        11.1313
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-56",
+      "name": "西部套件 · Moonshine",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Moonshine_mcnuty_itch_io.glb",
+      "position": [
+        31.5,
+        1.8741,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.3285,
+        16.3285,
+        16.3285
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-57",
+      "name": "西部套件 · Pickaxe",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Pickaxe_mcnuty_itch_io.glb",
+      "position": [
+        -31.5,
+        4.4552,
+        27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.1545,
+        8.1545,
+        8.1545
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-58",
+      "name": "西部套件 · PokerChip1",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/PokerChip1_mcnuty_itch_io.glb",
+      "position": [
+        -22.5,
+        0.0495,
+        27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-59",
+      "name": "西部套件 · PokerChip5",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/PokerChip5_mcnuty_itch_io.glb",
+      "position": [
+        -13.5,
+        0.0495,
+        27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-60",
+      "name": "西部套件 · PokerChip10",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/PokerChip10_mcnuty_itch_io.glb",
+      "position": [
+        -4.5,
+        0.0495,
+        27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-61",
+      "name": "西部套件 · PokerChip25",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/PokerChip25_mcnuty_itch_io.glb",
+      "position": [
+        4.5,
+        0.0495,
+        27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-62",
+      "name": "西部套件 · PokerChip50",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/PokerChip50_mcnuty_itch_io.glb",
+      "position": [
+        13.5,
+        0.0495,
+        27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-63",
+      "name": "西部套件 · PokerChip100",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/PokerChip100_mcnuty_itch_io.glb",
+      "position": [
+        22.5,
+        0.0495,
+        27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20,
+        20,
+        20
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-64",
+      "name": "西部套件 · PokerTable",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/PokerTable_mcnuty_itch_io.glb",
+      "position": [
+        31.5,
+        0.0121,
+        27
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0367,
+        4.0367,
+        4.0367
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "mcnuty-model-71",
+      "name": "西部套件 · Wagon",
+      "modelPath": "resources/Model/GLB/artist_mcnuty/mini-psx-western-pack/Wagon_mcnuty_itch_io.glb",
+      "position": [
+        27.0,
+        1.0327,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2228,
+        1.2228,
+        1.2228
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

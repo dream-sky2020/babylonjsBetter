@@ -1,0 +1,591 @@
+{
+  "presetKey": "artist-stay-retro-halloween-model-test",
+  "name": "Stay Retro · 万圣节模型展示（28 件）",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "stay-retro-halloween-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "stay-retro-halloween-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          25,
+          45,
+          -25
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "stay-retro-halloween-ground",
+      "name": "万圣节模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 41,
+        "height": 34.5
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#4d504b",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "stay-retro-halloween-01",
+      "name": "万圣节 · BrokenGraveStone1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/BrokenGraveStone1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -16.25,
+        0.077,
+        -13.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.236,
+        3.236,
+        3.236
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-02",
+      "name": "万圣节 · BrokenGraveStone2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/BrokenGraveStone2_SM_stay-retro_itch_io.glb",
+      "position": [
+        -9.75,
+        0.127,
+        -13.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.518,
+        2.518,
+        2.518
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-03",
+      "name": "万圣节 · cauldron_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/cauldron_SM_stay-retro_itch_io.glb",
+      "position": [
+        -3.25,
+        0.032,
+        -13.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.654,
+        4.654,
+        4.654
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-06",
+      "name": "万圣节 · FencePlank_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/FencePlank_SM_stay-retro_itch_io.glb",
+      "position": [
+        16.25,
+        2.125,
+        -13.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.71,
+        2.71,
+        2.71
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-07",
+      "name": "万圣节 · GraveStone1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/GraveStone1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -16.25,
+        0.025,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.497,
+        3.497,
+        3.497
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-12",
+      "name": "万圣节 · GraveStone6_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/GraveStone6_SM_stay-retro_itch_io.glb",
+      "position": [
+        16.25,
+        0.317,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.941,
+        2.941,
+        2.941
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-13",
+      "name": "万圣节 · Pumpkin1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/Pumpkin1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -16.25,
+        0.058,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.362,
+        4.362,
+        4.362
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-14",
+      "name": "万圣节 · Pumpkin2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/Pumpkin2_SM_stay-retro_itch_io.glb",
+      "position": [
+        -9.75,
+        -0.003,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.925,
+        3.925,
+        3.925
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-15",
+      "name": "万圣节 · Pumpkin3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/Pumpkin3_SM_stay-retro_itch_io.glb",
+      "position": [
+        -3.25,
+        -0.19,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.617,
+        3.617,
+        3.617
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-16",
+      "name": "万圣节 · PumpkinFace1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/PumpkinFace1_SM_stay-retro_itch_io.glb",
+      "position": [
+        3.25,
+        0.08,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.293,
+        4.293,
+        4.293
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-17",
+      "name": "万圣节 · PumpkinFace2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/PumpkinFace2_SM_stay-retro_itch_io.glb",
+      "position": [
+        9.75,
+        0.018,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.87,
+        3.87,
+        3.87
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-18",
+      "name": "万圣节 · PumpkinFace3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/PumpkinFace3_SM_stay-retro_itch_io.glb",
+      "position": [
+        16.25,
+        0.021,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.56,
+        3.56,
+        3.56
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-19",
+      "name": "万圣节 · PumpkinFace4_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/PumpkinFace4_SM_stay-retro_itch_io.glb",
+      "position": [
+        -16.25,
+        -0.114,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.57,
+        2.57,
+        2.57
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-20",
+      "name": "万圣节 · PumpkinFace5_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/PumpkinFace5_SM_stay-retro_itch_io.glb",
+      "position": [
+        -9.75,
+        0.093,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.257,
+        5.257,
+        5.257
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-21",
+      "name": "万圣节 · PumpkinFaceHalf_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/PumpkinFaceHalf_SM_stay-retro_itch_io.glb",
+      "position": [
+        -3.25,
+        0.005,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.56,
+        3.56,
+        3.56
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-22",
+      "name": "万圣节 · WoodenFence_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/WoodenFence_SM_stay-retro_itch_io.glb",
+      "position": [
+        3.25,
+        0.675,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.708,
+        2.708,
+        2.708
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-23",
+      "name": "万圣节 · WoodenFenceBroken1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/WoodenFenceBroken1_SM_stay-retro_itch_io.glb",
+      "position": [
+        9.75,
+        0.675,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.708,
+        2.708,
+        2.708
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-24",
+      "name": "万圣节 · WoodenFenceBroken2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/WoodenFenceBroken2_SM_stay-retro_itch_io.glb",
+      "position": [
+        16.25,
+        0.675,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.708,
+        2.708,
+        2.708
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-25",
+      "name": "万圣节 · WoodenFenceBroken3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/WoodenFenceBroken3_SM_stay-retro_itch_io.glb",
+      "position": [
+        -16.25,
+        0.673,
+        13.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.71,
+        2.71,
+        2.71
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-26",
+      "name": "万圣节 · WoodenPlank_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/WoodenPlank_SM_stay-retro_itch_io.glb",
+      "position": [
+        -9.75,
+        0.074,
+        13.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.124,
+        3.124,
+        3.124
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-27",
+      "name": "万圣节 · WoodenPlankBroken_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/WoodenPlankBroken_SM_stay-retro_itch_io.glb",
+      "position": [
+        -3.25,
+        2.125,
+        13.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.09,
+        4.09,
+        4.09
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-halloween-28",
+      "name": "万圣节 · WoodPole_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/halloween-asset-pack/WoodPole_SM_stay-retro_itch_io.glb",
+      "position": [
+        3.25,
+        0.025,
+        13.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.24,
+        4.24,
+        4.24
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

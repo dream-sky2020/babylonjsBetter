@@ -1,0 +1,1738 @@
+{
+  "date": "2026-10-04",
+  "author": "artist_philip-erd",
+  "sourceFilesVerified": 279,
+  "sourceUnchanged": true,
+  "modelCount": 358,
+  "lodModels": 67,
+  "modelBytes": 11490804,
+  "imageBytes": 23433701,
+  "sharedImages": 45,
+  "build": {
+    "command": "npm run build",
+    "outputDirectory": "dist",
+    "exitCode": 0
+  },
+  "formalLab": {
+    "command": "npm run test:model-materials-production",
+    "protocol": "file://",
+    "presetKey": "artist-philip-erd-model-test",
+    "models": 32,
+    "geometry": 41,
+    "lights": 2,
+    "materialInspector": true,
+    "exitCode": 0,
+    "otherConsumers": [
+      "model-scene-lab",
+      "model-display-lab",
+      "animation-workbench-lab",
+      "model-shake-lab"
+    ]
+  },
+  "materialRegression": {
+    "unitTestsPassed": 17,
+    "httpPassed": true,
+    "fileProtocolPassed": true,
+    "embeddedSharedPixelDifferences": 0,
+    "sourceMaskBlendAndDefaultCutoutPassed": true
+  },
+  "overview": {
+    "models": 32,
+    "themes": 8,
+    "totalThemeModels": 358,
+    "maximumThemeModels": 114,
+    "allTexturesReady": true,
+    "textureRequests": 45,
+    "gpuImageVariants": 46
+  },
+  "publication": {
+    "files": 410,
+    "presets": 9,
+    "publicDistHashesMatch": true,
+    "assets": [
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_medium.glb",
+        "sha256": "dc2b162633e72d1f49cf90bd903e171646fa14dea71faa707fd0cea0f2e424f4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_small.glb",
+        "sha256": "0af49813812a48ed735dd5038663844bb3eda058a8b87d01632824685ffc687a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_large.glb",
+        "sha256": "9ebc834ea82ed28ae095b75ac15ff426b04cb05a64c7c0dd19b625ce4a12ae84"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_medium_covered.glb",
+        "sha256": "e9062f2197cd156b9874198ad1a73e5eebdabd9fffe21a1fac9c2856e04dd706"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/bottle_1.glb",
+        "sha256": "61bbfe870f84bf244b44ff3a9f27f9bf6c85a8db9deb1fe453fd87ad9527018f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/bottle_2.glb",
+        "sha256": "c9a504e49ee6dc84dd863ff6a1b4f0e14ff215099bcd7911ec27dd556c6a3a37"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/bottle_3.glb",
+        "sha256": "a0637afd1c1069d1dc6fbdb809d253e206ade9a57ebbd1e1f9f69a4ecad397da"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_bottle_1.glb",
+        "sha256": "d42348235c879b645d63eccb2f57e1fd20da5a3ed5de2d006cb1d4e19cf6b943"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_empty.glb",
+        "sha256": "f6cc64a88404977520b4f7079058853a9fd94839233c0d9300cc8c5147182f93"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_bottle_2.glb",
+        "sha256": "82c0f749d4d088a398bcb75e9dc29f72851726946cd815f2e83b5ddcf4ac1f7a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/edible_green.glb",
+        "sha256": "a8f7affa2bd1b85bc2fdba883d2d40c7a801432bc9994293f544faac0e6736e0"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/edible_red.glb",
+        "sha256": "4269b17091685766e07968ea824e13b6b761422b2a311850a6ec43caea43a86c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/edible_yellow.glb",
+        "sha256": "b51b197867632e53bb168b33e970284ff2969398306c52bf9a6f56e8bc2b31d1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/edible_orange.glb",
+        "sha256": "e75dfe81777b1a9dcaa9765151bba81ee258d9faeab2316b54e67ca418b8cb19"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_thatch.glb",
+        "sha256": "a6576a82b9ba82d430e67be472c380521e832bd596a51d9510a439f918d251b0"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_edible_red.glb",
+        "sha256": "696c4ade6bfc3d1ec93e44741cc09a25745f005b506dafda0d6edf140478d23d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_edible_yellow.glb",
+        "sha256": "5f38a39d0c967ac8f9cc8c34f8e031b912f5833fdacce1dabbc493af0c7ce976"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_edible_green.glb",
+        "sha256": "b16dab6a1cfe67147256de7fecc3de2d50d747a7755018952026792dd99ee844"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_orange.glb",
+        "sha256": "df4b23e6195e72c77b7b0eb1cc3741378f0db03cb6a1c025530c999b7a250e74"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/package_medium.glb",
+        "sha256": "94369894ecb4912b81a91db878f66fdcad757a0258792f7cfb6cba4767f5f078"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/package_small.glb",
+        "sha256": "8830f6970bb11f043f5383f15585717d39b0d7198f996fc5e85b018f0eb1b326"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/package_large.glb",
+        "sha256": "310598bc879c23525d6c23e5db4c6b74be6701acfe03a63c0bd2556b3ea14055"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/box_medium.glb",
+        "sha256": "9ec0be9068d75d784b5424149e031c8a6a1ba5a5e9ce5d91784cd907f1a55452"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/box_small.glb",
+        "sha256": "6aa5c2e1c2ac8a792e3e76ab1a51c94ffd210a77093a9ba36df2f930646411bd"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/bag_1.glb",
+        "sha256": "fc15250aadd4ac2a0b9bfccdad9ab181c5907847e5e204c3df252cd016b2838e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/bag_2.glb",
+        "sha256": "114340af86da888740ec25c770cd99a669a3799573999e48590a27dea10f6592"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/basket_1.glb",
+        "sha256": "4d7708802f47fcbed03bb36db1604e8c9fb0b1f76b92885396d19efd3dbc14c7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/basket_1_thatch.glb",
+        "sha256": "278337bf0f15d35d5c727bda7815bed24c8a9664255fa49cdc1bfdcb204eb9a6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_bottle_3.glb",
+        "sha256": "f6d04c197dad1f74dc545edd5e14aa9f3188d121cdf61d6fa2bd357ac1c7c3c8"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/wall_base.glb",
+        "sha256": "420f2b71c9a4868a202d3fe0d43799317a4b29fb1729ac4dfab15533715f6181"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/pillar_base.glb",
+        "sha256": "290454be9b890264396d6c555b6db15145649111ced033a47d5545783482030f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/tower_window_base.glb",
+        "sha256": "cc43c4170c0d9d764f8e9c46a3f922841dca947ea9f12f17e440389313c766db"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/tower_base.glb",
+        "sha256": "a20cd742a6b95b624f1d2d77a72a38d38389ffb55600dc78bf7dbba57d5d8084"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/tower_window_sparse_base.glb",
+        "sha256": "1e7016f94b456c06231ef82bef8eb22a91c6155caaee35a7058a4a6cb02f9dba"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/tower_top_roof_base.glb",
+        "sha256": "daa518e12e3c635ada492ff1dc63093232cc5abceb01665dc4db61ab3bf68659"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/tower_top_base.glb",
+        "sha256": "62f534e2ef690e84945c0a3082ce29e143d18d5eb99c35e666a7700b15e79afa"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/wall_window_base.glb",
+        "sha256": "7a9be75943a473e677998208cd9d8db3b73cc84740a9b58b0cae2d6d57f54d4a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/wall_blank_base.glb",
+        "sha256": "060d7255a0f751cae4d14df59f6ffdb9193550f84fa4691f551e74a3ff26e6d5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/wall_trim_base.glb",
+        "sha256": "d187428b22167b99803a5774df006930f8363961be9c2f45eb4195cf6e9e6d8c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/tower_small_base.glb",
+        "sha256": "8ecae420de44608e2ba09d5ef935c771d37341ffa64824d17ad3f8bd6aba454b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/archway_base.glb",
+        "sha256": "9624d4dbc84fac37cf4f4fdc4b68e3f5049423e57a4fe672d688e357809e753f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/window_small_base.glb",
+        "sha256": "d32a74b3259e4142cfdfa606c7a17ac3558a67303e15adf762bf424ba86dfb02"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/window_large_base.glb",
+        "sha256": "369fbaf57ac6f0a2ed2c5071f012b70334fe13ce28ef84e6949cf12b369e97ec"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Castle/castle_1.glb",
+        "sha256": "0b7ca8e3c54de59b788a4b0fc30d9b5e6df9868ec28749691cbe9321350ee735"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_1.glb",
+        "sha256": "024658490183ef8c5744cda821cdbc80459cb907e3eda7b47125ea8c964d8c3d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_2.glb",
+        "sha256": "0a4c5c70e50bd63ae10a5ceb8b55a0946c1c46aff348c265eeadad8ba625c16f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_3.glb",
+        "sha256": "79487b808931fd1d60bea90b10ce3ed6ba0924344ab90ad1e3e6e4d63c059bd9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_4.glb",
+        "sha256": "f1accefda577882b3827bb7be7c7eb37a3df9c93f30f2fc2eca03d78d89ab533"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section.glb",
+        "sha256": "5215f39cd4d586d0e700600b68db7df7e33c22bba7345aa56d6c4658a0942bd4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section_broken_1.glb",
+        "sha256": "eb8230556a2170bbdf72823664fa4fc872eab494cbe4acf5304a972027f6c418"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section_broken_2.glb",
+        "sha256": "a5c5a37a362ee9d16844c86f2f8bcb2eea89c2f169f9cf92483ca0461769d099"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section_broken_3.glb",
+        "sha256": "e697404b2d5be1d7a60160928d0677e7c5827a5ff3ba0384ef8db700dac5be13"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/fence_post.glb",
+        "sha256": "cd87ea4568168bf09d12f54dd46b778c02b1f008cff20dba6f75b5366b64a062"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/fence_gate.glb",
+        "sha256": "990fc32ecb49bd93b06ce4a279d966d2cc8889193b641bd3b91bd2bd15e7fe7c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/coffin_base.glb",
+        "sha256": "cc5034b0ee805bf447b905a5e21467f590b13f4ce85e1433e08f3a0680bb0ed6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/coffin_lid_1.glb",
+        "sha256": "da27814d866855c2bf463068b8750c9f61e019037cab800372f95fad31065e78"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/coffin_lid_2.glb",
+        "sha256": "e3b89251cc0e5d0fa759bb2fbb6e3b4be0ab4f6df1b46a7bed1dba0a9fad0d6d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/candle_1.glb",
+        "sha256": "830449c92770d82dc5cb56b01b01717b8cd4be70a0ab53398fa974613e467305"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/candle_2.glb",
+        "sha256": "f2518e0a58f68ea1ce11c150a15febd847e3216ae56edf7c6c099838ed27b469"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/candle_3.glb",
+        "sha256": "42c681745efba1914b823c4a3ea3bf20952a6dfb24485eb892db42d422b4173d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/candle_4.glb",
+        "sha256": "12bdf07667800977effaf68c5fb2d80eff25464f1bf1218a5e732cd3d57d7075"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/lantern.glb",
+        "sha256": "e4492f7b417dd674b7144be73f6913a8732fe4387b9169e81477af2c2077e18a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/couldron_1.glb",
+        "sha256": "eb3ed907e94b391e93ad02fcf2139a0cb57be9b7822bb579587b88e73b646896"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/couldron_2.glb",
+        "sha256": "8c8ccef7d123d82a36dcde311f306bc14a2fc47819b300a0874b2c1c98180ae0"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/couldron_stand.glb",
+        "sha256": "bfd36289f013879273d613a6c3ff2c56a349e523937372d62aff86a78bdafd1a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/tree_1.glb",
+        "sha256": "ac60e20ca8d6c4a14cbbe206eee5bdd1b34ac89645255a77eeb72d27231176c9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/tree_2.glb",
+        "sha256": "a92179c526f80906dbada2477156c634a20bcef58c5ea5a0a118523554b03204"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/pumpkin_2.glb",
+        "sha256": "b69afc4346376a3417d4afeff3daeb859c75727b8ffe2663b2a939e96e184950"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/burning_coal.glb",
+        "sha256": "7236b8ffe74086f4b4b9a00cc736f860078d923d13e83df4645f0b2c21b7a984"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/pumpkin_1.glb",
+        "sha256": "f342777585e1f64baa9ee8ac5281846dcc6882865dd1114e4076547762f132c2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/pumpkin_3.glb",
+        "sha256": "2396e2d3036859d34b1280129a93a34ca74aeaef43b9386e2ea211649b967007"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/bone_1.glb",
+        "sha256": "79d854a595496e3e3169c17860f4515f2e8b7873f3a724d92ca245ab207eba1e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/bone_2.glb",
+        "sha256": "9d33df010fc3b81c9cfc422bb8ee623fbe2a4a9f18f4075366f4dabef078a74d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/wooden_cross_1.glb",
+        "sha256": "a7b8c0dc33fbc8393c44f748881b542b72914ce5c16b14a929df61c1c1bccf49"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/wooden_cross_2.glb",
+        "sha256": "b32baf07774888ec18272c63d7ba90c7bebf6f21f50ae35e10817eae2f92ef79"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/wooden_cross_3.glb",
+        "sha256": "123bbf9222e34130efcae9a3a02a9a8f61b96e2cdc8e8739b98e2c7c1ef85f31"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_1_broken.glb",
+        "sha256": "bfecf037e326231790b70fd67b0d32522a0dbbe30f8d7e6a3b861027b547d837"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/dirt_hill_1.glb",
+        "sha256": "dff785d18e12ac09d51eb2876421df455397c2a1e1ec623a31891e1db6ce0fdd"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/dirt_hill_2.glb",
+        "sha256": "356299480da6afbc0ae8c8638049679bf855624300198c32d3fbed7f5f0234d7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/dirt_hill_3.glb",
+        "sha256": "9a1c63ebbff3be2689f2d37e3d89ef0c361ddce381f8466e2e22a0af35a660fc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/gallow_base.glb",
+        "sha256": "f104f980de2a331f0e83984a93f3ed6460f6cb64356cbaf3988ae1519d98922b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/gallow_rope.glb",
+        "sha256": "94310f4ae50e3cf8d660880ba5b8d0c33e831456e6896c401a7f3261185e0edb"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Halloween/gallow_sling.glb",
+        "sha256": "f02d2d754eb1c9aa6bbf7cdf8f7802ad3ef7e1b6b5f3821e5d839265ae2a9963"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_barrel.glb",
+        "sha256": "badf64ddade7b8f4eea35c916ab331f555ee688966076908893b4204f93d1092"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_carrier_001.glb",
+        "sha256": "8d4aa98895bb55bca1acd0359d59c2804c41e480d6360b9c1fde3e75a1696e56"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_wheel.glb",
+        "sha256": "79fee84f7e701df87fa0c7801231397e4cddb992ad17122df227876e371eab6e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/barrel_001.glb",
+        "sha256": "c31f42ae328ab4a1e761bdc07848fa31d482465478d4c9377e8b1196967d97a9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/barrel_002.glb",
+        "sha256": "5136255971d20d764910d52cfc4e10ddb096ae07bf63162c324f56e4bb5cb73a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/box_001.glb",
+        "sha256": "55aeaf26a2be79df4f12fe2b63e57ff4bcc33d78ec6a40c66346c802b8034cc2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/box_002.glb",
+        "sha256": "7b895e2f33a3bbbb1ff212fbfa287653043c6cf50b1b7664e36dc53e2fa10648"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/box_003.glb",
+        "sha256": "12cdb2343e4599936dd98099581689075c3a76bc583006738bab64e2e4548b09"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/paddle.glb",
+        "sha256": "87c0ca5fb7b346061cbe4884418bcdc79d22d7cd14e423cf4e3ce5bfffbeb3ce"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/cannonball.glb",
+        "sha256": "aa25c30d98f27bdf475faea84d22a224f455848ec95d1776f494a9a61bdb592e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/lantern_001.glb",
+        "sha256": "831443ee4b1c7bd676453b56327ecee22d39cbbe55eee4ca937d79ef92a135a5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/amphora.glb",
+        "sha256": "493363686eef0356adfb0901375c2a67e81b361cb66aa17099f0bcc0e443ec02"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/chest_001.glb",
+        "sha256": "b55f5852711947aaf90b1567fd69f416b9558b85b9d3c0debfda9a6eb26d9b8f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/chest_002.glb",
+        "sha256": "109a6b267a0647fe7e8bfc966715426021d70514ab4cc6b4341d42d84f50bb55"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/pole_001.glb",
+        "sha256": "7730585bfba4d987e5f4e2f57317b42c9509bccb09eeeb42d16e6dda0d512ce5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/pole_002.glb",
+        "sha256": "8aff96f0c11bae354c7b8818876d78254b96b34b2bf27ef1bc5f2bda2b66adcb"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/pole_003.glb",
+        "sha256": "7643c9ad4ebc54a18f540d35f19dfaf4aa0856ee9a161b694e45e8ae0136bfe4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/flag_pole_001.glb",
+        "sha256": "5dab62e5bd2de26e8e5e370ee21f0499212a45a4162078a3758f64622b1f620e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/flag_pole_002.glb",
+        "sha256": "0aaad88af982c90011161b2ed8d31ad8ce08e0386d800ba908018a7b4b77713f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/wagon_wheel_001.glb",
+        "sha256": "18f98eaaaf2ea0682caa8c6215bec762fd937c1ff324233c1a1927faaab03ab9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_carrier_002.glb",
+        "sha256": "94c7c2e6fd5c74c61f677f4e9f31e9e6a83f663ff30dcb410c590b43d9e18dc6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/window_001.glb",
+        "sha256": "feaa1cfdb6091dcc2fb2c4115b1d613280c0adf17e36b11776731b80fa1d2d58"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/window_002.glb",
+        "sha256": "8e55a37e211c3e42259911bfb5ecb96f103a18b50eba873c5ba2613115ee1171"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/window_003.glb",
+        "sha256": "b6eec3fd6ee346b052e33740200b6c50d7f28efe36b0024349aff1945950abcc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/window_004.glb",
+        "sha256": "1c48389fa8d30c0b2719f75462c3dd388632f2d68eede780b0351c7a060a81a6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/window_blend_001.glb",
+        "sha256": "7c13b43bd9fffeb7f42af0e477ea13cb09d282100de60a46d24b484594d82bac"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/window_blend_002.glb",
+        "sha256": "863ccd5acfcc967e9c39d5a9bbf32852313685a2e69c78cecddba084a9c128fc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/bucket.glb",
+        "sha256": "0b61b94093d833d47529db01e714b3399215d6573800da3df677b2a0e9938ebe"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/dimond_red.glb",
+        "sha256": "3d3dd2e70f4c86367b52bf5f0430702e5968351550062b090a87b43debb96fb7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/goblet_001.glb",
+        "sha256": "664ae31f54591d22c391cb859e4e99a59ebf1545e72aa0c64957472a32907e18"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/shovel_001.glb",
+        "sha256": "76ec20571f151531730385f2386853f379b0384a0379e5cb9780c20170c307a2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_001.glb",
+        "sha256": "d3fa013752f015e47d081996e003adda78a396457fb02daba92ccecba563b9b6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_002.glb",
+        "sha256": "448604f49419e4b1f6fd08d864c514cab0e470aafb813f7111a2530883711db9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_004.glb",
+        "sha256": "7e05d45611f2e1fbab3fffbbe3a473a60255b44a1715eaef7874a931170cfdb2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_003.glb",
+        "sha256": "5aff75b3d139c0a2300403ca44f25deffb0fef99b938765e6777359626250bb1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_009.glb",
+        "sha256": "3e9921981b44891bc8097b809443b538d61512787c52f0eec3c7893e506ec8fe"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_005.glb",
+        "sha256": "87d46445e9988a0435525a9b368a032319cf04da4e287fa809afae940bbdc6a2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_006.glb",
+        "sha256": "e7f997d8d18209f126b154ec900635e1beb5b697ef1c845df9e73049bc990366"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_007.glb",
+        "sha256": "f324f02e27b2bd2f7333b5fa9eff61ab05b8cee199becf39d72134dcc3d61ef8"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/plank_008.glb",
+        "sha256": "9373226b6f10b095c372cf9f49d55ea6d4f227232b652af22f7bb0dd8019ae47"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/saber_001.glb",
+        "sha256": "f4434a0688b0588b7cd79722b151dcda8f67a253ee44aa309531709f5f2f7312"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/saber_002.glb",
+        "sha256": "7ba8ae3d27d50b2ce745e06eeee5bee3eadce56c7ada39842e0945bf73abff33"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/pole_004.glb",
+        "sha256": "5e9e682cf6191cfc153e7dc9315bdbfafe57b5fd1be9e60a8c90f14e33149deb"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/barrel_003.glb",
+        "sha256": "fca5855253de8063a6af66d65ee0f5918a64aad18bda3c1ae10955b177e6096d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/door_001.glb",
+        "sha256": "07643c58376394ad7470eda28deac027faf9e2e9e5911d1ec0b41369f98eece7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/door_002.glb",
+        "sha256": "a63d7acad80b98a4b10788540d48605342aa6235e29f131839dcf7de2e1e3e9b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/window_005.glb",
+        "sha256": "b8803fb18ed8a0b36a401fec69aee7cc379888a415585f0d70010a3885c4c7b6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/dimond_blue.glb",
+        "sha256": "a3849d23b8cde595d554f3653386d678d6e32ab6ba14d3d34f5d6473467926c9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/dimond_green.glb",
+        "sha256": "9cec07c4cfc3e5386321a6c0bb2de80cd91bdc0bb3a4b3e269db6ffc601967f0"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/dimond_yellow.glb",
+        "sha256": "743a306dfe032d9dd98fab48f5e45b2733a1214e5ddc22ee6cfc8e0cdd160dcd"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/ring.glb",
+        "sha256": "52faddabcf74f7096cae73b092f37aae31dc47332a7b4e05eb11be6aa472a554"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Pirate/lamb_holder.glb",
+        "sha256": "ab2bcc3f1dd8e25f527f89350dcc874066c93af02d37ac4b5027dd5f93632168"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_1.glb",
+        "sha256": "63ca9bf12f50530697724db71e62174571bf1135b856d6407f3152de5683daf5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_2.glb",
+        "sha256": "443d2cf62c1c52cbbbb2570817c756b3759697a4d0701987c19ab6ddf91287c8"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_1_hang.glb",
+        "sha256": "2f2dc1925464dc618e988f54e349ec0594439b84f5afe71317176ed7a4d85c5d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_1_wall.glb",
+        "sha256": "2a70637500965260b4a26838627655850a82828878b39bbf133fc993d2ff0a8e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_3.glb",
+        "sha256": "063c19b69edbb41ebd0996ca32685b37393bc4b14f2cbedca70c90591c7e7cce"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/fence_pole.glb",
+        "sha256": "541c323c56ae693096351503ed7a5fc9ef5cb209cd187e2ed9a6785dd60dbd30"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/fence_section.glb",
+        "sha256": "68a5b8b1d75b5106faeac311c32942ef8a0c10b59d91ba520cda0c771b22aa74"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/fence_pole_with_section.glb",
+        "sha256": "bc91fefab4f3091954688e5de6bbc3be2424867dd6462a5401f737db2c87308e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/airship_pier.glb",
+        "sha256": "2e9defbf796543f48b57ceecd29880e1b91bf3cb37b16ae010b848aa159da741"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_crane.glb",
+        "sha256": "30271d607885b230eaf1ec4ec6bd567d594267d30346c82e346bec1c828d52c4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/door_1.glb",
+        "sha256": "a8061f6589fe2bb6411b695fca36fcd0b5e02c45fed0e75ae320403942acd756"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_1.glb",
+        "sha256": "f68ec7ad90282ff0d8ba82577bf56285f18679bb4b04968650362e7b5ced6010"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/crane_small_base.glb",
+        "sha256": "aeddc6e0ba227832578bf9a1ccaa6d525ddc2cb637af49c93ce489465d29d72b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/crane_small_arm.glb",
+        "sha256": "a213e068414862660ad7d968da3f69547abdd18e61d40d1614779d3a576980dd"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_2_hang.glb",
+        "sha256": "3af43e03a070dd0f1f63e7b6b3baf10adae880c822f39fd6a5e6294e433e173e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_2_standing.glb",
+        "sha256": "d85c4bf5cc896fb93ad00e3dcaf366f58a4dc67c27a71924ea280823ef3223c1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_arch.glb",
+        "sha256": "d86abfbe2bc1cc2e5b2674540d5216add838d491deb43222577039c866c98d40"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_1.glb",
+        "sha256": "fdc46d31f53ccd45ac2a21603cf232ddb810284c18a5400f36c135fdb09ed40d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_4.glb",
+        "sha256": "def5ce4556f9fe01cf661fd8e4dac736043fccc67c908c7429eeeb7b65e717ca"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_2.glb",
+        "sha256": "4bec94e021feaf10b866813a58b7173668e7e791ab1d5b1e0de7073bd278c8f9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_2.glb",
+        "sha256": "7b1be0b20f96c8ecec06a2e444d15387a1dd4c5dc9aa0f5fbb19ee7e39958b48"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/lamp_3.glb",
+        "sha256": "3db8ced3e73caeb456ca393f65e72f3e3da14b1c752f46e07950bfc32d5e901c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/rope_hook_empty.glb",
+        "sha256": "d46d84a118444ab46f703d971bb48d9b57d36147cd997a6a50863d8f857549bc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_3.glb",
+        "sha256": "d96e057b79900d001f0c911e481655dd6adce578a4c46a5e1c7bb0db869ba596"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_tower_top.glb",
+        "sha256": "f6162b024b002d00085ba8c6c2246015a1b1a46b70527b16f2cd1449be5d47a9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_round_small.glb",
+        "sha256": "1d196c90ca304b4053db378a866e6287f11a8b98e123f06bb62aec5f29567014"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/metal_frame_gate.glb",
+        "sha256": "4ecbca2ac12936318782fa170209031046ef0b09c22b66b7da0c34b01a1dd124"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/double_gate.glb",
+        "sha256": "3d1e61525c79d49b9a145c38f901521f556410b69c8b1f98b8cc9ab7ca466d7b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/overhang.glb",
+        "sha256": "645f934602f09c24413bffe0a8662bf011382004821e395f630d67fda4b638b6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/wall_frame.glb",
+        "sha256": "3bb6d8f65ba528f8de2b5f472c07f6043f605f4cc2ba4d8a890b105eaaf49084"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_large.glb",
+        "sha256": "696edf385d19316601ee0bf0590985b606b82071b440ec981ee2ef51a74c294a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/turntable_base.glb",
+        "sha256": "a4b6824bb3a132e9dc1f3fc3eb7ce7c16f416790146ad5013f46bc6916627187"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/baloon.glb",
+        "sha256": "76462503b90f066816f5b85b87acbf4812d74d8dfdee01ad3f77634da4c61ed7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/chimney_1.glb",
+        "sha256": "880839f14ec9302528bd1e78b879b8dcabe8053845162c41fae8ae3eba1514f2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/chimney_2.glb",
+        "sha256": "564333134f8b81d3837435c2317058d02252d5355993eddd75a994bc3f2ae1ba"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_4.glb",
+        "sha256": "941e97ba6f2c154f599951c259563bd850c244df524202e16539eeee6377a76b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/tank.glb",
+        "sha256": "5d665ca721cb6795f45b4d1af6c7f38aa2d6563d4d2055b0bc43447960607c0a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/dial.glb",
+        "sha256": "45ca0c6f895691c30503e9d9d31421572fdb696fd0cb98a96058bfb42a5eb356"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/turntable.glb",
+        "sha256": "7fb58472accf0d3814828f2bb53cb31e15912a3f98442a7a36acf2fcb9e689f6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/folding_rail.glb",
+        "sha256": "d8c58b0fe76b30abca3bcae16d4fed65095feccc2b695d8a08d59b774fea68b1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/turntable_rail.glb",
+        "sha256": "77b2ae5b7915b30f3fa21d877a2a9174c19d41901c05ab2376a78a39ea96d0e1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/cabin_door.glb",
+        "sha256": "17152e5e94767a61bb167f1eae6cb1936a053c6f5d079808fd54b3a914255c8e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_floor_1.glb",
+        "sha256": "ab8f252999715c0be17bf16ea9bf124404406a6678a16d22209a89f819853e3b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_1.glb",
+        "sha256": "6c2e6b6a522b7ac1e8868c3ff8706d18dd7153ced0a2d289645a5ccfc67e513a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/controll_box.glb",
+        "sha256": "bd5a93748a3bb976ded30ecacf4c26d0446d72b63bb9f9de23b8ea97e4a14883"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_2.glb",
+        "sha256": "84adce6eaa1e789136fc95cbe4c41d3d7f3f7320a0fc2ba607e5bf355a804d1d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_3.glb",
+        "sha256": "6d9e8167829ea0918675331cbac24e4550e18c9a8ad1e684f2cb1644e812ebc5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_4.glb",
+        "sha256": "9c24c70307a3e4c494ad525548814710cdd9711f62902a4938d5a137b11d6881"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_round_2.glb",
+        "sha256": "26b39027338ab6272332874557740dec53a0bcb14fc9c0c7231420d3414488b4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_round_concrete.glb",
+        "sha256": "446184d3e083f87191f30ec51a0dccd42a3e6d91b1557d4ae48b805f165df41f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/dormer.glb",
+        "sha256": "cfe498610b934ba30e86fddc92aebbfce3102d91f42a6edd2750e3afee03b291"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_1.glb",
+        "sha256": "2a8bf50e6d0c88f1a62cbd24b65d17c3aca5360cb3e9ee81b3f42fb19dd05fc9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_3.glb",
+        "sha256": "0b36fe364a0e027fd1a0aa5c73aeb5263a5ad8e5fc931f182c6aabb627a85bf7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/chimney_3.glb",
+        "sha256": "4b77262f8794eeb44fba295fdb650341d16aa3e658b09f35a09a4bd10265cf0c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_5.glb",
+        "sha256": "00ed0712780a2300ea28e4ae0257bd161cb74ac4ea8b1fda070925b30f5f6a90"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_light_arch_medium.glb",
+        "sha256": "0613a4a24dddd7ae771ebb105bfa5b148bcc815bf0087bd0a545663ee8f150be"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/window_light_arch_large.glb",
+        "sha256": "e27d24fdf344b99c867df2c0614beaa3712d0299bcfb6c8ed6070f12c1f959c3"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_2.glb",
+        "sha256": "69ef404c060e80fc778b37f6b43f75f712c7f4bc00ba8e4192a4251e52600d3d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/chimney_4.glb",
+        "sha256": "b80a25ec57220c118acdf2283e5f7441186b689076e310dca58d126c8b5ded60"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/rail_house.glb",
+        "sha256": "3feaf1608cb474c39f5b96dd24c5ff401fbec9dfd0ae2e5111155aacc6b7ac0c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_small_6.glb",
+        "sha256": "065dace87b253b13228d7e597b6b6b4755515b5126090976ed22c7a309a011c8"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/building_3.glb",
+        "sha256": "8686cd50ac33832363f44ccd4b9a5cb320a5bb3e7d30eda329fff1da4eab275b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_back_wall.glb",
+        "sha256": "9e847e55d383710851ad3d781bf3c68fe52888ce45eeefd1799543290c6604cd"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_small.glb",
+        "sha256": "27692c443c3c03d3b4bf0452c335411df112cb5b382b001a210b61aab9b98f01"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_medium.glb",
+        "sha256": "574d4ac531abaf23b465316020e7620a62f13cea9589ef12882023a870d99ba7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_large.glb",
+        "sha256": "156a50177ac5f55635e75467643ba270dc1d2f02bc7a1a8ec851d3128a3f97fd"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_round_medium.glb",
+        "sha256": "7f33c679791b020006c1d60f076c0b1b15c712d20a28400e1e0c0d1d03c132d7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_round_small.glb",
+        "sha256": "95588006acdeb46cc0e49f40e27e034aa7c28a4cc4b38b9158f392154b7be1da"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_medium.glb",
+        "sha256": "4433404c5bd72a31a72056ec2be75af14b6abd3ab1055a3b4cb3af9a31948ec5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_small.glb",
+        "sha256": "a7a75d21ced9933c28ee2c0dadff3bef36e3e9b0783f6551e7c9d6ea62c02751"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_long_small.glb",
+        "sha256": "fb6136e7869e28e095afd0488273dd3911a81d1e27c664f8e2903c18fafc1b69"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_large_double.glb",
+        "sha256": "f2821473ff3f3e89a83ecddcea8cad8ea86a63f93e94a1ebe1350987c9d58605"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_lattice_large.glb",
+        "sha256": "9af72584a8fac0e431a3940a19b041163db4cfd8f1ae2a84b4d2b61c8b469ae3"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_large.glb",
+        "sha256": "ee913a556f65acb76e09cd971145fabb997248d446a0cb59271998b41b0d3c9b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_lattice_medium.glb",
+        "sha256": "c0cf9611ab8598a7c2ccfe58857e751112cc9e585d3e402fb07c535ec7fa8c01"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_round_large.glb",
+        "sha256": "73208467c787fa7c93beb981a7d9be330b776782373e2c22c82f8ed2928cf1cc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_pillar_medium.glb",
+        "sha256": "1ef1488441ad5502af5da98c13725063f3e856f63c9a47aa0c1b8c5c1db19d1e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_small.glb",
+        "sha256": "66e2f07b3145f4237863309da5cb25014add4e799fdcfbb0d2dcbc27551f2815"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_medium.glb",
+        "sha256": "b71b14ed94933d538145385ecbf3ea86380ffcc3305d9b5afe44bcbdafcbcb1d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_large.glb",
+        "sha256": "80277f3f00d7511da9767646cf9fe1ea569f301d97405fb4da0a91a539befd5a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_western_small.glb",
+        "sha256": "4a5426524d93a1c71c6191144a89fa0f34556d363bb5a14a2982f0fa7fce9999"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_western_medium.glb",
+        "sha256": "6fe44d7e9294acafce1da7d9a2b97fe24bf12b1203efeacea0cd5c30799adb4d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_western_large.glb",
+        "sha256": "8fc55ae38782e8eea336c92e7f072785b4749235fcf7a531162705f8ebdbb4b1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_light_arch_large.glb",
+        "sha256": "98815eca0fc82b29252823ee5c5fdcba9963934201f213693676c5863afddca4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_light_arch_medium.glb",
+        "sha256": "9af6f7c7d075127d5d16b027a71dd73f605865f29525880b7e8dd4d7d62e94e2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_square_large.glb",
+        "sha256": "4547245db30f3a0bf558097c51f069abf97f9c60142e63f9adf65f18df644fd5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_arch_large.glb",
+        "sha256": "41caed83d72bcdf7e97e2855040059c8d09052eb05af4fa0d142b8fd059fe208"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_arch_medium.glb",
+        "sha256": "7b29b05e213421b6c7fbeb74d0617aa6f2580c4656f06b3db7819f2b09102271"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_round_medium.glb",
+        "sha256": "adf4bab13e412670dfab2af21b2a9f07e7eb102fba07d045ff17472cb2ad21b8"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_1m.glb",
+        "sha256": "9b3f8b9663d6f9f254a643931c77ef01e698d385bc7d35f46c14945e0ab21c76"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_1m_LOD.glb",
+        "sha256": "34af6ec1e68835b8468d4fee27cf2c305549e3e661f615d310c6d6b7ede3fb81"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_2m.glb",
+        "sha256": "e21ea63512565729905eb1de86eacd5717eb568706f80ff0a3fad38bfca2ff2e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_2m_LOD.glb",
+        "sha256": "7b7cf5c58abb1c9ea30075a06435da698038945e33c8b9b0e034ecf63d419298"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_3m.glb",
+        "sha256": "36b1020ddc025669966ccb4b0b75ce5f69eac554dd16c308e976783d1799f826"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_3m_LOD.glb",
+        "sha256": "29ac32ba94ecc7dbf7fd45a333773bece593e3df98ce56e8251f54516f7d6f06"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_cocave_1m.glb",
+        "sha256": "25f43c82ded9005730629c1ae5815a2193c12738600f1b25a1a6a2c2ba098e07"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_cocave_1m_LOD.glb",
+        "sha256": "3f833a46da88801b39c87389a9da08697e8c672bfb3e65b3af4370c46a193a97"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_concave_2m.glb",
+        "sha256": "ade36ee5ad3f36a7155d198161e2c306973aab70638901180be9018f951c8675"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_concave_2m_LOD.glb",
+        "sha256": "9af5a64fdc69bf3e5a801d2eca266d58bcaffb7948d5ba1d1ecabc8e1afde1e9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_concave_3m.glb",
+        "sha256": "63782fa189d8c07164d2c0e4cd28abe6ada01ead85dc7d036febaa4e25c3a7fb"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_concave_3m_LOD.glb",
+        "sha256": "8af40c2c94230bc3274ad7da1a4af914ac0405fa16b8ccb0d7f2924fc527dd67"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_1m.glb",
+        "sha256": "bab8717e39b59a3c6d1f87ff45686096d34c57a918dabaaad33f8cd77d0d5f9f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_1m_LOD.glb",
+        "sha256": "71216646d1d05adc3e035077ece9d14277b10efef16c9bbe2c45cc1a5fca9cab"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_2m.glb",
+        "sha256": "f52e440e12cca5abbf2e0f86769916bcb04e9fb4503e21ed685f61b452ea0ae4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_2m_LOD.glb",
+        "sha256": "5e47b1dbca30c18ed8271b2905c34e73b6d3f4e812603aeef67dadedba212ee2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_3m.glb",
+        "sha256": "f9dff60d1dfa383d4ec0316be48c0a8989ab23548de399805bb70cf57e153665"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_corner_convex_3m_LOD.glb",
+        "sha256": "9199edc2baaee751614de3307f9a2cb7bc504424b3d2e105dca22507cfab368a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_1m.glb",
+        "sha256": "ba76a1f304b2b307dfbefb94fd5c0f44325e1dd2714df3c8432531d6dcf71a5b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_1m_LOD.glb",
+        "sha256": "1e0155f16ec1ff42557db6523b498e313c9d1201e15ae6e65b9d7c6c8cadc00a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_2m.glb",
+        "sha256": "2ef3749cedfa748671c5fb2573669b7f57cead5bfb9cf8e9f6461f8c54d7a9c2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_2m_LOD.glb",
+        "sha256": "a6c219eaa59ab98c83b650d16e2ceaa6f3948f5ed66b5bf859c3126f618c0ae4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_3m.glb",
+        "sha256": "2638688317830af4e75946774865bfaade0aa450d60dffb0dcee6d330b424ad4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_edge_3m_LOD.glb",
+        "sha256": "72fa24624bdf01a2a58493769bbde123e60ff9f7fbaedd05e84ae117d7a2d96f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_1m.glb",
+        "sha256": "d91616229343d6dc920e340eaade322f729de05830f54980dc5cb5911755005f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_1m_LOD.glb",
+        "sha256": "d2f65f5531ba4de96ad0573e7100f85240f117c83a4b4fef98096fbcf560ca24"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_2m.glb",
+        "sha256": "df702bd618f845007c8ab2e765272e9086e9a057d98b7c61056fb4ef60ebcb92"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_2m_LOD.glb",
+        "sha256": "757276ac6629f9c90a8ccc776a435f2d8054b6fff2634d6d306e98e0db1c97dc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_3m.glb",
+        "sha256": "1d813ef89544c470822813ddfcbcc017d3d9545a27292dadfcd62cf545d9edd9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_3m_LOD.glb",
+        "sha256": "dd90edc405f89c89d703656c84d3d0a760edba68c2dfdf4f7ca91a1d6c42e17d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_1m.glb",
+        "sha256": "52db7b6ca7cfafda31dc3a72a9dea24f0d61990f8890b35f49a3915c7865a130"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_1m_LOD.glb",
+        "sha256": "9ef3a308595deeaaa73dd2297145f93b294e06d9305477a1760dfa787e49c0bd"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_2m.glb",
+        "sha256": "e7f59252b54abc666eca04b5a985877bbc3ba559c81067bdcac84de632201fb0"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_2m_LOD.glb",
+        "sha256": "6a17b6c54496fceedd63e29426ad260662cfc19eb2e258b9ea393ad0971ff9b3"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_3m.glb",
+        "sha256": "137fa245e36b4c51c161534197cd363c26b6982c1fc34e8a3941d54e11f1f7be"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_edge_3m_LOD.glb",
+        "sha256": "b27c9c882a9b31c0d845b04b93b3026376f0319a1c48c37d1783a10b0fcc1aaa"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_top.glb",
+        "sha256": "965bbdee99451e20e5f8745075cc23b727390ecc1a5fa43a7cd1dd004f6fe8a9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_end_top_LOD.glb",
+        "sha256": "e2f3db3fab12235583d96185d4c5305b81bb6874ba9a5808ebce9c2e06171ac6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_flat.glb",
+        "sha256": "b408e5990a292277a3dc6dcb57eb17316f4b49fd8d43b8b6cbbe5a51b387aa7a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_flat_LOD.glb",
+        "sha256": "be16210fce4185b7ee7c2c1f40be356c4ce22c005749c4b8429bf318b49ede81"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round.glb",
+        "sha256": "d945cc9c189cca878258e6b49703d87f9ea0300643ea16b4b8297ba64e6f0103"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round_flat.glb",
+        "sha256": "082a5fa0e2a5009a4e79df8ca0824cd025ccc58d626cfdc067842fff34ad644d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round_flat_LOD.glb",
+        "sha256": "89a3137f50492a4f4ac192e793e968dbb17ffda7b31e9f118aa891d95bae12df"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round_LOD.glb",
+        "sha256": "2f547e02fccd83ab039cc9848aafb515dcaf1f75c7c8eef6b1bb26936e30f9c1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top.glb",
+        "sha256": "a0c910564f83ab6698414845fe18c61403d66403fdf6acdf0fd653ca751af6ca"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_1m.glb",
+        "sha256": "637e7e323eb50f9f9b569bd91394b1083c07a45a4f822aaeb30d575020255997"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_1m_LOD.glb",
+        "sha256": "02fd2d6bc22e08cbc945221e0524186c4925f3a5f7b3de313dfe48e588cb8a67"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_2m.glb",
+        "sha256": "46446c3b0c0f8c2ea7a7771eefff1361f001c7f7926691f382971a0958b20e1a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_2m_LOD.glb",
+        "sha256": "582f32fc4e44de4250082f5d34d21e6895d20d529325e686486dd11c0952352f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_3m.glb",
+        "sha256": "fbcd072a3909c4ad03d4b35475ac558581f81732bc504cb2668f930b8835f83d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_3m_LOD.glb",
+        "sha256": "0cf9bc5a35907b2b2130e98aae7a84c32e2a1ace5f3e19c7f2092cb2d004c68c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_LOD.glb",
+        "sha256": "3de955c19604f20bc608af465814cd8e12e0e4d0ce8c4943f8be0e4ade8f3a0a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_tip.glb",
+        "sha256": "72c86568b74033485683c5cfe8815c73415ec76c545a65b02b9d16c66544cda2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_top_tip_LOD.glb",
+        "sha256": "3b2a8217d168a94546f94855b140bd1dc3ce0cfd2d74af6eb37335274988856a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_1m.glb",
+        "sha256": "959ab5a8103c3dd45ef83087c90e844c54dfd902602cf3b5302954f0a112fbad"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_1m_LOD.glb",
+        "sha256": "7589020230e354d0c76137a49f4ca9eb7995c6fb947a05713c8f502fe11a9ff1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_2m.glb",
+        "sha256": "d71b3086a1ee23ead4249278fb173bdf5c39cf9df422c547d45fc578a013623e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_2m_LOD.glb",
+        "sha256": "1aee5633e255b031994e58480c156311f6686fbb135cea730a4d77f1c2ec4239"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_3m.glb",
+        "sha256": "192ec14b7faf9d14ba85cda903ae3530a2e5251759a381403974af58a9b88f01"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_3m_LOD.glb",
+        "sha256": "03f551a640662f10d19121e9b16a626dea7985a05cbb31a5bb034b3d15acdf19"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_1m.glb",
+        "sha256": "aa0c6b7119f24d5df6f0f69a20d5321fe078433501606bc52c673eedc1ce92c4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_1m_LOD.glb",
+        "sha256": "aaf5ceda07b8a12126d949d70ab0b9bde57ecd2b0b6133c5da0ffe19a52a2f70"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_2m.glb",
+        "sha256": "2189ed94838b5dd3a93748f84528c5dda2dae4efe090abe4fd4557837cb46776"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_2m_LOD.glb",
+        "sha256": "fbaa5d082f5e871126644fff2e2a811f8e788c97315bd89010dd27a91b6c7867"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_3m.glb",
+        "sha256": "1279dafe81fd44d8cb30781bfa204bdaae1e14a46cf5d1254b789f3962d5a699"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_angle_3m_LOD.glb",
+        "sha256": "34a27de228e404050064fcba1c31aafbd0eb8edf1d7ea59d9959108c3e8b179c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_left_2m.glb",
+        "sha256": "0b0d391a3d59ff9d2e89d1ca8e14d8ff15285360fccd7d6a48d346111404205b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_left_2m_LOD.glb",
+        "sha256": "eb6079c0013fe385723033ae1313b6e931d922cb6250e19ce55e177ecf0fb44b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_left_3m.glb",
+        "sha256": "10b6b160e9898e1643e2a4834c4b8fde58eee35e229661f6817fbd7b4e8cb04e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_left_3m_LOD.glb",
+        "sha256": "d12a00a4b89e02080abb42806479d7d28e12da02a1d0c36311decc42a85b87a7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_2m.glb",
+        "sha256": "a2cdc3a796237fca47ce0b8964bff07ec9830b47a53aac50a17572a6a5d69445"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_2m_LOD.glb",
+        "sha256": "7d0dfa2cc1d0b76e8bd14e33db6f3d15bd974199d078d9e588f8bcaa7b1225fa"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_3m.glb",
+        "sha256": "1021c7ec917983b0e35f35e76dca7602aeabd3b30f09f6e3a335192918b01524"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_3m_LOD.glb",
+        "sha256": "93234b8224fe8753cf8fe3ae418dea1f6e8cded78ae818f9dc46d25f3059beab"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_1m.glb",
+        "sha256": "dbc6e35859e172043d2da54e971a5bbc8fe55b45720400d2a572b3dc77d7460d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_1m_LOD.glb",
+        "sha256": "48813a1bd1e38c2b5057c504f7e873f551f030c5364e0764fe2734d0d6aded34"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_2m.glb",
+        "sha256": "d32859158818d3d5efc24637a76a65ae2b0f6abe4388a1e10c02876b6109437e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_2m_LOD.glb",
+        "sha256": "22836f6333101b762a836f670f4a0ad3415c13ee5e552130d965a3542e900fdd"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_3m.glb",
+        "sha256": "92cdaf1aca4b704e340b4a1df4c5a844d41f1db7b5cd37aa9d90d2970cb3de4b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_base_3m_LOD.glb",
+        "sha256": "34cd4192d892b9cba8962c1ff28d0cd94e032271b6433dc047225fc8be0b18d9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_1m.glb",
+        "sha256": "f1f4ba73a832a1efdd5dc9716a56bf3c415ec722480028d4325490b5a1a09fa9"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_1m_LOD.glb",
+        "sha256": "71bebd840051e9e3c98130be49b17d065dcf8f3145e9c542d6e0b1e9a477619d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_2m.glb",
+        "sha256": "0feb26d4651bcb294c06d5831931245c50d31222f7a02643bb03f137b43a1c10"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_2m_LOD.glb",
+        "sha256": "3fb6dbc1766bd85b5cf6b45e3a630d93b52e6b01fe44fd0b40a6d0ec6c02ff0e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_3m.glb",
+        "sha256": "34a070d48132870312802da79f3ea848dd52a76b6b2d0d152b123e63755eeac6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_diagonal_3m_LOD.glb",
+        "sha256": "854067ab0e260787f2a67316507afbf541ab67026867384b62a253c0377bb9d7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door.glb",
+        "sha256": "b95f2589021414d7b192511e0f4911ca3b19d83f03da7a1c1f6abb5ef20ef95b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door_LOD.glb",
+        "sha256": "7d04532d9c913be0888bdf635cdcd58a313703f890129c51d9514a7ac978ccf1"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door_round.glb",
+        "sha256": "d0871800db8448da246f3f46d895d539fa7e48abb63b4900b449a10f88a12e49"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door_round_LOD.glb",
+        "sha256": "94057250a9b3ec3dc19d8b3924f406566a7f7952a85858907f1670026a5b5a0d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_1m.glb",
+        "sha256": "62e6801bbba880556f8fb077eb3ea054ae138f4bcea70e7a445520ee5a6b2319"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_1m_LOD.glb",
+        "sha256": "0bcf3107cc893b23d6841a5c3bd494fba0deee832513d581333853f4898b1bf2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_2m.glb",
+        "sha256": "2548d1a3c2b59e38c2f4b2f1c324df5f5abf13002a64afe00b6a67613fc6d798"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_2m_LOD.glb",
+        "sha256": "597ce89cf7446ef6155f9320e9ecbe765609f85e851059d1b6984ecf70017889"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_3m.glb",
+        "sha256": "6ced6c6e35b8facc07f998dfecc401fd1a873a4e0c323186bcb618eb443ab9ef"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_round_3m_LOD.glb",
+        "sha256": "310113438aa6f9f30676456ddecdde4125c3fe4e6b908b696423b8d7f0a64750"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_1m.glb",
+        "sha256": "491c568ca95f1fba0ecd13bcb391010291175a4e6bbad768e5a768bc0df92f0c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_1m_LOD.glb",
+        "sha256": "49b1ae96152a55b0cf5e3e417138ae6a37f9f74946188b91330e87141dc488d5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_2m.glb",
+        "sha256": "39ca974724d7bbf9fcdafa8f6db948e53c000b95c344d2a8b1fe42019b96b928"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_2m_LOD.glb",
+        "sha256": "e2c452461fb8573f1d032ab92e0064a95bb9a833e0d164f1f4eb15fc2b1c3edf"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_3m.glb",
+        "sha256": "14ee40ad103d829369fdc7df2ff77b7b832bca8315c70c17948448ad60db0705"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_slim_3m_LOD.glb",
+        "sha256": "fa66047481e246a1b874d0e7bf55f9cac32dd9888404e25889cef8e2baaac58a"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_1m.glb",
+        "sha256": "6f47bb4fac7f6f9f274cefc1cf6027d611e83e9e33e051887afa415b4827fe5f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_1m_LOD.glb",
+        "sha256": "375704ee8855d66b4ad66d9deca78229a0a83a73a73a1ac9f768c7c4e41b1589"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_2m.glb",
+        "sha256": "f5e5e5163a1dc17eb61d6337d0159d89c8a2e9a65ceb34c23bbdc80bfdb24df3"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_2m_LOD.glb",
+        "sha256": "afe412672c40cbfd4758ae60797fc59b990ca26122b8654f61792496d00bc1fc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_3m.glb",
+        "sha256": "42d059a88dc08742ce261b5006b5e6f67ea84acc6e994028172961b90f4dfd47"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_top_3m_LOD.glb",
+        "sha256": "8d94ecac6922cf8539b6751678efbb19f0a8bffb7310331c094c42fcad922387"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_double.glb",
+        "sha256": "094a1650e3b15b8997b0ed72a5931e00f43dcfd0a647c16f48cd74beb3be052e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_double_LOD.glb",
+        "sha256": "7ddf8b7c721b457aa193e407055d99cd159e721865c296c325cb8979268fcc88"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_large.glb",
+        "sha256": "afcb57f3b18a05f434f44b85c9c44ed6e4a1a358d52c10612adc5766f6e871fc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_large_LOD.glb",
+        "sha256": "1750725d628269341a0eb05392f3a66f19d99982312f16e419f8ed3ef562802d"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_small.glb",
+        "sha256": "a1eae43600f6a1dc42523417d1d461c599f8458a9513344c65f60174ada86df4"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_window_small_LOD.glb",
+        "sha256": "79f3b038850c9271e788021245e6aa6199314f295f73f6c22d4406daba3e5811"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_large_001.glb",
+        "sha256": "7aea0e44b75c64ce3f9a592e462368593c62f6fce727c6ffc2c4a731cc8dc610"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_large_001_LOD.glb",
+        "sha256": "5249fa7faf4b6b88ed6f5d41c5820f5e07106760ce85ab73f2c586c983bcc430"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_large_002.glb",
+        "sha256": "8e892cf4b99ca5ee1736c669b7b9f42f793ae512abdbadd2eba070ddb30121e6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_large_002_LOD.glb",
+        "sha256": "88f35dba74e4fd15ba1f267731099627f50bd0e9b27416e52fed2df5c8bf5c13"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_large_003.glb",
+        "sha256": "419a86cfb673fcf01cf825addfe0a3915e5209a81c1e014abcab87d584fe58cf"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_large_003_LOD.glb",
+        "sha256": "e5e0eb842499036f49ee47b089c67857a47098ae2e49df448408aae213b05984"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_medium_001.glb",
+        "sha256": "908bd457651bc06ba00a39579bb09f7068345b4c46c3012dda979bd16f8598bc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_medium_001_LOD.glb",
+        "sha256": "6a54378cfd138e6dd6375021283c46e713a6ca1d6a7ff45f87d2d3b7ae5f4672"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_medium_002.glb",
+        "sha256": "9e25cfbd4e7633c4600eb5d5f99799c7e0e61d1771681341546318c052931b32"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_medium_002_LOD.glb",
+        "sha256": "c0d462d6e26799d34b7dd9c4d30fea06da4f75bae45bbc75a987ec5092d4b001"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_medium_003.glb",
+        "sha256": "c783fb0adec07f53860c3a9f9748680c40598bf45a39d03851565285d6d3f5a5"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_medium_003_LOD.glb",
+        "sha256": "ffd7b858a7fd279f59236a275cc87b3c1b2689f495fbb7bd6e3948c8c3d55412"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_001.glb",
+        "sha256": "86ffcee2aed13c189a0f32012473a9c06839d2ec807dd05b573fd38b8555d25e"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_001_LOD.glb",
+        "sha256": "efe85dd4811caf7f93dab965ed15b2af80c9f185fa101348fe3a9925b5990dd2"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_002.glb",
+        "sha256": "662a392731bbef20f774c2963576f4cac132016d12aa1abab55933e382fa631b"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_002_LOD.glb",
+        "sha256": "8d7aabe2cfbcf42e7d9cc9c7cf58e0e241912cc0d0716cd2f262fb62c99ed2f6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_003.glb",
+        "sha256": "027065e866f0615781ca89303205055fc3bc80dffe1a822a0f4810117441afc6"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_003_LOD.glb",
+        "sha256": "7efc8f4497f879a79f709c0840b4d46d992469caaeb8e711f195eafbc54e54cc"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_004.glb",
+        "sha256": "7a0b21ef36a1bb470117bca95c4f76ef6be2f8a2af42dbeac6a286f0f0671a3c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_004_LOD.glb",
+        "sha256": "c6a549e8e9d0940337c8c832e9574261cb4de8c7eff373eae1c994d9a7c97463"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/9049430fd6306ded8d55c404e2281bc9a165c09467bb69576925cae0d384567d.png",
+        "sha256": "9049430fd6306ded8d55c404e2281bc9a165c09467bb69576925cae0d384567d"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/b5142fa3efa6b46260cef1a092b3e1ad197cf74a0d49b6af2e3b20c85aa12ef8.png",
+        "sha256": "b5142fa3efa6b46260cef1a092b3e1ad197cf74a0d49b6af2e3b20c85aa12ef8"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/c805d14e0c7c72936932729ecc489275b16f4a93938cb1f38c3141b1f184eb84.png",
+        "sha256": "c805d14e0c7c72936932729ecc489275b16f4a93938cb1f38c3141b1f184eb84"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/f8f3bc7b18256a8269a5eb897043d8113c216b32a63a3d6c83a5ea5f2f16140e.png",
+        "sha256": "f8f3bc7b18256a8269a5eb897043d8113c216b32a63a3d6c83a5ea5f2f16140e"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/735da748bf14eb7a94eff680d3155c5341414f3e4c06399e4540fe4b6a7453d0.png",
+        "sha256": "735da748bf14eb7a94eff680d3155c5341414f3e4c06399e4540fe4b6a7453d0"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/7efe25296e5cb2149c4665224e549ee3590f5faa6b6ae01c0e897004b39b5a4a.png",
+        "sha256": "7efe25296e5cb2149c4665224e549ee3590f5faa6b6ae01c0e897004b39b5a4a"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/9d80545c70da81cdfa72b2e09b7abaab3b9f0635fc04f36acd33fec69c883b58.png",
+        "sha256": "9d80545c70da81cdfa72b2e09b7abaab3b9f0635fc04f36acd33fec69c883b58"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/43c825d8cca1d2332f523a49ae0dc861794b7ed72d06d245d82910b377c02f2f.png",
+        "sha256": "43c825d8cca1d2332f523a49ae0dc861794b7ed72d06d245d82910b377c02f2f"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/501284df60fa9821a3785a9f01a4a4414610a9140acb5637e909ffea9f45ecdb.png",
+        "sha256": "501284df60fa9821a3785a9f01a4a4414610a9140acb5637e909ffea9f45ecdb"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/74d7d4ceb6bcbd972c1d79fd3e50ca744a4c4c124337127970abd15fdb155d1f.png",
+        "sha256": "74d7d4ceb6bcbd972c1d79fd3e50ca744a4c4c124337127970abd15fdb155d1f"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/7de1395695dff49efe133943a989afa9df8f5e242585df77a5c7b249cb87a308.png",
+        "sha256": "7de1395695dff49efe133943a989afa9df8f5e242585df77a5c7b249cb87a308"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/dc08553993d12e765463f937d8b7015ed6e9a90383b35f022bd4f1066d69b8de.png",
+        "sha256": "dc08553993d12e765463f937d8b7015ed6e9a90383b35f022bd4f1066d69b8de"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/53c3cfb0678c424995885133d9494187285a5462ab8368b25cd9e2409190de11.png",
+        "sha256": "53c3cfb0678c424995885133d9494187285a5462ab8368b25cd9e2409190de11"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/deee5d5ded59ff28b6747fbd253c891da35f164c8c1fabb538699271097b1b47.png",
+        "sha256": "deee5d5ded59ff28b6747fbd253c891da35f164c8c1fabb538699271097b1b47"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/b97a12a0be4958c7f9f5f0f0fcb8c15e7bf7fc87a894fa2b3cc4820361c01eda.png",
+        "sha256": "b97a12a0be4958c7f9f5f0f0fcb8c15e7bf7fc87a894fa2b3cc4820361c01eda"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/eb0589853dd8a9a9f2d41f6032b5923c77de1153b6e73eb90f4fcf990dc76bdb.png",
+        "sha256": "eb0589853dd8a9a9f2d41f6032b5923c77de1153b6e73eb90f4fcf990dc76bdb"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/a2df22e1c70853b9600db6f532f8ac1e15f786939a998ec408b7eb15da656d75.png",
+        "sha256": "a2df22e1c70853b9600db6f532f8ac1e15f786939a998ec408b7eb15da656d75"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/0a41a4bf99f2573b25531be8c46d56fda1157404c3b1ffdc8d2e9774785e3de1.png",
+        "sha256": "0a41a4bf99f2573b25531be8c46d56fda1157404c3b1ffdc8d2e9774785e3de1"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/e8a81dd071f3fa1dae87b321557a4492d1270ff196f8c445753ac099b1612872.png",
+        "sha256": "e8a81dd071f3fa1dae87b321557a4492d1270ff196f8c445753ac099b1612872"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/c1cee477e2dab902f6b4c64fd72340405075b53be25c0a42484cb0cd73dcc1c6.png",
+        "sha256": "c1cee477e2dab902f6b4c64fd72340405075b53be25c0a42484cb0cd73dcc1c6"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/549a0018aa546af291edacf95ba26c770ef8c1377c8582d18f38f1621281c391.png",
+        "sha256": "549a0018aa546af291edacf95ba26c770ef8c1377c8582d18f38f1621281c391"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/e933cc8a925f0079e2052fcbe4bdb93f38b82ec8404c96a7edfd6395124edf8e.png",
+        "sha256": "e933cc8a925f0079e2052fcbe4bdb93f38b82ec8404c96a7edfd6395124edf8e"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/ca7a8092196695ded394edef4d9adeb3d7f6f68202dd88d60e303a611e0673b1.png",
+        "sha256": "ca7a8092196695ded394edef4d9adeb3d7f6f68202dd88d60e303a611e0673b1"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/8d40cdd25d6e4e198e2bba5578a99551ed558294b05c3e139354eafa10a45b0c.png",
+        "sha256": "8d40cdd25d6e4e198e2bba5578a99551ed558294b05c3e139354eafa10a45b0c"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/06270d89a575d8d93f48b71843f82888a38d98049aae743f2407d9af785c5357.png",
+        "sha256": "06270d89a575d8d93f48b71843f82888a38d98049aae743f2407d9af785c5357"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/1b331e1bc2d37e793a7ce60c041ed7aa5661cd68d3a4073cac10b2169ffc7479.png",
+        "sha256": "1b331e1bc2d37e793a7ce60c041ed7aa5661cd68d3a4073cac10b2169ffc7479"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/e687817775e6f6934e509ee7e79c1fedb7cccd10c7a3cb61feb441aefc01a35e.png",
+        "sha256": "e687817775e6f6934e509ee7e79c1fedb7cccd10c7a3cb61feb441aefc01a35e"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/b3b7d7f7ecfe3f939cc12639cb855e18ed9e1410cccc022eb60a82f94a86f324.png",
+        "sha256": "b3b7d7f7ecfe3f939cc12639cb855e18ed9e1410cccc022eb60a82f94a86f324"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/ac3502c3b4d8a70f2d342784fc7f6fc367a6e2db6e6494cdfe8d2b8e48331690.png",
+        "sha256": "ac3502c3b4d8a70f2d342784fc7f6fc367a6e2db6e6494cdfe8d2b8e48331690"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/8ae3c88738fee549b8a972818049988071231f7f83dc8e5611de24587acc8cc5.png",
+        "sha256": "8ae3c88738fee549b8a972818049988071231f7f83dc8e5611de24587acc8cc5"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/8e46077193240d45cc6d01c82895e419b4a9ccee3984fe5136472ff098385206.png",
+        "sha256": "8e46077193240d45cc6d01c82895e419b4a9ccee3984fe5136472ff098385206"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/cf87077bf8b07a0ea30df64a0d8fbef0b29b07408b5a9c5bac3ab47ea03581fb.png",
+        "sha256": "cf87077bf8b07a0ea30df64a0d8fbef0b29b07408b5a9c5bac3ab47ea03581fb"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/8961cd6f60c6c7dbf025f2a75b868742926d33f18ebb533f180fa0d41bff4f4c.png",
+        "sha256": "8961cd6f60c6c7dbf025f2a75b868742926d33f18ebb533f180fa0d41bff4f4c"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/39a186539948180aa7aa3fa34a902efbfc27cf46e541d3c4b0dbeaec88bc145d.png",
+        "sha256": "39a186539948180aa7aa3fa34a902efbfc27cf46e541d3c4b0dbeaec88bc145d"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/c50267475c63cedc37842bc1134958096dd3788459293566f98586b504630eed.png",
+        "sha256": "c50267475c63cedc37842bc1134958096dd3788459293566f98586b504630eed"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/915083ba430c7b701661c3e10058c9406a0c1c228da85521b187e9ff2de679dc.png",
+        "sha256": "915083ba430c7b701661c3e10058c9406a0c1c228da85521b187e9ff2de679dc"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/dead91cbb8b64f24e89accad644fcd2125998e486d9977fb662a523840d5b98c.png",
+        "sha256": "dead91cbb8b64f24e89accad644fcd2125998e486d9977fb662a523840d5b98c"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/c54628cc204aa8f52f46c04baa649f077c3f1fbd3b52bdbf86bba61b9715b12f.png",
+        "sha256": "c54628cc204aa8f52f46c04baa649f077c3f1fbd3b52bdbf86bba61b9715b12f"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/a61afd1f36e0f58276179ec9083928823eb1087317b1db602ce4e889d0bf6637.png",
+        "sha256": "a61afd1f36e0f58276179ec9083928823eb1087317b1db602ce4e889d0bf6637"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/934a84e21e2e430199bd86b3b742bf4421b78b091deae3ddb63520687cb3d17a.png",
+        "sha256": "934a84e21e2e430199bd86b3b742bf4421b78b091deae3ddb63520687cb3d17a"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/1b2d36afedd740d62c627897d0262e396d7ccb5af7430a35cd4fcfc6311e0fc9.png",
+        "sha256": "1b2d36afedd740d62c627897d0262e396d7ccb5af7430a35cd4fcfc6311e0fc9"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/f16b283bddfafcd11ae0827dbf4e733af1c64dfe60b2883f95b1355e71ef148e.png",
+        "sha256": "f16b283bddfafcd11ae0827dbf4e733af1c64dfe60b2883f95b1355e71ef148e"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/b76656d76cfef9b5f22c86162149bc1b9427009786fdf7a04c812014be50e01e.png",
+        "sha256": "b76656d76cfef9b5f22c86162149bc1b9427009786fdf7a04c812014be50e01e"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/eabbcaff38d5d391331fd15cd35d2f5bd6d0f4a21bf9027cda562800066c9f2e.png",
+        "sha256": "eabbcaff38d5d391331fd15cd35d2f5bd6d0f4a21bf9027cda562800066c9f2e"
+      },
+      {
+        "path": "resources/Model/SharedTextures/artist_philip-erd/dc596a6af0ae255f53228e1a43cedc7a5c55b2be8fc1d70adc4d60d1f3026f5f.png",
+        "sha256": "dc596a6af0ae255f53228e1a43cedc7a5c55b2be8fc1d70adc4d60d1f3026f5f"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Licenses/cargo.txt",
+        "sha256": "1a654d6aece4d5d73c77afb036f3d1b7e6f1cf7e0f84d118f956603a353c818c"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Licenses/Castle.txt",
+        "sha256": "3e458f1d29c0b6c80021bc025c974f136f572732eb41850f01d9a3e4b05a19c7"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Licenses/HalloweenScenery.txt",
+        "sha256": "82e023f9fe42432c087aaa17b02fb63dd338169c342a85d12b0d7bcbed80aa76"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Licenses/Pirate_Scenery.txt",
+        "sha256": "752ad88248f5c5afeef004a15c67c34bf39630ab381975c216559c8cec5e4b61"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Licenses/steampunk.txt",
+        "sha256": "46e369e5e758a5d7abe00f61913cf9e7b18a47351d69789f956c7f4a19f3ce59"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/Licenses/Windows.txt",
+        "sha256": "e09ce26e75a26d0e3427e0ee583f093a0c756ae5ff96d0f75d36f995295809ef"
+      },
+      {
+        "path": "resources/Model/GLB/artist_philip-erd/README.md",
+        "sha256": "6d3343384c494ef7bca08b032dfe36195421fadad65698a313568aa1e0a30267"
+      }
+    ],
+    "presetFiles": [
+      "artist-philip-erd-cargo-model-test.json",
+      "artist-philip-erd-castle-model-test.json",
+      "artist-philip-erd-halloween-model-test.json",
+      "artist-philip-erd-model-test.json",
+      "artist-philip-erd-modular-buildings-model-test.json",
+      "artist-philip-erd-pirate-model-test.json",
+      "artist-philip-erd-steampunk-model-test.json",
+      "artist-philip-erd-stones-model-test.json",
+      "artist-philip-erd-windows-model-test.json"
+    ]
+  },
+  "cleanup": {
+    "removed": [
+      {
+        "path": ".asset-migration/philip-erd/embedded",
+        "bytes": 272808512
+      },
+      {
+        "path": ".asset-migration/philip-erd/electron-test",
+        "bytes": 85227150
+      },
+      {
+        "path": ".asset-migration/shared-texture-build",
+        "bytes": 8454117
+      }
+    ],
+    "emptyRootDirectories": [
+      "꧸唟ɨ",
+      "礼ǋ",
+      "烨蘒ǹ",
+      "暈ᗥɖ",
+      "Ÿ䘈ȁ",
+      "ŸᳰɆ",
+      "Ⳙ뤑ŧ",
+      "Ⱘ᝭ȶ",
+      "ᥘ懪Ȋ",
+      "았﹭Ɯ",
+      "㄀⚟ɷ",
+      "뗂Ȋ"
+    ],
+    "totalBytesRemoved": 366489779,
+    "postCleanupSourceAndPublicationVerification": true
+  }
+}

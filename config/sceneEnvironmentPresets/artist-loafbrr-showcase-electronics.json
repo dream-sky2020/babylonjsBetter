@@ -1,0 +1,244 @@
+{
+  "presetKey": "artist-loafbrr-showcase-electronics",
+  "name": "Loafbrr · Electronics · 4模型 · 模型 0.25 MiB + 贴图 0.43 MiB · 合计 0.68 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-electronics-0",
+      "name": "Electronics",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 9
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-137a44c89bb820d2-stand",
+      "name": "CRTTV展台",
+      "parentId": "transform:category-electronics-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b5615ed8eda4d29b-stand",
+      "name": "CRTVHSTV展台",
+      "parentId": "transform:category-electronics-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9fa6938ac04f9b3e-stand",
+      "name": "Remote展台",
+      "parentId": "transform:category-electronics-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-da131c9b07c087aa-stand",
+      "name": "VHS展台",
+      "parentId": "transform:category-electronics-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-137a44c89bb820d2",
+      "name": "Electronics · CRTTV · 模型 0.08 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-electronics-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Electronics/CRTTV.glb",
+      "position": [
+        -18,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.74581661,
+        2.74581661,
+        2.74581661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b5615ed8eda4d29b",
+      "name": "Electronics · CRTVHSTV · 模型 0.07 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-electronics-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Electronics/CRTVHSTV.glb",
+      "position": [
+        -14,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.62361121,
+        2.62361121,
+        2.62361121
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9fa6938ac04f9b3e",
+      "name": "Electronics · Remote · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-electronics-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Electronics/Remote.glb",
+      "position": [
+        -10,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.01416616,
+        11.01416616,
+        11.01416616
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-da131c9b07c087aa",
+      "name": "Electronics · VHS · 模型 0.07 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-electronics-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Electronics/VHS.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.73740859,
+        2.73740859,
+        2.73740859
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

@@ -66,25 +66,36 @@ const MODEL_ASSETS_MODULE_ID = 'virtual:app-model-assets'
 const RESOLVED_MODEL_ASSETS_MODULE_ID = '\0' + MODEL_ASSETS_MODULE_ID
 const RESOURCE_ASSETS_MODULE_ID = 'virtual:app-resource-assets'
 const RESOLVED_RESOURCE_ASSETS_MODULE_ID = '\0' + RESOURCE_ASSETS_MODULE_ID
+const PUBLIC_ASSETS_MODULE_ID = 'virtual:app-public-assets'
+const RESOLVED_PUBLIC_ASSETS_MODULE_ID = '\0' + PUBLIC_ASSETS_MODULE_ID
 
 const sharedConfigPlugin = (): Plugin => ({
   name: 'shared-config-public-bridge',
   resolveId(id: string) {
     if (id === MODEL_ASSETS_MODULE_ID) return RESOLVED_MODEL_ASSETS_MODULE_ID
     if (id === RESOURCE_ASSETS_MODULE_ID) return RESOLVED_RESOURCE_ASSETS_MODULE_ID
+    if (id === PUBLIC_ASSETS_MODULE_ID) return RESOLVED_PUBLIC_ASSETS_MODULE_ID
     return null
   },
   async load(id: string) {
     if (id === RESOLVED_MODEL_ASSETS_MODULE_ID) return `export default ${JSON.stringify(await collectModelAssets())}`
     if (id === RESOLVED_RESOURCE_ASSETS_MODULE_ID) return `export default ${JSON.stringify(await collectResourceAssets())}`
+    if (id === RESOLVED_PUBLIC_ASSETS_MODULE_ID) return `export default ${JSON.stringify(await collectPublicAssets())}`
     return null
   },
   hotUpdate: {
     // Vite 8 的 import.meta.glob 会在文件 create/delete 后追加受影响模块；
     // 使用 post hook 才能在内置 glob hook 之后阻止整页刷新。
     order: 'post',
-    handler({ file }) {
+    handler({ file, type, modules }) {
       const changedPath = path.resolve(file)
+      if (type !== 'update' && changedPath.startsWith(`${PUBLIC_DIR}${path.sep}`)) {
+        const manifest = this.environment.moduleGraph.getModuleById(RESOLVED_PUBLIC_ASSETS_MODULE_ID)
+        if (manifest) {
+          this.environment.moduleGraph.invalidateModule(manifest)
+          return [...new Set([...modules, manifest])]
+        }
+      }
       if (changedPath === path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')) return []
       if (changedPath === ANIMATION_SCENE_PRESETS_PATH || changedPath === SCENE_ENVIRONMENT_PRESETS_PATH) return []
       if (changedPath.startsWith(`${SCENE_ENVIRONMENT_PRESETS_PATH}${path.sep}`)) return []

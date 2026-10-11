@@ -1,0 +1,546 @@
+[
+  {
+    "sourcePath": "Bookshelfs/Bookshelfs by T4Kum/MODEL/bookshelf.gltf",
+    "asset": {
+      "version": "2.0",
+      "generator": "Blockbench 4.10.4 glTF exporter"
+    },
+    "meshCount": 9,
+    "nodeCount": 10,
+    "triangles": 380,
+    "imageBytes": 722540,
+    "imageSha256": "24cf9723e610614eb4e2631ebec6781a217e849e776e581a8309881d23b26ccf",
+    "imageWidth": 2048,
+    "imageHeight": 2048,
+    "externalImagePath": "Bookshelfs/Bookshelfs by T4Kum/TEXTURE/Boockshelf.png",
+    "externalImagePixelsIdentical": false,
+    "nodes": [
+      {
+        "translation": [
+          0,
+          0.0625,
+          0
+        ],
+        "name": "cuboid",
+        "mesh": 0
+      },
+      {
+        "rotation": [
+          0,
+          0,
+          -0.7071067811865475,
+          0.7071067811865476
+        ],
+        "translation": [
+          -3.3312499999999994,
+          1.5,
+          0.0015624999999999997
+        ],
+        "name": "cuboid",
+        "mesh": 1
+      },
+      {
+        "translation": [
+          7.1875,
+          0,
+          0
+        ],
+        "name": "cuboid",
+        "mesh": 2
+      },
+      {
+        "translation": [
+          7.875,
+          0,
+          0
+        ],
+        "name": "cuboid",
+        "mesh": 3
+      },
+      {
+        "translation": [
+          8.625,
+          0,
+          0
+        ],
+        "name": "cuboid",
+        "mesh": 4
+      },
+      {
+        "translation": [
+          7.1875,
+          0,
+          -1
+        ],
+        "name": "cuboid",
+        "mesh": 5
+      },
+      {
+        "translation": [
+          7.1875,
+          0,
+          -2
+        ],
+        "name": "cuboid",
+        "mesh": 6
+      },
+      {
+        "translation": [
+          9.375,
+          0,
+          0
+        ],
+        "name": "cuboid",
+        "mesh": 7
+      },
+      {
+        "rotation": [
+          0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "translation": [
+          4.8125,
+          0.765625,
+          0.625
+        ],
+        "name": "cuboid",
+        "mesh": 8
+      },
+      {
+        "children": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "pbrMetallicRoughness": {
+          "metallicFactor": 0,
+          "roughnessFactor": 1,
+          "baseColorTexture": {
+            "index": 0
+          }
+        },
+        "alphaMode": "MASK",
+        "alphaCutoff": 0.05,
+        "doubleSided": true
+      }
+    ],
+    "samplers": [
+      {
+        "magFilter": 9728,
+        "minFilter": 9728,
+        "wrapS": 33071,
+        "wrapT": 33071
+      }
+    ]
+  },
+  {
+    "sourcePath": "CARDBOARD_BOXES/CARDBOARD_BOXES by T4Kum/MODELS/BOXES_GLTF.gltf",
+    "asset": {
+      "version": "2.0",
+      "generator": "Blockbench 4.10.4 glTF exporter"
+    },
+    "meshCount": 16,
+    "nodeCount": 20,
+    "triangles": 212,
+    "imageBytes": 73425,
+    "imageSha256": "62777c373f1305a4de853ff385a9d99880a7ddc9d9016463c7b511a8c9d7298f",
+    "imageWidth": 1024,
+    "imageHeight": 2048,
+    "externalImagePath": "CARDBOARD_BOXES/CARDBOARD_BOXES by T4Kum/TEXTURE/CARBOARD_BOXES TEXTURE.png",
+    "externalImagePixelsIdentical": false,
+    "nodes": [
+      {
+        "name": "415ca543-49cc-dac1-af48-e3b3faac77a3"
+      },
+      {
+        "translation": [
+          4.25,
+          -0.25,
+          -2.25
+        ],
+        "name": "cuboid",
+        "mesh": 0
+      },
+      {
+        "translation": [
+          4.25,
+          -0.25,
+          -0.25
+        ],
+        "name": "cuboid",
+        "mesh": 1
+      },
+      {
+        "translation": [
+          4.25,
+          -0.25,
+          -4.25
+        ],
+        "name": "cuboid",
+        "mesh": 2
+      },
+      {
+        "translation": [
+          2.25,
+          -0.25,
+          -2.4375
+        ],
+        "name": "cuboid",
+        "mesh": 3
+      },
+      {
+        "translation": [
+          2.25,
+          -0.25,
+          -0.25
+        ],
+        "name": "cuboid",
+        "mesh": 4
+      },
+      {
+        "translation": [
+          2.25,
+          -0.25,
+          -4.75
+        ],
+        "name": "cuboid",
+        "mesh": 5
+      },
+      {
+        "name": "cuboid",
+        "mesh": 6
+      },
+      {
+        "translation": [
+          0.125,
+          -0.25,
+          -2.4375
+        ],
+        "name": "cuboid",
+        "mesh": 7
+      },
+      {
+        "translation": [
+          2.1875,
+          0.25,
+          2.25
+        ],
+        "name": "BOXES_CLOSED",
+        "children": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "translation": [
+          2.0125,
+          -0.515625,
+          0
+        ],
+        "name": "cuboid",
+        "mesh": 8
+      },
+      {
+        "rotation": [
+          -0.766044443118978,
+          0,
+          0,
+          0.6427876096865394
+        ],
+        "translation": [
+          2.0125,
+          0.421875,
+          2.5
+        ],
+        "name": "plane",
+        "mesh": 9
+      },
+      {
+        "translation": [
+          1.5125000000000002,
+          0.421875,
+          -2.5
+        ],
+        "name": "plane",
+        "mesh": 10
+      },
+      {
+        "rotation": [
+          0,
+          0,
+          -0.8549118706729477,
+          0.5187732581605197
+        ],
+        "translation": [
+          0.3875000000000002,
+          -0.265625,
+          -2.4375
+        ],
+        "name": "plane",
+        "mesh": 11
+      },
+      {
+        "translation": [
+          -0.4874999999999998,
+          1.484375,
+          1.875
+        ],
+        "name": "plane",
+        "mesh": 12
+      },
+      {
+        "rotation": [
+          0,
+          0,
+          0.23768589232617307,
+          0.9713420698132614
+        ],
+        "translation": [
+          -2.4156249999999995,
+          0.09375,
+          0
+        ],
+        "name": "plane",
+        "mesh": 13
+      },
+      {
+        "rotation": [
+          0,
+          0,
+          0.40274668985873724,
+          0.9153114791194471
+        ],
+        "translation": [
+          -1.6593749999999998,
+          0.734375,
+          2.1875
+        ],
+        "name": "plane",
+        "mesh": 14
+      },
+      {
+        "rotation": [
+          0,
+          0,
+          -0.10886687485196457,
+          0.9940563382223196
+        ],
+        "name": "plane",
+        "mesh": 15
+      },
+      {
+        "translation": [
+          -2.0125,
+          0.515625,
+          0
+        ],
+        "name": "BEXES_OPEN",
+        "children": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ]
+      },
+      {
+        "children": [
+          0,
+          9,
+          18
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "pbrMetallicRoughness": {
+          "metallicFactor": 0,
+          "roughnessFactor": 1,
+          "baseColorTexture": {
+            "index": 0
+          }
+        },
+        "alphaMode": "MASK",
+        "alphaCutoff": 0.05,
+        "doubleSided": true
+      }
+    ],
+    "samplers": [
+      {
+        "magFilter": 9728,
+        "minFilter": 9728,
+        "wrapS": 33071,
+        "wrapT": 33071
+      }
+    ]
+  },
+  {
+    "sourcePath": "Clocks/Clocks by T4Kum/MODELS/Clocks.gltf",
+    "asset": {
+      "version": "2.0",
+      "generator": "Blockbench 4.10.4 glTF exporter"
+    },
+    "meshCount": 6,
+    "nodeCount": 9,
+    "triangles": 276,
+    "imageBytes": 19513,
+    "imageSha256": "ac9c19c164e3ed213fa601c21b83ec346a9ee7a3eec612b25a1e78e7119143b9",
+    "imageWidth": 512,
+    "imageHeight": 512,
+    "externalImagePath": "Clocks/Clocks by T4Kum/TEXTURE/Clock.png",
+    "externalImagePixelsIdentical": false,
+    "nodes": [
+      {
+        "translation": [
+          -0.0031249999999998224,
+          0,
+          0
+        ],
+        "name": "cuboid",
+        "mesh": 0
+      },
+      {
+        "rotation": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "translation": [
+          -0.06249999999999999,
+          2.125,
+          -0.25
+        ],
+        "name": "plane",
+        "mesh": 1
+      },
+      {
+        "rotation": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "translation": [
+          -0.0625,
+          1.625,
+          0
+        ],
+        "name": "plane",
+        "mesh": 2
+      },
+      {
+        "rotation": [
+          0,
+          -1,
+          0,
+          6.123233995736766e-17
+        ],
+        "translation": [
+          1,
+          -0.25,
+          0
+        ],
+        "name": "cuboid",
+        "mesh": 3
+      },
+      {
+        "translation": [
+          1,
+          0,
+          0
+        ],
+        "name": "plane",
+        "mesh": 4
+      },
+      {
+        "translation": [
+          1,
+          0,
+          0
+        ],
+        "name": "plane",
+        "mesh": 5
+      },
+      {
+        "rotation": [
+          -0.7071067811865475,
+          0,
+          0,
+          0.7071067811865476
+        ],
+        "translation": [
+          0.3125,
+          2.375,
+          0
+        ],
+        "name": "bone",
+        "children": [
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "translation": [
+          -0.0625,
+          1.625,
+          0
+        ],
+        "name": "bone2"
+      },
+      {
+        "children": [
+          0,
+          1,
+          2,
+          6,
+          7
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "pbrMetallicRoughness": {
+          "metallicFactor": 0,
+          "roughnessFactor": 1,
+          "baseColorTexture": {
+            "index": 0
+          }
+        },
+        "alphaMode": "MASK",
+        "alphaCutoff": 0.05,
+        "doubleSided": true
+      }
+    ],
+    "samplers": [
+      {
+        "magFilter": 9728,
+        "minFilter": 9728,
+        "wrapS": 33071,
+        "wrapT": 33071
+      }
+    ]
+  }
+]

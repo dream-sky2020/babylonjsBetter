@@ -1,0 +1,1013 @@
+{
+  "presetKey": "artist-cursedlake-market-goods-model-test",
+  "name": "Cursedlake · 集市武器、书籍与杂货 · 模型展示（28 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "cursedlake-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "cursedlake-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cursedlake-MarketGoods",
+      "name": "武器、书籍与杂货",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "cursedlake-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 20,
+        "height": 38
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "cursedlake-MarketGoods-zone",
+      "name": "武器、书籍与杂货分区",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 28.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-1-stand",
+      "name": "斧头展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-2-stand",
+      "name": "蓝皮书展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-3-stand",
+      "name": "陶罐 · Pot展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-4-stand",
+      "name": "瓶子 · Bottle展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-5-stand",
+      "name": "剑 · Sword展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-6-stand",
+      "name": "圆盾 · Shield_1展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-7-stand",
+      "name": "长盾 · Shield_2展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-8-stand",
+      "name": "长柄战戟一 · Halberd_1展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-9-stand",
+      "name": "长柄战戟二 · Halberd_2展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-10-stand",
+      "name": "圆盾 · Shield_1.1展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-11-stand",
+      "name": "绿皮书 · Green_book展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-12-stand",
+      "name": "红皮书 · Red_book展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-13-stand",
+      "name": "骷髅皮书 · Skull_book展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-14-stand",
+      "name": "剑 · Sword.001展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-15-stand",
+      "name": "剑 · Sword.002展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-16-stand",
+      "name": "剑 · Sword.003展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-17-stand",
+      "name": "陶罐 · Pot.001展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-18-stand",
+      "name": "瓶子 · Bottle.001展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-19-stand",
+      "name": "陶罐 · Pot.002展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-20-stand",
+      "name": "瓶子 · Bottle.002展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-21-stand",
+      "name": "陶罐 · Pot.003展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-22-stand",
+      "name": "绿皮书 · Green_book.001展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-23-stand",
+      "name": "红皮书 · Red_book.001展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-24-stand",
+      "name": "骷髅皮书 · Skull_book.001展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-25-stand",
+      "name": "红皮书 · Red_book.002展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-26-stand",
+      "name": "骷髅皮书 · Skull_book.002展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-27-stand",
+      "name": "红皮书 · Red_book.003展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-28-stand",
+      "name": "骷髅皮书 · Skull_book.003展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -12
+      ],
+      "color": "#8c9e94"
+    }
+  ],
+  "models": [
+    {
+      "id": "cursedlake-MarketGoods-1",
+      "name": "斧头",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Axe.glb",
+      "position": [
+        -5.99999965,
+        0,
+        11.99999996
+      ],
+      "scaling": [
+        5.17768323,
+        5.17768323,
+        5.17768323
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-2",
+      "name": "蓝皮书",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/BlueBook.glb",
+      "position": [
+        -2.00000018,
+        3e-8,
+        12
+      ],
+      "scaling": [
+        6.80731247,
+        6.80731247,
+        6.80731247
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-3",
+      "name": "陶罐 · Pot",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Pot.glb",
+      "position": [
+        2.00000026,
+        0,
+        11.9999991
+      ],
+      "scaling": [
+        11.52349016,
+        11.52349016,
+        11.52349016
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-4",
+      "name": "瓶子 · Bottle",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Bottle.glb",
+      "position": [
+        6.00000019,
+        1.2e-7,
+        12.00000071
+      ],
+      "scaling": [
+        8.33480054,
+        8.33480054,
+        8.33480054
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-5",
+      "name": "剑 · Sword",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sword.glb",
+      "position": [
+        -6.00000008,
+        0,
+        8.00000051
+      ],
+      "scaling": [
+        2.7467472,
+        2.7467472,
+        2.7467472
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-6",
+      "name": "圆盾 · Shield_1",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Shield_1.glb",
+      "position": [
+        -2,
+        0,
+        8.00000031
+      ],
+      "scaling": [
+        3.68421057,
+        3.68421057,
+        3.68421057
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-7",
+      "name": "长盾 · Shield_2",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Shield_2.glb",
+      "position": [
+        2,
+        -1.9e-7,
+        8.00000037
+      ],
+      "scaling": [
+        3.17821213,
+        3.17821213,
+        3.17821213
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-8",
+      "name": "长柄战戟一 · Halberd_1",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Halberd_1.glb",
+      "position": [
+        5.99999996,
+        0,
+        7.99999978
+      ],
+      "scaling": [
+        1.6444551,
+        1.6444551,
+        1.6444551
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-9",
+      "name": "长柄战戟二 · Halberd_2",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Halberd_2.glb",
+      "position": [
+        -5.99999981,
+        0,
+        3.99999961
+      ],
+      "scaling": [
+        1.66718546,
+        1.66718546,
+        1.66718546
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-10",
+      "name": "圆盾 · Shield_1.1",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Shield_1_1.glb",
+      "position": [
+        -2,
+        0,
+        4.00000031
+      ],
+      "scaling": [
+        3.68421057,
+        3.68421057,
+        3.68421057
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-11",
+      "name": "绿皮书 · Green_book",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Green_book.glb",
+      "position": [
+        1.99999982,
+        3e-8,
+        4
+      ],
+      "scaling": [
+        6.80731247,
+        6.80731247,
+        6.80731247
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-12",
+      "name": "红皮书 · Red_book",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Red_book.glb",
+      "position": [
+        6.00000063,
+        3e-8,
+        4
+      ],
+      "scaling": [
+        6.80731247,
+        6.80731247,
+        6.80731247
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-13",
+      "name": "骷髅皮书 · Skull_book",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Skull_book.glb",
+      "position": [
+        -5.99999937,
+        3e-8,
+        0
+      ],
+      "scaling": [
+        6.80731247,
+        6.80731247,
+        6.80731247
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-14",
+      "name": "剑 · Sword.001",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sword_001.glb",
+      "position": [
+        -2,
+        0,
+        5.1e-7
+      ],
+      "scaling": [
+        2.7467472,
+        2.7467472,
+        2.7467472
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-15",
+      "name": "剑 · Sword.002",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sword_002.glb",
+      "position": [
+        2,
+        7e-8,
+        5.3e-7
+      ],
+      "scaling": [
+        2.71445249,
+        2.71445249,
+        2.71445249
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-16",
+      "name": "剑 · Sword.003",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sword_003.glb",
+      "position": [
+        6,
+        7e-8,
+        -5.3e-7
+      ],
+      "scaling": [
+        2.71445249,
+        2.71445249,
+        2.71445249
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-17",
+      "name": "陶罐 · Pot.001",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Pot_001.glb",
+      "position": [
+        -5.99999974,
+        6.9e-7,
+        -4.0000009
+      ],
+      "scaling": [
+        11.52349016,
+        11.52349016,
+        11.52349016
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-18",
+      "name": "瓶子 · Bottle.001",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Bottle_001.glb",
+      "position": [
+        -1.99999981,
+        1.2e-7,
+        -3.99999929
+      ],
+      "scaling": [
+        8.33480054,
+        8.33480054,
+        8.33480054
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-19",
+      "name": "陶罐 · Pot.002",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Pot_002.glb",
+      "position": [
+        2.00000026,
+        -6.9e-7,
+        -4.0000009
+      ],
+      "scaling": [
+        11.52349016,
+        11.52349016,
+        11.52349016
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-20",
+      "name": "瓶子 · Bottle.002",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Bottle_002.glb",
+      "position": [
+        6.00000019,
+        1.2e-7,
+        -3.99999929
+      ],
+      "scaling": [
+        8.33480054,
+        8.33480054,
+        8.33480054
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-21",
+      "name": "陶罐 · Pot.003",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Pot_003.glb",
+      "position": [
+        -5.99999974,
+        6.9e-7,
+        -8.0000009
+      ],
+      "scaling": [
+        11.52349016,
+        11.52349016,
+        11.52349016
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-22",
+      "name": "绿皮书 · Green_book.001",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Green_book_001.glb",
+      "position": [
+        -2.00000005,
+        0,
+        -7.99999937
+      ],
+      "scaling": [
+        6.72692146,
+        6.72692146,
+        6.72692146
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-23",
+      "name": "红皮书 · Red_book.001",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Red_book_001.glb",
+      "position": [
+        2.00000045,
+        2e-7,
+        -7.99999937
+      ],
+      "scaling": [
+        6.7728849,
+        6.7728849,
+        6.7728849
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-24",
+      "name": "骷髅皮书 · Skull_book.001",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Skull_book_001.glb",
+      "position": [
+        5.99999965,
+        -4e-7,
+        -7.99999937
+      ],
+      "scaling": [
+        6.73301035,
+        6.73301035,
+        6.73301035
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-25",
+      "name": "红皮书 · Red_book.002",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Red_book_002.glb",
+      "position": [
+        -5.99999959,
+        2.8e-7,
+        -11.99999937
+      ],
+      "scaling": [
+        6.79879482,
+        6.79879482,
+        6.79879482
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-26",
+      "name": "骷髅皮书 · Skull_book.002",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Skull_book_002.glb",
+      "position": [
+        -1.99999959,
+        1.3e-7,
+        -11.99999937
+      ],
+      "scaling": [
+        6.80008014,
+        6.80008014,
+        6.80008014
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-27",
+      "name": "红皮书 · Red_book.003",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Red_book_003.glb",
+      "position": [
+        2.00000041,
+        2.8e-7,
+        -11.99999937
+      ],
+      "scaling": [
+        6.79879482,
+        6.79879482,
+        6.79879482
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-28",
+      "name": "骷髅皮书 · Skull_book.003",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Skull_book_003.glb",
+      "position": [
+        6.00000041,
+        1.3e-7,
+        -11.99999937
+      ],
+      "scaling": [
+        6.80008014,
+        6.80008014,
+        6.80008014
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1396 @@
+{
+  "presetKey": "artist-feldagger-model-test",
+  "name": "Feldagger · 道具与外观（13 款，26 展示实例）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "feldagger-weapons",
+      "name": "feldagger · 匕首及两种外观",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "feldagger-props",
+      "name": "feldagger · 坩埚与南瓜",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "feldagger-food",
+      "name": "feldagger · 四种冰淇淋",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "feldagger-money",
+      "name": "feldagger · 五款钞票",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "feldagger-coffin",
+      "name": "feldagger · 完整棺材、本体与盖 · 四色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "feldagger-nature",
+      "name": "feldagger · 树桩",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 27
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "feldagger-weapons-blinkdagger-stand",
+      "name": "BlinkDagger展台",
+      "parentId": "transform:feldagger-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-weapons-blinkdagger_nodecal-stand",
+      "name": "BlinkDagger_NoDecal展台",
+      "parentId": "transform:feldagger-weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-props-cauldron-stand",
+      "name": "Cauldron展台",
+      "parentId": "transform:feldagger-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "feldagger-props-pumpkin-stand",
+      "name": "Pumpkin展台",
+      "parentId": "transform:feldagger-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "feldagger-food-icecream-stand",
+      "name": "IceCream展台",
+      "parentId": "transform:feldagger-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-food-icecream_crunchy-stand",
+      "name": "IceCream_Crunchy展台",
+      "parentId": "transform:feldagger-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-food-icecream_strawberry-stand",
+      "name": "IceCream_Strawberry展台",
+      "parentId": "transform:feldagger-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-food-icecream_vanilla-stand",
+      "name": "IceCream_Vanilla展台",
+      "parentId": "transform:feldagger-food",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-money-singlenote-stand",
+      "name": "SingleNote展台",
+      "parentId": "transform:feldagger-money",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "feldagger-money-wadofnotes-stand",
+      "name": "WadOfNotes展台",
+      "parentId": "transform:feldagger-money",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "feldagger-money-brickofnotes-stand",
+      "name": "BrickOfNotes展台",
+      "parentId": "transform:feldagger-money",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "feldagger-money-pileofnotes-stand",
+      "name": "PileOfNotes展台",
+      "parentId": "transform:feldagger-money",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "feldagger-money-notesarrangement02-stand",
+      "name": "NotesArrangement02展台",
+      "parentId": "transform:feldagger-money",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "feldagger-coffin-coffin-stand",
+      "name": "Coffin展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffinbody-stand",
+      "name": "CoffinBody展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffinlid-stand",
+      "name": "CoffinLid展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffin_original-stand",
+      "name": "Coffin_Original展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffin_red-stand",
+      "name": "Coffin_Red展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffin_white-stand",
+      "name": "Coffin_White展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffinbody_original-stand",
+      "name": "CoffinBody_Original展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffinbody_red-stand",
+      "name": "CoffinBody_Red展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffinbody_white-stand",
+      "name": "CoffinBody_White展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffinlid_original-stand",
+      "name": "CoffinLid_Original展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffinlid_red-stand",
+      "name": "CoffinLid_Red展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-coffin-coffinlid_white-stand",
+      "name": "CoffinLid_White展台",
+      "parentId": "transform:feldagger-coffin",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "feldagger-nature-stump-stand",
+      "name": "Stump展台",
+      "parentId": "transform:feldagger-nature",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -3
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "feldagger-weapons-blinkdagger",
+      "name": "feldagger · BlinkDagger",
+      "parentId": "transform:feldagger-weapons",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Weapons/BlinkDagger.glb",
+      "position": [
+        -14,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.94117612,
+        32.94117612,
+        32.94117612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-weapons-blinkdagger_nodecal",
+      "name": "feldagger · BlinkDagger_NoDecal",
+      "parentId": "transform:feldagger-weapons",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Weapons/BlinkDagger.glb",
+      "position": [
+        -10,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.94117612,
+        32.94117612,
+        32.94117612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/685a2f8d134db8940b8ae2d1c86c527fea94d1011ea539cae9bb5689cb2b854f.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-props-cauldron",
+      "name": "feldagger · Cauldron",
+      "parentId": "transform:feldagger-props",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Props/Cauldron.glb",
+      "position": [
+        10,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-props-pumpkin",
+      "name": "feldagger · Pumpkin",
+      "parentId": "transform:feldagger-props",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Props/Pumpkin.glb",
+      "position": [
+        14,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-food-icecream",
+      "name": "feldagger · IceCream",
+      "parentId": "transform:feldagger-food",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Food/IceCream.glb",
+      "position": [
+        -18,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.95744682,
+        5.95744682,
+        5.95744682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-food-icecream_crunchy",
+      "name": "feldagger · IceCream_Crunchy",
+      "parentId": "transform:feldagger-food",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Food/IceCream.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.95744682,
+        5.95744682,
+        5.95744682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/2efbcfc912f64b19ede968c767faa861f5bedbdd9117c7547d74608039e04e5e.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-food-icecream_strawberry",
+      "name": "feldagger · IceCream_Strawberry",
+      "parentId": "transform:feldagger-food",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Food/IceCream.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.95744682,
+        5.95744682,
+        5.95744682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/29cd21bae7ad928093de575635d5a1aa939ff6b31ed71237dd9c5ec387988a2b.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-food-icecream_vanilla",
+      "name": "feldagger · IceCream_Vanilla",
+      "parentId": "transform:feldagger-food",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Food/IceCream.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.95744682,
+        5.95744682,
+        5.95744682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/82fe2e38ea7a3c89d2dd9cbc324d1e67dabe15d9264e5002792fa35ac2059fcb.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-money-singlenote",
+      "name": "feldagger · SingleNote",
+      "parentId": "transform:feldagger-money",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Money/SingleNote.glb",
+      "position": [
+        4,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        139.99982059,
+        139.99982059,
+        139.99982059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-money-wadofnotes",
+      "name": "feldagger · WadOfNotes",
+      "parentId": "transform:feldagger-money",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Money/WadOfNotes.glb",
+      "position": [
+        8,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        280.00000626,
+        280.00000626,
+        280.00000626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-money-brickofnotes",
+      "name": "feldagger · BrickOfNotes",
+      "parentId": "transform:feldagger-money",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Money/BrickOfNotes.glb",
+      "position": [
+        12,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        139.99999009,
+        139.99999009,
+        139.99999009
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-money-pileofnotes",
+      "name": "feldagger · PileOfNotes",
+      "parentId": "transform:feldagger-money",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Money/PileOfNotes.glb",
+      "position": [
+        16,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        62.928517,
+        62.928517,
+        62.928517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-money-notesarrangement02",
+      "name": "feldagger · NotesArrangement02",
+      "parentId": "transform:feldagger-money",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Money/NotesArrangement02.glb",
+      "position": [
+        20,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        55.67100707,
+        55.67100707,
+        55.67100707
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-coffin-coffin",
+      "name": "feldagger · Coffin",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/Coffin.glb",
+      "position": [
+        -22,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-coffin-coffinbody",
+      "name": "feldagger · CoffinBody",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/CoffinBody.glb",
+      "position": [
+        -18,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-coffin-coffinlid",
+      "name": "feldagger · CoffinLid",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/CoffinLid.glb",
+      "position": [
+        -14,
+        0,
+        -3.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "feldagger-coffin-coffin_original",
+      "name": "feldagger · Coffin_Original",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/Coffin.glb",
+      "position": [
+        -10,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/eaa21a245a762299a499191a124cc44b326eee3929d6c69d56f0d596832ecf38.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-coffin-coffin_red",
+      "name": "feldagger · Coffin_Red",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/Coffin.glb",
+      "position": [
+        -6,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/d4091c17886ab376883d191a8d15b34c2cee7beac4b8b0136f8674bbff957f98.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-coffin-coffin_white",
+      "name": "feldagger · Coffin_White",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/Coffin.glb",
+      "position": [
+        -2,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/d4e2a28cde5921db81c37a476df0c437499bbc12af00c2246d5e302dfdf0891a.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-coffin-coffinbody_original",
+      "name": "feldagger · CoffinBody_Original",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/CoffinBody.glb",
+      "position": [
+        -22,
+        0,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/eaa21a245a762299a499191a124cc44b326eee3929d6c69d56f0d596832ecf38.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-coffin-coffinbody_red",
+      "name": "feldagger · CoffinBody_Red",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/CoffinBody.glb",
+      "position": [
+        -18,
+        0,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/d4091c17886ab376883d191a8d15b34c2cee7beac4b8b0136f8674bbff957f98.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-coffin-coffinbody_white",
+      "name": "feldagger · CoffinBody_White",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/CoffinBody.glb",
+      "position": [
+        -14,
+        0,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/d4e2a28cde5921db81c37a476df0c437499bbc12af00c2246d5e302dfdf0891a.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-coffin-coffinlid_original",
+      "name": "feldagger · CoffinLid_Original",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/CoffinLid.glb",
+      "position": [
+        -10,
+        0,
+        -7.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/eaa21a245a762299a499191a124cc44b326eee3929d6c69d56f0d596832ecf38.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-coffin-coffinlid_red",
+      "name": "feldagger · CoffinLid_Red",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/CoffinLid.glb",
+      "position": [
+        -6,
+        0,
+        -7.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/d4091c17886ab376883d191a8d15b34c2cee7beac4b8b0136f8674bbff957f98.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-coffin-coffinlid_white",
+      "name": "feldagger · CoffinLid_White",
+      "parentId": "transform:feldagger-coffin",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Coffin/CoffinLid.glb",
+      "position": [
+        -2,
+        0,
+        -7.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_feldagger/d4e2a28cde5921db81c37a476df0c437499bbc12af00c2246d5e302dfdf0891a.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "feldagger-nature-stump",
+      "name": "feldagger · Stump",
+      "parentId": "transform:feldagger-nature",
+      "modelPath": "resources/Model/GLB/artist_feldagger/Nature/Stump.glb",
+      "position": [
+        12,
+        0,
+        -3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57803594,
+        1.57803594,
+        1.57803594
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

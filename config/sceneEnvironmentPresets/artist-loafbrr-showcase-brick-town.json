@@ -1,0 +1,1921 @@
+{
+  "presetKey": "artist-loafbrr-showcase-brick-town",
+  "name": "Loafbrr · BrickTown · 43模型 · 模型 0.58 MiB + 贴图 0.34 MiB · 合计 0.92 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-bricktown-0",
+      "name": "BrickTown",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 37
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-2993eb66f107b306-stand",
+      "name": "StreetProps_PedestrianLight展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-82d08165955e9ccd-stand",
+      "name": "StreetProps_PoleSign_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-376d5336bc1aabd9-stand",
+      "name": "StreetProps_PoleSign_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3af87d1d1d717963-stand",
+      "name": "StreetProps_PoleSign_3展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2838ce0d21a0d4c5-stand",
+      "name": "StreetProps_PoleSign_4展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cbec8760b661b301-stand",
+      "name": "StreetProps_RoadBlock_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1911e675a917c1d8-stand",
+      "name": "StreetProps_RoadBlock_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b2a13bcc04179991-stand",
+      "name": "StreetProps_RoadBlock_3展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bbe8f79934ef7a08-stand",
+      "name": "StreetProps_RoadBlock_4展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-95ef860c6bf5d876-stand",
+      "name": "StreetProps_TrafficCone展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b9d148a4c3302cfb-stand",
+      "name": "StreetProps_TrafficLight展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a63e9f9bab892a9b-stand",
+      "name": "TrashProps_Chair_A_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aeb4be2f6ed8aa77-stand",
+      "name": "TrashProps_Chair_A_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-804d50352a3bc0f0-stand",
+      "name": "TrashProps_Chair_B_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c1473b1134838676-stand",
+      "name": "TrashProps_Chair_B_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-962d57db7790ebcf-stand",
+      "name": "TrashProps_Dumpster_A_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8debf29c055743df-stand",
+      "name": "TrashProps_Dumpster_A_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8c4a0c5b638774c0-stand",
+      "name": "TrashProps_Dumpster_B_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-81229da91c27e12d-stand",
+      "name": "TrashProps_Dumpster_B_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6977a6600bd7f107-stand",
+      "name": "TrashProps_Garbage_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ce600df70d8de76c-stand",
+      "name": "TrashProps_Garbage_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7b62613a214ae32d-stand",
+      "name": "TrashProps_Garbage_3展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d95e78b351cfb667-stand",
+      "name": "TrashProps_Pallet_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fa9726a5df0d3286-stand",
+      "name": "TrashProps_Pallet_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74605f26bae2d29a-stand",
+      "name": "TrashProps_Plank_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2a1f918e8b2667a1-stand",
+      "name": "TrashProps_Plank_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0da80019fab494dd-stand",
+      "name": "TrashProps_Table_A_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dd63513e58f1158d-stand",
+      "name": "TrashProps_Table_A_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7e80974fe3c561db-stand",
+      "name": "TrashProps_Table_A_3展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3962c683323a0491-stand",
+      "name": "TrashProps_Table_A_4展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6c77e73f1f634f41-stand",
+      "name": "TrashProps_Table_A_5展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e4f88e2afcedf2c4-stand",
+      "name": "TrashProps_Table_A_6展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a22e9bf6bffa2592-stand",
+      "name": "TrashProps_Table_A_7展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6d7f70944899f98b-stand",
+      "name": "TrashProps_Table_A_8展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-48741772628ee63f-stand",
+      "name": "TrashProps_Table_B_1展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fb6a5b74e3856780-stand",
+      "name": "TrashProps_Table_B_2展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3a530a0d5561fc3b-stand",
+      "name": "TrashProps_Table_B_3展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d8df7a5792c140a8-stand",
+      "name": "TrashProps_Table_B_4展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8254765790420ec6-stand",
+      "name": "TrashProps_Table_B_5展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b6e1554a1d22fdbd-stand",
+      "name": "TrashProps_Table_B_6展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8c5b6174ca2a4bd8-stand",
+      "name": "TrashProps_Table_B_7展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-014b2292e8843884-stand",
+      "name": "TrashProps_Table_B_8展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f33f07d29fb1b2b4-stand",
+      "name": "TrashProps_Wood展台",
+      "parentId": "transform:category-bricktown-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-2993eb66f107b306",
+      "name": "BrickTown · StreetProps_PedestrianLight · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_PedestrianLight.glb",
+      "position": [
+        -21.99999997,
+        0,
+        15.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.60975369,
+        0.60975369,
+        0.60975369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-82d08165955e9ccd",
+      "name": "BrickTown · StreetProps_PoleSign_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_PoleSign_1.glb",
+      "position": [
+        -18,
+        0,
+        15.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59388363,
+        0.59388363,
+        0.59388363
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-376d5336bc1aabd9",
+      "name": "BrickTown · StreetProps_PoleSign_2 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_PoleSign_2.glb",
+      "position": [
+        -14,
+        0,
+        15.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57636188,
+        0.57636188,
+        0.57636188
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3af87d1d1d717963",
+      "name": "BrickTown · StreetProps_PoleSign_3 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_PoleSign_3.glb",
+      "position": [
+        -10,
+        0,
+        15.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57636183,
+        0.57636183,
+        0.57636183
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2838ce0d21a0d4c5",
+      "name": "BrickTown · StreetProps_PoleSign_4 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_PoleSign_4.glb",
+      "position": [
+        -6,
+        0,
+        15.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62222222,
+        0.62222222,
+        0.62222222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cbec8760b661b301",
+      "name": "BrickTown · StreetProps_RoadBlock_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_RoadBlock_1.glb",
+      "position": [
+        -2,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54791336,
+        1.54791336,
+        1.54791336
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1911e675a917c1d8",
+      "name": "BrickTown · StreetProps_RoadBlock_2 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_RoadBlock_2.glb",
+      "position": [
+        -22,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54791336,
+        1.54791336,
+        1.54791336
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b2a13bcc04179991",
+      "name": "BrickTown · StreetProps_RoadBlock_3 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_RoadBlock_3.glb",
+      "position": [
+        -18,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54791336,
+        1.54791336,
+        1.54791336
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bbe8f79934ef7a08",
+      "name": "BrickTown · StreetProps_RoadBlock_4 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_RoadBlock_4.glb",
+      "position": [
+        -14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54791336,
+        1.54791336,
+        1.54791336
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-95ef860c6bf5d876",
+      "name": "BrickTown · StreetProps_TrafficCone · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_TrafficCone.glb",
+      "position": [
+        -10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.46161705,
+        3.46161705,
+        3.46161705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b9d148a4c3302cfb",
+      "name": "BrickTown · StreetProps_TrafficLight · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/StreetProps_TrafficLight.glb",
+      "position": [
+        -6.00000003,
+        0,
+        11.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.60572715,
+        0.60572715,
+        0.60572715
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a63e9f9bab892a9b",
+      "name": "BrickTown · TrashProps_Chair_A_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Chair_A_1.glb",
+      "position": [
+        -2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98070753,
+        3.98070753,
+        3.98070753
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aeb4be2f6ed8aa77",
+      "name": "BrickTown · TrashProps_Chair_A_2 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Chair_A_2.glb",
+      "position": [
+        -22.00000043,
+        0,
+        8.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.96020364,
+        3.96020364,
+        3.96020364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-804d50352a3bc0f0",
+      "name": "BrickTown · TrashProps_Chair_B_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Chair_B_1.glb",
+      "position": [
+        -18.00000021,
+        0,
+        8.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.54644394,
+        2.54644394,
+        2.54644394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c1473b1134838676",
+      "name": "BrickTown · TrashProps_Chair_B_2 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Chair_B_2.glb",
+      "position": [
+        -14,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.31107856,
+        2.31107856,
+        2.31107856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-962d57db7790ebcf",
+      "name": "BrickTown · TrashProps_Dumpster_A_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Dumpster_A_1.glb",
+      "position": [
+        -10,
+        0,
+        7.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22318029,
+        1.22318029,
+        1.22318029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8debf29c055743df",
+      "name": "BrickTown · TrashProps_Dumpster_A_2 · 模型 0.04 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Dumpster_A_2.glb",
+      "position": [
+        -6,
+        0,
+        8.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22318029,
+        1.22318029,
+        1.22318029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8c4a0c5b638774c0",
+      "name": "BrickTown · TrashProps_Dumpster_B_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Dumpster_B_1.glb",
+      "position": [
+        -2,
+        0,
+        7.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22318029,
+        1.22318029,
+        1.22318029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-81229da91c27e12d",
+      "name": "BrickTown · TrashProps_Dumpster_B_2 · 模型 0.04 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Dumpster_B_2.glb",
+      "position": [
+        -22,
+        0,
+        4.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22318029,
+        1.22318029,
+        1.22318029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6977a6600bd7f107",
+      "name": "BrickTown · TrashProps_Garbage_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Garbage_1.glb",
+      "position": [
+        -18,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.51355451,
+        2.51355451,
+        2.51355451
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ce600df70d8de76c",
+      "name": "BrickTown · TrashProps_Garbage_2 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Garbage_2.glb",
+      "position": [
+        -13.99999993,
+        0,
+        4.00000055
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.48126828,
+        2.48126828,
+        2.48126828
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7b62613a214ae32d",
+      "name": "BrickTown · TrashProps_Garbage_3 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Garbage_3.glb",
+      "position": [
+        -9.99999985,
+        0,
+        3.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.50895355,
+        2.50895355,
+        2.50895355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d95e78b351cfb667",
+      "name": "BrickTown · TrashProps_Pallet_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Pallet_1.glb",
+      "position": [
+        -6.00000015,
+        0,
+        4.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.86032365,
+        2.86032365,
+        2.86032365
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fa9726a5df0d3286",
+      "name": "BrickTown · TrashProps_Pallet_2 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Pallet_2.glb",
+      "position": [
+        -2.00000014,
+        0,
+        4.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.40330396,
+        2.40330396,
+        2.40330396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74605f26bae2d29a",
+      "name": "BrickTown · TrashProps_Plank_1 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Plank_1.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.86032746,
+        2.86032746,
+        2.86032746
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2a1f918e8b2667a1",
+      "name": "BrickTown · TrashProps_Plank_2 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Plank_2.glb",
+      "position": [
+        -18,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.86032746,
+        2.86032746,
+        2.86032746
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0da80019fab494dd",
+      "name": "BrickTown · TrashProps_Table_A_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_A_1.glb",
+      "position": [
+        -14,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24,
+        2.24,
+        2.24
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dd63513e58f1158d",
+      "name": "BrickTown · TrashProps_Table_A_2 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_A_2.glb",
+      "position": [
+        -10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24,
+        2.24,
+        2.24
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7e80974fe3c561db",
+      "name": "BrickTown · TrashProps_Table_A_3 · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_A_3.glb",
+      "position": [
+        -6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.34455368,
+        1.34455368,
+        1.34455368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3962c683323a0491",
+      "name": "BrickTown · TrashProps_Table_A_4 · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_A_4.glb",
+      "position": [
+        -2,
+        0,
+        -2.4e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.34455453,
+        1.34455453,
+        1.34455453
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6c77e73f1f634f41",
+      "name": "BrickTown · TrashProps_Table_A_5 · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_A_5.glb",
+      "position": [
+        -22,
+        0,
+        -3.99999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43889966,
+        1.43889966,
+        1.43889966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e4f88e2afcedf2c4",
+      "name": "BrickTown · TrashProps_Table_A_6 · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_A_6.glb",
+      "position": [
+        -17.99999974,
+        0,
+        -3.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43890076,
+        1.43890076,
+        1.43890076
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a22e9bf6bffa2592",
+      "name": "BrickTown · TrashProps_Table_A_7 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_A_7.glb",
+      "position": [
+        -13.9999996,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.68043286,
+        1.68043286,
+        1.68043286
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6d7f70944899f98b",
+      "name": "BrickTown · TrashProps_Table_A_8 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_A_8.glb",
+      "position": [
+        -9.99999984,
+        0,
+        -4.00000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7522275,
+        1.7522275,
+        1.7522275
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-48741772628ee63f",
+      "name": "BrickTown · TrashProps_Table_B_1 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_B_1.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24,
+        2.24,
+        2.24
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fb6a5b74e3856780",
+      "name": "BrickTown · TrashProps_Table_B_2 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_B_2.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24,
+        2.24,
+        2.24
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3a530a0d5561fc3b",
+      "name": "BrickTown · TrashProps_Table_B_3 · 模型 0.04 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_B_3.glb",
+      "position": [
+        -22,
+        0,
+        -8.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91972525,
+        1.91972525,
+        1.91972525
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d8df7a5792c140a8",
+      "name": "BrickTown · TrashProps_Table_B_4 · 模型 0.03 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_B_4.glb",
+      "position": [
+        -18,
+        0,
+        -8.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.81666297,
+        1.81666297,
+        1.81666297
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8254765790420ec6",
+      "name": "BrickTown · TrashProps_Table_B_5 · 模型 0.04 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_B_5.glb",
+      "position": [
+        -13.99999937,
+        0,
+        -8.00000034
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91972753,
+        1.91972753,
+        1.91972753
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b6e1554a1d22fdbd",
+      "name": "BrickTown · TrashProps_Table_B_6 · 模型 0.03 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_B_6.glb",
+      "position": [
+        -9.99999966,
+        0,
+        -7.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.41178557,
+        1.41178557,
+        1.41178557
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8c5b6174ca2a4bd8",
+      "name": "BrickTown · TrashProps_Table_B_7 · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_B_7.glb",
+      "position": [
+        -6.00000055,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.06753384,
+        2.06753384,
+        2.06753384
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-014b2292e8843884",
+      "name": "BrickTown · TrashProps_Table_B_8 · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Table_B_8.glb",
+      "position": [
+        -2.00000005,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.73197344,
+        1.73197344,
+        1.73197344
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f33f07d29fb1b2b4",
+      "name": "BrickTown · TrashProps_Wood · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-bricktown-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickTown/TrashProps_Wood.glb",
+      "position": [
+        -12,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.61612472,
+        3.61612472,
+        3.61612472
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

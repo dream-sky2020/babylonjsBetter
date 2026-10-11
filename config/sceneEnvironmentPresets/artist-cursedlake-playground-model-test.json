@@ -1,0 +1,452 @@
+{
+  "presetKey": "artist-cursedlake-playground-model-test",
+  "name": "Cursedlake · 游乐场 · 模型展示（11 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "cursedlake-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "cursedlake-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cursedlake-Playground",
+      "name": "游乐场",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "cursedlake-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 20,
+        "height": 22
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "cursedlake-Playground-zone",
+      "name": "游乐场分区",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 12.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-1-stand",
+      "name": "滑梯（含梯子）展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-2-stand",
+      "name": "跷跷板（含底座）展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-3-stand",
+      "name": "双人秋千（含支架）展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-4-stand",
+      "name": "沙箱 · Sandbox展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-5-stand",
+      "name": "攀爬梯 · Ladder_2展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-6-stand",
+      "name": "矮拱形攀爬架 · Arch_2展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-7-stand",
+      "name": "长椅 · Bench展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-8-stand",
+      "name": "拱形攀爬架 · Arch_1展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-9-stand",
+      "name": "垃圾桶 · TrashBucket展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-10-stand",
+      "name": "围栏柱 · FencePost展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-11-stand",
+      "name": "围栏板 · FencePanel展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#8c9e94"
+    }
+  ],
+  "models": [
+    {
+      "id": "cursedlake-Playground-1",
+      "name": "滑梯（含梯子）",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Slide.glb",
+      "position": [
+        -6,
+        0,
+        3.99999994
+      ],
+      "scaling": [
+        0.4853664,
+        0.4853664,
+        0.4853664
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-2",
+      "name": "跷跷板（含底座）",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Seesaw.glb",
+      "position": [
+        -2.00000003,
+        0,
+        3.99999995
+      ],
+      "scaling": [
+        0.90984323,
+        0.90984323,
+        0.90984323
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-3",
+      "name": "双人秋千（含支架）",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Swing.glb",
+      "position": [
+        1.99999989,
+        0,
+        4.00000005
+      ],
+      "scaling": [
+        0.88874047,
+        0.88874047,
+        0.88874047
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-4",
+      "name": "沙箱 · Sandbox",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Sandbox.glb",
+      "position": [
+        6,
+        0,
+        4
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-5",
+      "name": "攀爬梯 · Ladder_2",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Ladder_2.glb",
+      "position": [
+        -6,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06440523,
+        1.06440523,
+        1.06440523
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-6",
+      "name": "矮拱形攀爬架 · Arch_2",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Arch_2.glb",
+      "position": [
+        -2,
+        0,
+        0
+      ],
+      "scaling": [
+        2.12121261,
+        2.12121261,
+        2.12121261
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-7",
+      "name": "长椅 · Bench",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Bench.glb",
+      "position": [
+        2,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74883849,
+        1.74883849,
+        1.74883849
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-8",
+      "name": "拱形攀爬架 · Arch_1",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Arch_1.glb",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65781012,
+        0.65781012,
+        0.65781012
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-9",
+      "name": "垃圾桶 · TrashBucket",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/TrashBucket.glb",
+      "position": [
+        -6,
+        0,
+        -3.99999971
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-10",
+      "name": "围栏柱 · FencePost",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/FencePost.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.80643396,
+        2.80643396,
+        2.80643396
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-11",
+      "name": "围栏板 · FencePanel",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/FencePanel.glb",
+      "position": [
+        2.00000006,
+        0,
+        -4.00000027
+      ],
+      "scaling": [
+        0.95568647,
+        0.95568647,
+        0.95568647
+      ]
+    }
+  ]
+}

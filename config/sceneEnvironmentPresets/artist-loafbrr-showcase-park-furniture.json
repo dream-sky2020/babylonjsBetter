@@ -1,0 +1,2007 @@
+{
+  "presetKey": "artist-loafbrr-showcase-park-furniture",
+  "name": "Loafbrr · ParkFurniture · 45模型 · 模型 0.81 MiB + 贴图 0.13 MiB · 合计 0.94 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-parkfurniture-0",
+      "name": "ParkFurniture",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 37
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-b077ca39f93d2aee-stand",
+      "name": "ParkFurn_Arrow_A展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ced3c5659584eef5-stand",
+      "name": "ParkFurn_Arrow_B展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-18278867ae8b4375-stand",
+      "name": "ParkFurn_Arrow_C展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-29c77cbe8fcce5ed-stand",
+      "name": "ParkFurn_Arrow_D展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-12aef1e2ab7970ce-stand",
+      "name": "ParkFurn_Arrow_E展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e3e84013d9ba4387-stand",
+      "name": "ParkFurn_Bench_A展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-24029f4b98f690d9-stand",
+      "name": "ParkFurn_Bench_B展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-63efa48e1e72b837-stand",
+      "name": "ParkFurn_Bench_C展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f15427cdd23f20d5-stand",
+      "name": "ParkFurn_Lamp_A展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-17d1458cfd480c9f-stand",
+      "name": "ParkFurn_Lamp_B展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e4b9d39062457fbe-stand",
+      "name": "ParkFurn_Lamp_C展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-28b4b380a1a0c8eb-stand",
+      "name": "ParkFurn_Lamp_D展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8622a09f1474a974-stand",
+      "name": "ParkFurn_Lamp_E展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-07e702355f9fb1aa-stand",
+      "name": "ParkFurn_Stool_A展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-349d3583935e44da-stand",
+      "name": "ParkFurn_Stool_B展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8dffa2fa7a1fff92-stand",
+      "name": "ParkFurn_Table_A展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-07d2ccf9108bc0ec-stand",
+      "name": "ParkFurn_Table_B展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-096a4b10fed95f86-stand",
+      "name": "ParkFurn_Table_C展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cb02dab2fe271364-stand",
+      "name": "ParkFurn_Table_D展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-62233dd6706334b4-stand",
+      "name": "ParkFurn_Table_E展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7c4479058af378e0-stand",
+      "name": "ParkFurn_Table_F展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-227c7e20a43eb52b-stand",
+      "name": "ParkFurn_Table_G展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1e07ae3d7e5b9447-stand",
+      "name": "ParkFurn_Table_H展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cf7373578a0ea646-stand",
+      "name": "ParkFurn_Table_I展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-60d9747be452261f-stand",
+      "name": "ParkFurn_Table_J展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-423782be9927f670-stand",
+      "name": "ParkFurn_Table_K展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2b48e314317b1c51-stand",
+      "name": "ParkFurn_Table_L展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d6027f767831a93f-stand",
+      "name": "ParkFurn_TrashCan_A展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bf435da7e7fbf95e-stand",
+      "name": "ParkFurn_TrashCan_B展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-85bf07dbf765772b-stand",
+      "name": "ParkFurn_TrashCan_C展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a6cfff17f994103d-stand",
+      "name": "ParkFurn_TrashCan_D展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8cf9bdc6a2d9ef64-stand",
+      "name": "ParkFurn_TrashCan_E展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c4a2e7e2581d8133-stand",
+      "name": "ParkFurn_TrashCan_F展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-954b96d0176d970f-stand",
+      "name": "ParkFurn_Umbrella_A展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eaaa37f7875d3c50-stand",
+      "name": "ParkFurn_Umbrella_B展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-45ddd07d59c65d5c-stand",
+      "name": "ParkFurn_Umbrella_C展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e71073f6944f613a-stand",
+      "name": "ParkFurn_Umbrella_D展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a5b6508fad361351-stand",
+      "name": "ParkFurn_Umbrella_E展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0f8122477436bef6-stand",
+      "name": "ParkFurn_Umbrella_F展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1fd5dc9fae08d0fd-stand",
+      "name": "ParkFurn_Umbrella_G展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6e6d804a5877e484-stand",
+      "name": "ParkFurn_Umbrella_H展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cf482b00f333fff7-stand",
+      "name": "ParkFurn_Umbrella_I展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-be57310eef106e57-stand",
+      "name": "ParkFurn_Umbrella_J展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a1f7dbd87a610c4e-stand",
+      "name": "ParkFurn_Umbrella_K展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-53a974162ce74514-stand",
+      "name": "ParkFurn_Umbrella_L展台",
+      "parentId": "transform:category-parkfurniture-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-b077ca39f93d2aee",
+      "name": "ParkFurniture · ParkFurn_Arrow_A · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Arrow_A.glb",
+      "position": [
+        -22,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.10790457,
+        2.10790457,
+        2.10790457
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ced3c5659584eef5",
+      "name": "ParkFurniture · ParkFurn_Arrow_B · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Arrow_B.glb",
+      "position": [
+        -17.9999997,
+        0,
+        16.0000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.38028224,
+        3.38028224,
+        3.38028224
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-18278867ae8b4375",
+      "name": "ParkFurniture · ParkFurn_Arrow_C · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Arrow_C.glb",
+      "position": [
+        -13.99999985,
+        0,
+        16.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3802792,
+        3.3802792,
+        3.3802792
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-29c77cbe8fcce5ed",
+      "name": "ParkFurniture · ParkFurn_Arrow_D · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Arrow_D.glb",
+      "position": [
+        -9.99999995,
+        0,
+        16.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.38028139,
+        3.38028139,
+        3.38028139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-12aef1e2ab7970ce",
+      "name": "ParkFurniture · ParkFurn_Arrow_E · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Arrow_E.glb",
+      "position": [
+        -6.00000005,
+        0,
+        16.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.38028139,
+        3.38028139,
+        3.38028139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e3e84013d9ba4387",
+      "name": "ParkFurniture · ParkFurn_Bench_A · 模型 0.04 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Bench_A.glb",
+      "position": [
+        -1.99999962,
+        0,
+        15.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.61282686,
+        1.61282686,
+        1.61282686
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-24029f4b98f690d9",
+      "name": "ParkFurniture · ParkFurn_Bench_B · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Bench_B.glb",
+      "position": [
+        -22,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-63efa48e1e72b837",
+      "name": "ParkFurniture · ParkFurn_Bench_C · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Bench_C.glb",
+      "position": [
+        -18.00000045,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.77104343,
+        3.77104343,
+        3.77104343
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f15427cdd23f20d5",
+      "name": "ParkFurniture · ParkFurn_Lamp_A · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Lamp_A.glb",
+      "position": [
+        -14,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9016477,
+        0.9016477,
+        0.9016477
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-17d1458cfd480c9f",
+      "name": "ParkFurniture · ParkFurn_Lamp_B · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Lamp_B.glb",
+      "position": [
+        -10,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89977922,
+        0.89977922,
+        0.89977922
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e4b9d39062457fbe",
+      "name": "ParkFurniture · ParkFurn_Lamp_C · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Lamp_C.glb",
+      "position": [
+        -6,
+        0,
+        12.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.77368499,
+        0.77368499,
+        0.77368499
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-28b4b380a1a0c8eb",
+      "name": "ParkFurniture · ParkFurn_Lamp_D · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Lamp_D.glb",
+      "position": [
+        -2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82554521,
+        1.82554521,
+        1.82554521
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8622a09f1474a974",
+      "name": "ParkFurniture · ParkFurn_Lamp_E · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Lamp_E.glb",
+      "position": [
+        -22,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.81790192,
+        1.81790192,
+        1.81790192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-07e702355f9fb1aa",
+      "name": "ParkFurniture · ParkFurn_Stool_A · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Stool_A.glb",
+      "position": [
+        -17.99999938,
+        0,
+        7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.96503314,
+        5.96503314,
+        5.96503314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-349d3583935e44da",
+      "name": "ParkFurniture · ParkFurn_Stool_B · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Stool_B.glb",
+      "position": [
+        -13.99999938,
+        0,
+        7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.96503314,
+        5.96503314,
+        5.96503314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8dffa2fa7a1fff92",
+      "name": "ParkFurniture · ParkFurn_Table_A · 模型 0.04 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_A.glb",
+      "position": [
+        -10,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39522717,
+        1.39522717,
+        1.39522717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-07d2ccf9108bc0ec",
+      "name": "ParkFurniture · ParkFurn_Table_B · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_B.glb",
+      "position": [
+        -6,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.42176509,
+        1.42176509,
+        1.42176509
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-096a4b10fed95f86",
+      "name": "ParkFurniture · ParkFurn_Table_C · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_C.glb",
+      "position": [
+        -2,
+        0,
+        7.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50205196,
+        1.50205196,
+        1.50205196
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb02dab2fe271364",
+      "name": "ParkFurniture · ParkFurn_Table_D · 模型 0.04 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_D.glb",
+      "position": [
+        -22,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39522717,
+        1.39522717,
+        1.39522717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-62233dd6706334b4",
+      "name": "ParkFurniture · ParkFurn_Table_E · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_E.glb",
+      "position": [
+        -17.99999992,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.42176509,
+        1.42176509,
+        1.42176509
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7c4479058af378e0",
+      "name": "ParkFurniture · ParkFurn_Table_F · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_F.glb",
+      "position": [
+        -14,
+        0,
+        3.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50205215,
+        1.50205215,
+        1.50205215
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-227c7e20a43eb52b",
+      "name": "ParkFurniture · ParkFurn_Table_G · 模型 0.04 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_G.glb",
+      "position": [
+        -10.00000017,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.42176509,
+        1.42176509,
+        1.42176509
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1e07ae3d7e5b9447",
+      "name": "ParkFurniture · ParkFurn_Table_H · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_H.glb",
+      "position": [
+        -5.99999992,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.63125803,
+        2.63125803,
+        2.63125803
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cf7373578a0ea646",
+      "name": "ParkFurniture · ParkFurn_Table_I · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_I.glb",
+      "position": [
+        -1.99999992,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.63125803,
+        2.63125803,
+        2.63125803
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-60d9747be452261f",
+      "name": "ParkFurniture · ParkFurn_Table_J · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_J.glb",
+      "position": [
+        -21.99999995,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.36069957,
+        3.36069957,
+        3.36069957
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-423782be9927f670",
+      "name": "ParkFurniture · ParkFurn_Table_K · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_K.glb",
+      "position": [
+        -17.99999995,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.36069957,
+        3.36069957,
+        3.36069957
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2b48e314317b1c51",
+      "name": "ParkFurniture · ParkFurn_Table_L · 模型 0.05 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Table_L.glb",
+      "position": [
+        -14,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57872813,
+        1.57872813,
+        1.57872813
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d6027f767831a93f",
+      "name": "ParkFurniture · ParkFurn_TrashCan_A · 模型 0.06 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_TrashCan_A.glb",
+      "position": [
+        -10,
+        0,
+        4.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.44615334,
+        3.44615334,
+        3.44615334
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bf435da7e7fbf95e",
+      "name": "ParkFurniture · ParkFurn_TrashCan_B · 模型 0.06 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_TrashCan_B.glb",
+      "position": [
+        -5.99999995,
+        0,
+        -2.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.44615334,
+        3.44615334,
+        3.44615334
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-85bf07dbf765772b",
+      "name": "ParkFurniture · ParkFurn_TrashCan_C · 模型 0.03 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_TrashCan_C.glb",
+      "position": [
+        -2.00000005,
+        0,
+        -6.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.42947178,
+        3.42947178,
+        3.42947178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a6cfff17f994103d",
+      "name": "ParkFurniture · ParkFurn_TrashCan_D · 模型 0.03 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_TrashCan_D.glb",
+      "position": [
+        -22.00000005,
+        0,
+        -3.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.42947178,
+        3.42947178,
+        3.42947178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8cf9bdc6a2d9ef64",
+      "name": "ParkFurniture · ParkFurn_TrashCan_E · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_TrashCan_E.glb",
+      "position": [
+        -18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999969,
+        3.49999969,
+        3.49999969
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c4a2e7e2581d8133",
+      "name": "ParkFurniture · ParkFurn_TrashCan_F · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_TrashCan_F.glb",
+      "position": [
+        -14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999969,
+        3.49999969,
+        3.49999969
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-954b96d0176d970f",
+      "name": "ParkFurniture · ParkFurn_Umbrella_A · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_A.glb",
+      "position": [
+        -10,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eaaa37f7875d3c50",
+      "name": "ParkFurniture · ParkFurn_Umbrella_B · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_B.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-45ddd07d59c65d5c",
+      "name": "ParkFurniture · ParkFurn_Umbrella_C · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_C.glb",
+      "position": [
+        -2,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e71073f6944f613a",
+      "name": "ParkFurniture · ParkFurn_Umbrella_D · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_D.glb",
+      "position": [
+        -22,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a5b6508fad361351",
+      "name": "ParkFurniture · ParkFurn_Umbrella_E · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_E.glb",
+      "position": [
+        -18,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0f8122477436bef6",
+      "name": "ParkFurniture · ParkFurn_Umbrella_F · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_F.glb",
+      "position": [
+        -14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1fd5dc9fae08d0fd",
+      "name": "ParkFurniture · ParkFurn_Umbrella_G · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_G.glb",
+      "position": [
+        -10,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6e6d804a5877e484",
+      "name": "ParkFurniture · ParkFurn_Umbrella_H · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_H.glb",
+      "position": [
+        -6,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cf482b00f333fff7",
+      "name": "ParkFurniture · ParkFurn_Umbrella_I · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_I.glb",
+      "position": [
+        -1.99999995,
+        0,
+        -8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-be57310eef106e57",
+      "name": "ParkFurniture · ParkFurn_Umbrella_J · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_J.glb",
+      "position": [
+        -16,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a1f7dbd87a610c4e",
+      "name": "ParkFurniture · ParkFurn_Umbrella_K · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_K.glb",
+      "position": [
+        -11.99999995,
+        0,
+        -11.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-53a974162ce74514",
+      "name": "ParkFurniture · ParkFurn_Umbrella_L · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-parkfurniture-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ParkFurniture/ParkFurn_Umbrella_L.glb",
+      "position": [
+        -8,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2331103,
+        1.2331103,
+        1.2331103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

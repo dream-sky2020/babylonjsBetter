@@ -1,0 +1,7812 @@
+{
+  "presetKey": "artist-elbolilloduro-food-model-test",
+  "name": "Elbolilloduro · 餐饮、厨房与商店 1/8（180 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-burgerpiz",
+      "name": "BurgerPiz",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 125
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-2bec9f981cb6a147-stand",
+      "name": "air-conditioning_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1ad9d27e3fc29128-stand",
+      "name": "Armchair展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6b0a199c39f9dde1-stand",
+      "name": "Armchair_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3e5cc161c0668384-stand",
+      "name": "AsphaltDamaged展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4b4b3c1b168db56d-stand",
+      "name": "Background展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4e5bc0c69d8727fa-stand",
+      "name": "basket_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        60
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2ffa6d16b09d5829-stand",
+      "name": "Building展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f589c915f4a566c4-stand",
+      "name": "Building_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-449ede3bf4c5b08c-stand",
+      "name": "Building_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1e96ec3e434b91e6-stand",
+      "name": "Building_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3deb6dbeb82d2af4-stand",
+      "name": "Building_01展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9459d0ee58d43750-stand",
+      "name": "Building_02展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7196dc5ba637dc26-stand",
+      "name": "Building_02_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9806c7f822ba7f07-stand",
+      "name": "BurgerPiz展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f9962959adb15c66-stand",
+      "name": "BurgerPiz_L展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-564eb9edf25d39e2-stand",
+      "name": "BurgerPiz_L_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-16753e2c8b63fa66-stand",
+      "name": "cardboard_boxes_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-803e2a8f5f728cbf-stand",
+      "name": "cardboard_boxes_01_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-28cbd5f41640af2a-stand",
+      "name": "cardboard_boxes_02_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1649a2ee54742bf3-stand",
+      "name": "cardboard_boxes_03_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b41b0ada9c0bea9a-stand",
+      "name": "Cash_register展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-be1eb7f07f0851db-stand",
+      "name": "Ceiling展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-00dd1ce5a4da27d2-stand",
+      "name": "Ceiling_A展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8c43ae3c9c3d492f-stand",
+      "name": "Chair展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-12be4f2a504f117c-stand",
+      "name": "Chair_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-07fd981f0ca25edb-stand",
+      "name": "counter展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f55a9e162c1526e7-stand",
+      "name": "counter_01展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2885072659eb031d-stand",
+      "name": "counter_02展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d88e89b56d834314-stand",
+      "name": "Door展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-728ccc8d308635ff-stand",
+      "name": "Door_C展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e183fe12a87009fa-stand",
+      "name": "Door_F展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-91f9d56fb3f49f1e-stand",
+      "name": "Door_F_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3a1659a0ff535182-stand",
+      "name": "Door_Fr展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3d289358d8ba2b0a-stand",
+      "name": "Door_W展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-77567d6c58747ba5-stand",
+      "name": "Door_W_01展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ca6fcb3197f37d7d-stand",
+      "name": "Floor展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-04ee3656298b4f29-stand",
+      "name": "garden展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dd4695281a09f0ce-stand",
+      "name": "Grass展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-872f8291df5ecce2-stand",
+      "name": "Grill_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c88a2162e0effff2-stand",
+      "name": "Grill_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8b08835455f968f1-stand",
+      "name": "kitchen_hood展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3d897713189dc747-stand",
+      "name": "kitchen_hood_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e3f50eb9677780b7-stand",
+      "name": "L展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-feea59c87ea2e560-stand",
+      "name": "Lamppost_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aa47e12f80762d2f-stand",
+      "name": "Lamppost_001_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6ccff98719e02d18-stand",
+      "name": "Lamppost_001_005展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b35c421afa5d1808-stand",
+      "name": "Lamppost_001_006展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4b446f022b23d29a-stand",
+      "name": "Lamppost_001_009展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6186251565ba49e7-stand",
+      "name": "Lamppost_001_010展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fed9e34d1212a6f5-stand",
+      "name": "Lamppost_001_011展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2fd9f6add02dff7f-stand",
+      "name": "Light展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0c64439aefabdce6-stand",
+      "name": "Lines展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e5771c7344a8f57c-stand",
+      "name": "Lines_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-14804566ce571893-stand",
+      "name": "Lines_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2f79d4b14b7af14a-stand",
+      "name": "Menu展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2ccad2f46de2368b-stand",
+      "name": "Menu_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-750d541835fc42c8-stand",
+      "name": "Menu_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e94e4b04da4e6507-stand",
+      "name": "Mirror展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-47f470025dc6cdce-stand",
+      "name": "Mirror_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1f7355f0e5b4556e-stand",
+      "name": "Paper_dispenser_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ad4dd9a35d1c3979-stand",
+      "name": "Paper_dispenser_008展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ff9dbb86cef36b7c-stand",
+      "name": "Plant展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4a16f354b1b004a0-stand",
+      "name": "Plants展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f74cbcb1d4098b48-stand",
+      "name": "Plants_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6a03fccd9a9260b5-stand",
+      "name": "Plants_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f0140ebd51806cd8-stand",
+      "name": "Plants_004展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bb38061d663cfb62-stand",
+      "name": "Plants_005展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9cfec739f2095820-stand",
+      "name": "Plants_008展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9dec05653fe2fae4-stand",
+      "name": "Plants_009展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6eba2dc841667e68-stand",
+      "name": "Plants_010展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2e63d7a77601566b-stand",
+      "name": "Plants_011展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ec01e9a0aaf303f3-stand",
+      "name": "Plants_012展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2d8bcc1b9c17e5df-stand",
+      "name": "Plants_015展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2149cc4cd73608cc-stand",
+      "name": "Plants_016展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-403508acd41da505-stand",
+      "name": "Plants_017展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5759a6c1b06b85c6-stand",
+      "name": "Plants_018展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-68334f4582d16551-stand",
+      "name": "Plants_043展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3bdd3a6c173f8fd5-stand",
+      "name": "Plants_044展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4112fdfd3ea346bd-stand",
+      "name": "Plants_046展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b913ba4d5aaba7e5-stand",
+      "name": "plants_flowers展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9f665ad764b68d4d-stand",
+      "name": "plants_flowers_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a83f60b06f96f9d1-stand",
+      "name": "plants_flowers_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f32008073575d2c3-stand",
+      "name": "plants_flowers_005展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4ce848be9e120016-stand",
+      "name": "plants_flowers_006展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-baefa419478aed4a-stand",
+      "name": "plants_flowers_007展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-17b8b9b67f07a916-stand",
+      "name": "plants_flowers_011展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-420a9ee5b0c7d4d9-stand",
+      "name": "plants_flowers_025展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0a57276fd3a24dbd-stand",
+      "name": "plants_flowers_026展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d5b36c1157153cca-stand",
+      "name": "Refrijerator_M_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1cfe13b2fb2259ca-stand",
+      "name": "Resources_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-52d1e09116418b82-stand",
+      "name": "Resources_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f1e4bfe784eb4c37-stand",
+      "name": "Resources_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3963b8b1e6e081c0-stand",
+      "name": "Resources_004展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ad492b48643267f9-stand",
+      "name": "Resources_007展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9370d5a9a6622618-stand",
+      "name": "Resources_008展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6b10b9378b2831e2-stand",
+      "name": "Resources_009展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7155761f1278496e-stand",
+      "name": "Resources_010展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e564f472b62dbcf6-stand",
+      "name": "Resources_011展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e12a8cf52c75db12-stand",
+      "name": "Resources_012展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7063ad76542466ff-stand",
+      "name": "Resources_013展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-583335df9da14714-stand",
+      "name": "Resources_014展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3ee4fe53a77f5385-stand",
+      "name": "RooftilesMetal展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f471342f16837280-stand",
+      "name": "Shelf_B_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e11aad81bb9edb36-stand",
+      "name": "Shelf_B_G_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-db8c1d3cccfeda5d-stand",
+      "name": "Shelf_C_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9b61e5feb98dc595-stand",
+      "name": "Shelf_F_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-93c3f1ed8dfd806f-stand",
+      "name": "Shelf_fd_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-35944187adb9d80c-stand",
+      "name": "Shelf_FR_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c98797e2428fcfc1-stand",
+      "name": "Shelf_S_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-08379f0a46264bdb-stand",
+      "name": "Shelving_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6a02577ceb28e120-stand",
+      "name": "Shelving_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f5b9b90aaede435b-stand",
+      "name": "Shelving_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-554d18f926b94d64-stand",
+      "name": "sidewalk展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aa9dd6a44692a3d8-stand",
+      "name": "sidewalk_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9e784973c5c91844-stand",
+      "name": "sidewalk_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ca2f6c180992a644-stand",
+      "name": "sidewalk_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-55b0749bbd351da6-stand",
+      "name": "sidewalk_006展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-26fd19055d5b9c69-stand",
+      "name": "sidewalk_007展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-19efe1b45721a374-stand",
+      "name": "sidewalk_008展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-58f06596bd7ed5d0-stand",
+      "name": "sidewalk_009展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2fb810ed771d07e1-stand",
+      "name": "sidewalk_010展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5f0eb89ba6e723dc-stand",
+      "name": "sidewalk_012展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6168df395396f421-stand",
+      "name": "sidewalk_016展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-47b54d9c95d2f1ef-stand",
+      "name": "sidewalk_018展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a2d904dbe8ae8af4-stand",
+      "name": "sidewalk_019展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3fbe311d508b728b-stand",
+      "name": "sidewalk_020展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1208722a1710ecc3-stand",
+      "name": "sidewalk_021展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-493e593c563a1742-stand",
+      "name": "sidewalk_023展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7e4ea89d947c13dd-stand",
+      "name": "sidewalk_024展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-186964ec97d0abab-stand",
+      "name": "sidewalk_026展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b40d5920ddc4b0ea-stand",
+      "name": "Soap_dispenser_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5a20635f295c6c2f-stand",
+      "name": "Soda_fountain展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-28365d694cfb05f9-stand",
+      "name": "Table展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fe01a3c91765b0b4-stand",
+      "name": "Toilet_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ea333099ab53e476-stand",
+      "name": "Toilet_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-780efca611a2b0fc-stand",
+      "name": "Tree展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3236aa75f5d4c5e3-stand",
+      "name": "Tree_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-314dba300c984b01-stand",
+      "name": "Tree_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-07b7ec18fecec07a-stand",
+      "name": "Tree_005展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-de65f7aa92efc7ab-stand",
+      "name": "Tree_009展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f8b7176c45a56b40-stand",
+      "name": "Tree_01展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-496f045711251d03-stand",
+      "name": "Tree_01_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9ac6f54772200dea-stand",
+      "name": "Tree_01_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-da10fa58d12ca2e0-stand",
+      "name": "Tree_01_005展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-87d0f8f0f8e056ac-stand",
+      "name": "Tree_01_007展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f06a0cfca7491f01-stand",
+      "name": "Tree_01_010展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e30f1397f115ce05-stand",
+      "name": "Tree_01_012展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e1fd4f6be294b0f1-stand",
+      "name": "Tree_01_018展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fc5c0564812ada20-stand",
+      "name": "Tree_01_019展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ade660e8be9a092d-stand",
+      "name": "Tree_01_021展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-66663ebecc9c86ea-stand",
+      "name": "Tree_01_022展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-46c33b06597f91fa-stand",
+      "name": "Tree_01_029展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-54daea4cd13856d3-stand",
+      "name": "Tree_01_030展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f988441b337112cd-stand",
+      "name": "Tree_01_032展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7145dfdd8ca012ad-stand",
+      "name": "Tree_01_034展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f5c12551d6dc49bd-stand",
+      "name": "Tree_01_054展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f3698514a6bb3689-stand",
+      "name": "Tree_01_055展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5198132e6b971571-stand",
+      "name": "Tree_011展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-192b9d4aba3b925e-stand",
+      "name": "Tree_017展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-38a12c4c988a9660-stand",
+      "name": "Tree_02展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-67e09c355cf53ce1-stand",
+      "name": "Tree_02_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-483bcaeaee90c9cf-stand",
+      "name": "Tree_02_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -44
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-031d2951ec9ad472-stand",
+      "name": "Tree_02_011展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-aa89c35e018bfc8d-stand",
+      "name": "Tree_02_017展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7a9c6a3581090df1-stand",
+      "name": "Tree_020展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d499c95a59bb8019-stand",
+      "name": "Tree_029展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7b3ab55ef0ade490-stand",
+      "name": "Tree_03展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-61172f9d5a670735-stand",
+      "name": "Tree_03_001展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -48
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e187293f6dd90e15-stand",
+      "name": "Tree_03_002展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-202accc45fbd75f5-stand",
+      "name": "Tree_03_003展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-38827f080dd17766-stand",
+      "name": "Tree_03_004展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2084720d5b11e9d2-stand",
+      "name": "Tree_03_005展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b574f02d9b71b426-stand",
+      "name": "Tree_03_006展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-167e46c4cd82b894-stand",
+      "name": "Tree_03_007展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -52
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b64ffbbda1c8a2d0-stand",
+      "name": "Tree_03_008展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9b23dafabdc27378-stand",
+      "name": "Tree_03_009展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2f677952a49c4177-stand",
+      "name": "Tree_03_010展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a50d6fd3c556883a-stand",
+      "name": "Tree_03_012展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5290c58cfd72eeee-stand",
+      "name": "Tree_03_013展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9db21cd2f7bb8f21-stand",
+      "name": "Tree_03_014展台",
+      "parentId": "transform:category-burgerpiz",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -56
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-2bec9f981cb6a147",
+      "name": "BurgerPiz · air-conditioning_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/air-conditioning_001_842c966d.glb",
+      "position": [
+        -22,
+        6e-8,
+        59.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0733968,
+        2.0733968,
+        2.0733968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1ad9d27e3fc29128",
+      "name": "BurgerPiz · Armchair",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Armchair_0eef3a89.glb",
+      "position": [
+        -18,
+        0,
+        60.00000135
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74395631,
+        1.74395631,
+        1.74395631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6b0a199c39f9dde1",
+      "name": "BurgerPiz · Armchair_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Armchair_001_d79a52b4.glb",
+      "position": [
+        -14,
+        0,
+        59.99999865
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74395631,
+        1.74395631,
+        1.74395631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e5cc161c0668384",
+      "name": "BurgerPiz · AsphaltDamaged",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/AsphaltDamaged_c734bdba.glb",
+      "position": [
+        -9.99999999,
+        0,
+        60
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04792779,
+        0.04792779,
+        0.04792779
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4b4b3c1b168db56d",
+      "name": "BurgerPiz · Background",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Background_38d76efb.glb",
+      "position": [
+        -5.99999998,
+        0,
+        60
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.00708733,
+        0.00708733,
+        0.00708733
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4e5bc0c69d8727fa",
+      "name": "BurgerPiz · basket_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/basket_002_1e9d903a.glb",
+      "position": [
+        -2.0000004,
+        4e-8,
+        60
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.59962481,
+        3.59962481,
+        3.59962481
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2ffa6d16b09d5829",
+      "name": "BurgerPiz · Building",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Building_d5b512d4.glb",
+      "position": [
+        -21.99999995,
+        0,
+        55.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04573945,
+        0.04573945,
+        0.04573945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f589c915f4a566c4",
+      "name": "BurgerPiz · Building_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Building_001_4477d4f2.glb",
+      "position": [
+        -18.00000004,
+        0,
+        56.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04573944,
+        0.04573944,
+        0.04573944
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-449ede3bf4c5b08c",
+      "name": "BurgerPiz · Building_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Building_002_23adb39f.glb",
+      "position": [
+        -13.99999996,
+        0,
+        56.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04573944,
+        0.04573944,
+        0.04573944
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1e96ec3e434b91e6",
+      "name": "BurgerPiz · Building_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Building_003_e66cd82e.glb",
+      "position": [
+        -10.00000022,
+        0,
+        55.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.04573945,
+        0.04573945,
+        0.04573945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3deb6dbeb82d2af4",
+      "name": "BurgerPiz · Building_01",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Building_01_75d3656d.glb",
+      "position": [
+        -6,
+        -1e-8,
+        56.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10382694,
+        0.10382694,
+        0.10382694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9459d0ee58d43750",
+      "name": "BurgerPiz · Building_02",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Building_02_12d8ff57.glb",
+      "position": [
+        -2.00000002,
+        -1e-8,
+        55.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12578377,
+        0.12578377,
+        0.12578377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7196dc5ba637dc26",
+      "name": "BurgerPiz · Building_02_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Building_02_002_76829084.glb",
+      "position": [
+        -21.99999998,
+        2e-8,
+        51.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12578377,
+        0.12578377,
+        0.12578377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9806c7f822ba7f07",
+      "name": "BurgerPiz · BurgerPiz",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/BurgerPiz_8e489877.glb",
+      "position": [
+        -18,
+        0,
+        52.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09326192,
+        0.09326192,
+        0.09326192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f9962959adb15c66",
+      "name": "BurgerPiz · BurgerPiz_L",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/BurgerPiz_L_718504f0.glb",
+      "position": [
+        -13.99999995,
+        1e-7,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.21041781,
+        1.21041781,
+        1.21041781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-564eb9edf25d39e2",
+      "name": "BurgerPiz · BurgerPiz_L_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/BurgerPiz_L_001_965ee970.glb",
+      "position": [
+        -10.00000003,
+        1e-8,
+        52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45412374,
+        0.45412374,
+        0.45412374
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-16753e2c8b63fa66",
+      "name": "BurgerPiz · cardboard_boxes_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/cardboard_boxes_001_bdfca5fe.glb",
+      "position": [
+        -6.00000009,
+        -6e-8,
+        51.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.34860038,
+        3.34860038,
+        3.34860038
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-803e2a8f5f728cbf",
+      "name": "BurgerPiz · cardboard_boxes_01_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/cardboard_boxes_01_001_b6418b83.glb",
+      "position": [
+        -2.00000038,
+        -1.5e-7,
+        52.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68285581,
+        3.68285581,
+        3.68285581
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-28cbd5f41640af2a",
+      "name": "BurgerPiz · cardboard_boxes_02_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/cardboard_boxes_02_001_7da964c6.glb",
+      "position": [
+        -21.99999999,
+        -1.5e-7,
+        48.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68285581,
+        3.68285581,
+        3.68285581
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1649a2ee54742bf3",
+      "name": "BurgerPiz · cardboard_boxes_03_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/cardboard_boxes_03_001_1c52b3a6.glb",
+      "position": [
+        -18,
+        -7e-8,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68285581,
+        3.68285581,
+        3.68285581
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b41b0ada9c0bea9a",
+      "name": "BurgerPiz · Cash_register",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Cash_register_bdf29946.glb",
+      "position": [
+        -13.99999964,
+        1.3e-7,
+        48.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.81354412,
+        4.81354412,
+        4.81354412
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-be1eb7f07f0851db",
+      "name": "BurgerPiz · Ceiling",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Ceiling_9a45c487.glb",
+      "position": [
+        -9.99999999,
+        0,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09655544,
+        0.09655544,
+        0.09655544
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-00dd1ce5a4da27d2",
+      "name": "BurgerPiz · Ceiling_A",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Ceiling_A_7b2c350b.glb",
+      "position": [
+        -6,
+        3e-8,
+        48
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47662952,
+        0.47662952,
+        0.47662952
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c43ae3c9c3d492f",
+      "name": "BurgerPiz · Chair",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Chair_02975ef0.glb",
+      "position": [
+        -2.00000004,
+        0,
+        47.99999958
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.842369,
+        2.842369,
+        2.842369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-12be4f2a504f117c",
+      "name": "BurgerPiz · Chair_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Chair_002_365885da.glb",
+      "position": [
+        -22.00000004,
+        0,
+        44.00000042
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.842369,
+        2.842369,
+        2.842369
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-07fd981f0ca25edb",
+      "name": "BurgerPiz · counter",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/counter_848f99b3.glb",
+      "position": [
+        -18,
+        1e-8,
+        43.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4605225,
+        0.4605225,
+        0.4605225
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f55a9e162c1526e7",
+      "name": "BurgerPiz · counter_01",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/counter_01_7d3bc797.glb",
+      "position": [
+        -13.99999976,
+        -2e-8,
+        43.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.04141113,
+        1.04141113,
+        1.04141113
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2885072659eb031d",
+      "name": "BurgerPiz · counter_02",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/counter_02_0544a99b.glb",
+      "position": [
+        -10.00000015,
+        2e-8,
+        44.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87572696,
+        0.87572696,
+        0.87572696
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d88e89b56d834314",
+      "name": "BurgerPiz · Door",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Door_db5e5640.glb",
+      "position": [
+        -5.99999974,
+        3e-8,
+        43.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08618235,
+        1.08618235,
+        1.08618235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-728ccc8d308635ff",
+      "name": "BurgerPiz · Door_C",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Door_C_bce2fec5.glb",
+      "position": [
+        -2.00000009,
+        4e-8,
+        43.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08618235,
+        1.08618235,
+        1.08618235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e183fe12a87009fa",
+      "name": "BurgerPiz · Door_F",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Door_F_62f87600.glb",
+      "position": [
+        -22.0000002,
+        0,
+        40.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08753701,
+        1.08753701,
+        1.08753701
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-91f9d56fb3f49f1e",
+      "name": "BurgerPiz · Door_F_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Door_F_001_5b87a3fd.glb",
+      "position": [
+        -18.00000032,
+        -6e-8,
+        39.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08753675,
+        1.08753675,
+        1.08753675
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3a1659a0ff535182",
+      "name": "BurgerPiz · Door_Fr",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Door_Fr_7c355b08.glb",
+      "position": [
+        -13.99999996,
+        6e-8,
+        39.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08618247,
+        1.08618247,
+        1.08618247
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3d289358d8ba2b0a",
+      "name": "BurgerPiz · Door_W",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Door_W_9cf2c381.glb",
+      "position": [
+        -9.99999979,
+        3e-8,
+        39.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08618235,
+        1.08618235,
+        1.08618235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-77567d6c58747ba5",
+      "name": "BurgerPiz · Door_W_01",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Door_W_01_6ddd552e.glb",
+      "position": [
+        -5.99999979,
+        3e-8,
+        39.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08618235,
+        1.08618235,
+        1.08618235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ca6fcb3197f37d7d",
+      "name": "BurgerPiz · Floor",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Floor_e0417bbc.glb",
+      "position": [
+        -1.99999999,
+        0,
+        39.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.09581105,
+        0.09581105,
+        0.09581105
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-04ee3656298b4f29",
+      "name": "BurgerPiz · garden",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/garden_b8ea9ed7.glb",
+      "position": [
+        -21.99999999,
+        0,
+        36.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.01637742,
+        0.01637742,
+        0.01637742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dd4695281a09f0ce",
+      "name": "BurgerPiz · Grass",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Grass_efce78db.glb",
+      "position": [
+        -18,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02302305,
+        0.02302305,
+        0.02302305
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-872f8291df5ecce2",
+      "name": "BurgerPiz · Grill_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Grill_001_8f6de196.glb",
+      "position": [
+        -13.99999982,
+        0,
+        36.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67577218,
+        1.67577218,
+        1.67577218
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c88a2162e0effff2",
+      "name": "BurgerPiz · Grill_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Grill_002_c4891b57.glb",
+      "position": [
+        -9.99999998,
+        -4e-8,
+        36.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67577218,
+        1.67577218,
+        1.67577218
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8b08835455f968f1",
+      "name": "BurgerPiz · kitchen_hood",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/kitchen_hood_c6047f66.glb",
+      "position": [
+        -5.99999997,
+        -5e-8,
+        35.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87238633,
+        0.87238633,
+        0.87238633
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3d897713189dc747",
+      "name": "BurgerPiz · kitchen_hood_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/kitchen_hood_001_63ef48f4.glb",
+      "position": [
+        -2,
+        9e-8,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49604252,
+        1.49604252,
+        1.49604252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e3f50eb9677780b7",
+      "name": "BurgerPiz · L",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/L_0bb458c2.glb",
+      "position": [
+        -22.0000001,
+        0,
+        32.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41617503,
+        0.41617503,
+        0.41617503
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-feea59c87ea2e560",
+      "name": "BurgerPiz · Lamppost_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lamppost_001_e2a7d8d4.glb",
+      "position": [
+        -18,
+        0,
+        31.99999944
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32390163,
+        0.32390163,
+        0.32390163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aa47e12f80762d2f",
+      "name": "BurgerPiz · Lamppost_001_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lamppost_001_001_760dabb5.glb",
+      "position": [
+        -13.99999998,
+        0,
+        32.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32390163,
+        0.32390163,
+        0.32390163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6ccff98719e02d18",
+      "name": "BurgerPiz · Lamppost_001_005",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lamppost_001_005_2fe9de8e.glb",
+      "position": [
+        -10.00000003,
+        0,
+        31.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02490244,
+        0.02490244,
+        0.02490244
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b35c421afa5d1808",
+      "name": "BurgerPiz · Lamppost_001_006",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lamppost_001_006_2f645781.glb",
+      "position": [
+        -6.00000009,
+        0,
+        31.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0742529,
+        0.0742529,
+        0.0742529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4b446f022b23d29a",
+      "name": "BurgerPiz · Lamppost_001_009",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lamppost_001_009_75fc99ae.glb",
+      "position": [
+        -2.00000002,
+        0,
+        32.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02135429,
+        0.02135429,
+        0.02135429
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6186251565ba49e7",
+      "name": "BurgerPiz · Lamppost_001_010",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lamppost_001_010_a9ccba8f.glb",
+      "position": [
+        -21.99999986,
+        0,
+        27.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1479658,
+        0.1479658,
+        0.1479658
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fed9e34d1212a6f5",
+      "name": "BurgerPiz · Lamppost_001_011",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lamppost_001_011_a65e2bab.glb",
+      "position": [
+        -18.00000053,
+        0,
+        27.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32390163,
+        0.32390163,
+        0.32390163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2fd9f6add02dff7f",
+      "name": "BurgerPiz · Light",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Light_0d6cf6f1.glb",
+      "position": [
+        -14,
+        1.3e-7,
+        28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.59425363,
+        3.59425363,
+        3.59425363
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0c64439aefabdce6",
+      "name": "BurgerPiz · Lines",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lines_d28bf223.glb",
+      "position": [
+        -10.00000004,
+        0,
+        27.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32397418,
+        0.32397418,
+        0.32397418
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e5771c7344a8f57c",
+      "name": "BurgerPiz · Lines_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lines_001_af1cd100.glb",
+      "position": [
+        -5.99999993,
+        0,
+        27.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45768484,
+        0.45768484,
+        0.45768484
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-14804566ce571893",
+      "name": "BurgerPiz · Lines_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Lines_002_8a245e12.glb",
+      "position": [
+        -2.0000003,
+        0,
+        27.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21892534,
+        0.21892534,
+        0.21892534
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2f79d4b14b7af14a",
+      "name": "BurgerPiz · Menu",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Menu_99e08104.glb",
+      "position": [
+        -22,
+        0,
+        24.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48223318,
+        0.48223318,
+        0.48223318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2ccad2f46de2368b",
+      "name": "BurgerPiz · Menu_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Menu_001_65c4a35f.glb",
+      "position": [
+        -18,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76866796,
+        0.76866796,
+        0.76866796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-750d541835fc42c8",
+      "name": "BurgerPiz · Menu_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Menu_002_7f1976a6.glb",
+      "position": [
+        -14,
+        0,
+        24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76866796,
+        0.76866796,
+        0.76866796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e94e4b04da4e6507",
+      "name": "BurgerPiz · Mirror",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Mirror_fac501bb.glb",
+      "position": [
+        -10,
+        -1e-8,
+        24.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83195659,
+        0.83195659,
+        0.83195659
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-47f470025dc6cdce",
+      "name": "BurgerPiz · Mirror_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Mirror_002_e4711511.glb",
+      "position": [
+        -6,
+        6e-8,
+        24.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.16616262,
+        3.16616262,
+        3.16616262
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1f7355f0e5b4556e",
+      "name": "BurgerPiz · Paper_dispenser_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Paper_dispenser_001_048167b5.glb",
+      "position": [
+        -2,
+        1e-8,
+        23.99999923
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45449456,
+        4.45449456,
+        4.45449456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ad4dd9a35d1c3979",
+      "name": "BurgerPiz · Paper_dispenser_008",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Paper_dispenser_008_e8cb51aa.glb",
+      "position": [
+        -22,
+        1e-8,
+        20.00000077
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45449456,
+        4.45449456,
+        4.45449456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ff9dbb86cef36b7c",
+      "name": "BurgerPiz · Plant",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plant_c0f96a2d.glb",
+      "position": [
+        -18.00000018,
+        0,
+        19.99999937
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.01220592,
+        2.01220592,
+        2.01220592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4a16f354b1b004a0",
+      "name": "BurgerPiz · Plants",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_0f4ca458.glb",
+      "position": [
+        -13.99999974,
+        0,
+        19.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72034891,
+        0.72034891,
+        0.72034891
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f74cbcb1d4098b48",
+      "name": "BurgerPiz · Plants_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_002_96b7a5cc.glb",
+      "position": [
+        -9.99999987,
+        0,
+        19.99999958
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72034897,
+        0.72034897,
+        0.72034897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6a03fccd9a9260b5",
+      "name": "BurgerPiz · Plants_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_003_66b50299.glb",
+      "position": [
+        -6.00000013,
+        0,
+        19.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72787146,
+        0.72787146,
+        0.72787146
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f0140ebd51806cd8",
+      "name": "BurgerPiz · Plants_004",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_004_2e87f83f.glb",
+      "position": [
+        -1.99999986,
+        0,
+        20.00000068
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76490676,
+        0.76490676,
+        0.76490676
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bb38061d663cfb62",
+      "name": "BurgerPiz · Plants_005",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_005_2202120d.glb",
+      "position": [
+        -21.99999996,
+        -2e-8,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70846777,
+        0.70846777,
+        0.70846777
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9cfec739f2095820",
+      "name": "BurgerPiz · Plants_008",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_008_c07bc61e.glb",
+      "position": [
+        -17.99999987,
+        0,
+        15.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.720349,
+        0.720349,
+        0.720349
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9dec05653fe2fae4",
+      "name": "BurgerPiz · Plants_009",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_009_82b8d751.glb",
+      "position": [
+        -13.99999996,
+        0,
+        15.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72034906,
+        0.72034906,
+        0.72034906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6eba2dc841667e68",
+      "name": "BurgerPiz · Plants_010",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_010_bf535ce0.glb",
+      "position": [
+        -10.00000005,
+        0,
+        16.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85901314,
+        0.85901314,
+        0.85901314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2e63d7a77601566b",
+      "name": "BurgerPiz · Plants_011",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_011_59194fcb.glb",
+      "position": [
+        -5.99999999,
+        0,
+        15.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12246055,
+        1.12246055,
+        1.12246055
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ec01e9a0aaf303f3",
+      "name": "BurgerPiz · Plants_012",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_012_08c6ea3f.glb",
+      "position": [
+        -2.00000035,
+        0,
+        15.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15630202,
+        1.15630202,
+        1.15630202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d8bcc1b9c17e5df",
+      "name": "BurgerPiz · Plants_015",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_015_0020f8da.glb",
+      "position": [
+        -22.00000108,
+        0,
+        11.99999948
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59047109,
+        0.59047109,
+        0.59047109
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2149cc4cd73608cc",
+      "name": "BurgerPiz · Plants_016",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_016_1049c3ce.glb",
+      "position": [
+        -17.9999998,
+        0,
+        12.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59663729,
+        0.59663729,
+        0.59663729
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-403508acd41da505",
+      "name": "BurgerPiz · Plants_017",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_017_ab350592.glb",
+      "position": [
+        -13.99999953,
+        0,
+        12.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62699518,
+        0.62699518,
+        0.62699518
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5759a6c1b06b85c6",
+      "name": "BurgerPiz · Plants_018",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_018_7d021c69.glb",
+      "position": [
+        -10.00000076,
+        1e-8,
+        11.99999952
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58073206,
+        0.58073206,
+        0.58073206
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-68334f4582d16551",
+      "name": "BurgerPiz · Plants_043",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_043_eed47104.glb",
+      "position": [
+        -5.99999952,
+        1e-8,
+        12.00000147
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58073202,
+        0.58073202,
+        0.58073202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3bdd3a6c173f8fd5",
+      "name": "BurgerPiz · Plants_044",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_044_bbc4f741.glb",
+      "position": [
+        -2.00000017,
+        0,
+        12.00000047
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62699513,
+        0.62699513,
+        0.62699513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4112fdfd3ea346bd",
+      "name": "BurgerPiz · Plants_046",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Plants_046_ebde95ab.glb",
+      "position": [
+        -22.00000012,
+        0,
+        8.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59663724,
+        0.59663724,
+        0.59663724
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b913ba4d5aaba7e5",
+      "name": "BurgerPiz · plants_flowers",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_3f98c3eb.glb",
+      "position": [
+        -18.00000029,
+        1e-8,
+        7.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53731082,
+        0.53731082,
+        0.53731082
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9f665ad764b68d4d",
+      "name": "BurgerPiz · plants_flowers_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_002_edbc38b4.glb",
+      "position": [
+        -13.99999984,
+        0,
+        7.9999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48614962,
+        0.48614962,
+        0.48614962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a83f60b06f96f9d1",
+      "name": "BurgerPiz · plants_flowers_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_003_9dde1ef7.glb",
+      "position": [
+        -10.00000041,
+        1e-8,
+        8.00000069
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57286723,
+        0.57286723,
+        0.57286723
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f32008073575d2c3",
+      "name": "BurgerPiz · plants_flowers_005",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_005_fe939fe3.glb",
+      "position": [
+        -6.00000107,
+        1e-8,
+        8.00000079
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57481721,
+        0.57481721,
+        0.57481721
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4ce848be9e120016",
+      "name": "BurgerPiz · plants_flowers_006",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_006_eb16f144.glb",
+      "position": [
+        -1.99999971,
+        0,
+        8.00000081
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51939821,
+        0.51939821,
+        0.51939821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-baefa419478aed4a",
+      "name": "BurgerPiz · plants_flowers_007",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_007_a50398c2.glb",
+      "position": [
+        -21.99999944,
+        0,
+        4.00000094
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5559381,
+        0.5559381,
+        0.5559381
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-17b8b9b67f07a916",
+      "name": "BurgerPiz · plants_flowers_011",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_011_6a714b92.glb",
+      "position": [
+        -17.99999987,
+        -2e-8,
+        3.99999975
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53567666,
+        0.53567666,
+        0.53567666
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-420a9ee5b0c7d4d9",
+      "name": "BurgerPiz · plants_flowers_025",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_025_59b3cd45.glb",
+      "position": [
+        -14.00000056,
+        0,
+        3.9999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42017023,
+        0.42017023,
+        0.42017023
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0a57276fd3a24dbd",
+      "name": "BurgerPiz · plants_flowers_026",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/plants_flowers_026_ee6deb7a.glb",
+      "position": [
+        -10.00000136,
+        0,
+        3.99999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51508841,
+        0.51508841,
+        0.51508841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d5b36c1157153cca",
+      "name": "BurgerPiz · Refrijerator_M_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Refrijerator_M_001_cea2c15c.glb",
+      "position": [
+        -5.99999996,
+        8e-8,
+        3.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.83953576,
+        2.83953576,
+        2.83953576
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1cfe13b2fb2259ca",
+      "name": "BurgerPiz · Resources_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_001_0de7a833.glb",
+      "position": [
+        -1.99999946,
+        -1.8e-7,
+        3.99999948
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.03485499,
+        7.03485499,
+        7.03485499
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-52d1e09116418b82",
+      "name": "BurgerPiz · Resources_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_002_4853b2aa.glb",
+      "position": [
+        -22,
+        1.8e-7,
+        -0.00000196
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.17850355,
+        12.17850355,
+        12.17850355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f1e4bfe784eb4c37",
+      "name": "BurgerPiz · Resources_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_003_38336c7a.glb",
+      "position": [
+        -18.00000008,
+        -1e-7,
+        -5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.39363661,
+        11.39363661,
+        11.39363661
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3963b8b1e6e081c0",
+      "name": "BurgerPiz · Resources_004",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_004_c78d9deb.glb",
+      "position": [
+        -14.00000016,
+        -1.1e-7,
+        5e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.48786094,
+        10.48786094,
+        10.48786094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ad492b48643267f9",
+      "name": "BurgerPiz · Resources_007",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_007_07d6a022.glb",
+      "position": [
+        -10,
+        9e-8,
+        9e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.00512427,
+        6.00512427,
+        6.00512427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9370d5a9a6622618",
+      "name": "BurgerPiz · Resources_008",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_008_b0600502.glb",
+      "position": [
+        -6,
+        9e-8,
+        9e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.00512427,
+        6.00512427,
+        6.00512427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6b10b9378b2831e2",
+      "name": "BurgerPiz · Resources_009",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_009_ecd490ba.glb",
+      "position": [
+        -2,
+        9e-8,
+        9e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.00512427,
+        6.00512427,
+        6.00512427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7155761f1278496e",
+      "name": "BurgerPiz · Resources_010",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_010_428fe867.glb",
+      "position": [
+        -22,
+        9e-8,
+        -3.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.00512427,
+        6.00512427,
+        6.00512427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e564f472b62dbcf6",
+      "name": "BurgerPiz · Resources_011",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_011_b79cc89f.glb",
+      "position": [
+        -18,
+        9e-8,
+        -3.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.00512427,
+        6.00512427,
+        6.00512427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e12a8cf52c75db12",
+      "name": "BurgerPiz · Resources_012",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_012_40bc12b0.glb",
+      "position": [
+        -14,
+        9e-8,
+        -3.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.00512427,
+        6.00512427,
+        6.00512427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7063ad76542466ff",
+      "name": "BurgerPiz · Resources_013",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_013_193b92e7.glb",
+      "position": [
+        -10,
+        4.1e-7,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.21618497,
+        10.21618497,
+        10.21618497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-583335df9da14714",
+      "name": "BurgerPiz · Resources_014",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Resources_014_25b97b5b.glb",
+      "position": [
+        -6,
+        2.5e-7,
+        -4.00000214
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.30181466,
+        10.30181466,
+        10.30181466
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3ee4fe53a77f5385",
+      "name": "BurgerPiz · RooftilesMetal",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/RooftilesMetal_c38ef6fd.glb",
+      "position": [
+        -2.00000001,
+        0,
+        -3.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08603777,
+        0.08603777,
+        0.08603777
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f471342f16837280",
+      "name": "BurgerPiz · Shelf_B_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelf_B_001_692197a6.glb",
+      "position": [
+        -22.00000009,
+        0,
+        -7.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961613,
+        1.59961613,
+        1.59961613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e11aad81bb9edb36",
+      "name": "BurgerPiz · Shelf_B_G_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelf_B_G_001_ac7b2e2b.glb",
+      "position": [
+        -17.99999998,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961613,
+        1.59961613,
+        1.59961613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-db8c1d3cccfeda5d",
+      "name": "BurgerPiz · Shelf_C_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelf_C_001_b5ebb6ad.glb",
+      "position": [
+        -14,
+        0,
+        -7.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.01103823,
+        1.01103823,
+        1.01103823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9b61e5feb98dc595",
+      "name": "BurgerPiz · Shelf_F_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelf_F_001_b64b3e18.glb",
+      "position": [
+        -10.00000008,
+        0,
+        -7.99999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40633682,
+        1.40633682,
+        1.40633682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-93c3f1ed8dfd806f",
+      "name": "BurgerPiz · Shelf_fd_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelf_fd_002_ab4302bc.glb",
+      "position": [
+        -6,
+        0,
+        -7.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1798835,
+        1.1798835,
+        1.1798835
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-35944187adb9d80c",
+      "name": "BurgerPiz · Shelf_FR_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelf_FR_001_c74ee425.glb",
+      "position": [
+        -1.99999988,
+        5e-8,
+        -8.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.11738563,
+        2.11738563,
+        2.11738563
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c98797e2428fcfc1",
+      "name": "BurgerPiz · Shelf_S_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelf_S_001_eec318e2.glb",
+      "position": [
+        -21.99999987,
+        -2e-8,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59961456,
+        1.59961456,
+        1.59961456
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-08379f0a46264bdb",
+      "name": "BurgerPiz · Shelving_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelving_001_454c47ff.glb",
+      "position": [
+        -18.00000001,
+        1e-8,
+        -12.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.18186551,
+        1.18186551,
+        1.18186551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6a02577ceb28e120",
+      "name": "BurgerPiz · Shelving_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelving_002_f95aae3b.glb",
+      "position": [
+        -14.00000002,
+        2e-8,
+        -12.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28686463,
+        1.28686463,
+        1.28686463
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5b9b90aaede435b",
+      "name": "BurgerPiz · Shelving_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Shelving_003_11cafffb.glb",
+      "position": [
+        -9.99999991,
+        2e-8,
+        -11.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28686449,
+        1.28686449,
+        1.28686449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-554d18f926b94d64",
+      "name": "BurgerPiz · sidewalk",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_837513ce.glb",
+      "position": [
+        -5.99999999,
+        0,
+        -12.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13870811,
+        0.13870811,
+        0.13870811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aa9dd6a44692a3d8",
+      "name": "BurgerPiz · sidewalk_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_001_34e49221.glb",
+      "position": [
+        -2,
+        0,
+        -11.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.00706765,
+        0.00706765,
+        0.00706765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9e784973c5c91844",
+      "name": "BurgerPiz · sidewalk_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_002_9c471ba3.glb",
+      "position": [
+        -22.00000005,
+        0,
+        -15.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11192226,
+        0.11192226,
+        0.11192226
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ca2f6c180992a644",
+      "name": "BurgerPiz · sidewalk_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_003_94b74413.glb",
+      "position": [
+        -18.00000009,
+        0,
+        -15.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.05100266,
+        0.05100266,
+        0.05100266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-55b0749bbd351da6",
+      "name": "BurgerPiz · sidewalk_006",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_006_a66de7bb.glb",
+      "position": [
+        -13.99999996,
+        0,
+        -15.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20446252,
+        0.20446252,
+        0.20446252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-26fd19055d5b9c69",
+      "name": "BurgerPiz · sidewalk_007",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_007_7c6b327b.glb",
+      "position": [
+        -9.99999995,
+        0,
+        -15.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10985961,
+        0.10985961,
+        0.10985961
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-19efe1b45721a374",
+      "name": "BurgerPiz · sidewalk_008",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_008_0a7bc1c6.glb",
+      "position": [
+        -6,
+        0,
+        -15.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29029335,
+        0.29029335,
+        0.29029335
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-58f06596bd7ed5d0",
+      "name": "BurgerPiz · sidewalk_009",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_009_f0aa0900.glb",
+      "position": [
+        -2.00000011,
+        0,
+        -16.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0623078,
+        0.0623078,
+        0.0623078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2fb810ed771d07e1",
+      "name": "BurgerPiz · sidewalk_010",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_010_3b51e7d3.glb",
+      "position": [
+        -22.0000001,
+        0,
+        -20.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0623078,
+        0.0623078,
+        0.0623078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5f0eb89ba6e723dc",
+      "name": "BurgerPiz · sidewalk_012",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_012_3fc162ce.glb",
+      "position": [
+        -18.00000001,
+        0,
+        -20.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02465976,
+        0.02465976,
+        0.02465976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6168df395396f421",
+      "name": "BurgerPiz · sidewalk_016",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_016_5ad220dc.glb",
+      "position": [
+        -14.00000002,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.06889991,
+        0.06889991,
+        0.06889991
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-47b54d9c95d2f1ef",
+      "name": "BurgerPiz · sidewalk_018",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_018_474fd377.glb",
+      "position": [
+        -9.99999997,
+        0,
+        -20.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.02272996,
+        0.02272996,
+        0.02272996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a2d904dbe8ae8af4",
+      "name": "BurgerPiz · sidewalk_019",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_019_958ed381.glb",
+      "position": [
+        -5.99999999,
+        0,
+        -19.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29089111,
+        0.29089111,
+        0.29089111
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3fbe311d508b728b",
+      "name": "BurgerPiz · sidewalk_020",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_020_970bb1a3.glb",
+      "position": [
+        -2.00000016,
+        0,
+        -20.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.34051388,
+        0.34051388,
+        0.34051388
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1208722a1710ecc3",
+      "name": "BurgerPiz · sidewalk_021",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_021_00235e72.glb",
+      "position": [
+        -22,
+        1e-8,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.67663664,
+        0.67663664,
+        0.67663664
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-493e593c563a1742",
+      "name": "BurgerPiz · sidewalk_023",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_023_d928ae88.glb",
+      "position": [
+        -17.99999999,
+        0,
+        -23.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21689365,
+        0.21689365,
+        0.21689365
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7e4ea89d947c13dd",
+      "name": "BurgerPiz · sidewalk_024",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_024_8fa72596.glb",
+      "position": [
+        -14,
+        0,
+        -24.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28136588,
+        0.28136588,
+        0.28136588
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-186964ec97d0abab",
+      "name": "BurgerPiz · sidewalk_026",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/sidewalk_026_7267cdf4.glb",
+      "position": [
+        -9.99999986,
+        -1e-8,
+        -24.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80473205,
+        0.80473205,
+        0.80473205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b40d5920ddc4b0ea",
+      "name": "BurgerPiz · Soap_dispenser_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Soap_dispenser_001_a3a2852d.glb",
+      "position": [
+        -6.00000094,
+        -2e-8,
+        -24.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.59470078,
+        11.59470078,
+        11.59470078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5a20635f295c6c2f",
+      "name": "BurgerPiz · Soda_fountain",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Soda_fountain_ca00414c.glb",
+      "position": [
+        -1.99999961,
+        -2e-8,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8517101,
+        2.8517101,
+        2.8517101
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-28365d694cfb05f9",
+      "name": "BurgerPiz · Table",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Table_e05793f7.glb",
+      "position": [
+        -22,
+        0,
+        -27.99999941
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70533043,
+        1.70533043,
+        1.70533043
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fe01a3c91765b0b4",
+      "name": "BurgerPiz · Toilet_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Toilet_001_66f41051.glb",
+      "position": [
+        -17.99999934,
+        0,
+        -28.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.75245147,
+        2.75245147,
+        2.75245147
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ea333099ab53e476",
+      "name": "BurgerPiz · Toilet_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Toilet_002_39ac824e.glb",
+      "position": [
+        -13.99999934,
+        0,
+        -27.99999904
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.75245147,
+        2.75245147,
+        2.75245147
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-780efca611a2b0fc",
+      "name": "BurgerPiz · Tree",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_f2359a48.glb",
+      "position": [
+        -10.00000008,
+        0,
+        -28.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17139867,
+        0.17139867,
+        0.17139867
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3236aa75f5d4c5e3",
+      "name": "BurgerPiz · Tree_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_001_8aedb27b.glb",
+      "position": [
+        -6.0000001,
+        0,
+        -28.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19530814,
+        0.19530814,
+        0.19530814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-314dba300c984b01",
+      "name": "BurgerPiz · Tree_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_003_869bd87b.glb",
+      "position": [
+        -1.99999987,
+        -1e-8,
+        -28.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19530814,
+        0.19530814,
+        0.19530814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-07b7ec18fecec07a",
+      "name": "BurgerPiz · Tree_005",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_005_8fb17489.glb",
+      "position": [
+        -22.00000014,
+        0,
+        -31.99999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19530814,
+        0.19530814,
+        0.19530814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-de65f7aa92efc7ab",
+      "name": "BurgerPiz · Tree_009",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_009_21ca67e3.glb",
+      "position": [
+        -18.00000055,
+        0,
+        -32.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19530814,
+        0.19530814,
+        0.19530814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f8b7176c45a56b40",
+      "name": "BurgerPiz · Tree_01",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_3ac60bd0.glb",
+      "position": [
+        -13.99999979,
+        1e-8,
+        -32.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14886964,
+        0.14886964,
+        0.14886964
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-496f045711251d03",
+      "name": "BurgerPiz · Tree_01_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_001_3718e0c4.glb",
+      "position": [
+        -10.00000027,
+        1e-8,
+        -32.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18668634,
+        0.18668634,
+        0.18668634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9ac6f54772200dea",
+      "name": "BurgerPiz · Tree_01_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_003_7f63b9db.glb",
+      "position": [
+        -5.99999991,
+        0,
+        -31.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1696364,
+        0.1696364,
+        0.1696364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-da10fa58d12ca2e0",
+      "name": "BurgerPiz · Tree_01_005",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_005_422f23f6.glb",
+      "position": [
+        -2.00000009,
+        -1e-8,
+        -31.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25910772,
+        0.25910772,
+        0.25910772
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-87d0f8f0f8e056ac",
+      "name": "BurgerPiz · Tree_01_007",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_007_88df5f9e.glb",
+      "position": [
+        -21.99999999,
+        1e-8,
+        -36.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18068976,
+        0.18068976,
+        0.18068976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f06a0cfca7491f01",
+      "name": "BurgerPiz · Tree_01_010",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_010_236c7bdf.glb",
+      "position": [
+        -18.00000049,
+        0,
+        -36.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16652529,
+        0.16652529,
+        0.16652529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e30f1397f115ce05",
+      "name": "BurgerPiz · Tree_01_012",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_012_7d87b088.glb",
+      "position": [
+        -13.99999982,
+        1e-8,
+        -35.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18668634,
+        0.18668634,
+        0.18668634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e1fd4f6be294b0f1",
+      "name": "BurgerPiz · Tree_01_018",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_018_df1f1619.glb",
+      "position": [
+        -9.99999976,
+        -1e-8,
+        -36.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18668634,
+        0.18668634,
+        0.18668634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fc5c0564812ada20",
+      "name": "BurgerPiz · Tree_01_019",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_019_8eb68543.glb",
+      "position": [
+        -5.99999958,
+        -1e-8,
+        -36.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18668634,
+        0.18668634,
+        0.18668634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ade660e8be9a092d",
+      "name": "BurgerPiz · Tree_01_021",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_021_d22e1f99.glb",
+      "position": [
+        -2.00000021,
+        -2e-8,
+        -35.99999861
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19654427,
+        0.19654427,
+        0.19654427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-66663ebecc9c86ea",
+      "name": "BurgerPiz · Tree_01_022",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_022_5df0f962.glb",
+      "position": [
+        -21.99999982,
+        -2e-8,
+        -40.0000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20084564,
+        0.20084564,
+        0.20084564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-46c33b06597f91fa",
+      "name": "BurgerPiz · Tree_01_029",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_029_61d4bbc2.glb",
+      "position": [
+        -17.99999899,
+        -1e-8,
+        -39.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18668634,
+        0.18668634,
+        0.18668634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-54daea4cd13856d3",
+      "name": "BurgerPiz · Tree_01_030",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_030_f8a1f799.glb",
+      "position": [
+        -13.99999892,
+        1e-8,
+        -39.9999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17418235,
+        0.17418235,
+        0.17418235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f988441b337112cd",
+      "name": "BurgerPiz · Tree_01_032",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_032_07c58ecc.glb",
+      "position": [
+        -10.00000009,
+        0,
+        -40.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15827439,
+        0.15827439,
+        0.15827439
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7145dfdd8ca012ad",
+      "name": "BurgerPiz · Tree_01_034",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_034_808b3b48.glb",
+      "position": [
+        -6.00000057,
+        -1e-8,
+        -40.00000061
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18962045,
+        0.18962045,
+        0.18962045
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f5c12551d6dc49bd",
+      "name": "BurgerPiz · Tree_01_054",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_054_17619bdf.glb",
+      "position": [
+        -2.00000007,
+        1e-8,
+        -39.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19736047,
+        0.19736047,
+        0.19736047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f3698514a6bb3689",
+      "name": "BurgerPiz · Tree_01_055",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_01_055_beb674c2.glb",
+      "position": [
+        -21.99999995,
+        1e-8,
+        -44.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.17933567,
+        0.17933567,
+        0.17933567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5198132e6b971571",
+      "name": "BurgerPiz · Tree_011",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_011_277c0869.glb",
+      "position": [
+        -18.00000003,
+        0,
+        -43.99999946
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19530814,
+        0.19530814,
+        0.19530814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-192b9d4aba3b925e",
+      "name": "BurgerPiz · Tree_017",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_017_d6c822ed.glb",
+      "position": [
+        -14.0000008,
+        0,
+        -44.00000066
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18222668,
+        0.18222668,
+        0.18222668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-38a12c4c988a9660",
+      "name": "BurgerPiz · Tree_02",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_02_ce3a91dd.glb",
+      "position": [
+        -9.99999992,
+        0,
+        -44
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15817663,
+        0.15817663,
+        0.15817663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-67e09c355cf53ce1",
+      "name": "BurgerPiz · Tree_02_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_02_001_aad5deea.glb",
+      "position": [
+        -6.00000024,
+        0,
+        -43.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18024168,
+        0.18024168,
+        0.18024168
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-483bcaeaee90c9cf",
+      "name": "BurgerPiz · Tree_02_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_02_002_d9e9e9cb.glb",
+      "position": [
+        -1.99999997,
+        0,
+        -43.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19835755,
+        0.19835755,
+        0.19835755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-031d2951ec9ad472",
+      "name": "BurgerPiz · Tree_02_011",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_02_011_09709dc2.glb",
+      "position": [
+        -21.99999875,
+        0,
+        -47.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.18507184,
+        0.18507184,
+        0.18507184
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-aa89c35e018bfc8d",
+      "name": "BurgerPiz · Tree_02_017",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_02_017_ff81700d.glb",
+      "position": [
+        -17.99999939,
+        0,
+        -48.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.209699,
+        0.209699,
+        0.209699
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7a9c6a3581090df1",
+      "name": "BurgerPiz · Tree_020",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_020_8959e28e.glb",
+      "position": [
+        -13.99999908,
+        0,
+        -47.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14662451,
+        0.14662451,
+        0.14662451
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d499c95a59bb8019",
+      "name": "BurgerPiz · Tree_029",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_029_43922f90.glb",
+      "position": [
+        -9.99999994,
+        -1e-8,
+        -48.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19530814,
+        0.19530814,
+        0.19530814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7b3ab55ef0ade490",
+      "name": "BurgerPiz · Tree_03",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_433ffd2e.glb",
+      "position": [
+        -5.99999987,
+        0,
+        -48.00000046
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6528217,
+        0.6528217,
+        0.6528217
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-61172f9d5a670735",
+      "name": "BurgerPiz · Tree_03_001",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_001_653d04a1.glb",
+      "position": [
+        -2.00000028,
+        0,
+        -47.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58047148,
+        0.58047148,
+        0.58047148
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e187293f6dd90e15",
+      "name": "BurgerPiz · Tree_03_002",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_002_507c980e.glb",
+      "position": [
+        -22.00000065,
+        0,
+        -51.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44077431,
+        0.44077431,
+        0.44077431
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-202accc45fbd75f5",
+      "name": "BurgerPiz · Tree_03_003",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_003_29057935.glb",
+      "position": [
+        -17.99999892,
+        0,
+        -52.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66550195,
+        0.66550195,
+        0.66550195
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-38827f080dd17766",
+      "name": "BurgerPiz · Tree_03_004",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_004_f352a91e.glb",
+      "position": [
+        -13.99999956,
+        0,
+        -52.00000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54925098,
+        0.54925098,
+        0.54925098
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2084720d5b11e9d2",
+      "name": "BurgerPiz · Tree_03_005",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_005_8df9d5a9.glb",
+      "position": [
+        -9.99999942,
+        0,
+        -52.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57207104,
+        0.57207104,
+        0.57207104
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b574f02d9b71b426",
+      "name": "BurgerPiz · Tree_03_006",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_006_00ef6845.glb",
+      "position": [
+        -5.99999994,
+        0,
+        -52.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47186167,
+        0.47186167,
+        0.47186167
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-167e46c4cd82b894",
+      "name": "BurgerPiz · Tree_03_007",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_007_86c35433.glb",
+      "position": [
+        -1.99999944,
+        0,
+        -52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35753936,
+        0.35753936,
+        0.35753936
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b64ffbbda1c8a2d0",
+      "name": "BurgerPiz · Tree_03_008",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_008_268c1352.glb",
+      "position": [
+        -22.00000055,
+        0,
+        -55.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49325093,
+        0.49325093,
+        0.49325093
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9b23dafabdc27378",
+      "name": "BurgerPiz · Tree_03_009",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_009_ac57600d.glb",
+      "position": [
+        -18.00000003,
+        0,
+        -55.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45709877,
+        0.45709877,
+        0.45709877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2f677952a49c4177",
+      "name": "BurgerPiz · Tree_03_010",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_010_61888dc5.glb",
+      "position": [
+        -14.00000001,
+        0,
+        -56.00000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58076235,
+        0.58076235,
+        0.58076235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a50d6fd3c556883a",
+      "name": "BurgerPiz · Tree_03_012",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_012_f52dcf25.glb",
+      "position": [
+        -9.99999989,
+        0,
+        -55.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.66782472,
+        0.66782472,
+        0.66782472
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5290c58cfd72eeee",
+      "name": "BurgerPiz · Tree_03_013",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_013_9c8ffaf4.glb",
+      "position": [
+        -6.00000017,
+        0,
+        -56.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48029081,
+        0.48029081,
+        0.48029081
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9db21cd2f7bb8f21",
+      "name": "BurgerPiz · Tree_03_014",
+      "parentId": "transform:category-burgerpiz",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/BurgerPiz/Tree_03_014_48a84d3c.glb",
+      "position": [
+        -1.99999972,
+        0,
+        -56.00000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57312782,
+        0.57312782,
+        0.57312782
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

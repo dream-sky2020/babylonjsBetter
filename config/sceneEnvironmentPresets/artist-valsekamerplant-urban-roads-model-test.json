@@ -1,0 +1,4772 @@
+{
+  "presetKey": "artist-valsekamerplant-urban-roads-model-test",
+  "name": "Valsekamerplant · 城市道路 · 全部样式与路边构件（104 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "valse-ambient",
+      "name": "柔和展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.25,
+          1,
+          0.2
+        ],
+        "groundColor": "#66737f"
+      }
+    },
+    {
+      "id": "valse-key",
+      "name": "暖色展示主光",
+      "intensity": 0.8,
+      "color": "#fff2df",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -20,
+          30,
+          -20
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "valse-urban-roads",
+      "name": "城市道路 · 全部样式与路边构件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "valse-ground",
+      "name": "城市道路 · 全部样式与路边构件展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 48,
+        "height": 44
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-zone",
+      "name": "城市道路 · 全部样式与路边构件展示分区",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 45,
+        "height": 0.1,
+        "depth": 41
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#587e8a"
+    },
+    {
+      "id": "valse-urban-roads-001-stand",
+      "name": "URBAN/Roads/Road sides/bridge_support.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-002-stand",
+      "name": "URBAN/Roads/Road sides/bridge_support_alt.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-003-stand",
+      "name": "URBAN/Roads/Road sides/road_side_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-004-stand",
+      "name": "URBAN/Roads/Road sides/road_side_full.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-005-stand",
+      "name": "URBAN/Roads/Road sides/road_side_full_25.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-006-stand",
+      "name": "URBAN/Roads/Road sides/road_side_full_45.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-007-stand",
+      "name": "URBAN/Roads/Road sides/road_side_half.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-008-stand",
+      "name": "URBAN/Roads/Road sides/road_side_quarter.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-009-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_Tjunction.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-010-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_Tjunction_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-011-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_Tjunction_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-012-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_bridge_ramp.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-013-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_bridge_ramp_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-014-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_bridge_segment.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-015-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_bridge_segment_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-016-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-017-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_corner_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-018-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_corner_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-019-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_junction.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-020-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_junction_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-021-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_junction_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-022-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_long_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-023-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_long_corner_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-024-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_sheer.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-025-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_sheer_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-026-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_slope.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-027-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_slope_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-028-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_small_bridge.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-029-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_small_bridge_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-030-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_straight.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-031-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_straight_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-032-stand",
+      "name": "URBAN/Roads/Road type 1/road_1_straight_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-033-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_Tjunction.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-034-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_Tjunction_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-035-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_Tjunction_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-036-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_bridge_ramp.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-037-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_bridge_ramp_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-038-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_bridge_segment.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-039-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_bridge_segment_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-040-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-041-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_corner_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-042-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_corner_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-043-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_junction.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-044-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_junction_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-045-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_junction_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-046-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_long_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-047-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_long_corner_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-048-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_sheer.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-049-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_sheer_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-050-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_slope.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-051-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_slope_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-052-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_small_bridge.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-053-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_small_bridge_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-054-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_straight.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-055-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_straight_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        -2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-056-stand",
+      "name": "URBAN/Roads/Road type 2/road_2_straight_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-057-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_Tjunction.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-058-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_Tjunction_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-059-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_Tjunction_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-060-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_bridge_ramp.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-061-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_bridge_ramp_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-062-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_bridge_segment.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-063-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_bridge_segment_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-064-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-065-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_corner_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-066-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_corner_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        2
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-067-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_junction.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-068-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_junction_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-069-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_junction_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-070-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_long_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-071-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_long_corner_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-072-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_sheer.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-073-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_sheer_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-074-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_slope.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-075-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_slope_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-076-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_small_bridge.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-077-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_small_bridge_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        6
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-078-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_straight.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-079-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_straight_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-080-stand",
+      "name": "URBAN/Roads/Road type 3/road_3_straight_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-081-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_Tjunction.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-082-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_Tjunction_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-083-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_Tjunction_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-084-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_bridge_ramp.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-085-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_bridge_ramp_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-086-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_bridge_segment.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-087-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_bridge_segment_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-088-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        10
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-089-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_corner_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-090-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_corner_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-091-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_junction.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-092-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_junction_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-093-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_junction_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-094-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_long_corner.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-095-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_long_corner_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-096-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_sheer.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-097-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_sheer_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-098-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_slope.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-099-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_slope_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        14
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-100-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_small_bridge.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-101-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_small_bridge_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-102-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_straight.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-103-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_straight_no_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-104-stand",
+      "name": "URBAN/Roads/Road type 4/road_4_straight_small_sides.glb 展台",
+      "parentId": "transform:valse-urban-roads",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        18
+      ],
+      "color": "#587e8a",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "valse-urban-roads-001",
+      "name": "URBAN/Roads/Road sides/bridge_support.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road sides/bridge_support.glb",
+      "position": [
+        -35.701532,
+        0.4889519,
+        -35.4047252
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2333333,
+        0.2333333,
+        0.2333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-002",
+      "name": "URBAN/Roads/Road sides/bridge_support_alt.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road sides/bridge_support_alt.glb",
+      "position": [
+        -31.701532,
+        0.4889519,
+        -34.333331
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2333333,
+        0.2333333,
+        0.2333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-003",
+      "name": "URBAN/Roads/Road sides/road_side_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road sides/road_side_corner.glb",
+      "position": [
+        -2.200001,
+        0,
+        -15.6666657
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333332,
+        0.9333332,
+        0.9333332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-004",
+      "name": "URBAN/Roads/Road sides/road_side_full.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road sides/road_side_full.glb",
+      "position": [
+        -6.1625,
+        0,
+        -21.85
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-005",
+      "name": "URBAN/Roads/Road sides/road_side_full_25.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road sides/road_side_full_25.glb",
+      "position": [
+        -2.3375,
+        -0.161,
+        -21.85
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-006",
+      "name": "URBAN/Roads/Road sides/road_side_full_45.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road sides/road_side_full_45.glb",
+      "position": [
+        1.4,
+        -0.35,
+        -21.85
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-007",
+      "name": "URBAN/Roads/Road sides/road_side_half.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road sides/road_side_half.glb",
+      "position": [
+        7.675,
+        0,
+        -20.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35,
+        0.35,
+        0.35
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-008",
+      "name": "URBAN/Roads/Road sides/road_side_quarter.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road sides/road_side_quarter.glb",
+      "position": [
+        17.799999,
+        0,
+        -19.4000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-009",
+      "name": "URBAN/Roads/Road type 1/road_1_Tjunction.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_Tjunction.glb",
+      "position": [
+        12,
+        0,
+        -12.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-010",
+      "name": "URBAN/Roads/Road type 1/road_1_Tjunction_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_Tjunction_no_sides.glb",
+      "position": [
+        16.0000001,
+        0,
+        -40.749987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1749999,
+        0.1749999,
+        0.1749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-011",
+      "name": "URBAN/Roads/Road type 1/road_1_Tjunction_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_Tjunction_small_sides.glb",
+      "position": [
+        20,
+        0,
+        -28.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-012",
+      "name": "URBAN/Roads/Road type 1/road_1_bridge_ramp.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_bridge_ramp.glb",
+      "position": [
+        -31.634281,
+        -0.1815205,
+        -14.7084121
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-013",
+      "name": "URBAN/Roads/Road type 1/road_1_bridge_ramp_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_bridge_ramp_no_sides.glb",
+      "position": [
+        -27.4435573,
+        -0.7264519,
+        -29.3670639
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-014",
+      "name": "URBAN/Roads/Road type 1/road_1_bridge_segment.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_bridge_segment.glb",
+      "position": [
+        -26.4134302,
+        -0.6719588,
+        -14.7084121
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-015",
+      "name": "URBAN/Roads/Road type 1/road_1_bridge_segment_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_bridge_segment_no_sides.glb",
+      "position": [
+        -22.3861865,
+        -1.2168901,
+        -29.3670639
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-016",
+      "name": "URBAN/Roads/Road type 1/road_1_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_corner.glb",
+      "position": [
+        -4,
+        0,
+        -5.2499999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-017",
+      "name": "URBAN/Roads/Road type 1/road_1_corner_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_corner_no_sides.glb",
+      "position": [
+        0,
+        0,
+        -39.8999858
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1749999,
+        0.1749999,
+        0.1749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-018",
+      "name": "URBAN/Roads/Road type 1/road_1_corner_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_corner_small_sides.glb",
+      "position": [
+        4,
+        0,
+        -27.3000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-019",
+      "name": "URBAN/Roads/Road type 1/road_1_junction.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_junction.glb",
+      "position": [
+        8,
+        0,
+        -11.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-020",
+      "name": "URBAN/Roads/Road type 1/road_1_junction_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_junction_no_sides.glb",
+      "position": [
+        12,
+        0,
+        -33.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-021",
+      "name": "URBAN/Roads/Road type 1/road_1_junction_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_junction_small_sides.glb",
+      "position": [
+        16,
+        0,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-022",
+      "name": "URBAN/Roads/Road type 1/road_1_long_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_long_corner.glb",
+      "position": [
+        -2.4179426,
+        -0.9333333,
+        -12.8512834
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1076923,
+        0.1076923,
+        0.1076923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-023",
+      "name": "URBAN/Roads/Road type 1/road_1_long_corner_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_long_corner_no_sides.glb",
+      "position": [
+        -42.2923043,
+        -0.9692307,
+        -18.7230769
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1076923,
+        0.1076923,
+        0.1076923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-024",
+      "name": "URBAN/Roads/Road type 1/road_1_sheer.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_sheer.glb",
+      "position": [
+        -23.1846982,
+        0.024111,
+        -9.9611117
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583331,
+        0.0583331,
+        0.0583331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-025",
+      "name": "URBAN/Roads/Road type 1/road_1_sheer_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_sheer_no_sides.glb",
+      "position": [
+        -19.1166623,
+        0.0093333,
+        -15.2499963
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-026",
+      "name": "URBAN/Roads/Road type 1/road_1_slope.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_slope.glb",
+      "position": [
+        -17.9847114,
+        0.0194444,
+        -9.6694438
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-027",
+      "name": "URBAN/Roads/Road type 1/road_1_slope_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_slope_no_sides.glb",
+      "position": [
+        -13.9166607,
+        0,
+        -15.0166632
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-028",
+      "name": "URBAN/Roads/Road type 1/road_1_small_bridge.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_small_bridge.glb",
+      "position": [
+        -6.3129634,
+        0.22475,
+        -10.3370376
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0777778,
+        0.0777778,
+        0.0777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-029",
+      "name": "URBAN/Roads/Road type 1/road_1_small_bridge_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_small_bridge_no_sides.glb",
+      "position": [
+        -2.2222239,
+        0.1988241,
+        -17.3111135
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0777778,
+        0.0777778,
+        0.0777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-030",
+      "name": "URBAN/Roads/Road type 1/road_1_straight.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_straight.glb",
+      "position": [
+        8,
+        0,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-031",
+      "name": "URBAN/Roads/Road type 1/road_1_straight_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_straight_no_sides.glb",
+      "position": [
+        12.0000001,
+        0,
+        -26.45
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-032",
+      "name": "URBAN/Roads/Road type 1/road_1_straight_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 1/road_1_straight_small_sides.glb",
+      "position": [
+        16,
+        0,
+        -13.85
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-033",
+      "name": "URBAN/Roads/Road type 2/road_2_Tjunction.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_Tjunction.glb",
+      "position": [
+        16.85,
+        0,
+        -4.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-034",
+      "name": "URBAN/Roads/Road type 2/road_2_Tjunction_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_Tjunction_no_sides.glb",
+      "position": [
+        -23.1499981,
+        0,
+        -28.749987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1749999,
+        0.1749999,
+        0.1749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-035",
+      "name": "URBAN/Roads/Road type 2/road_2_Tjunction_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_Tjunction_small_sides.glb",
+      "position": [
+        -19.15,
+        0,
+        -16.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-036",
+      "name": "URBAN/Roads/Road type 2/road_2_bridge_ramp.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_bridge_ramp.glb",
+      "position": [
+        -23.634281,
+        -0.1815205,
+        -3.7657829
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-037",
+      "name": "URBAN/Roads/Road type 2/road_2_bridge_ramp_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_bridge_ramp_no_sides.glb",
+      "position": [
+        -19.4435573,
+        -0.7264519,
+        -24.3096931
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-038",
+      "name": "URBAN/Roads/Road type 2/road_2_bridge_segment.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_bridge_segment.glb",
+      "position": [
+        -18.4134302,
+        -0.6719588,
+        -3.7657829
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-039",
+      "name": "URBAN/Roads/Road type 2/road_2_bridge_segment_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_bridge_segment_no_sides.glb",
+      "position": [
+        -14.3861865,
+        -1.2168901,
+        -24.3096931
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-040",
+      "name": "URBAN/Roads/Road type 2/road_2_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_corner.glb",
+      "position": [
+        0.85,
+        0,
+        2.7500001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-041",
+      "name": "URBAN/Roads/Road type 2/road_2_corner_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_corner_no_sides.glb",
+      "position": [
+        4.8500018,
+        0,
+        -31.8999858
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1749999,
+        0.1749999,
+        0.1749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-042",
+      "name": "URBAN/Roads/Road type 2/road_2_corner_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_corner_small_sides.glb",
+      "position": [
+        8.85,
+        0,
+        -19.3000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-043",
+      "name": "URBAN/Roads/Road type 2/road_2_junction.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_junction.glb",
+      "position": [
+        12.85,
+        0,
+        -3.5500003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-044",
+      "name": "URBAN/Roads/Road type 2/road_2_junction_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_junction_no_sides.glb",
+      "position": [
+        16.85,
+        0,
+        -25.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-045",
+      "name": "URBAN/Roads/Road type 2/road_2_junction_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_junction_small_sides.glb",
+      "position": [
+        -23.15,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-046",
+      "name": "URBAN/Roads/Road type 2/road_2_long_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_long_corner.glb",
+      "position": [
+        -38.4179426,
+        -0.9333333,
+        1.087178
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1076923,
+        0.1076923,
+        0.1076923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-047",
+      "name": "URBAN/Roads/Road type 2/road_2_long_corner_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_long_corner_no_sides.glb",
+      "position": [
+        -34.2923043,
+        -0.9692307,
+        -12.6615383
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1076923,
+        0.1076923,
+        0.1076923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-048",
+      "name": "URBAN/Roads/Road type 2/road_2_sheer.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_sheer.glb",
+      "position": [
+        -15.1846982,
+        0.024111,
+        -0.9111159
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583331,
+        0.0583331,
+        0.0583331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-049",
+      "name": "URBAN/Roads/Road type 2/road_2_sheer_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_sheer_no_sides.glb",
+      "position": [
+        -11.1166623,
+        0.0093333,
+        -8.2999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-050",
+      "name": "URBAN/Roads/Road type 2/road_2_slope.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_slope.glb",
+      "position": [
+        -9.9847149,
+        0.0194444,
+        -0.6194444
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-051",
+      "name": "URBAN/Roads/Road type 2/road_2_slope_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_slope_no_sides.glb",
+      "position": [
+        -5.9166607,
+        0,
+        -8.0666626
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-052",
+      "name": "URBAN/Roads/Road type 2/road_2_small_bridge.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_small_bridge.glb",
+      "position": [
+        1.6870366,
+        0.22475,
+        -0.9370372
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0777778,
+        0.0777778,
+        0.0777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-053",
+      "name": "URBAN/Roads/Road type 2/road_2_small_bridge_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_small_bridge_no_sides.glb",
+      "position": [
+        5.7777761,
+        0.1988241,
+        -10.7111139
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0777778,
+        0.0777778,
+        0.0777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-054",
+      "name": "URBAN/Roads/Road type 2/road_2_straight.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_straight.glb",
+      "position": [
+        12.85,
+        0,
+        -2.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-055",
+      "name": "URBAN/Roads/Road type 2/road_2_straight_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_straight_no_sides.glb",
+      "position": [
+        16.8500001,
+        0,
+        -18.45
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-056",
+      "name": "URBAN/Roads/Road type 2/road_2_straight_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 2/road_2_straight_small_sides.glb",
+      "position": [
+        -23.15,
+        0,
+        -1.85
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-057",
+      "name": "URBAN/Roads/Road type 3/road_3_Tjunction.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_Tjunction.glb",
+      "position": [
+        -22.3,
+        0,
+        7.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-058",
+      "name": "URBAN/Roads/Road type 3/road_3_Tjunction_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_Tjunction_no_sides.glb",
+      "position": [
+        -18.2999963,
+        0,
+        -20.749987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1749999,
+        0.1749999,
+        0.1749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-059",
+      "name": "URBAN/Roads/Road type 3/road_3_Tjunction_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_Tjunction_small_sides.glb",
+      "position": [
+        -14.3,
+        0,
+        -8.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-060",
+      "name": "URBAN/Roads/Road type 3/road_3_bridge_ramp.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_bridge_ramp.glb",
+      "position": [
+        -15.634281,
+        -0.1815205,
+        7.1768463
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-061",
+      "name": "URBAN/Roads/Road type 3/road_3_bridge_ramp_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_bridge_ramp_no_sides.glb",
+      "position": [
+        -11.4435573,
+        -0.7264519,
+        -19.2523223
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-062",
+      "name": "URBAN/Roads/Road type 3/road_3_bridge_segment.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_bridge_segment.glb",
+      "position": [
+        -10.4134302,
+        -0.6719588,
+        7.1768463
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-063",
+      "name": "URBAN/Roads/Road type 3/road_3_bridge_segment_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_bridge_segment_no_sides.glb",
+      "position": [
+        -6.3861865,
+        -1.2168901,
+        -19.2523223
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-064",
+      "name": "URBAN/Roads/Road type 3/road_3_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_corner.glb",
+      "position": [
+        5.7,
+        0,
+        10.7500001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-065",
+      "name": "URBAN/Roads/Road type 3/road_3_corner_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_corner_no_sides.glb",
+      "position": [
+        9.7000036,
+        0,
+        -23.8999858
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1749999,
+        0.1749999,
+        0.1749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-066",
+      "name": "URBAN/Roads/Road type 3/road_3_corner_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_corner_small_sides.glb",
+      "position": [
+        13.7,
+        0,
+        -11.3000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-067",
+      "name": "URBAN/Roads/Road type 3/road_3_junction.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_junction.glb",
+      "position": [
+        -26.3,
+        0,
+        8.45
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-068",
+      "name": "URBAN/Roads/Road type 3/road_3_junction_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_junction_no_sides.glb",
+      "position": [
+        -22.3,
+        0,
+        -13.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-069",
+      "name": "URBAN/Roads/Road type 3/road_3_junction_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_junction_small_sides.glb",
+      "position": [
+        -18.3,
+        0,
+        -1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-070",
+      "name": "URBAN/Roads/Road type 3/road_3_long_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_long_corner.glb",
+      "position": [
+        -30.4179426,
+        -0.9333333,
+        11.0256411
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1076923,
+        0.1076923,
+        0.1076923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-071",
+      "name": "URBAN/Roads/Road type 3/road_3_long_corner_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_long_corner_no_sides.glb",
+      "position": [
+        -26.2923043,
+        -0.9692307,
+        -6.5999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1076923,
+        0.1076923,
+        0.1076923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-072",
+      "name": "URBAN/Roads/Road type 3/road_3_sheer.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_sheer.glb",
+      "position": [
+        -7.1846982,
+        0.024111,
+        8.1388799
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583331,
+        0.0583331,
+        0.0583331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-073",
+      "name": "URBAN/Roads/Road type 3/road_3_sheer_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_sheer_no_sides.glb",
+      "position": [
+        -3.1166623,
+        0.0093333,
+        -1.3499951
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-074",
+      "name": "URBAN/Roads/Road type 3/road_3_slope.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_slope.glb",
+      "position": [
+        -1.9847149,
+        0.0194444,
+        8.430555
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-075",
+      "name": "URBAN/Roads/Road type 3/road_3_slope_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_slope_no_sides.glb",
+      "position": [
+        2.0833393,
+        0,
+        -1.116662
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-076",
+      "name": "URBAN/Roads/Road type 3/road_3_small_bridge.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_small_bridge.glb",
+      "position": [
+        9.6870366,
+        0.22475,
+        8.4629632
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0777778,
+        0.0777778,
+        0.0777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-077",
+      "name": "URBAN/Roads/Road type 3/road_3_small_bridge_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_small_bridge_no_sides.glb",
+      "position": [
+        13.7777761,
+        0.1988241,
+        -4.1111143
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0777778,
+        0.0777778,
+        0.0777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-078",
+      "name": "URBAN/Roads/Road type 3/road_3_straight.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_straight.glb",
+      "position": [
+        -26.3,
+        0,
+        9.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-079",
+      "name": "URBAN/Roads/Road type 3/road_3_straight_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_straight_no_sides.glb",
+      "position": [
+        -22.2999999,
+        0,
+        -6.45
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-080",
+      "name": "URBAN/Roads/Road type 3/road_3_straight_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 3/road_3_straight_small_sides.glb",
+      "position": [
+        -18.3,
+        0,
+        6.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-081",
+      "name": "URBAN/Roads/Road type 4/road_4_Tjunction.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_Tjunction.glb",
+      "position": [
+        -17.4499999,
+        0,
+        15.5999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-082",
+      "name": "URBAN/Roads/Road type 4/road_4_Tjunction_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_Tjunction_no_sides.glb",
+      "position": [
+        -13.4499945,
+        0,
+        -12.749987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1749999,
+        0.1749999,
+        0.1749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-083",
+      "name": "URBAN/Roads/Road type 4/road_4_Tjunction_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_Tjunction_small_sides.glb",
+      "position": [
+        -9.45,
+        0,
+        -0.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-084",
+      "name": "URBAN/Roads/Road type 4/road_4_bridge_ramp.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_bridge_ramp.glb",
+      "position": [
+        -7.634281,
+        -0.1815205,
+        18.1194755
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-085",
+      "name": "URBAN/Roads/Road type 4/road_4_bridge_ramp_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_bridge_ramp_no_sides.glb",
+      "position": [
+        -3.4435573,
+        -0.7264519,
+        -14.1949515
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-086",
+      "name": "URBAN/Roads/Road type 4/road_4_bridge_segment.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_bridge_segment.glb",
+      "position": [
+        -2.4134302,
+        -0.6719588,
+        18.1194755
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-087",
+      "name": "URBAN/Roads/Road type 4/road_4_bridge_segment_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_bridge_segment_no_sides.glb",
+      "position": [
+        1.6138135,
+        -1.2168901,
+        -14.1949515
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1634794,
+        0.1634794,
+        0.1634794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-088",
+      "name": "URBAN/Roads/Road type 4/road_4_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_corner.glb",
+      "position": [
+        10.55,
+        0,
+        18.7500001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-089",
+      "name": "URBAN/Roads/Road type 4/road_4_corner_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_corner_no_sides.glb",
+      "position": [
+        -29.4499946,
+        0,
+        -11.8999858
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1749999,
+        0.1749999,
+        0.1749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-090",
+      "name": "URBAN/Roads/Road type 4/road_4_corner_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_corner_small_sides.glb",
+      "position": [
+        -25.45,
+        0,
+        0.6999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-091",
+      "name": "URBAN/Roads/Road type 4/road_4_junction.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_junction.glb",
+      "position": [
+        -21.45,
+        0,
+        16.45
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-092",
+      "name": "URBAN/Roads/Road type 4/road_4_junction_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_junction_no_sides.glb",
+      "position": [
+        -17.45,
+        0,
+        -5.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-093",
+      "name": "URBAN/Roads/Road type 4/road_4_junction_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_junction_small_sides.glb",
+      "position": [
+        -13.45,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-094",
+      "name": "URBAN/Roads/Road type 4/road_4_long_corner.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_long_corner.glb",
+      "position": [
+        -22.4179426,
+        -0.9333333,
+        20.9641008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1076923,
+        0.1076923,
+        0.1076923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-095",
+      "name": "URBAN/Roads/Road type 4/road_4_long_corner_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_long_corner_no_sides.glb",
+      "position": [
+        -18.2923043,
+        -0.9692307,
+        -0.5384611
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1076923,
+        0.1076923,
+        0.1076923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-096",
+      "name": "URBAN/Roads/Road type 4/road_4_sheer.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_sheer.glb",
+      "position": [
+        0.8153018,
+        0.024111,
+        17.1888757
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583331,
+        0.0583331,
+        0.0583331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-097",
+      "name": "URBAN/Roads/Road type 4/road_4_sheer_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_sheer_no_sides.glb",
+      "position": [
+        4.8833377,
+        0.0093333,
+        5.6000055
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-098",
+      "name": "URBAN/Roads/Road type 4/road_4_slope.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_slope.glb",
+      "position": [
+        6.0152851,
+        0.0194444,
+        17.4805535
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-099",
+      "name": "URBAN/Roads/Road type 4/road_4_slope_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_slope_no_sides.glb",
+      "position": [
+        10.0833393,
+        0,
+        5.8333386
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0583333,
+        0.0583333,
+        0.0583333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-100",
+      "name": "URBAN/Roads/Road type 4/road_4_small_bridge.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_small_bridge.glb",
+      "position": [
+        -26.3129634,
+        0.22475,
+        21.8629636
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0777778,
+        0.0777778,
+        0.0777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-101",
+      "name": "URBAN/Roads/Road type 4/road_4_small_bridge_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_small_bridge_no_sides.glb",
+      "position": [
+        -22.2222239,
+        0.1988241,
+        6.4888853
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.0777778,
+        0.0777778,
+        0.0777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-102",
+      "name": "URBAN/Roads/Road type 4/road_4_straight.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_straight.glb",
+      "position": [
+        -21.45,
+        0,
+        17.3
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-103",
+      "name": "URBAN/Roads/Road type 4/road_4_straight_no_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_straight_no_sides.glb",
+      "position": [
+        -17.4499999,
+        0,
+        1.55
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-urban-roads-104",
+      "name": "URBAN/Roads/Road type 4/road_4_straight_small_sides.glb",
+      "parentId": "transform:valse-urban-roads",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/URBAN/URBAN/Roads/Road type 4/road_4_straight_small_sides.glb",
+      "position": [
+        -13.45,
+        0,
+        14.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.175,
+        0.175,
+        0.175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

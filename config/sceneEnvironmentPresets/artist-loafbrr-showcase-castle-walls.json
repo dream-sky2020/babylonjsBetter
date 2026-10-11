@@ -1,0 +1,416 @@
+{
+  "presetKey": "artist-loafbrr-showcase-castle-walls",
+  "name": "Loafbrr · CastleWalls · 8模型 · 模型 0.03 MiB + 贴图 0.14 MiB · 合计 0.17 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-castlewalls-0",
+      "name": "CastleWalls",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 13
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-14917c09f52e0c56-stand",
+      "name": "DoorSticker_Door展台",
+      "parentId": "transform:category-castlewalls-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-018774d2b6962a99-stand",
+      "name": "DoorSticker_Gate_Arch展台",
+      "parentId": "transform:category-castlewalls-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fb3d9c96c0750ef4-stand",
+      "name": "DoorSticker_Gate_Square展台",
+      "parentId": "transform:category-castlewalls-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0db0c32cf9c0d47f-stand",
+      "name": "DoorSticker_Portcullis展台",
+      "parentId": "transform:category-castlewalls-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-98cdf4bcfb0ca73d-stand",
+      "name": "DoorSticker_Window_Arch展台",
+      "parentId": "transform:category-castlewalls-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c64d5c459c316262-stand",
+      "name": "DoorSticker_Window_Square_A展台",
+      "parentId": "transform:category-castlewalls-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3594c33e6bf33d6f-stand",
+      "name": "DoorSticker_Window_Square_B展台",
+      "parentId": "transform:category-castlewalls-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-82bee994a92899a7-stand",
+      "name": "DoorSticker_Window_Square_C展台",
+      "parentId": "transform:category-castlewalls-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-14917c09f52e0c56",
+      "name": "CastleWalls · DoorSticker_Door · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-castlewalls-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/CastleWalls/DoorSticker_Door.glb",
+      "position": [
+        -22.000001,
+        0,
+        3.99999962
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20025796,
+        1.20025796,
+        1.20025796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-018774d2b6962a99",
+      "name": "CastleWalls · DoorSticker_Gate_Arch · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-castlewalls-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/CastleWalls/DoorSticker_Gate_Arch.glb",
+      "position": [
+        -18.00000092,
+        0,
+        4.00000043
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54932819,
+        0.54932819,
+        0.54932819
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fb3d9c96c0750ef4",
+      "name": "CastleWalls · DoorSticker_Gate_Square · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-castlewalls-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/CastleWalls/DoorSticker_Gate_Square.glb",
+      "position": [
+        -14.00000187,
+        0,
+        4.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58146346,
+        0.58146346,
+        0.58146346
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0db0c32cf9c0d47f",
+      "name": "CastleWalls · DoorSticker_Portcullis · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-castlewalls-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/CastleWalls/DoorSticker_Portcullis.glb",
+      "position": [
+        -9.99999964,
+        4e-8,
+        4.00000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49733716,
+        0.49733716,
+        0.49733716
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-98cdf4bcfb0ca73d",
+      "name": "CastleWalls · DoorSticker_Window_Arch · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-castlewalls-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/CastleWalls/DoorSticker_Window_Arch.glb",
+      "position": [
+        -6,
+        -9.2e-7,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55015635,
+        1.55015635,
+        1.55015635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c64d5c459c316262",
+      "name": "CastleWalls · DoorSticker_Window_Square_A · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-castlewalls-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/CastleWalls/DoorSticker_Window_Square_A.glb",
+      "position": [
+        -2,
+        -7.4e-7,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.56087287,
+        1.56087287,
+        1.56087287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3594c33e6bf33d6f",
+      "name": "CastleWalls · DoorSticker_Window_Square_B · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-castlewalls-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/CastleWalls/DoorSticker_Window_Square_B.glb",
+      "position": [
+        -14,
+        0.00000174,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08316337,
+        2.08316337,
+        2.08316337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-82bee994a92899a7",
+      "name": "CastleWalls · DoorSticker_Window_Square_C · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-castlewalls-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/CastleWalls/DoorSticker_Window_Square_C.glb",
+      "position": [
+        -10,
+        9.9e-7,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08316337,
+        2.08316337,
+        2.08316337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

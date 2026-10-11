@@ -1,0 +1,588 @@
+{
+  "presetKey": "artist-loafbrr-showcase-breakable-containers",
+  "name": "Loafbrr · BreakableContainers · 12模型 · 模型 0.14 MiB + 贴图 0.51 MiB · 合计 0.66 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-breakablecontainers-0",
+      "name": "BreakableContainers",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 13
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-3f5ab33ccb52388a-stand",
+      "name": "Barrel展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7023bc06eef935f4-stand",
+      "name": "Barrel_Broken_1展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9f175b5b83aa136e-stand",
+      "name": "Barrel_Broken_2展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c6a486a7271e1dc7-stand",
+      "name": "Barrel_Ring展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-637a57b11e8a5b07-stand",
+      "name": "Crate展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fad12ae43ab29a22-stand",
+      "name": "Crate_Broken_1展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4cb0f69ceb0a039e-stand",
+      "name": "Crate_Broken_2展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-636efaead6ff3da1-stand",
+      "name": "Jar展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4ee56ad2160d92e8-stand",
+      "name": "Jar_Broken_1展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e8a8e7a34195d867-stand",
+      "name": "Jar_Broken_2展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1e8c5fd1de58686d-stand",
+      "name": "Jar_Broken_3展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1202a1a994756882-stand",
+      "name": "Jar_Broken_4展台",
+      "parentId": "transform:category-breakablecontainers-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-3f5ab33ccb52388a",
+      "name": "BreakableContainers · Barrel · 模型 0.02 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Barrel.glb",
+      "position": [
+        -21.99999996,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.90083758,
+        2.90083758,
+        2.90083758
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7023bc06eef935f4",
+      "name": "BreakableContainers · Barrel_Broken_1 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Barrel_Broken_1.glb",
+      "position": [
+        -17.9999998,
+        0,
+        3.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.32878746,
+        3.32878746,
+        3.32878746
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9f175b5b83aa136e",
+      "name": "BreakableContainers · Barrel_Broken_2 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Barrel_Broken_2.glb",
+      "position": [
+        -14.0000001,
+        0,
+        3.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.33049399,
+        3.33049399,
+        3.33049399
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c6a486a7271e1dc7",
+      "name": "BreakableContainers · Barrel_Ring · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Barrel_Ring.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.10166907,
+        3.10166907,
+        3.10166907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-637a57b11e8a5b07",
+      "name": "BreakableContainers · Crate · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Crate.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.38043913,
+        3.38043913,
+        3.38043913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fad12ae43ab29a22",
+      "name": "BreakableContainers · Crate_Broken_1 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Crate_Broken_1.glb",
+      "position": [
+        -2,
+        0,
+        3.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.38043596,
+        3.38043596,
+        3.38043596
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4cb0f69ceb0a039e",
+      "name": "BreakableContainers · Crate_Broken_2 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Crate_Broken_2.glb",
+      "position": [
+        -22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.38043792,
+        3.38043792,
+        3.38043792
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-636efaead6ff3da1",
+      "name": "BreakableContainers · Jar · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Jar.glb",
+      "position": [
+        -18.00000049,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.73531191,
+        4.73531191,
+        4.73531191
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4ee56ad2160d92e8",
+      "name": "BreakableContainers · Jar_Broken_1 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Jar_Broken_1.glb",
+      "position": [
+        -14.0000005,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.83882414,
+        4.83882414,
+        4.83882414
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e8a8e7a34195d867",
+      "name": "BreakableContainers · Jar_Broken_2 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Jar_Broken_2.glb",
+      "position": [
+        -9.99999944,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.73531214,
+        4.73531214,
+        4.73531214
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1e8c5fd1de58686d",
+      "name": "BreakableContainers · Jar_Broken_3 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Jar_Broken_3.glb",
+      "position": [
+        -6.00000038,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.8813337,
+        7.8813337,
+        7.8813337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1202a1a994756882",
+      "name": "BreakableContainers · Jar_Broken_4 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-breakablecontainers-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BreakableContainers/Jar_Broken_4.glb",
+      "position": [
+        -2.0000005,
+        0,
+        1.4e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.83882414,
+        4.83882414,
+        4.83882414
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

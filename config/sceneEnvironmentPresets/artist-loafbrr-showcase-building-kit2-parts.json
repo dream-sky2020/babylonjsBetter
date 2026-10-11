@@ -1,0 +1,6413 @@
+{
+  "presetKey": "artist-loafbrr-showcase-building-kit2-parts",
+  "name": "Loafbrr · BuildingKit2Parts · 147模型 · 模型 0.70 MiB + 贴图 1.43 MiB · 合计 2.13 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-buildingkit2parts-0",
+      "name": "BuildingKit2Parts 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-buildingkit2parts-1",
+      "name": "BuildingKit2Parts 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-buildingkit2parts-2",
+      "name": "BuildingKit2Parts 3",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 68
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-426dcd4b0f6a7d7b-stand",
+      "name": "Balcony展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4ad8b1f4bae9d9d2-stand",
+      "name": "Door_1展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a4af2533cea5a5c0-stand",
+      "name": "Door_10展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8a235599b472b5fe-stand",
+      "name": "Door_11展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f04c391f39ab51d8-stand",
+      "name": "Door_12展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-14d8f2844922e8e0-stand",
+      "name": "Door_13展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e20fc16ed7e837e5-stand",
+      "name": "Door_14展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3ec76ec407ed11a1-stand",
+      "name": "Door_15展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d52fa561a5ed9669-stand",
+      "name": "Door_16展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eeaa1679a7f3ff83-stand",
+      "name": "Door_17展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c77a2ed936b99c2c-stand",
+      "name": "Door_2展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1bacd065eb9143a3-stand",
+      "name": "Door_3展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6a53d86d9056f134-stand",
+      "name": "Door_4展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d593263be8562155-stand",
+      "name": "Door_5展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4109e1e1d8952d72-stand",
+      "name": "Door_6展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7392e00733864064-stand",
+      "name": "Door_7展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c585147126180022-stand",
+      "name": "Door_8展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e605a77ca7fe2a9c-stand",
+      "name": "DoorFrame_1展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ae953c4f2bb750fa-stand",
+      "name": "DoorFrame_10展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-539e78f886fd1405-stand",
+      "name": "DoorFrame_11展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-703d837a2d237e6c-stand",
+      "name": "DoorFrame_12展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e15911fc9f021e8e-stand",
+      "name": "DoorFrame_13展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5de81f0ecaefa69c-stand",
+      "name": "DoorFrame_14展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9e0f97eb046bb264-stand",
+      "name": "DoorFrame_15展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6281b24b953a7a49-stand",
+      "name": "DoorFrame_16展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7fce55c77857830b-stand",
+      "name": "DoorFrame_17展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0b540ddacb1c9b08-stand",
+      "name": "DoorFrame_2展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d023ff4ee6755ad8-stand",
+      "name": "DoorFrame_3展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-edabd10e5791622e-stand",
+      "name": "DoorFrame_4展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a5b3078518b4307b-stand",
+      "name": "DoorFrame_5展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-129a95d5005e8fbd-stand",
+      "name": "DoorFrame_6展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4164b6973363eca6-stand",
+      "name": "DoorFrame_7展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f3c9cee4f9a6d36d-stand",
+      "name": "DoorFrame_8展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bf56c474fb062462-stand",
+      "name": "Floors_1展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d6ae676cc60082ba-stand",
+      "name": "Floors_2展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a1566e865199347a-stand",
+      "name": "Floors_3展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eac7a4b795956f73-stand",
+      "name": "Floors_3quart展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9867a1be96227bdc-stand",
+      "name": "Front1_004展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7ff3b25b43abe2ed-stand",
+      "name": "Front1_007展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-54feccad48a41962-stand",
+      "name": "Front1Door展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4e886ef8526cea4f-stand",
+      "name": "Front1Window展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-207800cfcf2b82b7-stand",
+      "name": "Front1WindowHalf展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        7.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8b124bb55994e109-stand",
+      "name": "Front2_001展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-51eba03c4d7f631c-stand",
+      "name": "Front2_002展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-529bd8afe2301867-stand",
+      "name": "Front2Door展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bd4c9457cdb59d81-stand",
+      "name": "Front2Window展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-08022bb891c62482-stand",
+      "name": "Front2WindowHalf展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f5e39c17268d47c4-stand",
+      "name": "Front3_001展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9f263b0186b229a4-stand",
+      "name": "Front3_002展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e81cd3c51dc385e8-stand",
+      "name": "Front3Door展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9f5186d17cf12bf3-stand",
+      "name": "Front3Window展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8a5bf399dc7c3c2b-stand",
+      "name": "Front3WindowHalf展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-829eabd3bc470411-stand",
+      "name": "Front4_001展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-77a069ad581619ce-stand",
+      "name": "Front4_002展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-72b7c5368378df39-stand",
+      "name": "Front4Door展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0ee52e05a6a9ab39-stand",
+      "name": "Front4Window展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1ebb546fa8a6b530-stand",
+      "name": "Front4WindowHalf展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b4802624aaf009cc-stand",
+      "name": "Front5_003展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d9cb5e8870f75993-stand",
+      "name": "Front5_005展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4ef8efb67f017e89-stand",
+      "name": "Front6_003展台",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a54342fce44c5c92-stand",
+      "name": "Front6_004展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1bd6b7b0e30f7ec6-stand",
+      "name": "Front7_007展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2042bba1b418d64f-stand",
+      "name": "Front7_008展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f8a86336df87b37e-stand",
+      "name": "Front8_003展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ba5d355463145daa-stand",
+      "name": "Front8_008展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2fe700d06dd3f732-stand",
+      "name": "metal展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a9d345952019c796-stand",
+      "name": "metal_001展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a66c8675dd445e94-stand",
+      "name": "Plane展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c5e4d22e5ff3a8f2-stand",
+      "name": "plastic展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d1d7fa9a3d81f69f-stand",
+      "name": "Post展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8b7aba49ba84ad08-stand",
+      "name": "PostBeam1展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0417f091fe056a2d-stand",
+      "name": "PostBeam1_108展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e06cc21f201d352f-stand",
+      "name": "PostBeam2展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-733ddd0664f1e063-stand",
+      "name": "PostBeam2Half展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f80e94e6d28634fc-stand",
+      "name": "PostBeamHalf展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-36abc2bd3c3529f5-stand",
+      "name": "PostCorner展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f67a2ecb58700331-stand",
+      "name": "PostCorner2展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-405a86bf4db6312a-stand",
+      "name": "PostExtra展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        23.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1734fbe3f1b4c226-stand",
+      "name": "Rail展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        19.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-53a6ca4d731126cb-stand",
+      "name": "RailHalf展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        19.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-805de58ac1d05085-stand",
+      "name": "RailSingle展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        19.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5c273737ac565a4d-stand",
+      "name": "RailStairs展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        19.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f89d7c513f1cacdb-stand",
+      "name": "RailThird展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        19.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-625b702d24cc6bde-stand",
+      "name": "RailThird_019展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        19.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-81892f0623c7429b-stand",
+      "name": "Roof1展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7ea9cccbe1d5c616-stand",
+      "name": "Roof1Corner展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-87504e55c6b1675e-stand",
+      "name": "Roof1Half展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-be38ad85d98278c3-stand",
+      "name": "Roof2展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e33fe35324b184c4-stand",
+      "name": "Roof2Corner展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-311e6b915ef622b4-stand",
+      "name": "Roof2Half展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        15.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-94c56c863a7af289-stand",
+      "name": "Stair展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ea3dc9267e3d9985-stand",
+      "name": "StairHalf展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-201780a1cd47d778-stand",
+      "name": "Steps展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-29525614a895b261-stand",
+      "name": "stone展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-aa7d37f689601cf7-stand",
+      "name": "StreetCorner展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-717b874ca8eb46b9-stand",
+      "name": "StreetCurb展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-715debd05c819003-stand",
+      "name": "StreetCurb_001展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-076f5d73ec7dc9cf-stand",
+      "name": "Wall展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0bb31177d32ff071-stand",
+      "name": "Wall_Door_1展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e9a5c18019db2cd8-stand",
+      "name": "Wall_Door_2展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-627eb9cc60245eff-stand",
+      "name": "Wall_Window1展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-fbe3b2932f1257c1-stand",
+      "name": "Wall_Window2展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-acf3defc2bba27c0-stand",
+      "name": "Wall_Window3展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-28fa73b68ca3788b-stand",
+      "name": "wall2展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-723c9783f437862a-stand",
+      "name": "WallEdgeL展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-707559abf8b33066-stand",
+      "name": "WallEdgeR展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-fe690dfd0275da69-stand",
+      "name": "WallHalf展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4c741a2d49f90e27-stand",
+      "name": "Wallhalf_Window_1展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        3.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a8d0af906f5a4032-stand",
+      "name": "Wallhalf_Window_2展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-843cbc616a6e25c0-stand",
+      "name": "Wallhalf_Window_3展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f27538c4dfef0293-stand",
+      "name": "WallRoof1展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-6918a36d64dbdb22-stand",
+      "name": "WallRoof2展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4231b0f7aefc7bd5-stand",
+      "name": "WallSemiCircle展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-03046192b07cfe14-stand",
+      "name": "WallSemiCircleBase展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -0.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dc52ddc15dd3cc00-stand",
+      "name": "WallSemiCircleRoof展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b32a16708a83b9f4-stand",
+      "name": "WallStairL展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3a55806e3d8040cf-stand",
+      "name": "WallStairR展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2221422b9accc033-stand",
+      "name": "WallTriRoof1L展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-fb65e2555d1a9578-stand",
+      "name": "WallTriRoof1R展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-64a3ab199ccf5f4a-stand",
+      "name": "WallTriRoof2L展台",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -4.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f332d1743c82fd0e-stand",
+      "name": "WallTriRoof2R展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d1559b5244715534-stand",
+      "name": "Window_1展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b59fe5ba9aeffd2a-stand",
+      "name": "Window_1_001展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b3a0d92b1b2e61ac-stand",
+      "name": "Window_2展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f150f842f4b24f82-stand",
+      "name": "Window_2_001展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a391dfba69d40423-stand",
+      "name": "Window_3展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1c6b7b7d825627e9-stand",
+      "name": "Window_3_021展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8bc1a242748ae50d-stand",
+      "name": "Window_4展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-da406eb31f8104fa-stand",
+      "name": "Window_4_001展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-281fc472b28a2f2a-stand",
+      "name": "Window_5展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-698e90ae76c948b5-stand",
+      "name": "Window1_1展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-84ccbf398079b47d-stand",
+      "name": "Window1_2展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -15.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0e93d02647a13621-stand",
+      "name": "Window2展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9a02a236d6948cf4-stand",
+      "name": "Window3_1展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-10fe9ec724f22141-stand",
+      "name": "Window3_2展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1c37690ce9278cee-stand",
+      "name": "Window4_1展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b198a8b65d0a020c-stand",
+      "name": "Window4_2展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-48174de0e83f21ef-stand",
+      "name": "Window5展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3608f2e2ea87c40b-stand",
+      "name": "Window6展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0ba3affa531d27e8-stand",
+      "name": "Window7展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5d23aeb52efbbfb7-stand",
+      "name": "Window8展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-113ce7b8c38957bf-stand",
+      "name": "WindowFrame_1展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1ec934a92380d98b-stand",
+      "name": "WindowFrame_2展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-560db3fc008eaa0b-stand",
+      "name": "WindowFrame_3展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5752128e04b24d00-stand",
+      "name": "WindowFrame_4展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3e3c5d27771725bb-stand",
+      "name": "WindowFrame_5展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-18ba328146387be8-stand",
+      "name": "wood展台",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-426dcd4b0f6a7d7b",
+      "name": "BuildingKit2Parts · Balcony · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Balcony.glb",
+      "position": [
+        -22,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4ad8b1f4bae9d9d2",
+      "name": "BuildingKit2Parts · Door_1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_1.glb",
+      "position": [
+        -17.99999963,
+        0,
+        31.49999891
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2425018,
+        1.2425018,
+        1.2425018
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a4af2533cea5a5c0",
+      "name": "BuildingKit2Parts · Door_10 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_10.glb",
+      "position": [
+        -14,
+        0,
+        31.49999897
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24507904,
+        1.24507904,
+        1.24507904
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8a235599b472b5fe",
+      "name": "BuildingKit2Parts · Door_11 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_11.glb",
+      "position": [
+        -10.00000025,
+        0,
+        31.49999926
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39992244,
+        1.39992244,
+        1.39992244
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f04c391f39ab51d8",
+      "name": "BuildingKit2Parts · Door_12 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_12.glb",
+      "position": [
+        -5.99999941,
+        0,
+        31.49999897
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24325667,
+        1.24325667,
+        1.24325667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-14d8f2844922e8e0",
+      "name": "BuildingKit2Parts · Door_13 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_13.glb",
+      "position": [
+        -2.00000008,
+        0,
+        31.49999885
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39443033,
+        1.39443033,
+        1.39443033
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e20fc16ed7e837e5",
+      "name": "BuildingKit2Parts · Door_14 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_14.glb",
+      "position": [
+        -22.00000013,
+        0,
+        27.49999907
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11896286,
+        1.11896286,
+        1.11896286
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3ec76ec407ed11a1",
+      "name": "BuildingKit2Parts · Door_15 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_15.glb",
+      "position": [
+        -17.99999965,
+        0,
+        27.49999911
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06635558,
+        1.06635558,
+        1.06635558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d52fa561a5ed9669",
+      "name": "BuildingKit2Parts · Door_16 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_16.glb",
+      "position": [
+        -14.00000046,
+        0,
+        27.49999884
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40463397,
+        1.40463397,
+        1.40463397
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eeaa1679a7f3ff83",
+      "name": "BuildingKit2Parts · Door_17 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_17.glb",
+      "position": [
+        -10,
+        0,
+        27.49999898
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24021843,
+        1.24021843,
+        1.24021843
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c77a2ed936b99c2c",
+      "name": "BuildingKit2Parts · Door_2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_2.glb",
+      "position": [
+        -5.99999993,
+        0,
+        27.49999903
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16666662,
+        1.16666662,
+        1.16666662
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1bacd065eb9143a3",
+      "name": "BuildingKit2Parts · Door_3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_3.glb",
+      "position": [
+        -2.00000003,
+        0,
+        27.49999907
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11944165,
+        1.11944165,
+        1.11944165
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6a53d86d9056f134",
+      "name": "BuildingKit2Parts · Door_4 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_4.glb",
+      "position": [
+        -22.00000015,
+        0,
+        23.4999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24339291,
+        1.24339291,
+        1.24339291
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d593263be8562155",
+      "name": "BuildingKit2Parts · Door_5 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_5.glb",
+      "position": [
+        -18.00000012,
+        0,
+        23.50000079
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.01959457,
+        1.01959457,
+        1.01959457
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4109e1e1d8952d72",
+      "name": "BuildingKit2Parts · Door_6 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_6.glb",
+      "position": [
+        -13.99999983,
+        0,
+        23.49999884
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40351397,
+        1.40351397,
+        1.40351397
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7392e00733864064",
+      "name": "BuildingKit2Parts · Door_7 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_7.glb",
+      "position": [
+        -9.99999996,
+        0,
+        23.49999892
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31045323,
+        1.31045323,
+        1.31045323
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c585147126180022",
+      "name": "BuildingKit2Parts · Door_8 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Door_8.glb",
+      "position": [
+        -6,
+        0,
+        23.49999903
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16620252,
+        1.16620252,
+        1.16620252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e605a77ca7fe2a9c",
+      "name": "BuildingKit2Parts · DoorFrame_1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_1.glb",
+      "position": [
+        -1.99999997,
+        0,
+        23.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16666674,
+        1.16666674,
+        1.16666674
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ae953c4f2bb750fa",
+      "name": "BuildingKit2Parts · DoorFrame_10 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_10.glb",
+      "position": [
+        -22,
+        0,
+        19.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12193835,
+        1.12193835,
+        1.12193835
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-539e78f886fd1405",
+      "name": "BuildingKit2Parts · DoorFrame_11 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_11.glb",
+      "position": [
+        -18,
+        0,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24016303,
+        1.24016303,
+        1.24016303
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-703d837a2d237e6c",
+      "name": "BuildingKit2Parts · DoorFrame_12 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_12.glb",
+      "position": [
+        -13.99999997,
+        0,
+        19.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14835795,
+        1.14835795,
+        1.14835795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e15911fc9f021e8e",
+      "name": "BuildingKit2Parts · DoorFrame_13 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_13.glb",
+      "position": [
+        -10,
+        0,
+        19.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24378019,
+        1.24378019,
+        1.24378019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5de81f0ecaefa69c",
+      "name": "BuildingKit2Parts · DoorFrame_14 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_14.glb",
+      "position": [
+        -6,
+        0,
+        19.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.04996017,
+        1.04996017,
+        1.04996017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9e0f97eb046bb264",
+      "name": "BuildingKit2Parts · DoorFrame_15 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_15.glb",
+      "position": [
+        -2,
+        0,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6281b24b953a7a49",
+      "name": "BuildingKit2Parts · DoorFrame_16 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_16.glb",
+      "position": [
+        -22,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31747544,
+        1.31747544,
+        1.31747544
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7fce55c77857830b",
+      "name": "BuildingKit2Parts · DoorFrame_17 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_17.glb",
+      "position": [
+        -18.00000003,
+        0,
+        15.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14775898,
+        1.14775898,
+        1.14775898
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0b540ddacb1c9b08",
+      "name": "BuildingKit2Parts · DoorFrame_2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_2.glb",
+      "position": [
+        -14,
+        0,
+        15.49999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03703702,
+        1.03703702,
+        1.03703702
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d023ff4ee6755ad8",
+      "name": "BuildingKit2Parts · DoorFrame_3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_3.glb",
+      "position": [
+        -10,
+        0,
+        15.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06618993,
+        1.06618993,
+        1.06618993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-edabd10e5791622e",
+      "name": "BuildingKit2Parts · DoorFrame_4 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_4.glb",
+      "position": [
+        -6,
+        0,
+        15.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15232123,
+        1.15232123,
+        1.15232123
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a5b3078518b4307b",
+      "name": "BuildingKit2Parts · DoorFrame_5 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_5.glb",
+      "position": [
+        -2,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-129a95d5005e8fbd",
+      "name": "BuildingKit2Parts · DoorFrame_6 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_6.glb",
+      "position": [
+        -22,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2955968,
+        1.2955968,
+        1.2955968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4164b6973363eca6",
+      "name": "BuildingKit2Parts · DoorFrame_7 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_7.glb",
+      "position": [
+        -18,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.19152954,
+        1.19152954,
+        1.19152954
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f3c9cee4f9a6d36d",
+      "name": "BuildingKit2Parts · DoorFrame_8 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/DoorFrame_8.glb",
+      "position": [
+        -14,
+        0,
+        11.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.09850152,
+        1.09850152,
+        1.09850152
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bf56c474fb062462",
+      "name": "BuildingKit2Parts · Floors_1 · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Floors_1.glb",
+      "position": [
+        -10,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d6ae676cc60082ba",
+      "name": "BuildingKit2Parts · Floors_2 · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Floors_2.glb",
+      "position": [
+        -6,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a1566e865199347a",
+      "name": "BuildingKit2Parts · Floors_3 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Floors_3.glb",
+      "position": [
+        -2,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eac7a4b795956f73",
+      "name": "BuildingKit2Parts · Floors_3quart · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Floors_3quart.glb",
+      "position": [
+        -22,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9867a1be96227bdc",
+      "name": "BuildingKit2Parts · Front1_004 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front1_004.glb",
+      "position": [
+        -17.99999981,
+        0,
+        7.50000081
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333318,
+        0.93333318,
+        0.93333318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7ff3b25b43abe2ed",
+      "name": "BuildingKit2Parts · Front1_007 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front1_007.glb",
+      "position": [
+        -14,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.61556393,
+        1.61556393,
+        1.61556393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-54feccad48a41962",
+      "name": "BuildingKit2Parts · Front1Door · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front1Door.glb",
+      "position": [
+        -9.99999982,
+        3e-8,
+        7.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23640343,
+        1.23640343,
+        1.23640343
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e886ef8526cea4f",
+      "name": "BuildingKit2Parts · Front1Window · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front1Window.glb",
+      "position": [
+        -6.00000017,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999992,
+        0.69999992,
+        0.69999992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-207800cfcf2b82b7",
+      "name": "BuildingKit2Parts · Front1WindowHalf · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front1WindowHalf.glb",
+      "position": [
+        -1.99999981,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333318,
+        0.93333318,
+        0.93333318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8b124bb55994e109",
+      "name": "BuildingKit2Parts · Front2_001 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front2_001.glb",
+      "position": [
+        -22,
+        0,
+        3.50000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333318,
+        0.93333318,
+        0.93333318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-51eba03c4d7f631c",
+      "name": "BuildingKit2Parts · Front2_002 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front2_002.glb",
+      "position": [
+        -18,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.61556393,
+        1.61556393,
+        1.61556393
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-529bd8afe2301867",
+      "name": "BuildingKit2Parts · Front2Door · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front2Door.glb",
+      "position": [
+        -13.9999998,
+        4e-8,
+        3.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37441956,
+        1.37441956,
+        1.37441956
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bd4c9457cdb59d81",
+      "name": "BuildingKit2Parts · Front2Window · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front2Window.glb",
+      "position": [
+        -10,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-08022bb891c62482",
+      "name": "BuildingKit2Parts · Front2WindowHalf · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front2WindowHalf.glb",
+      "position": [
+        -5.99999955,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333318,
+        0.93333318,
+        0.93333318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f5e39c17268d47c4",
+      "name": "BuildingKit2Parts · Front3_001 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front3_001.glb",
+      "position": [
+        -2,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80000025,
+        1.80000025,
+        1.80000025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9f263b0186b229a4",
+      "name": "BuildingKit2Parts · Front3_002 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front3_002.glb",
+      "position": [
+        -22,
+        0,
+        -0.49999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333318,
+        0.93333318,
+        0.93333318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e81cd3c51dc385e8",
+      "name": "BuildingKit2Parts · Front3Door · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front3Door.glb",
+      "position": [
+        -18.00000047,
+        6e-8,
+        -0.49999917
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07279635,
+        1.07279635,
+        1.07279635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9f5186d17cf12bf3",
+      "name": "BuildingKit2Parts · Front3Window · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front3Window.glb",
+      "position": [
+        -14,
+        0,
+        -0.4999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999992,
+        0.69999992,
+        0.69999992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8a5bf399dc7c3c2b",
+      "name": "BuildingKit2Parts · Front3WindowHalf · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front3WindowHalf.glb",
+      "position": [
+        -10.00000011,
+        0,
+        -0.4999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333318,
+        0.93333318,
+        0.93333318
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-829eabd3bc470411",
+      "name": "BuildingKit2Parts · Front4_001 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front4_001.glb",
+      "position": [
+        -5.99999922,
+        0,
+        -0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6277172,
+        1.6277172,
+        1.6277172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-77a069ad581619ce",
+      "name": "BuildingKit2Parts · Front4_002 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front4_002.glb",
+      "position": [
+        -1.99999972,
+        0,
+        -0.500001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333348,
+        0.93333348,
+        0.93333348
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-72b7c5368378df39",
+      "name": "BuildingKit2Parts · Front4Door · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front4Door.glb",
+      "position": [
+        -22.00000047,
+        0,
+        -4.49999932
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43310793,
+        1.43310793,
+        1.43310793
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0ee52e05a6a9ab39",
+      "name": "BuildingKit2Parts · Front4Window · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front4Window.glb",
+      "position": [
+        -18,
+        0,
+        -4.50000075
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999983,
+        0.69999983,
+        0.69999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1ebb546fa8a6b530",
+      "name": "BuildingKit2Parts · Front4WindowHalf · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front4WindowHalf.glb",
+      "position": [
+        -14.00000003,
+        0,
+        -4.500001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333294,
+        0.93333294,
+        0.93333294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b4802624aaf009cc",
+      "name": "BuildingKit2Parts · Front5_003 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front5_003.glb",
+      "position": [
+        -9.99999983,
+        0,
+        -4.49999939
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999975,
+        0.69999975,
+        0.69999975
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d9cb5e8870f75993",
+      "name": "BuildingKit2Parts · Front5_005 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front5_005.glb",
+      "position": [
+        -5.99999964,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75003846,
+        0.75003846,
+        0.75003846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4ef8efb67f017e89",
+      "name": "BuildingKit2Parts · Front6_003 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front6_003.glb",
+      "position": [
+        -1.99999967,
+        0,
+        -4.49999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999983,
+        0.69999983,
+        0.69999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a54342fce44c5c92",
+      "name": "BuildingKit2Parts · Front6_004 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front6_004.glb",
+      "position": [
+        2,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.77924086,
+        0.77924086,
+        0.77924086
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1bd6b7b0e30f7ec6",
+      "name": "BuildingKit2Parts · Front7_007 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front7_007.glb",
+      "position": [
+        6,
+        0,
+        31.50000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999992,
+        0.69999992,
+        0.69999992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2042bba1b418d64f",
+      "name": "BuildingKit2Parts · Front7_008 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front7_008.glb",
+      "position": [
+        10,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.78750005,
+        0.78750005,
+        0.78750005
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f8a86336df87b37e",
+      "name": "BuildingKit2Parts · Front8_003 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front8_003.glb",
+      "position": [
+        13.99999978,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75264786,
+        0.75264786,
+        0.75264786
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ba5d355463145daa",
+      "name": "BuildingKit2Parts · Front8_008 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Front8_008.glb",
+      "position": [
+        17.99999987,
+        0,
+        31.49999925
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999998,
+        0.69999998,
+        0.69999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2fe700d06dd3f732",
+      "name": "BuildingKit2Parts · metal · 模型 0.00 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/metal.glb",
+      "position": [
+        22,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a9d345952019c796",
+      "name": "BuildingKit2Parts · metal_001 · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/metal_001.glb",
+      "position": [
+        2,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a66c8675dd445e94",
+      "name": "BuildingKit2Parts · Plane · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Plane.glb",
+      "position": [
+        6,
+        0,
+        27.49999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.01707317,
+        0.01707317,
+        0.01707317
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c5e4d22e5ff3a8f2",
+      "name": "BuildingKit2Parts · plastic · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/plastic.glb",
+      "position": [
+        10,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d1d7fa9a3d81f69f",
+      "name": "BuildingKit2Parts · Post · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Post.glb",
+      "position": [
+        14,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8b7aba49ba84ad08",
+      "name": "BuildingKit2Parts · PostBeam1 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/PostBeam1.glb",
+      "position": [
+        18,
+        -5e-8,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000004,
+        0.70000004,
+        0.70000004
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0417f091fe056a2d",
+      "name": "BuildingKit2Parts · PostBeam1_108 · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/PostBeam1_108.glb",
+      "position": [
+        22,
+        0,
+        27.49999944
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6256564,
+        0.6256564,
+        0.6256564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e06cc21f201d352f",
+      "name": "BuildingKit2Parts · PostBeam2 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/PostBeam2.glb",
+      "position": [
+        2,
+        1.4e-7,
+        23.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000004,
+        0.70000004,
+        0.70000004
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-733ddd0664f1e063",
+      "name": "BuildingKit2Parts · PostBeam2Half · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/PostBeam2Half.glb",
+      "position": [
+        5.99999866,
+        2.7e-7,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000142,
+        1.40000142,
+        1.40000142
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f80e94e6d28634fc",
+      "name": "BuildingKit2Parts · PostBeamHalf · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/PostBeamHalf.glb",
+      "position": [
+        10,
+        -1e-7,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-36abc2bd3c3529f5",
+      "name": "BuildingKit2Parts · PostCorner · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/PostCorner.glb",
+      "position": [
+        14,
+        -2.8e-7,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.65792841,
+        4.65792841,
+        4.65792841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f67a2ecb58700331",
+      "name": "BuildingKit2Parts · PostCorner2 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/PostCorner2.glb",
+      "position": [
+        18.00000006,
+        9.8e-7,
+        23.50000146
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.09047407,
+        4.09047407,
+        4.09047407
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-405a86bf4db6312a",
+      "name": "BuildingKit2Parts · PostExtra · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/PostExtra.glb",
+      "position": [
+        22.00000131,
+        -1.7e-7,
+        23.50000079
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.82608584,
+        1.82608584,
+        1.82608584
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1734fbe3f1b4c226",
+      "name": "BuildingKit2Parts · Rail · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Rail.glb",
+      "position": [
+        1.99999992,
+        0,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999987,
+        0.69999987,
+        0.69999987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-53a6ca4d731126cb",
+      "name": "BuildingKit2Parts · RailHalf · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/RailHalf.glb",
+      "position": [
+        5.99999983,
+        0,
+        19.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3999995,
+        1.3999995,
+        1.3999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-805de58ac1d05085",
+      "name": "BuildingKit2Parts · RailSingle · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/RailSingle.glb",
+      "position": [
+        9.99999983,
+        0,
+        19.49999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.90079999,
+        2.90079999,
+        2.90079999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5c273737ac565a4d",
+      "name": "BuildingKit2Parts · RailStairs · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/RailStairs.glb",
+      "position": [
+        14,
+        0,
+        19.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999979,
+        0.69999979,
+        0.69999979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f89d7c513f1cacdb",
+      "name": "BuildingKit2Parts · RailThird · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/RailThird.glb",
+      "position": [
+        17.99999983,
+        0,
+        19.49999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79999833,
+        2.79999833,
+        2.79999833
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-625b702d24cc6bde",
+      "name": "BuildingKit2Parts · RailThird_019 · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/RailThird_019.glb",
+      "position": [
+        22.00000003,
+        0,
+        19.49999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86821706,
+        0.86821706,
+        0.86821706
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-81892f0623c7429b",
+      "name": "BuildingKit2Parts · Roof1 · 模型 0.00 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Roof1.glb",
+      "position": [
+        2,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7ea9cccbe1d5c616",
+      "name": "BuildingKit2Parts · Roof1Corner · 模型 0.00 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Roof1Corner.glb",
+      "position": [
+        6.00000003,
+        0,
+        15.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999997,
+        1.39999997,
+        1.39999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-87504e55c6b1675e",
+      "name": "BuildingKit2Parts · Roof1Half · 模型 0.00 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Roof1Half.glb",
+      "position": [
+        10,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-be38ad85d98278c3",
+      "name": "BuildingKit2Parts · Roof2 · 模型 0.00 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Roof2.glb",
+      "position": [
+        14,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e33fe35324b184c4",
+      "name": "BuildingKit2Parts · Roof2Corner · 模型 0.00 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Roof2Corner.glb",
+      "position": [
+        18.00000003,
+        0,
+        15.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999997,
+        1.39999997,
+        1.39999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-311e6b915ef622b4",
+      "name": "BuildingKit2Parts · Roof2Half · 模型 0.00 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Roof2Half.glb",
+      "position": [
+        22,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-94c56c863a7af289",
+      "name": "BuildingKit2Parts · Stair · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Stair.glb",
+      "position": [
+        2,
+        0,
+        11.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ea3dc9267e3d9985",
+      "name": "BuildingKit2Parts · StairHalf · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/StairHalf.glb",
+      "position": [
+        6,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-201780a1cd47d778",
+      "name": "BuildingKit2Parts · Steps · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Steps.glb",
+      "position": [
+        10.00000145,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999855,
+        1.39999855,
+        1.39999855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-29525614a895b261",
+      "name": "BuildingKit2Parts · stone · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/stone.glb",
+      "position": [
+        14,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aa7d37f689601cf7",
+      "name": "BuildingKit2Parts · StreetCorner · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/StreetCorner.glb",
+      "position": [
+        18,
+        0,
+        11.49999721
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45921988,
+        4.45921988,
+        4.45921988
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-717b874ca8eb46b9",
+      "name": "BuildingKit2Parts · StreetCurb · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/StreetCurb.glb",
+      "position": [
+        22,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000003,
+        0.70000003,
+        0.70000003
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-715debd05c819003",
+      "name": "BuildingKit2Parts · StreetCurb_001 · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/StreetCurb_001.glb",
+      "position": [
+        2,
+        0,
+        7.50000055
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000003,
+        0.70000003,
+        0.70000003
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-076f5d73ec7dc9cf",
+      "name": "BuildingKit2Parts · Wall · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wall.glb",
+      "position": [
+        6,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0bb31177d32ff071",
+      "name": "BuildingKit2Parts · Wall_Door_1 · 模型 0.01 MiB · 贴图 0.42 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wall_Door_1.glb",
+      "position": [
+        10.00000083,
+        0,
+        7.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e9a5c18019db2cd8",
+      "name": "BuildingKit2Parts · Wall_Door_2 · 模型 0.01 MiB · 贴图 0.42 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wall_Door_2.glb",
+      "position": [
+        14.00000072,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-627eb9cc60245eff",
+      "name": "BuildingKit2Parts · Wall_Window1 · 模型 0.01 MiB · 贴图 0.30 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wall_Window1.glb",
+      "position": [
+        18,
+        0,
+        7.50000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fbe3b2932f1257c1",
+      "name": "BuildingKit2Parts · Wall_Window2 · 模型 0.01 MiB · 贴图 0.30 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wall_Window2.glb",
+      "position": [
+        22,
+        0,
+        7.49999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-acf3defc2bba27c0",
+      "name": "BuildingKit2Parts · Wall_Window3 · 模型 0.01 MiB · 贴图 0.30 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wall_Window3.glb",
+      "position": [
+        2,
+        0,
+        3.50000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-28fa73b68ca3788b",
+      "name": "BuildingKit2Parts · wall2 · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/wall2.glb",
+      "position": [
+        6,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-723c9783f437862a",
+      "name": "BuildingKit2Parts · WallEdgeL · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallEdgeL.glb",
+      "position": [
+        10,
+        0,
+        3.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333332,
+        0.93333332,
+        0.93333332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-707559abf8b33066",
+      "name": "BuildingKit2Parts · WallEdgeR · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallEdgeR.glb",
+      "position": [
+        14,
+        0,
+        3.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333332,
+        0.93333332,
+        0.93333332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe690dfd0275da69",
+      "name": "BuildingKit2Parts · WallHalf · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallHalf.glb",
+      "position": [
+        18,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4c741a2d49f90e27",
+      "name": "BuildingKit2Parts · Wallhalf_Window_1 · 模型 0.01 MiB · 贴图 0.30 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wallhalf_Window_1.glb",
+      "position": [
+        22,
+        0,
+        3.50000039
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333331,
+        0.93333331,
+        0.93333331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a8d0af906f5a4032",
+      "name": "BuildingKit2Parts · Wallhalf_Window_2 · 模型 0.01 MiB · 贴图 0.30 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wallhalf_Window_2.glb",
+      "position": [
+        2,
+        0,
+        -0.50000044
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333332,
+        0.93333332,
+        0.93333332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-843cbc616a6e25c0",
+      "name": "BuildingKit2Parts · Wallhalf_Window_3 · 模型 0.01 MiB · 贴图 0.30 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Wallhalf_Window_3.glb",
+      "position": [
+        6,
+        0,
+        -0.49999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f27538c4dfef0293",
+      "name": "BuildingKit2Parts · WallRoof1 · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallRoof1.glb",
+      "position": [
+        10,
+        0,
+        -0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6918a36d64dbdb22",
+      "name": "BuildingKit2Parts · WallRoof2 · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallRoof2.glb",
+      "position": [
+        14.00000031,
+        0,
+        -0.49999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999967,
+        1.39999967,
+        1.39999967
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4231b0f7aefc7bd5",
+      "name": "BuildingKit2Parts · WallSemiCircle · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallSemiCircle.glb",
+      "position": [
+        18.00000096,
+        1.3e-7,
+        -0.50000009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000002,
+        0.70000002,
+        0.70000002
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-03046192b07cfe14",
+      "name": "BuildingKit2Parts · WallSemiCircleBase · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallSemiCircleBase.glb",
+      "position": [
+        22.00000008,
+        1.5e-7,
+        -0.5000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63636362,
+        0.63636362,
+        0.63636362
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dc52ddc15dd3cc00",
+      "name": "BuildingKit2Parts · WallSemiCircleRoof · 模型 0.00 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallSemiCircleRoof.glb",
+      "position": [
+        2.00000063,
+        1.4e-7,
+        -4.49999964
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70105705,
+        0.70105705,
+        0.70105705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b32a16708a83b9f4",
+      "name": "BuildingKit2Parts · WallStairL · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallStairL.glb",
+      "position": [
+        6,
+        0,
+        -4.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70000002,
+        0.70000002,
+        0.70000002
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3a55806e3d8040cf",
+      "name": "BuildingKit2Parts · WallStairR · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallStairR.glb",
+      "position": [
+        9.99999983,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2221422b9accc033",
+      "name": "BuildingKit2Parts · WallTriRoof1L · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallTriRoof1L.glb",
+      "position": [
+        14.00000006,
+        0,
+        -4.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fb65e2555d1a9578",
+      "name": "BuildingKit2Parts · WallTriRoof1R · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallTriRoof1R.glb",
+      "position": [
+        18,
+        5e-7,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999992,
+        1.39999992,
+        1.39999992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-64a3ab199ccf5f4a",
+      "name": "BuildingKit2Parts · WallTriRoof2L · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallTriRoof2L.glb",
+      "position": [
+        22.00000003,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f332d1743c82fd0e",
+      "name": "BuildingKit2Parts · WallTriRoof2R · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WallTriRoof2R.glb",
+      "position": [
+        -22.00000033,
+        0,
+        -11.50000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999967,
+        1.39999967,
+        1.39999967
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d1559b5244715534",
+      "name": "BuildingKit2Parts · Window_1 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_1.glb",
+      "position": [
+        -18,
+        9e-8,
+        -11.50000129
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59284627,
+        1.59284627,
+        1.59284627
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b59fe5ba9aeffd2a",
+      "name": "BuildingKit2Parts · Window_1_001 · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_1_001.glb",
+      "position": [
+        -14,
+        0,
+        -11.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03514508,
+        1.03514508,
+        1.03514508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b3a0d92b1b2e61ac",
+      "name": "BuildingKit2Parts · Window_2 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_2.glb",
+      "position": [
+        -10.00000026,
+        0,
+        -11.50000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43602803,
+        1.43602803,
+        1.43602803
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f150f842f4b24f82",
+      "name": "BuildingKit2Parts · Window_2_001 · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_2_001.glb",
+      "position": [
+        -6,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26610233,
+        1.26610233,
+        1.26610233
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a391dfba69d40423",
+      "name": "BuildingKit2Parts · Window_3 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_3.glb",
+      "position": [
+        -2.00000021,
+        0,
+        -11.50000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999987,
+        1.39999987,
+        1.39999987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1c6b7b7d825627e9",
+      "name": "BuildingKit2Parts · Window_3_021 · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_3_021.glb",
+      "position": [
+        -22,
+        0,
+        -15.50000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.14385355,
+        2.14385355,
+        2.14385355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8bc1a242748ae50d",
+      "name": "BuildingKit2Parts · Window_4 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_4.glb",
+      "position": [
+        -17.9999997,
+        8e-8,
+        -15.50000104
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27911905,
+        1.27911905,
+        1.27911905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-da406eb31f8104fa",
+      "name": "BuildingKit2Parts · Window_4_001 · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_4_001.glb",
+      "position": [
+        -13.99999994,
+        1.2e-7,
+        -15.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.02670719,
+        2.02670719,
+        2.02670719
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-281fc472b28a2f2a",
+      "name": "BuildingKit2Parts · Window_5 · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window_5.glb",
+      "position": [
+        -10.00000013,
+        0,
+        -15.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.10578006,
+        2.10578006,
+        2.10578006
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-698e90ae76c948b5",
+      "name": "BuildingKit2Parts · Window1_1 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window1_1.glb",
+      "position": [
+        -5.99999662,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9085717,
+        2.9085717,
+        2.9085717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-84ccbf398079b47d",
+      "name": "BuildingKit2Parts · Window1_2 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window1_2.glb",
+      "position": [
+        -1.99999558,
+        0,
+        -15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9085717,
+        2.9085717,
+        2.9085717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0e93d02647a13621",
+      "name": "BuildingKit2Parts · Window2 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window2.glb",
+      "position": [
+        -22.00000524,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9085717,
+        2.9085717,
+        2.9085717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9a02a236d6948cf4",
+      "name": "BuildingKit2Parts · Window3_1 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window3_1.glb",
+      "position": [
+        -18.00000282,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9085717,
+        2.9085717,
+        2.9085717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-10fe9ec724f22141",
+      "name": "BuildingKit2Parts · Window3_2 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window3_2.glb",
+      "position": [
+        -13.99999935,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9085717,
+        2.9085717,
+        2.9085717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1c37690ce9278cee",
+      "name": "BuildingKit2Parts · Window4_1 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window4_1.glb",
+      "position": [
+        -10.00000343,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.83961763,
+        2.83961763,
+        2.83961763
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b198a8b65d0a020c",
+      "name": "BuildingKit2Parts · Window4_2 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window4_2.glb",
+      "position": [
+        -6.00000073,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.87642065,
+        2.87642065,
+        2.87642065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-48174de0e83f21ef",
+      "name": "BuildingKit2Parts · Window5 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window5.glb",
+      "position": [
+        -2,
+        1.2e-7,
+        -19.50000161
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.98554882,
+        1.98554882,
+        1.98554882
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3608f2e2ea87c40b",
+      "name": "BuildingKit2Parts · Window6 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window6.glb",
+      "position": [
+        -22.00000031,
+        0,
+        -23.50000034
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74764877,
+        1.74764877,
+        1.74764877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0ba3affa531d27e8",
+      "name": "BuildingKit2Parts · Window7 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window7.glb",
+      "position": [
+        -18.00000021,
+        0,
+        -23.50000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999987,
+        1.39999987,
+        1.39999987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5d23aeb52efbbfb7",
+      "name": "BuildingKit2Parts · Window8 · 模型 0.01 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/Window8.glb",
+      "position": [
+        -13.9999997,
+        8e-8,
+        -23.50000104
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27911905,
+        1.27911905,
+        1.27911905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-113ce7b8c38957bf",
+      "name": "BuildingKit2Parts · WindowFrame_1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WindowFrame_1.glb",
+      "position": [
+        -10,
+        0,
+        -23.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1ec934a92380d98b",
+      "name": "BuildingKit2Parts · WindowFrame_2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WindowFrame_2.glb",
+      "position": [
+        -6,
+        0,
+        -23.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16666662,
+        1.16666662,
+        1.16666662
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-560db3fc008eaa0b",
+      "name": "BuildingKit2Parts · WindowFrame_3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WindowFrame_3.glb",
+      "position": [
+        -1.99999989,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5752128e04b24d00",
+      "name": "BuildingKit2Parts · WindowFrame_4 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WindowFrame_4.glb",
+      "position": [
+        -16,
+        0,
+        -27.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3e3c5d27771725bb",
+      "name": "BuildingKit2Parts · WindowFrame_5 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/WindowFrame_5.glb",
+      "position": [
+        -12.00000011,
+        0,
+        -27.49999885
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-18ba328146387be8",
+      "name": "BuildingKit2Parts · wood · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-buildingkit2parts-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BuildingKit2Parts/wood.glb",
+      "position": [
+        -8,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

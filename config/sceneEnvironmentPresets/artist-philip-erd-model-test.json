@@ -1,0 +1,1561 @@
+{
+  "presetKey": "artist-philip-erd-model-test",
+  "name": "Philip Erd · 八套件轻量总览（32 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "philip-erd-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "philip-erd-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "philip-erd-Cargo",
+      "name": "货物、箱桶与杂物",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "philip-erd-Castle",
+      "name": "城堡与城墙",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "philip-erd-Halloween",
+      "name": "万圣节与墓地",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "philip-erd-Pirate",
+      "name": "海盗道具",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "philip-erd-Steampunk",
+      "name": "蒸汽朋克建筑与机械",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "philip-erd-Windows",
+      "name": "窗户套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "philip-erd-ModularBuildings",
+      "name": "模块建筑（含 57 个 LOD）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "philip-erd-Stones",
+      "name": "石头（含 10 个 LOD）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "philip-erd-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 48,
+        "height": 60
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-zone",
+      "name": "货物、箱桶与杂物分区",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -12,
+        -0.15,
+        24
+      ],
+      "color": "#9b8d6e"
+    },
+    {
+      "id": "philip-erd-Cargo-1-stand",
+      "name": "barrel_medium展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        24
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-2-stand",
+      "name": "crate_1_bottle_1展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        24
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-3-stand",
+      "name": "basket_1展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        24
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-4-stand",
+      "name": "box_medium展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        24
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-zone",
+      "name": "城堡与城墙分区",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        12,
+        -0.15,
+        24
+      ],
+      "color": "#7d909a"
+    },
+    {
+      "id": "philip-erd-Castle-1-stand",
+      "name": "castle_1展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        24
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-2-stand",
+      "name": "archway_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        24
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-3-stand",
+      "name": "tower_top_roof_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        24
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-4-stand",
+      "name": "wall_window_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        24
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-zone",
+      "name": "万圣节与墓地分区",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -12,
+        -0.15,
+        8
+      ],
+      "color": "#9c8172"
+    },
+    {
+      "id": "philip-erd-Halloween-1-stand",
+      "name": "pumpkin_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-2-stand",
+      "name": "tombstone_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-3-stand",
+      "name": "tree_1展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-4-stand",
+      "name": "fence_section展台",
+      "parentId": "transform:philip-erd-Halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        8
+      ],
+      "color": "#9c8172",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-zone",
+      "name": "海盗道具分区",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        12,
+        -0.15,
+        8
+      ],
+      "color": "#8e9675"
+    },
+    {
+      "id": "philip-erd-Pirate-1-stand",
+      "name": "cannon_barrel展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-2-stand",
+      "name": "chest_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-3-stand",
+      "name": "saber_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-4-stand",
+      "name": "flag_pole_001展台",
+      "parentId": "transform:philip-erd-Pirate",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        8
+      ],
+      "color": "#8e9675",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-zone",
+      "name": "蒸汽朋克建筑与机械分区",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -12,
+        -0.15,
+        -8
+      ],
+      "color": "#918775"
+    },
+    {
+      "id": "philip-erd-Steampunk-1-stand",
+      "name": "building_crane展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -8
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-2-stand",
+      "name": "building_1展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -8
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-3-stand",
+      "name": "hotel_block_4展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -8
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-4-stand",
+      "name": "baloon展台",
+      "parentId": "transform:philip-erd-Steampunk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -8
+      ],
+      "color": "#918775",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-zone",
+      "name": "窗户套件分区",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        12,
+        -0.15,
+        -8
+      ],
+      "color": "#809295"
+    },
+    {
+      "id": "philip-erd-Windows-1-stand",
+      "name": "window_basic_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-2-stand",
+      "name": "window_gothic_round_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -8
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-3-stand",
+      "name": "window_spooky_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -8
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-4-stand",
+      "name": "window_western_large展台",
+      "parentId": "transform:philip-erd-Windows",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -8
+      ],
+      "color": "#809295",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-zone",
+      "name": "模块建筑（含 57 个 LOD）分区",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -12,
+        -0.15,
+        -24
+      ],
+      "color": "#85909b"
+    },
+    {
+      "id": "philip-erd-ModularBuildings-1-stand",
+      "name": "Wall_door展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -24
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-2-stand",
+      "name": "Roof_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -24
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-3-stand",
+      "name": "Roof_round展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -24
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-4-stand",
+      "name": "Wall_arch_right_3m展台",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -24
+      ],
+      "color": "#85909b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Stones-zone",
+      "name": "石头（含 10 个 LOD）分区",
+      "parentId": "transform:philip-erd-Stones",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        12,
+        -0.15,
+        -24
+      ],
+      "color": "#859687"
+    },
+    {
+      "id": "philip-erd-Stones-1-stand",
+      "name": "Stone_large_001展台",
+      "parentId": "transform:philip-erd-Stones",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -24
+      ],
+      "color": "#859687",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Stones-2-stand",
+      "name": "Stone_medium_001展台",
+      "parentId": "transform:philip-erd-Stones",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -24
+      ],
+      "color": "#859687",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Stones-3-stand",
+      "name": "Stone_small_001展台",
+      "parentId": "transform:philip-erd-Stones",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -24
+      ],
+      "color": "#859687",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Stones-4-stand",
+      "name": "Stone_small_001_LOD展台",
+      "parentId": "transform:philip-erd-Stones",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -24
+      ],
+      "color": "#859687",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "philip-erd-Cargo-1",
+      "name": "barrel_medium",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_medium.glb",
+      "position": [
+        -18,
+        0,
+        23.99999986
+      ],
+      "scaling": [
+        2.36704656,
+        2.36704656,
+        2.36704656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-2",
+      "name": "crate_1_bottle_1",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_bottle_1.glb",
+      "position": [
+        -14,
+        0,
+        23.99999991
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-3",
+      "name": "basket_1",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/basket_1.glb",
+      "position": [
+        -10,
+        0,
+        24
+      ],
+      "scaling": [
+        3.02025605,
+        3.02025605,
+        3.02025605
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-4",
+      "name": "box_medium",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/box_medium.glb",
+      "position": [
+        -6.00000025,
+        4.3e-7,
+        23.99999971
+      ],
+      "scaling": [
+        2.79999816,
+        2.79999816,
+        2.79999816
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-1",
+      "name": "castle_1",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/castle_1.glb",
+      "position": [
+        6,
+        1e-8,
+        23.99999997
+      ],
+      "scaling": [
+        0.05368344,
+        0.05368344,
+        0.05368344
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-2",
+      "name": "archway_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/archway_base.glb",
+      "position": [
+        10,
+        0,
+        23.99999985
+      ],
+      "scaling": [
+        0.23333333,
+        0.23333333,
+        0.23333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-3",
+      "name": "tower_top_roof_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/tower_top_roof_base.glb",
+      "position": [
+        14.0000007,
+        0,
+        24
+      ],
+      "scaling": [
+        0.19623249,
+        0.19623249,
+        0.19623249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-4",
+      "name": "wall_window_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/wall_window_base.glb",
+      "position": [
+        18,
+        0,
+        23.99999929
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-1",
+      "name": "pumpkin_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/pumpkin_1.glb",
+      "position": [
+        -17.99999801,
+        0,
+        8.00000024
+      ],
+      "scaling": [
+        3.1838452,
+        3.1838452,
+        3.1838452
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-2",
+      "name": "tombstone_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tombstone_1.glb",
+      "position": [
+        -14,
+        0,
+        8
+      ],
+      "scaling": [
+        2.05622752,
+        2.05622752,
+        2.05622752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-3",
+      "name": "tree_1",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/tree_1.glb",
+      "position": [
+        -10.0000002,
+        0,
+        8.00000011
+      ],
+      "scaling": [
+        0.4788312,
+        0.4788312,
+        0.4788312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Halloween-4",
+      "name": "fence_section",
+      "parentId": "transform:philip-erd-Halloween",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Halloween/fence_section.glb",
+      "position": [
+        -6,
+        0,
+        8
+      ],
+      "scaling": [
+        0.69956701,
+        0.69956701,
+        0.69956701
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-1",
+      "name": "cannon_barrel",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/cannon_barrel.glb",
+      "position": [
+        6,
+        7e-8,
+        7.99999986
+      ],
+      "scaling": [
+        1.04995533,
+        1.04995533,
+        1.04995533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-2",
+      "name": "chest_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/chest_001.glb",
+      "position": [
+        10,
+        0,
+        8
+      ],
+      "scaling": [
+        2.13525583,
+        2.13525583,
+        2.13525583
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-3",
+      "name": "saber_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/saber_001.glb",
+      "position": [
+        14,
+        0,
+        8.00000039
+      ],
+      "scaling": [
+        2.578145,
+        2.578145,
+        2.578145
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Pirate-4",
+      "name": "flag_pole_001",
+      "parentId": "transform:philip-erd-Pirate",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Pirate/flag_pole_001.glb",
+      "position": [
+        17.99999997,
+        0,
+        7.9999997
+      ],
+      "scaling": [
+        1.12903566,
+        1.12903566,
+        1.12903566
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-1",
+      "name": "building_crane",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_crane.glb",
+      "position": [
+        -18,
+        0,
+        -8.00000002
+      ],
+      "scaling": [
+        0.16754958,
+        0.16754958,
+        0.16754958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-2",
+      "name": "building_1",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/building_1.glb",
+      "position": [
+        -14.00000024,
+        0,
+        -7.99999972
+      ],
+      "scaling": [
+        0.14596779,
+        0.14596779,
+        0.14596779
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-3",
+      "name": "hotel_block_4",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/hotel_block_4.glb",
+      "position": [
+        -10.00000017,
+        0,
+        -8.00000033
+      ],
+      "scaling": [
+        0.0699519,
+        0.0699519,
+        0.0699519
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Steampunk-4",
+      "name": "baloon",
+      "parentId": "transform:philip-erd-Steampunk",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Steampunk/baloon.glb",
+      "position": [
+        -6,
+        0,
+        -8
+      ],
+      "scaling": [
+        0.51394294,
+        0.51394294,
+        0.51394294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-1",
+      "name": "window_basic_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_basic_large.glb",
+      "position": [
+        6,
+        -1.7e-7,
+        -8
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-2",
+      "name": "window_gothic_round_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_gothic_round_large.glb",
+      "position": [
+        10,
+        0,
+        -8
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-3",
+      "name": "window_spooky_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_spooky_large.glb",
+      "position": [
+        14,
+        1e-8,
+        -8
+      ],
+      "scaling": [
+        1.27621712,
+        1.27621712,
+        1.27621712
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Windows-4",
+      "name": "window_western_large",
+      "parentId": "transform:philip-erd-Windows",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Windows/window_western_large.glb",
+      "position": [
+        18.00000028,
+        2.8e-7,
+        -8.00000002
+      ],
+      "scaling": [
+        1.36389503,
+        1.36389503,
+        1.36389503
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-1",
+      "name": "Wall_door",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_door.glb",
+      "position": [
+        -18,
+        0,
+        -24.00000029
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-2",
+      "name": "Roof_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_3m.glb",
+      "position": [
+        -14,
+        0,
+        -24.00000019
+      ],
+      "scaling": [
+        0.91184074,
+        0.91184074,
+        0.91184074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-3",
+      "name": "Roof_round",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Roof_round.glb",
+      "position": [
+        -10,
+        3.2e-7,
+        -24.00000024
+      ],
+      "scaling": [
+        0.79445564,
+        0.79445564,
+        0.79445564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-ModularBuildings-4",
+      "name": "Wall_arch_right_3m",
+      "parentId": "transform:philip-erd-ModularBuildings",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/ModularBuildings/Wall_arch_right_3m.glb",
+      "position": [
+        -6,
+        1e-8,
+        -24.0000003
+      ],
+      "scaling": [
+        0.93333322,
+        0.93333322,
+        0.93333322
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Stones-1",
+      "name": "Stone_large_001",
+      "parentId": "transform:philip-erd-Stones",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Stones/Stone_large_001.glb",
+      "position": [
+        6.00000005,
+        -9e-7,
+        -23.99999967
+      ],
+      "scaling": [
+        0.54705592,
+        0.54705592,
+        0.54705592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Stones-2",
+      "name": "Stone_medium_001",
+      "parentId": "transform:philip-erd-Stones",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Stones/Stone_medium_001.glb",
+      "position": [
+        10.00000004,
+        -0.00000135,
+        -23.99999933
+      ],
+      "scaling": [
+        1.32290059,
+        1.32290059,
+        1.32290059
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Stones-3",
+      "name": "Stone_small_001",
+      "parentId": "transform:philip-erd-Stones",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_001.glb",
+      "position": [
+        14.00000145,
+        -0.00000315,
+        -23.99999845
+      ],
+      "scaling": [
+        3.05129373,
+        3.05129373,
+        3.05129373
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Stones-4",
+      "name": "Stone_small_001_LOD",
+      "parentId": "transform:philip-erd-Stones",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Stones/Stone_small_001_LOD.glb",
+      "position": [
+        18,
+        -0.00000299,
+        -23.99999922
+      ],
+      "scaling": [
+        3.32852589,
+        3.32852589,
+        3.32852589
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

@@ -17,11 +17,9 @@ import { clamp, toFixedNumber } from '@/core/utils/math.ts';
 import { CommitNumberInput } from '@/core/ui/CommitNumberInput.tsx';
 import { isConfigWritable } from '@/core/config';
 
-const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-}) as Record<string, string>;
+import { readBundledPublicImageModules } from '@/core/resources/publicAssetManifest.ts';
+
+const RESOURCE_IMAGE_MODULES = readBundledPublicImageModules();
 
 export const ParticleEditor: React.FC = () => {
   const particleControllerRef = useRef<ParticleController | null>(null);

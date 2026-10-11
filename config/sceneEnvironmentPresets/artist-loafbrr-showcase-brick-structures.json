@@ -1,0 +1,8186 @@
+{
+  "presetKey": "artist-loafbrr-showcase-brick-structures",
+  "name": "Loafbrr · BrickStructures · 188模型 · 模型 4.55 MiB + 贴图 0.91 MiB · 合计 5.46 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-brickstructures-0",
+      "name": "BrickStructures 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-brickstructures-1",
+      "name": "BrickStructures 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-brickstructures-2",
+      "name": "BrickStructures 3",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-brickstructures-3",
+      "name": "BrickStructures 4",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 88
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-f784eadb6dcc3b47-stand",
+      "name": "AC_A展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        41.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-23b308a0bfcde086-stand",
+      "name": "AC_B展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        41.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4352477841e7815b-stand",
+      "name": "AC_C展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        41.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-92fb844051664c2c-stand",
+      "name": "AC_Wall_A展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        41.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-89a0de042066afda-stand",
+      "name": "AC_Wall_B展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        41.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4d3adb3a7f94cd16-stand",
+      "name": "Build_A_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        41.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-68938daf4eb821ea-stand",
+      "name": "Build_B_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-75571c6b66fce894-stand",
+      "name": "Build_C_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4bf4772991db2a6a-stand",
+      "name": "Build_D_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e2679acc1d4d9ca8-stand",
+      "name": "Build_E_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6475fed23547ee71-stand",
+      "name": "Build_F_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fa1b978203a85bbc-stand",
+      "name": "Build_G_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6c6fe19b3262df7f-stand",
+      "name": "Build_H_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f984037190d3e5f3-stand",
+      "name": "Build_I_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-686eeeeb805d5ccc-stand",
+      "name": "Build_J_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-671de93102f79c2a-stand",
+      "name": "Build_K_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9d7116f2492ec64e-stand",
+      "name": "Build_L_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-918bdb7ea036fe61-stand",
+      "name": "Build_M_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-30e9216eae4d0fc2-stand",
+      "name": "Build_N_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3153f553f8b58224-stand",
+      "name": "Build_O_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-af98833500a960fc-stand",
+      "name": "Build_P_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-21c9562c89e4884f-stand",
+      "name": "Build_Q_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ff060f56ebdb628d-stand",
+      "name": "Build_R_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ac70029315b63eb2-stand",
+      "name": "Build_S_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b258e9363975d522-stand",
+      "name": "Build_T_Grp展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-948dbc34a93515bd-stand",
+      "name": "Door_A展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d396f7c4a6c1bcb1-stand",
+      "name": "Door_B展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-98f4849268774652-stand",
+      "name": "Door_C展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7dd97da0b346f5f2-stand",
+      "name": "Door_D展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f99797819054d229-stand",
+      "name": "Door_Double_A展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-80b2120c132471db-stand",
+      "name": "Door_Double_B展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-59a5d01b7ec72b92-stand",
+      "name": "Door_Double_C展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-114f7dd03714589f-stand",
+      "name": "Door_Double_D展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4bf498ac20904efa-stand",
+      "name": "Floor_A_1x1展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4e566b82a6e25f0d-stand",
+      "name": "Floor_A_1x2展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cc3d92379bd6a4cc-stand",
+      "name": "Floor_A_1x3展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bd815d7d3ae083e9-stand",
+      "name": "Floor_A_2x1展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c0089657ce3a2535-stand",
+      "name": "Floor_A_2x2展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b0591ea7dbc87884-stand",
+      "name": "Floor_A_2x3展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4e15b56421a0af91-stand",
+      "name": "Floor_A_3x1展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f70ad1600b9b2c89-stand",
+      "name": "Floor_A_3x2展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7607bfd7f24ce030-stand",
+      "name": "Floor_A_3x3展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-62f6ae640a140a8d-stand",
+      "name": "Floor_B_1x1展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d9c4ce2e4345f688-stand",
+      "name": "Floor_B_1x2展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c10b648df97dbb25-stand",
+      "name": "Floor_B_1x3展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c83716c0c43ae026-stand",
+      "name": "Floor_B_2x1展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cd8abe2d5ef1bf1f-stand",
+      "name": "Floor_B_2x2展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-257c9329bbc3ccc5-stand",
+      "name": "Floor_B_2x3展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-525d964533970d77-stand",
+      "name": "Floor_B_3x1展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-66c1a25d590c427d-stand",
+      "name": "Floor_B_3x2展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d55d8511d09e23e0-stand",
+      "name": "Floor_B_3x3展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-233b6d2c9b246acd-stand",
+      "name": "Floor_B_Edge_1m展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d88b0fee3c746e9e-stand",
+      "name": "Floor_B_Edge_2m展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8ea67b7ebb789273-stand",
+      "name": "Floor_B_Edge_3m展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-028d8e62766ba9e4-stand",
+      "name": "Floor_B_Edge_Corner展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5e5b3158edddf773-stand",
+      "name": "Floor_Rail_1m展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4af204c342ec4680-stand",
+      "name": "Floor_Rail_2m展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a32bd6fd2eeb5f59-stand",
+      "name": "Floor_Rail_3m展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c2b874ce38ffb0c8-stand",
+      "name": "Floor_RailCorner展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e3dc793dd39f78be-stand",
+      "name": "Roof_18deg_A展台",
+      "parentId": "transform:category-brickstructures-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-046328519bba9a1a-stand",
+      "name": "Roof_18deg_A_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        41.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3d627fafb8816a80-stand",
+      "name": "Roof_18deg_A_Wall_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        41.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-47c95aaf6de49cfc-stand",
+      "name": "Roof_18deg_B展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        41.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-92e2ce608d118d97-stand",
+      "name": "Roof_18deg_B_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        41.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a6584a5fd96e5798-stand",
+      "name": "Roof_18deg_C展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        41.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7fcc2ad53155dec1-stand",
+      "name": "Roof_18deg_C_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        41.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-512d53d693e68651-stand",
+      "name": "Roof_18deg_D展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        37.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c8c79f9d0b333c92-stand",
+      "name": "Roof_18deg_E展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        37.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f2fef7370b64d8e5-stand",
+      "name": "Roof_18deg_F展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        37.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b04419f7fc7dc445-stand",
+      "name": "Roof_18deg_InCorner_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        37.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-61c9a37d2d623e76-stand",
+      "name": "Roof_18deg_OutCorner_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        37.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1f4912d55159f323-stand",
+      "name": "Roof_18deg_OutCorner_A_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        37.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-50481bf81db2b5a0-stand",
+      "name": "Roof_18deg_Rake__B展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8d479abe112f0407-stand",
+      "name": "Roof_18deg_Rake_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e47e66dc3abe0f10-stand",
+      "name": "Roof_18deg_Rake_A_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dde565acaab5828e-stand",
+      "name": "Roof_18deg_Rake_B_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-04844dab87784939-stand",
+      "name": "Roof_18deg_WallTop_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-28cf222c667e31aa-stand",
+      "name": "Roof_18deg_WallTop_B展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7a5f7f759f0e2a24-stand",
+      "name": "Roof_18deg_WallTop_C展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b70d42422afeb1fb-stand",
+      "name": "Roof_18deg_WallTop_D展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-be33d00d8ea22d79-stand",
+      "name": "Roof_18deg_WallTop_E展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7dbae9f543d4f097-stand",
+      "name": "Roof_18deg_WallTop_F展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9c943646f99e5000-stand",
+      "name": "Roof_33Deg_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f60a9f44442320eb-stand",
+      "name": "Roof_33Deg_A_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-675a519bca0feca7-stand",
+      "name": "Roof_33Deg_A_WallTop_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d139eab5328b80a6-stand",
+      "name": "Roof_33Deg_A_WallTop_B展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d2aa5e1abce67b7d-stand",
+      "name": "Roof_33Deg_A_WallTop_C展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-56a4221f8cb82df3-stand",
+      "name": "Roof_33Deg_A_WallTop_D展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d7662c62ec989ff9-stand",
+      "name": "Roof_33Deg_A_WallTop_E展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1317e095505e2d13-stand",
+      "name": "Roof_33Deg_A_WallTop_F展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f15d1dd2220528cd-stand",
+      "name": "Roof_33Deg_B展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8afdbc9e4c754997-stand",
+      "name": "Roof_33Deg_B_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8302d7274d2c8320-stand",
+      "name": "Roof_33Deg_C展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dca45296a0fc17e2-stand",
+      "name": "Roof_33Deg_C_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-cb9ac45bb7426c19-stand",
+      "name": "Roof_33Deg_D展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-bf2666839e1e6e8d-stand",
+      "name": "Roof_33Deg_E展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8e141a2c8eebb3d6-stand",
+      "name": "Roof_33Deg_F展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1a58fab2a4f3509a-stand",
+      "name": "Roof_33Deg_InCorner_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3f40659f1e51af36-stand",
+      "name": "Roof_33Deg_OutCorner_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-af8daea6065f8928-stand",
+      "name": "Roof_33Deg_OutCorner_A_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ae88a8698eedfe59-stand",
+      "name": "Roof_33Deg_Rake_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f1ed733b7a87f476-stand",
+      "name": "Roof_33Deg_Rake_A_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3ae3386af5a4e62d-stand",
+      "name": "Roof_33Deg_Rake_B展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-643251c4776974da-stand",
+      "name": "Roof_33Deg_Rake_B_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-88e910fad5ec69ac-stand",
+      "name": "Roof_33Deg_Wall_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-bc4d738f715322c3-stand",
+      "name": "Roof_33Deg_Wall_B展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-bf1f0ff9cf84814e-stand",
+      "name": "Roof_33Deg_Wall_C展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ea60eec8d3b61280-stand",
+      "name": "Roof_33Deg_Wall_D展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c4bcaf97408cdc4d-stand",
+      "name": "Roof_45deg_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9b2a3221f7dd534d-stand",
+      "name": "Roof_45deg_A_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f6513df0b5457d35-stand",
+      "name": "Roof_45deg_B展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a51e45a9840bda3b-stand",
+      "name": "Roof_45deg_B_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-20b935972516078c-stand",
+      "name": "Roof_45deg_C展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-06696d656a10fcf6-stand",
+      "name": "Roof_45deg_C_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8d69ee78bba85efb-stand",
+      "name": "Roof_45deg_D展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7f72fc98f2048233-stand",
+      "name": "Roof_45deg_E展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-6c8e598be668adea-stand",
+      "name": "Roof_45deg_F展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ca44a56bf74407ff-stand",
+      "name": "Roof_45deg_InCorner_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-18f9e1028fc2bed9-stand",
+      "name": "Roof_45deg_OutCorner_A展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-10c69e6f20899e83-stand",
+      "name": "Roof_45deg_OutCorner_A_Edge展台",
+      "parentId": "transform:category-brickstructures-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-da206f97f294b496-stand",
+      "name": "Roof_45deg_Rake_A展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3bc2fc32d731d67d-stand",
+      "name": "Roof_45deg_Rake_A_Edge展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7507fb8b798ef261-stand",
+      "name": "Roof_45deg_Rake_B展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5cfda42cbb118f71-stand",
+      "name": "Roof_45deg_Rake_B_Edge展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d0cb69c2ae5fb236-stand",
+      "name": "Roof_45deg_Wall_A展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d8e528978b1ff9ff-stand",
+      "name": "Roof_45deg_Wall_B展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-33aa07311e9cce67-stand",
+      "name": "Roof_45deg_Wall_C展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-25fda0872b388f5e-stand",
+      "name": "Roof_45deg_Wall_D展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-545a94ea64eac116-stand",
+      "name": "Roof_45deg_WallTop_A展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d7c6b77bd8023cd7-stand",
+      "name": "Roof_45deg_WallTop_B展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ca5b2a24bbfd03f9-stand",
+      "name": "Roof_45deg_WallTop_C展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f082a935e9594aa3-stand",
+      "name": "Roof_45deg_WallTop_D展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8d1e73e907fc4858-stand",
+      "name": "Roof_45deg_WallTop_E展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1b1e2d08c69a3ed5-stand",
+      "name": "Roof_45deg_WallTop_F展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7c757006c9bdcc47-stand",
+      "name": "Roof_Flat_1x1展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5b8722132bddc1ab-stand",
+      "name": "Roof_Flat_1x2展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b8b2a10d9c0a191b-stand",
+      "name": "Roof_Flat_1x3展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-27e092ee290f49f2-stand",
+      "name": "Roof_Flat_2x1展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4c91b6a2883ada78-stand",
+      "name": "Roof_Flat_2x2展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-950ed3c7509aace6-stand",
+      "name": "Vent_Pipe_A展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-169a124225e977d3-stand",
+      "name": "Vent_Pipe_B展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-25aed51cc58014cd-stand",
+      "name": "Vent_Pipe_C展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c922a114a1aff536-stand",
+      "name": "Vent_Pipe_D展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-91e157217819d846-stand",
+      "name": "Vent_Pipe_E展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-27b02426736fd81d-stand",
+      "name": "Vent_Pipe_F展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9271da144a80648c-stand",
+      "name": "Vent_Pipe_G展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-179939258d9f7dd3-stand",
+      "name": "Vent_Pipe_H展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1aaf5ff602168ad3-stand",
+      "name": "Wall_door_A展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5f9f94cc303274e5-stand",
+      "name": "Wall_door_B展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d1ae593c0440691b-stand",
+      "name": "Wall_door_C展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d9f7412fe973eb2e-stand",
+      "name": "Wall_door_D展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-793f238d8eeb9933-stand",
+      "name": "Wall_door_double_A展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-539ab3bf54065b8d-stand",
+      "name": "Wall_door_double_B展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f6976b0ee82db568-stand",
+      "name": "Wall_door_double_C展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e37fd04c7a51abb0-stand",
+      "name": "Wall_door_double_D展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2cf234f7d1cdb7cd-stand",
+      "name": "Wall_Window_A展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e84773d886335f63-stand",
+      "name": "Wall_Window_B展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ef0065b5f229aaba-stand",
+      "name": "Wall_Window_C展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8d3062f3736e09db-stand",
+      "name": "Wall_Window_D展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-666aca42ec709017-stand",
+      "name": "Wall_Window_E展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-03c66eeb2603c3d3-stand",
+      "name": "Wall_Window_F展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f8902007272a7915-stand",
+      "name": "Wall_Window_G展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-261bae25aa94a349-stand",
+      "name": "Wall_Window_H展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b0cd2b94558ee3f7-stand",
+      "name": "Wall_Window_I展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-03d8ab3f99b1102f-stand",
+      "name": "Wall_Window_J展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f74eaaaebf41741d-stand",
+      "name": "Wall_Window_K展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fe2535e282aa229c-stand",
+      "name": "Wall_Window_L展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-07b1057db9757627-stand",
+      "name": "Wall_Window_M展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-556cf87501cddf4d-stand",
+      "name": "Wall_Window_N展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5dc5974f8e2c419f-stand",
+      "name": "Wall_Window_O展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5fb2999fc6aaf488-stand",
+      "name": "Wall_Window_P展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-993cc0a382a76e6e-stand",
+      "name": "Wall_Window_Q展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74a1f8b63a6d465b-stand",
+      "name": "Wall_Window_R展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0b0731c560fdcb8c-stand",
+      "name": "Wall_Window_S展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dc6c0e3390f63f25-stand",
+      "name": "Window_A展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ebd60e64e5cc9edd-stand",
+      "name": "Window_B展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1cbb659e10bda026-stand",
+      "name": "Window_C展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8af216aae96911fc-stand",
+      "name": "Window_D展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b5e74980a7efd42a-stand",
+      "name": "Window_E展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a48859a4e6558179-stand",
+      "name": "Window_F展台",
+      "parentId": "transform:category-brickstructures-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -37.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2b242f2c258f6830-stand",
+      "name": "Window_G展台",
+      "parentId": "transform:category-brickstructures-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f82337f6cc32f27f-stand",
+      "name": "Window_H展台",
+      "parentId": "transform:category-brickstructures-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-352030f54e3f999d-stand",
+      "name": "Window_I展台",
+      "parentId": "transform:category-brickstructures-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3554c4813cbb97e2-stand",
+      "name": "Window_J展台",
+      "parentId": "transform:category-brickstructures-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-eb9416d402517175-stand",
+      "name": "Window_K展台",
+      "parentId": "transform:category-brickstructures-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0828dbab38b62035-stand",
+      "name": "Window_L展台",
+      "parentId": "transform:category-brickstructures-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f963f693a218b06f-stand",
+      "name": "Window_M展台",
+      "parentId": "transform:category-brickstructures-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b76709f9042679d0-stand",
+      "name": "Window_N展台",
+      "parentId": "transform:category-brickstructures-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-f784eadb6dcc3b47",
+      "name": "BrickStructures · AC_A · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/AC_A.glb",
+      "position": [
+        -22,
+        0,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08640283,
+        2.08640283,
+        2.08640283
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-23b308a0bfcde086",
+      "name": "BrickStructures · AC_B · 模型 0.03 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/AC_B.glb",
+      "position": [
+        -18,
+        0,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.79743005,
+        4.79743005,
+        4.79743005
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4352477841e7815b",
+      "name": "BrickStructures · AC_C · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/AC_C.glb",
+      "position": [
+        -13.99999996,
+        0,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.89154455,
+        2.89154455,
+        2.89154455
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-92fb844051664c2c",
+      "name": "BrickStructures · AC_Wall_A · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/AC_Wall_A.glb",
+      "position": [
+        -10.00000039,
+        0,
+        41.50000156
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.30929247,
+        4.30929247,
+        4.30929247
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-89a0de042066afda",
+      "name": "BrickStructures · AC_Wall_B · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/AC_Wall_B.glb",
+      "position": [
+        -6.00000006,
+        0,
+        41.49999924
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.94286718,
+        3.94286718,
+        3.94286718
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4d3adb3a7f94cd16",
+      "name": "BrickStructures · Build_A_Grp · 模型 0.07 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_A_Grp.glb",
+      "position": [
+        -2,
+        0,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42757678,
+        0.42757678,
+        0.42757678
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-68938daf4eb821ea",
+      "name": "BrickStructures · Build_B_Grp · 模型 0.08 MiB · 贴图 0.91 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_B_Grp.glb",
+      "position": [
+        -22,
+        0,
+        37.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38743823,
+        0.38743823,
+        0.38743823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-75571c6b66fce894",
+      "name": "BrickStructures · Build_C_Grp · 模型 0.09 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_C_Grp.glb",
+      "position": [
+        -18,
+        0,
+        37.50000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32941176,
+        0.32941176,
+        0.32941176
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4bf4772991db2a6a",
+      "name": "BrickStructures · Build_D_Grp · 模型 0.14 MiB · 贴图 0.91 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_D_Grp.glb",
+      "position": [
+        -14,
+        0,
+        37.50000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29323863,
+        0.29323863,
+        0.29323863
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e2679acc1d4d9ca8",
+      "name": "BrickStructures · Build_E_Grp · 模型 0.17 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_E_Grp.glb",
+      "position": [
+        -9.99999989,
+        0,
+        37.49999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2267041,
+        0.2267041,
+        0.2267041
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6475fed23547ee71",
+      "name": "BrickStructures · Build_F_Grp · 模型 0.17 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_F_Grp.glb",
+      "position": [
+        -6.00000014,
+        0,
+        37.50000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2267041,
+        0.2267041,
+        0.2267041
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fa1b978203a85bbc",
+      "name": "BrickStructures · Build_G_Grp · 模型 0.16 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_G_Grp.glb",
+      "position": [
+        -2,
+        0,
+        37.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22889428,
+        0.22889428,
+        0.22889428
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6c6fe19b3262df7f",
+      "name": "BrickStructures · Build_H_Grp · 模型 0.29 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_H_Grp.glb",
+      "position": [
+        -22.00000008,
+        0,
+        33.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22723382,
+        0.22723382,
+        0.22723382
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f984037190d3e5f3",
+      "name": "BrickStructures · Build_I_Grp · 模型 0.08 MiB · 贴图 0.63 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_I_Grp.glb",
+      "position": [
+        -18,
+        0,
+        33.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.30304551,
+        0.30304551,
+        0.30304551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-686eeeeb805d5ccc",
+      "name": "BrickStructures · Build_J_Grp · 模型 0.23 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_J_Grp.glb",
+      "position": [
+        -14.00000017,
+        0,
+        33.49999925
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19684546,
+        0.19684546,
+        0.19684546
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-671de93102f79c2a",
+      "name": "BrickStructures · Build_K_Grp · 模型 0.20 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_K_Grp.glb",
+      "position": [
+        -9.99999993,
+        0,
+        33.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15160471,
+        0.15160471,
+        0.15160471
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9d7116f2492ec64e",
+      "name": "BrickStructures · Build_L_Grp · 模型 0.29 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_L_Grp.glb",
+      "position": [
+        -5.99999993,
+        0,
+        33.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13837724,
+        0.13837724,
+        0.13837724
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-918bdb7ea036fe61",
+      "name": "BrickStructures · Build_M_Grp · 模型 0.15 MiB · 贴图 0.78 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_M_Grp.glb",
+      "position": [
+        -1.99999997,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27152294,
+        0.27152294,
+        0.27152294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-30e9216eae4d0fc2",
+      "name": "BrickStructures · Build_N_Grp · 模型 0.19 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_N_Grp.glb",
+      "position": [
+        -22,
+        0,
+        29.4999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2245553,
+        0.2245553,
+        0.2245553
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3153f553f8b58224",
+      "name": "BrickStructures · Build_O_Grp · 模型 0.26 MiB · 贴图 0.75 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_O_Grp.glb",
+      "position": [
+        -18.0000002,
+        0,
+        29.49999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15160464,
+        0.15160464,
+        0.15160464
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-af98833500a960fc",
+      "name": "BrickStructures · Build_P_Grp · 模型 0.18 MiB · 贴图 0.73 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_P_Grp.glb",
+      "position": [
+        -13.99999984,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24694525,
+        0.24694525,
+        0.24694525
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-21c9562c89e4884f",
+      "name": "BrickStructures · Build_Q_Grp · 模型 0.18 MiB · 贴图 0.73 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_Q_Grp.glb",
+      "position": [
+        -10.00000007,
+        0,
+        29.50000044
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29939487,
+        0.29939487,
+        0.29939487
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ff060f56ebdb628d",
+      "name": "BrickStructures · Build_R_Grp · 模型 0.37 MiB · 贴图 0.73 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_R_Grp.glb",
+      "position": [
+        -5.99999985,
+        0,
+        29.49999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.20991794,
+        0.20991794,
+        0.20991794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ac70029315b63eb2",
+      "name": "BrickStructures · Build_S_Grp · 模型 0.14 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_S_Grp.glb",
+      "position": [
+        -2.00000006,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27083113,
+        0.27083113,
+        0.27083113
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b258e9363975d522",
+      "name": "BrickStructures · Build_T_Grp · 模型 0.22 MiB · 贴图 0.73 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Build_T_Grp.glb",
+      "position": [
+        -21.99999986,
+        0,
+        25.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16850383,
+        0.16850383,
+        0.16850383
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-948dbc34a93515bd",
+      "name": "BrickStructures · Door_A · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Door_A.glb",
+      "position": [
+        -18,
+        0,
+        25.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48344386,
+        1.48344386,
+        1.48344386
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d396f7c4a6c1bcb1",
+      "name": "BrickStructures · Door_B · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Door_B.glb",
+      "position": [
+        -13.99999982,
+        0,
+        25.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48344386,
+        1.48344386,
+        1.48344386
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-98f4849268774652",
+      "name": "BrickStructures · Door_C · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Door_C.glb",
+      "position": [
+        -10,
+        0,
+        25.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48344283,
+        1.48344283,
+        1.48344283
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7dd97da0b346f5f2",
+      "name": "BrickStructures · Door_D · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Door_D.glb",
+      "position": [
+        -6,
+        0,
+        25.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48344283,
+        1.48344283,
+        1.48344283
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f99797819054d229",
+      "name": "BrickStructures · Door_Double_A · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Door_Double_A.glb",
+      "position": [
+        -2,
+        0,
+        25.49999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48344385,
+        1.48344385,
+        1.48344385
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-80b2120c132471db",
+      "name": "BrickStructures · Door_Double_B · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Door_Double_B.glb",
+      "position": [
+        -22,
+        0,
+        21.49999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48344281,
+        1.48344281,
+        1.48344281
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-59a5d01b7ec72b92",
+      "name": "BrickStructures · Door_Double_C · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Door_Double_C.glb",
+      "position": [
+        -18,
+        0,
+        21.49999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48344281,
+        1.48344281,
+        1.48344281
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-114f7dd03714589f",
+      "name": "BrickStructures · Door_Double_D · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Door_Double_D.glb",
+      "position": [
+        -14,
+        0,
+        21.49999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.48344384,
+        1.48344384,
+        1.48344384
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4bf498ac20904efa",
+      "name": "BrickStructures · Floor_A_1x1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_1x1.glb",
+      "position": [
+        -10,
+        0,
+        21.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e566b82a6e25f0d",
+      "name": "BrickStructures · Floor_A_1x2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_1x2.glb",
+      "position": [
+        -6,
+        0,
+        21.49999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cc3d92379bd6a4cc",
+      "name": "BrickStructures · Floor_A_1x3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_1x3.glb",
+      "position": [
+        -2,
+        0,
+        21.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bd815d7d3ae083e9",
+      "name": "BrickStructures · Floor_A_2x1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_2x1.glb",
+      "position": [
+        -22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c0089657ce3a2535",
+      "name": "BrickStructures · Floor_A_2x2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_2x2.glb",
+      "position": [
+        -18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b0591ea7dbc87884",
+      "name": "BrickStructures · Floor_A_2x3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_2x3.glb",
+      "position": [
+        -14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e15b56421a0af91",
+      "name": "BrickStructures · Floor_A_3x1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_3x1.glb",
+      "position": [
+        -10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f70ad1600b9b2c89",
+      "name": "BrickStructures · Floor_A_3x2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_3x2.glb",
+      "position": [
+        -6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7607bfd7f24ce030",
+      "name": "BrickStructures · Floor_A_3x3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_A_3x3.glb",
+      "position": [
+        -2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-62f6ae640a140a8d",
+      "name": "BrickStructures · Floor_B_1x1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_1x1.glb",
+      "position": [
+        -21.99999866,
+        0,
+        13.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d9c4ce2e4345f688",
+      "name": "BrickStructures · Floor_B_1x2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_1x2.glb",
+      "position": [
+        -18.00000067,
+        0,
+        13.49999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c10b648df97dbb25",
+      "name": "BrickStructures · Floor_B_1x3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_1x3.glb",
+      "position": [
+        -14,
+        0,
+        13.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c83716c0c43ae026",
+      "name": "BrickStructures · Floor_B_2x1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_2x1.glb",
+      "position": [
+        -10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cd8abe2d5ef1bf1f",
+      "name": "BrickStructures · Floor_B_2x2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_2x2.glb",
+      "position": [
+        -6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-257c9329bbc3ccc5",
+      "name": "BrickStructures · Floor_B_2x3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_2x3.glb",
+      "position": [
+        -2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-525d964533970d77",
+      "name": "BrickStructures · Floor_B_3x1 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_3x1.glb",
+      "position": [
+        -22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-66c1a25d590c427d",
+      "name": "BrickStructures · Floor_B_3x2 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_3x2.glb",
+      "position": [
+        -18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d55d8511d09e23e0",
+      "name": "BrickStructures · Floor_B_3x3 · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_3x3.glb",
+      "position": [
+        -14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-233b6d2c9b246acd",
+      "name": "BrickStructures · Floor_B_Edge_1m · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_Edge_1m.glb",
+      "position": [
+        -10,
+        0,
+        9.50000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d88b0fee3c746e9e",
+      "name": "BrickStructures · Floor_B_Edge_2m · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_Edge_2m.glb",
+      "position": [
+        -6,
+        0,
+        9.50000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8ea67b7ebb789273",
+      "name": "BrickStructures · Floor_B_Edge_3m · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_Edge_3m.glb",
+      "position": [
+        -2,
+        0,
+        9.50000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-028d8e62766ba9e4",
+      "name": "BrickStructures · Floor_B_Edge_Corner · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_B_Edge_Corner.glb",
+      "position": [
+        -22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.97686648,
+        6.97686648,
+        6.97686648
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5e5b3158edddf773",
+      "name": "BrickStructures · Floor_Rail_1m · 模型 0.00 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_Rail_1m.glb",
+      "position": [
+        -18.00000192,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79999983,
+        2.79999983,
+        2.79999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4af204c342ec4680",
+      "name": "BrickStructures · Floor_Rail_2m · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_Rail_2m.glb",
+      "position": [
+        -14.00000154,
+        0,
+        5.49999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999987,
+        1.39999987,
+        1.39999987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a32bd6fd2eeb5f59",
+      "name": "BrickStructures · Floor_Rail_3m · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_Rail_3m.glb",
+      "position": [
+        -10.00000111,
+        0,
+        5.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333326,
+        0.93333326,
+        0.93333326
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c2b874ce38ffb0c8",
+      "name": "BrickStructures · Floor_RailCorner · 模型 0.01 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Floor_RailCorner.glb",
+      "position": [
+        -6.00000229,
+        0,
+        5.49999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.28168819,
+        2.28168819,
+        2.28168819
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e3dc793dd39f78be",
+      "name": "BrickStructures · Roof_18deg_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_A.glb",
+      "position": [
+        -2,
+        -4e-8,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-046328519bba9a1a",
+      "name": "BrickStructures · Roof_18deg_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_A_Edge.glb",
+      "position": [
+        2,
+        0,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3d627fafb8816a80",
+      "name": "BrickStructures · Roof_18deg_A_Wall_A · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_A_Wall_A.glb",
+      "position": [
+        6.00000004,
+        0,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-47c95aaf6de49cfc",
+      "name": "BrickStructures · Roof_18deg_B · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_B.glb",
+      "position": [
+        10,
+        -4e-8,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-92e2ce608d118d97",
+      "name": "BrickStructures · Roof_18deg_B_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_B_Edge.glb",
+      "position": [
+        14,
+        1e-8,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a6584a5fd96e5798",
+      "name": "BrickStructures · Roof_18deg_C · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_C.glb",
+      "position": [
+        18,
+        -4e-8,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7fcc2ad53155dec1",
+      "name": "BrickStructures · Roof_18deg_C_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_C_Edge.glb",
+      "position": [
+        22,
+        1e-8,
+        41.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-512d53d693e68651",
+      "name": "BrickStructures · Roof_18deg_D · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_D.glb",
+      "position": [
+        2,
+        -4e-8,
+        37.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c8c79f9d0b333c92",
+      "name": "BrickStructures · Roof_18deg_E · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_E.glb",
+      "position": [
+        6,
+        -6e-8,
+        37.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f2fef7370b64d8e5",
+      "name": "BrickStructures · Roof_18deg_F · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_F.glb",
+      "position": [
+        10,
+        -8e-8,
+        37.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b04419f7fc7dc445",
+      "name": "BrickStructures · Roof_18deg_InCorner_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_InCorner_A.glb",
+      "position": [
+        13.99999994,
+        -4e-8,
+        37.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-61c9a37d2d623e76",
+      "name": "BrickStructures · Roof_18deg_OutCorner_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_OutCorner_A.glb",
+      "position": [
+        17.99999995,
+        0,
+        37.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89582042,
+        0.89582042,
+        0.89582042
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1f4912d55159f323",
+      "name": "BrickStructures · Roof_18deg_OutCorner_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_OutCorner_A_Edge.glb",
+      "position": [
+        22.00000025,
+        3e-8,
+        37.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.05788687,
+        9.05788687,
+        9.05788687
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-50481bf81db2b5a0",
+      "name": "BrickStructures · Roof_18deg_Rake__B · 模型 0.00 MiB · 贴图 0.37 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_Rake__B.glb",
+      "position": [
+        1.99999993,
+        3e-8,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8d479abe112f0407",
+      "name": "BrickStructures · Roof_18deg_Rake_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_Rake_A.glb",
+      "position": [
+        6.00000007,
+        3e-8,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e47e66dc3abe0f10",
+      "name": "BrickStructures · Roof_18deg_Rake_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_Rake_A_Edge.glb",
+      "position": [
+        10.00000011,
+        3.5e-7,
+        33.50000107
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.89604221,
+        5.89604221,
+        5.89604221
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dde565acaab5828e",
+      "name": "BrickStructures · Roof_18deg_Rake_B_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_Rake_B_Edge.glb",
+      "position": [
+        13.99999989,
+        3.5e-7,
+        33.50000107
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.89604221,
+        5.89604221,
+        5.89604221
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-04844dab87784939",
+      "name": "BrickStructures · Roof_18deg_WallTop_A · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_WallTop_A.glb",
+      "position": [
+        18.00000032,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-28cf222c667e31aa",
+      "name": "BrickStructures · Roof_18deg_WallTop_B · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_WallTop_B.glb",
+      "position": [
+        21.99999968,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7a5f7f759f0e2a24",
+      "name": "BrickStructures · Roof_18deg_WallTop_C · 模型 0.01 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_WallTop_C.glb",
+      "position": [
+        2.00000033,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b70d42422afeb1fb",
+      "name": "BrickStructures · Roof_18deg_WallTop_D · 模型 0.01 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_WallTop_D.glb",
+      "position": [
+        5.99999967,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-be33d00d8ea22d79",
+      "name": "BrickStructures · Roof_18deg_WallTop_E · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_WallTop_E.glb",
+      "position": [
+        10.00000045,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7dbae9f543d4f097",
+      "name": "BrickStructures · Roof_18deg_WallTop_F · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_18deg_WallTop_F.glb",
+      "position": [
+        13.99999955,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9c943646f99e5000",
+      "name": "BrickStructures · Roof_33Deg_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_A.glb",
+      "position": [
+        18,
+        -4e-8,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f60a9f44442320eb",
+      "name": "BrickStructures · Roof_33Deg_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_A_Edge.glb",
+      "position": [
+        22,
+        8e-8,
+        29.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-675a519bca0feca7",
+      "name": "BrickStructures · Roof_33Deg_A_WallTop_A · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_A_WallTop_A.glb",
+      "position": [
+        2.00000033,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d139eab5328b80a6",
+      "name": "BrickStructures · Roof_33Deg_A_WallTop_B · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_A_WallTop_B.glb",
+      "position": [
+        5.99999967,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d2aa5e1abce67b7d",
+      "name": "BrickStructures · Roof_33Deg_A_WallTop_C · 模型 0.01 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_A_WallTop_C.glb",
+      "position": [
+        10.00000033,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-56a4221f8cb82df3",
+      "name": "BrickStructures · Roof_33Deg_A_WallTop_D · 模型 0.01 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_A_WallTop_D.glb",
+      "position": [
+        13.99999967,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d7662c62ec989ff9",
+      "name": "BrickStructures · Roof_33Deg_A_WallTop_E · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_A_WallTop_E.glb",
+      "position": [
+        18.00000036,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1317e095505e2d13",
+      "name": "BrickStructures · Roof_33Deg_A_WallTop_F · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_A_WallTop_F.glb",
+      "position": [
+        21.99999964,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f15d1dd2220528cd",
+      "name": "BrickStructures · Roof_33Deg_B · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_B.glb",
+      "position": [
+        2,
+        -4e-8,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8afdbc9e4c754997",
+      "name": "BrickStructures · Roof_33Deg_B_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_B_Edge.glb",
+      "position": [
+        6,
+        1.1e-7,
+        21.49999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8302d7274d2c8320",
+      "name": "BrickStructures · Roof_33Deg_C · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_C.glb",
+      "position": [
+        10,
+        -4e-8,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dca45296a0fc17e2",
+      "name": "BrickStructures · Roof_33Deg_C_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_C_Edge.glb",
+      "position": [
+        14,
+        2.3e-7,
+        21.49999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb9ac45bb7426c19",
+      "name": "BrickStructures · Roof_33Deg_D · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_D.glb",
+      "position": [
+        18,
+        -4e-8,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bf2666839e1e6e8d",
+      "name": "BrickStructures · Roof_33Deg_E · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_E.glb",
+      "position": [
+        22,
+        -6e-8,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8e141a2c8eebb3d6",
+      "name": "BrickStructures · Roof_33Deg_F · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_F.glb",
+      "position": [
+        2,
+        -8e-8,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1a58fab2a4f3509a",
+      "name": "BrickStructures · Roof_33Deg_InCorner_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_InCorner_A.glb",
+      "position": [
+        6,
+        -4e-8,
+        17.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3f40659f1e51af36",
+      "name": "BrickStructures · Roof_33Deg_OutCorner_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_OutCorner_A.glb",
+      "position": [
+        10.00000063,
+        5e-8,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88426663,
+        0.88426663,
+        0.88426663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-af8daea6065f8928",
+      "name": "BrickStructures · Roof_33Deg_OutCorner_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_OutCorner_A_Edge.glb",
+      "position": [
+        13.99999534,
+        7.7e-7,
+        17.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.40336711,
+        9.40336711,
+        9.40336711
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ae88a8698eedfe59",
+      "name": "BrickStructures · Roof_33Deg_Rake_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_Rake_A.glb",
+      "position": [
+        17.9999997,
+        -8e-8,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f1ed733b7a87f476",
+      "name": "BrickStructures · Roof_33Deg_Rake_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_Rake_A_Edge.glb",
+      "position": [
+        21.99999771,
+        6.9e-7,
+        17.49999864
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.74673176,
+        5.74673176,
+        5.74673176
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3ae3386af5a4e62d",
+      "name": "BrickStructures · Roof_33Deg_Rake_B · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_Rake_B.glb",
+      "position": [
+        2.0000003,
+        -8e-8,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-643251c4776974da",
+      "name": "BrickStructures · Roof_33Deg_Rake_B_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_Rake_B_Edge.glb",
+      "position": [
+        6.00000229,
+        6.9e-7,
+        13.49999864
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.74673176,
+        5.74673176,
+        5.74673176
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-88e910fad5ec69ac",
+      "name": "BrickStructures · Roof_33Deg_Wall_A · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_Wall_A.glb",
+      "position": [
+        10.00000004,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bc4d738f715322c3",
+      "name": "BrickStructures · Roof_33Deg_Wall_B · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_Wall_B.glb",
+      "position": [
+        13.99999996,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bf1f0ff9cf84814e",
+      "name": "BrickStructures · Roof_33Deg_Wall_C · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_Wall_C.glb",
+      "position": [
+        18.00000003,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ea60eec8d3b61280",
+      "name": "BrickStructures · Roof_33Deg_Wall_D · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_33Deg_Wall_D.glb",
+      "position": [
+        21.99999997,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c4bcaf97408cdc4d",
+      "name": "BrickStructures · Roof_45deg_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_A.glb",
+      "position": [
+        2,
+        -4e-8,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333327,
+        0.93333327,
+        0.93333327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b2a3221f7dd534d",
+      "name": "BrickStructures · Roof_45deg_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_A_Edge.glb",
+      "position": [
+        6,
+        1e-7,
+        9.50000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f6513df0b5457d35",
+      "name": "BrickStructures · Roof_45deg_B · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_B.glb",
+      "position": [
+        10,
+        -4e-8,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333327,
+        0.93333327,
+        0.93333327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a51e45a9840bda3b",
+      "name": "BrickStructures · Roof_45deg_B_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_B_Edge.glb",
+      "position": [
+        14,
+        1.5e-7,
+        9.50000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-20b935972516078c",
+      "name": "BrickStructures · Roof_45deg_C · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_C.glb",
+      "position": [
+        18,
+        -4e-8,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333327,
+        0.93333327,
+        0.93333327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-06696d656a10fcf6",
+      "name": "BrickStructures · Roof_45deg_C_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_C_Edge.glb",
+      "position": [
+        22,
+        2.9e-7,
+        9.50000067
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8d69ee78bba85efb",
+      "name": "BrickStructures · Roof_45deg_D · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_D.glb",
+      "position": [
+        2,
+        -4e-8,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7f72fc98f2048233",
+      "name": "BrickStructures · Roof_45deg_E · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_E.glb",
+      "position": [
+        6,
+        -6e-8,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6c8e598be668adea",
+      "name": "BrickStructures · Roof_45deg_F · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_F.glb",
+      "position": [
+        10,
+        -8e-8,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ca44a56bf74407ff",
+      "name": "BrickStructures · Roof_45deg_InCorner_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_InCorner_A.glb",
+      "position": [
+        14,
+        -4e-8,
+        5.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333327,
+        0.93333327,
+        0.93333327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-18f9e1028fc2bed9",
+      "name": "BrickStructures · Roof_45deg_OutCorner_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_OutCorner_A.glb",
+      "position": [
+        18.00000031,
+        1e-7,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8769279,
+        0.8769279,
+        0.8769279
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-10c69e6f20899e83",
+      "name": "BrickStructures · Roof_45deg_OutCorner_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_OutCorner_A_Edge.glb",
+      "position": [
+        21.99999379,
+        8.7e-7,
+        5.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.32003568,
+        8.32003568,
+        8.32003568
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-da206f97f294b496",
+      "name": "BrickStructures · Roof_45deg_Rake_A · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_Rake_A.glb",
+      "position": [
+        -22.0000004,
+        9e-8,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8311129,
+        0.8311129,
+        0.8311129
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3bc2fc32d731d67d",
+      "name": "BrickStructures · Roof_45deg_Rake_A_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_Rake_A_Edge.glb",
+      "position": [
+        -18.00000359,
+        6.1e-7,
+        -1.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.78072178,
+        6.78072178,
+        6.78072178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7507fb8b798ef261",
+      "name": "BrickStructures · Roof_45deg_Rake_B · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_Rake_B.glb",
+      "position": [
+        -13.9999996,
+        9e-8,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8311129,
+        0.8311129,
+        0.8311129
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5cfda42cbb118f71",
+      "name": "BrickStructures · Roof_45deg_Rake_B_Edge · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_Rake_B_Edge.glb",
+      "position": [
+        -9.99999641,
+        6.1e-7,
+        -1.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.78072178,
+        6.78072178,
+        6.78072178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d0cb69c2ae5fb236",
+      "name": "BrickStructures · Roof_45deg_Wall_A · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_Wall_A.glb",
+      "position": [
+        -5.99999996,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d8e528978b1ff9ff",
+      "name": "BrickStructures · Roof_45deg_Wall_B · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_Wall_B.glb",
+      "position": [
+        -1.99999996,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-33aa07311e9cce67",
+      "name": "BrickStructures · Roof_45deg_Wall_C · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_Wall_C.glb",
+      "position": [
+        -21.99999998,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-25fda0872b388f5e",
+      "name": "BrickStructures · Roof_45deg_Wall_D · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_Wall_D.glb",
+      "position": [
+        -17.99999998,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-545a94ea64eac116",
+      "name": "BrickStructures · Roof_45deg_WallTop_A · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_WallTop_A.glb",
+      "position": [
+        -13.99999975,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d7c6b77bd8023cd7",
+      "name": "BrickStructures · Roof_45deg_WallTop_B · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_WallTop_B.glb",
+      "position": [
+        -10.00000025,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ca5b2a24bbfd03f9",
+      "name": "BrickStructures · Roof_45deg_WallTop_C · 模型 0.01 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_WallTop_C.glb",
+      "position": [
+        -5.99999975,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f082a935e9594aa3",
+      "name": "BrickStructures · Roof_45deg_WallTop_D · 模型 0.01 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_WallTop_D.glb",
+      "position": [
+        -2.00000025,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8d1e73e907fc4858",
+      "name": "BrickStructures · Roof_45deg_WallTop_E · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_WallTop_E.glb",
+      "position": [
+        -21.99999977,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1b1e2d08c69a3ed5",
+      "name": "BrickStructures · Roof_45deg_WallTop_F · 模型 0.00 MiB · 贴图 0.35 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_45deg_WallTop_F.glb",
+      "position": [
+        -18.00000023,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7c757006c9bdcc47",
+      "name": "BrickStructures · Roof_Flat_1x1 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_Flat_1x1.glb",
+      "position": [
+        -14,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5b8722132bddc1ab",
+      "name": "BrickStructures · Roof_Flat_1x2 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_Flat_1x2.glb",
+      "position": [
+        -10,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b8b2a10d9c0a191b",
+      "name": "BrickStructures · Roof_Flat_1x3 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_Flat_1x3.glb",
+      "position": [
+        -6,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-27e092ee290f49f2",
+      "name": "BrickStructures · Roof_Flat_2x1 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_Flat_2x1.glb",
+      "position": [
+        -2,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4c91b6a2883ada78",
+      "name": "BrickStructures · Roof_Flat_2x2 · 模型 0.00 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Roof_Flat_2x2.glb",
+      "position": [
+        -22,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-950ed3c7509aace6",
+      "name": "BrickStructures · Vent_Pipe_A · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Vent_Pipe_A.glb",
+      "position": [
+        -18,
+        8e-8,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.71772567,
+        2.71772567,
+        2.71772567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-169a124225e977d3",
+      "name": "BrickStructures · Vent_Pipe_B · 模型 0.03 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Vent_Pipe_B.glb",
+      "position": [
+        -14,
+        8e-8,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.55046042,
+        2.55046042,
+        2.55046042
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-25aed51cc58014cd",
+      "name": "BrickStructures · Vent_Pipe_C · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Vent_Pipe_C.glb",
+      "position": [
+        -10,
+        8e-8,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.55846987,
+        2.55846987,
+        2.55846987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c922a114a1aff536",
+      "name": "BrickStructures · Vent_Pipe_D · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Vent_Pipe_D.glb",
+      "position": [
+        -6,
+        8e-8,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.71772567,
+        2.71772567,
+        2.71772567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-91e157217819d846",
+      "name": "BrickStructures · Vent_Pipe_E · 模型 0.03 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Vent_Pipe_E.glb",
+      "position": [
+        -2,
+        8e-8,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.56723082,
+        2.56723082,
+        2.56723082
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-27b02426736fd81d",
+      "name": "BrickStructures · Vent_Pipe_F · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Vent_Pipe_F.glb",
+      "position": [
+        -22,
+        8e-8,
+        -17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.55846987,
+        2.55846987,
+        2.55846987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9271da144a80648c",
+      "name": "BrickStructures · Vent_Pipe_G · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Vent_Pipe_G.glb",
+      "position": [
+        -18,
+        1.4e-7,
+        -17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.57993951,
+        4.57993951,
+        4.57993951
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-179939258d9f7dd3",
+      "name": "BrickStructures · Vent_Pipe_H · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Vent_Pipe_H.glb",
+      "position": [
+        -14,
+        -1.4e-7,
+        -17.49999836
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.06667415,
+        4.06667415,
+        4.06667415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1aaf5ff602168ad3",
+      "name": "BrickStructures · Wall_door_A · 模型 0.01 MiB · 贴图 0.45 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_door_A.glb",
+      "position": [
+        -10,
+        0,
+        -17.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5f9f94cc303274e5",
+      "name": "BrickStructures · Wall_door_B · 模型 0.01 MiB · 贴图 0.45 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_door_B.glb",
+      "position": [
+        -6,
+        0,
+        -17.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d1ae593c0440691b",
+      "name": "BrickStructures · Wall_door_C · 模型 0.01 MiB · 贴图 0.45 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_door_C.glb",
+      "position": [
+        -2,
+        0,
+        -17.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d9f7412fe973eb2e",
+      "name": "BrickStructures · Wall_door_D · 模型 0.01 MiB · 贴图 0.45 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_door_D.glb",
+      "position": [
+        -22,
+        0,
+        -21.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-793f238d8eeb9933",
+      "name": "BrickStructures · Wall_door_double_A · 模型 0.01 MiB · 贴图 0.45 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_door_double_A.glb",
+      "position": [
+        -18,
+        0,
+        -21.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-539ab3bf54065b8d",
+      "name": "BrickStructures · Wall_door_double_B · 模型 0.01 MiB · 贴图 0.45 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_door_double_B.glb",
+      "position": [
+        -14,
+        0,
+        -21.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f6976b0ee82db568",
+      "name": "BrickStructures · Wall_door_double_C · 模型 0.01 MiB · 贴图 0.45 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_door_double_C.glb",
+      "position": [
+        -10,
+        0,
+        -21.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e37fd04c7a51abb0",
+      "name": "BrickStructures · Wall_door_double_D · 模型 0.01 MiB · 贴图 0.45 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_door_double_D.glb",
+      "position": [
+        -6,
+        0,
+        -21.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2cf234f7d1cdb7cd",
+      "name": "BrickStructures · Wall_Window_A · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_A.glb",
+      "position": [
+        -2.00000131,
+        0,
+        -21.50000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e84773d886335f63",
+      "name": "BrickStructures · Wall_Window_B · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_B.glb",
+      "position": [
+        -22.00000067,
+        0,
+        -25.50000063
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000008,
+        1.40000008,
+        1.40000008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ef0065b5f229aaba",
+      "name": "BrickStructures · Wall_Window_C · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_C.glb",
+      "position": [
+        -18.00000067,
+        0,
+        -25.50000061
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8d3062f3736e09db",
+      "name": "BrickStructures · Wall_Window_D · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_D.glb",
+      "position": [
+        -14.00000067,
+        0,
+        -25.50000061
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-666aca42ec709017",
+      "name": "BrickStructures · Wall_Window_E · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_E.glb",
+      "position": [
+        -10.00000088,
+        0,
+        -25.50000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-03c66eeb2603c3d3",
+      "name": "BrickStructures · Wall_Window_F · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_F.glb",
+      "position": [
+        -6.00000088,
+        0,
+        -25.50000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f8902007272a7915",
+      "name": "BrickStructures · Wall_Window_G · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_G.glb",
+      "position": [
+        -2.00000045,
+        0,
+        -25.50000041
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-261bae25aa94a349",
+      "name": "BrickStructures · Wall_Window_H · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_H.glb",
+      "position": [
+        -22.00000045,
+        0,
+        -29.50000041
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b0cd2b94558ee3f7",
+      "name": "BrickStructures · Wall_Window_I · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_I.glb",
+      "position": [
+        -18.00000089,
+        0,
+        -29.50000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-03d8ab3f99b1102f",
+      "name": "BrickStructures · Wall_Window_J · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_J.glb",
+      "position": [
+        -14,
+        0,
+        -29.50000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f74eaaaebf41741d",
+      "name": "BrickStructures · Wall_Window_K · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_K.glb",
+      "position": [
+        -9.99999866,
+        0,
+        -29.49999894
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe2535e282aa229c",
+      "name": "BrickStructures · Wall_Window_L · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_L.glb",
+      "position": [
+        -6,
+        0,
+        -29.50000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-07b1057db9757627",
+      "name": "BrickStructures · Wall_Window_M · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_M.glb",
+      "position": [
+        -2.00000067,
+        0,
+        -29.5000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-556cf87501cddf4d",
+      "name": "BrickStructures · Wall_Window_N · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_N.glb",
+      "position": [
+        -22,
+        0,
+        -33.50000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5dc5974f8e2c419f",
+      "name": "BrickStructures · Wall_Window_O · 模型 0.02 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_O.glb",
+      "position": [
+        -17.99999933,
+        0,
+        -33.50000059
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5fb2999fc6aaf488",
+      "name": "BrickStructures · Wall_Window_P · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_P.glb",
+      "position": [
+        -14,
+        0,
+        -33.50000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-993cc0a382a76e6e",
+      "name": "BrickStructures · Wall_Window_Q · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_Q.glb",
+      "position": [
+        -10.00000089,
+        0,
+        -33.50000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74a1f8b63a6d465b",
+      "name": "BrickStructures · Wall_Window_R · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_R.glb",
+      "position": [
+        -6,
+        0,
+        -33.50000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0b0731c560fdcb8c",
+      "name": "BrickStructures · Wall_Window_S · 模型 0.01 MiB · 贴图 0.31 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Wall_Window_S.glb",
+      "position": [
+        -2.00000089,
+        0,
+        -33.50000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dc6c0e3390f63f25",
+      "name": "BrickStructures · Window_A · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_A.glb",
+      "position": [
+        -22,
+        0,
+        -37.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57746338,
+        1.57746338,
+        1.57746338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ebd60e64e5cc9edd",
+      "name": "BrickStructures · Window_B · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_B.glb",
+      "position": [
+        -18,
+        0,
+        -37.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57746492,
+        1.57746492,
+        1.57746492
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1cbb659e10bda026",
+      "name": "BrickStructures · Window_C · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_C.glb",
+      "position": [
+        -14,
+        0,
+        -37.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57746338,
+        1.57746338,
+        1.57746338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8af216aae96911fc",
+      "name": "BrickStructures · Window_D · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_D.glb",
+      "position": [
+        -10,
+        0,
+        -37.50000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57746492,
+        1.57746492,
+        1.57746492
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b5e74980a7efd42a",
+      "name": "BrickStructures · Window_E · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_E.glb",
+      "position": [
+        -6,
+        0,
+        -37.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03708327,
+        1.03708327,
+        1.03708327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a48859a4e6558179",
+      "name": "BrickStructures · Window_F · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_F.glb",
+      "position": [
+        -2,
+        0,
+        -37.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00900897,
+        1.00900897,
+        1.00900897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2b242f2c258f6830",
+      "name": "BrickStructures · Window_G · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-3",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_G.glb",
+      "position": [
+        2,
+        0,
+        -1.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03708327,
+        1.03708327,
+        1.03708327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f82337f6cc32f27f",
+      "name": "BrickStructures · Window_H · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-3",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_H.glb",
+      "position": [
+        6,
+        0,
+        -1.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00900897,
+        1.00900897,
+        1.00900897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-352030f54e3f999d",
+      "name": "BrickStructures · Window_I · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-3",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_I.glb",
+      "position": [
+        10,
+        0,
+        -1.49999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03618297,
+        1.03618297,
+        1.03618297
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3554c4813cbb97e2",
+      "name": "BrickStructures · Window_J · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-3",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_J.glb",
+      "position": [
+        14,
+        0,
+        -1.50000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00900811,
+        1.00900811,
+        1.00900811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eb9416d402517175",
+      "name": "BrickStructures · Window_K · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-3",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_K.glb",
+      "position": [
+        18,
+        0,
+        -1.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.61289834,
+        3.61289834,
+        3.61289834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0828dbab38b62035",
+      "name": "BrickStructures · Window_L · 模型 0.00 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-3",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_L.glb",
+      "position": [
+        22,
+        -4.3e-7,
+        -1.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.61289834,
+        3.61289834,
+        3.61289834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f963f693a218b06f",
+      "name": "BrickStructures · Window_M · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-3",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_M.glb",
+      "position": [
+        10,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.48341801,
+        3.48341801,
+        3.48341801
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b76709f9042679d0",
+      "name": "BrickStructures · Window_N · 模型 0.02 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-brickstructures-3",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/BrickStructures/Window_N.glb",
+      "position": [
+        13.99999995,
+        0,
+        -5.49999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.51940596,
+        1.51940596,
+        1.51940596
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

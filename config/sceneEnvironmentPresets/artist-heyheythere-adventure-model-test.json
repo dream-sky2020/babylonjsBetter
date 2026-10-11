@@ -1,0 +1,6685 @@
+{
+  "presetKey": "artist-heyheythere-adventure-model-test",
+  "name": "Heyheythere · 自然、武器与冒险（151 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-animals",
+      "name": "Animals",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-bunkerkit",
+      "name": "BunkerKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-dungeonkit",
+      "name": "DungeonKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-forest",
+      "name": "Forest",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-halloweenprops",
+      "name": "HalloweenProps",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-horrorprops",
+      "name": "HorrorProps",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-horrorprops2",
+      "name": "HorrorProps2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-liminalkit",
+      "name": "LiminalKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-medievalweapons",
+      "name": "MedievalWeapons",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-meleeweapons",
+      "name": "MeleeWeapons",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-puzzlemachinery",
+      "name": "PuzzleMachinery",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-scifistationkit",
+      "name": "SciFiStationKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-survivalpickups",
+      "name": "SurvivalPickups",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 84
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "heyheythere-db6a00e8ee3e49f0-stand",
+      "name": "Crow展台",
+      "parentId": "transform:category-animals",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-8e5343e2cfb61d80-stand",
+      "name": "Rabbit展台",
+      "parentId": "transform:category-animals",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        39.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b4e81525276bf607-stand",
+      "name": "Bulkhead Door展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-279b2fe7fec1143b-stand",
+      "name": "Bulkhead Doorway展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-32a269910bf5618b-stand",
+      "name": "Bulkhead Light展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-6acf1cab5a4d8f94-stand",
+      "name": "Bunk Beds展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-a4859d16cdef5bb2-stand",
+      "name": "Bunker Ceiling展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1ffc59475f050bad-stand",
+      "name": "Bunker Floor展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        39.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d972dcb7370f2542-stand",
+      "name": "Bunker Post展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-fa490132ed6c9683-stand",
+      "name": "Bunker Wall展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-481a38a464b69e9a-stand",
+      "name": "Bunker Wall, Stencil展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-358ab22e1bf82665-stand",
+      "name": "Civil Defence Poster展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-72b785a4ae1166e4-stand",
+      "name": "Extract Fan展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-bc1233297d44182f-stand",
+      "name": "Gas Mask Rack展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        35.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-149241649aedbdad-stand",
+      "name": "Steel Locker展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-4b65bf1f01968a5e-stand",
+      "name": "Supply Shelves展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8a95fbc39e75d861-stand",
+      "name": "Water Drum展台",
+      "parentId": "transform:category-bunkerkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        31.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-e3356e698f77177e-stand",
+      "name": "Arched Doorway展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        32.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-9b60877e690a41f1-stand",
+      "name": "Cell Bars, Door展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        32.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-0fcdc99a0ca7d0f3-stand",
+      "name": "Cell Door展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        32.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-36e4c6624a687a7e-stand",
+      "name": "Chained Skeleton展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        32.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e8f952ec2e46370d-stand",
+      "name": "Dungeon Door展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        32.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-0bc7c6ed08ca6fa1-stand",
+      "name": "Flagstone Floor展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        32.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7fc11553d70d08d3-stand",
+      "name": "Red Banner展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-4618df11cd9926fd-stand",
+      "name": "Rubble Wall展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-74847ebd194f1b7e-stand",
+      "name": "Stone Ceiling展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-897e7920397ef5f8-stand",
+      "name": "Stone Post展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a72d8e4b004787f0-stand",
+      "name": "Stone Wall展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d7f05a6a553dd8b8-stand",
+      "name": "Straw Bed展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        28.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-84cbaba4ff3801da-stand",
+      "name": "Straw Floor展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6510ffe165ea0e0b-stand",
+      "name": "Wall Torch展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b04b8bcc71401144-stand",
+      "name": "Wooden Chest展台",
+      "parentId": "transform:category-dungeonkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        24.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-fc07ccbb2232b6f0-stand",
+      "name": "Boulder展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2d62e21f1ae765c7-stand",
+      "name": "Bush展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-4a2680ae76ee9e5e-stand",
+      "name": "Campfire展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7ffcd5b6e27d2bb1-stand",
+      "name": "Dead Tree展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-a9402412139965ef-stand",
+      "name": "Fence展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b2202b0af05cafa6-stand",
+      "name": "Fern展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        24.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-812084bb6853d369-stand",
+      "name": "Grass展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-3cf1fe347b9098f5-stand",
+      "name": "Ground, Grass展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-dc524531eed641a0-stand",
+      "name": "Log展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-229a8838fc21ba68-stand",
+      "name": "Oak展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-570daf46fa84ae23-stand",
+      "name": "Path, Straight展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-ef8cee49fd7f08c7-stand",
+      "name": "Pine展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-23259441a43287b6-stand",
+      "name": "Pine, Small展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-677ace502914a583-stand",
+      "name": "Stump展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-3dcc60a0a27f11b0-stand",
+      "name": "Tent展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-460a711f6646d3d7-stand",
+      "name": "Candy Bowl展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e94e72fe50083463-stand",
+      "name": "Cobweb展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-518a52fda2d67def-stand",
+      "name": "Gourds展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-959b150d6f6e2d1a-stand",
+      "name": "Halloween Candles展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-be3d428be89b422d-stand",
+      "name": "Hanging Spider展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b614a782881b61a2-stand",
+      "name": "Hay Bale展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-deab4013d63f9749-stand",
+      "name": "Headstone展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6471e3e657c56a32-stand",
+      "name": "Jack-o'-Lantern展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-528168e3688ab81d-stand",
+      "name": "Pumpkin展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e0fc472d81e4aafb-stand",
+      "name": "Stone Cross展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-ffaa3e3c91a5ad86-stand",
+      "name": "Witch's Cauldron展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a9a6f504da667ae9-stand",
+      "name": "Witch's Hat展台",
+      "parentId": "transform:category-halloweenprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-dd74fa661ef9601e-stand",
+      "name": "Cartridge Fuse展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-ac2594e3e2ce1959-stand",
+      "name": "Crowbar展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7426321e351268ad-stand",
+      "name": "Flashlight展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7a62204eb22cf9da-stand",
+      "name": "Fuse Box展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-9095753eae181cca-stand",
+      "name": "Handwritten Note展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7793666e2201370e-stand",
+      "name": "Healing Herb展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b3b3905976114d06-stand",
+      "name": "Ink Ribbon展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-f5533f17555d9c31-stand",
+      "name": "Keycard Reader展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b640045b74a00360-stand",
+      "name": "Keycard, Level 1 (red)展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-05fecfe950078342-stand",
+      "name": "Oil Lantern展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-06f11e8dfa84f473-stand",
+      "name": "Padlock展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-42fc3aac9c5a8e95-stand",
+      "name": "Skeleton Key展台",
+      "parentId": "transform:category-horrorprops",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-10a19213d094e355-stand",
+      "name": "Bucket of Blood展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-3ff4efaab37f9f88-stand",
+      "name": "Candle Cluster展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e875a3b10bb3abec-stand",
+      "name": "Gibbet展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-8e3c5f03ee2677ea-stand",
+      "name": "Goat Skull展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-321d39fce34ed935-stand",
+      "name": "Grimoire展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-614b87223c783abf-stand",
+      "name": "Manacles展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-ec42311f308875c7-stand",
+      "name": "Porcelain Doll展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-047a0d018f081ab3-stand",
+      "name": "Ritual Circle展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-16c665a92839735e-stand",
+      "name": "Session Tapes展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-fa8688734a5e5db8-stand",
+      "name": "Severed Hand展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d36d6c860189407b-stand",
+      "name": "Skull Candle展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7a16c931a402bff3-stand",
+      "name": "Turn Back Sign展台",
+      "parentId": "transform:category-horrorprops2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2fda303ee7edaabf-stand",
+      "name": "Door to Nowhere展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-fe3d119e4cc79464-stand",
+      "name": "Exit Sign (Right)展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-27b9173f6b1d6bac-stand",
+      "name": "Soaked Carpet Floor展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-935c97c452f4537b-stand",
+      "name": "Stained Yellow Wall展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8371d38bfd6b460b-stand",
+      "name": "Wall Vent展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-082dc65d435ec4ac-stand",
+      "name": "Yellow Carpet Floor展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-fa651d4f0a48a96e-stand",
+      "name": "Yellow Ceiling展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-0eeb0864cc6399e7-stand",
+      "name": "Yellow Ceiling, Light展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-4bafbcc88f326e48-stand",
+      "name": "Yellow Ceiling, Tile Missing展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c47895add3e0ac65-stand",
+      "name": "Yellow Doorway展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-5485515c50136c71-stand",
+      "name": "Yellow Opening展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-f77d020068818e0a-stand",
+      "name": "Yellow Pillar展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2d22734ced013132-stand",
+      "name": "Yellow Post展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-0d423654102f0286-stand",
+      "name": "Yellow Room Door展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-40e30ea2dbeb309d-stand",
+      "name": "Yellow Wall展台",
+      "parentId": "transform:category-liminalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-a7cc0e94b9c52c07-stand",
+      "name": "Archery Target展台",
+      "parentId": "transform:category-medievalweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7dce7d051de4a3b8-stand",
+      "name": "Arming Sword展台",
+      "parentId": "transform:category-medievalweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-0ad4cf8c5d6b254d-stand",
+      "name": "Hand Axe展台",
+      "parentId": "transform:category-medievalweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b8614ca1d00f01d9-stand",
+      "name": "Healing Potion展台",
+      "parentId": "transform:category-medievalweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-557f7249e567992e-stand",
+      "name": "Round Shield展台",
+      "parentId": "transform:category-medievalweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-4e62eaff1975953c-stand",
+      "name": "Torch展台",
+      "parentId": "transform:category-medievalweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-cca25dbc3d8d99ee-stand",
+      "name": "Crowbar展台",
+      "parentId": "transform:category-meleeweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8e07fb1e3b10b023-stand",
+      "name": "Flashlight展台",
+      "parentId": "transform:category-meleeweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2ae55e822e2a0135-stand",
+      "name": "Kitchen Knife展台",
+      "parentId": "transform:category-meleeweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1afefe13a232d99d-stand",
+      "name": "Steel Pipe展台",
+      "parentId": "transform:category-meleeweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2d6bc319cc67a909-stand",
+      "name": "Training Dummy展台",
+      "parentId": "transform:category-meleeweapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-857457f54c0527eb-stand",
+      "name": "Blast Door展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-256bcb356eb61632-stand",
+      "name": "Cage Lamp展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-66ff5e523c84b36a-stand",
+      "name": "Cartridge Fuse展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-1be0bd2c090174fc-stand",
+      "name": "Concrete Ceiling展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-652a5615d5e44ccf-stand",
+      "name": "Diesel Generator展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e4f90d5c25c3de96-stand",
+      "name": "Fuse Box展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-73e0b1a81724e761-stand",
+      "name": "Plant Floor展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-37b791e807e8c31a-stand",
+      "name": "Plant Post展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a963e8dcf3c42aa3-stand",
+      "name": "Plant Wall展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-9649df81cddcc5b9-stand",
+      "name": "Voltmeter展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c40deb916e2f7687-stand",
+      "name": "Wall Lever展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bee143f6f1e95a76-stand",
+      "name": "Wide Doorway展台",
+      "parentId": "transform:category-puzzlemachinery",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d6cc4173d755d7e6-stand",
+      "name": "Cryo Pod展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c6e61ea5636b4891-stand",
+      "name": "Cryo Sign展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-e84ffa13c27aa763-stand",
+      "name": "Fuel Canister展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b0979d7d7b641a1c-stand",
+      "name": "Lab Bench展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1b1b3840f5ac4bbc-stand",
+      "name": "Sliding Door展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-806449ccff97a17c-stand",
+      "name": "Small Crate展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -18.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c23c86b7343035c4-stand",
+      "name": "Station Doorway展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-55097ead801d2c05-stand",
+      "name": "Station Floor展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-e722aaaeeb9c8861-stand",
+      "name": "Station Floor, Hazard Edge展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b38c87f4f9f363c6-stand",
+      "name": "Station Post展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-f0a6d4b7bfe9ad67-stand",
+      "name": "Station Wall展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-77eea61c86a05986-stand",
+      "name": "Station Wall, Lights展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -22.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-3c6546f4eeca2d1c-stand",
+      "name": "Supply Crate展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-f69c093b84276628-stand",
+      "name": "Swivel Chair展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-372c7be5fdfd5e82-stand",
+      "name": "Viewport展台",
+      "parentId": "transform:category-scifistationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -26.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-71affad2918f084a-stand",
+      "name": "9mm Rounds展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-1fae844c77809746-stand",
+      "name": "AA Batteries展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6dcc3245f4ace418-stand",
+      "name": "First Aid Kit展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c4447f945b2c7736-stand",
+      "name": "Folded Map展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e937de53b740aff7-stand",
+      "name": "Folded Note展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a7a7ceab772eeee4-stand",
+      "name": "Gold Coin展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f2e4188a1a9ac316-stand",
+      "name": "Green Herb展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-90c76de7218ccef3-stand",
+      "name": "Ink Ribbon展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-167237d9ab348503-stand",
+      "name": "Iron Key展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-fa9d6f32302183d6-stand",
+      "name": "Item Box展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-324e8e4dd49a37c9-stand",
+      "name": "Keycard, Level 1 (red)展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-91cc27853c50cc46-stand",
+      "name": "Leather Diary展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -31.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-86800a8bec77336c-stand",
+      "name": "Pill Bottle展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6a76b5fb773eb0db-stand",
+      "name": "Shotgun Shells展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-03a94b7ca0b68ca5-stand",
+      "name": "Typewriter展台",
+      "parentId": "transform:category-survivalpickups",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -35.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "heyheythere-db6a00e8ee3e49f0",
+      "name": "Animals · Crow",
+      "parentId": "transform:category-animals",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Animals/crow.glb",
+      "position": [
+        -14,
+        -0.01167618,
+        39.69726506
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.43999028,
+        6.43999028,
+        6.43999028
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8e5343e2cfb61d80",
+      "name": "Animals · Rabbit",
+      "parentId": "transform:category-animals",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Animals/rabbit.glb",
+      "position": [
+        -10,
+        4.1e-7,
+        39.26172254
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.33963979,
+        8.33963979,
+        8.33963979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b4e81525276bf607",
+      "name": "BunkerKit · Bulkhead Door",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/door_bulkhead.glb",
+      "position": [
+        2,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47368425,
+        1.47368425,
+        1.47368425
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-279b2fe7fec1143b",
+      "name": "BunkerKit · Bulkhead Doorway",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/wall_doorway_bulkhead.glb",
+      "position": [
+        6,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-32a269910bf5618b",
+      "name": "BunkerKit · Bulkhead Light",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/light_bulkhead.glb",
+      "position": [
+        10,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.97435879,
+        8.97435879,
+        8.97435879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6acf1cab5a4d8f94",
+      "name": "BunkerKit · Bunk Beds",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/bunk_bed.glb",
+      "position": [
+        14,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40703517,
+        1.40703517,
+        1.40703517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a4859d16cdef5bb2",
+      "name": "BunkerKit · Bunker Ceiling",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/ceiling_bunker.glb",
+      "position": [
+        18,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1ffc59475f050bad",
+      "name": "BunkerKit · Bunker Floor",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/floor_bunker.glb",
+      "position": [
+        22,
+        0,
+        39.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d972dcb7370f2542",
+      "name": "BunkerKit · Bunker Post",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/wall_post_bunker.glb",
+      "position": [
+        2,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fa490132ed6c9683",
+      "name": "BunkerKit · Bunker Wall",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/wall_bunker.glb",
+      "position": [
+        6,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-481a38a464b69e9a",
+      "name": "BunkerKit · Bunker Wall, Stencil",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/wall_bunker_stencil.glb",
+      "position": [
+        10,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-358ab22e1bf82665",
+      "name": "BunkerKit · Civil Defence Poster",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/poster_siren.glb",
+      "position": [
+        14,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.51531205,
+        4.51531205,
+        4.51531205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-72b785a4ae1166e4",
+      "name": "BunkerKit · Extract Fan",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/fan_wall.glb",
+      "position": [
+        18,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bc1233297d44182f",
+      "name": "BunkerKit · Gas Mask Rack",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/gas_masks.glb",
+      "position": [
+        22,
+        0,
+        35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.11111119,
+        3.11111119,
+        3.11111119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-149241649aedbdad",
+      "name": "BunkerKit · Steel Locker",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/locker_bunker.glb",
+      "position": [
+        8,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.51351349,
+        1.51351349,
+        1.51351349
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4b65bf1f01968a5e",
+      "name": "BunkerKit · Supply Shelves",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/shelf_supplies.glb",
+      "position": [
+        12,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8a95fbc39e75d861",
+      "name": "BunkerKit · Water Drum",
+      "parentId": "transform:category-bunkerkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/BunkerKit/drum_water.glb",
+      "position": [
+        16,
+        0,
+        31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.10975565,
+        3.10975565,
+        3.10975565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e3356e698f77177e",
+      "name": "DungeonKit · Arched Doorway",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/wall_doorway_stone.glb",
+      "position": [
+        -22,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9b60877e690a41f1",
+      "name": "DungeonKit · Cell Bars, Door",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/wall_bars_door.glb",
+      "position": [
+        -18,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0fcdc99a0ca7d0f3",
+      "name": "DungeonKit · Cell Door",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/door_cell.glb",
+      "position": [
+        -13.99999998,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.29629626,
+        1.29629626,
+        1.29629626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-36e4c6624a687a7e",
+      "name": "DungeonKit · Chained Skeleton",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/skeleton_chained.glb",
+      "position": [
+        -10,
+        0,
+        32.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e8f952ec2e46370d",
+      "name": "DungeonKit · Dungeon Door",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/door_dungeon.glb",
+      "position": [
+        -6,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.22807019,
+        1.22807019,
+        1.22807019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0bc7c6ed08ca6fa1",
+      "name": "DungeonKit · Flagstone Floor",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/floor_stone.glb",
+      "position": [
+        -2,
+        0,
+        32.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7fc11553d70d08d3",
+      "name": "DungeonKit · Red Banner",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/banner_red.glb",
+      "position": [
+        -22,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50134057,
+        1.50134057,
+        1.50134057
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4618df11cd9926fd",
+      "name": "DungeonKit · Rubble Wall",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/wall_rough.glb",
+      "position": [
+        -18,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-74847ebd194f1b7e",
+      "name": "DungeonKit · Stone Ceiling",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/ceiling_stone.glb",
+      "position": [
+        -14,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-897e7920397ef5f8",
+      "name": "DungeonKit · Stone Post",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/wall_post_stone.glb",
+      "position": [
+        -10,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a72d8e4b004787f0",
+      "name": "DungeonKit · Stone Wall",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/wall_stone.glb",
+      "position": [
+        -6,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d7f05a6a553dd8b8",
+      "name": "DungeonKit · Straw Bed",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/bed_straw.glb",
+      "position": [
+        -2,
+        0,
+        28.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47368423,
+        1.47368423,
+        1.47368423
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-84cbaba4ff3801da",
+      "name": "DungeonKit · Straw Floor",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/floor_straw.glb",
+      "position": [
+        -16,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6510ffe165ea0e0b",
+      "name": "DungeonKit · Wall Torch",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/torch_wall.glb",
+      "position": [
+        -12,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.46807744,
+        3.46807744,
+        3.46807744
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b04b8bcc71401144",
+      "name": "DungeonKit · Wooden Chest",
+      "parentId": "transform:category-dungeonkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/DungeonKit/chest_wood.glb",
+      "position": [
+        -8,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3492822,
+        3.3492822,
+        3.3492822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fc07ccbb2232b6f0",
+      "name": "Forest · Boulder",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/boulder.glb",
+      "position": [
+        2,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.26904196,
+        2.26904196,
+        2.26904196
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2d62e21f1ae765c7",
+      "name": "Forest · Bush",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/bush.glb",
+      "position": [
+        6,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65484252,
+        1.65484252,
+        1.65484252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4a2680ae76ee9e5e",
+      "name": "Forest · Campfire",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/campfire.glb",
+      "position": [
+        10,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.34825546,
+        2.34825546,
+        2.34825546
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7ffcd5b6e27d2bb1",
+      "name": "Forest · Dead Tree",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/tree_dead.glb",
+      "position": [
+        14,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.49740796,
+        0.49740796,
+        0.49740796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a9402412139965ef",
+      "name": "Forest · Fence",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/fence.glb",
+      "position": [
+        18,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03626663,
+        1.03626663,
+        1.03626663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b2202b0af05cafa6",
+      "name": "Forest · Fern",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/fern.glb",
+      "position": [
+        22,
+        0,
+        24.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67814401,
+        1.67814401,
+        1.67814401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-812084bb6853d369",
+      "name": "Forest · Grass",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/grass.glb",
+      "position": [
+        2,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.75914563,
+        5.75914563,
+        5.75914563
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3cf1fe347b9098f5",
+      "name": "Forest · Ground, Grass",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/ground_grass.glb",
+      "position": [
+        6,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-dc524531eed641a0",
+      "name": "Forest · Log",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/log.glb",
+      "position": [
+        10,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-229a8838fc21ba68",
+      "name": "Forest · Oak",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/oak.glb",
+      "position": [
+        14,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37587503,
+        0.37587503,
+        0.37587503
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-570daf46fa84ae23",
+      "name": "Forest · Path, Straight",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/path_straight.glb",
+      "position": [
+        18,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ef8cee49fd7f08c7",
+      "name": "Forest · Pine",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/pine.glb",
+      "position": [
+        22,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32148584,
+        0.32148584,
+        0.32148584
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-23259441a43287b6",
+      "name": "Forest · Pine, Small",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/pine_small.glb",
+      "position": [
+        8,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6076113,
+        0.6076113,
+        0.6076113
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-677ace502914a583",
+      "name": "Forest · Stump",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/stump.glb",
+      "position": [
+        12,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.69640906,
+        1.69640906,
+        1.69640906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3dcc60a0a27f11b0",
+      "name": "Forest · Tent",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Forest/tent.glb",
+      "position": [
+        16,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7468643,
+        0.7468643,
+        0.7468643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-460a711f6646d3d7",
+      "name": "HalloweenProps · Candy Bowl",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/candy_bowl.glb",
+      "position": [
+        -22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.33333296,
+        9.33333296,
+        9.33333296
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e94e72fe50083463",
+      "name": "HalloweenProps · Cobweb",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/cobweb_wall.glb",
+      "position": [
+        -18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.11111161,
+        3.11111161,
+        3.11111161
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-518a52fda2d67def",
+      "name": "HalloweenProps · Gourds",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/gourds.glb",
+      "position": [
+        -14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.44137071,
+        8.44137071,
+        8.44137071
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-959b150d6f6e2d1a",
+      "name": "HalloweenProps · Halloween Candles",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/candles_halloween.glb",
+      "position": [
+        -10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.23529403,
+        8.23529403,
+        8.23529403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-be3d428be89b422d",
+      "name": "HalloweenProps · Hanging Spider",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/spider_hanging.glb",
+      "position": [
+        -6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.79276185,
+        1.79276185,
+        1.79276185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b614a782881b61a2",
+      "name": "HalloweenProps · Hay Bale",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/hay_bale.glb",
+      "position": [
+        -2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.11111119,
+        3.11111119,
+        3.11111119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-deab4013d63f9749",
+      "name": "HalloweenProps · Headstone",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/headstone_rip.glb",
+      "position": [
+        -22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2558139,
+        3.2558139,
+        3.2558139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6471e3e657c56a32",
+      "name": "HalloweenProps · Jack-o'-Lantern",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/jack_o_lantern.glb",
+      "position": [
+        -18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.14192617,
+        8.14192617,
+        8.14192617
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-528168e3688ab81d",
+      "name": "HalloweenProps · Pumpkin",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/pumpkin.glb",
+      "position": [
+        -14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.23529403,
+        8.23529403,
+        8.23529403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e0fc472d81e4aafb",
+      "name": "HalloweenProps · Stone Cross",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/headstone_cross.glb",
+      "position": [
+        -10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.45614038,
+        2.45614038,
+        2.45614038
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ffaa3e3c91a5ad86",
+      "name": "HalloweenProps · Witch's Cauldron",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/cauldron.glb",
+      "position": [
+        -6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.05546173,
+        5.05546173,
+        5.05546173
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a9a6f504da667ae9",
+      "name": "HalloweenProps · Witch's Hat",
+      "parentId": "transform:category-halloweenprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HalloweenProps/witch_hat.glb",
+      "position": [
+        -2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-dd74fa661ef9601e",
+      "name": "HorrorProps · Cartridge Fuse",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/fuse.glb",
+      "position": [
+        2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        41.17646835,
+        41.17646835,
+        41.17646835
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ac2594e3e2ce1959",
+      "name": "HorrorProps · Crowbar",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/crowbar.glb",
+      "position": [
+        6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.62919336,
+        4.62919336,
+        4.62919336
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7426321e351268ad",
+      "name": "HorrorProps · Flashlight",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/flashlight.glb",
+      "position": [
+        10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.73684229,
+        14.73684229,
+        14.73684229
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7a62204eb22cf9da",
+      "name": "HorrorProps · Fuse Box",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/fuse_box.glb",
+      "position": [
+        14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.11764665,
+        4.11764665,
+        4.11764665
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9095753eae181cca",
+      "name": "HorrorProps · Handwritten Note",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/note.glb",
+      "position": [
+        18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.33333375,
+        13.33333375,
+        13.33333375
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7793666e2201370e",
+      "name": "HorrorProps · Healing Herb",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/herb_pot.glb",
+      "position": [
+        22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.48425982,
+        13.48425982,
+        13.48425982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b3b3905976114d06",
+      "name": "HorrorProps · Ink Ribbon",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/ink_ribbon.glb",
+      "position": [
+        2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        46.66666771,
+        46.66666771,
+        46.66666771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f5533f17555d9c31",
+      "name": "HorrorProps · Keycard Reader",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/card_reader.glb",
+      "position": [
+        6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.00000204,
+        20.00000204,
+        20.00000204
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b640045b74a00360",
+      "name": "HorrorProps · Keycard, Level 1 (red)",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/keycard_red.glb",
+      "position": [
+        10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.55813843,
+        32.55813843,
+        32.55813843
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-05fecfe950078342",
+      "name": "HorrorProps · Oil Lantern",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/lantern.glb",
+      "position": [
+        14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.92079189,
+        7.92079189,
+        7.92079189
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-06f11e8dfa84f473",
+      "name": "HorrorProps · Padlock",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/padlock.glb",
+      "position": [
+        18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        34.13340154,
+        34.13340154,
+        34.13340154
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-42fc3aac9c5a8e95",
+      "name": "HorrorProps · Skeleton Key",
+      "parentId": "transform:category-horrorprops",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps/key_skeleton.glb",
+      "position": [
+        22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        27.39272972,
+        27.39272972,
+        27.39272972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-10a19213d094e355",
+      "name": "HorrorProps2 · Bucket of Blood",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/bucket_blood.glb",
+      "position": [
+        -22,
+        0,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.03448293,
+        6.03448293,
+        6.03448293
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3ff4efaab37f9f88",
+      "name": "HorrorProps2 · Candle Cluster",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/candle_cluster.glb",
+      "position": [
+        -18,
+        0,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.66666664,
+        6.66666664,
+        6.66666664
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e875a3b10bb3abec",
+      "name": "HorrorProps2 · Gibbet",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/gibbet.glb",
+      "position": [
+        -14.00000002,
+        0,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07692312,
+        1.07692312,
+        1.07692312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8e3c5f03ee2677ea",
+      "name": "HorrorProps2 · Goat Skull",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/goat_skull.glb",
+      "position": [
+        -10,
+        0,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.7037371,
+        6.7037371,
+        6.7037371
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-321d39fce34ed935",
+      "name": "HorrorProps2 · Grimoire",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/grimoire.glb",
+      "position": [
+        -6,
+        0,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.69565226,
+        8.69565226,
+        8.69565226
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-614b87223c783abf",
+      "name": "HorrorProps2 · Manacles",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/manacles.glb",
+      "position": [
+        -2,
+        0,
+        6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.81353276,
+        6.81353276,
+        6.81353276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ec42311f308875c7",
+      "name": "HorrorProps2 · Porcelain Doll",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/doll_porcelain.glb",
+      "position": [
+        -22,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.40345811,
+        8.40345811,
+        8.40345811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-047a0d018f081ab3",
+      "name": "HorrorProps2 · Ritual Circle",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/ritual_circle.glb",
+      "position": [
+        -18,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-16c665a92839735e",
+      "name": "HorrorProps2 · Session Tapes",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/tape_reels.glb",
+      "position": [
+        -14.00000003,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.01270808,
+        8.01270808,
+        8.01270808
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fa8688734a5e5db8",
+      "name": "HorrorProps2 · Severed Hand",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/severed_hand.glb",
+      "position": [
+        -10,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.43060932,
+        10.43060932,
+        10.43060932
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d36d6c860189407b",
+      "name": "HorrorProps2 · Skull Candle",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/candle_skull.glb",
+      "position": [
+        -6,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.38961061,
+        10.38961061,
+        10.38961061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7a16c931a402bff3",
+      "name": "HorrorProps2 · Turn Back Sign",
+      "parentId": "transform:category-horrorprops2",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HorrorProps2/sign_turn_back.glb",
+      "position": [
+        -2,
+        0,
+        2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.99999993,
+        1.99999993,
+        1.99999993
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2fda303ee7edaabf",
+      "name": "LiminalKit · Door to Nowhere",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/door_nowhere.glb",
+      "position": [
+        2,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fe3d119e4cc79464",
+      "name": "LiminalKit · Exit Sign (Right)",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/exit_sign_right.glb",
+      "position": [
+        6,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.9999999,
+        6.9999999,
+        6.9999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-27b9173f6b1d6bac",
+      "name": "LiminalKit · Soaked Carpet Floor",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/floor_carpet_damp.glb",
+      "position": [
+        10,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-935c97c452f4537b",
+      "name": "LiminalKit · Stained Yellow Wall",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/wall_yellow_stained.glb",
+      "position": [
+        14,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8371d38bfd6b460b",
+      "name": "LiminalKit · Wall Vent",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/vent_wall.glb",
+      "position": [
+        18,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-082dc65d435ec4ac",
+      "name": "LiminalKit · Yellow Carpet Floor",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/floor_carpet_yellow.glb",
+      "position": [
+        22,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fa651d4f0a48a96e",
+      "name": "LiminalKit · Yellow Ceiling",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/ceiling_yellow.glb",
+      "position": [
+        2,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0eeb0864cc6399e7",
+      "name": "LiminalKit · Yellow Ceiling, Light",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/ceiling_yellow_light.glb",
+      "position": [
+        6,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4bafbcc88f326e48",
+      "name": "LiminalKit · Yellow Ceiling, Tile Missing",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/ceiling_yellow_missing.glb",
+      "position": [
+        10,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c47895add3e0ac65",
+      "name": "LiminalKit · Yellow Doorway",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/wall_yellow_doorway.glb",
+      "position": [
+        14,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5485515c50136c71",
+      "name": "LiminalKit · Yellow Opening",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/wall_yellow_opening.glb",
+      "position": [
+        18,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f77d020068818e0a",
+      "name": "LiminalKit · Yellow Pillar",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/pillar_yellow.glb",
+      "position": [
+        22,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2d22734ced013132",
+      "name": "LiminalKit · Yellow Post",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/wall_post_yellow.glb",
+      "position": [
+        8,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0d423654102f0286",
+      "name": "LiminalKit · Yellow Room Door",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/door_yellow.glb",
+      "position": [
+        12,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-40e30ea2dbeb309d",
+      "name": "LiminalKit · Yellow Wall",
+      "parentId": "transform:category-liminalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/LiminalKit/wall_yellow.glb",
+      "position": [
+        16,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a7cc0e94b9c52c07",
+      "name": "MedievalWeapons · Archery Target",
+      "parentId": "transform:category-medievalweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MedievalWeapons/archery_target.glb",
+      "position": [
+        -22,
+        0,
+        -4.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.88279722,
+        1.88279722,
+        1.88279722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7dce7d051de4a3b8",
+      "name": "MedievalWeapons · Arming Sword",
+      "parentId": "transform:category-medievalweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MedievalWeapons/arming_sword.glb",
+      "position": [
+        -18,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.080308,
+        3.080308,
+        3.080308
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0ad4cf8c5d6b254d",
+      "name": "MedievalWeapons · Hand Axe",
+      "parentId": "transform:category-medievalweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MedievalWeapons/hand_axe.glb",
+      "position": [
+        -14,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.22914367,
+        6.22914367,
+        6.22914367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b8614ca1d00f01d9",
+      "name": "MedievalWeapons · Healing Potion",
+      "parentId": "transform:category-medievalweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MedievalWeapons/potion_health.glb",
+      "position": [
+        -10,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.43795702,
+        20.43795702,
+        20.43795702
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-557f7249e567992e",
+      "name": "MedievalWeapons · Round Shield",
+      "parentId": "transform:category-medievalweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MedievalWeapons/round_shield.glb",
+      "position": [
+        -6,
+        0,
+        -4.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.54545457,
+        4.54545457,
+        4.54545457
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4e62eaff1975953c",
+      "name": "MedievalWeapons · Torch",
+      "parentId": "transform:category-medievalweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MedievalWeapons/torch.glb",
+      "position": [
+        -2,
+        0,
+        -4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.53535342,
+        3.53535342,
+        3.53535342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-cca25dbc3d8d99ee",
+      "name": "MeleeWeapons · Crowbar",
+      "parentId": "transform:category-meleeweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MeleeWeapons/crowbar.glb",
+      "position": [
+        -20,
+        0,
+        -11.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.21509306,
+        4.21509306,
+        4.21509306
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8e07fb1e3b10b023",
+      "name": "MeleeWeapons · Flashlight",
+      "parentId": "transform:category-meleeweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MeleeWeapons/flashlight.glb",
+      "position": [
+        -16,
+        0,
+        -11.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.92907862,
+        9.92907862,
+        9.92907862
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2ae55e822e2a0135",
+      "name": "MeleeWeapons · Kitchen Knife",
+      "parentId": "transform:category-meleeweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MeleeWeapons/kitchen_knife.glb",
+      "position": [
+        -12,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.43373488,
+        8.43373488,
+        8.43373488
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1afefe13a232d99d",
+      "name": "MeleeWeapons · Steel Pipe",
+      "parentId": "transform:category-meleeweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MeleeWeapons/steel_pipe.glb",
+      "position": [
+        -8,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.24242417,
+        4.24242417,
+        4.24242417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2d6bc319cc67a909",
+      "name": "MeleeWeapons · Training Dummy",
+      "parentId": "transform:category-meleeweapons",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MeleeWeapons/training_dummy.glb",
+      "position": [
+        -4,
+        0,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09737829,
+        2.09737829,
+        2.09737829
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-857457f54c0527eb",
+      "name": "PuzzleMachinery · Blast Door",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/blast_door.glb",
+      "position": [
+        2,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03703702,
+        1.03703702,
+        1.03703702
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-256bcb356eb61632",
+      "name": "PuzzleMachinery · Cage Lamp",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/cage_lamp.glb",
+      "position": [
+        6,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.44827751,
+        14.44827751,
+        14.44827751
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-66ff5e523c84b36a",
+      "name": "PuzzleMachinery · Cartridge Fuse",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/fuse_cartridge.glb",
+      "position": [
+        10,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.66666693,
+        11.66666693,
+        11.66666693
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1be0bd2c090174fc",
+      "name": "PuzzleMachinery · Concrete Ceiling",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/ceiling_concrete.glb",
+      "position": [
+        14,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-652a5615d5e44ccf",
+      "name": "PuzzleMachinery · Diesel Generator",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/generator.glb",
+      "position": [
+        18,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.21739133,
+        1.21739133,
+        1.21739133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e4f90d5c25c3de96",
+      "name": "PuzzleMachinery · Fuse Box",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/fuse_box.glb",
+      "position": [
+        22,
+        0,
+        -16.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.25442859,
+        2.25442859,
+        2.25442859
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-73e0b1a81724e761",
+      "name": "PuzzleMachinery · Plant Floor",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/floor_plant.glb",
+      "position": [
+        2,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-37b791e807e8c31a",
+      "name": "PuzzleMachinery · Plant Post",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/wall_post_plant.glb",
+      "position": [
+        6,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a963e8dcf3c42aa3",
+      "name": "PuzzleMachinery · Plant Wall",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/wall_plant.glb",
+      "position": [
+        10,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9649df81cddcc5b9",
+      "name": "PuzzleMachinery · Voltmeter",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/gauge_meter.glb",
+      "position": [
+        14,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.98602812,
+        6.98602812,
+        6.98602812
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c40deb916e2f7687",
+      "name": "PuzzleMachinery · Wall Lever",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/lever_wall.glb",
+      "position": [
+        18,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.54041656,
+        3.54041656,
+        3.54041656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bee143f6f1e95a76",
+      "name": "PuzzleMachinery · Wide Doorway",
+      "parentId": "transform:category-puzzlemachinery",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PuzzleMachinery/wall_doorway_wide.glb",
+      "position": [
+        22,
+        0,
+        -20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d6cc4173d755d7e6",
+      "name": "SciFiStationKit · Cryo Pod",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/cryo_pod.glb",
+      "position": [
+        -22,
+        0,
+        -18.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27272725,
+        1.27272725,
+        1.27272725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c6e61ea5636b4891",
+      "name": "SciFiStationKit · Cryo Sign",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/sign_cryo.glb",
+      "position": [
+        -18,
+        0,
+        -18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.66666648,
+        4.66666648,
+        4.66666648
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e84ffa13c27aa763",
+      "name": "SciFiStationKit · Fuel Canister",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/canister.glb",
+      "position": [
+        -14,
+        0,
+        -18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.58974372,
+        3.58974372,
+        3.58974372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b0979d7d7b641a1c",
+      "name": "SciFiStationKit · Lab Bench",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/lab_bench.glb",
+      "position": [
+        -10,
+        0,
+        -18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37254905,
+        1.37254905,
+        1.37254905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1b1b3840f5ac4bbc",
+      "name": "SciFiStationKit · Sliding Door",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/door_station.glb",
+      "position": [
+        -6,
+        0,
+        -18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.20689659,
+        1.20689659,
+        1.20689659
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-806449ccff97a17c",
+      "name": "SciFiStationKit · Small Crate",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/crate_small.glb",
+      "position": [
+        -2,
+        0,
+        -18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c23c86b7343035c4",
+      "name": "SciFiStationKit · Station Doorway",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/wall_doorway_station.glb",
+      "position": [
+        -22,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-55097ead801d2c05",
+      "name": "SciFiStationKit · Station Floor",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/floor_station.glb",
+      "position": [
+        -18,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e722aaaeeb9c8861",
+      "name": "SciFiStationKit · Station Floor, Hazard Edge",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/floor_station_hazard.glb",
+      "position": [
+        -14,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b38c87f4f9f363c6",
+      "name": "SciFiStationKit · Station Post",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/wall_post_station.glb",
+      "position": [
+        -10,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f0a6d4b7bfe9ad67",
+      "name": "SciFiStationKit · Station Wall",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/wall_station.glb",
+      "position": [
+        -6,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-77eea61c86a05986",
+      "name": "SciFiStationKit · Station Wall, Lights",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/wall_station_lights.glb",
+      "position": [
+        -2,
+        0,
+        -22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3c6546f4eeca2d1c",
+      "name": "SciFiStationKit · Supply Crate",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/crate_station.glb",
+      "position": [
+        -16,
+        0,
+        -26.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f69c093b84276628",
+      "name": "SciFiStationKit · Swivel Chair",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/chair_station.glb",
+      "position": [
+        -12,
+        0,
+        -26.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.77306484,
+        2.77306484,
+        2.77306484
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-372c7be5fdfd5e82",
+      "name": "SciFiStationKit · Viewport",
+      "parentId": "transform:category-scifistationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SciFiStationKit/wall_viewport.glb",
+      "position": [
+        -8,
+        0,
+        -26.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-71affad2918f084a",
+      "name": "SurvivalPickups · 9mm Rounds",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/ammo_box_9mm.glb",
+      "position": [
+        2,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.94117612,
+        32.94117612,
+        32.94117612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1fae844c77809746",
+      "name": "SurvivalPickups · AA Batteries",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/battery_aa_pack.glb",
+      "position": [
+        6,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.45454559,
+        25.45454559,
+        25.45454559
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6dcc3245f4ace418",
+      "name": "SurvivalPickups · First Aid Kit",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/first_aid_box.glb",
+      "position": [
+        10,
+        0,
+        -27.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.72549045,
+        13.72549045,
+        13.72549045
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c4447f945b2c7736",
+      "name": "SurvivalPickups · Folded Map",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/map_folded.glb",
+      "position": [
+        14,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.33333375,
+        13.33333375,
+        13.33333375
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e937de53b740aff7",
+      "name": "SurvivalPickups · Folded Note",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/note_folded.glb",
+      "position": [
+        18,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.91891868,
+        18.91891868,
+        18.91891868
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a7a7ceab772eeee4",
+      "name": "SurvivalPickups · Gold Coin",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/coin_gold.glb",
+      "position": [
+        22,
+        0,
+        -27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        111.99999833,
+        111.99999833,
+        111.99999833
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f2e4188a1a9ac316",
+      "name": "SurvivalPickups · Green Herb",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/herb_green.glb",
+      "position": [
+        2,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.8175994,
+        22.8175994,
+        22.8175994
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-90c76de7218ccef3",
+      "name": "SurvivalPickups · Ink Ribbon",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/ink_ribbon_tin.glb",
+      "position": [
+        6,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        44.87179609,
+        44.87179609,
+        44.87179609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-167237d9ab348503",
+      "name": "SurvivalPickups · Iron Key",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/key_iron.glb",
+      "position": [
+        10,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.53846171,
+        21.53846171,
+        21.53846171
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fa9d6f32302183d6",
+      "name": "SurvivalPickups · Item Box",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/item_box.glb",
+      "position": [
+        14,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.17594857,
+        3.17594857,
+        3.17594857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-324e8e4dd49a37c9",
+      "name": "SurvivalPickups · Keycard, Level 1 (red)",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/keycard_red.glb",
+      "position": [
+        18,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.55813843,
+        32.55813843,
+        32.55813843
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-91cc27853c50cc46",
+      "name": "SurvivalPickups · Leather Diary",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/diary_leather.glb",
+      "position": [
+        22,
+        0,
+        -31.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.91489402,
+        11.91489402,
+        11.91489402
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-86800a8bec77336c",
+      "name": "SurvivalPickups · Pill Bottle",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/pill_bottle.glb",
+      "position": [
+        8,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.94117612,
+        32.94117612,
+        32.94117612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6a76b5fb773eb0db",
+      "name": "SurvivalPickups · Shotgun Shells",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/ammo_box_12ga.glb",
+      "position": [
+        12,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.33333385,
+        23.33333385,
+        23.33333385
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-03a94b7ca0b68ca5",
+      "name": "SurvivalPickups · Typewriter",
+      "parentId": "transform:category-survivalpickups",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SurvivalPickups/typewriter_save.glb",
+      "position": [
+        16,
+        0,
+        -35.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.07578149,
+        6.07578149,
+        6.07578149
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

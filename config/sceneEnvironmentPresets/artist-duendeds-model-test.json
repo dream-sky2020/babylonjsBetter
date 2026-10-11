@@ -1,0 +1,940 @@
+{
+  "presetKey": "artist-duendeds-model-test",
+  "name": "duendeds · 模型展示（19 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cacti",
+      "name": "仙人掌分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "candles",
+      "name": "蜡烛分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 25
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v1-stand",
+      "name": "CactusBall_v1展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v2-stand",
+      "name": "CactusBall_v2展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v3-stand",
+      "name": "CactusBall_v3展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v4-stand",
+      "name": "CactusBall_v4展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v5-stand",
+      "name": "CactusBall_v5展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactus_v1-stand",
+      "name": "Cactus_v1展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactus_v2-stand",
+      "name": "Cactus_v2展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactus_v3-stand",
+      "name": "Cactus_v3展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactus_v4-stand",
+      "name": "Cactus_v4展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-candelabra_cactus_v1-stand",
+      "name": "Candelabra_cactus_v1展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-candelabra_cactus_v2-stand",
+      "name": "Candelabra_cactus_v2展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        3.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-candelabra_cactus_v3-stand",
+      "name": "Candelabra_cactus_v3展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        3.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-candelabra_cactus_v4fbx-stand",
+      "name": "Candelabra_cactus_v4fbx展台",
+      "parentId": "transform:cacti",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        3.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_01-stand",
+      "name": "Candle_01展台",
+      "parentId": "transform:candles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_02-stand",
+      "name": "Candle_02展台",
+      "parentId": "transform:candles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_03-stand",
+      "name": "Candle_03展台",
+      "parentId": "transform:candles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_04-stand",
+      "name": "Candle_04展台",
+      "parentId": "transform:candles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_05-stand",
+      "name": "Candle_05展台",
+      "parentId": "transform:candles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_06-stand",
+      "name": "Candle_06展台",
+      "parentId": "transform:candles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -7.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "cacti-cactusball_v1",
+      "name": "CactusBall_v1",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/CactusBall_v1.glb",
+      "position": [
+        -7.99999998,
+        1.3e-7,
+        11.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53779585,
+        1.53779585,
+        1.53779585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v2",
+      "name": "CactusBall_v2",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/CactusBall_v2.glb",
+      "position": [
+        -3.99999998,
+        -9e-8,
+        11.49999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.09078815,
+        3.09078815,
+        3.09078815
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v3",
+      "name": "CactusBall_v3",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/CactusBall_v3.glb",
+      "position": [
+        2e-8,
+        1.9e-7,
+        11.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.36628638,
+        4.36628638,
+        4.36628638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v4",
+      "name": "CactusBall_v4",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/CactusBall_v4.glb",
+      "position": [
+        4.00000002,
+        -1.8e-7,
+        11.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.67052586,
+        4.67052586,
+        4.67052586
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactusball_v5",
+      "name": "CactusBall_v5",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/CactusBall_v5.glb",
+      "position": [
+        7.99999996,
+        -1.4e-7,
+        11.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.94098996,
+        2.94098996,
+        2.94098996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactus_v1",
+      "name": "Cactus_v1",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/Cactus_v1.glb",
+      "position": [
+        -7.99999998,
+        4e-8,
+        7.49999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.07586712,
+        2.07586712,
+        2.07586712
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactus_v2",
+      "name": "Cactus_v2",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/Cactus_v2.glb",
+      "position": [
+        -4,
+        0,
+        7.49999963
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59469307,
+        1.59469307,
+        1.59469307
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactus_v3",
+      "name": "Cactus_v3",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/Cactus_v3.glb",
+      "position": [
+        -2e-8,
+        0,
+        7.49999964
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.59858722,
+        1.59858722,
+        1.59858722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-cactus_v4",
+      "name": "Cactus_v4",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/Cactus_v4.glb",
+      "position": [
+        4.00000001,
+        5e-8,
+        7.49999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.84953096,
+        2.84953096,
+        2.84953096
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-candelabra_cactus_v1",
+      "name": "Candelabra_cactus_v1",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/Candelabra_cactus_v1.glb",
+      "position": [
+        7.99999999,
+        1e-8,
+        7.49999947
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.43912611,
+        0.43912611,
+        0.43912611
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-candelabra_cactus_v2",
+      "name": "Candelabra_cactus_v2",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/Candelabra_cactus_v2.glb",
+      "position": [
+        -3.99999999,
+        2e-8,
+        3.49999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50710706,
+        0.50710706,
+        0.50710706
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-candelabra_cactus_v3",
+      "name": "Candelabra_cactus_v3",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/Candelabra_cactus_v3.glb",
+      "position": [
+        0,
+        1e-8,
+        3.49999953
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44624861,
+        0.44624861,
+        0.44624861
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "cacti-candelabra_cactus_v4fbx",
+      "name": "Candelabra_cactus_v4fbx",
+      "parentId": "transform:cacti",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Cacti/Candelabra_cactus_v4fbx.glb",
+      "position": [
+        4,
+        1e-8,
+        3.4999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45927838,
+        0.45927838,
+        0.45927838
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_01",
+      "name": "Candle_01",
+      "parentId": "transform:candles",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Candles/Candle_01.glb",
+      "position": [
+        -8,
+        2e-8,
+        -3.50000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.35878037,
+        16.35878037,
+        16.35878037
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_02",
+      "name": "Candle_02",
+      "parentId": "transform:candles",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Candles/Candle_02.glb",
+      "position": [
+        -4,
+        3e-8,
+        -3.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.44438267,
+        17.44438267,
+        17.44438267
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_03",
+      "name": "Candle_03",
+      "parentId": "transform:candles",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Candles/Candle_03.glb",
+      "position": [
+        1.3e-7,
+        3e-8,
+        -3.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.57482107,
+        17.57482107,
+        17.57482107
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_04",
+      "name": "Candle_04",
+      "parentId": "transform:candles",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Candles/Candle_04.glb",
+      "position": [
+        4,
+        6e-8,
+        -3.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.45479417,
+        32.45479417,
+        32.45479417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_05",
+      "name": "Candle_05",
+      "parentId": "transform:candles",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Candles/Candle_05.glb",
+      "position": [
+        8.00000001,
+        4e-8,
+        -3.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        41.5942778,
+        41.5942778,
+        41.5942778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "candles-candle_06",
+      "name": "Candle_06",
+      "parentId": "transform:candles",
+      "modelPath": "resources/Model/GLB/artist_duendeds/Candles/Candle_06.glb",
+      "position": [
+        0,
+        3e-8,
+        -7.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.5029673,
+        13.5029673,
+        13.5029673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

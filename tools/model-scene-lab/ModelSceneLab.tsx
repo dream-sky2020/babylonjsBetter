@@ -185,7 +185,7 @@ export const ModelSceneLab = () => {
   const createEntity = useCallback(async (instance: ModelSceneInstance) => {
     const scene = runtimeRef.current?.scene;
     if (!scene) throw new Error('Babylon 场景尚未就绪');
-    const entity = await createModelEntity(scene, instance.modelPath, { name: instance.id, autoPlayAnimation: true });
+    const entity = await createModelEntity(scene, instance.modelPath, { name: instance.id, autoPlayAnimation: true, materialOverrides: instance.materialOverrides });
     applyTransform(entity, instance.transform);
     entity.meshes.forEach((mesh) => {
       mesh.isPickable = true;

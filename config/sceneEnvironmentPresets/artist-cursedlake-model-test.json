@@ -1,0 +1,1610 @@
+{
+  "presetKey": "artist-cursedlake-model-test",
+  "name": "cursedlake · 模型展示（38 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "cursedlake-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "cursedlake-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cursedlake-Ladybug",
+      "name": "瓢虫双配色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-Fish",
+      "name": "八种鱼",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures",
+      "name": "摊棚、柜台与容器",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood",
+      "name": "肉食、粮袋与草药",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods",
+      "name": "武器、书籍与杂货",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms",
+      "name": "十二种蘑菇与完整套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-Playground",
+      "name": "游乐场",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter",
+      "name": "末日避难所",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk",
+      "name": "太空餐亭与厨师机器人",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-Shovel",
+      "name": "铲子双配色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "cursedlake-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 70
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "cursedlake-Ladybug-zone",
+      "name": "瓢虫双配色分区",
+      "parentId": "transform:cursedlake-Ladybug",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -10,
+        -0.15,
+        26
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Ladybug-1-stand",
+      "name": "瓢虫展台",
+      "parentId": "transform:cursedlake-Ladybug",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        26
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Ladybug-2-stand",
+      "name": "瓢虫 · 黄色展台",
+      "parentId": "transform:cursedlake-Ladybug",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        26
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Fish-zone",
+      "name": "八种鱼分区",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 8.5
+      },
+      "position": [
+        10,
+        -0.15,
+        26
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Fish-1-stand",
+      "name": "Barracuda展台",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        28
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Fish-2-stand",
+      "name": "Carp展台",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        28
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Fish-3-stand",
+      "name": "Catfish展台",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        28
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Fish-4-stand",
+      "name": "Clownfish展台",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        28
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Fish-5-stand",
+      "name": "Perch展台",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        24
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Fish-6-stand",
+      "name": "Rainbow_Trout展台",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        24
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Fish-7-stand",
+      "name": "Salmon展台",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        24
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Fish-8-stand",
+      "name": "Tuna展台",
+      "parentId": "transform:cursedlake-Fish",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        24
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-MarketStructures-zone",
+      "name": "摊棚、柜台与容器分区",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -10,
+        -0.15,
+        14
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-MarketStructures-1-stand",
+      "name": "集市棚架（含布顶和隔帘）展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        14
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-MarketFood-zone",
+      "name": "肉食、粮袋与草药分区",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        10,
+        -0.15,
+        14
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-1-stand",
+      "name": "悬挂猪腿（含挂钩）展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        14
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketGoods-zone",
+      "name": "武器、书籍与杂货分区",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -10,
+        -0.15,
+        -2
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-MarketGoods-1-stand",
+      "name": "剑 · Sword展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -2
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Mushrooms-zone",
+      "name": "十二种蘑菇与完整套件分区",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 16.5
+      },
+      "position": [
+        10,
+        -0.15,
+        -2
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-1-stand",
+      "name": "蘑菇整套（12 种）展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        4
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-2-stand",
+      "name": "Mushroom_01展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        4
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-3-stand",
+      "name": "Mushroom_02展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        4
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-4-stand",
+      "name": "Mushroom_03展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        4
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-5-stand",
+      "name": "Mushroom_04展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        0
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-6-stand",
+      "name": "Mushroom_05展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        0
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-7-stand",
+      "name": "Mushroom_06展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        0
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-8-stand",
+      "name": "Mushroom_07展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        0
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-9-stand",
+      "name": "Mushroom_08展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -4
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-10-stand",
+      "name": "Mushroom_09展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -4
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-11-stand",
+      "name": "Mushroom_10展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -4
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-12-stand",
+      "name": "Mushroom_11展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -4
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Mushrooms-13-stand",
+      "name": "Mushroom_11.1展台",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -8
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Playground-zone",
+      "name": "游乐场分区",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -10,
+        -0.15,
+        -18
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-1-stand",
+      "name": "滑梯（含梯子）展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -18
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-2-stand",
+      "name": "跷跷板（含底座）展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -18
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Playground-3-stand",
+      "name": "双人秋千（含支架）展台",
+      "parentId": "transform:cursedlake-Playground",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -18
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-zone",
+      "name": "末日避难所分区",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        10,
+        -0.15,
+        -18
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Shelter-1-stand",
+      "name": "锈蚀卡车（含轮组）展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -18
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Shelter-2-stand",
+      "name": "路灯（含光片）展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -18
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Shelter-3-stand",
+      "name": "发电机 · Generator展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -18
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-Kiosk-zone",
+      "name": "太空餐亭与厨师机器人分区",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -10,
+        -0.15,
+        -28
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Kiosk-1-stand",
+      "name": "厨师机器人（Idle 动画）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -28
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Kiosk-2-stand",
+      "name": "餐亭框架（墙、屋顶与支梁）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -28
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Kiosk-3-stand",
+      "name": "全息终端（底座与屏幕）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -28
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Kiosk-4-stand",
+      "name": "砧板（含食物）展台",
+      "parentId": "transform:cursedlake-Kiosk",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -28
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-Shovel-zone",
+      "name": "铲子双配色分区",
+      "parentId": "transform:cursedlake-Shovel",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        10,
+        -0.15,
+        -28
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shovel-1-stand",
+      "name": "PSX 铲子展台",
+      "parentId": "transform:cursedlake-Shovel",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -28
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shovel-2-stand",
+      "name": "PSX 铲子 · 无血迹展台",
+      "parentId": "transform:cursedlake-Shovel",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -28
+      ],
+      "color": "#8c9e94"
+    }
+  ],
+  "models": [
+    {
+      "id": "cursedlake-Ladybug-1",
+      "name": "瓢虫",
+      "parentId": "transform:cursedlake-Ladybug",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Ladybug/LadyBug(Unrigged).glb",
+      "position": [
+        -12,
+        0.0100619,
+        26.0450365
+      ],
+      "scaling": [
+        0.77024491,
+        0.77024491,
+        0.77024491
+      ]
+    },
+    {
+      "id": "cursedlake-Ladybug-2",
+      "name": "瓢虫 · 黄色",
+      "parentId": "transform:cursedlake-Ladybug",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Ladybug/LadyBug(Unrigged).glb",
+      "position": [
+        -8,
+        0.0100619,
+        26.0450365
+      ],
+      "scaling": [
+        0.77024491,
+        0.77024491,
+        0.77024491
+      ],
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_cursedlake/4e10bacbb350cbecdd2e9bed40e895e57156a73b06931c309fff879bd7991a1c.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "cursedlake-Fish-1",
+      "name": "Barracuda",
+      "parentId": "transform:cursedlake-Fish",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Fish/Barracuda.glb",
+      "position": [
+        3.99458935,
+        0.56624618,
+        28
+      ],
+      "scaling": [
+        1.33415535,
+        1.33415535,
+        1.33415535
+      ]
+    },
+    {
+      "id": "cursedlake-Fish-2",
+      "name": "Carp",
+      "parentId": "transform:cursedlake-Fish",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Fish/Carp.glb",
+      "position": [
+        7.99365751,
+        0.71983244,
+        28.00000001
+      ],
+      "scaling": [
+        1.70865138,
+        1.70865138,
+        1.70865138
+      ]
+    },
+    {
+      "id": "cursedlake-Fish-3",
+      "name": "Catfish",
+      "parentId": "transform:cursedlake-Fish",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Fish/Catfish.glb",
+      "position": [
+        12.02644527,
+        0.45093256,
+        27.98496523
+      ],
+      "scaling": [
+        1.53385845,
+        1.53385845,
+        1.53385845
+      ]
+    },
+    {
+      "id": "cursedlake-Fish-4",
+      "name": "Clownfish",
+      "parentId": "transform:cursedlake-Fish",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Fish/Clownfish.glb",
+      "position": [
+        16.00023608,
+        0.81039572,
+        28
+      ],
+      "scaling": [
+        2.64926465,
+        2.64926465,
+        2.64926465
+      ]
+    },
+    {
+      "id": "cursedlake-Fish-5",
+      "name": "Perch",
+      "parentId": "transform:cursedlake-Fish",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Fish/Perch.glb",
+      "position": [
+        3.98118386,
+        0.7642743,
+        23.99999999
+      ],
+      "scaling": [
+        2.04417833,
+        2.04417833,
+        2.04417833
+      ]
+    },
+    {
+      "id": "cursedlake-Fish-6",
+      "name": "Rainbow_Trout",
+      "parentId": "transform:cursedlake-Fish",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Fish/Rainbow_Trout.glb",
+      "position": [
+        8.00538093,
+        0.66615589,
+        24
+      ],
+      "scaling": [
+        2.3717795,
+        2.3717795,
+        2.3717795
+      ]
+    },
+    {
+      "id": "cursedlake-Fish-7",
+      "name": "Salmon",
+      "parentId": "transform:cursedlake-Fish",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Fish/Salmon.glb",
+      "position": [
+        11.98363022,
+        0.65492414,
+        24
+      ],
+      "scaling": [
+        2.27074059,
+        2.27074059,
+        2.27074059
+      ]
+    },
+    {
+      "id": "cursedlake-Fish-8",
+      "name": "Tuna",
+      "parentId": "transform:cursedlake-Fish",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Fish/Tuna.glb",
+      "position": [
+        16.03591468,
+        0.64324407,
+        24
+      ],
+      "scaling": [
+        1.56235808,
+        1.56235808,
+        1.56235808
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-1",
+      "name": "集市棚架（含布顶和隔帘）",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Canopy.glb",
+      "position": [
+        -10,
+        0,
+        14
+      ],
+      "scaling": [
+        0.31731453,
+        0.31731453,
+        0.31731453
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-1",
+      "name": "悬挂猪腿（含挂钩）",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/HangingPorkLeg.glb",
+      "position": [
+        9.99999996,
+        8e-8,
+        13.99999994
+      ],
+      "scaling": [
+        2.59613819,
+        2.59613819,
+        2.59613819
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-1",
+      "name": "剑 · Sword",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sword.glb",
+      "position": [
+        -10.00000008,
+        0,
+        -1.99999949
+      ],
+      "scaling": [
+        2.7467472,
+        2.7467472,
+        2.7467472
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-1",
+      "name": "蘑菇整套（12 种）",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/GlowingMushrooms.glb",
+      "position": [
+        4.0025346,
+        0.04875146,
+        3.97863247
+      ],
+      "scaling": [
+        0.10141064,
+        0.10141064,
+        0.10141064
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-2",
+      "name": "Mushroom_01",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_01.glb",
+      "position": [
+        7.99102049,
+        6e-8,
+        4.00262086
+      ],
+      "scaling": [
+        1.29934476,
+        1.29934476,
+        1.29934476
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-3",
+      "name": "Mushroom_02",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_02.glb",
+      "position": [
+        11.88657466,
+        0,
+        3.9999999
+      ],
+      "scaling": [
+        0.82264471,
+        0.82264471,
+        0.82264471
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-4",
+      "name": "Mushroom_03",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_03.glb",
+      "position": [
+        15.05137662,
+        0,
+        4
+      ],
+      "scaling": [
+        0.76734224,
+        0.76734224,
+        0.76734224
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-5",
+      "name": "Mushroom_04",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_04.glb",
+      "position": [
+        4.13250409,
+        0,
+        -0.00003087
+      ],
+      "scaling": [
+        1.42661192,
+        1.42661192,
+        1.42661192
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-6",
+      "name": "Mushroom_05",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_05.glb",
+      "position": [
+        8.05005759,
+        0,
+        -3e-7
+      ],
+      "scaling": [
+        0.99512381,
+        0.99512381,
+        0.99512381
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-7",
+      "name": "Mushroom_06",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_06.glb",
+      "position": [
+        11.9658714,
+        0.00071397,
+        -0.03799745
+      ],
+      "scaling": [
+        1.41296148,
+        1.41296148,
+        1.41296148
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-8",
+      "name": "Mushroom_07",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_07.glb",
+      "position": [
+        15.97996632,
+        -0.00080827,
+        -0.00178873
+      ],
+      "scaling": [
+        1.48218938,
+        1.48218938,
+        1.48218938
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-9",
+      "name": "Mushroom_08",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_08.glb",
+      "position": [
+        4.01144766,
+        0.41528724,
+        -4.9389104
+      ],
+      "scaling": [
+        0.86386217,
+        0.86386217,
+        0.86386217
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-10",
+      "name": "Mushroom_09",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_09.glb",
+      "position": [
+        7.86103886,
+        0,
+        -4
+      ],
+      "scaling": [
+        0.76734286,
+        0.76734286,
+        0.76734286
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-11",
+      "name": "Mushroom_10",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_10.glb",
+      "position": [
+        12,
+        0,
+        -4
+      ],
+      "scaling": [
+        2.05702964,
+        2.05702964,
+        2.05702964
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-12",
+      "name": "Mushroom_11",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_11.glb",
+      "position": [
+        16.03178895,
+        6e-8,
+        -4.00398586
+      ],
+      "scaling": [
+        6.43759428,
+        6.43759428,
+        6.43759428
+      ]
+    },
+    {
+      "id": "cursedlake-Mushrooms-13",
+      "name": "Mushroom_11.1",
+      "parentId": "transform:cursedlake-Mushrooms",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Mushrooms/Mushroom_11.1.glb",
+      "position": [
+        3.7734034,
+        0.02881364,
+        -8.02326093
+      ],
+      "scaling": [
+        6.27136917,
+        6.27136917,
+        6.27136917
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-1",
+      "name": "滑梯（含梯子）",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Slide.glb",
+      "position": [
+        -14,
+        0,
+        -18.00000006
+      ],
+      "scaling": [
+        0.4853664,
+        0.4853664,
+        0.4853664
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-2",
+      "name": "跷跷板（含底座）",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Seesaw.glb",
+      "position": [
+        -10.00000003,
+        0,
+        -18.00000005
+      ],
+      "scaling": [
+        0.90984323,
+        0.90984323,
+        0.90984323
+      ]
+    },
+    {
+      "id": "cursedlake-Playground-3",
+      "name": "双人秋千（含支架）",
+      "parentId": "transform:cursedlake-Playground",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Playground/Parts/Swing.glb",
+      "position": [
+        -6.00000011,
+        0,
+        -17.99999995
+      ],
+      "scaling": [
+        0.88874047,
+        0.88874047,
+        0.88874047
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-1",
+      "name": "锈蚀卡车（含轮组）",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/RustyTruck.glb",
+      "position": [
+        5.99999999,
+        0,
+        -18
+      ],
+      "scaling": [
+        0.49238592,
+        0.49238592,
+        0.49238592
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-2",
+      "name": "路灯（含光片）",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/StreetLight.glb",
+      "position": [
+        10,
+        0,
+        -18.00000011
+      ],
+      "scaling": [
+        0.35818662,
+        0.35818662,
+        0.35818662
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-3",
+      "name": "发电机 · Generator",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Generator.glb",
+      "position": [
+        14,
+        0,
+        -18
+      ],
+      "scaling": [
+        1.50838478,
+        1.50838478,
+        1.50838478
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-1",
+      "name": "厨师机器人（Idle 动画）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/ChefDroid.glb",
+      "position": [
+        -15.92036287,
+        0.53047859,
+        -28.71739075
+      ],
+      "scaling": [
+        1.21103481,
+        1.21103481,
+        1.21103481
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-2",
+      "name": "餐亭框架（墙、屋顶与支梁）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/KioskFrame.glb",
+      "position": [
+        -12,
+        0,
+        -28
+      ],
+      "scaling": [
+        0.41013347,
+        0.41013347,
+        0.41013347
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-3",
+      "name": "全息终端（底座与屏幕）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/HoloTerminal.glb",
+      "position": [
+        -8,
+        0,
+        -28
+      ],
+      "scaling": [
+        1.46281041,
+        1.46281041,
+        1.46281041
+      ]
+    },
+    {
+      "id": "cursedlake-Kiosk-4",
+      "name": "砧板（含食物）",
+      "parentId": "transform:cursedlake-Kiosk",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Kiosk/Parts/CuttingBoard.glb",
+      "position": [
+        -4,
+        1e-8,
+        -28
+      ],
+      "scaling": [
+        3.36090876,
+        3.36090876,
+        3.36090876
+      ]
+    },
+    {
+      "id": "cursedlake-Shovel-1",
+      "name": "PSX 铲子",
+      "parentId": "transform:cursedlake-Shovel",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shovel/Shovel.glb",
+      "position": [
+        8,
+        1.48385412,
+        -28.00953144
+      ],
+      "scaling": [
+        0.63211897,
+        0.63211897,
+        0.63211897
+      ]
+    },
+    {
+      "id": "cursedlake-Shovel-2",
+      "name": "PSX 铲子 · 无血迹",
+      "parentId": "transform:cursedlake-Shovel",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shovel/Shovel.glb",
+      "position": [
+        12,
+        1.48385412,
+        -28.00953144
+      ],
+      "scaling": [
+        0.63211897,
+        0.63211897,
+        0.63211897
+      ],
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_cursedlake/a38f7cbb4db778c4795b0c82a79007aeffccfa2f939601233579864eb3d524e6.png"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

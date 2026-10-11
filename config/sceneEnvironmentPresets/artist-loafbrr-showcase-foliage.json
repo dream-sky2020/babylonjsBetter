@@ -1,0 +1,6628 @@
+{
+  "presetKey": "artist-loafbrr-showcase-foliage",
+  "name": "Loafbrr · Foliage · 152模型 · 模型 1.38 MiB + 贴图 0.32 MiB · 合计 1.70 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-foliage-0",
+      "name": "Foliage 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-foliage-1",
+      "name": "Foliage 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-foliage-2",
+      "name": "Foliage 3",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 72
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-88a3109d4f52a8c8-stand",
+      "name": "LeafSetA_1展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9faf04c7090a8f36-stand",
+      "name": "LeafSetA_10展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c4c9037c55841fc9-stand",
+      "name": "LeafSetA_11展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b3a6fc5645164a13-stand",
+      "name": "LeafSetA_12展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-638d78aca6aa6c0d-stand",
+      "name": "LeafSetA_13展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5b4fac7dcb17f926-stand",
+      "name": "LeafSetA_14展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        33.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cdf1ec1908a6b0eb-stand",
+      "name": "LeafSetA_15展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-63dfbbcfaa40271a-stand",
+      "name": "LeafSetA_16展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e4bf1dbe52e63d5b-stand",
+      "name": "LeafSetA_17展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7434084abaf2161e-stand",
+      "name": "LeafSetA_18展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-476502a581396090-stand",
+      "name": "LeafSetA_19展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e757cd62fc14efab-stand",
+      "name": "LeafSetA_2展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6d2c0947404c9cbc-stand",
+      "name": "LeafSetA_20展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0b7a86b03ba0a8a4-stand",
+      "name": "LeafSetA_21展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bfc3fc57c6daebbd-stand",
+      "name": "LeafSetA_22展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c07179529ae99e7c-stand",
+      "name": "LeafSetA_23展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bf945454bb20e1a2-stand",
+      "name": "LeafSetA_24展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cbff6f0ec6b8a05c-stand",
+      "name": "LeafSetA_3展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-694a363290aeed05-stand",
+      "name": "LeafSetA_4展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-32a82a29f8c5b9e5-stand",
+      "name": "LeafSetA_5展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-87723970148ce8ca-stand",
+      "name": "LeafSetA_6展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-35bc952f58eb9130-stand",
+      "name": "LeafSetA_7展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-655fec376f76c51a-stand",
+      "name": "LeafSetA_8展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-da1e0a4b09b6f4bb-stand",
+      "name": "LeafSetA_9展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74376b191ea959b8-stand",
+      "name": "LeafSetB_1展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-21e3effd4df5ecd1-stand",
+      "name": "LeafSetB_10展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eccfebf96c7eef92-stand",
+      "name": "LeafSetB_11展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c89dc990b5b2a01e-stand",
+      "name": "LeafSetB_12展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-232db3451b447ec7-stand",
+      "name": "LeafSetB_13展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-44040767fdfeb6ed-stand",
+      "name": "LeafSetB_14展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-68774fb7768507e6-stand",
+      "name": "LeafSetB_15展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c9644cd1a2a29cc0-stand",
+      "name": "LeafSetB_16展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a8e0a2eae3b8210a-stand",
+      "name": "LeafSetB_17展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-033cc33405cf06e0-stand",
+      "name": "LeafSetB_18展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3510d28b39901947-stand",
+      "name": "LeafSetB_19展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-58c83e35e6b13bae-stand",
+      "name": "LeafSetB_2展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ab53ec18a2cb5d3b-stand",
+      "name": "LeafSetB_20展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3fd246b2ee56efdb-stand",
+      "name": "LeafSetB_21展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4dd2ff2685341d65-stand",
+      "name": "LeafSetB_3展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4aa72a07a7f88b89-stand",
+      "name": "LeafSetB_4展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bc63b64156233416-stand",
+      "name": "LeafSetB_5展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b3a7ba0721c0bddb-stand",
+      "name": "LeafSetB_6展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-affccd6d5ce022fd-stand",
+      "name": "LeafSetB_7展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-39acb8bf1b738f33-stand",
+      "name": "LeafSetB_8展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cfcdcfd3389b6cdf-stand",
+      "name": "LeafSetB_9展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1081e37740009c61-stand",
+      "name": "LeafSetC_1展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-84f7aae3de4fb74b-stand",
+      "name": "LeafSetC_10展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6c65a8748cc9e34c-stand",
+      "name": "LeafSetC_11展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-74f6e3a979d46d40-stand",
+      "name": "LeafSetC_12展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f790a178ed84059d-stand",
+      "name": "LeafSetC_13展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6a0c0d946e081d84-stand",
+      "name": "LeafSetC_14展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b68d50bd5465ec98-stand",
+      "name": "LeafSetC_15展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ae608afad7561197-stand",
+      "name": "LeafSetC_16展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ff180fa8bb340a81-stand",
+      "name": "LeafSetC_17展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0db0729f200b6732-stand",
+      "name": "LeafSetC_2展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-70217089aed8c1ad-stand",
+      "name": "LeafSetC_3展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a3f2acfb51e44c2b-stand",
+      "name": "LeafSetC_4展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-efc5159a5e7828f6-stand",
+      "name": "LeafSetC_5展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3c791dc881aee414-stand",
+      "name": "LeafSetC_6展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6df8e798ded227bd-stand",
+      "name": "LeafSetC_7展台",
+      "parentId": "transform:category-foliage-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-365b06a909d5de2a-stand",
+      "name": "LeafSetC_8展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-abc6f49278963e9b-stand",
+      "name": "LeafSetC_9展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-6379183cd7463082-stand",
+      "name": "LeafSetD_1展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1af9f3e82293593e-stand",
+      "name": "LeafSetD_10展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-95d973c4d8ea0e5c-stand",
+      "name": "LeafSetD_11展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8744f7bcc030a26d-stand",
+      "name": "LeafSetD_12展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        33.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-66264f0f567c22e7-stand",
+      "name": "LeafSetD_13展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9b69a9f7d86ce35b-stand",
+      "name": "LeafSetD_14展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-77832cbcd8ed4646-stand",
+      "name": "LeafSetD_15展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a309559d82105eb8-stand",
+      "name": "LeafSetD_16展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a113a2bd49320af9-stand",
+      "name": "LeafSetD_17展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5edbcb478d167452-stand",
+      "name": "LeafSetD_18展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        29.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-78c1db9a72d18571-stand",
+      "name": "LeafSetD_19展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e00b9e00c8767f91-stand",
+      "name": "LeafSetD_2展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d07fe49b6d40d593-stand",
+      "name": "LeafSetD_20展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dc6394ff0c0d03d4-stand",
+      "name": "LeafSetD_21展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a2af2b91a0677acb-stand",
+      "name": "LeafSetD_3展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0b4954c208e8f7f9-stand",
+      "name": "LeafSetD_4展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9164f989bc2713e9-stand",
+      "name": "LeafSetD_5展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-bd598d774bd256ae-stand",
+      "name": "LeafSetD_6展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-95c7b459d7ef6cca-stand",
+      "name": "LeafSetD_7展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f8a8df88a4281a1b-stand",
+      "name": "LeafSetD_8展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3b8f8d78f90ea278-stand",
+      "name": "LeafSetD_9展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-86207ba7756eb5aa-stand",
+      "name": "LeafSetE_1展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-bbd86967a694f4b6-stand",
+      "name": "LeafSetE_10展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d584109c74d8ba29-stand",
+      "name": "LeafSetE_11展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dc4057922f507322-stand",
+      "name": "LeafSetE_12展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ee63585d298503c8-stand",
+      "name": "LeafSetE_13展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-da3cb69f1812c5e4-stand",
+      "name": "LeafSetE_14展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e5d6b1695e2ffa99-stand",
+      "name": "LeafSetE_2展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-caa088c29bde3342-stand",
+      "name": "LeafSetE_3展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0f2e4e9551a06ee3-stand",
+      "name": "LeafSetE_4展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-97270db6c0284014-stand",
+      "name": "LeafSetE_5展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-94a231d1b3d0d42a-stand",
+      "name": "LeafSetE_6展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ef0a0cbb2d8fcbd8-stand",
+      "name": "LeafSetE_7展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a788fbca975f39a4-stand",
+      "name": "LeafSetE_8展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-68f7629ab0c3d8ee-stand",
+      "name": "LeafSetE_9展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-6e10dcb2377dd0b3-stand",
+      "name": "LeafSetF_1展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-fe4d05c8ab3f3bc9-stand",
+      "name": "LeafSetF_10展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-36563980bde1ec01-stand",
+      "name": "LeafSetF_11展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-962af711775d85bc-stand",
+      "name": "LeafSetF_12展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-cb69d77bc64d5ba7-stand",
+      "name": "LeafSetF_13展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d4b88a1b94d9164b-stand",
+      "name": "LeafSetF_14展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e25e0a9533248a6b-stand",
+      "name": "LeafSetF_15展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1bb8cfbbc5032457-stand",
+      "name": "LeafSetF_16展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3775d07a4a1cc70a-stand",
+      "name": "LeafSetF_17展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-8963cd7d6eef497f-stand",
+      "name": "LeafSetF_18展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-ef25356c4ae099ce-stand",
+      "name": "LeafSetF_19展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5aaf5c4c664ed6a0-stand",
+      "name": "LeafSetF_2展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-518c508821a00cc2-stand",
+      "name": "LeafSetF_20展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-735c4590fc6cbeaa-stand",
+      "name": "LeafSetF_3展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7e77c06e62e85f7a-stand",
+      "name": "LeafSetF_4展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e1b28a209943b18e-stand",
+      "name": "LeafSetF_5展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-7bde00ec75151508-stand",
+      "name": "LeafSetF_6展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d0b692c8fd33ceac-stand",
+      "name": "LeafSetF_8展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-953273e4b97d506f-stand",
+      "name": "LeafSetF_9展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c93d750117580d56-stand",
+      "name": "LeafSetG_1展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-54e00be8cb454d66-stand",
+      "name": "LeafSetG_10展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-876c39fd152a19f2-stand",
+      "name": "LeafSetG_11展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a6bf6079ae93e1d7-stand",
+      "name": "LeafSetG_12展台",
+      "parentId": "transform:category-foliage-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-9fb39518c4db8228-stand",
+      "name": "LeafSetG_13展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-93a46943f11076ea-stand",
+      "name": "LeafSetG_14展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-53d3c12de0dac76a-stand",
+      "name": "LeafSetG_15展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eb21785284ff0b6f-stand",
+      "name": "LeafSetG_16展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4d7590e63b3ac280-stand",
+      "name": "LeafSetG_17展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4b8ff4ac9855c625-stand",
+      "name": "LeafSetG_18展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e4f616270085eb1e-stand",
+      "name": "LeafSetG_19展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8dfec8fce8a3674c-stand",
+      "name": "LeafSetG_2展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f94b2ee6bbd1064e-stand",
+      "name": "LeafSetG_20展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a0d40d8ec1619109-stand",
+      "name": "LeafSetG_21展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eb5b4fb3a9d3803a-stand",
+      "name": "LeafSetG_3展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-83f8f33736b693a8-stand",
+      "name": "LeafSetG_4展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9a78de790f683c42-stand",
+      "name": "LeafSetG_5展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ed0b19b6bd99e467-stand",
+      "name": "LeafSetG_6展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eeeacd247210b7c8-stand",
+      "name": "LeafSetG_7展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-918ea970af0bf588-stand",
+      "name": "LeafSetG_8展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-503d5ea30bae05bc-stand",
+      "name": "LeafSetG_9展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-089c36464f6664d1-stand",
+      "name": "LeafSetH_1展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b9dc7936fad2ea16-stand",
+      "name": "LeafSetH_10展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-084312282aaea858-stand",
+      "name": "LeafSetH_11展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4859cf3d9eee8a00-stand",
+      "name": "LeafSetH_12展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-83cc08a664d66c55-stand",
+      "name": "LeafSetH_13展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-df3859a6bdb97f3b-stand",
+      "name": "LeafSetH_14展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ccffef0124f7dcdb-stand",
+      "name": "LeafSetH_15展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1f411c09674253cc-stand",
+      "name": "LeafSetH_2展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-73835a3dd8a3cad8-stand",
+      "name": "LeafSetH_3展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-31b7a0085e28c19a-stand",
+      "name": "LeafSetH_4展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ebcc0962df73e93d-stand",
+      "name": "LeafSetH_5展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-66c114b9ae7b0a09-stand",
+      "name": "LeafSetH_6展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0167ce3184c6c518-stand",
+      "name": "LeafSetH_7展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-763ff908c39e7dc5-stand",
+      "name": "LeafSetH_8展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -29.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a6ec805ce0cb183a-stand",
+      "name": "LeafSetH_9展台",
+      "parentId": "transform:category-foliage-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -29.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-88a3109d4f52a8c8",
+      "name": "Foliage · LeafSetA_1 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_1.glb",
+      "position": [
+        -22,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.03192869,
+        9.03192869,
+        9.03192869
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9faf04c7090a8f36",
+      "name": "Foliage · LeafSetA_10 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_10.glb",
+      "position": [
+        -18,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.53024518,
+        5.53024518,
+        5.53024518
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c4c9037c55841fc9",
+      "name": "Foliage · LeafSetA_11 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_11.glb",
+      "position": [
+        -14,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.73771326,
+        5.73771326,
+        5.73771326
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b3a6fc5645164a13",
+      "name": "Foliage · LeafSetA_12 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_12.glb",
+      "position": [
+        -10,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.46560187,
+        5.46560187,
+        5.46560187
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-638d78aca6aa6c0d",
+      "name": "Foliage · LeafSetA_13 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_13.glb",
+      "position": [
+        -6,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.17750929,
+        4.17750929,
+        4.17750929
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5b4fac7dcb17f926",
+      "name": "Foliage · LeafSetA_14 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_14.glb",
+      "position": [
+        -2,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68125249,
+        2.68125249,
+        2.68125249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cdf1ec1908a6b0eb",
+      "name": "Foliage · LeafSetA_15 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_15.glb",
+      "position": [
+        -22,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.08366341,
+        3.08366341,
+        3.08366341
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-63dfbbcfaa40271a",
+      "name": "Foliage · LeafSetA_16 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_16.glb",
+      "position": [
+        -18,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.12013496,
+        3.12013496,
+        3.12013496
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e4bf1dbe52e63d5b",
+      "name": "Foliage · LeafSetA_17 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_17.glb",
+      "position": [
+        -14,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68125247,
+        2.68125247,
+        2.68125247
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7434084abaf2161e",
+      "name": "Foliage · LeafSetA_18 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_18.glb",
+      "position": [
+        -10,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68125228,
+        2.68125228,
+        2.68125228
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-476502a581396090",
+      "name": "Foliage · LeafSetA_19 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_19.glb",
+      "position": [
+        -6,
+        -3e-8,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.65139972,
+        3.65139972,
+        3.65139972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e757cd62fc14efab",
+      "name": "Foliage · LeafSetA_2 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_2.glb",
+      "position": [
+        -2,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.53959624,
+        3.53959624,
+        3.53959624
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6d2c0947404c9cbc",
+      "name": "Foliage · LeafSetA_20 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_20.glb",
+      "position": [
+        -22,
+        -2e-8,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.17984699,
+        3.17984699,
+        3.17984699
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0b7a86b03ba0a8a4",
+      "name": "Foliage · LeafSetA_21 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_21.glb",
+      "position": [
+        -18,
+        -4e-8,
+        25.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.15958164,
+        5.15958164,
+        5.15958164
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bfc3fc57c6daebbd",
+      "name": "Foliage · LeafSetA_22 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_22.glb",
+      "position": [
+        -14,
+        -2e-8,
+        25.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.17984669,
+        3.17984669,
+        3.17984669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c07179529ae99e7c",
+      "name": "Foliage · LeafSetA_23 · 模型 0.07 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_23.glb",
+      "position": [
+        -10,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98270231,
+        0.98270231,
+        0.98270231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bf945454bb20e1a2",
+      "name": "Foliage · LeafSetA_24 · 模型 0.06 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_24.glb",
+      "position": [
+        -6,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03969841,
+        1.03969841,
+        1.03969841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cbff6f0ec6b8a05c",
+      "name": "Foliage · LeafSetA_3 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_3.glb",
+      "position": [
+        -2,
+        -1e-8,
+        25.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.21689541,
+        7.21689541,
+        7.21689541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-694a363290aeed05",
+      "name": "Foliage · LeafSetA_4 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_4.glb",
+      "position": [
+        -22,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.97675599,
+        8.97675599,
+        8.97675599
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-32a82a29f8c5b9e5",
+      "name": "Foliage · LeafSetA_5 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_5.glb",
+      "position": [
+        -18,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.71344706,
+        4.71344706,
+        4.71344706
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-87723970148ce8ca",
+      "name": "Foliage · LeafSetA_6 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_6.glb",
+      "position": [
+        -14,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.21689541,
+        7.21689541,
+        7.21689541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-35bc952f58eb9130",
+      "name": "Foliage · LeafSetA_7 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_7.glb",
+      "position": [
+        -10,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.27966282,
+        6.27966282,
+        6.27966282
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-655fec376f76c51a",
+      "name": "Foliage · LeafSetA_8 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_8.glb",
+      "position": [
+        -6,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.47160327,
+        5.47160327,
+        5.47160327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-da1e0a4b09b6f4bb",
+      "name": "Foliage · LeafSetA_9 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetA_9.glb",
+      "position": [
+        -2,
+        0,
+        21.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.82477873,
+        4.82477873,
+        4.82477873
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74376b191ea959b8",
+      "name": "Foliage · LeafSetB_1 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_1.glb",
+      "position": [
+        -22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.89742781,
+        7.89742781,
+        7.89742781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-21e3effd4df5ecd1",
+      "name": "Foliage · LeafSetB_10 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_10.glb",
+      "position": [
+        -18,
+        0,
+        17.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.63561244,
+        3.63561244,
+        3.63561244
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eccfebf96c7eef92",
+      "name": "Foliage · LeafSetB_11 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_11.glb",
+      "position": [
+        -14,
+        0,
+        17.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.80927485,
+        3.80927485,
+        3.80927485
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c89dc990b5b2a01e",
+      "name": "Foliage · LeafSetB_12 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_12.glb",
+      "position": [
+        -10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.84474245,
+        3.84474245,
+        3.84474245
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-232db3451b447ec7",
+      "name": "Foliage · LeafSetB_13 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_13.glb",
+      "position": [
+        -6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.09804543,
+        2.09804543,
+        2.09804543
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-44040767fdfeb6ed",
+      "name": "Foliage · LeafSetB_14 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_14.glb",
+      "position": [
+        -2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.08484224,
+        2.08484224,
+        2.08484224
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-68774fb7768507e6",
+      "name": "Foliage · LeafSetB_15 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_15.glb",
+      "position": [
+        -22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97321495,
+        2.97321495,
+        2.97321495
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c9644cd1a2a29cc0",
+      "name": "Foliage · LeafSetB_16 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_16.glb",
+      "position": [
+        -18,
+        0,
+        13.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.4053511,
+        3.4053511,
+        3.4053511
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a8e0a2eae3b8210a",
+      "name": "Foliage · LeafSetB_17 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_17.glb",
+      "position": [
+        -14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.99757596,
+        3.99757596,
+        3.99757596
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-033cc33405cf06e0",
+      "name": "Foliage · LeafSetB_18 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_18.glb",
+      "position": [
+        -10,
+        0,
+        13.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.22016819,
+        5.22016819,
+        5.22016819
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3510d28b39901947",
+      "name": "Foliage · LeafSetB_19 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_19.glb",
+      "position": [
+        -6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.38250618,
+        3.38250618,
+        3.38250618
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-58c83e35e6b13bae",
+      "name": "Foliage · LeafSetB_2 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_2.glb",
+      "position": [
+        -2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.47191602,
+        5.47191602,
+        5.47191602
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ab53ec18a2cb5d3b",
+      "name": "Foliage · LeafSetB_20 · 模型 0.05 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_20.glb",
+      "position": [
+        -22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07516686,
+        1.07516686,
+        1.07516686
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3fd246b2ee56efdb",
+      "name": "Foliage · LeafSetB_21 · 模型 0.14 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_21.glb",
+      "position": [
+        -18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00286916,
+        1.00286916,
+        1.00286916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4dd2ff2685341d65",
+      "name": "Foliage · LeafSetB_3 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_3.glb",
+      "position": [
+        -14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.70773418,
+        5.70773418,
+        5.70773418
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4aa72a07a7f88b89",
+      "name": "Foliage · LeafSetB_4 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_4.glb",
+      "position": [
+        -10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.88997167,
+        4.88997167,
+        4.88997167
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bc63b64156233416",
+      "name": "Foliage · LeafSetB_5 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_5.glb",
+      "position": [
+        -6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6382236,
+        3.6382236,
+        3.6382236
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b3a7ba0721c0bddb",
+      "name": "Foliage · LeafSetB_6 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_6.glb",
+      "position": [
+        -2,
+        0,
+        9.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.24027102,
+        2.24027102,
+        2.24027102
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-affccd6d5ce022fd",
+      "name": "Foliage · LeafSetB_7 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_7.glb",
+      "position": [
+        -22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.82148841,
+        3.82148841,
+        3.82148841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-39acb8bf1b738f33",
+      "name": "Foliage · LeafSetB_8 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_8.glb",
+      "position": [
+        -18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.74667063,
+        3.74667063,
+        3.74667063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cfcdcfd3389b6cdf",
+      "name": "Foliage · LeafSetB_9 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetB_9.glb",
+      "position": [
+        -14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.55959008,
+        3.55959008,
+        3.55959008
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1081e37740009c61",
+      "name": "Foliage · LeafSetC_1 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_1.glb",
+      "position": [
+        -10,
+        0,
+        5.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.58220824,
+        7.58220824,
+        7.58220824
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-84f7aae3de4fb74b",
+      "name": "Foliage · LeafSetC_10 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_10.glb",
+      "position": [
+        -6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.66176905,
+        2.66176905,
+        2.66176905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6c65a8748cc9e34c",
+      "name": "Foliage · LeafSetC_11 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_11.glb",
+      "position": [
+        -2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.69024694,
+        2.69024694,
+        2.69024694
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-74f6e3a979d46d40",
+      "name": "Foliage · LeafSetC_12 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_12.glb",
+      "position": [
+        -22,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.52778908,
+        2.52778908,
+        2.52778908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f790a178ed84059d",
+      "name": "Foliage · LeafSetC_13 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_13.glb",
+      "position": [
+        -18,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.52778908,
+        2.52778908,
+        2.52778908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6a0c0d946e081d84",
+      "name": "Foliage · LeafSetC_14 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_14.glb",
+      "position": [
+        -14,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.43933342,
+        2.43933342,
+        2.43933342
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b68d50bd5465ec98",
+      "name": "Foliage · LeafSetC_15 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_15.glb",
+      "position": [
+        -10,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.26613539,
+        2.26613539,
+        2.26613539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ae608afad7561197",
+      "name": "Foliage · LeafSetC_16 · 模型 0.06 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_16.glb",
+      "position": [
+        -6,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.94938092,
+        0.94938092,
+        0.94938092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ff180fa8bb340a81",
+      "name": "Foliage · LeafSetC_17 · 模型 0.06 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_17.glb",
+      "position": [
+        -2,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.97065882,
+        0.97065882,
+        0.97065882
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0db0729f200b6732",
+      "name": "Foliage · LeafSetC_2 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_2.glb",
+      "position": [
+        -22,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.37923174,
+        9.37923174,
+        9.37923174
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-70217089aed8c1ad",
+      "name": "Foliage · LeafSetC_3 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_3.glb",
+      "position": [
+        -18.00000003,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.86849725,
+        8.86849725,
+        8.86849725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a3f2acfb51e44c2b",
+      "name": "Foliage · LeafSetC_4 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_4.glb",
+      "position": [
+        -14,
+        0,
+        -2.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.06712345,
+        7.06712345,
+        7.06712345
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-efc5159a5e7828f6",
+      "name": "Foliage · LeafSetC_5 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_5.glb",
+      "position": [
+        -10,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.57899185,
+        6.57899185,
+        6.57899185
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3c791dc881aee414",
+      "name": "Foliage · LeafSetC_6 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_6.glb",
+      "position": [
+        -6,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.51010909,
+        4.51010909,
+        4.51010909
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6df8e798ded227bd",
+      "name": "Foliage · LeafSetC_7 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_7.glb",
+      "position": [
+        -2,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.10497636,
+        5.10497636,
+        5.10497636
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-365b06a909d5de2a",
+      "name": "Foliage · LeafSetC_8 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_8.glb",
+      "position": [
+        2,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.27526023,
+        3.27526023,
+        3.27526023
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-abc6f49278963e9b",
+      "name": "Foliage · LeafSetC_9 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetC_9.glb",
+      "position": [
+        6,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9595575,
+        2.9595575,
+        2.9595575
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6379183cd7463082",
+      "name": "Foliage · LeafSetD_1 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_1.glb",
+      "position": [
+        10,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.70578906,
+        19.70578906,
+        19.70578906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1af9f3e82293593e",
+      "name": "Foliage · LeafSetD_10 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_10.glb",
+      "position": [
+        13.99999999,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.61382227,
+        5.61382227,
+        5.61382227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-95d973c4d8ea0e5c",
+      "name": "Foliage · LeafSetD_11 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_11.glb",
+      "position": [
+        18,
+        0,
+        33.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.26900248,
+        5.26900248,
+        5.26900248
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8744f7bcc030a26d",
+      "name": "Foliage · LeafSetD_12 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_12.glb",
+      "position": [
+        22,
+        0,
+        33.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.41049294,
+        5.41049294,
+        5.41049294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-66264f0f567c22e7",
+      "name": "Foliage · LeafSetD_13 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_13.glb",
+      "position": [
+        2,
+        0,
+        29.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.55144492,
+        5.55144492,
+        5.55144492
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b69a9f7d86ce35b",
+      "name": "Foliage · LeafSetD_14 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_14.glb",
+      "position": [
+        6,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.20545933,
+        5.20545933,
+        5.20545933
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-77832cbcd8ed4646",
+      "name": "Foliage · LeafSetD_15 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_15.glb",
+      "position": [
+        10,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.22577565,
+        5.22577565,
+        5.22577565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a309559d82105eb8",
+      "name": "Foliage · LeafSetD_16 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_16.glb",
+      "position": [
+        14,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.23599272,
+        5.23599272,
+        5.23599272
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a113a2bd49320af9",
+      "name": "Foliage · LeafSetD_17 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_17.glb",
+      "position": [
+        18,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.60882317,
+        1.60882317,
+        1.60882317
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5edbcb478d167452",
+      "name": "Foliage · LeafSetD_18 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_18.glb",
+      "position": [
+        22,
+        0,
+        29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54831061,
+        1.54831061,
+        1.54831061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-78c1db9a72d18571",
+      "name": "Foliage · LeafSetD_19 · 模型 0.02 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_19.glb",
+      "position": [
+        2,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.28817604,
+        3.28817604,
+        3.28817604
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e00b9e00c8767f91",
+      "name": "Foliage · LeafSetD_2 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_2.glb",
+      "position": [
+        6,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.86520813,
+        9.86520813,
+        9.86520813
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d07fe49b6d40d593",
+      "name": "Foliage · LeafSetD_20 · 模型 0.26 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_20.glb",
+      "position": [
+        10,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89981865,
+        0.89981865,
+        0.89981865
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dc6394ff0c0d03d4",
+      "name": "Foliage · LeafSetD_21 · 模型 0.03 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_21.glb",
+      "position": [
+        14,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27201049,
+        1.27201049,
+        1.27201049
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a2af2b91a0677acb",
+      "name": "Foliage · LeafSetD_3 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_3.glb",
+      "position": [
+        18,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.20736883,
+        10.20736883,
+        10.20736883
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0b4954c208e8f7f9",
+      "name": "Foliage · LeafSetD_4 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_4.glb",
+      "position": [
+        22,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.79371833,
+        12.79371833,
+        12.79371833
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9164f989bc2713e9",
+      "name": "Foliage · LeafSetD_5 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_5.glb",
+      "position": [
+        2,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.64298917,
+        10.64298917,
+        10.64298917
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bd598d774bd256ae",
+      "name": "Foliage · LeafSetD_6 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_6.glb",
+      "position": [
+        6,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.49640477,
+        10.49640477,
+        10.49640477
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-95c7b459d7ef6cca",
+      "name": "Foliage · LeafSetD_7 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_7.glb",
+      "position": [
+        10,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.57225915,
+        10.57225915,
+        10.57225915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f8a8df88a4281a1b",
+      "name": "Foliage · LeafSetD_8 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_8.glb",
+      "position": [
+        14,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.60286794,
+        5.60286794,
+        5.60286794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3b8f8d78f90ea278",
+      "name": "Foliage · LeafSetD_9 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetD_9.glb",
+      "position": [
+        18,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.58108636,
+        5.58108636,
+        5.58108636
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-86207ba7756eb5aa",
+      "name": "Foliage · LeafSetE_1 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_1.glb",
+      "position": [
+        22,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.54364939,
+        10.54364939,
+        10.54364939
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bbd86967a694f4b6",
+      "name": "Foliage · LeafSetE_10 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_10.glb",
+      "position": [
+        2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85536996,
+        1.85536996,
+        1.85536996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d584109c74d8ba29",
+      "name": "Foliage · LeafSetE_11 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_11.glb",
+      "position": [
+        6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85536996,
+        1.85536996,
+        1.85536996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dc4057922f507322",
+      "name": "Foliage · LeafSetE_12 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_12.glb",
+      "position": [
+        10,
+        0,
+        17.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.94216407,
+        3.94216407,
+        3.94216407
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ee63585d298503c8",
+      "name": "Foliage · LeafSetE_13 · 模型 0.04 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_13.glb",
+      "position": [
+        14,
+        0,
+        17.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.94481457,
+        0.94481457,
+        0.94481457
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-da3cb69f1812c5e4",
+      "name": "Foliage · LeafSetE_14 · 模型 0.04 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_14.glb",
+      "position": [
+        18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.97270569,
+        0.97270569,
+        0.97270569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e5d6b1695e2ffa99",
+      "name": "Foliage · LeafSetE_2 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_2.glb",
+      "position": [
+        22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.9202744,
+        5.9202744,
+        5.9202744
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-caa088c29bde3342",
+      "name": "Foliage · LeafSetE_3 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_3.glb",
+      "position": [
+        2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.03059789,
+        4.03059789,
+        4.03059789
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0f2e4e9551a06ee3",
+      "name": "Foliage · LeafSetE_4 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_4.glb",
+      "position": [
+        6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.5666702,
+        4.5666702,
+        4.5666702
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-97270db6c0284014",
+      "name": "Foliage · LeafSetE_5 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_5.glb",
+      "position": [
+        10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.16378389,
+        4.16378389,
+        4.16378389
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-94a231d1b3d0d42a",
+      "name": "Foliage · LeafSetE_6 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_6.glb",
+      "position": [
+        14,
+        -1e-8,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6176994,
+        3.6176994,
+        3.6176994
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ef0a0cbb2d8fcbd8",
+      "name": "Foliage · LeafSetE_7 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_7.glb",
+      "position": [
+        18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.03059783,
+        4.03059783,
+        4.03059783
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a788fbca975f39a4",
+      "name": "Foliage · LeafSetE_8 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_8.glb",
+      "position": [
+        22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.03059777,
+        4.03059777,
+        4.03059777
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-68f7629ab0c3d8ee",
+      "name": "Foliage · LeafSetE_9 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetE_9.glb",
+      "position": [
+        2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.40468182,
+        2.40468182,
+        2.40468182
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6e10dcb2377dd0b3",
+      "name": "Foliage · LeafSetF_1 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_1.glb",
+      "position": [
+        6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.76116239,
+        9.76116239,
+        9.76116239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe4d05c8ab3f3bc9",
+      "name": "Foliage · LeafSetF_10 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_10.glb",
+      "position": [
+        10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.41117457,
+        3.41117457,
+        3.41117457
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-36563980bde1ec01",
+      "name": "Foliage · LeafSetF_11 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_11.glb",
+      "position": [
+        14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.35768597,
+        3.35768597,
+        3.35768597
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-962af711775d85bc",
+      "name": "Foliage · LeafSetF_12 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_12.glb",
+      "position": [
+        18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.40025915,
+        2.40025915,
+        2.40025915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb69d77bc64d5ba7",
+      "name": "Foliage · LeafSetF_13 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_13.glb",
+      "position": [
+        22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.41117457,
+        3.41117457,
+        3.41117457
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d4b88a1b94d9164b",
+      "name": "Foliage · LeafSetF_14 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_14.glb",
+      "position": [
+        2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.35768597,
+        3.35768597,
+        3.35768597
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e25e0a9533248a6b",
+      "name": "Foliage · LeafSetF_15 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_15.glb",
+      "position": [
+        6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.12559929,
+        3.12559929,
+        3.12559929
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1bb8cfbbc5032457",
+      "name": "Foliage · LeafSetF_16 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_16.glb",
+      "position": [
+        10,
+        1e-8,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.87026201,
+        2.87026201,
+        2.87026201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3775d07a4a1cc70a",
+      "name": "Foliage · LeafSetF_17 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_17.glb",
+      "position": [
+        14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.75762256,
+        1.75762256,
+        1.75762256
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8963cd7d6eef497f",
+      "name": "Foliage · LeafSetF_18 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_18.glb",
+      "position": [
+        18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.75762235,
+        1.75762235,
+        1.75762235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ef25356c4ae099ce",
+      "name": "Foliage · LeafSetF_19 · 模型 0.03 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_19.glb",
+      "position": [
+        22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00088193,
+        1.00088193,
+        1.00088193
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5aaf5c4c664ed6a0",
+      "name": "Foliage · LeafSetF_2 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_2.glb",
+      "position": [
+        2,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.84431088,
+        10.84431088,
+        10.84431088
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-518c508821a00cc2",
+      "name": "Foliage · LeafSetF_20 · 模型 0.03 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_20.glb",
+      "position": [
+        6,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98294975,
+        0.98294975,
+        0.98294975
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-735c4590fc6cbeaa",
+      "name": "Foliage · LeafSetF_3 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_3.glb",
+      "position": [
+        10,
+        1e-8,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.18337333,
+        6.18337333,
+        6.18337333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7e77c06e62e85f7a",
+      "name": "Foliage · LeafSetF_4 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_4.glb",
+      "position": [
+        14,
+        1e-8,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.25880814,
+        5.25880814,
+        5.25880814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e1b28a209943b18e",
+      "name": "Foliage · LeafSetF_5 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_5.glb",
+      "position": [
+        18,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.50326523,
+        3.50326523,
+        3.50326523
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7bde00ec75151508",
+      "name": "Foliage · LeafSetF_6 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_6.glb",
+      "position": [
+        22,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4027483,
+        2.4027483,
+        2.4027483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d0b692c8fd33ceac",
+      "name": "Foliage · LeafSetF_8 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_8.glb",
+      "position": [
+        2,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.40274813,
+        2.40274813,
+        2.40274813
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-953273e4b97d506f",
+      "name": "Foliage · LeafSetF_9 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetF_9.glb",
+      "position": [
+        6,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.40274814,
+        2.40274814,
+        2.40274814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c93d750117580d56",
+      "name": "Foliage · LeafSetG_1 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_1.glb",
+      "position": [
+        10,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.14318825,
+        12.14318825,
+        12.14318825
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-54e00be8cb454d66",
+      "name": "Foliage · LeafSetG_10 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_10.glb",
+      "position": [
+        14,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.35577902,
+        5.35577902,
+        5.35577902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-876c39fd152a19f2",
+      "name": "Foliage · LeafSetG_11 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_11.glb",
+      "position": [
+        18,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.26211047,
+        5.26211047,
+        5.26211047
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a6bf6079ae93e1d7",
+      "name": "Foliage · LeafSetG_12 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_12.glb",
+      "position": [
+        22,
+        0,
+        -2.49999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.07113777,
+        4.07113777,
+        4.07113777
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9fb39518c4db8228",
+      "name": "Foliage · LeafSetG_13 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_13.glb",
+      "position": [
+        -22,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.79832798,
+        4.79832798,
+        4.79832798
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-93a46943f11076ea",
+      "name": "Foliage · LeafSetG_14 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_14.glb",
+      "position": [
+        -18,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.07113753,
+        4.07113753,
+        4.07113753
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-53d3c12de0dac76a",
+      "name": "Foliage · LeafSetG_15 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_15.glb",
+      "position": [
+        -14,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.32165861,
+        3.32165861,
+        3.32165861
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eb21785284ff0b6f",
+      "name": "Foliage · LeafSetG_16 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_16.glb",
+      "position": [
+        -10,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.67816021,
+        2.67816021,
+        2.67816021
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4d7590e63b3ac280",
+      "name": "Foliage · LeafSetG_17 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_17.glb",
+      "position": [
+        -6,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85473558,
+        1.85473558,
+        1.85473558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4b8ff4ac9855c625",
+      "name": "Foliage · LeafSetG_18 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_18.glb",
+      "position": [
+        -2,
+        0,
+        -9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85473558,
+        1.85473558,
+        1.85473558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e4f616270085eb1e",
+      "name": "Foliage · LeafSetG_19 · 模型 0.01 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_19.glb",
+      "position": [
+        -22,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.45113514,
+        3.45113514,
+        3.45113514
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8dfec8fce8a3674c",
+      "name": "Foliage · LeafSetG_2 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_2.glb",
+      "position": [
+        -18,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.5005669,
+        9.5005669,
+        9.5005669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f94b2ee6bbd1064e",
+      "name": "Foliage · LeafSetG_20 · 模型 0.04 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_20.glb",
+      "position": [
+        -14,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11677426,
+        1.11677426,
+        1.11677426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a0d40d8ec1619109",
+      "name": "Foliage · LeafSetG_21 · 模型 0.05 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_21.glb",
+      "position": [
+        -10,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15675946,
+        1.15675946,
+        1.15675946
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eb5b4fb3a9d3803a",
+      "name": "Foliage · LeafSetG_3 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_3.glb",
+      "position": [
+        -6,
+        0,
+        -13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.08486999,
+        11.08486999,
+        11.08486999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-83f8f33736b693a8",
+      "name": "Foliage · LeafSetG_4 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_4.glb",
+      "position": [
+        -2,
+        0,
+        -13.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.27183332,
+        13.27183332,
+        13.27183332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9a78de790f683c42",
+      "name": "Foliage · LeafSetG_5 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_5.glb",
+      "position": [
+        -22,
+        0,
+        -17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.71619825,
+        10.71619825,
+        10.71619825
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ed0b19b6bd99e467",
+      "name": "Foliage · LeafSetG_6 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_6.glb",
+      "position": [
+        -18,
+        0,
+        -17.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.08887814,
+        12.08887814,
+        12.08887814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eeeacd247210b7c8",
+      "name": "Foliage · LeafSetG_7 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_7.glb",
+      "position": [
+        -14,
+        0,
+        -17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.50321784,
+        12.50321784,
+        12.50321784
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-918ea970af0bf588",
+      "name": "Foliage · LeafSetG_8 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_8.glb",
+      "position": [
+        -10,
+        0,
+        -17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.50633529,
+        5.50633529,
+        5.50633529
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-503d5ea30bae05bc",
+      "name": "Foliage · LeafSetG_9 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetG_9.glb",
+      "position": [
+        -6,
+        0,
+        -17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.07113777,
+        4.07113777,
+        4.07113777
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-089c36464f6664d1",
+      "name": "Foliage · LeafSetH_1 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_1.glb",
+      "position": [
+        -2,
+        0,
+        -17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.13132677,
+        9.13132677,
+        9.13132677
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b9dc7936fad2ea16",
+      "name": "Foliage · LeafSetH_10 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_10.glb",
+      "position": [
+        -22,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.09064551,
+        3.09064551,
+        3.09064551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-084312282aaea858",
+      "name": "Foliage · LeafSetH_11 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_11.glb",
+      "position": [
+        -18,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.89572674,
+        2.89572674,
+        2.89572674
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4859cf3d9eee8a00",
+      "name": "Foliage · LeafSetH_12 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_12.glb",
+      "position": [
+        -14,
+        1e-8,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.12579776,
+        3.12579776,
+        3.12579776
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-83cc08a664d66c55",
+      "name": "Foliage · LeafSetH_13 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_13.glb",
+      "position": [
+        -10,
+        -2e-8,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.35021997,
+        3.35021997,
+        3.35021997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-df3859a6bdb97f3b",
+      "name": "Foliage · LeafSetH_14 · 模型 0.03 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_14.glb",
+      "position": [
+        -6,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06216239,
+        1.06216239,
+        1.06216239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ccffef0124f7dcdb",
+      "name": "Foliage · LeafSetH_15 · 模型 0.02 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_15.glb",
+      "position": [
+        -2,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.08061724,
+        1.08061724,
+        1.08061724
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1f411c09674253cc",
+      "name": "Foliage · LeafSetH_2 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_2.glb",
+      "position": [
+        -22,
+        0,
+        -25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.37338691,
+        9.37338691,
+        9.37338691
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-73835a3dd8a3cad8",
+      "name": "Foliage · LeafSetH_3 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_3.glb",
+      "position": [
+        -18,
+        0,
+        -25.49999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.12223834,
+        9.12223834,
+        9.12223834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-31b7a0085e28c19a",
+      "name": "Foliage · LeafSetH_4 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_4.glb",
+      "position": [
+        -14,
+        0,
+        -25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.41457631,
+        9.41457631,
+        9.41457631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ebcc0962df73e93d",
+      "name": "Foliage · LeafSetH_5 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_5.glb",
+      "position": [
+        -10,
+        0,
+        -25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.24237062,
+        3.24237062,
+        3.24237062
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-66c114b9ae7b0a09",
+      "name": "Foliage · LeafSetH_6 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_6.glb",
+      "position": [
+        -6,
+        0,
+        -25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.60981524,
+        6.60981524,
+        6.60981524
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0167ce3184c6c518",
+      "name": "Foliage · LeafSetH_7 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_7.glb",
+      "position": [
+        -2,
+        0,
+        -25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.15828414,
+        5.15828414,
+        5.15828414
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-763ff908c39e7dc5",
+      "name": "Foliage · LeafSetH_8 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_8.glb",
+      "position": [
+        -14,
+        0,
+        -29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.09064556,
+        3.09064556,
+        3.09064556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a6ec805ce0cb183a",
+      "name": "Foliage · LeafSetH_9 · 模型 0.00 MiB · 贴图 0.17 MiB",
+      "parentId": "transform:category-foliage-2",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Foliage/LeafSetH_9.glb",
+      "position": [
+        -10,
+        0,
+        -29.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.89478192,
+        2.89478192,
+        2.89478192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

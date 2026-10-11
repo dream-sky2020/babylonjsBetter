@@ -6,7 +6,7 @@ import {
 } from '@babylonjs/core';
 import { openCommandMenuAtPoint, openCommandMenuFromElement, type CommandMenuEntry } from '@/core/ui/menu';
 import { ObjectHierarchy, InspectorPanel, type EditorHierarchyItem } from '@/core/ui/editor-kit';
-import { createModelEntity, type ModelEntity } from '@/core/model';
+import { createModelEntity, parseModelMaterialBindings, type ModelEntity } from '@/core/model';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
 import { createWeaponAnimationExamples } from '@/core/model/preset/firstPersonWeaponExamples.ts';
 import { loadWeaponPresets } from '@/core/model/preset/firstPersonWeaponPresetApi.ts';
@@ -32,7 +32,7 @@ type Runtime = {
   editor: SceneEditor;
   nodes: Map<string, TransformNode>;
   previewSignatures: Map<string, string>;
-  assetEntities: Map<string, { path: string; entity: ModelEntity }>;
+  assetEntities: Map<string, { path: string; entity: ModelEntity; materialSignature?: string; pendingMaterialSignature?: string; materialUpdatePending?: boolean; materialUpdateVersion?: number }>;
   assetLoadTokens: Map<string, string>;
 };
 
@@ -243,15 +243,32 @@ export function AnimationWorkbenchLab() {
       const path = typeof object.config.path === 'string' ? object.config.path : '';
       const node = runtime.nodes.get(object.id); if (!node) return;
       const existing = runtime.assetEntities.get(object.id);
-      if (existing?.path === path) return;
+      const materialOverrides = parseModelMaterialBindings(object.config.materialOverrides);
+      const materialSignature = JSON.stringify(materialOverrides);
+      if (existing?.path === path) {
+        if (existing.materialUpdatePending ? existing.pendingMaterialSignature !== materialSignature : existing.materialSignature !== materialSignature) {
+          existing.pendingMaterialSignature = materialSignature; existing.materialUpdatePending = true;
+          const version = (existing.materialUpdateVersion ?? 0) + 1; existing.materialUpdateVersion = version;
+          const current = () => runtimeRef.current === runtime && runtime.assetEntities.get(object.id) === existing && existing.materialUpdateVersion === version;
+          void existing.entity.updateMaterialBindings(materialOverrides).then(() => {
+            if (!current()) return;
+            existing.materialSignature = materialSignature; existing.pendingMaterialSignature = undefined; existing.materialUpdatePending = false;
+          }).catch(error => {
+            if (!current()) return;
+            existing.pendingMaterialSignature = undefined; existing.materialUpdatePending = false;
+            setStatus(`材质更新失败：${String(error)}`);
+          });
+        }
+        return;
+      }
       if (existing) { existing.entity.dispose(); runtime.assetEntities.delete(object.id); }
       node.getChildMeshes(false).filter(mesh => mesh.name.endsWith('-placeholder')).forEach(mesh => mesh.setEnabled(!path && visibleLayers.visual));
       const token = makeId(); runtime.assetLoadTokens.set(object.id, token); if (!path) return;
-      void createModelEntity(runtime.scene, path).then(entity => {
+      void createModelEntity(runtime.scene, path, { materialOverrides }).then(entity => {
         if (runtimeRef.current !== runtime || runtime.assetLoadTokens.get(object.id) !== token || !runtime.nodes.has(object.id)) { entity.dispose(); return; }
         entity.root.parent = runtime.nodes.get(object.id)!; entity.stopAnimations();
         entity.root.getChildMeshes(false).forEach(mesh => { mesh.metadata = { ...(mesh.metadata ?? {}), animationWorkbenchObjectId: object.id, animationWorkbenchOwnerId: object.id }; mesh.setEnabled(visibleLayers.visual); });
-        runtime.assetEntities.set(object.id, { path, entity }); setStatus(`模型已载入：${decodeURIComponent(path.split('/').pop() ?? path)}`);
+        runtime.assetEntities.set(object.id, { path, entity, materialSignature }); setStatus(`模型已载入：${decodeURIComponent(path.split('/').pop() ?? path)}`);
       }).catch(error => { if (runtime.assetLoadTokens.get(object.id) === token) setStatus(`模型加载失败：${error instanceof Error ? error.message : String(error)}`); });
     });
   }, [workspace.objects, runtimeReady, visibleLayers.visual]);

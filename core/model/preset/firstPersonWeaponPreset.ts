@@ -1,3 +1,4 @@
+import { parseModelMaterialBindings } from '../material/modelMaterialBindings.ts';
 export type Vec3 = { x: number; y: number; z: number };
 export type ProxyShape = 'box' | 'gun' | 'cylinder' | 'capsule' | 'sphere';
 export type InteractionVolumeShape = 'box' | 'cylinder' | 'capsule' | 'sphere';
@@ -13,7 +14,7 @@ type LegacyWeaponProject = {
   version: 1; name: string; duration: number; loop: boolean; playbackSpeed: number;
   proxy: LegacyWeaponProxy;
   /** Instance installation only; asset normalization remains in modelAssetProfiles.json. */
-  asset: { path: string; name: string; scale: number; offset: Vec3; rotation: Vec3 };
+  asset: { path: string; name: string; scale: number; offset: Vec3; rotation: Vec3; materialOverrides?: import('../material/modelMaterialBindings.ts').ModelMaterialBindings };
   keyframes: WeaponKeyframe[];
 };
 export type WeaponHand = 'right' | 'left';
@@ -50,7 +51,7 @@ function parseLegacyProject(value: unknown): LegacyWeaponProject {
   const p = obj(value, ['version', 'name', 'duration', 'loop', 'playbackSpeed', 'proxy', 'asset', 'keyframes'], 'project');
   if (p.version !== 1 || typeof p.loop !== 'boolean') fail('version / loop');
   const duration = number(p.duration, 'duration', true);
-  const a = obj(p.asset, ['path', 'name', 'scale', 'offset', 'rotation'], 'asset');
+  const a = obj(p.asset, ['path', 'name', 'scale', 'offset', 'rotation', 'materialOverrides'], 'asset');
   const path = string(a.path, 'asset.path');
   if (path && (!/^\/resources\/.+\.(glb|gltf)$/i.test(path) || path.includes('..') || path.includes('\\'))) fail('asset.path');
   const proxy = obj(p.proxy, ['shape', 'size', 'center', 'grip', 'tip'], 'proxy');
@@ -65,7 +66,7 @@ function parseLegacyProject(value: unknown): LegacyWeaponProject {
   }).sort((a, b) => a.time - b.time);
   return { version: 1, name: string(p.name, 'name'), duration, loop: p.loop as boolean, playbackSpeed: number(p.playbackSpeed, 'playbackSpeed', true),
     proxy: { shape: proxy.shape as ProxyShape, size: vector(proxy.size, 'size', true), center: vector(proxy.center, 'center'), grip: vector(proxy.grip, 'grip'), tip: vector(proxy.tip, 'tip') },
-    asset: { path, name: string(a.name, 'asset.name'), scale: number(a.scale, 'scale', true), offset: vector(a.offset, 'offset'), rotation: vector(a.rotation, 'rotation') }, keyframes };
+    asset: { path, name: string(a.name, 'asset.name'), scale: number(a.scale, 'scale', true), offset: vector(a.offset, 'offset'), rotation: vector(a.rotation, 'rotation'), ...(a.materialOverrides === undefined ? {} : { materialOverrides: parseModelMaterialBindings(a.materialOverrides) }) }, keyframes };
 }
 
 /** Mirror camera-space motion, never mirror or renormalize the model itself. */

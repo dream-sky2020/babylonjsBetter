@@ -1,0 +1,8132 @@
+{
+  "presetKey": "artist-rayzngames-model-test",
+  "name": "rayzngames · 模型展示（107 款 / 163 件展示）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "medical-supplies",
+      "name": "医疗用品分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "city-indoor",
+      "name": "室内与杂物分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "city-street",
+      "name": "城市街道分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fan",
+      "name": "风扇配色分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "medical-case",
+      "name": "医疗箱分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "boat",
+      "name": "运输船分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 48,
+        "height": 86
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-scissor1-0-stand",
+      "name": "Scissor1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        42
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-scissor1-1-stand",
+      "name": "Scissor1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        42
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_1-0-stand",
+      "name": "Barbiturics_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        42
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_1-1-stand",
+      "name": "Barbiturics_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        42
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_2-0-stand",
+      "name": "Barbiturics_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        42
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_2-1-stand",
+      "name": "Barbiturics_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_3-0-stand",
+      "name": "Barbiturics_3 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_3-1-stand",
+      "name": "Barbiturics_3 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_4-0-stand",
+      "name": "Barbiturics_4 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_4-1-stand",
+      "name": "Barbiturics_4 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_5-0-stand",
+      "name": "Barbiturics_5 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_5-1-stand",
+      "name": "Barbiturics_5 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_6-0-stand",
+      "name": "Barbiturics_6 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_6-1-stand",
+      "name": "Barbiturics_6 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_1-0-stand",
+      "name": "MedicalSupplyPack_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_1-1-stand",
+      "name": "MedicalSupplyPack_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_2-0-stand",
+      "name": "MedicalSupplyPack_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_2-1-stand",
+      "name": "MedicalSupplyPack_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_3-0-stand",
+      "name": "MedicalSupplyPack_3 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_3-1-stand",
+      "name": "MedicalSupplyPack_3 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-specialbarbiturics_1-0-stand",
+      "name": "SpecialBarbiturics_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-specialbarbiturics_1-1-stand",
+      "name": "SpecialBarbiturics_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-specialbarbiturics_2-0-stand",
+      "name": "SpecialBarbiturics_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-specialbarbiturics_2-1-stand",
+      "name": "SpecialBarbiturics_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_1-0-stand",
+      "name": "Biiotics3_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_1-1-stand",
+      "name": "Biiotics3_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_2-0-stand",
+      "name": "Biiotics3_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_2-1-stand",
+      "name": "Biiotics3_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_3-0-stand",
+      "name": "Biiotics3_3 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_3-1-stand",
+      "name": "Biiotics3_3 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-hydrantcream-0-stand",
+      "name": "HydrantCream · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-hydrantcream-1-stand",
+      "name": "HydrantCream · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-damagecream-0-stand",
+      "name": "DamageCream · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-damagecream-1-stand",
+      "name": "DamageCream · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-bandaidroll-0-stand",
+      "name": "BandAidRoll · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-bandaidroll-1-stand",
+      "name": "BandAidRoll · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-cotton-0-stand",
+      "name": "Cotton · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-cotton-1-stand",
+      "name": "Cotton · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalpackage-0-stand",
+      "name": "MedicalPackage · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalpackage-1-stand",
+      "name": "MedicalPackage · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-hydrocream-0-stand",
+      "name": "HydroCream · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-hydrocream-1-stand",
+      "name": "HydroCream · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-miniaidbox-0-stand",
+      "name": "MiniAidBox · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-miniaidbox-1-stand",
+      "name": "MiniAidBox · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-microtools-0-stand",
+      "name": "MicroTools · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-microtools-1-stand",
+      "name": "MicroTools · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-pillflask-0-stand",
+      "name": "PillFlask · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-pillflask-1-stand",
+      "name": "PillFlask · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe-0-stand",
+      "name": "Syringe · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe-1-stand",
+      "name": "Syringe · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-oxywater-0-stand",
+      "name": "OxyWater · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-oxywater-1-stand",
+      "name": "OxyWater · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_1-0-stand",
+      "name": "Sheets_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_1-1-stand",
+      "name": "Sheets_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_2-0-stand",
+      "name": "Sheets_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_2-1-stand",
+      "name": "Sheets_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_3-0-stand",
+      "name": "Sheets_3 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_3-1-stand",
+      "name": "Sheets_3 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-towels-0-stand",
+      "name": "Towels · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-towels-1-stand",
+      "name": "Towels · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-burncream-0-stand",
+      "name": "BurnCream · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-burncream-1-stand",
+      "name": "BurnCream · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-scissor-0-stand",
+      "name": "Scissor · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-scissor-1-stand",
+      "name": "Scissor · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-alcohol-0-stand",
+      "name": "Alcohol · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-alcohol-1-stand",
+      "name": "Alcohol · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_1-0-stand",
+      "name": "StickRoll1_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_1-1-stand",
+      "name": "StickRoll1_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_2-0-stand",
+      "name": "StickRoll1_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_2-1-stand",
+      "name": "StickRoll1_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -10
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_3-0-stand",
+      "name": "StickRoll1_3 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_3-1-stand",
+      "name": "StickRoll1_3 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_1-0-stand",
+      "name": "Topionic4_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_1-1-stand",
+      "name": "Topionic4_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_2-0-stand",
+      "name": "Topionic4_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -14
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_2-1-stand",
+      "name": "Topionic4_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_3-0-stand",
+      "name": "Topionic4_3 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_3-1-stand",
+      "name": "Topionic4_3 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-padstack-0-stand",
+      "name": "PadStack · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-padstack-1-stand",
+      "name": "PadStack · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -18
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_1-0-stand",
+      "name": "Additive_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_1-1-stand",
+      "name": "Additive_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_2-0-stand",
+      "name": "Additive_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_2-1-stand",
+      "name": "Additive_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_3-0-stand",
+      "name": "Additive_3 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -22
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_3-1-stand",
+      "name": "Additive_3 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionics_1-0-stand",
+      "name": "Topionics_1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionics_1-1-stand",
+      "name": "Topionics_1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionics_2-0-stand",
+      "name": "Topionics_2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionics_2-1-stand",
+      "name": "Topionics_2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -26
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe1-0-stand",
+      "name": "Syringe1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe1-1-stand",
+      "name": "Syringe1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe2-0-stand",
+      "name": "Syringe2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe2-1-stand",
+      "name": "Syringe2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe3-0-stand",
+      "name": "Syringe3 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -30
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe3-1-stand",
+      "name": "Syringe3 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe5-0-stand",
+      "name": "Syringe5 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe5-1-stand",
+      "name": "Syringe5 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool-0-stand",
+      "name": "RemovalTool · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool-1-stand",
+      "name": "RemovalTool · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -34
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool1-0-stand",
+      "name": "RemovalTool1 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool1-1-stand",
+      "name": "RemovalTool1 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool2-0-stand",
+      "name": "RemovalTool2 · 原始配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool2-1-stand",
+      "name": "RemovalTool2 · Safe 配色展台",
+      "parentId": "transform:medical-supplies",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -38
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-cup-stand",
+      "name": "Cup展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        42
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-coffeeglass-stand",
+      "name": "CoffeeGlass展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        42
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-coffeemug-stand",
+      "name": "CoffeeMug展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        42
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-coffeemachine-stand",
+      "name": "CoffeeMachine展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        42
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-fan-stand",
+      "name": "Fan展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        42
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-radio-stand",
+      "name": "Radio展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-wc-stand",
+      "name": "WC展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-snack-stand",
+      "name": "Snack展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-candy-stand",
+      "name": "Candy展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-bed-stand",
+      "name": "Bed展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        38
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-ring_bell-stand",
+      "name": "Ring_Bell展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign-stand",
+      "name": "Sign展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign1-stand",
+      "name": "Sign1展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign2-stand",
+      "name": "Sign2展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign3-stand",
+      "name": "Sign3展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        34
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign4-stand",
+      "name": "Sign4展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        30
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-paperroll-stand",
+      "name": "PaperRoll展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        30
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-paperroll_open-stand",
+      "name": "PaperRoll_Open展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        30
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-paperroll_holder-stand",
+      "name": "PaperRoll_Holder展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        30
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sink-stand",
+      "name": "Sink展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        30
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-electric_panel-stand",
+      "name": "Electric_Panel展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-locker-stand",
+      "name": "Locker展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-usb-stand",
+      "name": "USB展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-can_refreshment-stand",
+      "name": "Can_Refreshment展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-can_refreshment1-stand",
+      "name": "Can_Refreshment1展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        26
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-can_refreshment2-stand",
+      "name": "Can_Refreshment2展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        22
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-can_refreshment3-stand",
+      "name": "Can_Refreshment3展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        22
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-wood_crate-stand",
+      "name": "Wood_Crate展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        22
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-cardboard_box-stand",
+      "name": "CardBoard_Box展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        22
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-cardboard_openbox-stand",
+      "name": "Cardboard_OpenBox展台",
+      "parentId": "transform:city-indoor",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        22
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-fence-stand",
+      "name": "Fence展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-nail-stand",
+      "name": "Nail展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-cone_round-stand",
+      "name": "Cone_Round展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-conesquare-stand",
+      "name": "ConeSquare展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-conehexagonal-stand",
+      "name": "ConeHexagonal展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        15
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-wire_fencedoor-stand",
+      "name": "Wire_FenceDoor展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-wire_fence-stand",
+      "name": "Wire_Fence展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-lamp_post_round-stand",
+      "name": "Lamp_Post_Round展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-lamp_post_modern-stand",
+      "name": "Lamp_Post_Modern展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-traffic_light-stand",
+      "name": "Traffic_Light展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        11
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-trash_bin-stand",
+      "name": "Trash_Bin展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-wheel-stand",
+      "name": "Wheel展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-bicycle_rack-stand",
+      "name": "Bicycle_Rack展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-vending_machine_drinks1-stand",
+      "name": "Vending_Machine_Drinks1展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-fire_hydrant-stand",
+      "name": "Fire_Hydrant展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        7
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-bench-stand",
+      "name": "Bench展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        3
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-telephone_cabin-stand",
+      "name": "Telephone_Cabin展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        3
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-manholecover-stand",
+      "name": "ManHoleCover展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        3
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-road_bollard-stand",
+      "name": "Road_Bollard展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        3
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-dumpster-stand",
+      "name": "Dumpster展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        3
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-pedestrian_bollard-stand",
+      "name": "Pedestrian_Bollard展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -1
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-vending_machine_drinks2-stand",
+      "name": "Vending_Machine_Drinks2展台",
+      "parentId": "transform:city-street",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -1
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "fan-tablefan-0-stand",
+      "name": "台式风扇 · 蓝色展台",
+      "parentId": "transform:fan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "fan-tablefan-1-stand",
+      "name": "台式风扇 · 绿色展台",
+      "parentId": "transform:fan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -8
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "fan-tablefan-2-stand",
+      "name": "台式风扇 · 淡红色展台",
+      "parentId": "transform:fan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -8
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "fan-tablefan-3-stand",
+      "name": "台式风扇 · 黄色展台",
+      "parentId": "transform:fan",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -8
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-case-medicalcase-0-stand",
+      "name": "MedicalCase · 原始配色展台",
+      "parentId": "transform:medical-case",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -15
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-case-medicalcase-1-stand",
+      "name": "MedicalCase · Safe 配色展台",
+      "parentId": "transform:medical-case",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -15
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boat-boaty-stand",
+      "name": "运输船展台",
+      "parentId": "transform:boat",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -22
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "medical-supplies-scissor1-0",
+      "name": "Scissor1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Scissor1.glb",
+      "position": [
+        -19.99999983,
+        -9.6e-7,
+        41.99999911
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.09563941,
+        11.09563941,
+        11.09563941
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-scissor1-1",
+      "name": "Scissor1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Scissor1.glb",
+      "position": [
+        -15.99999983,
+        -9.6e-7,
+        41.99999911
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.09563941,
+        11.09563941,
+        11.09563941
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-barbiturics_1-0",
+      "name": "Barbiturics_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_1.glb",
+      "position": [
+        -11.99999967,
+        -0.00000371,
+        42.00000134
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27827079,
+        45.27827079,
+        45.27827079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_1-1",
+      "name": "Barbiturics_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_1.glb",
+      "position": [
+        -7.99999967,
+        -0.00000371,
+        42.00000134
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27827079,
+        45.27827079,
+        45.27827079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-barbiturics_2-0",
+      "name": "Barbiturics_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_2.glb",
+      "position": [
+        -4.00000036,
+        -0.00000371,
+        42.00000134
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27827079,
+        45.27827079,
+        45.27827079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_2-1",
+      "name": "Barbiturics_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_2.glb",
+      "position": [
+        -20.00000036,
+        -0.00000371,
+        38.00000134
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27827079,
+        45.27827079,
+        45.27827079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-barbiturics_3-0",
+      "name": "Barbiturics_3 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_3.glb",
+      "position": [
+        -15.99999987,
+        -0.00000371,
+        38.00000134
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27827079,
+        45.27827079,
+        45.27827079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_3-1",
+      "name": "Barbiturics_3 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_3.glb",
+      "position": [
+        -11.99999987,
+        -0.00000371,
+        38.00000134
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27827079,
+        45.27827079,
+        45.27827079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-barbiturics_4-0",
+      "name": "Barbiturics_4 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_4.glb",
+      "position": [
+        -7.9999989,
+        -0.00000311,
+        37.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27826934,
+        45.27826934,
+        45.27826934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_4-1",
+      "name": "Barbiturics_4 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_4.glb",
+      "position": [
+        -3.9999989,
+        -0.00000311,
+        37.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27826934,
+        45.27826934,
+        45.27826934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-barbiturics_5-0",
+      "name": "Barbiturics_5 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_5.glb",
+      "position": [
+        -19.99999988,
+        -0.00000311,
+        33.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27826934,
+        45.27826934,
+        45.27826934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_5-1",
+      "name": "Barbiturics_5 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_5.glb",
+      "position": [
+        -15.99999988,
+        -0.00000311,
+        33.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27826934,
+        45.27826934,
+        45.27826934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-barbiturics_6-0",
+      "name": "Barbiturics_6 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_6.glb",
+      "position": [
+        -12.00000188,
+        -0.00000311,
+        33.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27826934,
+        45.27826934,
+        45.27826934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-barbiturics_6-1",
+      "name": "Barbiturics_6 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Barbiturics_6.glb",
+      "position": [
+        -8.00000188,
+        -0.00000311,
+        33.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        45.27826934,
+        45.27826934,
+        45.27826934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_1-0",
+      "name": "MedicalSupplyPack_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MedicalSupplyPack_1.glb",
+      "position": [
+        -3.99999994,
+        -0.00000171,
+        33.99999944
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.49559621,
+        23.49559621,
+        23.49559621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_1-1",
+      "name": "MedicalSupplyPack_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MedicalSupplyPack_1.glb",
+      "position": [
+        -19.99999994,
+        -0.00000171,
+        29.99999944
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.49559621,
+        23.49559621,
+        23.49559621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_2-0",
+      "name": "MedicalSupplyPack_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MedicalSupplyPack_2.glb",
+      "position": [
+        -16,
+        -0.00000171,
+        29.99999944
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.49559621,
+        23.49559621,
+        23.49559621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_2-1",
+      "name": "MedicalSupplyPack_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MedicalSupplyPack_2.glb",
+      "position": [
+        -12,
+        -0.00000171,
+        29.99999944
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.49559621,
+        23.49559621,
+        23.49559621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_3-0",
+      "name": "MedicalSupplyPack_3 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MedicalSupplyPack_3.glb",
+      "position": [
+        -8.00000006,
+        -0.00000171,
+        29.99999944
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.49559621,
+        23.49559621,
+        23.49559621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalsupplypack_3-1",
+      "name": "MedicalSupplyPack_3 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MedicalSupplyPack_3.glb",
+      "position": [
+        -4.00000006,
+        -0.00000171,
+        29.99999944
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.49559621,
+        23.49559621,
+        23.49559621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-specialbarbiturics_1-0",
+      "name": "SpecialBarbiturics_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/SpecialBarbiturics_1.glb",
+      "position": [
+        -20,
+        -0.00000194,
+        25.99999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.69269703,
+        26.69269703,
+        26.69269703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-specialbarbiturics_1-1",
+      "name": "SpecialBarbiturics_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/SpecialBarbiturics_1.glb",
+      "position": [
+        -16,
+        -0.00000194,
+        25.99999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.69269703,
+        26.69269703,
+        26.69269703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-specialbarbiturics_2-0",
+      "name": "SpecialBarbiturics_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/SpecialBarbiturics_2.glb",
+      "position": [
+        -11.99999999,
+        -0.00000193,
+        26.00000135
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.69269703,
+        26.69269703,
+        26.69269703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-specialbarbiturics_2-1",
+      "name": "SpecialBarbiturics_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/SpecialBarbiturics_2.glb",
+      "position": [
+        -7.99999999,
+        -0.00000193,
+        26.00000135
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.69269703,
+        26.69269703,
+        26.69269703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-biiotics3_1-0",
+      "name": "Biiotics3_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Biiotics3_1.glb",
+      "position": [
+        -4.00000005,
+        -0.00000176,
+        25.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.07916947,
+        23.07916947,
+        23.07916947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_1-1",
+      "name": "Biiotics3_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Biiotics3_1.glb",
+      "position": [
+        -20.00000005,
+        -0.00000176,
+        21.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.07916947,
+        23.07916947,
+        23.07916947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-biiotics3_2-0",
+      "name": "Biiotics3_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Biiotics3_2.glb",
+      "position": [
+        -16.00000007,
+        -0.00000176,
+        21.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.07916947,
+        23.07916947,
+        23.07916947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_2-1",
+      "name": "Biiotics3_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Biiotics3_2.glb",
+      "position": [
+        -12.00000007,
+        -0.00000176,
+        21.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.07916947,
+        23.07916947,
+        23.07916947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-biiotics3_3-0",
+      "name": "Biiotics3_3 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Biiotics3_3.glb",
+      "position": [
+        -8.00000007,
+        -0.00000149,
+        22.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.53896514,
+        19.53896514,
+        19.53896514
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-biiotics3_3-1",
+      "name": "Biiotics3_3 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Biiotics3_3.glb",
+      "position": [
+        -4.00000007,
+        -0.00000149,
+        22.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.53896514,
+        19.53896514,
+        19.53896514
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-hydrantcream-0",
+      "name": "HydrantCream · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/HydrantCream.glb",
+      "position": [
+        -20.00000005,
+        -0.00000111,
+        18.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.94568725,
+        14.94568725,
+        14.94568725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-hydrantcream-1",
+      "name": "HydrantCream · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/HydrantCream.glb",
+      "position": [
+        -16.00000005,
+        -0.00000111,
+        18.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.94568725,
+        14.94568725,
+        14.94568725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-damagecream-0",
+      "name": "DamageCream · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/DamageCream.glb",
+      "position": [
+        -11.99999995,
+        -8.3e-7,
+        18.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.34368488,
+        12.34368488,
+        12.34368488
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-damagecream-1",
+      "name": "DamageCream · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/DamageCream.glb",
+      "position": [
+        -7.99999995,
+        -8.3e-7,
+        18.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.34368488,
+        12.34368488,
+        12.34368488
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-bandaidroll-0",
+      "name": "BandAidRoll · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/BandAidRoll.glb",
+      "position": [
+        -4.00000008,
+        -2e-8,
+        17.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.3059604,
+        9.3059604,
+        9.3059604
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-bandaidroll-1",
+      "name": "BandAidRoll · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/BandAidRoll.glb",
+      "position": [
+        -20.00000008,
+        -2e-8,
+        13.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.3059604,
+        9.3059604,
+        9.3059604
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-cotton-0",
+      "name": "Cotton · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Cotton.glb",
+      "position": [
+        -16.00000006,
+        6.4e-7,
+        13.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.26731339,
+        14.26731339,
+        14.26731339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-cotton-1",
+      "name": "Cotton · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Cotton.glb",
+      "position": [
+        -12.00000006,
+        6.4e-7,
+        13.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.26731339,
+        14.26731339,
+        14.26731339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-medicalpackage-0",
+      "name": "MedicalPackage · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MedicalPackage.glb",
+      "position": [
+        -7.99999997,
+        7.8e-7,
+        13.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.72118344,
+        15.72118344,
+        15.72118344
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-medicalpackage-1",
+      "name": "MedicalPackage · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MedicalPackage.glb",
+      "position": [
+        -3.99999997,
+        7.8e-7,
+        13.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.72118344,
+        15.72118344,
+        15.72118344
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-hydrocream-0",
+      "name": "HydroCream · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/HydroCream.glb",
+      "position": [
+        -20.00000004,
+        -4.4e-7,
+        10.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.6618725,
+        20.6618725,
+        20.6618725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-hydrocream-1",
+      "name": "HydroCream · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/HydroCream.glb",
+      "position": [
+        -16.00000004,
+        -4.4e-7,
+        10.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.6618725,
+        20.6618725,
+        20.6618725
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-miniaidbox-0",
+      "name": "MiniAidBox · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MiniAidBox.glb",
+      "position": [
+        -11.99999994,
+        -3.4e-7,
+        10.00000059
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        36.67547822,
+        36.67547822,
+        36.67547822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-miniaidbox-1",
+      "name": "MiniAidBox · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MiniAidBox.glb",
+      "position": [
+        -7.99999994,
+        -3.4e-7,
+        10.00000059
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        36.67547822,
+        36.67547822,
+        36.67547822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-microtools-0",
+      "name": "MicroTools · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MicroTools.glb",
+      "position": [
+        -3.99999996,
+        2.1e-7,
+        10.00000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.32695293,
+        26.32695293,
+        26.32695293
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-microtools-1",
+      "name": "MicroTools · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/MicroTools.glb",
+      "position": [
+        -19.99999996,
+        2.1e-7,
+        6.00000023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.32695293,
+        26.32695293,
+        26.32695293
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-pillflask-0",
+      "name": "PillFlask · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/PillFlask.glb",
+      "position": [
+        -15.99999994,
+        -6.9e-7,
+        6.00000076
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.95328635,
+        23.95328635,
+        23.95328635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-pillflask-1",
+      "name": "PillFlask · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/PillFlask.glb",
+      "position": [
+        -11.99999994,
+        -6.9e-7,
+        6.00000076
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.95328635,
+        23.95328635,
+        23.95328635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-syringe-0",
+      "name": "Syringe · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe.glb",
+      "position": [
+        -8.00000003,
+        4.1e-7,
+        6.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.6772268,
+        13.6772268,
+        13.6772268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe-1",
+      "name": "Syringe · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe.glb",
+      "position": [
+        -4.00000003,
+        4.1e-7,
+        6.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.6772268,
+        13.6772268,
+        13.6772268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-oxywater-0",
+      "name": "OxyWater · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/OxyWater.glb",
+      "position": [
+        -19.99999995,
+        5.9e-7,
+        1.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.0290497,
+        12.0290497,
+        12.0290497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-oxywater-1",
+      "name": "OxyWater · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/OxyWater.glb",
+      "position": [
+        -15.99999995,
+        5.9e-7,
+        1.99999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.0290497,
+        12.0290497,
+        12.0290497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-sheets_1-0",
+      "name": "Sheets_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Sheets_1.glb",
+      "position": [
+        -11.9999999,
+        -0.00000113,
+        2.00000106
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        36.3601356,
+        36.3601356,
+        36.3601356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_1-1",
+      "name": "Sheets_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Sheets_1.glb",
+      "position": [
+        -7.9999999,
+        -0.00000113,
+        2.00000106
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        36.3601356,
+        36.3601356,
+        36.3601356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-sheets_2-0",
+      "name": "Sheets_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Sheets_2.glb",
+      "position": [
+        -4.00000021,
+        -4.3e-7,
+        2.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.64130497,
+        33.64130497,
+        33.64130497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_2-1",
+      "name": "Sheets_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Sheets_2.glb",
+      "position": [
+        -20.00000021,
+        -4.3e-7,
+        -1.99999962
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.64130497,
+        33.64130497,
+        33.64130497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-sheets_3-0",
+      "name": "Sheets_3 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Sheets_3.glb",
+      "position": [
+        -15.99999994,
+        -9.7e-7,
+        -1.99999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        34.39068852,
+        34.39068852,
+        34.39068852
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-sheets_3-1",
+      "name": "Sheets_3 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Sheets_3.glb",
+      "position": [
+        -11.99999994,
+        -9.7e-7,
+        -1.99999957
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        34.39068852,
+        34.39068852,
+        34.39068852
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-towels-0",
+      "name": "Towels · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Towels.glb",
+      "position": [
+        -8.00000009,
+        -6.8e-7,
+        -1.99999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.88034889,
+        21.88034889,
+        21.88034889
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-towels-1",
+      "name": "Towels · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Towels.glb",
+      "position": [
+        -4.00000009,
+        -6.8e-7,
+        -1.99999956
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.88034889,
+        21.88034889,
+        21.88034889
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-burncream-0",
+      "name": "BurnCream · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/BurnCream.glb",
+      "position": [
+        -20.00000001,
+        0.00000136,
+        -6.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        28.97309595,
+        28.97309595,
+        28.97309595
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-burncream-1",
+      "name": "BurnCream · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/BurnCream.glb",
+      "position": [
+        -16.00000001,
+        0.00000136,
+        -6.00000021
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        28.97309595,
+        28.97309595,
+        28.97309595
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-scissor-0",
+      "name": "Scissor · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Scissor.glb",
+      "position": [
+        -12,
+        -3e-7,
+        -5.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.79187923,
+        19.79187923,
+        19.79187923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-scissor-1",
+      "name": "Scissor · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Scissor.glb",
+      "position": [
+        -8,
+        -3e-7,
+        -5.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.79187923,
+        19.79187923,
+        19.79187923
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-alcohol-0",
+      "name": "Alcohol · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Alcohol.glb",
+      "position": [
+        -3.99999986,
+        3.8e-7,
+        -6.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.02481902,
+        9.02481902,
+        9.02481902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-alcohol-1",
+      "name": "Alcohol · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Alcohol.glb",
+      "position": [
+        -19.99999986,
+        3.8e-7,
+        -10.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.02481902,
+        9.02481902,
+        9.02481902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-stickroll1_1-0",
+      "name": "StickRoll1_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/StickRoll1_1.glb",
+      "position": [
+        -16.00000003,
+        -9.9e-7,
+        -9.99999967
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.66767526,
+        29.66767526,
+        29.66767526
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_1-1",
+      "name": "StickRoll1_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/StickRoll1_1.glb",
+      "position": [
+        -12.00000003,
+        -9.9e-7,
+        -9.99999967
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.66767526,
+        29.66767526,
+        29.66767526
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-stickroll1_2-0",
+      "name": "StickRoll1_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/StickRoll1_2.glb",
+      "position": [
+        -8.00000009,
+        -8.8e-7,
+        -10.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        28.40345312,
+        28.40345312,
+        28.40345312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_2-1",
+      "name": "StickRoll1_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/StickRoll1_2.glb",
+      "position": [
+        -4.00000009,
+        -8.8e-7,
+        -10.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        28.40345312,
+        28.40345312,
+        28.40345312
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-stickroll1_3-0",
+      "name": "StickRoll1_3 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/StickRoll1_3.glb",
+      "position": [
+        -19.99999995,
+        -5.3e-7,
+        -13.99999928
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.78296472,
+        31.78296472,
+        31.78296472
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-stickroll1_3-1",
+      "name": "StickRoll1_3 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/StickRoll1_3.glb",
+      "position": [
+        -15.99999995,
+        -5.3e-7,
+        -13.99999928
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.78296472,
+        31.78296472,
+        31.78296472
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-topionic4_1-0",
+      "name": "Topionic4_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionic4_1.glb",
+      "position": [
+        -11.99999986,
+        4.4e-7,
+        -13.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.629639,
+        30.629639,
+        30.629639
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_1-1",
+      "name": "Topionic4_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionic4_1.glb",
+      "position": [
+        -7.99999986,
+        4.4e-7,
+        -13.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.629639,
+        30.629639,
+        30.629639
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-topionic4_2-0",
+      "name": "Topionic4_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionic4_2.glb",
+      "position": [
+        -4.00000005,
+        4.4e-7,
+        -13.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.629639,
+        30.629639,
+        30.629639
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_2-1",
+      "name": "Topionic4_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionic4_2.glb",
+      "position": [
+        -20.00000005,
+        4.4e-7,
+        -17.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.629639,
+        30.629639,
+        30.629639
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-topionic4_3-0",
+      "name": "Topionic4_3 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionic4_3.glb",
+      "position": [
+        -15.99999999,
+        4.4e-7,
+        -17.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.629639,
+        30.629639,
+        30.629639
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionic4_3-1",
+      "name": "Topionic4_3 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionic4_3.glb",
+      "position": [
+        -11.99999999,
+        4.4e-7,
+        -17.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.629639,
+        30.629639,
+        30.629639
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-padstack-0",
+      "name": "PadStack · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/PadStack.glb",
+      "position": [
+        -7.99999999,
+        2.9e-7,
+        -17.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.54653415,
+        31.54653415,
+        31.54653415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-padstack-1",
+      "name": "PadStack · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/PadStack.glb",
+      "position": [
+        -3.99999999,
+        2.9e-7,
+        -17.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.54653415,
+        31.54653415,
+        31.54653415
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-additive_1-0",
+      "name": "Additive_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Additive_1.glb",
+      "position": [
+        -20.00000021,
+        -8.7e-7,
+        -22.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.54690775,
+        30.54690775,
+        30.54690775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_1-1",
+      "name": "Additive_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Additive_1.glb",
+      "position": [
+        -16.00000021,
+        -8.7e-7,
+        -22.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.54690775,
+        30.54690775,
+        30.54690775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-additive_2-0",
+      "name": "Additive_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Additive_2.glb",
+      "position": [
+        -11.99999986,
+        -8.7e-7,
+        -21.99999917
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.54690775,
+        30.54690775,
+        30.54690775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_2-1",
+      "name": "Additive_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Additive_2.glb",
+      "position": [
+        -7.99999986,
+        -8.7e-7,
+        -21.99999917
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.54690775,
+        30.54690775,
+        30.54690775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-additive_3-0",
+      "name": "Additive_3 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Additive_3.glb",
+      "position": [
+        -4.00000028,
+        -8.5e-7,
+        -22.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.54690775,
+        30.54690775,
+        30.54690775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-additive_3-1",
+      "name": "Additive_3 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Additive_3.glb",
+      "position": [
+        -20.00000028,
+        -8.5e-7,
+        -26.00000011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.54690775,
+        30.54690775,
+        30.54690775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-topionics_1-0",
+      "name": "Topionics_1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionics_1.glb",
+      "position": [
+        -16.00000023,
+        -7.9e-7,
+        -25.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.9532877,
+        23.9532877,
+        23.9532877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionics_1-1",
+      "name": "Topionics_1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionics_1.glb",
+      "position": [
+        -12.00000023,
+        -7.9e-7,
+        -25.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.9532877,
+        23.9532877,
+        23.9532877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-topionics_2-0",
+      "name": "Topionics_2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionics_2.glb",
+      "position": [
+        -7.99999986,
+        -7.9e-7,
+        -25.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.9532877,
+        23.9532877,
+        23.9532877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-topionics_2-1",
+      "name": "Topionics_2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Topionics_2.glb",
+      "position": [
+        -3.99999986,
+        -7.9e-7,
+        -25.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.9532877,
+        23.9532877,
+        23.9532877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-syringe1-0",
+      "name": "Syringe1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe1.glb",
+      "position": [
+        -19.99999986,
+        3.8e-7,
+        -29.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.6772268,
+        13.6772268,
+        13.6772268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe1-1",
+      "name": "Syringe1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe1.glb",
+      "position": [
+        -15.99999986,
+        3.8e-7,
+        -29.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.6772268,
+        13.6772268,
+        13.6772268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-syringe2-0",
+      "name": "Syringe2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe2.glb",
+      "position": [
+        -12.00000001,
+        3.8e-7,
+        -29.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.6772268,
+        13.6772268,
+        13.6772268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe2-1",
+      "name": "Syringe2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe2.glb",
+      "position": [
+        -8.00000001,
+        3.8e-7,
+        -29.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.6772268,
+        13.6772268,
+        13.6772268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-syringe3-0",
+      "name": "Syringe3 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe3.glb",
+      "position": [
+        -3.99999999,
+        9e-8,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.71763523,
+        13.71763523,
+        13.71763523
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe3-1",
+      "name": "Syringe3 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe3.glb",
+      "position": [
+        -19.99999999,
+        9e-8,
+        -34
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.71763523,
+        13.71763523,
+        13.71763523
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-syringe5-0",
+      "name": "Syringe5 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe5.glb",
+      "position": [
+        -16.00000009,
+        4e-8,
+        -33.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.74375663,
+        13.74375663,
+        13.74375663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-syringe5-1",
+      "name": "Syringe5 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/Syringe5.glb",
+      "position": [
+        -12.00000009,
+        4e-8,
+        -33.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.74375663,
+        13.74375663,
+        13.74375663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-removaltool-0",
+      "name": "RemovalTool · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/RemovalTool.glb",
+      "position": [
+        -7.99999999,
+        8e-8,
+        -33.99999942
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        28.41502366,
+        28.41502366,
+        28.41502366
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool-1",
+      "name": "RemovalTool · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/RemovalTool.glb",
+      "position": [
+        -3.99999999,
+        8e-8,
+        -33.99999942
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        28.41502366,
+        28.41502366,
+        28.41502366
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-removaltool1-0",
+      "name": "RemovalTool1 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/RemovalTool1.glb",
+      "position": [
+        -17.99999999,
+        7e-8,
+        -37.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.31359558,
+        22.31359558,
+        22.31359558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool1-1",
+      "name": "RemovalTool1 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/RemovalTool1.glb",
+      "position": [
+        -13.99999999,
+        7e-8,
+        -37.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.31359558,
+        22.31359558,
+        22.31359558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-supplies-removaltool2-0",
+      "name": "RemovalTool2 · 原始配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/RemovalTool2.glb",
+      "position": [
+        -10.00000002,
+        -1.4e-7,
+        -37.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.34471118,
+        20.34471118,
+        20.34471118
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-supplies-removaltool2-1",
+      "name": "RemovalTool2 · Safe 配色",
+      "parentId": "transform:medical-supplies",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalSupplies/RemovalTool2.glb",
+      "position": [
+        -6.00000002,
+        -1.4e-7,
+        -37.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.34471118,
+        20.34471118,
+        20.34471118
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "city-indoor-cup",
+      "name": "Cup",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Cup.glb",
+      "position": [
+        3.99999967,
+        -1.4e-7,
+        41.99999814
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.34705601,
+        15.34705601,
+        15.34705601
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-coffeeglass",
+      "name": "CoffeeGlass",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/CoffeeGlass.glb",
+      "position": [
+        7.999998,
+        -1.7e-7,
+        42.00000181
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.96935277,
+        16.96935277,
+        16.96935277
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-coffeemug",
+      "name": "CoffeeMug",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/CoffeeMug.glb",
+      "position": [
+        12.00000091,
+        -1.2e-7,
+        42.00000061
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.81914279,
+        13.81914279,
+        13.81914279
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-coffeemachine",
+      "name": "CoffeeMachine",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/CoffeeMachine.glb",
+      "position": [
+        16.00000148,
+        0,
+        41.99999962
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.28618142,
+        4.28618142,
+        4.28618142
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-fan",
+      "name": "Fan",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Fan.glb",
+      "position": [
+        20.00000101,
+        -7e-8,
+        41.99999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.64737199,
+        4.64737199,
+        4.64737199
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-radio",
+      "name": "Radio",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Radio.glb",
+      "position": [
+        4.00000002,
+        -9e-8,
+        37.99999939
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.29650579,
+        6.29650579,
+        6.29650579
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-wc",
+      "name": "WC",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/WC.glb",
+      "position": [
+        8.00000048,
+        0,
+        37.99999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.01906687,
+        2.01906687,
+        2.01906687
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-snack",
+      "name": "Snack",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Snack.glb",
+      "position": [
+        11.99999907,
+        1e-8,
+        38.00000137
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.59877576,
+        9.59877576,
+        9.59877576
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-candy",
+      "name": "Candy",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Candy.glb",
+      "position": [
+        16.00000067,
+        -2.3e-7,
+        38.00000161
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.59877953,
+        9.59877953,
+        9.59877953
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-bed",
+      "name": "Bed",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Bed.glb",
+      "position": [
+        19.99999923,
+        3e-8,
+        37.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24169391,
+        1.24169391,
+        1.24169391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-ring_bell",
+      "name": "Ring_Bell",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Ring_Bell.glb",
+      "position": [
+        3.9999996,
+        2e-8,
+        34.00000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.90851692,
+        9.90851692,
+        9.90851692
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign",
+      "name": "Sign",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Sign.glb",
+      "position": [
+        8.00000115,
+        1.2e-7,
+        33.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.99420081,
+        7.99420081,
+        7.99420081
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign1",
+      "name": "Sign1",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Sign1.glb",
+      "position": [
+        12.00000525,
+        -6e-8,
+        33.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.60000013,
+        5.60000013,
+        5.60000013
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign2",
+      "name": "Sign2",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Sign2.glb",
+      "position": [
+        16.00000115,
+        -1e-7,
+        34.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.99420081,
+        7.99420081,
+        7.99420081
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign3",
+      "name": "Sign3",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Sign3.glb",
+      "position": [
+        20.00000636,
+        -2.1e-7,
+        33.99999975
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.35235746,
+        6.35235746,
+        6.35235746
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sign4",
+      "name": "Sign4",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Sign4.glb",
+      "position": [
+        4.00000525,
+        1e-7,
+        29.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.60000013,
+        5.60000013,
+        5.60000013
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-paperroll",
+      "name": "PaperRoll",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/PaperRoll.glb",
+      "position": [
+        7.99999998,
+        -2e-8,
+        30.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.06614654,
+        16.06614654,
+        16.06614654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-paperroll_open",
+      "name": "PaperRoll_Open",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/PaperRoll_Open.glb",
+      "position": [
+        11.99999783,
+        -2e-8,
+        30.00000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.34397916,
+        14.34397916,
+        14.34397916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-paperroll_holder",
+      "name": "PaperRoll_Holder",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/PaperRoll_Holder.glb",
+      "position": [
+        16.00000116,
+        -1.3e-7,
+        29.99999905
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.74150525,
+        8.74150525,
+        8.74150525
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-sink",
+      "name": "Sink",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Sink.glb",
+      "position": [
+        19.99999788,
+        -1.7e-7,
+        29.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.41629216,
+        3.41629216,
+        3.41629216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-electric_panel",
+      "name": "Electric_Panel",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Electric_Panel.glb",
+      "position": [
+        3.99999975,
+        2e-8,
+        25.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.34643222,
+        4.34643222,
+        4.34643222
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-locker",
+      "name": "Locker",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Locker.glb",
+      "position": [
+        7.99999927,
+        2e-8,
+        25.99999958
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6249133,
+        1.6249133,
+        1.6249133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-usb",
+      "name": "USB",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/USB.glb",
+      "position": [
+        12.00000303,
+        5e-8,
+        26.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.76685531,
+        11.76685531,
+        11.76685531
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-can_refreshment",
+      "name": "Can_Refreshment",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Can_Refreshment.glb",
+      "position": [
+        16.0000086,
+        6e-8,
+        25.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.33699391,
+        13.33699391,
+        13.33699391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-can_refreshment1",
+      "name": "Can_Refreshment1",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Can_Refreshment1.glb",
+      "position": [
+        20.00000903,
+        6e-8,
+        25.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.33699391,
+        13.33699391,
+        13.33699391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-can_refreshment2",
+      "name": "Can_Refreshment2",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Can_Refreshment2.glb",
+      "position": [
+        3.99999725,
+        6e-8,
+        21.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.33699391,
+        13.33699391,
+        13.33699391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-can_refreshment3",
+      "name": "Can_Refreshment3",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Can_Refreshment3.glb",
+      "position": [
+        8.00000659,
+        6e-8,
+        21.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.33699391,
+        13.33699391,
+        13.33699391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-wood_crate",
+      "name": "Wood_Crate",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Wood_Crate.glb",
+      "position": [
+        12.0000001,
+        -7.4e-7,
+        21.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79999932,
+        2.79999932,
+        2.79999932
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-cardboard_box",
+      "name": "CardBoard_Box",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/CardBoard_Box.glb",
+      "position": [
+        15.99999561,
+        -0.0000011,
+        22.00000094
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.66666544,
+        4.66666544,
+        4.66666544
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-indoor-cardboard_openbox",
+      "name": "Cardboard_OpenBox",
+      "parentId": "transform:city-indoor",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityIndoor/Cardboard_OpenBox.glb",
+      "position": [
+        19.99999731,
+        -6.2e-7,
+        22.00000053
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6156766,
+        2.6156766,
+        2.6156766
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-fence",
+      "name": "Fence",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Fence.glb",
+      "position": [
+        4.00000001,
+        -1e-8,
+        14.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84251295,
+        0.84251295,
+        0.84251295
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-nail",
+      "name": "Nail",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Nail.glb",
+      "position": [
+        7.99999995,
+        -2.7e-7,
+        15.00000228
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.26764199,
+        23.26764199,
+        23.26764199
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-cone_round",
+      "name": "Cone_Round",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Cone_Round.glb",
+      "position": [
+        11.99999792,
+        -1e-8,
+        15.00000078
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.6943942,
+        6.6943942,
+        6.6943942
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-conesquare",
+      "name": "ConeSquare",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/ConeSquare.glb",
+      "position": [
+        15.99999852,
+        -2e-8,
+        14.99999963
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.87224086,
+        6.87224086,
+        6.87224086
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-conehexagonal",
+      "name": "ConeHexagonal",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/ConeHexagonal.glb",
+      "position": [
+        19.99999852,
+        -2e-8,
+        15.00000127
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.87224084,
+        6.87224084,
+        6.87224084
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-wire_fencedoor",
+      "name": "Wire_FenceDoor",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Wire_FenceDoor.glb",
+      "position": [
+        3.99999999,
+        -1.8e-7,
+        11.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.61822015,
+        0.61822015,
+        0.61822015
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-wire_fence",
+      "name": "Wire_Fence",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Wire_Fence.glb",
+      "position": [
+        8.00000018,
+        -1.8e-7,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.61873128,
+        0.61873128,
+        0.61873128
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-lamp_post_round",
+      "name": "Lamp_Post_Round",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Lamp_Post_Round.glb",
+      "position": [
+        11.99999977,
+        -2.2e-7,
+        10.99999943
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.78819982,
+        0.78819982,
+        0.78819982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-lamp_post_modern",
+      "name": "Lamp_Post_Modern",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Lamp_Post_Modern.glb",
+      "position": [
+        16.00000036,
+        -1.3e-7,
+        10.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.77096337,
+        0.77096337,
+        0.77096337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-traffic_light",
+      "name": "Traffic_Light",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Traffic_Light.glb",
+      "position": [
+        20.00000109,
+        -1.9e-7,
+        10.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10551293,
+        1.10551293,
+        1.10551293
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-trash_bin",
+      "name": "Trash_Bin",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Trash_Bin.glb",
+      "position": [
+        4.00000125,
+        -6.6e-7,
+        7.00000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.30121041,
+        2.30121041,
+        2.30121041
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-wheel",
+      "name": "Wheel",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Wheel.glb",
+      "position": [
+        8.00000328,
+        1.5e-7,
+        6.99999963
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.65844257,
+        10.65844257,
+        10.65844257
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-bicycle_rack",
+      "name": "Bicycle_Rack",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Bicycle_Rack.glb",
+      "position": [
+        11.99999846,
+        5e-8,
+        6.99999922
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.50563806,
+        2.50563806,
+        2.50563806
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-vending_machine_drinks1",
+      "name": "Vending_Machine_Drinks1",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Vending_Machine_Drinks1.glb",
+      "position": [
+        16.00000144,
+        -3.5e-7,
+        6.99999913
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31696011,
+        1.31696011,
+        1.31696011
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-fire_hydrant",
+      "name": "Fire_Hydrant",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Fire_Hydrant.glb",
+      "position": [
+        19.99999777,
+        -7.5e-7,
+        7.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.67367203,
+        2.67367203,
+        2.67367203
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-bench",
+      "name": "Bench",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Bench.glb",
+      "position": [
+        3.99999882,
+        5e-8,
+        2.99999974
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.45990385,
+        1.45990385,
+        1.45990385
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-telephone_cabin",
+      "name": "Telephone_Cabin",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Telephone_Cabin.glb",
+      "position": [
+        8.00000386,
+        -2.8e-7,
+        3.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07004176,
+        1.07004176,
+        1.07004176
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-manholecover",
+      "name": "ManHoleCover",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/ManHoleCover.glb",
+      "position": [
+        12.00000068,
+        -7e-7,
+        3.00000052
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79999979,
+        2.79999979,
+        2.79999979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-road_bollard",
+      "name": "Road_Bollard",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Road_Bollard.glb",
+      "position": [
+        16.00000012,
+        -3.7e-7,
+        3.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2558157,
+        2.2558157,
+        2.2558157
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-dumpster",
+      "name": "Dumpster",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Dumpster.glb",
+      "position": [
+        19.99999896,
+        -2.8e-7,
+        2.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.06382489,
+        1.06382489,
+        1.06382489
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-pedestrian_bollard",
+      "name": "Pedestrian_Bollard",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Pedestrian_Bollard.glb",
+      "position": [
+        10.00000004,
+        -3.7e-7,
+        -0.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.25581569,
+        2.25581569,
+        2.25581569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "city-street-vending_machine_drinks2",
+      "name": "Vending_Machine_Drinks2",
+      "parentId": "transform:city-street",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/CityStreet/Vending_Machine_Drinks2.glb",
+      "position": [
+        14.00000119,
+        -3.5e-7,
+        -1.00000087
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31696011,
+        1.31696011,
+        1.31696011
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "fan-tablefan-0",
+      "name": "台式风扇 · 蓝色",
+      "parentId": "transform:fan",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/Fan/TableFan.glb",
+      "position": [
+        6,
+        0.00000109,
+        -8.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.45658762,
+        10.45658762,
+        10.45658762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "fan-tablefan-1",
+      "name": "台式风扇 · 绿色",
+      "parentId": "transform:fan",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/Fan/TableFan.glb",
+      "position": [
+        10,
+        0.00000109,
+        -8.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.45658762,
+        10.45658762,
+        10.45658762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/998424ae6396beaa4c35009d016f44a7af50f070efdf7cdd3f404a82c334bf87.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "fan-tablefan-2",
+      "name": "台式风扇 · 淡红色",
+      "parentId": "transform:fan",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/Fan/TableFan.glb",
+      "position": [
+        14,
+        0.00000109,
+        -8.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.45658762,
+        10.45658762,
+        10.45658762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/8dd5162d546ef8e25cbd4a9cd20c4bfd1fd892caa92bdf2b8d6f655210efbac6.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "fan-tablefan-3",
+      "name": "台式风扇 · 黄色",
+      "parentId": "transform:fan",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/Fan/TableFan.glb",
+      "position": [
+        18,
+        0.00000109,
+        -8.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.45658762,
+        10.45658762,
+        10.45658762
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/71142ef681c999b80f232411ec35fff1e9e303fb00c9c649d122290047cab17f.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "medical-case-medicalcase-0",
+      "name": "MedicalCase · 原始配色",
+      "parentId": "transform:medical-case",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalCase/MedicalCase.glb",
+      "position": [
+        10,
+        1e-7,
+        -15.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.99697188,
+        3.99697188,
+        3.99697188
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "medical-case-medicalcase-1",
+      "name": "MedicalCase · Safe 配色",
+      "parentId": "transform:medical-case",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/MedicalCase/MedicalCase.glb",
+      "position": [
+        14,
+        1e-7,
+        -15.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.99697188,
+        3.99697188,
+        3.99697188
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_rayzngames/91fa196b2cf6def838bf9682d12161d49a4a5228a756517230ae7ad00a4a72dc.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "boat-boaty",
+      "name": "运输船",
+      "parentId": "transform:boat",
+      "modelPath": "resources/Model/GLB/artist_rayzngames/Boat/Boaty.glb",
+      "position": [
+        12.00000001,
+        9e-8,
+        -22.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.31094828,
+        0.31094828,
+        0.31094828
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

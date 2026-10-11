@@ -1,0 +1,999 @@
+{
+  "presetKey": "artist-kkryy-model-test",
+  "name": "kkryy 资源 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "kkryy-test-ambient",
+      "name": "测试环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#35404c"
+      }
+    },
+    {
+      "id": "kkryy-test-key-light",
+      "name": "测试主光",
+      "intensity": 0.9,
+      "color": "#fff3dc",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          30,
+          50,
+          -30
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "kkryy-test-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 72,
+        "height": 56
+      },
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "color": "#3a4249",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "kkryy-model-01",
+      "name": "BlueberryBush",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/BlueberryBush_kkryy_itch_io.glb",
+      "position": [
+        -28,
+        0.2421459754725856,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-02",
+      "name": "BracketFungus",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/BracketFungus_kkryy_itch_io.glb",
+      "position": [
+        -20,
+        0.078408981859684,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-03",
+      "name": "Fern",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/Fern_kkryy_itch_io.glb",
+      "position": [
+        -12,
+        0.1408046495840819,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-08",
+      "name": "Mushroom",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/Mushroom_kkryy_itch_io.glb",
+      "position": [
+        -4,
+        0.23452593752856926,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-16",
+      "name": "Stump_1",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/Stump_1_kkryy_itch_io.glb",
+      "position": [
+        4,
+        0.15778579115867614,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-17",
+      "name": "Stump_2",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/Stump_2_kkryy_itch_io.glb",
+      "position": [
+        12,
+        0.11272940480994294,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-18",
+      "name": "Stump_3",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/Stump_3_kkryy_itch_io.glb",
+      "position": [
+        20,
+        0.06375671103596688,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-19",
+      "name": "Stump_4",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/Stump_4_kkryy_itch_io.glb",
+      "position": [
+        28,
+        0.0500000057779177,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-20",
+      "name": "StumpWithMushroom",
+      "modelPath": "resources/Model/GLB/artist_kkryy/forest-model-pack/StumpWithMushroom_kkryy_itch_io.glb",
+      "position": [
+        -28,
+        0.6139514898965601,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-21",
+      "name": "Bucket",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Bucket_kkryy_itch_io.glb",
+      "position": [
+        -28,
+        0.4207849517543623,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-22",
+      "name": "Burner",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Burner_kkryy_itch_io.glb",
+      "position": [
+        -20,
+        0.10819894807430666,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-23",
+      "name": "Clock",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Clock_kkryy_itch_io.glb",
+      "position": [
+        -12,
+        0.23379717302524977,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-24",
+      "name": "ConcretePillar",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/ConcretePillar_kkryy_itch_io.glb",
+      "position": [
+        -4,
+        0.5806364288072274,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-25",
+      "name": "CuttingBoard",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/CuttingBoard_kkryy_itch_io.glb",
+      "position": [
+        4,
+        0.050000104162421836,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-26",
+      "name": "EntranceMat",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/EntranceMat_kkryy_itch_io.glb",
+      "position": [
+        12,
+        0.05000011406748654,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-27",
+      "name": "Knife",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Knife_kkryy_itch_io.glb",
+      "position": [
+        20,
+        0.10935549465917682,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-28",
+      "name": "MetalLockerStorage",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/MetalLockerStorage_kkryy_itch_io.glb",
+      "position": [
+        28,
+        0.5483869837536953,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-29",
+      "name": "Plate",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Plate_kkryy_itch_io.glb",
+      "position": [
+        -28,
+        0.05964971187904952,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-30",
+      "name": "Scythe",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Scythe_kkryy_itch_io.glb",
+      "position": [
+        -20,
+        -0.013696646584316408,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-31",
+      "name": "SheetMetal",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/SheetMetal_kkryy_itch_io.glb",
+      "position": [
+        -12,
+        0.10564645468944076,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-32",
+      "name": "Shovel",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Shovel_kkryy_itch_io.glb",
+      "position": [
+        -4,
+        0.046696927716592826,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-33",
+      "name": "Slate",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Slate_kkryy_itch_io.glb",
+      "position": [
+        4,
+        0.1287793431728524,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-34",
+      "name": "Tabel",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Tabel_kkryy_itch_io.glb",
+      "position": [
+        12,
+        0.7578108840913609,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-35",
+      "name": "Tv",
+      "modelPath": "resources/Model/GLB/artist_kkryy/retro-model-pack/Tv_kkryy_itch_io.glb",
+      "position": [
+        20,
+        0.7197919712037347,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-36",
+      "name": "Barrel",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/Barrel_kkryy_itch_io.glb",
+      "position": [
+        -28,
+        0.05000005245366808,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-bottle-part-01",
+      "name": "Bottles · Part 1",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/BottlePart01_kkryy_itch_io.glb",
+      "position": [
+        -20,
+        0.058164019802784156,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-bottle-part-02",
+      "name": "Bottles · Part 2",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/BottlePart02_kkryy_itch_io.glb",
+      "position": [
+        -20,
+        0.058164019802784156,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-bottle-part-03",
+      "name": "Bottles · Part 3",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/BottlePart03_kkryy_itch_io.glb",
+      "position": [
+        -20,
+        0.058164019802784156,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-38",
+      "name": "Box",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/Box_kkryy_itch_io.glb",
+      "position": [
+        -12,
+        0.058816182613372806,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-39",
+      "name": "Conditioner",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/Conditioner_kkryy_itch_io.glb",
+      "position": [
+        -4,
+        0.05,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-40",
+      "name": "Crowbar",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/Crowbar_kkryy_itch_io.glb",
+      "position": [
+        4,
+        0.5550708651542664,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-41",
+      "name": "Flashlight",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/Flashlight_kkryy_itch_io.glb",
+      "position": [
+        12,
+        0.12181398769207159,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-42",
+      "name": "Floppy",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/Floppy_kkryy_itch_io.glb",
+      "position": [
+        20,
+        0.059999999776482585,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-43",
+      "name": "GarbageBag",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/GarbageBag_kkryy_itch_io.glb",
+      "position": [
+        28,
+        0.18022733767529897,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-44",
+      "name": "GasMask",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/GasMask_kkryy_itch_io.glb",
+      "position": [
+        -28,
+        0.14406028232083573,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-45",
+      "name": "Hammer",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/Hammer_kkryy_itch_io.glb",
+      "position": [
+        -20,
+        0.05000000591151537,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-46",
+      "name": "OldLock",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/OldLock_kkryy_itch_io.glb",
+      "position": [
+        -12,
+        0.04953195452690125,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-47",
+      "name": "TrashCan",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/TrashCan_kkryy_itch_io.glb",
+      "position": [
+        -4,
+        0.09233223706883502,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "kkryy-model-48",
+      "name": "Сardboard",
+      "modelPath": "resources/Model/GLB/artist_kkryy/street-furniture/Сardboard_kkryy_itch_io.glb",
+      "position": [
+        4,
+        0.050000178070250645,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1,
+        1,
+        1
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

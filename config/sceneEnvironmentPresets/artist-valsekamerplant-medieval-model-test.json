@@ -1,0 +1,8777 @@
+{
+  "presetKey": "artist-valsekamerplant-medieval-model-test",
+  "name": "Valsekamerplant · 中世纪 · 建筑、屋顶、装饰与集市（193 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "valse-ambient",
+      "name": "柔和展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.25,
+          1,
+          0.2
+        ],
+        "groundColor": "#66737f"
+      }
+    },
+    {
+      "id": "valse-key",
+      "name": "暖色展示主光",
+      "intensity": 0.8,
+      "color": "#fff2df",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -20,
+          30,
+          -20
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "valse-medieval",
+      "name": "中世纪 · 建筑、屋顶、装饰与集市",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "valse-ground",
+      "name": "中世纪 · 建筑、屋顶、装饰与集市展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 60,
+        "height": 60
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-zone",
+      "name": "中世纪 · 建筑、屋顶、装饰与集市展示分区",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 57,
+        "height": 0.1,
+        "depth": 57
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#897157"
+    },
+    {
+      "id": "valse-medieval-001-stand",
+      "name": "Building blocks/plaster_wall.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-002-stand",
+      "name": "Building blocks/plaster_wall_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-003-stand",
+      "name": "Building blocks/plaster_wall_cornered.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-004-stand",
+      "name": "Building blocks/plaster_wall_cornered_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-005-stand",
+      "name": "Building blocks/plaster_wall_half.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-006-stand",
+      "name": "Building blocks/plaster_wall_half_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-007-stand",
+      "name": "Building blocks/plaster_wall_stone_base.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-008-stand",
+      "name": "Building blocks/plaster_wall_stone_base_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-009-stand",
+      "name": "Building blocks/plaster_wall_stone_base_cornered.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-010-stand",
+      "name": "Building blocks/plaster_wall_stone_base_cornered_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-011-stand",
+      "name": "Building blocks/plaster_wall_stone_base_half.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-012-stand",
+      "name": "Building blocks/plaster_wall_stone_base_half_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-013-stand",
+      "name": "Building blocks/stone_archway.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-014-stand",
+      "name": "Building blocks/stone_archway_top.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-015-stand",
+      "name": "Building blocks/stone_floor_1x1.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-016-stand",
+      "name": "Building blocks/stone_floor_2x2.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-017-stand",
+      "name": "Building blocks/stone_floor_4x4.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-018-stand",
+      "name": "Building blocks/stone_square.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-019-stand",
+      "name": "Building blocks/stone_square_1m.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-020-stand",
+      "name": "Building blocks/stone_square_2m.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-021-stand",
+      "name": "Building blocks/stone_square_cornered.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-022-stand",
+      "name": "Building blocks/stone_square_half.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-023-stand",
+      "name": "Building blocks/stone_square_half_1m.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-024-stand",
+      "name": "Building blocks/stone_square_half_2m.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-025-stand",
+      "name": "Building blocks/wood_support_beam.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-026-stand",
+      "name": "Building blocks/wood_support_beam_half.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-027-stand",
+      "name": "Building blocks/wood_support_beam_metal.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-028-stand",
+      "name": "Building blocks/wood_support_corner.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-029-stand",
+      "name": "Building blocks/wood_support_half.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-030-stand",
+      "name": "Building blocks/wood_support_metal_ring.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-031-stand",
+      "name": "Building blocks/wood_support_square.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-032-stand",
+      "name": "Building blocks/wooden_floor_1x1.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-033-stand",
+      "name": "Building blocks/wooden_floor_2x2.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-034-stand",
+      "name": "Building blocks/wooden_floor_4x4.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-035-stand",
+      "name": "Decorations/chimney.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-036-stand",
+      "name": "Decorations/chimney_end.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-037-stand",
+      "name": "Decorations/chimney_large.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-038-stand",
+      "name": "Decorations/door_stone.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-039-stand",
+      "name": "Decorations/door_stone_double.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-040-stand",
+      "name": "Decorations/door_stone_metal_grate.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-041-stand",
+      "name": "Decorations/door_stone_rounded.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-042-stand",
+      "name": "Decorations/door_wood.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-043-stand",
+      "name": "Decorations/door_wood_double.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-044-stand",
+      "name": "Decorations/door_wood_metal_grate.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-045-stand",
+      "name": "Decorations/door_wood_rounded.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-046-stand",
+      "name": "Decorations/flower_box.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-047-stand",
+      "name": "Decorations/flower_box_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-048-stand",
+      "name": "Decorations/flower_box_alt2.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-049-stand",
+      "name": "Decorations/flower_mixed.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-050-stand",
+      "name": "Decorations/flower_purple.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-051-stand",
+      "name": "Decorations/flower_red.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-052-stand",
+      "name": "Decorations/flower_yellow.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-053-stand",
+      "name": "Decorations/overhang.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-054-stand",
+      "name": "Decorations/overhang_end.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-055-stand",
+      "name": "Decorations/overhang_large.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-056-stand",
+      "name": "Decorations/overhang_large_end.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-057-stand",
+      "name": "Decorations/overhang_wood.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-058-stand",
+      "name": "Decorations/stairs_stone_stone.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-059-stand",
+      "name": "Decorations/stairs_stone_stone_corner.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-060-stand",
+      "name": "Decorations/stairs_wood.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-061-stand",
+      "name": "Decorations/stairs_wood_stone.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-062-stand",
+      "name": "Decorations/stairs_wood_stone_corner.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-063-stand",
+      "name": "Decorations/stairs_wood_wood_large.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-064-stand",
+      "name": "Decorations/stone_windowsil.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-065-stand",
+      "name": "Decorations/strairs_stone.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-066-stand",
+      "name": "Decorations/strairs_wood_wood.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-067-stand",
+      "name": "Decorations/vine_corner.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-068-stand",
+      "name": "Decorations/vine_corner_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-069-stand",
+      "name": "Decorations/vine_hanging.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-070-stand",
+      "name": "Decorations/vine_hanging_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-071-stand",
+      "name": "Decorations/vine_single.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-072-stand",
+      "name": "Decorations/vine_single_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-073-stand",
+      "name": "Decorations/window_rectangle.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-074-stand",
+      "name": "Decorations/window_round.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-075-stand",
+      "name": "Decorations/window_rounded.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-076-stand",
+      "name": "Decorations/window_square.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-077-stand",
+      "name": "Decorations/wood_windowsil.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-078-stand",
+      "name": "Market/apple_barrel_fillter.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-079-stand",
+      "name": "Market/backet.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-080-stand",
+      "name": "Market/baguette.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-081-stand",
+      "name": "Market/barrel.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-082-stand",
+      "name": "Market/barrel_apples.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-083-stand",
+      "name": "Market/barrel_apples_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-084-stand",
+      "name": "Market/barrel_beans.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-085-stand",
+      "name": "Market/barrel_beans_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-086-stand",
+      "name": "Market/barrel_eggplant.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-087-stand",
+      "name": "Market/barrel_eggplant_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-088-stand",
+      "name": "Market/barrel_lid.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-089-stand",
+      "name": "Market/barrel_lid_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-090-stand",
+      "name": "Market/barrel_lid_alt2.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-091-stand",
+      "name": "Market/barrel_lid_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-092-stand",
+      "name": "Market/barrel_lid_small_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-093-stand",
+      "name": "Market/barrel_lid_small_alt2.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-094-stand",
+      "name": "Market/barrel_onion.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-095-stand",
+      "name": "Market/barrel_onion_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-096-stand",
+      "name": "Market/barrel_open.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-097-stand",
+      "name": "Market/barrel_open_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-098-stand",
+      "name": "Market/barrel_potatoes.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-099-stand",
+      "name": "Market/barrel_potatoes_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-100-stand",
+      "name": "Market/barrel_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-101-stand",
+      "name": "Market/basket_apples.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-102-stand",
+      "name": "Market/basket_beans.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-103-stand",
+      "name": "Market/basket_eggplants.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-104-stand",
+      "name": "Market/basket_onions.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-105-stand",
+      "name": "Market/basket_potatoes.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-106-stand",
+      "name": "Market/basket_tomatoes.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-107-stand",
+      "name": "Market/beans_barrel_fillter.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-108-stand",
+      "name": "Market/bread.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-109-stand",
+      "name": "Market/bread_smol.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-110-stand",
+      "name": "Market/crate.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-111-stand",
+      "name": "Market/crate_angled.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-112-stand",
+      "name": "Market/crate_apples.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        2
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-113-stand",
+      "name": "Market/crate_apples_angled.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-114-stand",
+      "name": "Market/crate_beans.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-115-stand",
+      "name": "Market/crate_beans_angled.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-116-stand",
+      "name": "Market/crate_eggplants.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-117-stand",
+      "name": "Market/crate_eggplants_angled.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-118-stand",
+      "name": "Market/crate_onions.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-119-stand",
+      "name": "Market/crate_onions_angled.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-120-stand",
+      "name": "Market/crate_potatoes.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-121-stand",
+      "name": "Market/crate_potatoes_angled.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-122-stand",
+      "name": "Market/crate_tomatoes.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-123-stand",
+      "name": "Market/crate_tomatoes_angled.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-124-stand",
+      "name": "Market/eggplant_barrel_fillter.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-125-stand",
+      "name": "Market/hay.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-126-stand",
+      "name": "Market/hay_covered.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        6
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-127-stand",
+      "name": "Market/hay_covered_dry.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-128-stand",
+      "name": "Market/hay_dry.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-129-stand",
+      "name": "Market/haybale.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-130-stand",
+      "name": "Market/haybale_dry.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-131-stand",
+      "name": "Market/haybale_wrapped.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-132-stand",
+      "name": "Market/haybale_wrapped_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-133-stand",
+      "name": "Market/haybale_wrapped_alt_dry.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-134-stand",
+      "name": "Market/haybale_wrapped_dry.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-135-stand",
+      "name": "Market/jutesack_closed.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-136-stand",
+      "name": "Market/jutesack_closed_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-137-stand",
+      "name": "Market/jutesack_open.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-138-stand",
+      "name": "Market/jutesack_open_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-139-stand",
+      "name": "Market/market_stall_blue.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-140-stand",
+      "name": "Market/market_stall_red.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        10
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-141-stand",
+      "name": "Market/market_stall_round_blue.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-142-stand",
+      "name": "Market/market_stall_round_red.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-143-stand",
+      "name": "Market/market_stall_round_yellow.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-144-stand",
+      "name": "Market/market_stall_yelow.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-145-stand",
+      "name": "Market/meat_slab.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-146-stand",
+      "name": "Market/meat_slab_alt.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-147-stand",
+      "name": "Market/meatcube.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-148-stand",
+      "name": "Market/pork_leg.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-149-stand",
+      "name": "Market/potato_barrel_fillter.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-150-stand",
+      "name": "Market/pumpkin.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-151-stand",
+      "name": "Market/sausage.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-152-stand",
+      "name": "Market/sausage_link.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-153-stand",
+      "name": "Market/table.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-154-stand",
+      "name": "Market/table_prebuild.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        14
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-155-stand",
+      "name": "Market/terracotta_vase.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-156-stand",
+      "name": "Market/terracotta_vase_open.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-157-stand",
+      "name": "Market/terracotta_vase_open_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-158-stand",
+      "name": "Market/terracotta_vase_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-159-stand",
+      "name": "Market/vase_lid.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-160-stand",
+      "name": "Market/vase_lid_small.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-161-stand",
+      "name": "Roofs/roof_blue.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-162-stand",
+      "name": "Roofs/roof_blue_T.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-163-stand",
+      "name": "Roofs/roof_blue_corner.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-164-stand",
+      "name": "Roofs/roof_blue_dormer_window.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-165-stand",
+      "name": "Roofs/roof_blue_end.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-166-stand",
+      "name": "Roofs/roof_blue_half.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-167-stand",
+      "name": "Roofs/roof_blue_square.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-168-stand",
+      "name": "Roofs/roof_blue_square_fancy.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        18
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-169-stand",
+      "name": "Roofs/roof_blue_stickout.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-170-stand",
+      "name": "Roofs/roof_blue_stickout_large.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-171-stand",
+      "name": "Roofs/roof_blue_stickout_triangle_roof.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-172-stand",
+      "name": "Roofs/roof_red.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-173-stand",
+      "name": "Roofs/roof_red_T.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-174-stand",
+      "name": "Roofs/roof_red_corner.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-175-stand",
+      "name": "Roofs/roof_red_dormer_window.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-176-stand",
+      "name": "Roofs/roof_red_end.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-177-stand",
+      "name": "Roofs/roof_red_half.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-178-stand",
+      "name": "Roofs/roof_red_square.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-179-stand",
+      "name": "Roofs/roof_red_square_fancy.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-180-stand",
+      "name": "Roofs/roof_red_stickout.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-181-stand",
+      "name": "Roofs/roof_red_stickout_large.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-182-stand",
+      "name": "Roofs/roof_red_stickout_triangle_roof.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        22
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-183-stand",
+      "name": "Roofs/roof_straw.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -26,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-184-stand",
+      "name": "Roofs/roof_straw_T.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-185-stand",
+      "name": "Roofs/roof_straw_corner.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-186-stand",
+      "name": "Roofs/roof_straw_dormer_window.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-187-stand",
+      "name": "Roofs/roof_straw_end.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-188-stand",
+      "name": "Roofs/roof_straw_half.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-189-stand",
+      "name": "Roofs/roof_straw_square.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-190-stand",
+      "name": "Roofs/roof_straw_square_fancy.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-191-stand",
+      "name": "Roofs/roof_straw_stickout.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-192-stand",
+      "name": "Roofs/roof_straw_stickout_large.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-193-stand",
+      "name": "Roofs/roof_straw_stickout_triangle_roof.glb 展台",
+      "parentId": "transform:valse-medieval",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        26
+      ],
+      "color": "#897157",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "valse-medieval-001",
+      "name": "Building blocks/plaster_wall.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall.glb",
+      "position": [
+        -24.6,
+        0,
+        -24.6000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-002",
+      "name": "Building blocks/plaster_wall_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_alt.glb",
+      "position": [
+        -20.6,
+        0,
+        -24.6000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-003",
+      "name": "Building blocks/plaster_wall_cornered.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_cornered.glb",
+      "position": [
+        -16.6000002,
+        0,
+        -24.6000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-004",
+      "name": "Building blocks/plaster_wall_cornered_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_cornered_alt.glb",
+      "position": [
+        -12.6000002,
+        0,
+        -24.6000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-005",
+      "name": "Building blocks/plaster_wall_half.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_half.glb",
+      "position": [
+        -9.0666667,
+        0,
+        -25.0666669
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-006",
+      "name": "Building blocks/plaster_wall_half_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_half_alt.glb",
+      "position": [
+        -5.0666667,
+        0,
+        -25.0666669
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-007",
+      "name": "Building blocks/plaster_wall_stone_base.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_stone_base.glb",
+      "position": [
+        -0.6,
+        0,
+        -24.6000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-008",
+      "name": "Building blocks/plaster_wall_stone_base_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_stone_base_alt.glb",
+      "position": [
+        3.4,
+        0,
+        -24.6000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-009",
+      "name": "Building blocks/plaster_wall_stone_base_cornered.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_stone_base_cornered.glb",
+      "position": [
+        7.3999998,
+        0,
+        -24.6000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-010",
+      "name": "Building blocks/plaster_wall_stone_base_cornered_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_stone_base_cornered_alt.glb",
+      "position": [
+        11.3999998,
+        0,
+        -24.6000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-011",
+      "name": "Building blocks/plaster_wall_stone_base_half.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_stone_base_half.glb",
+      "position": [
+        14.9333333,
+        0,
+        -25.0666669
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-012",
+      "name": "Building blocks/plaster_wall_stone_base_half_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/plaster_wall_stone_base_half_alt.glb",
+      "position": [
+        18.9333333,
+        0,
+        -25.0666669
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-013",
+      "name": "Building blocks/stone_archway.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_archway.glb",
+      "position": [
+        23.4,
+        0,
+        -24.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-014",
+      "name": "Building blocks/stone_archway_top.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_archway_top.glb",
+      "position": [
+        27.4,
+        -1.4,
+        -24.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-015",
+      "name": "Building blocks/stone_floor_1x1.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_floor_1x1.glb",
+      "position": [
+        -24.6,
+        0,
+        -20.6000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7999999,
+        2.7999999,
+        2.7999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-016",
+      "name": "Building blocks/stone_floor_2x2.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_floor_2x2.glb",
+      "position": [
+        -20.6000001,
+        0,
+        -20.6000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3999999,
+        1.3999999,
+        1.3999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-017",
+      "name": "Building blocks/stone_floor_4x4.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_floor_4x4.glb",
+      "position": [
+        -16.6,
+        0,
+        -20.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-018",
+      "name": "Building blocks/stone_square.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_square.glb",
+      "position": [
+        -12.6,
+        0,
+        -20.6000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-019",
+      "name": "Building blocks/stone_square_1m.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_square_1m.glb",
+      "position": [
+        -8.6000002,
+        0.0135088,
+        -20.6000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-020",
+      "name": "Building blocks/stone_square_2m.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_square_2m.glb",
+      "position": [
+        -4.6,
+        0,
+        -20.6000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-021",
+      "name": "Building blocks/stone_square_cornered.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_square_cornered.glb",
+      "position": [
+        -0.6000002,
+        0,
+        -20.6000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6999999,
+        0.6999999,
+        0.6999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-022",
+      "name": "Building blocks/stone_square_half.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_square_half.glb",
+      "position": [
+        2.9333333,
+        0,
+        -21.0666669
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-023",
+      "name": "Building blocks/stone_square_half_1m.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_square_half_1m.glb",
+      "position": [
+        7.3999998,
+        0.0270176,
+        -20.6000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3999998,
+        1.3999998,
+        1.3999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-024",
+      "name": "Building blocks/stone_square_half_2m.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/stone_square_half_2m.glb",
+      "position": [
+        11.3999998,
+        0,
+        -20.6000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3999998,
+        1.3999998,
+        1.3999998
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-025",
+      "name": "Building blocks/wood_support_beam.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wood_support_beam.glb",
+      "position": [
+        15.3999999,
+        0.1749302,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3999996,
+        1.3999996,
+        1.3999996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-026",
+      "name": "Building blocks/wood_support_beam_half.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wood_support_beam_half.glb",
+      "position": [
+        19.4,
+        0.2800004,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7999989,
+        2.7999989,
+        2.7999989
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-027",
+      "name": "Building blocks/wood_support_beam_metal.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wood_support_beam_metal.glb",
+      "position": [
+        22.0129755,
+        0,
+        -22.0010641
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9039548,
+        0.9039548,
+        0.9039548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-028",
+      "name": "Building blocks/wood_support_corner.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wood_support_corner.glb",
+      "position": [
+        26.4058547,
+        0,
+        -21.5989637
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9039548,
+        0.9039548,
+        0.9039548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-029",
+      "name": "Building blocks/wood_support_half.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wood_support_half.glb",
+      "position": [
+        -24.667793,
+        0.0574481,
+        -17.5054439
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.664333,
+        0.664333,
+        0.664333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-030",
+      "name": "Building blocks/wood_support_metal_ring.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wood_support_metal_ring.glb",
+      "position": [
+        -22.0002852,
+        0.9495776,
+        -17.9997135
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.4982973,
+        12.4982973,
+        12.4982973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-031",
+      "name": "Building blocks/wood_support_square.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wood_support_square.glb",
+      "position": [
+        -16.6746862,
+        0.0573032,
+        -16.6746862
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6626569,
+        0.6626569,
+        0.6626569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-032",
+      "name": "Building blocks/wooden_floor_1x1.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wooden_floor_1x1.glb",
+      "position": [
+        -12.6000001,
+        0,
+        -16.6000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7999999,
+        2.7999999,
+        2.7999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-033",
+      "name": "Building blocks/wooden_floor_2x2.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wooden_floor_2x2.glb",
+      "position": [
+        -8.6000001,
+        0,
+        -16.6000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3999999,
+        1.3999999,
+        1.3999999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-034",
+      "name": "Building blocks/wooden_floor_4x4.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Building blocks/wooden_floor_4x4.glb",
+      "position": [
+        -4.6,
+        0,
+        -16.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-035",
+      "name": "Decorations/chimney.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/chimney.glb",
+      "position": [
+        -1.9999732,
+        0,
+        -17.7699388
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56,
+        0.56,
+        0.56
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-036",
+      "name": "Decorations/chimney_end.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/chimney_end.glb",
+      "position": [
+        2,
+        0,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9333333,
+        0.9333333,
+        0.9333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-037",
+      "name": "Decorations/chimney_large.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/chimney_large.glb",
+      "position": [
+        6.0000166,
+        0,
+        -17.8553811
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35,
+        0.35,
+        0.35
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-038",
+      "name": "Decorations/door_stone.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/door_stone.glb",
+      "position": [
+        10,
+        0.0802672,
+        -18.0354955
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2140546,
+        1.2140546,
+        1.2140546
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-039",
+      "name": "Decorations/door_stone_double.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/door_stone_double.glb",
+      "position": [
+        14,
+        0.0757347,
+        -18.0336601
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1512783,
+        1.1512783,
+        1.1512783
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-040",
+      "name": "Decorations/door_stone_metal_grate.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/door_stone_metal_grate.glb",
+      "position": [
+        18,
+        0,
+        -18.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2878945,
+        1.2878945,
+        1.2878945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-041",
+      "name": "Decorations/door_stone_rounded.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/door_stone_rounded.glb",
+      "position": [
+        22,
+        0.0767015,
+        -18.0354955
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2140548,
+        1.2140548,
+        1.2140548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-042",
+      "name": "Decorations/door_wood.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/door_wood.glb",
+      "position": [
+        26,
+        0,
+        -18.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2878945,
+        1.2878945,
+        1.2878945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-043",
+      "name": "Decorations/door_wood_double.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/door_wood_double.glb",
+      "position": [
+        -26,
+        0,
+        -14.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2213,
+        1.2213,
+        1.2213
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-044",
+      "name": "Decorations/door_wood_metal_grate.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/door_wood_metal_grate.glb",
+      "position": [
+        -22,
+        0,
+        -14.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2878945,
+        1.2878945,
+        1.2878945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-045",
+      "name": "Decorations/door_wood_rounded.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/door_wood_rounded.glb",
+      "position": [
+        -18,
+        0,
+        -14.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2878945,
+        1.2878945,
+        1.2878945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-046",
+      "name": "Decorations/flower_box.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/flower_box.glb",
+      "position": [
+        -14.0714211,
+        0,
+        -14.0647474
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5221148,
+        2.5221148,
+        2.5221148
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-047",
+      "name": "Decorations/flower_box_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/flower_box_alt.glb",
+      "position": [
+        -10.0714211,
+        0,
+        -14.0647474
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5221148,
+        2.5221148,
+        2.5221148
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-048",
+      "name": "Decorations/flower_box_alt2.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/flower_box_alt2.glb",
+      "position": [
+        -6.0714211,
+        0,
+        -14.0647474
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5221148,
+        2.5221148,
+        2.5221148
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-049",
+      "name": "Decorations/flower_mixed.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/flower_mixed.glb",
+      "position": [
+        -0.9231092,
+        0.1709435,
+        -14.0455179
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0208633,
+        3.0208633,
+        3.0208633
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-050",
+      "name": "Decorations/flower_purple.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/flower_purple.glb",
+      "position": [
+        3.0768674,
+        0.1654295,
+        -13.9800588
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0213703,
+        3.0213703,
+        3.0213703
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-051",
+      "name": "Decorations/flower_red.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/flower_red.glb",
+      "position": [
+        7.0768735,
+        0.166433,
+        -13.9919691
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0212861,
+        3.0212861,
+        3.0212861
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-052",
+      "name": "Decorations/flower_yellow.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/flower_yellow.glb",
+      "position": [
+        11.0768776,
+        0.1666773,
+        -13.9948729
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0212589,
+        3.0212589,
+        3.0212589
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-053",
+      "name": "Decorations/overhang.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/overhang.glb",
+      "position": [
+        15.4,
+        0.14,
+        -13.5419828
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-054",
+      "name": "Decorations/overhang_end.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/overhang_end.glb",
+      "position": [
+        19.4,
+        0.1333334,
+        -13.5637931
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3333332,
+        1.3333332,
+        1.3333332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-055",
+      "name": "Decorations/overhang_large.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/overhang_large.glb",
+      "position": [
+        23.4,
+        0.07,
+        -13.7709914
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-056",
+      "name": "Decorations/overhang_large_end.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/overhang_large_end.glb",
+      "position": [
+        27.3999999,
+        0.0682927,
+        -13.776577
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6829268,
+        0.6829268,
+        0.6829268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-057",
+      "name": "Decorations/overhang_wood.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/overhang_wood.glb",
+      "position": [
+        -25.9999999,
+        0.2080718,
+        -11.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0807175,
+        2.0807175,
+        2.0807175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-058",
+      "name": "Decorations/stairs_stone_stone.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/stairs_stone_stone.glb",
+      "position": [
+        -20.9069875,
+        0.3347226,
+        -8.8935768
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1157419,
+        1.1157419,
+        1.1157419
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-059",
+      "name": "Decorations/stairs_stone_stone_corner.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/stairs_stone_stone_corner.glb",
+      "position": [
+        -16.6597994,
+        0.0893468,
+        -11.325429
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8934673,
+        0.8934673,
+        0.8934673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-060",
+      "name": "Decorations/stairs_wood.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/stairs_wood.glb",
+      "position": [
+        -12.7140655,
+        0.0187791,
+        -8.7156441
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2827497,
+        1.2827497,
+        1.2827497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-061",
+      "name": "Decorations/stairs_wood_stone.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/stairs_wood_stone.glb",
+      "position": [
+        -8.9049058,
+        0.2235733,
+        -8.8938726
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1178668,
+        1.1178668,
+        1.1178668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-062",
+      "name": "Decorations/stairs_wood_stone_corner.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/stairs_wood_stone_corner.glb",
+      "position": [
+        -4.6597994,
+        0.0893468,
+        -11.325429
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8934673,
+        0.8934673,
+        0.8934673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-063",
+      "name": "Decorations/stairs_wood_wood_large.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/stairs_wood_wood_large.glb",
+      "position": [
+        -1.413901,
+        0.1714526,
+        -9.0329386
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.582198,
+        0.582198,
+        0.582198
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-064",
+      "name": "Decorations/stone_windowsil.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/stone_windowsil.glb",
+      "position": [
+        1.9999893,
+        0.2381321,
+        -10.497227
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3333332,
+        2.3333332,
+        2.3333332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-065",
+      "name": "Decorations/strairs_stone.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/strairs_stone.glb",
+      "position": [
+        7.2859345,
+        0.0187791,
+        -8.7156441
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2827497,
+        1.2827497,
+        1.2827497
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-066",
+      "name": "Decorations/strairs_wood_wood.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/strairs_wood_wood.glb",
+      "position": [
+        11.039624,
+        0.2989885,
+        -9.2947414
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0152693,
+        1.0152693,
+        1.0152693
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-067",
+      "name": "Decorations/vine_corner.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/vine_corner.glb",
+      "position": [
+        14.0849021,
+        0.0545654,
+        -9.8022778
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7553593,
+        1.7553593,
+        1.7553593
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-068",
+      "name": "Decorations/vine_corner_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/vine_corner_alt.glb",
+      "position": [
+        18.0941905,
+        0.0568201,
+        -9.8015522
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7448767,
+        1.7448767,
+        1.7448767
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-069",
+      "name": "Decorations/vine_hanging.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/vine_hanging.glb",
+      "position": [
+        21.8648957,
+        2.6457536,
+        -9.9990728
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1295154,
+        1.1295154,
+        1.1295154
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-070",
+      "name": "Decorations/vine_hanging_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/vine_hanging_alt.glb",
+      "position": [
+        25.9668921,
+        2.6347223,
+        -10.0253662
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2111188,
+        1.2111188,
+        1.2111188
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-071",
+      "name": "Decorations/vine_single.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/vine_single.glb",
+      "position": [
+        -24.66206,
+        0.0234203,
+        -6.0843875
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.3731832,
+        5.3731832,
+        5.3731832
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-072",
+      "name": "Decorations/vine_single_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/vine_single_alt.glb",
+      "position": [
+        -20.66206,
+        0.0234203,
+        -6.0843875
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.3731832,
+        5.3731832,
+        5.3731832
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-073",
+      "name": "Decorations/window_rectangle.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/window_rectangle.glb",
+      "position": [
+        -18,
+        0,
+        -6.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6594176,
+        1.6594176,
+        1.6594176
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-074",
+      "name": "Decorations/window_round.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/window_round.glb",
+      "position": [
+        -14,
+        -0.0391503,
+        -5.9581708
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3985837,
+        2.3985837,
+        2.3985837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-075",
+      "name": "Decorations/window_rounded.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/window_rounded.glb",
+      "position": [
+        -10,
+        0,
+        -6.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6598494,
+        1.6598494,
+        1.6598494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-076",
+      "name": "Decorations/window_square.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/window_square.glb",
+      "position": [
+        -6,
+        0,
+        -6.0000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9475793,
+        2.9475793,
+        2.9475793
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-077",
+      "name": "Decorations/wood_windowsil.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Decorations/wood_windowsil.glb",
+      "position": [
+        -2.0000107,
+        0.2381321,
+        -6.497227
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3333332,
+        2.3333332,
+        2.3333332
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-078",
+      "name": "Market/apple_barrel_fillter.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/apple_barrel_fillter.glb",
+      "position": [
+        2.0154655,
+        -3.3348633,
+        -6.0000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.4818617,
+        3.4818617,
+        3.4818617
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-079",
+      "name": "Market/backet.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/backet.glb",
+      "position": [
+        6,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0923103,
+        3.0923103,
+        3.0923103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-080",
+      "name": "Market/baguette.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/baguette.glb",
+      "position": [
+        9.9956563,
+        0.0180052,
+        -6.0548027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9316626,
+        2.9316626,
+        2.9316626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-081",
+      "name": "Market/barrel.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel.glb",
+      "position": [
+        14,
+        0.0031432,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4458189,
+        2.4458189,
+        2.4458189
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-082",
+      "name": "Market/barrel_apples.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_apples.glb",
+      "position": [
+        18,
+        0.0029424,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2941899,
+        2.2941899,
+        2.2941899
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-083",
+      "name": "Market/barrel_apples_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_apples_small.glb",
+      "position": [
+        22,
+        0.0029424,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.13945,
+        3.13945,
+        3.13945
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-084",
+      "name": "Market/barrel_beans.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_beans.glb",
+      "position": [
+        26,
+        0.003022,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3514365,
+        2.3514365,
+        2.3514365
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-085",
+      "name": "Market/barrel_beans_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_beans_small.glb",
+      "position": [
+        -26,
+        0.0030622,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2671799,
+        3.2671799,
+        3.2671799
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-086",
+      "name": "Market/barrel_eggplant.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_eggplant.glb",
+      "position": [
+        -22,
+        0.0029617,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3045472,
+        2.3045472,
+        2.3045472
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-087",
+      "name": "Market/barrel_eggplant_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_eggplant_small.glb",
+      "position": [
+        -18,
+        0.0029617,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1676401,
+        3.1676401,
+        3.1676401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-088",
+      "name": "Market/barrel_lid.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_lid.glb",
+      "position": [
+        -14,
+        2e-7,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6512486,
+        3.6512486,
+        3.6512486
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-089",
+      "name": "Market/barrel_lid_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_lid_alt.glb",
+      "position": [
+        -10,
+        2e-7,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6512486,
+        3.6512486,
+        3.6512486
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-090",
+      "name": "Market/barrel_lid_alt2.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_lid_alt2.glb",
+      "position": [
+        -6,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6512486,
+        3.6512486,
+        3.6512486
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-091",
+      "name": "Market/barrel_lid_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_lid_small.glb",
+      "position": [
+        -2,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.839902,
+        4.839902,
+        4.839902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-092",
+      "name": "Market/barrel_lid_small_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_lid_small_alt.glb",
+      "position": [
+        2,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.839902,
+        4.839902,
+        4.839902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-093",
+      "name": "Market/barrel_lid_small_alt2.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_lid_small_alt2.glb",
+      "position": [
+        6,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.839902,
+        4.839902,
+        4.839902
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-094",
+      "name": "Market/barrel_onion.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_onion.glb",
+      "position": [
+        10,
+        0.0029673,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3089196,
+        2.3089196,
+        2.3089196
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-095",
+      "name": "Market/barrel_onion_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_onion_small.glb",
+      "position": [
+        14,
+        0.0029398,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1366372,
+        3.1366372,
+        3.1366372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-096",
+      "name": "Market/barrel_open.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_open.glb",
+      "position": [
+        18,
+        0.0031433,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4458188,
+        2.4458188,
+        2.4458188
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-097",
+      "name": "Market/barrel_open_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_open_small.glb",
+      "position": [
+        22,
+        0.0031433,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3537294,
+        3.3537294,
+        3.3537294
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-098",
+      "name": "Market/barrel_potatoes.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_potatoes.glb",
+      "position": [
+        26,
+        0.0029902,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3266844,
+        2.3266844,
+        2.3266844
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-099",
+      "name": "Market/barrel_potatoes_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_potatoes_small.glb",
+      "position": [
+        -26,
+        0.0029902,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1654113,
+        3.1654113,
+        3.1654113
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-100",
+      "name": "Market/barrel_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/barrel_small.glb",
+      "position": [
+        -22,
+        0.0031432,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2869012,
+        3.2869012,
+        3.2869012
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-101",
+      "name": "Market/basket_apples.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/basket_apples.glb",
+      "position": [
+        -18,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0923103,
+        3.0923103,
+        3.0923103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-102",
+      "name": "Market/basket_beans.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/basket_beans.glb",
+      "position": [
+        -14,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0923103,
+        3.0923103,
+        3.0923103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-103",
+      "name": "Market/basket_eggplants.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/basket_eggplants.glb",
+      "position": [
+        -10,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0923103,
+        3.0923103,
+        3.0923103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-104",
+      "name": "Market/basket_onions.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/basket_onions.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0923103,
+        3.0923103,
+        3.0923103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-105",
+      "name": "Market/basket_potatoes.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/basket_potatoes.glb",
+      "position": [
+        -2,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0923103,
+        3.0923103,
+        3.0923103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-106",
+      "name": "Market/basket_tomatoes.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/basket_tomatoes.glb",
+      "position": [
+        2,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0923103,
+        3.0923103,
+        3.0923103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-107",
+      "name": "Market/beans_barrel_fillter.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/beans_barrel_fillter.glb",
+      "position": [
+        220.5142507,
+        -3.0970964,
+        -7.1228414
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5634016,
+        3.5634016,
+        3.5634016
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-108",
+      "name": "Market/bread.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/bread.glb",
+      "position": [
+        9.9638007,
+        0.1647903,
+        0.9911546
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.7687981,
+        7.7687981,
+        7.7687981
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-109",
+      "name": "Market/bread_smol.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/bread_smol.glb",
+      "position": [
+        13.9906904,
+        0.0388997,
+        2.0004851
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.2832422,
+        6.2832422,
+        6.2832422
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-110",
+      "name": "Market/crate.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate.glb",
+      "position": [
+        18,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.8093356,
+        3.8093356,
+        3.8093356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-111",
+      "name": "Market/crate_angled.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_angled.glb",
+      "position": [
+        22,
+        0.6783829,
+        1.7749933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6916963,
+        3.6916963,
+        3.6916963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-112",
+      "name": "Market/crate_apples.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_apples.glb",
+      "position": [
+        26,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.8093356,
+        3.8093356,
+        3.8093356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-113",
+      "name": "Market/crate_apples_angled.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_apples_angled.glb",
+      "position": [
+        -26,
+        0.6783829,
+        5.7749933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6916963,
+        3.6916963,
+        3.6916963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-114",
+      "name": "Market/crate_beans.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_beans.glb",
+      "position": [
+        -22,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.8093356,
+        3.8093356,
+        3.8093356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-115",
+      "name": "Market/crate_beans_angled.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_beans_angled.glb",
+      "position": [
+        -18,
+        0.6783829,
+        5.7749933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6916963,
+        3.6916963,
+        3.6916963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-116",
+      "name": "Market/crate_eggplants.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_eggplants.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.8093356,
+        3.8093356,
+        3.8093356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-117",
+      "name": "Market/crate_eggplants_angled.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_eggplants_angled.glb",
+      "position": [
+        -10,
+        0.6783829,
+        5.7749933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6916963,
+        3.6916963,
+        3.6916963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-118",
+      "name": "Market/crate_onions.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_onions.glb",
+      "position": [
+        -6,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.8093356,
+        3.8093356,
+        3.8093356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-119",
+      "name": "Market/crate_onions_angled.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_onions_angled.glb",
+      "position": [
+        -2,
+        0.6783829,
+        5.7749933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6916963,
+        3.6916963,
+        3.6916963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-120",
+      "name": "Market/crate_potatoes.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_potatoes.glb",
+      "position": [
+        2,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.8093356,
+        3.8093356,
+        3.8093356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-121",
+      "name": "Market/crate_potatoes_angled.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_potatoes_angled.glb",
+      "position": [
+        6,
+        0.6783829,
+        5.7749933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6916963,
+        3.6916963,
+        3.6916963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-122",
+      "name": "Market/crate_tomatoes.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_tomatoes.glb",
+      "position": [
+        10,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.8093356,
+        3.8093356,
+        3.8093356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-123",
+      "name": "Market/crate_tomatoes_angled.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/crate_tomatoes_angled.glb",
+      "position": [
+        14,
+        0.6783829,
+        5.7749933
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6916963,
+        3.6916963,
+        3.6916963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-124",
+      "name": "Market/eggplant_barrel_fillter.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/eggplant_barrel_fillter.glb",
+      "position": [
+        232.5142507,
+        -2.8840616,
+        -3.1228414
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5634016,
+        3.5634016,
+        3.5634016
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-125",
+      "name": "Market/hay.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/hay.glb",
+      "position": [
+        22,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-126",
+      "name": "Market/hay_covered.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/hay_covered.glb",
+      "position": [
+        26,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5136764,
+        0.5136764,
+        0.5136764
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-127",
+      "name": "Market/hay_covered_dry.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/hay_covered_dry.glb",
+      "position": [
+        -26,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5136764,
+        0.5136764,
+        0.5136764
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-128",
+      "name": "Market/hay_dry.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/hay_dry.glb",
+      "position": [
+        -22,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-129",
+      "name": "Market/haybale.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/haybale.glb",
+      "position": [
+        -18,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555705,
+        1.5555705,
+        1.5555705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-130",
+      "name": "Market/haybale_dry.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/haybale_dry.glb",
+      "position": [
+        -14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555705,
+        1.5555705,
+        1.5555705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-131",
+      "name": "Market/haybale_wrapped.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/haybale_wrapped.glb",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555705,
+        1.5555705,
+        1.5555705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-132",
+      "name": "Market/haybale_wrapped_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/haybale_wrapped_alt.glb",
+      "position": [
+        -6,
+        0.0069164,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555705,
+        1.5555705,
+        1.5555705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-133",
+      "name": "Market/haybale_wrapped_alt_dry.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/haybale_wrapped_alt_dry.glb",
+      "position": [
+        -2,
+        0.0069164,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555705,
+        1.5555705,
+        1.5555705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-134",
+      "name": "Market/haybale_wrapped_dry.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/haybale_wrapped_dry.glb",
+      "position": [
+        2,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555705,
+        1.5555705,
+        1.5555705
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-135",
+      "name": "Market/jutesack_closed.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/jutesack_closed.glb",
+      "position": [
+        6,
+        -1e-7,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3796673,
+        3.3796673,
+        3.3796673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-136",
+      "name": "Market/jutesack_closed_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/jutesack_closed_alt.glb",
+      "position": [
+        10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2227121,
+        3.2227121,
+        3.2227121
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-137",
+      "name": "Market/jutesack_open.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/jutesack_open.glb",
+      "position": [
+        14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6050065,
+        3.6050065,
+        3.6050065
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-138",
+      "name": "Market/jutesack_open_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/jutesack_open_alt.glb",
+      "position": [
+        18,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.6860973,
+        3.6860973,
+        3.6860973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-139",
+      "name": "Market/market_stall_blue.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/market_stall_blue.glb",
+      "position": [
+        23.2670998,
+        0.0600038,
+        11.026346
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6331079,
+        0.6331079,
+        0.6331079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-140",
+      "name": "Market/market_stall_red.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/market_stall_red.glb",
+      "position": [
+        27.2670998,
+        0.0600038,
+        11.026346
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6331079,
+        0.6331079,
+        0.6331079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-141",
+      "name": "Market/market_stall_round_blue.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/market_stall_round_blue.glb",
+      "position": [
+        -26,
+        0.0628113,
+        13.9321802
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5671823,
+        0.5671823,
+        0.5671823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-142",
+      "name": "Market/market_stall_round_red.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/market_stall_round_red.glb",
+      "position": [
+        -22,
+        0.0628113,
+        13.9321802
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5671823,
+        0.5671823,
+        0.5671823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-143",
+      "name": "Market/market_stall_round_yellow.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/market_stall_round_yellow.glb",
+      "position": [
+        -18,
+        0.0628113,
+        13.9321802
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5671823,
+        0.5671823,
+        0.5671823
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-144",
+      "name": "Market/market_stall_yelow.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/market_stall_yelow.glb",
+      "position": [
+        -12.7329002,
+        0.0600038,
+        15.026346
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6331079,
+        0.6331079,
+        0.6331079
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-145",
+      "name": "Market/meat_slab.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/meat_slab.glb",
+      "position": [
+        -10.0022129,
+        1.4047342,
+        14.0370992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6392949,
+        5.6392949,
+        5.6392949
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-146",
+      "name": "Market/meat_slab_alt.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/meat_slab_alt.glb",
+      "position": [
+        -6.0022129,
+        1.4047342,
+        14.0165967
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6392949,
+        5.6392949,
+        5.6392949
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-147",
+      "name": "Market/meatcube.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/meatcube.glb",
+      "position": [
+        -2,
+        1.4325013,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.2718581,
+        7.2718581,
+        7.2718581
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-148",
+      "name": "Market/pork_leg.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/pork_leg.glb",
+      "position": [
+        1.9933085,
+        0.6510463,
+        13.8492514
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9766085,
+        2.9766085,
+        2.9766085
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-149",
+      "name": "Market/potato_barrel_fillter.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/potato_barrel_fillter.glb",
+      "position": [
+        220.5142507,
+        -2.9971641,
+        4.8771586
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5634016,
+        3.5634016,
+        3.5634016
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-150",
+      "name": "Market/pumpkin.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/pumpkin.glb",
+      "position": [
+        10,
+        0.7271838,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.7132131,
+        5.7132131,
+        5.7132131
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-151",
+      "name": "Market/sausage.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/sausage.glb",
+      "position": [
+        14,
+        1.9623758,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.671638,
+        7.671638,
+        7.671638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-152",
+      "name": "Market/sausage_link.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/sausage_link.glb",
+      "position": [
+        18.4136809,
+        0.522253,
+        13.9777718
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2369109,
+        3.2369109,
+        3.2369109
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-153",
+      "name": "Market/table.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/table.glb",
+      "position": [
+        21.9976886,
+        0.7812668,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8921406,
+        0.8921406,
+        0.8921406
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-154",
+      "name": "Market/table_prebuild.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/table_prebuild.glb",
+      "position": [
+        25.9782131,
+        0.7703806,
+        14.0181664
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8797095,
+        0.8797095,
+        0.8797095
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-155",
+      "name": "Market/terracotta_vase.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/terracotta_vase.glb",
+      "position": [
+        -26,
+        0.0000269,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6941972,
+        2.6941972,
+        2.6941972
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-156",
+      "name": "Market/terracotta_vase_open.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/terracotta_vase_open.glb",
+      "position": [
+        -22,
+        0.0000281,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8124207,
+        2.8124207,
+        2.8124207
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-157",
+      "name": "Market/terracotta_vase_open_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/terracotta_vase_open_small.glb",
+      "position": [
+        -18,
+        0.0000281,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5842774,
+        3.5842774,
+        3.5842774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-158",
+      "name": "Market/terracotta_vase_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/terracotta_vase_small.glb",
+      "position": [
+        -14,
+        0.0000273,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.4757571,
+        3.4757571,
+        3.4757571
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-159",
+      "name": "Market/vase_lid.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/vase_lid.glb",
+      "position": [
+        -10,
+        -1e-7,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.7979171,
+        4.7979171,
+        4.7979171
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-160",
+      "name": "Market/vase_lid_small.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Market/vase_lid_small.glb",
+      "position": [
+        -6,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.9973963,
+        5.9973963,
+        5.9973963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-161",
+      "name": "Roofs/roof_blue.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue.glb",
+      "position": [
+        -0.8246492,
+        0.2150199,
+        19.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-162",
+      "name": "Roofs/roof_blue_T.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_T.glb",
+      "position": [
+        3.1563441,
+        0.2332117,
+        19.2747917
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.637396,
+        0.637396,
+        0.637396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-163",
+      "name": "Roofs/roof_blue_corner.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_corner.glb",
+      "position": [
+        7.3909934,
+        0.2330242,
+        16.8457114
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6368834,
+        0.6368834,
+        0.6368834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-164",
+      "name": "Roofs/roof_blue_dormer_window.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_dormer_window.glb",
+      "position": [
+        10.7999996,
+        0,
+        18.9999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0905621,
+        1.0905621,
+        1.0905621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-165",
+      "name": "Roofs/roof_blue_end.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_end.glb",
+      "position": [
+        15.1753534,
+        0.2150236,
+        17.8530808
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876768,
+        0.5876768,
+        0.5876768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-166",
+      "name": "Roofs/roof_blue_half.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_half.glb",
+      "position": [
+        18.5876754,
+        0.2150199,
+        19.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876756,
+        0.5876756,
+        0.5876756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-167",
+      "name": "Roofs/roof_blue_square.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_square.glb",
+      "position": [
+        23.175351,
+        0.2150199,
+        19.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-168",
+      "name": "Roofs/roof_blue_square_fancy.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_square_fancy.glb",
+      "position": [
+        27.175351,
+        0.2150199,
+        19.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-169",
+      "name": "Roofs/roof_blue_stickout.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_stickout.glb",
+      "position": [
+        -24.6666666,
+        0.0666667,
+        22.1666666
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-170",
+      "name": "Roofs/roof_blue_stickout_large.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_stickout_large.glb",
+      "position": [
+        -20.6666666,
+        0.0666667,
+        22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-171",
+      "name": "Roofs/roof_blue_stickout_triangle_roof.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_blue_stickout_triangle_roof.glb",
+      "position": [
+        -16.6666666,
+        0.0666667,
+        22.5504138
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-172",
+      "name": "Roofs/roof_red.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red.glb",
+      "position": [
+        -12.8246492,
+        0.2150199,
+        23.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-173",
+      "name": "Roofs/roof_red_T.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_T.glb",
+      "position": [
+        -8.8436559,
+        0.2332117,
+        23.2747917
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.637396,
+        0.637396,
+        0.637396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-174",
+      "name": "Roofs/roof_red_corner.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_corner.glb",
+      "position": [
+        -4.6090066,
+        0.2330242,
+        20.8457114
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6368834,
+        0.6368834,
+        0.6368834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-175",
+      "name": "Roofs/roof_red_dormer_window.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_dormer_window.glb",
+      "position": [
+        -1.2000004,
+        0,
+        22.9999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0905621,
+        1.0905621,
+        1.0905621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-176",
+      "name": "Roofs/roof_red_end.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_end.glb",
+      "position": [
+        3.1753534,
+        0.2150236,
+        21.8530808
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876768,
+        0.5876768,
+        0.5876768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-177",
+      "name": "Roofs/roof_red_half.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_half.glb",
+      "position": [
+        6.5876754,
+        0.2150199,
+        23.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876756,
+        0.5876756,
+        0.5876756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-178",
+      "name": "Roofs/roof_red_square.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_square.glb",
+      "position": [
+        11.175351,
+        0.2150199,
+        23.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-179",
+      "name": "Roofs/roof_red_square_fancy.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_square_fancy.glb",
+      "position": [
+        15.175351,
+        0.2150199,
+        23.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-180",
+      "name": "Roofs/roof_red_stickout.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_stickout.glb",
+      "position": [
+        19.3333334,
+        0.0666667,
+        22.1666666
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-181",
+      "name": "Roofs/roof_red_stickout_large.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_stickout_large.glb",
+      "position": [
+        23.3333334,
+        0.0666667,
+        22.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-182",
+      "name": "Roofs/roof_red_stickout_triangle_roof.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_red_stickout_triangle_roof.glb",
+      "position": [
+        27.3333334,
+        0.0666667,
+        22.5504138
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-183",
+      "name": "Roofs/roof_straw.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw.glb",
+      "position": [
+        -24.8246492,
+        0.2150199,
+        27.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-184",
+      "name": "Roofs/roof_straw_T.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_T.glb",
+      "position": [
+        -20.8436559,
+        0.2332117,
+        27.2747917
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.637396,
+        0.637396,
+        0.637396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-185",
+      "name": "Roofs/roof_straw_corner.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_corner.glb",
+      "position": [
+        -16.6090066,
+        0.2330242,
+        24.8457114
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6368834,
+        0.6368834,
+        0.6368834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-186",
+      "name": "Roofs/roof_straw_dormer_window.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_dormer_window.glb",
+      "position": [
+        -13.2000004,
+        0,
+        26.9999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0905621,
+        1.0905621,
+        1.0905621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-187",
+      "name": "Roofs/roof_straw_end.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_end.glb",
+      "position": [
+        -8.8246466,
+        0.2150236,
+        25.8530808
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876768,
+        0.5876768,
+        0.5876768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-188",
+      "name": "Roofs/roof_straw_half.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_half.glb",
+      "position": [
+        -5.4123246,
+        0.2150199,
+        27.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876756,
+        0.5876756,
+        0.5876756
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-189",
+      "name": "Roofs/roof_straw_square.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_square.glb",
+      "position": [
+        -0.824649,
+        0.2150199,
+        27.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-190",
+      "name": "Roofs/roof_straw_square_fancy.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_square_fancy.glb",
+      "position": [
+        3.175351,
+        0.2150199,
+        27.1753504
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5876755,
+        0.5876755,
+        0.5876755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-191",
+      "name": "Roofs/roof_straw_stickout.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_stickout.glb",
+      "position": [
+        7.3333334,
+        0.0666667,
+        26.1666666
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-192",
+      "name": "Roofs/roof_straw_stickout_large.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_stickout_large.glb",
+      "position": [
+        11.3333334,
+        0.0666667,
+        26.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-medieval-193",
+      "name": "Roofs/roof_straw_stickout_triangle_roof.glb",
+      "parentId": "transform:valse-medieval",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/PSX_Modular_Medieval/Roofs/roof_straw_stickout_triangle_roof.glb",
+      "position": [
+        15.3333334,
+        0.0666667,
+        26.5504138
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6666667,
+        0.6666667,
+        0.6666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

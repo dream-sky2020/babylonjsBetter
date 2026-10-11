@@ -1,0 +1,279 @@
+{
+  "presetKey": "artist-stay-retro-mushrooms-model-test",
+  "name": "Stay Retro · 蘑菇模型展示（9 件）",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "stay-retro-mushrooms-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          25,
+          45,
+          -25
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "stay-retro-mushrooms-ground",
+      "name": "蘑菇模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24.5,
+        "height": 11
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#4a574b",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "stay-retro-mushrooms-01",
+      "name": "蘑菇 · Mushroom1_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/Mushroom1_SM_stay-retro_itch_io.glb",
+      "position": [
+        -9,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.058,
+        5.058,
+        5.058
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-02",
+      "name": "蘑菇 · Mushroom2_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/Mushroom2_SM_stay-retro_itch_io.glb",
+      "position": [
+        -4.5,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.056,
+        5.056,
+        5.056
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-03",
+      "name": "蘑菇 · Mushroom3_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/Mushroom3_SM_stay-retro_itch_io.glb",
+      "position": [
+        0,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.844,
+        6.844,
+        6.844
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-04",
+      "name": "蘑菇 · Mushroom4_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/Mushroom4_SM_stay-retro_itch_io.glb",
+      "position": [
+        4.5,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.646,
+        6.646,
+        6.646
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-05",
+      "name": "蘑菇 · Mushroom5_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/Mushroom5_SM_stay-retro_itch_io.glb",
+      "position": [
+        9,
+        0.025,
+        -2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.499,
+        7.499,
+        7.499
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-06",
+      "name": "蘑菇 · Mushroom6_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/Mushroom6_SM_stay-retro_itch_io.glb",
+      "position": [
+        -6.75,
+        0.025,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.873,
+        8.873,
+        8.873
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-07",
+      "name": "蘑菇 · Mushroom7_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/Mushroom7_SM_stay-retro_itch_io.glb",
+      "position": [
+        -2.25,
+        0.025,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.254,
+        7.254,
+        7.254
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-08",
+      "name": "蘑菇 · Mushroom8_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/Mushroom8_SM_stay-retro_itch_io.glb",
+      "position": [
+        2.25,
+        0.025,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.178,
+        8.178,
+        8.178
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "stay-retro-mushrooms-09",
+      "name": "蘑菇 · MushroomCluster_SM",
+      "modelPath": "resources/Model/GLB/artist_stay-retro/ps1-mushroom-asset-pack/MushroomCluster_SM_stay-retro_itch_io.glb",
+      "position": [
+        6.75,
+        0.029,
+        2.25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.459,
+        7.459,
+        7.459
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

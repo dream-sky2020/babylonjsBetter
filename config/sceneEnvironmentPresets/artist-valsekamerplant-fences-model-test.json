@@ -1,0 +1,3647 @@
+{
+  "presetKey": "artist-valsekamerplant-fences-model-test",
+  "name": "Valsekamerplant · 围栏套件 · 全部材质（79 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "valse-ambient",
+      "name": "柔和展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.25,
+          1,
+          0.2
+        ],
+        "groundColor": "#66737f"
+      }
+    },
+    {
+      "id": "valse-key",
+      "name": "暖色展示主光",
+      "intensity": 0.8,
+      "color": "#fff2df",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -20,
+          30,
+          -20
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "valse-fences",
+      "name": "围栏套件 · 全部材质",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "valse-ground",
+      "name": "围栏套件 · 全部材质展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 40
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-zone",
+      "name": "围栏套件 · 全部材质展示分区",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 37,
+        "height": 0.1,
+        "depth": 37
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#746963"
+    },
+    {
+      "id": "valse-fences-001-stand",
+      "name": "Fences/brick_fence/brick_Wall_corner.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-002-stand",
+      "name": "Fences/brick_fence/brick_wall.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-003-stand",
+      "name": "Fences/brick_fence/brick_wall_gate.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-004-stand",
+      "name": "Fences/brick_fence/brick_wall_one_overhang.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-005-stand",
+      "name": "Fences/brick_fence/brick_wall_one_overhang_small.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-006-stand",
+      "name": "Fences/brick_fence/brick_wall_pole.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-007-stand",
+      "name": "Fences/brick_fence/brick_wall_small.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-008-stand",
+      "name": "Fences/drystone_wall/drystone_column.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-009-stand",
+      "name": "Fences/drystone_wall/drystone_column_capped.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-010-stand",
+      "name": "Fences/drystone_wall/drystone_column_tiles.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-011-stand",
+      "name": "Fences/drystone_wall/drystone_wall.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-012-stand",
+      "name": "Fences/drystone_wall/drystone_wall_capped.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-013-stand",
+      "name": "Fences/drystone_wall/drystone_wall_half.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-014-stand",
+      "name": "Fences/drystone_wall/drystone_wall_half_capped.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-015-stand",
+      "name": "Fences/drystone_wall/drystone_wall_half_tiles.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-016-stand",
+      "name": "Fences/drystone_wall/drystone_wall_tiles.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-017-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_beam.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-018-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_beam_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-019-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_beam_alt_2.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-020-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_broken.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-021-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_broken_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-022-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_broken_alt2.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-023-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_closed.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-024-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_oen_crossed.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-025-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_open.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-026-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_open_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-027-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_pile.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-028-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-029-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-030-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole_alt_2.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-031-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole_broken_large.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-032-stand",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole_broken_small.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-033-stand",
+      "name": "Fences/metal_fence/gate.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-034-stand",
+      "name": "Fences/metal_fence/metal_fence_gate_with_gate.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-035-stand",
+      "name": "Fences/metal_fence/metalfence_both_sides_no_topbar.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-036-stand",
+      "name": "Fences/metal_fence/metalfence_both_sides_topbar.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        -4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-037-stand",
+      "name": "Fences/metal_fence/metalfence_gate_only_sides.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-038-stand",
+      "name": "Fences/metal_fence/metalfence_one_side_no_topbar.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-039-stand",
+      "name": "Fences/metal_fence/metalfence_one_side_topbar.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-040-stand",
+      "name": "Fences/plackard_wall/plackard_broken.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-041-stand",
+      "name": "Fences/plackard_wall/plackard_broken_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-042-stand",
+      "name": "Fences/plackard_wall/plackard_broken_slanted.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-043-stand",
+      "name": "Fences/plackard_wall/plackard_closed.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-044-stand",
+      "name": "Fences/plackard_wall/plackard_closed_full.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-045-stand",
+      "name": "Fences/plackard_wall/plackard_corner.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        0
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-046-stand",
+      "name": "Fences/plackard_wall/plackard_corner_closed.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-047-stand",
+      "name": "Fences/plackard_wall/plackard_corner_closed_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-048-stand",
+      "name": "Fences/plackard_wall/plackard_corner_open.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-049-stand",
+      "name": "Fences/plackard_wall/plackard_corner_open_90.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-050-stand",
+      "name": "Fences/plackard_wall/plackard_corner_open_90_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-051-stand",
+      "name": "Fences/plackard_wall/plackard_corner_open_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-052-stand",
+      "name": "Fences/plackard_wall/plackard_open.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-053-stand",
+      "name": "Fences/plackard_wall/plackard_open_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-054-stand",
+      "name": "Fences/plackard_wall/plackard_open_alt2.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        4
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-055-stand",
+      "name": "Fences/plackard_wall/plackard_open_patched.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-056-stand",
+      "name": "Fences/plackard_wall/plackard_slab_boken.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-057-stand",
+      "name": "Fences/plackard_wall/plackard_slab_broken_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-058-stand",
+      "name": "Fences/plackard_wall/plackard_slab_chipped.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-059-stand",
+      "name": "Fences/plackard_wall/plackard_slab_chipped_alt.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-060-stand",
+      "name": "Fences/plackard_wall/plackard_slab_full.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-061-stand",
+      "name": "Fences/plackard_wall/plackard_slab_half.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-062-stand",
+      "name": "Fences/plackard_wall/plackard_slab_single.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-063-stand",
+      "name": "Fences/plackard_wall/plackard_slab_wood_patched.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        8
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-064-stand",
+      "name": "Fences/plaster_wall/gate_handle.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-065-stand",
+      "name": "Fences/plaster_wall/plaster_wall.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-066-stand",
+      "name": "Fences/plaster_wall/plaster_wall_column.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-067-stand",
+      "name": "Fences/plaster_wall/plaster_wall_column_fancy.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-068-stand",
+      "name": "Fences/plaster_wall/plaster_wall_fenced.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-069-stand",
+      "name": "Fences/plaster_wall/plaster_wall_half.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-070-stand",
+      "name": "Fences/plaster_wall/plaster_wall_half_fenced.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-071-stand",
+      "name": "Fences/plaster_wall/plastic_gate_left.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-072-stand",
+      "name": "Fences/plaster_wall/plastic_gate_right.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        12
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-073-stand",
+      "name": "Fences/white_picket_fence/white_picket_fence_closed_left.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-074-stand",
+      "name": "Fences/white_picket_fence/white_picket_fence_closed_right.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-075-stand",
+      "name": "Fences/white_picket_fence/white_picket_fence_gate.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-076-stand",
+      "name": "Fences/white_picket_fence/white_picket_fence_gate_poles.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-077-stand",
+      "name": "Fences/white_picket_fence/white_picket_fence_open_left.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-078-stand",
+      "name": "Fences/white_picket_fence/white_picket_fence_open_right.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-079-stand",
+      "name": "Fences/white_picket_fence/white_picket_fence_pole.glb 展台",
+      "parentId": "transform:valse-fences",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        16
+      ],
+      "color": "#746963",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "valse-fences-001",
+      "name": "Fences/brick_fence/brick_Wall_corner.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/brick_fence/brick_Wall_corner.glb",
+      "position": [
+        -15.4289281,
+        2e-7,
+        -15.4274495
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3454535,
+        1.3454535,
+        1.3454535
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-002",
+      "name": "Fences/brick_fence/brick_wall.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/brick_fence/brick_wall.glb",
+      "position": [
+        -10.6,
+        0,
+        -15.9990967
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-003",
+      "name": "Fences/brick_fence/brick_wall_gate.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/brick_fence/brick_wall_gate.glb",
+      "position": [
+        -6.6499552,
+        -0.4270946,
+        -15.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7083799,
+        1.7083799,
+        1.7083799
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-004",
+      "name": "Fences/brick_fence/brick_wall_one_overhang.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/brick_fence/brick_wall_one_overhang.glb",
+      "position": [
+        -2.5999999,
+        0,
+        -15.9991075
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6916094,
+        0.6916094,
+        0.6916094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-005",
+      "name": "Fences/brick_fence/brick_wall_one_overhang_small.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/brick_fence/brick_wall_one_overhang_small.glb",
+      "position": [
+        1.3781819,
+        0,
+        -15.9982638
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3454536,
+        1.3454536,
+        1.3454536
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-006",
+      "name": "Fences/brick_fence/brick_wall_pole.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/brick_fence/brick_wall_pole.glb",
+      "position": [
+        4,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2727272,
+        1.2727272,
+        1.2727272
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-007",
+      "name": "Fences/brick_fence/brick_wall_small.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/brick_fence/brick_wall_small.glb",
+      "position": [
+        9.3454536,
+        0,
+        -15.9982638
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3454536,
+        1.3454536,
+        1.3454536
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-008",
+      "name": "Fences/drystone_wall/drystone_column.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_column.glb",
+      "position": [
+        12.0262189,
+        0,
+        -15.9690706
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1111112,
+        3.1111112,
+        3.1111112
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-009",
+      "name": "Fences/drystone_wall/drystone_column_capped.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_column_capped.glb",
+      "position": [
+        16,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9517764,
+        2.9517764,
+        2.9517764
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-010",
+      "name": "Fences/drystone_wall/drystone_column_tiles.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_column_tiles.glb",
+      "position": [
+        -15.9759001,
+        0,
+        -11.988323
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8596672,
+        2.8596672,
+        2.8596672
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-011",
+      "name": "Fences/drystone_wall/drystone_wall.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_wall.glb",
+      "position": [
+        -13.4,
+        0,
+        -11.9936832
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-012",
+      "name": "Fences/drystone_wall/drystone_wall_capped.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_wall_capped.glb",
+      "position": [
+        -9.3908095,
+        0,
+        -11.9937246
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3908097,
+        1.3908097,
+        1.3908097
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-013",
+      "name": "Fences/drystone_wall/drystone_wall_half.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_wall_half.glb",
+      "position": [
+        -5.3961107,
+        0,
+        -12.04722
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8000003,
+        2.8000003,
+        2.8000003
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-014",
+      "name": "Fences/drystone_wall/drystone_wall_half_capped.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_wall_half_capped.glb",
+      "position": [
+        -1.3779006,
+        0,
+        -12.0460684
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7634787,
+        2.7634787,
+        2.7634787
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-015",
+      "name": "Fences/drystone_wall/drystone_wall_half_tiles.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_wall_half_tiles.glb",
+      "position": [
+        2.6,
+        0,
+        -12.0300033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7986361,
+        2.7986361,
+        2.7986361
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-016",
+      "name": "Fences/drystone_wall/drystone_wall_tiles.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/drystone_wall/drystone_wall_tiles.glb",
+      "position": [
+        6.6087678,
+        0,
+        -12.0365863
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3952761,
+        1.3952761,
+        1.3952761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-017",
+      "name": "Fences/low_wooden_fence/wooden_fence_beam.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_beam.glb",
+      "position": [
+        10.6083725,
+        0.0811201,
+        -11.9903783
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4017905,
+        1.4017905,
+        1.4017905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-018",
+      "name": "Fences/low_wooden_fence/wooden_fence_beam_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_beam_alt.glb",
+      "position": [
+        14.6060429,
+        0.1175694,
+        -12.0137529
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3858383,
+        1.3858383,
+        1.3858383
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-019",
+      "name": "Fences/low_wooden_fence/wooden_fence_beam_alt_2.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_beam_alt_2.glb",
+      "position": [
+        -17.3939485,
+        0.065461,
+        -7.9691281
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3878225,
+        1.3878225,
+        1.3878225
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-020",
+      "name": "Fences/low_wooden_fence/wooden_fence_broken.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_broken.glb",
+      "position": [
+        -13.2773435,
+        0.0950691,
+        -7.9343094
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3295674,
+        1.3295674,
+        1.3295674
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-021",
+      "name": "Fences/low_wooden_fence/wooden_fence_broken_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_broken_alt.glb",
+      "position": [
+        -9.2791012,
+        -0.005438,
+        -8.0029847
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3105145,
+        1.3105145,
+        1.3105145
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-022",
+      "name": "Fences/low_wooden_fence/wooden_fence_broken_alt2.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_broken_alt2.glb",
+      "position": [
+        -5.2174799,
+        0.0847425,
+        -7.9814726
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3514028,
+        1.3514028,
+        1.3514028
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-023",
+      "name": "Fences/low_wooden_fence/wooden_fence_closed.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_closed.glb",
+      "position": [
+        -1.2740005,
+        -0.0052523,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2657621,
+        1.2657621,
+        1.2657621
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-024",
+      "name": "Fences/low_wooden_fence/wooden_fence_oen_crossed.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_oen_crossed.glb",
+      "position": [
+        2.7606644,
+        -0.0054711,
+        -8.0052987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3184843,
+        1.3184843,
+        1.3184843
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-025",
+      "name": "Fences/low_wooden_fence/wooden_fence_open.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_open.glb",
+      "position": [
+        6.7220031,
+        -0.0054877,
+        -8.003012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3224851,
+        1.3224851,
+        1.3224851
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-026",
+      "name": "Fences/low_wooden_fence/wooden_fence_open_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_open_alt.glb",
+      "position": [
+        10.772324,
+        -0.0052944,
+        -7.9930591
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2759095,
+        1.2759095,
+        1.2759095
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-027",
+      "name": "Fences/low_wooden_fence/wooden_fence_pile.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_pile.glb",
+      "position": [
+        14.6081123,
+        0.0776849,
+        -8.0777
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3582243,
+        1.3582243,
+        1.3582243
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-028",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_pole.glb",
+      "position": [
+        -16.0093859,
+        -0.0096911,
+        -3.9940195
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3354836,
+        2.3354836,
+        2.3354836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-029",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_pole_alt.glb",
+      "position": [
+        -12.0053192,
+        -0.0096911,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3354836,
+        2.3354836,
+        2.3354836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-030",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole_alt_2.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_pole_alt_2.glb",
+      "position": [
+        -7.987295,
+        -0.0096911,
+        -4.0160304
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3354836,
+        2.3354836,
+        2.3354836
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-031",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole_broken_large.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_pole_broken_large.glb",
+      "position": [
+        -3.9842567,
+        -0.0120087,
+        -4.019864
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8940103,
+        2.8940103,
+        2.8940103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-032",
+      "name": "Fences/low_wooden_fence/wooden_fence_pole_broken_small.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/low_wooden_fence/wooden_fence_pole_broken_small.glb",
+      "position": [
+        0.0013373,
+        -0.0166944,
+        -4.0552406
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.1745804,
+        6.1745804,
+        6.1745804
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-033",
+      "name": "Fences/metal_fence/gate.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/metal_fence/gate.glb",
+      "position": [
+        5.1584985,
+        1.7031214,
+        -4.0057722
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2395152,
+        2.2395152,
+        2.2395152
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-034",
+      "name": "Fences/metal_fence/metal_fence_gate_with_gate.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/metal_fence/metal_fence_gate_with_gate.glb",
+      "position": [
+        8.0317862,
+        0.2074541,
+        -3.9969298
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6795024,
+        1.6795024,
+        1.6795024
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-035",
+      "name": "Fences/metal_fence/metalfence_both_sides_no_topbar.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/metal_fence/metalfence_both_sides_no_topbar.glb",
+      "position": [
+        12,
+        0.1279842,
+        -3.9995334
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0387007,
+        1.0387007,
+        1.0387007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-036",
+      "name": "Fences/metal_fence/metalfence_both_sides_topbar.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/metal_fence/metalfence_both_sides_topbar.glb",
+      "position": [
+        16.0006028,
+        0.1279842,
+        -3.9906036
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0387007,
+        1.0387007,
+        1.0387007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-037",
+      "name": "Fences/metal_fence/metalfence_gate_only_sides.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/metal_fence/metalfence_gate_only_sides.glb",
+      "position": [
+        -15.9682138,
+        0.2074541,
+        0.0030702
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6795024,
+        1.6795024,
+        1.6795024
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-038",
+      "name": "Fences/metal_fence/metalfence_one_side_no_topbar.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/metal_fence/metalfence_one_side_no_topbar.glb",
+      "position": [
+        -11.9634956,
+        0.1263444,
+        0.0005279
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0427668,
+        1.0427668,
+        1.0427668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-039",
+      "name": "Fences/metal_fence/metalfence_one_side_topbar.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/metal_fence/metalfence_one_side_topbar.glb",
+      "position": [
+        -7.9978111,
+        0.1329019,
+        0.0003861
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.03841,
+        1.03841,
+        1.03841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-040",
+      "name": "Fences/plackard_wall/plackard_broken.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_broken.glb",
+      "position": [
+        -5.3082378,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9176217,
+        0.9176217,
+        0.9176217
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-041",
+      "name": "Fences/plackard_wall/plackard_broken_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_broken_alt.glb",
+      "position": [
+        -1.3082378,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9176217,
+        0.9176217,
+        0.9176217
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-042",
+      "name": "Fences/plackard_wall/plackard_broken_slanted.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_broken_slanted.glb",
+      "position": [
+        2.6857666,
+        0.2210526,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8609419,
+        0.8609419,
+        0.8609419
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-043",
+      "name": "Fences/plackard_wall/plackard_closed.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_closed.glb",
+      "position": [
+        6.6918034,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9180327,
+        0.9180327,
+        0.9180327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-044",
+      "name": "Fences/plackard_wall/plackard_closed_full.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_closed_full.glb",
+      "position": [
+        10.6875001,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8749999,
+        0.8749999,
+        0.8749999
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-045",
+      "name": "Fences/plackard_wall/plackard_corner.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_corner.glb",
+      "position": [
+        14.6918032,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9180328,
+        0.9180328,
+        0.9180328
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-046",
+      "name": "Fences/plackard_wall/plackard_corner_closed.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_corner_closed.glb",
+      "position": [
+        -16,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-047",
+      "name": "Fences/plackard_wall/plackard_corner_closed_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_corner_closed_alt.glb",
+      "position": [
+        -12,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-048",
+      "name": "Fences/plackard_wall/plackard_corner_open.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_corner_open.glb",
+      "position": [
+        -8,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-049",
+      "name": "Fences/plackard_wall/plackard_corner_open_90.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_corner_open_90.glb",
+      "position": [
+        -4,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-050",
+      "name": "Fences/plackard_wall/plackard_corner_open_90_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_corner_open_90_alt.glb",
+      "position": [
+        0,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-051",
+      "name": "Fences/plackard_wall/plackard_corner_open_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_corner_open_alt.glb",
+      "position": [
+        4,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12,
+        1.12,
+        1.12
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-052",
+      "name": "Fences/plackard_wall/plackard_open.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_open.glb",
+      "position": [
+        6.6918032,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9180328,
+        0.9180328,
+        0.9180328
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-053",
+      "name": "Fences/plackard_wall/plackard_open_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_open_alt.glb",
+      "position": [
+        10.6918033,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9180327,
+        0.9180327,
+        0.9180327
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-054",
+      "name": "Fences/plackard_wall/plackard_open_alt2.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_open_alt2.glb",
+      "position": [
+        14.6918032,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9180328,
+        0.9180328,
+        0.9180328
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-055",
+      "name": "Fences/plackard_wall/plackard_open_patched.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_open_patched.glb",
+      "position": [
+        -17.3081968,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9180328,
+        0.9180328,
+        0.9180328
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-056",
+      "name": "Fences/plackard_wall/plackard_slab_boken.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_slab_boken.glb",
+      "position": [
+        -13.4475939,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9650626,
+        0.9650626,
+        0.9650626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-057",
+      "name": "Fences/plackard_wall/plackard_slab_broken_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_slab_broken_alt.glb",
+      "position": [
+        -9.4475939,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9650626,
+        0.9650626,
+        0.9650626
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-058",
+      "name": "Fences/plackard_wall/plackard_slab_chipped.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_slab_chipped.glb",
+      "position": [
+        -5.4482758,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9655172,
+        0.9655172,
+        0.9655172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-059",
+      "name": "Fences/plackard_wall/plackard_slab_chipped_alt.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_slab_chipped_alt.glb",
+      "position": [
+        -1.4482758,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9655172,
+        0.9655172,
+        0.9655172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-060",
+      "name": "Fences/plackard_wall/plackard_slab_full.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_slab_full.glb",
+      "position": [
+        2.5517242,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9655172,
+        0.9655172,
+        0.9655172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-061",
+      "name": "Fences/plackard_wall/plackard_slab_half.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_slab_half.glb",
+      "position": [
+        6.5517242,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9655172,
+        0.9655172,
+        0.9655172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-062",
+      "name": "Fences/plackard_wall/plackard_slab_single.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_slab_single.glb",
+      "position": [
+        10.5517242,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9655172,
+        0.9655172,
+        0.9655172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-063",
+      "name": "Fences/plackard_wall/plackard_slab_wood_patched.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plackard_wall/plackard_slab_wood_patched.glb",
+      "position": [
+        14.5517242,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9655172,
+        0.9655172,
+        0.9655172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-064",
+      "name": "Fences/plaster_wall/gate_handle.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/gate_handle.glb",
+      "position": [
+        263.5796031,
+        0.3329001,
+        -13.1342076
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.5341542,
+        25.5341542,
+        25.5341542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-065",
+      "name": "Fences/plaster_wall/plaster_wall.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/plaster_wall.glb",
+      "position": [
+        -13.4,
+        0,
+        12.0273604
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-066",
+      "name": "Fences/plaster_wall/plaster_wall_column.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/plaster_wall_column.glb",
+      "position": [
+        -8.0000006,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3063722,
+        1.3063722,
+        1.3063722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-067",
+      "name": "Fences/plaster_wall/plaster_wall_column_fancy.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/plaster_wall_column_fancy.glb",
+      "position": [
+        -4.0000006,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3063722,
+        1.3063722,
+        1.3063722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-068",
+      "name": "Fences/plaster_wall/plaster_wall_fenced.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/plaster_wall_fenced.glb",
+      "position": [
+        -1.4,
+        0,
+        12.0273604
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-069",
+      "name": "Fences/plaster_wall/plaster_wall_half.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/plaster_wall_half.glb",
+      "position": [
+        2.5999993,
+        0,
+        12.0547208
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-070",
+      "name": "Fences/plaster_wall/plaster_wall_half_fenced.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/plaster_wall_half_fenced.glb",
+      "position": [
+        7.0532178,
+        0,
+        12.036904
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8883358,
+        1.8883358,
+        1.8883358
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-071",
+      "name": "Fences/plaster_wall/plastic_gate_left.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/plastic_gate_left.glb",
+      "position": [
+        10.6,
+        0,
+        12.0029163
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-072",
+      "name": "Fences/plaster_wall/plastic_gate_right.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/plaster_wall/plastic_gate_right.glb",
+      "position": [
+        17.3999999,
+        0,
+        12.0028805
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3832216,
+        1.3832216,
+        1.3832216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-073",
+      "name": "Fences/white_picket_fence/white_picket_fence_closed_left.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/white_picket_fence/white_picket_fence_closed_left.glb",
+      "position": [
+        -15.8688042,
+        1e-7,
+        15.9848342
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1725137,
+        1.1725137,
+        1.1725137
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-074",
+      "name": "Fences/white_picket_fence/white_picket_fence_closed_right.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/white_picket_fence/white_picket_fence_closed_right.glb",
+      "position": [
+        -12.1319329,
+        1e-7,
+        15.9870373
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1718326,
+        1.1718326,
+        1.1718326
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-075",
+      "name": "Fences/white_picket_fence/white_picket_fence_gate.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/white_picket_fence/white_picket_fence_gate.glb",
+      "position": [
+        -6.8056222,
+        1.4514805,
+        16.0032014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2123239,
+        2.2123239,
+        2.2123239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-076",
+      "name": "Fences/white_picket_fence/white_picket_fence_gate_poles.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/white_picket_fence/white_picket_fence_gate_poles.glb",
+      "position": [
+        -5.1673228,
+        1e-7,
+        15.9999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8107915,
+        1.8107915,
+        1.8107915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-077",
+      "name": "Fences/white_picket_fence/white_picket_fence_open_left.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/white_picket_fence/white_picket_fence_open_left.glb",
+      "position": [
+        -1e-7,
+        -0.0734491,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.293753,
+        1.293753,
+        1.293753
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-078",
+      "name": "Fences/white_picket_fence/white_picket_fence_open_right.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/white_picket_fence/white_picket_fence_open_right.glb",
+      "position": [
+        4,
+        -0.0734492,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2937531,
+        1.2937531,
+        1.2937531
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "valse-fences-079",
+      "name": "Fences/white_picket_fence/white_picket_fence_pole.glb",
+      "parentId": "transform:valse-fences",
+      "modelPath": "resources/Model/GLB/artist_valsekamerplant/all_fences/Fences/white_picket_fence/white_picket_fence_pole.glb",
+      "position": [
+        7.9999999,
+        1e-7,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0504054,
+        2.0504054,
+        2.0504054
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

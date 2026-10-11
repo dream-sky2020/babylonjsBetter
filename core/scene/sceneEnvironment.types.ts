@@ -47,6 +47,7 @@ export type SceneEnvironmentObject = SceneEnvironmentHierarchy & {
 };
 
 export type SceneEnvironmentModel = SceneEnvironmentHierarchy & {
+  materialOverrides?: import('../model/material/modelMaterialBindings.ts').ModelMaterialBindings;
   id: string;
   name: string;
   modelPath: string;

@@ -1,0 +1,7386 @@
+{
+  "presetKey": "artist-heyheythere-interior-model-test",
+  "name": "Heyheythere · 室内与生活（168 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-apartmentkit",
+      "name": "ApartmentKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-everydayclutter",
+      "name": "EverydayClutter",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-furniture",
+      "name": "Furniture",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-hospitalkit",
+      "name": "HospitalKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-kitchenandfood",
+      "name": "KitchenAndFood",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-mallkit",
+      "name": "MallKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-mansionkit",
+      "name": "MansionKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-officekit",
+      "name": "OfficeKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-policestationkit",
+      "name": "PoliceStationKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-schoolkit",
+      "name": "SchoolKit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 85
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "heyheythere-c0c68557971170b7-stand",
+      "name": "Bare Bulb展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-987b2e2df8f4a272-stand",
+      "name": "Blood Drag展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-59b2629f4c15a15a-stand",
+      "name": "Carpet Floor展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-168c25430459d949-stand",
+      "name": "Flat Door展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7d64333e70901e51-stand",
+      "name": "Flat Entrance展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-ab02d2df9fc26d46-stand",
+      "name": "Kitchen Sink展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        40
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c7a3069949d276ec-stand",
+      "name": "Mould展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-0b01268d09b81141-stand",
+      "name": "Papered Wall展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-cfe7e16e74d096d8-stand",
+      "name": "Peeling Wallpaper展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-3e3c4ceafd8c741a-stand",
+      "name": "Plaster Ceiling展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-4469e352cf894272-stand",
+      "name": "Radiator展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f148bc2400de586c-stand",
+      "name": "Sash Window展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        36
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c682da9e4d9da4e8-stand",
+      "name": "Torn Wallpaper Wall展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f83ac2cd035e24b5-stand",
+      "name": "Wall Post展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-1200f747472160b2-stand",
+      "name": "Window Wall展台",
+      "parentId": "transform:category-apartmentkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        32
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b0e1ba5c1f4c900f-stand",
+      "name": "Camcorder展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-874046b5d75f2ff0-stand",
+      "name": "Cassette Walkman展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7bc8fb3f9b00a532-stand",
+      "name": "Crushed Cans展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b608508bd9a4a2fe-stand",
+      "name": "Folded Clothes展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2f82c31a66f057b2-stand",
+      "name": "Lava Lamp展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2fb924e60eafa8ac-stand",
+      "name": "Plush Bunny展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        40
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c6d3cac82bd06561-stand",
+      "name": "Power Drill展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-72a5c5a6e805de48-stand",
+      "name": "Rubber Duck展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7e5e24f8c93fd8f2-stand",
+      "name": "Shoebox展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-08d44c967c3b3e12-stand",
+      "name": "Soda Bottle, Two Litre展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c13e7997b527c0e2-stand",
+      "name": "Spray Paint, Red展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8146a93045ae23dd-stand",
+      "name": "Tissue Box展台",
+      "parentId": "transform:category-everydayclutter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c5c65eb2cb9a916a-stand",
+      "name": "Armchair, Red展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        29
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6335a36804b8f1a7-stand",
+      "name": "Base Unit, White展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        29
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-258bf94ac65523da-stand",
+      "name": "Beer Can展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        29
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2c9b56afe9493e0e-stand",
+      "name": "Bookcase, Tall展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        29
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6088093e8ba06940-stand",
+      "name": "Books, Stack展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        29
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2aa895d700831938-stand",
+      "name": "Can of Soup展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        29
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-ad7159420b5f635c-stand",
+      "name": "Cardboard Box展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        25
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bc1b163a3bf6ab09-stand",
+      "name": "Cereal, Corn Flakes展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        25
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-71c00f34046f65a3-stand",
+      "name": "Chair, Broken展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        25
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b824cd8dbe0543a2-stand",
+      "name": "Chair, Ladder Back展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        25
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-9a0440b589da9e16-stand",
+      "name": "Coffee Table, Oak展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        25
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-637e67e047474cce-stand",
+      "name": "Floor Lamp展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        25
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-309aafab6d41cfdd-stand",
+      "name": "Floorboards展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        21
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bef9babd7dd831ea-stand",
+      "name": "Fridge, White展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        21
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7f8432339a29f336-stand",
+      "name": "Kitchen Table, Pine展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        21
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-481a1c2ceeea21a2-stand",
+      "name": "Milk Carton展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        21
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-72611b0be8ef6224-stand",
+      "name": "Mug展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        21
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-3c5ada5ce44d2e40-stand",
+      "name": "Newspaper展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        21
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a39326f1308982fd-stand",
+      "name": "Nightstand, Oak展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        17
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bfffbb9ada319b82-stand",
+      "name": "Open Box展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        17
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c74a1470e88a74ad-stand",
+      "name": "Picture, Landscape展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        17
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d6f360be9bb136c1-stand",
+      "name": "Plate展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        17
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-9f43f60d123da112-stand",
+      "name": "Rotary Phone展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        17
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-3de899e469b8fd29-stand",
+      "name": "Rug, Braided展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        17
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d0c3722d1f0e6d18-stand",
+      "name": "Single Bed, Oak展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d278d0fdeeefb189-stand",
+      "name": "Sink Unit, White展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-62b870cdd75fdf42-stand",
+      "name": "Sofa, Red展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-79454a35ea2ec7bb-stand",
+      "name": "Stove, White展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2d022ebfd29c1a7c-stand",
+      "name": "Stovetop Kettle展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c6be9ce533347500-stand",
+      "name": "Table Lamp展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-137491f758fd3758-stand",
+      "name": "Television展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-19a0eb64527b6114-stand",
+      "name": "Trash Bag展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bc96f357fb49d932-stand",
+      "name": "Wall Cabinet, White展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-988e56a1c9ee56d7-stand",
+      "name": "Wall Clock展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a66c0dcf07b2bddd-stand",
+      "name": "Wall, Damask Wallpaper展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-d244ca0cd6bb3a63-stand",
+      "name": "Wardrobe, Oak展台",
+      "parentId": "transform:category-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2897d45f5ef481fd-stand",
+      "name": "Bedside Cabinet展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        25
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-92bb872617d5b737-stand",
+      "name": "Blood Pool展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        25
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-bb7ea2a92553292e-stand",
+      "name": "Ceiling Light展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        25
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-0450cafd6edf4ed3-stand",
+      "name": "Ceiling Tiles展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        25
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2247c0761ec4db2e-stand",
+      "name": "Door展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        25
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-9a7c4fb8471f15ac-stand",
+      "name": "Doorway展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        25
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d18ef31d43b132d7-stand",
+      "name": "Exit Sign展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c7457db87f6187a1-stand",
+      "name": "Hospital Bed展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-bdb2d8ffb640623a-stand",
+      "name": "IV Stand展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-598196c4f784b833-stand",
+      "name": "Lino Floor展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8605aad7810ed2f0-stand",
+      "name": "Stained Wall展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2b82c7c61b951d58-stand",
+      "name": "Wall展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-90110a661ac619f9-stand",
+      "name": "Wall Post展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b5a15130d9beddca-stand",
+      "name": "Wheelchair展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-e3ce0c7a8ec8e217-stand",
+      "name": "Window Wall展台",
+      "parentId": "transform:category-hospitalkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c40c8a254dd8a256-stand",
+      "name": "Burger展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-36a922f42084e4c8-stand",
+      "name": "Cash Register展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-3d597d1e9f67d766-stand",
+      "name": "Catering Can, Tomatoes展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-8f281c37cda84d01-stand",
+      "name": "Chef's Knife展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-cde1faf5d7a5c8e7-stand",
+      "name": "Commercial Microwave展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-4a371107caeda50c-stand",
+      "name": "Counter Stool, Red展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-3c3feda5d1b3e02b-stand",
+      "name": "Fries展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-70f6601f3bd6083a-stand",
+      "name": "Frying Pan, Steel展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-3d45dd510b8725a8-stand",
+      "name": "Jar of Jam展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2be006d593ca227c-stand",
+      "name": "Prep Table展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-4f3128c86d5eb562-stand",
+      "name": "Six-Burner Range展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-55757fb4d15af7d1-stand",
+      "name": "Soda Cup展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-8e79fb93a5809ff4-stand",
+      "name": "Steak展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-58e3206de4c46548-stand",
+      "name": "Steak, Rotten展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-067ba99836cb6f9a-stand",
+      "name": "Stockpot展台",
+      "parentId": "transform:category-kitchenandfood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-2d985ecb6ce5086d-stand",
+      "name": "Cash Register展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-68919b5acac52e54-stand",
+      "name": "Checkout展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-863667b2b9870336-stand",
+      "name": "Dirty Supermarket Floor展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-987a3df1bce50b78-stand",
+      "name": "Freezer Doors展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7b44a172871da5df-stand",
+      "name": "Mall Ceiling展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-4468f586c4f0600c-stand",
+      "name": "Save-Rite Sign展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-dc0f23d5536b6336-stand",
+      "name": "Shopping Cart展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-6d9de7eb9a019855-stand",
+      "name": "Sliding Doors展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-15c87b382d269030-stand",
+      "name": "Storefront Entrance展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d1bede4ee0a73f90-stand",
+      "name": "Supermarket Floor展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-02828281823d259d-stand",
+      "name": "Supermarket Gondola展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-509c5ce272e9bdec-stand",
+      "name": "Supermarket Opening Wall展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-a8e38ca0cee2263a-stand",
+      "name": "Supermarket Post展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d9362aad9e4a5be0-stand",
+      "name": "Supermarket Wall展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-ad83024fed495502-stand",
+      "name": "Wet Floor Sign展台",
+      "parentId": "transform:category-mallkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -6
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-df08fe7017dbbac3-stand",
+      "name": "Candle Sconce展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-48078f7621de8e8b-stand",
+      "name": "Coffered Ceiling展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-8bb432444dfd78b8-stand",
+      "name": "Cradle展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-eb550d8dfa52805f-stand",
+      "name": "Damask Doorway展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e720584a944b5689-stand",
+      "name": "Damask Post展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bd36356449fb4ba2-stand",
+      "name": "Damask Wall展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-1af45fcc95834107-stand",
+      "name": "Damask Window Wall展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-16cf3263f896f05c-stand",
+      "name": "Fireplace展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-9794be9cf7c0337c-stand",
+      "name": "Music Box展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e35b86046d3c4cac-stand",
+      "name": "Panelled Door展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e7a4c9b394c2862f-stand",
+      "name": "Parquet Floor展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-635a86ab5861edf1-stand",
+      "name": "Portrait of the Lady展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-c835658dbc0468b3-stand",
+      "name": "Standing Candelabrum展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-f23f21de5ee25ee2-stand",
+      "name": "Suit of Armour展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-64dc9f04cdc9f6b0-stand",
+      "name": "Tall Window展台",
+      "parentId": "transform:category-mansionkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7189d98fe7fb0ade-stand",
+      "name": "Carpet Tile Floor展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-4c427d91b74bd3a2-stand",
+      "name": "Ceiling Light展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-f6ed5c3357e8824b-stand",
+      "name": "Ceiling Tiles展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-de65d1d948da0563-stand",
+      "name": "Corner Cubicle Desk展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-9f29ddcb793b2d21-stand",
+      "name": "CRT Monitor展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-6e16720c0c82c6a4-stand",
+      "name": "Cubicle Panel展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-91a3e3b0e44086c8-stand",
+      "name": "Cubicle Post展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-5a223e4b079091cb-stand",
+      "name": "Office Door展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-baee1e9981f9639e-stand",
+      "name": "Office Doorway展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-1fa4e2edfe518152-stand",
+      "name": "Office Post展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d4035f8c82469990-stand",
+      "name": "Office Wall展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d6c65cbf62fd4fb7-stand",
+      "name": "Office Window展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -17
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-d23522eefc6952e3-stand",
+      "name": "Office Window Wall展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c6bb90f3c611f889-stand",
+      "name": "Overhead Bin展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-fdcfc18f51f3ab66-stand",
+      "name": "Task Chair展台",
+      "parentId": "transform:category-officekit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -21
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-0aaad5be130faa71-stand",
+      "name": "Brick Cell Wall展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-46cb732d87b11c18-stand",
+      "name": "Brick Cell Window Wall展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a06bf45b8ac2a274-stand",
+      "name": "Cell Bars展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-bcd86cee169f8b14-stand",
+      "name": "Cell Bars, Doorway展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-7c3c724c96b9c299-stand",
+      "name": "Cell Block Post展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-fb4757e2b3067375-stand",
+      "name": "Cell Block Wall展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-05959c0092efaf0e-stand",
+      "name": "Cell Block Wall, Scratched展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-6ff7247577fa4b13-stand",
+      "name": "Cell Bunk展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-ade6c097119d9e1b-stand",
+      "name": "Cell Ceiling展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-9328d48c5aeea8f3-stand",
+      "name": "Cell Door, Unlocked展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-b74d8659d6cf90a1-stand",
+      "name": "Cell Floor展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-744e4cecf08fe7a1-stand",
+      "name": "Cell Floor, Drain展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -24
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-de6d2c71cba6f4e7-stand",
+      "name": "Cell Toilet展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-e1ba9d60d93e86d5-stand",
+      "name": "Cell Window展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-aa82a3b19b297b5b-stand",
+      "name": "Concrete Bench展台",
+      "parentId": "transform:category-policestationkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -28
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "heyheythere-a5ab76f07497db4c-stand",
+      "name": "Ceiling Light展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-9da2378dff97b649-stand",
+      "name": "Ceiling Tiles展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b9e92f9a21123fd5-stand",
+      "name": "Classroom Door展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b5489e371595fce8-stand",
+      "name": "Classroom Doorway展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-8475658fe5a18214-stand",
+      "name": "Classroom Post展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c1aba66abecfb78f-stand",
+      "name": "Classroom Wall展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -28
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b8f12267e44de00f-stand",
+      "name": "Classroom Window展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-b06dd84b72ed3c0f-stand",
+      "name": "Classroom Window Wall展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-c692a3ed2ac84adc-stand",
+      "name": "Drawn-On Wall展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-6cc06fff27350aa8-stand",
+      "name": "Pupil's Chair展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-7cd7e6f3f68e2846-stand",
+      "name": "Pupil's Desk展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-f235d15a7def68bd-stand",
+      "name": "School Clock展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -32
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-49b6d5dcd787c115-stand",
+      "name": "Small Handprints展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-f218914f4fc46cc1-stand",
+      "name": "Tile Floor展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "heyheythere-2713c5ab486056f0-stand",
+      "name": "Written Chalkboard展台",
+      "parentId": "transform:category-schoolkit",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -36
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "heyheythere-c0c68557971170b7",
+      "name": "ApartmentKit · Bare Bulb",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/bare_bulb.glb",
+      "position": [
+        -22,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.11111078,
+        3.11111078,
+        3.11111078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-987b2e2df8f4a272",
+      "name": "ApartmentKit · Blood Drag",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/blood_drag.glb",
+      "position": [
+        -18,
+        0,
+        40.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15485281,
+        1.15485281,
+        1.15485281
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-59b2629f4c15a15a",
+      "name": "ApartmentKit · Carpet Floor",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/floor_carpet.glb",
+      "position": [
+        -14,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-168c25430459d949",
+      "name": "ApartmentKit · Flat Door",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/door_flat.glb",
+      "position": [
+        -10,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7d64333e70901e51",
+      "name": "ApartmentKit · Flat Entrance",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/wall_doorway_flat.glb",
+      "position": [
+        -6,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ab02d2df9fc26d46",
+      "name": "ApartmentKit · Kitchen Sink",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/kitchen_sink.glb",
+      "position": [
+        -2,
+        0,
+        40.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.41336064,
+        2.41336064,
+        2.41336064
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c7a3069949d276ec",
+      "name": "ApartmentKit · Mould",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/mould.glb",
+      "position": [
+        -22,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.81229569,
+        2.81229569,
+        2.81229569
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0b01268d09b81141",
+      "name": "ApartmentKit · Papered Wall",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/wall_papered.glb",
+      "position": [
+        -18,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-cfe7e16e74d096d8",
+      "name": "ApartmentKit · Peeling Wallpaper",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/wallpaper_peel.glb",
+      "position": [
+        -14,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333347,
+        2.33333347,
+        2.33333347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3e3c4ceafd8c741a",
+      "name": "ApartmentKit · Plaster Ceiling",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/ceiling_plaster.glb",
+      "position": [
+        -10,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4469e352cf894272",
+      "name": "ApartmentKit · Radiator",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/radiator.glb",
+      "position": [
+        -6,
+        0,
+        36.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.60643128,
+        2.60643128,
+        2.60643128
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f148bc2400de586c",
+      "name": "ApartmentKit · Sash Window",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/window_sash.glb",
+      "position": [
+        -2,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.84818491,
+        1.84818491,
+        1.84818491
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c682da9e4d9da4e8",
+      "name": "ApartmentKit · Torn Wallpaper Wall",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/wall_papered_torn.glb",
+      "position": [
+        -16,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f83ac2cd035e24b5",
+      "name": "ApartmentKit · Wall Post",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/wall_post.glb",
+      "position": [
+        -12,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1200f747472160b2",
+      "name": "ApartmentKit · Window Wall",
+      "parentId": "transform:category-apartmentkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/ApartmentKit/wall_window.glb",
+      "position": [
+        -8,
+        0,
+        32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b0e1ba5c1f4c900f",
+      "name": "EverydayClutter · Camcorder",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/camcorder.glb",
+      "position": [
+        2.00000001,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.19999967,
+        11.19999967,
+        11.19999967
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-874046b5d75f2ff0",
+      "name": "EverydayClutter · Cassette Walkman",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/walkman.glb",
+      "position": [
+        6,
+        0,
+        40.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.04724339,
+        22.04724339,
+        22.04724339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7bc8fb3f9b00a532",
+      "name": "EverydayClutter · Crushed Cans",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/crushed_cans.glb",
+      "position": [
+        10,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.25286855,
+        10.25286855,
+        10.25286855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b608508bd9a4a2fe",
+      "name": "EverydayClutter · Folded Clothes",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/folded_clothes.glb",
+      "position": [
+        14,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.72120032,
+        8.72120032,
+        8.72120032
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2f82c31a66f057b2",
+      "name": "EverydayClutter · Lava Lamp",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/lava_lamp.glb",
+      "position": [
+        18,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.3636364,
+        6.3636364,
+        6.3636364
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2fb924e60eafa8ac",
+      "name": "EverydayClutter · Plush Bunny",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/plush_bunny.glb",
+      "position": [
+        22,
+        0,
+        40
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.36781668,
+        9.36781668,
+        9.36781668
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c6d3cac82bd06561",
+      "name": "EverydayClutter · Power Drill",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/power_drill.glb",
+      "position": [
+        2,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.99999997,
+        7.99999997,
+        7.99999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-72a5c5a6e805de48",
+      "name": "EverydayClutter · Rubber Duck",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/rubber_duck.glb",
+      "position": [
+        6,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.02076512,
+        24.02076512,
+        24.02076512
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7e5e24f8c93fd8f2",
+      "name": "EverydayClutter · Shoebox",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/shoebox.glb",
+      "position": [
+        10,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.09248588,
+        8.09248588,
+        8.09248588
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-08d44c967c3b3e12",
+      "name": "EverydayClutter · Soda Bottle, Two Litre",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/soda_bottle.glb",
+      "position": [
+        14,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.48484815,
+        8.48484815,
+        8.48484815
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c13e7997b527c0e2",
+      "name": "EverydayClutter · Spray Paint, Red",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/spray_paint.glb",
+      "position": [
+        18,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.6585367,
+        13.6585367,
+        13.6585367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8146a93045ae23dd",
+      "name": "EverydayClutter · Tissue Box",
+      "parentId": "transform:category-everydayclutter",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/EverydayClutter/tissue_box.glb",
+      "position": [
+        22,
+        0,
+        36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.66666693,
+        11.66666693,
+        11.66666693
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c5c65eb2cb9a916a",
+      "name": "Furniture · Armchair, Red",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/armchair_red.glb",
+      "position": [
+        2,
+        0,
+        29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.91666673,
+        2.91666673,
+        2.91666673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6335a36804b8f1a7",
+      "name": "Furniture · Base Unit, White",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/base_unit_white.glb",
+      "position": [
+        6,
+        0,
+        29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.11111119,
+        3.11111119,
+        3.11111119
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-258bf94ac65523da",
+      "name": "Furniture · Beer Can",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/beer_can.glb",
+      "position": [
+        10,
+        0,
+        29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.87499896,
+        21.87499896,
+        21.87499896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2c9b56afe9493e0e",
+      "name": "Furniture · Bookcase, Tall",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/bookcase_tall.glb",
+      "position": [
+        14,
+        0,
+        29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555556,
+        1.5555556,
+        1.5555556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6088093e8ba06940",
+      "name": "Furniture · Books, Stack",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/book_stack.glb",
+      "position": [
+        18,
+        0,
+        29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.23529403,
+        8.23529403,
+        8.23529403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2aa895d700831938",
+      "name": "Furniture · Can of Soup",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/can_soup.glb",
+      "position": [
+        22,
+        0,
+        29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.13793173,
+        24.13793173,
+        24.13793173
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ad7159420b5f635c",
+      "name": "Furniture · Cardboard Box",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/box.glb",
+      "position": [
+        2,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bc1b163a3bf6ab09",
+      "name": "Furniture · Cereal, Corn Flakes",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/cereal_corn.glb",
+      "position": [
+        6,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.65517269,
+        9.65517269,
+        9.65517269
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-71c00f34046f65a3",
+      "name": "Furniture · Chair, Broken",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/chair_broken.glb",
+      "position": [
+        10,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.70067466,
+        2.70067466,
+        2.70067466
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b824cd8dbe0543a2",
+      "name": "Furniture · Chair, Ladder Back",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/chair_ladder_pine.glb",
+      "position": [
+        14,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.90155448,
+        2.90155448,
+        2.90155448
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9a0440b589da9e16",
+      "name": "Furniture · Coffee Table, Oak",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/coffee_table_oak.glb",
+      "position": [
+        18,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.54545449,
+        2.54545449,
+        2.54545449
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-637e67e047474cce",
+      "name": "Furniture · Floor Lamp",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/floor_lamp.glb",
+      "position": [
+        22,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80645167,
+        1.80645167,
+        1.80645167
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-309aafab6d41cfdd",
+      "name": "Furniture · Floorboards",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/floorboards.glb",
+      "position": [
+        2,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bef9babd7dd831ea",
+      "name": "Furniture · Fridge, White",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/fridge_white.glb",
+      "position": [
+        6,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.64705878,
+        1.64705878,
+        1.64705878
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7f8432339a29f336",
+      "name": "Furniture · Kitchen Table, Pine",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/table_pine.glb",
+      "position": [
+        10,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-481a1c2ceeea21a2",
+      "name": "Furniture · Milk Carton",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/milk.glb",
+      "position": [
+        14,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.98039236,
+        10.98039236,
+        10.98039236
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-72611b0be8ef6224",
+      "name": "Furniture · Mug",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/mug.glb",
+      "position": [
+        18,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.0015044,
+        25.0015044,
+        25.0015044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3c5ada5ce44d2e40",
+      "name": "Furniture · Newspaper",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/newspaper.glb",
+      "position": [
+        22,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.67851326,
+        6.67851326,
+        6.67851326
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a39326f1308982fd",
+      "name": "Furniture · Nightstand, Oak",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/nightstand_oak.glb",
+      "position": [
+        2,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.9716313,
+        3.9716313,
+        3.9716313
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bfffbb9ada319b82",
+      "name": "Furniture · Open Box",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/box_open.glb",
+      "position": [
+        6,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.46397386,
+        4.46397386,
+        4.46397386
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c74a1470e88a74ad",
+      "name": "Furniture · Picture, Landscape",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/picture_landscape.glb",
+      "position": [
+        10,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.17910437,
+        4.17910437,
+        4.17910437
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d6f360be9bb136c1",
+      "name": "Furniture · Plate",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/plate.glb",
+      "position": [
+        14,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.66666693,
+        11.66666693,
+        11.66666693
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9f43f60d123da112",
+      "name": "Furniture · Rotary Phone",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/phone.glb",
+      "position": [
+        18,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.46820757,
+        6.46820757,
+        6.46820757
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3de899e469b8fd29",
+      "name": "Furniture · Rug, Braided",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/rug_braided.glb",
+      "position": [
+        22,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74999997,
+        1.74999997,
+        1.74999997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d0c3722d1f0e6d18",
+      "name": "Furniture · Single Bed, Oak",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/bed_single_oak.glb",
+      "position": [
+        2,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.30566565,
+        1.30566565,
+        1.30566565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d278d0fdeeefb189",
+      "name": "Furniture · Sink Unit, White",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/sink_unit_white.glb",
+      "position": [
+        6,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.31226967,
+        2.31226967,
+        2.31226967
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-62b870cdd75fdf42",
+      "name": "Furniture · Sofa, Red",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/sofa_red.glb",
+      "position": [
+        10,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26126125,
+        1.26126125,
+        1.26126125
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-79454a35ea2ec7bb",
+      "name": "Furniture · Stove, White",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/stove_white.glb",
+      "position": [
+        14,
+        0,
+        12.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.64150958,
+        2.64150958,
+        2.64150958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2d022ebfd29c1a7c",
+      "name": "Furniture · Stovetop Kettle",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/kettle_stove.glb",
+      "position": [
+        18,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0384893,
+        9.0384893,
+        9.0384893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c6be9ce533347500",
+      "name": "Furniture · Table Lamp",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/table_lamp_jar.glb",
+      "position": [
+        22,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.08695641,
+        6.08695641,
+        6.08695641
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-137491f758fd3758",
+      "name": "Furniture · Television",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/tv.glb",
+      "position": [
+        2,
+        0,
+        8.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.44875316,
+        3.44875316,
+        3.44875316
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-19a0eb64527b6114",
+      "name": "Furniture · Trash Bag",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/trash_bag.glb",
+      "position": [
+        6,
+        0,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.82758635,
+        4.82758635,
+        4.82758635
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bc96f357fb49d932",
+      "name": "Furniture · Wall Cabinet, White",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/wall_cabinet_white.glb",
+      "position": [
+        10,
+        0,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.99999973,
+        3.99999973,
+        3.99999973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-988e56a1c9ee56d7",
+      "name": "Furniture · Wall Clock",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/wall_clock.glb",
+      "position": [
+        14,
+        0,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.64197528,
+        8.64197528,
+        8.64197528
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a66c0dcf07b2bddd",
+      "name": "Furniture · Wall, Damask Wallpaper",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/wall_damask.glb",
+      "position": [
+        18,
+        0,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d244ca0cd6bb3a63",
+      "name": "Furniture · Wardrobe, Oak",
+      "parentId": "transform:category-furniture",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/Furniture/wardrobe_oak.glb",
+      "position": [
+        22,
+        0,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37931036,
+        1.37931036,
+        1.37931036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2897d45f5ef481fd",
+      "name": "HospitalKit · Bedside Cabinet",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/bedside_cabinet.glb",
+      "position": [
+        -22,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.51121074,
+        2.51121074,
+        2.51121074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-92bb872617d5b737",
+      "name": "HospitalKit · Blood Pool",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/blood_pool.glb",
+      "position": [
+        -18,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23720718,
+        1.23720718,
+        1.23720718
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bb7ea2a92553292e",
+      "name": "HospitalKit · Ceiling Light",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/ceiling_light.glb",
+      "position": [
+        -14,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.29508191,
+        2.29508191,
+        2.29508191
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0450cafd6edf4ed3",
+      "name": "HospitalKit · Ceiling Tiles",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/ceiling_tiles.glb",
+      "position": [
+        -10,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2247c0761ec4db2e",
+      "name": "HospitalKit · Door",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/door.glb",
+      "position": [
+        -6,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9a7c4fb8471f15ac",
+      "name": "HospitalKit · Doorway",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/wall_doorway.glb",
+      "position": [
+        -2,
+        0,
+        25
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d18ef31d43b132d7",
+      "name": "HospitalKit · Exit Sign",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/exit_sign.glb",
+      "position": [
+        -22,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.08695602,
+        6.08695602,
+        6.08695602
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c7457db87f6187a1",
+      "name": "HospitalKit · Hospital Bed",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/hospital_bed.glb",
+      "position": [
+        -18,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.35988343,
+        1.35988343,
+        1.35988343
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bdb2d8ffb640623a",
+      "name": "HospitalKit · IV Stand",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/iv_stand.glb",
+      "position": [
+        -14,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.43160201,
+        1.43160201,
+        1.43160201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-598196c4f784b833",
+      "name": "HospitalKit · Lino Floor",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/floor_lino.glb",
+      "position": [
+        -10,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8605aad7810ed2f0",
+      "name": "HospitalKit · Stained Wall",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/wall_stained.glb",
+      "position": [
+        -6,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2b82c7c61b951d58",
+      "name": "HospitalKit · Wall",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/wall.glb",
+      "position": [
+        -2,
+        0,
+        21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-90110a661ac619f9",
+      "name": "HospitalKit · Wall Post",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/wall_post.glb",
+      "position": [
+        -16,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b5a15130d9beddca",
+      "name": "HospitalKit · Wheelchair",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/wheelchair.glb",
+      "position": [
+        -12,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.76134131,
+        2.76134131,
+        2.76134131
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e3ce0c7a8ec8e217",
+      "name": "HospitalKit · Window Wall",
+      "parentId": "transform:category-hospitalkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/HospitalKit/wall_window.glb",
+      "position": [
+        -8,
+        0,
+        17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c40c8a254dd8a256",
+      "name": "KitchenAndFood · Burger",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/burger.glb",
+      "position": [
+        -22,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.13793173,
+        24.13793173,
+        24.13793173
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-36a922f42084e4c8",
+      "name": "KitchenAndFood · Cash Register",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/cash_register.glb",
+      "position": [
+        -18,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.95744682,
+        5.95744682,
+        5.95744682
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3d597d1e9f67d766",
+      "name": "KitchenAndFood · Catering Can, Tomatoes",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/can_tomatoes.glb",
+      "position": [
+        -14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.7303368,
+        15.7303368,
+        15.7303368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8f281c37cda84d01",
+      "name": "KitchenAndFood · Chef's Knife",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/chef_knife.glb",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.23529421,
+        8.23529421,
+        8.23529421
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-cde1faf5d7a5c8e7",
+      "name": "KitchenAndFood · Commercial Microwave",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/microwave.glb",
+      "position": [
+        -6,
+        0,
+        10.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.38461558,
+        5.38461558,
+        5.38461558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4a371107caeda50c",
+      "name": "KitchenAndFood · Counter Stool, Red",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/stool_red.glb",
+      "position": [
+        -2,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.58974372,
+        3.58974372,
+        3.58974372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3c3feda5d1b3e02b",
+      "name": "KitchenAndFood · Fries",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/fries.glb",
+      "position": [
+        -22,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.65092036,
+        26.65092036,
+        26.65092036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-70f6601f3bd6083a",
+      "name": "KitchenAndFood · Frying Pan, Steel",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/frying_pan_steel.glb",
+      "position": [
+        -18,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.13209063,
+        6.13209063,
+        6.13209063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-3d45dd510b8725a8",
+      "name": "KitchenAndFood · Jar of Jam",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/jar_jam.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.21212133,
+        21.21212133,
+        21.21212133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2be006d593ca227c",
+      "name": "KitchenAndFood · Prep Table",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/prep_table.glb",
+      "position": [
+        -10,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4f3128c86d5eb562",
+      "name": "KitchenAndFood · Six-Burner Range",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/range_six.glb",
+      "position": [
+        -6,
+        0,
+        6.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.98581565,
+        1.98581565,
+        1.98581565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-55757fb4d15af7d1",
+      "name": "KitchenAndFood · Soda Cup",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/soda_cup.glb",
+      "position": [
+        -2,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.78688381,
+        10.78688381,
+        10.78688381
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8e79fb93a5809ff4",
+      "name": "KitchenAndFood · Steak",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/steak.glb",
+      "position": [
+        -16,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.33333296,
+        9.33333296,
+        9.33333296
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-58e3206de4c46548",
+      "name": "KitchenAndFood · Steak, Rotten",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/steak_rotten.glb",
+      "position": [
+        -12,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.33333296,
+        9.33333296,
+        9.33333296
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-067ba99836cb6f9a",
+      "name": "KitchenAndFood · Stockpot",
+      "parentId": "transform:category-kitchenandfood",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/KitchenAndFood/stockpot.glb",
+      "position": [
+        -8,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.91342847,
+        5.91342847,
+        5.91342847
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2d985ecb6ce5086d",
+      "name": "MallKit · Cash Register",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/register.glb",
+      "position": [
+        2,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-68919b5acac52e54",
+      "name": "MallKit · Checkout",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/checkout.glb",
+      "position": [
+        6,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14754096,
+        1.14754096,
+        1.14754096
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-863667b2b9870336",
+      "name": "MallKit · Dirty Supermarket Floor",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/floor_market_dirty.glb",
+      "position": [
+        10,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-987a3df1bce50b78",
+      "name": "MallKit · Freezer Doors",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/freezer_doors.glb",
+      "position": [
+        14,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.21739133,
+        1.21739133,
+        1.21739133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7b44a172871da5df",
+      "name": "MallKit · Mall Ceiling",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/ceiling_mall.glb",
+      "position": [
+        18,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4468f586c4f0600c",
+      "name": "MallKit · Save-Rite Sign",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/sign_saverite.glb",
+      "position": [
+        22,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.82352939,
+        0.82352939,
+        0.82352939
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-dc0f23d5536b6336",
+      "name": "MallKit · Shopping Cart",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/shopping_cart.glb",
+      "position": [
+        2,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.77227728,
+        2.77227728,
+        2.77227728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6d9de7eb9a019855",
+      "name": "MallKit · Sliding Doors",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/door_auto.glb",
+      "position": [
+        6,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7777778,
+        0.7777778,
+        0.7777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-15c87b382d269030",
+      "name": "MallKit · Storefront Entrance",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/storefront_entrance.glb",
+      "position": [
+        10,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7777778,
+        0.7777778,
+        0.7777778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d1bede4ee0a73f90",
+      "name": "MallKit · Supermarket Floor",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/floor_market.glb",
+      "position": [
+        14,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-02828281823d259d",
+      "name": "MallKit · Supermarket Gondola",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/gondola_market.glb",
+      "position": [
+        18,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37931036,
+        1.37931036,
+        1.37931036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-509c5ce272e9bdec",
+      "name": "MallKit · Supermarket Opening Wall",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/wall_opening_market.glb",
+      "position": [
+        22,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a8e38ca0cee2263a",
+      "name": "MallKit · Supermarket Post",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/wall_post_market.glb",
+      "position": [
+        8,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d9362aad9e4a5be0",
+      "name": "MallKit · Supermarket Wall",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/wall_market.glb",
+      "position": [
+        12,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ad83024fed495502",
+      "name": "MallKit · Wet Floor Sign",
+      "parentId": "transform:category-mallkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MallKit/wet_floor_sign.glb",
+      "position": [
+        16,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.5702006,
+        4.5702006,
+        4.5702006
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-df08fe7017dbbac3",
+      "name": "MansionKit · Candle Sconce",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/sconce_candle.glb",
+      "position": [
+        -22,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.23529403,
+        8.23529403,
+        8.23529403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-48078f7621de8e8b",
+      "name": "MansionKit · Coffered Ceiling",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/ceiling_coffered.glb",
+      "position": [
+        -18,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8bb432444dfd78b8",
+      "name": "MansionKit · Cradle",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/cradle.glb",
+      "position": [
+        -14,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8571428,
+        2.8571428,
+        2.8571428
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-eb550d8dfa52805f",
+      "name": "MansionKit · Damask Doorway",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/wall_doorway_damask.glb",
+      "position": [
+        -10,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e720584a944b5689",
+      "name": "MansionKit · Damask Post",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/wall_post_damask.glb",
+      "position": [
+        -6,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bd36356449fb4ba2",
+      "name": "MansionKit · Damask Wall",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/wall_damask.glb",
+      "position": [
+        -2,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1af45fcc95834107",
+      "name": "MansionKit · Damask Window Wall",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/wall_window_damask.glb",
+      "position": [
+        -22,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-16cf3263f896f05c",
+      "name": "MansionKit · Fireplace",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/fireplace.glb",
+      "position": [
+        -18,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47368423,
+        1.47368423,
+        1.47368423
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9794be9cf7c0337c",
+      "name": "MansionKit · Music Box",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/music_box.glb",
+      "position": [
+        -14,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.7272728,
+        12.7272728,
+        12.7272728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e35b86046d3c4cac",
+      "name": "MansionKit · Panelled Door",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/door_panel.glb",
+      "position": [
+        -10,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e7a4c9b394c2862f",
+      "name": "MansionKit · Parquet Floor",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/floor_parquet.glb",
+      "position": [
+        -6,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-635a86ab5861edf1",
+      "name": "MansionKit · Portrait of the Lady",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/portrait_lady.glb",
+      "position": [
+        -2,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.52252249,
+        2.52252249,
+        2.52252249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c835658dbc0468b3",
+      "name": "MansionKit · Standing Candelabrum",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/candelabrum.glb",
+      "position": [
+        -16,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67164184,
+        1.67164184,
+        1.67164184
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f23f21de5ee25ee2",
+      "name": "MansionKit · Suit of Armour",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/suit_of_armour.glb",
+      "position": [
+        -12,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.09375002,
+        1.09375002,
+        1.09375002
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-64dc9f04cdc9f6b0",
+      "name": "MansionKit · Tall Window",
+      "parentId": "transform:category-mansionkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/MansionKit/window_tall.glb",
+      "position": [
+        -8,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.46214107,
+        1.46214107,
+        1.46214107
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7189d98fe7fb0ade",
+      "name": "OfficeKit · Carpet Tile Floor",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/floor_carpet.glb",
+      "position": [
+        2,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-4c427d91b74bd3a2",
+      "name": "OfficeKit · Ceiling Light",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/ceiling_light.glb",
+      "position": [
+        6,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.29508191,
+        2.29508191,
+        2.29508191
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f6ed5c3357e8824b",
+      "name": "OfficeKit · Ceiling Tiles",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/ceiling_tiles.glb",
+      "position": [
+        10,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-de65d1d948da0563",
+      "name": "OfficeKit · Corner Cubicle Desk",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/cubicle_desk_corner.glb",
+      "position": [
+        14,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4973262,
+        1.4973262,
+        1.4973262
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9f29ddcb793b2d21",
+      "name": "OfficeKit · CRT Monitor",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/crt_monitor.glb",
+      "position": [
+        18,
+        0,
+        -13.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.46666667,
+        7.46666667,
+        7.46666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6e16720c0c82c6a4",
+      "name": "OfficeKit · Cubicle Panel",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/cubicle_panel.glb",
+      "position": [
+        22,
+        0,
+        -13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-91a3e3b0e44086c8",
+      "name": "OfficeKit · Cubicle Post",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/cubicle_post.glb",
+      "position": [
+        2,
+        0,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.71779142,
+        1.71779142,
+        1.71779142
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-5a223e4b079091cb",
+      "name": "OfficeKit · Office Door",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/door_office.glb",
+      "position": [
+        6,
+        0,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-baee1e9981f9639e",
+      "name": "OfficeKit · Office Doorway",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/wall_doorway.glb",
+      "position": [
+        10,
+        0,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-1fa4e2edfe518152",
+      "name": "OfficeKit · Office Post",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/wall_post_office.glb",
+      "position": [
+        14,
+        0,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d4035f8c82469990",
+      "name": "OfficeKit · Office Wall",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/wall_office.glb",
+      "position": [
+        18,
+        0,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d6c65cbf62fd4fb7",
+      "name": "OfficeKit · Office Window",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/window_office.glb",
+      "position": [
+        22,
+        0,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47368423,
+        1.47368423,
+        1.47368423
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-d23522eefc6952e3",
+      "name": "OfficeKit · Office Window Wall",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/wall_window.glb",
+      "position": [
+        8,
+        0,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c6bb90f3c611f889",
+      "name": "OfficeKit · Overhead Bin",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/overhead_bin.glb",
+      "position": [
+        12,
+        0,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fdcfc18f51f3ab66",
+      "name": "OfficeKit · Task Chair",
+      "parentId": "transform:category-officekit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/OfficeKit/task_chair.glb",
+      "position": [
+        16,
+        0,
+        -21
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.51576133,
+        2.51576133,
+        2.51576133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-0aaad5be130faa71",
+      "name": "PoliceStationKit · Brick Cell Wall",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/wall_brick_cell.glb",
+      "position": [
+        -22,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-46cb732d87b11c18",
+      "name": "PoliceStationKit · Brick Cell Window Wall",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/wall_window_brick_cell.glb",
+      "position": [
+        -18,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a06bf45b8ac2a274",
+      "name": "PoliceStationKit · Cell Bars",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/wall_bars.glb",
+      "position": [
+        -14,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-bcd86cee169f8b14",
+      "name": "PoliceStationKit · Cell Bars, Doorway",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/wall_bars_doorway.glb",
+      "position": [
+        -10,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7c3c724c96b9c299",
+      "name": "PoliceStationKit · Cell Block Post",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/wall_post_cell.glb",
+      "position": [
+        -6,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-fb4757e2b3067375",
+      "name": "PoliceStationKit · Cell Block Wall",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/wall_cell.glb",
+      "position": [
+        -2,
+        0,
+        -20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-05959c0092efaf0e",
+      "name": "PoliceStationKit · Cell Block Wall, Scratched",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/wall_cell_scratched.glb",
+      "position": [
+        -22,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6ff7247577fa4b13",
+      "name": "PoliceStationKit · Cell Bunk",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/cell_bunk.glb",
+      "position": [
+        -18,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6,
+        1.6,
+        1.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-ade6c097119d9e1b",
+      "name": "PoliceStationKit · Cell Ceiling",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/ceiling_cell.glb",
+      "position": [
+        -14,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9328d48c5aeea8f3",
+      "name": "PoliceStationKit · Cell Door, Unlocked",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/door_cell_unlocked.glb",
+      "position": [
+        -10,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.19148941,
+        1.19148941,
+        1.19148941
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b74d8659d6cf90a1",
+      "name": "PoliceStationKit · Cell Floor",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/floor_cell.glb",
+      "position": [
+        -6,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-744e4cecf08fe7a1",
+      "name": "PoliceStationKit · Cell Floor, Drain",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/floor_cell_drain.glb",
+      "position": [
+        -2,
+        0,
+        -24
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-de6d2c71cba6f4e7",
+      "name": "PoliceStationKit · Cell Toilet",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/cell_toilet.glb",
+      "position": [
+        -16,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.91666673,
+        2.91666673,
+        2.91666673
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-e1ba9d60d93e86d5",
+      "name": "PoliceStationKit · Cell Window",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/window_cell.glb",
+      "position": [
+        -12,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-aa82a3b19b297b5b",
+      "name": "PoliceStationKit · Concrete Bench",
+      "parentId": "transform:category-policestationkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/PoliceStationKit/cell_bench.glb",
+      "position": [
+        -8,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-a5ab76f07497db4c",
+      "name": "SchoolKit · Ceiling Light",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/ceiling_light.glb",
+      "position": [
+        2,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.29508191,
+        2.29508191,
+        2.29508191
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-9da2378dff97b649",
+      "name": "SchoolKit · Ceiling Tiles",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/ceiling_tiles.glb",
+      "position": [
+        6,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b9e92f9a21123fd5",
+      "name": "SchoolKit · Classroom Door",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/door_classroom.glb",
+      "position": [
+        10,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b5489e371595fce8",
+      "name": "SchoolKit · Classroom Doorway",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/wall_doorway_class.glb",
+      "position": [
+        14,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-8475658fe5a18214",
+      "name": "SchoolKit · Classroom Post",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/wall_post_class.glb",
+      "position": [
+        18,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c1aba66abecfb78f",
+      "name": "SchoolKit · Classroom Wall",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/wall_class.glb",
+      "position": [
+        22,
+        0,
+        -28
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b8f12267e44de00f",
+      "name": "SchoolKit · Classroom Window",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/window_class.glb",
+      "position": [
+        2,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5909091,
+        1.5909091,
+        1.5909091
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-b06dd84b72ed3c0f",
+      "name": "SchoolKit · Classroom Window Wall",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/wall_window_class.glb",
+      "position": [
+        6,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-c692a3ed2ac84adc",
+      "name": "SchoolKit · Drawn-On Wall",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/wall_class_crayon.glb",
+      "position": [
+        10,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-6cc06fff27350aa8",
+      "name": "SchoolKit · Pupil's Chair",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/student_chair.glb",
+      "position": [
+        14,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.58490865,
+        3.58490865,
+        3.58490865
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-7cd7e6f3f68e2846",
+      "name": "SchoolKit · Pupil's Desk",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/student_desk.glb",
+      "position": [
+        18,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5560663,
+        3.5560663,
+        3.5560663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f235d15a7def68bd",
+      "name": "SchoolKit · School Clock",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/school_clock.glb",
+      "position": [
+        22,
+        0,
+        -32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.23529403,
+        8.23529403,
+        8.23529403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-49b6d5dcd787c115",
+      "name": "SchoolKit · Small Handprints",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/handprints_small.glb",
+      "position": [
+        8,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.83010713,
+        5.83010713,
+        5.83010713
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-f218914f4fc46cc1",
+      "name": "SchoolKit · Tile Floor",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/floor_vct.glb",
+      "position": [
+        12,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "heyheythere-2713c5ab486056f0",
+      "name": "SchoolKit · Written Chalkboard",
+      "parentId": "transform:category-schoolkit",
+      "modelPath": "resources/Model/GLB/artist_heyheythere/SchoolKit/chalkboard_written.glb",
+      "position": [
+        16,
+        0,
+        -36
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12903225,
+        1.12903225,
+        1.12903225
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

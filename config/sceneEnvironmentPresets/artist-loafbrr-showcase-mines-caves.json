@@ -1,0 +1,4425 @@
+{
+  "presetKey": "artist-loafbrr-showcase-mines-caves",
+  "name": "Loafbrr · MinesCaves · 101模型 · 模型 0.93 MiB + 贴图 0.57 MiB · 合计 1.50 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-minescaves-0",
+      "name": "MinesCaves 1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-minescaves-1",
+      "name": "MinesCaves 2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 45
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-1f663430cfadbfac-stand",
+      "name": "Beam_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-028327e29c4e5510-stand",
+      "name": "Beam_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7fe2ed8b363ad800-stand",
+      "name": "Beam_C展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-21c1d1e05348c55f-stand",
+      "name": "Beam_D展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-79f9c1a6145fd724-stand",
+      "name": "Cave_Pillar_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-11b0a47cf4f22756-stand",
+      "name": "Cave_Pillar_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        20
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-69e4de25ebebe0de-stand",
+      "name": "Cave_Pillar_C展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3add4f0db1e4f20d-stand",
+      "name": "Cave_Rocks_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8f263fcf88bd036b-stand",
+      "name": "Cave_Rocks_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8f455092f46fc42b-stand",
+      "name": "Cave_Rocks_C展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-847d6aaad04b8d4c-stand",
+      "name": "Cave_Rocks_D展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-274ceffa6ebdf791-stand",
+      "name": "Cave_Wall_Rocks_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5faceadce4fe1870-stand",
+      "name": "Cave_Wall_Rocks_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5bc6f10de19ce1ba-stand",
+      "name": "Cave_Wall_Rocks_C展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-02569f95955c1a6a-stand",
+      "name": "Cave_Wall_Rocks_D展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4ee7601d05cf2961-stand",
+      "name": "Cave_Wall_Rocks_E展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3f6845fa13fcc379-stand",
+      "name": "Cave_Wall_Rocks_F展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2bb3529eb2bb04b6-stand",
+      "name": "Cave_Wall_Rocks_G展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-891aee6c7a3053a8-stand",
+      "name": "Ladder_Short展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-20cb9e7c2a14a9e8-stand",
+      "name": "Ladder_Tall展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-10d687eca20f1f3d-stand",
+      "name": "Ladder_Top_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0a48b4ca69e13dcc-stand",
+      "name": "Ladder_Top_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aad5e5329997d36b-stand",
+      "name": "Mine_Cart_AA展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8b75f3ea603731d1-stand",
+      "name": "Mine_Cart_AB_grp展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7c62d080e8ef5b31-stand",
+      "name": "Mine_Cart_BA展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3c412505e3099ff4-stand",
+      "name": "Mine_Cart_BB_grp展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-065c25692e27410f-stand",
+      "name": "Mine_Cart_CA展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ff4a0d7f4cd5910e-stand",
+      "name": "Mine_Cart_CB_grp展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-261a7a7d6ee6300b-stand",
+      "name": "Post_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-08daebefa2e55c7b-stand",
+      "name": "Post_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-034dec3d248cfe52-stand",
+      "name": "Post_C展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-678fb81708bcd25c-stand",
+      "name": "Post_D展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b9017a4466e8cda4-stand",
+      "name": "Post_E展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6d33d1675305a139-stand",
+      "name": "Post_F展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-682d9b888a971009-stand",
+      "name": "Post_G展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b8b79acd2f92af0d-stand",
+      "name": "Post_Reinforced_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-81da0cbca4b43600-stand",
+      "name": "Post_Reinforced_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cd88c49d5f1636d2-stand",
+      "name": "Post_Reinforced_C展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a4d9c5d33ba1db73-stand",
+      "name": "Post_Reinforced_D展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aab085b8f653e264-stand",
+      "name": "Post_Reinforced_E展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5a27bd27c59bc195-stand",
+      "name": "Post_Reinforced_F展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4e7e06ce3dd9a6c4-stand",
+      "name": "Post_Reinforced_G展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-574624b55a3fe71d-stand",
+      "name": "Rail_45deg展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3131d79c8b4c201e-stand",
+      "name": "Rail_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d2743282db345afa-stand",
+      "name": "Rail_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7c99501aa63b78f0-stand",
+      "name": "Rail_C展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5dbbc3bda5fce2f5-stand",
+      "name": "Rail_End展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c60b59dbec2621eb-stand",
+      "name": "Rail_Falloff_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-90d40b52f7a6d670-stand",
+      "name": "Rail_Falloff_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-31d5e77e5531c541-stand",
+      "name": "Rail_Ramp展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-664984abf1e48deb-stand",
+      "name": "Rail_Scaffold_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e5d08931d2489c92-stand",
+      "name": "Rail_Scaffold_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ddda7058a317c003-stand",
+      "name": "Rail_Scaffold_C展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e79d373b451c4834-stand",
+      "name": "Rails_Corner_22_5Deg_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-400f6ed1716b7260-stand",
+      "name": "Rails_Corner_22_5Deg_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2fb03c690d023b27-stand",
+      "name": "Rails_Corner_90Deg_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2d53bbbc435f95f4-stand",
+      "name": "Rails_Corner_90Deg_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-40378f95ee3fcfe9-stand",
+      "name": "Rails_Corner_Straight_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1ce111d0ffc93261-stand",
+      "name": "Rails_Corner_Straight_B展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cdb345f6a61d9566-stand",
+      "name": "Wall_Caves_Entrance_A展台",
+      "parentId": "transform:category-minescaves-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-711c3bfb5953d322-stand",
+      "name": "Wall_Caves_Entrance_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e6c94c549d088a2d-stand",
+      "name": "Wall_Mines_Entrance_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-bb3a114e729243a9-stand",
+      "name": "Wall_Mines_Entrance_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-fb1e838723fb3e41-stand",
+      "name": "Wood_Platform_45Deg_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5dc425b229273ed9-stand",
+      "name": "Wood_Platform_45Deg_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c1823553a1237d9a-stand",
+      "name": "Wood_Platform_45Deg_Connector_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-bc9782023e40bd3f-stand",
+      "name": "Wood_Platform_45Deg_Connector_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-b58a718b8794007d-stand",
+      "name": "Wood_Platform_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3fccbeb4e9816746-stand",
+      "name": "Wood_Platform_A_Corner_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-e8ea3d02febb589a-stand",
+      "name": "Wood_Platform_A_Corner_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-db957da659f55a5a-stand",
+      "name": "Wood_Platform_A_TSection展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-3ba43489d4b37ebb-stand",
+      "name": "Wood_Platform_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        16
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0c8357453fb3633d-stand",
+      "name": "Wood_Platform_C展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a7e28872f94e9304-stand",
+      "name": "Wood_Platform_D展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2493d7fe854183a5-stand",
+      "name": "Wood_Platform_D_45Deg_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a6904a023c931839-stand",
+      "name": "Wood_Platform_D_45Deg_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-a7912f9d3df6a9db-stand",
+      "name": "Wood_Platform_D_90Deg_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-1baa7df760ee180f-stand",
+      "name": "Wood_Platform_D_90Deg_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        12
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-67bb25275ae71435-stand",
+      "name": "Wood_Platform_D_Corner_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-0d3b3cfab25f1e7f-stand",
+      "name": "Wood_Platform_D_Corner_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-dee7605ed67ad510-stand",
+      "name": "Wood_Platform_D_TSection展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4e70d13bd777c095-stand",
+      "name": "Wood_Platform_Planks_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-395a0f332ae0682f-stand",
+      "name": "Wood_Platform_Planks_A_Side展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d84dad7c36d49747-stand",
+      "name": "Wood_Platform_Planks_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        8
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-68050ef773fe0b87-stand",
+      "name": "Wood_Platform_Planks_C展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-99a22961e9958866-stand",
+      "name": "Wood_Platform_Planks_C_Side展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-83891c4eb2c130d7-stand",
+      "name": "Wood_Platform_Post展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-edfbb6cf432a848f-stand",
+      "name": "Wood_Platform_Post_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-468e15fa4d66f843-stand",
+      "name": "Wood_Platform_Post_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-67f673b956c65b3d-stand",
+      "name": "Wood_Platform_Post_C展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-4b8e8d5a5cd7bc72-stand",
+      "name": "Wood_Platform_Post_D展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-5432aa816cb72963-stand",
+      "name": "Wood_Platform_Stairs_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2f5e383b48654b30-stand",
+      "name": "Wood_Platform_Stairs_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-fe516d18d1936964-stand",
+      "name": "Wood_Platform_Stairs_C展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c3bcd314f84d47ff-stand",
+      "name": "Wood_Platform_Stairs_D展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-d9f1762e73956433-stand",
+      "name": "Wood_Platform_Stairs_Planks_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-24e36f8405dfc13e-stand",
+      "name": "Wood_Platform_Stairs_Planks_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-c764802241b27186-stand",
+      "name": "Wood_Platform_Stairs_Planks_C展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-746274bd689b0ad3-stand",
+      "name": "Wood_Platform_Stairs_Planks_D展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-2f902d305dc29185-stand",
+      "name": "Wood_Platform_Stairs_Planks_Side_A展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "loafbrr-f51a706e670a460e-stand",
+      "name": "Wood_Platform_Stairs_Planks_Side_B展台",
+      "parentId": "transform:category-minescaves-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-1f663430cfadbfac",
+      "name": "MinesCaves · Beam_A · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Beam_A.glb",
+      "position": [
+        -22,
+        -4e-8,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-028327e29c4e5510",
+      "name": "MinesCaves · Beam_B · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Beam_B.glb",
+      "position": [
+        -18,
+        -4e-8,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7fe2ed8b363ad800",
+      "name": "MinesCaves · Beam_C · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Beam_C.glb",
+      "position": [
+        -14,
+        -8e-8,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-21c1d1e05348c55f",
+      "name": "MinesCaves · Beam_D · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Beam_D.glb",
+      "position": [
+        -10,
+        -8e-8,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-79f9c1a6145fd724",
+      "name": "MinesCaves · Cave_Pillar_A · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Pillar_A.glb",
+      "position": [
+        -5.99999952,
+        0,
+        20.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.53465347,
+        0.53465347,
+        0.53465347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-11b0a47cf4f22756",
+      "name": "MinesCaves · Cave_Pillar_B · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Pillar_B.glb",
+      "position": [
+        -2.0000002,
+        0,
+        19.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.51361315,
+        0.51361315,
+        0.51361315
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-69e4de25ebebe0de",
+      "name": "MinesCaves · Cave_Pillar_C · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Pillar_C.glb",
+      "position": [
+        -22.0000005,
+        0,
+        15.99999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.58370459,
+        0.58370459,
+        0.58370459
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3add4f0db1e4f20d",
+      "name": "MinesCaves · Cave_Rocks_A · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Rocks_A.glb",
+      "position": [
+        -17.99999882,
+        0,
+        15.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1297275,
+        1.1297275,
+        1.1297275
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8f263fcf88bd036b",
+      "name": "MinesCaves · Cave_Rocks_B · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Rocks_B.glb",
+      "position": [
+        -14.00000007,
+        0,
+        15.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1739295,
+        1.1739295,
+        1.1739295
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8f455092f46fc42b",
+      "name": "MinesCaves · Cave_Rocks_C · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Rocks_C.glb",
+      "position": [
+        -9.99999893,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.44237411,
+        1.44237411,
+        1.44237411
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-847d6aaad04b8d4c",
+      "name": "MinesCaves · Cave_Rocks_D · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Rocks_D.glb",
+      "position": [
+        -5.99999993,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23859356,
+        1.23859356,
+        1.23859356
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-274ceffa6ebdf791",
+      "name": "MinesCaves · Cave_Wall_Rocks_A · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Wall_Rocks_A.glb",
+      "position": [
+        -1.99999993,
+        0,
+        15.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5574658,
+        0.5574658,
+        0.5574658
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5faceadce4fe1870",
+      "name": "MinesCaves · Cave_Wall_Rocks_B · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Wall_Rocks_B.glb",
+      "position": [
+        -22.00000006,
+        0,
+        12.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00903693,
+        1.00903693,
+        1.00903693
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5bc6f10de19ce1ba",
+      "name": "MinesCaves · Cave_Wall_Rocks_C · 模型 0.00 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Wall_Rocks_C.glb",
+      "position": [
+        -17.99999997,
+        0,
+        12.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.95963352,
+        0.95963352,
+        0.95963352
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-02569f95955c1a6a",
+      "name": "MinesCaves · Cave_Wall_Rocks_D · 模型 0.00 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Wall_Rocks_D.glb",
+      "position": [
+        -13.99999993,
+        0,
+        11.99999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.16883672,
+        1.16883672,
+        1.16883672
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4ee7601d05cf2961",
+      "name": "MinesCaves · Cave_Wall_Rocks_E · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Wall_Rocks_E.glb",
+      "position": [
+        -9.99999995,
+        0,
+        12.00000031
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.83837469,
+        0.83837469,
+        0.83837469
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3f6845fa13fcc379",
+      "name": "MinesCaves · Cave_Wall_Rocks_F · 模型 0.00 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Wall_Rocks_F.glb",
+      "position": [
+        -5.99999984,
+        0,
+        11.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91213123,
+        0.91213123,
+        0.91213123
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2bb3529eb2bb04b6",
+      "name": "MinesCaves · Cave_Wall_Rocks_G · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Cave_Wall_Rocks_G.glb",
+      "position": [
+        -2.00000024,
+        0,
+        11.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.02226589,
+        1.02226589,
+        1.02226589
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-891aee6c7a3053a8",
+      "name": "MinesCaves · Ladder_Short · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Ladder_Short.glb",
+      "position": [
+        -22.00000004,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.38615368,
+        1.38615368,
+        1.38615368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-20cb9e7c2a14a9e8",
+      "name": "MinesCaves · Ladder_Tall · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Ladder_Tall.glb",
+      "position": [
+        -18.00000002,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69652122,
+        0.69652122,
+        0.69652122
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-10d687eca20f1f3d",
+      "name": "MinesCaves · Ladder_Top_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Ladder_Top_A.glb",
+      "position": [
+        -14.0000001,
+        0,
+        7.99999879
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3852768,
+        3.3852768,
+        3.3852768
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0a48b4ca69e13dcc",
+      "name": "MinesCaves · Ladder_Top_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Ladder_Top_B.glb",
+      "position": [
+        -10.0000001,
+        0,
+        7.99999878
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.41245261,
+        3.41245261,
+        3.41245261
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aad5e5329997d36b",
+      "name": "MinesCaves · Mine_Cart_AA · 模型 0.01 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Mine_Cart_AA.glb",
+      "position": [
+        -6.00000022,
+        0,
+        8.00000044
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8424911,
+        1.8424911,
+        1.8424911
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8b75f3ea603731d1",
+      "name": "MinesCaves · Mine_Cart_AB_grp · 模型 0.08 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Mine_Cart_AB_grp.glb",
+      "position": [
+        -2.00000022,
+        0,
+        8.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8424911,
+        1.8424911,
+        1.8424911
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7c62d080e8ef5b31",
+      "name": "MinesCaves · Mine_Cart_BA · 模型 0.01 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Mine_Cart_BA.glb",
+      "position": [
+        -21.99999964,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.99187078,
+        1.99187078,
+        1.99187078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3c412505e3099ff4",
+      "name": "MinesCaves · Mine_Cart_BB_grp · 模型 0.08 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Mine_Cart_BB_grp.glb",
+      "position": [
+        -17.99999976,
+        0,
+        4.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9722978,
+        1.9722978,
+        1.9722978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-065c25692e27410f",
+      "name": "MinesCaves · Mine_Cart_CA · 模型 0.01 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Mine_Cart_CA.glb",
+      "position": [
+        -14,
+        7e-8,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.19974991,
+        2.19974991,
+        2.19974991
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ff4a0d7f4cd5910e",
+      "name": "MinesCaves · Mine_Cart_CB_grp · 模型 0.10 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Mine_Cart_CB_grp.glb",
+      "position": [
+        -10,
+        0,
+        4.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.99363601,
+        1.99363601,
+        1.99363601
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-261a7a7d6ee6300b",
+      "name": "MinesCaves · Post_A · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_A.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-08daebefa2e55c7b",
+      "name": "MinesCaves · Post_B · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_B.glb",
+      "position": [
+        -2.00000003,
+        0,
+        3.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-034dec3d248cfe52",
+      "name": "MinesCaves · Post_C · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_C.glb",
+      "position": [
+        -22,
+        0,
+        -4e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-678fb81708bcd25c",
+      "name": "MinesCaves · Post_D · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_D.glb",
+      "position": [
+        -18.00000017,
+        0,
+        -2.9e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b9017a4466e8cda4",
+      "name": "MinesCaves · Post_E · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_E.glb",
+      "position": [
+        -13.99999996,
+        0,
+        -1.8e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6d33d1675305a139",
+      "name": "MinesCaves · Post_F · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_F.glb",
+      "position": [
+        -9.99999998,
+        0,
+        -3.3e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-682d9b888a971009",
+      "name": "MinesCaves · Post_G · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_G.glb",
+      "position": [
+        -6.00000004,
+        0,
+        -2e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b8b79acd2f92af0d",
+      "name": "MinesCaves · Post_Reinforced_A · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_Reinforced_A.glb",
+      "position": [
+        -2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-81da0cbca4b43600",
+      "name": "MinesCaves · Post_Reinforced_B · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_Reinforced_B.glb",
+      "position": [
+        -22.00000003,
+        0,
+        -4.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cd88c49d5f1636d2",
+      "name": "MinesCaves · Post_Reinforced_C · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_Reinforced_C.glb",
+      "position": [
+        -18,
+        0,
+        -4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a4d9c5d33ba1db73",
+      "name": "MinesCaves · Post_Reinforced_D · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_Reinforced_D.glb",
+      "position": [
+        -14.00000017,
+        0,
+        -4.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aab085b8f653e264",
+      "name": "MinesCaves · Post_Reinforced_E · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_Reinforced_E.glb",
+      "position": [
+        -9.99999996,
+        0,
+        -4.00000018
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5a27bd27c59bc195",
+      "name": "MinesCaves · Post_Reinforced_F · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_Reinforced_F.glb",
+      "position": [
+        -5.99999998,
+        0,
+        -4.00000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e7e06ce3dd9a6c4",
+      "name": "MinesCaves · Post_Reinforced_G · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Post_Reinforced_G.glb",
+      "position": [
+        -2.00000004,
+        0,
+        -4.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73684216,
+        0.73684216,
+        0.73684216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-574624b55a3fe71d",
+      "name": "MinesCaves · Rail_45deg · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_45deg.glb",
+      "position": [
+        -22,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76257849,
+        0.76257849,
+        0.76257849
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3131d79c8b4c201e",
+      "name": "MinesCaves · Rail_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_A.glb",
+      "position": [
+        -18,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d2743282db345afa",
+      "name": "MinesCaves · Rail_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_B.glb",
+      "position": [
+        -14,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7c99501aa63b78f0",
+      "name": "MinesCaves · Rail_C · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_C.glb",
+      "position": [
+        -10,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5dbbc3bda5fce2f5",
+      "name": "MinesCaves · Rail_End · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_End.glb",
+      "position": [
+        -6,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2875813,
+        2.2875813,
+        2.2875813
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c60b59dbec2621eb",
+      "name": "MinesCaves · Rail_Falloff_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_Falloff_A.glb",
+      "position": [
+        -2,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69478905,
+        0.69478905,
+        0.69478905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-90d40b52f7a6d670",
+      "name": "MinesCaves · Rail_Falloff_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_Falloff_B.glb",
+      "position": [
+        -22,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.38921334,
+        1.38921334,
+        1.38921334
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-31d5e77e5531c541",
+      "name": "MinesCaves · Rail_Ramp · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_Ramp.glb",
+      "position": [
+        -17.99999994,
+        0,
+        -12.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999966,
+        1.39999966,
+        1.39999966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-664984abf1e48deb",
+      "name": "MinesCaves · Rail_Scaffold_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_Scaffold_A.glb",
+      "position": [
+        -14.00000004,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e5d08931d2489c92",
+      "name": "MinesCaves · Rail_Scaffold_B · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_Scaffold_B.glb",
+      "position": [
+        -10.00000004,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47368483,
+        1.47368483,
+        1.47368483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ddda7058a317c003",
+      "name": "MinesCaves · Rail_Scaffold_C · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rail_Scaffold_C.glb",
+      "position": [
+        -6.00000004,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.47368483,
+        1.47368483,
+        1.47368483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e79d373b451c4834",
+      "name": "MinesCaves · Rails_Corner_22_5Deg_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rails_Corner_22_5Deg_A.glb",
+      "position": [
+        -1.99999982,
+        0,
+        -11.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.52515887,
+        1.52515887,
+        1.52515887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-400f6ed1716b7260",
+      "name": "MinesCaves · Rails_Corner_22_5Deg_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rails_Corner_22_5Deg_B.glb",
+      "position": [
+        -22,
+        0,
+        -16.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.52515887,
+        1.52515887,
+        1.52515887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2fb03c690d023b27",
+      "name": "MinesCaves · Rails_Corner_90Deg_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rails_Corner_90Deg_A.glb",
+      "position": [
+        -18,
+        0,
+        -15.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13131244,
+        1.13131244,
+        1.13131244
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2d53bbbc435f95f4",
+      "name": "MinesCaves · Rails_Corner_90Deg_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rails_Corner_90Deg_B.glb",
+      "position": [
+        -14,
+        0,
+        -16.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13131244,
+        1.13131244,
+        1.13131244
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-40378f95ee3fcfe9",
+      "name": "MinesCaves · Rails_Corner_Straight_A · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rails_Corner_Straight_A.glb",
+      "position": [
+        -10,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53077586,
+        1.53077586,
+        1.53077586
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1ce111d0ffc93261",
+      "name": "MinesCaves · Rails_Corner_Straight_B · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Rails_Corner_Straight_B.glb",
+      "position": [
+        -6,
+        0,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53077586,
+        1.53077586,
+        1.53077586
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cdb345f6a61d9566",
+      "name": "MinesCaves · Wall_Caves_Entrance_A · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wall_Caves_Entrance_A.glb",
+      "position": [
+        -2.00000027,
+        0,
+        -15.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57289139,
+        0.57289139,
+        0.57289139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-711c3bfb5953d322",
+      "name": "MinesCaves · Wall_Caves_Entrance_B · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wall_Caves_Entrance_B.glb",
+      "position": [
+        2.00000083,
+        0,
+        20.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.60679276,
+        0.60679276,
+        0.60679276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e6c94c549d088a2d",
+      "name": "MinesCaves · Wall_Mines_Entrance_A · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wall_Mines_Entrance_A.glb",
+      "position": [
+        6.00000023,
+        0,
+        20.00000017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63819092,
+        0.63819092,
+        0.63819092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bb3a114e729243a9",
+      "name": "MinesCaves · Wall_Mines_Entrance_B · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wall_Mines_Entrance_B.glb",
+      "position": [
+        10.00000018,
+        0,
+        20
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.61024173,
+        0.61024173,
+        0.61024173
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fb1e838723fb3e41",
+      "name": "MinesCaves · Wood_Platform_45Deg_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_45Deg_A.glb",
+      "position": [
+        14,
+        0,
+        19.99999971
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.60801724,
+        0.60801724,
+        0.60801724
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5dc425b229273ed9",
+      "name": "MinesCaves · Wood_Platform_45Deg_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_45Deg_B.glb",
+      "position": [
+        18.00000013,
+        0,
+        19.99999897
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.07480095,
+        1.07480095,
+        1.07480095
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c1823553a1237d9a",
+      "name": "MinesCaves · Wood_Platform_45Deg_Connector_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_45Deg_Connector_A.glb",
+      "position": [
+        22.00000033,
+        0,
+        20.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.79323053,
+        0.79323053,
+        0.79323053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bc9782023e40bd3f",
+      "name": "MinesCaves · Wood_Platform_45Deg_Connector_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_45Deg_Connector_B.glb",
+      "position": [
+        1.99999967,
+        0,
+        16.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.79323053,
+        0.79323053,
+        0.79323053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b58a718b8794007d",
+      "name": "MinesCaves · Wood_Platform_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_A.glb",
+      "position": [
+        6,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65573771,
+        0.65573771,
+        0.65573771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3fccbeb4e9816746",
+      "name": "MinesCaves · Wood_Platform_A_Corner_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_A_Corner_A.glb",
+      "position": [
+        10,
+        0,
+        16.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6771462,
+        0.6771462,
+        0.6771462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e8ea3d02febb589a",
+      "name": "MinesCaves · Wood_Platform_A_Corner_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_A_Corner_B.glb",
+      "position": [
+        14,
+        0,
+        16.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6771462,
+        0.6771462,
+        0.6771462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-db957da659f55a5a",
+      "name": "MinesCaves · Wood_Platform_A_TSection · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_A_TSection.glb",
+      "position": [
+        18,
+        0,
+        16.00000032
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6771462,
+        0.6771462,
+        0.6771462
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3ba43489d4b37ebb",
+      "name": "MinesCaves · Wood_Platform_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_B.glb",
+      "position": [
+        22,
+        0,
+        16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65573771,
+        0.65573771,
+        0.65573771
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0c8357453fb3633d",
+      "name": "MinesCaves · Wood_Platform_C · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_C.glb",
+      "position": [
+        2,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999983,
+        0.69999983,
+        0.69999983
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a7e28872f94e9304",
+      "name": "MinesCaves · Wood_Platform_D · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_D.glb",
+      "position": [
+        5.99999956,
+        0,
+        12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2493d7fe854183a5",
+      "name": "MinesCaves · Wood_Platform_D_45Deg_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_D_45Deg_A.glb",
+      "position": [
+        10.00000007,
+        0,
+        12.00000041
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14868733,
+        1.14868733,
+        1.14868733
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a6904a023c931839",
+      "name": "MinesCaves · Wood_Platform_D_45Deg_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_D_45Deg_B.glb",
+      "position": [
+        14.00000041,
+        0,
+        12.00000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.14868728,
+        1.14868728,
+        1.14868728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a7912f9d3df6a9db",
+      "name": "MinesCaves · Wood_Platform_D_90Deg_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_D_90Deg_A.glb",
+      "position": [
+        18.00000032,
+        0,
+        12.00000069
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89314178,
+        0.89314178,
+        0.89314178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1baa7df760ee180f",
+      "name": "MinesCaves · Wood_Platform_D_90Deg_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_D_90Deg_B.glb",
+      "position": [
+        22.00000053,
+        0,
+        12.00000069
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89314178,
+        0.89314178,
+        0.89314178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-67bb25275ae71435",
+      "name": "MinesCaves · Wood_Platform_D_Corner_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_D_Corner_A.glb",
+      "position": [
+        1.99999977,
+        0,
+        8.00000109
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31147468,
+        1.31147468,
+        1.31147468
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0d3b3cfab25f1e7f",
+      "name": "MinesCaves · Wood_Platform_D_Corner_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_D_Corner_B.glb",
+      "position": [
+        6.00000109,
+        0,
+        8.00000086
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31147461,
+        1.31147461,
+        1.31147461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dee7605ed67ad510",
+      "name": "MinesCaves · Wood_Platform_D_TSection · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_D_TSection.glb",
+      "position": [
+        9.99999961,
+        0,
+        8.00000086
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31147461,
+        1.31147461,
+        1.31147461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e70d13bd777c095",
+      "name": "MinesCaves · Wood_Platform_Planks_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Planks_A.glb",
+      "position": [
+        14,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-395a0f332ae0682f",
+      "name": "MinesCaves · Wood_Platform_Planks_A_Side · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Planks_A_Side.glb",
+      "position": [
+        17.99999996,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d84dad7c36d49747",
+      "name": "MinesCaves · Wood_Platform_Planks_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Planks_B.glb",
+      "position": [
+        22,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-68050ef773fe0b87",
+      "name": "MinesCaves · Wood_Platform_Planks_C · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Planks_C.glb",
+      "position": [
+        2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3999995,
+        1.3999995,
+        1.3999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-99a22961e9958866",
+      "name": "MinesCaves · Wood_Platform_Planks_C_Side · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Planks_C_Side.glb",
+      "position": [
+        6.00000017,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-83891c4eb2c130d7",
+      "name": "MinesCaves · Wood_Platform_Post · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Post.glb",
+      "position": [
+        10,
+        0,
+        4.00000024
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-edfbb6cf432a848f",
+      "name": "MinesCaves · Wood_Platform_Post_A · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Post_A.glb",
+      "position": [
+        14.00000074,
+        0,
+        4.00000263
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.50582815,
+        5.50582815,
+        5.50582815
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-468e15fa4d66f843",
+      "name": "MinesCaves · Wood_Platform_Post_B · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Post_B.glb",
+      "position": [
+        18,
+        0,
+        4.00000038
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.10889609,
+        1.10889609,
+        1.10889609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-67f673b956c65b3d",
+      "name": "MinesCaves · Wood_Platform_Post_C · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Post_C.glb",
+      "position": [
+        22,
+        0,
+        4.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.79519139,
+        0.79519139,
+        0.79519139
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4b8e8d5a5cd7bc72",
+      "name": "MinesCaves · Wood_Platform_Post_D · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Post_D.glb",
+      "position": [
+        2,
+        0,
+        2.1e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.61709054,
+        0.61709054,
+        0.61709054
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5432aa816cb72963",
+      "name": "MinesCaves · Wood_Platform_Stairs_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_A.glb",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65573778,
+        0.65573778,
+        0.65573778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2f5e383b48654b30",
+      "name": "MinesCaves · Wood_Platform_Stairs_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_B.glb",
+      "position": [
+        10,
+        2e-8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65573778,
+        0.65573778,
+        0.65573778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fe516d18d1936964",
+      "name": "MinesCaves · Wood_Platform_Stairs_C · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_C.glb",
+      "position": [
+        14,
+        0,
+        -8e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999996,
+        0.69999996,
+        0.69999996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c3bcd314f84d47ff",
+      "name": "MinesCaves · Wood_Platform_Stairs_D · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_D.glb",
+      "position": [
+        18,
+        4e-8,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23348019,
+        1.23348019,
+        1.23348019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d9f1762e73956433",
+      "name": "MinesCaves · Wood_Platform_Stairs_Planks_A · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_Planks_A.glb",
+      "position": [
+        22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-24e36f8405dfc13e",
+      "name": "MinesCaves · Wood_Platform_Stairs_Planks_B · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_Planks_B.glb",
+      "position": [
+        4,
+        2e-8,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c764802241b27186",
+      "name": "MinesCaves · Wood_Platform_Stairs_Planks_C · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_Planks_C.glb",
+      "position": [
+        8,
+        0,
+        -4.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69999996,
+        0.69999996,
+        0.69999996
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-746274bd689b0ad3",
+      "name": "MinesCaves · Wood_Platform_Stairs_Planks_D · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_Planks_D.glb",
+      "position": [
+        12,
+        4e-8,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999967,
+        1.39999967,
+        1.39999967
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2f902d305dc29185",
+      "name": "MinesCaves · Wood_Platform_Stairs_Planks_Side_A · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_Planks_Side_A.glb",
+      "position": [
+        16,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f51a706e670a460e",
+      "name": "MinesCaves · Wood_Platform_Stairs_Planks_Side_B · 模型 0.00 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-minescaves-1",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MinesCaves/Wood_Platform_Stairs_Planks_Side_B.glb",
+      "position": [
+        20,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

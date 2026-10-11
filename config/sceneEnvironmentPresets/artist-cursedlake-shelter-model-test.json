@@ -1,0 +1,1046 @@
+{
+  "presetKey": "artist-cursedlake-shelter-model-test",
+  "name": "Cursedlake · 末日避难所 · 模型展示（29 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "cursedlake-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "cursedlake-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cursedlake-Shelter",
+      "name": "末日避难所",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "cursedlake-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 20,
+        "height": 42
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "cursedlake-Shelter-zone",
+      "name": "末日避难所分区",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 32.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-1-stand",
+      "name": "锈蚀卡车（含轮组）展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        14
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-2-stand",
+      "name": "拖车房（含地板）展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        14
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-3-stand",
+      "name": "遮棚（含支柱）展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        14
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-4-stand",
+      "name": "路灯（含光片）展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        14
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-5-stand",
+      "name": "吊灯（含光片）展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-6-stand",
+      "name": "轮胎桌展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-7-stand",
+      "name": "轮胎堆展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-8-stand",
+      "name": "木箱 · WoodenBox展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-9-stand",
+      "name": "告示牌 · Sign展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-10-stand",
+      "name": "木柱 · WoodenPole展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-11-stand",
+      "name": "车灯 · CarLight展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-12-stand",
+      "name": "袋子 · Bag展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-13-stand",
+      "name": "桶 · Barrel展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-14-stand",
+      "name": "封闭箱 · ClosedBox.3展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-15-stand",
+      "name": "发电机 · Generator展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-16-stand",
+      "name": "电缆 · Cable展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-17-stand",
+      "name": "Plane · Plane.001展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-18-stand",
+      "name": "配电箱 · ElectricalPanel展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-19-stand",
+      "name": "配电箱 · ElectricalPanel.2展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-20-stand",
+      "name": "卷毯 · RolledCarpet展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-21-stand",
+      "name": "围栏 · Fence展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-22-stand",
+      "name": "围栏 · Fence.001展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-23-stand",
+      "name": "围栏 · Fence.002展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-24-stand",
+      "name": "木箱 · WoodenBox.001展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-25-stand",
+      "name": "封闭箱 · ClosedBox展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-26-stand",
+      "name": "木箱 · WoodenBox.002展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-27-stand",
+      "name": "木箱 · WoodenBox.003展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-28-stand",
+      "name": "封闭箱 · ClosedBox.1展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-Shelter-29-stand",
+      "name": "轮胎 · Tire.007展台",
+      "parentId": "transform:cursedlake-Shelter",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -14
+      ],
+      "color": "#8c9e94"
+    }
+  ],
+  "models": [
+    {
+      "id": "cursedlake-Shelter-1",
+      "name": "锈蚀卡车（含轮组）",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/RustyTruck.glb",
+      "position": [
+        -6.00000001,
+        0,
+        14
+      ],
+      "scaling": [
+        0.49238592,
+        0.49238592,
+        0.49238592
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-2",
+      "name": "拖车房（含地板）",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Trailer.glb",
+      "position": [
+        -2,
+        0,
+        14
+      ],
+      "scaling": [
+        0.34843233,
+        0.34843233,
+        0.34843233
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-3",
+      "name": "遮棚（含支柱）",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Canopy.glb",
+      "position": [
+        1.99999997,
+        0,
+        14
+      ],
+      "scaling": [
+        0.5575232,
+        0.5575232,
+        0.5575232
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-4",
+      "name": "路灯（含光片）",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/StreetLight.glb",
+      "position": [
+        6,
+        0,
+        13.99999989
+      ],
+      "scaling": [
+        0.35818662,
+        0.35818662,
+        0.35818662
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-5",
+      "name": "吊灯（含光片）",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/PendantLight.glb",
+      "position": [
+        -6.00000021,
+        2.1e-7,
+        10
+      ],
+      "scaling": [
+        1.801825,
+        1.801825,
+        1.801825
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-6",
+      "name": "轮胎桌",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/TireTable.glb",
+      "position": [
+        -2,
+        0,
+        10
+      ],
+      "scaling": [
+        2.19181226,
+        2.19181226,
+        2.19181226
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-7",
+      "name": "轮胎堆",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/TireStack.glb",
+      "position": [
+        2.00000074,
+        0,
+        10
+      ],
+      "scaling": [
+        3.11057826,
+        3.11057826,
+        3.11057826
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-8",
+      "name": "木箱 · WoodenBox",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/WoodenBox.glb",
+      "position": [
+        6,
+        0,
+        10
+      ],
+      "scaling": [
+        2.43555269,
+        2.43555269,
+        2.43555269
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-9",
+      "name": "告示牌 · Sign",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Sign.glb",
+      "position": [
+        -6,
+        1.1e-7,
+        5.99999989
+      ],
+      "scaling": [
+        3.68683691,
+        3.68683691,
+        3.68683691
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-10",
+      "name": "木柱 · WoodenPole",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/WoodenPole.glb",
+      "position": [
+        -2,
+        0,
+        6
+      ],
+      "scaling": [
+        0.55408177,
+        0.55408177,
+        0.55408177
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-11",
+      "name": "车灯 · CarLight",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/CarLight.glb",
+      "position": [
+        2,
+        -2.2e-7,
+        5.99999984
+      ],
+      "scaling": [
+        1.87488924,
+        1.87488924,
+        1.87488924
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-12",
+      "name": "袋子 · Bag",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Bag.glb",
+      "position": [
+        6,
+        0,
+        6
+      ],
+      "scaling": [
+        1.17871379,
+        1.17871379,
+        1.17871379
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-13",
+      "name": "桶 · Barrel",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Barrel.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "scaling": [
+        2.54545477,
+        2.54545477,
+        2.54545477
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-14",
+      "name": "封闭箱 · ClosedBox.3",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/ClosedBox_3.glb",
+      "position": [
+        -1.99999993,
+        0,
+        1.99999889
+      ],
+      "scaling": [
+        2.33285538,
+        2.33285538,
+        2.33285538
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-15",
+      "name": "发电机 · Generator",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Generator.glb",
+      "position": [
+        2,
+        0,
+        2
+      ],
+      "scaling": [
+        1.50838478,
+        1.50838478,
+        1.50838478
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-16",
+      "name": "电缆 · Cable",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Cable.glb",
+      "position": [
+        6.00000001,
+        0,
+        1.99999993
+      ],
+      "scaling": [
+        0.32081872,
+        0.32081872,
+        0.32081872
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-17",
+      "name": "Plane · Plane.001",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Plane_001.glb",
+      "position": [
+        -5.99999988,
+        0,
+        -1.99999986
+      ],
+      "scaling": [
+        2.30437831,
+        2.30437831,
+        2.30437831
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-18",
+      "name": "配电箱 · ElectricalPanel",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/ElectricalPanel.glb",
+      "position": [
+        -2,
+        -1.3e-7,
+        -2
+      ],
+      "scaling": [
+        4.24227389,
+        4.24227389,
+        4.24227389
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-19",
+      "name": "配电箱 · ElectricalPanel.2",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/ElectricalPanel_2.glb",
+      "position": [
+        2,
+        -2.6e-7,
+        -2
+      ],
+      "scaling": [
+        2.1784296,
+        2.1784296,
+        2.1784296
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-20",
+      "name": "卷毯 · RolledCarpet",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/RolledCarpet.glb",
+      "position": [
+        6.00000036,
+        0,
+        -2.00000006
+      ],
+      "scaling": [
+        2.00609705,
+        2.00609705,
+        2.00609705
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-21",
+      "name": "围栏 · Fence",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Fence.glb",
+      "position": [
+        -5.99999988,
+        0,
+        -5.99999972
+      ],
+      "scaling": [
+        1.1950192,
+        1.1950192,
+        1.1950192
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-22",
+      "name": "围栏 · Fence.001",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Fence_001.glb",
+      "position": [
+        -1.99999988,
+        0,
+        -6.00000028
+      ],
+      "scaling": [
+        1.1950192,
+        1.1950192,
+        1.1950192
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-23",
+      "name": "围栏 · Fence.002",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Fence_002.glb",
+      "position": [
+        2.00000007,
+        0,
+        -5.99999993
+      ],
+      "scaling": [
+        1.20421035,
+        1.20421035,
+        1.20421035
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-24",
+      "name": "木箱 · WoodenBox.001",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/WoodenBox_001.glb",
+      "position": [
+        6,
+        0,
+        -6
+      ],
+      "scaling": [
+        2.67753465,
+        2.67753465,
+        2.67753465
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-25",
+      "name": "封闭箱 · ClosedBox",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/ClosedBox.glb",
+      "position": [
+        -6.00000059,
+        7e-8,
+        -9.99999945
+      ],
+      "scaling": [
+        2.47384322,
+        2.47384322,
+        2.47384322
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-26",
+      "name": "木箱 · WoodenBox.002",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/WoodenBox_002.glb",
+      "position": [
+        -2,
+        1.5e-7,
+        -10
+      ],
+      "scaling": [
+        2.43555269,
+        2.43555269,
+        2.43555269
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-27",
+      "name": "木箱 · WoodenBox.003",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/WoodenBox_003.glb",
+      "position": [
+        2,
+        1.6e-7,
+        -10
+      ],
+      "scaling": [
+        2.67753465,
+        2.67753465,
+        2.67753465
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-28",
+      "name": "封闭箱 · ClosedBox.1",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/ClosedBox_1.glb",
+      "position": [
+        5.99999986,
+        2.1e-7,
+        -10.00000014
+      ],
+      "scaling": [
+        2.34121954,
+        2.34121954,
+        2.34121954
+      ]
+    },
+    {
+      "id": "cursedlake-Shelter-29",
+      "name": "轮胎 · Tire.007",
+      "parentId": "transform:cursedlake-Shelter",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Shelter/Parts/Tire_007.glb",
+      "position": [
+        -6,
+        0,
+        -14
+      ],
+      "scaling": [
+        2.34836851,
+        2.34836851,
+        2.34836851
+      ]
+    }
+  ]
+}

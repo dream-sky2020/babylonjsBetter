@@ -1,0 +1,638 @@
+{
+  "presetKey": "artist-cursedlake-market-model-test",
+  "name": "Cursedlake · 中世纪集市精选 · 模型展示（15 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "cursedlake-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "cursedlake-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cursedlake-MarketStructures",
+      "name": "摊棚、柜台与容器",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood",
+      "name": "肉食、粮袋与草药",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods",
+      "name": "武器、书籍与杂货",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "cursedlake-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 32
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "cursedlake-MarketStructures-zone",
+      "name": "摊棚、柜台与容器分区",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 8.5
+      },
+      "position": [
+        -10,
+        -0.15,
+        7
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-1-stand",
+      "name": "集市棚架（含布顶和隔帘）展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        9
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-2-stand",
+      "name": "肉铺柜台（含箱墩、树墩、台板和桌布）展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        9
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-3-stand",
+      "name": "杂货桌（含台面与横撑）展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        9
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-4-stand",
+      "name": "木桶展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        9
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-5-stand",
+      "name": "开口木箱 · OpenBox展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        5
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-6-stand",
+      "name": "搁架 · Shelf展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        5
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketFood-zone",
+      "name": "肉食、粮袋与草药分区",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        10,
+        -0.15,
+        7
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-MarketFood-1-stand",
+      "name": "悬挂草药（含绳索）展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        7
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-MarketFood-2-stand",
+      "name": "悬挂猪腿（含挂钩）展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        7
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-MarketFood-3-stand",
+      "name": "奶酪块 · Cheese_1展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        7
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-MarketFood-4-stand",
+      "name": "玉米粮袋 · SackOfCorn展台",
+      "parentId": "transform:cursedlake-MarketFood",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        7
+      ],
+      "color": "#9c8e78"
+    },
+    {
+      "id": "cursedlake-MarketGoods-zone",
+      "name": "武器、书籍与杂货分区",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 8.5
+      },
+      "position": [
+        0,
+        -0.15,
+        -7
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-MarketGoods-1-stand",
+      "name": "斧头展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -5
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-MarketGoods-2-stand",
+      "name": "陶罐 · Pot展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -5
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-MarketGoods-3-stand",
+      "name": "剑 · Sword展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -5
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-MarketGoods-4-stand",
+      "name": "圆盾 · Shield_1展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -5
+      ],
+      "color": "#839ba3"
+    },
+    {
+      "id": "cursedlake-MarketGoods-5-stand",
+      "name": "绿皮书 · Green_book展台",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -9
+      ],
+      "color": "#839ba3"
+    }
+  ],
+  "models": [
+    {
+      "id": "cursedlake-MarketStructures-1",
+      "name": "集市棚架（含布顶和隔帘）",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Canopy.glb",
+      "position": [
+        -16,
+        0,
+        9
+      ],
+      "scaling": [
+        0.31731453,
+        0.31731453,
+        0.31731453
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-2",
+      "name": "肉铺柜台（含箱墩、树墩、台板和桌布）",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/ButcherCounter.glb",
+      "position": [
+        -12,
+        0,
+        9
+      ],
+      "scaling": [
+        1.01814166,
+        1.01814166,
+        1.01814166
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-3",
+      "name": "杂货桌（含台面与横撑）",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/HerbalTable.glb",
+      "position": [
+        -8,
+        0,
+        9
+      ],
+      "scaling": [
+        1.19005168,
+        1.19005168,
+        1.19005168
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-4",
+      "name": "木桶",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Barrel.glb",
+      "position": [
+        -4,
+        0,
+        9
+      ],
+      "scaling": [
+        2.82745633,
+        2.82745633,
+        2.82745633
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-5",
+      "name": "开口木箱 · OpenBox",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/OpenBox.glb",
+      "position": [
+        -16,
+        0,
+        5
+      ],
+      "scaling": [
+        2.59381586,
+        2.59381586,
+        2.59381586
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-6",
+      "name": "搁架 · Shelf",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Shelf.glb",
+      "position": [
+        -12.00000004,
+        0,
+        5
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-1",
+      "name": "悬挂草药（含绳索）",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/HangingHerbs.glb",
+      "position": [
+        3.99999998,
+        2e-8,
+        6.9999998
+      ],
+      "scaling": [
+        1.10226284,
+        1.10226284,
+        1.10226284
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-2",
+      "name": "悬挂猪腿（含挂钩）",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/HangingPorkLeg.glb",
+      "position": [
+        7.99999996,
+        8e-8,
+        6.99999994
+      ],
+      "scaling": [
+        2.59613819,
+        2.59613819,
+        2.59613819
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-3",
+      "name": "奶酪块 · Cheese_1",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Cheese_1.glb",
+      "position": [
+        12,
+        0,
+        7.0000001
+      ],
+      "scaling": [
+        6.42907435,
+        6.42907435,
+        6.42907435
+      ]
+    },
+    {
+      "id": "cursedlake-MarketFood-4",
+      "name": "玉米粮袋 · SackOfCorn",
+      "parentId": "transform:cursedlake-MarketFood",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/SackOfCorn.glb",
+      "position": [
+        16,
+        0,
+        7
+      ],
+      "scaling": [
+        4.71351149,
+        4.71351149,
+        4.71351149
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-1",
+      "name": "斧头",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Axe.glb",
+      "position": [
+        -5.99999965,
+        0,
+        -5.00000004
+      ],
+      "scaling": [
+        5.17768323,
+        5.17768323,
+        5.17768323
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-2",
+      "name": "陶罐 · Pot",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Pot.glb",
+      "position": [
+        -1.99999974,
+        0,
+        -5.0000009
+      ],
+      "scaling": [
+        11.52349016,
+        11.52349016,
+        11.52349016
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-3",
+      "name": "剑 · Sword",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sword.glb",
+      "position": [
+        1.99999992,
+        0,
+        -4.99999949
+      ],
+      "scaling": [
+        2.7467472,
+        2.7467472,
+        2.7467472
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-4",
+      "name": "圆盾 · Shield_1",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Shield_1.glb",
+      "position": [
+        6,
+        0,
+        -4.99999969
+      ],
+      "scaling": [
+        3.68421057,
+        3.68421057,
+        3.68421057
+      ]
+    },
+    {
+      "id": "cursedlake-MarketGoods-5",
+      "name": "绿皮书 · Green_book",
+      "parentId": "transform:cursedlake-MarketGoods",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Green_book.glb",
+      "position": [
+        -6.00000018,
+        3e-8,
+        -9
+      ],
+      "scaling": [
+        6.80731247,
+        6.80731247,
+        6.80731247
+      ]
+    }
+  ]
+}

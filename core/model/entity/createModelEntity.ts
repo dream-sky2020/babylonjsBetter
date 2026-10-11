@@ -11,7 +11,7 @@ import type {
   ModelFileFormat
 } from '@/core/model/types/model.types.ts';
 import { instantiateModelPrefab } from '@/core/model/prefab/modelPrefabCache.ts';
-import { applyModelMaterialPolicy } from '@/core/model/material/applyModelMaterialPolicy.ts';
+import { createModelMaterialController } from '../material/modelMaterialController.ts';
 import { applyModelAssetProfile } from '@/core/model/entity/applyModelAssetProfile.ts';
 import { loadModelAssetProfileLibrary } from '@/core/model/preset/modelAssetProfileApi.ts';
 import { normalizeModelAssetProfilePath } from '@/core/model/preset/modelAssetProfileValidation.ts';
@@ -44,9 +44,12 @@ export const createModelEntity = async (
   const registry = getVisualDeformationRegistry(scene);
   let releasePrefab = () => {};
   let unregisterDeformation = () => {};
+  let releaseMaterials = () => {};
   try {
+    options.signal?.throwIfAborted();
     const prefabInstance = await instantiateModelPrefab(scene, sourcePath, root.name);
     releasePrefab = prefabInstance.release;
+    options.signal?.throwIfAborted();
 
     for (const node of prefabInstance.entries.rootNodes) {
       if (!node.parent) node.parent = normalizationRoot;
@@ -55,13 +58,28 @@ export const createModelEntity = async (
     const profile = options.applyAssetProfile === false
       ? null
       : options.assetProfile ?? (await loadModelAssetProfileLibrary())[normalizeModelAssetProfilePath(sourcePath)] ?? null;
-    applyModelMaterialPolicy(prefabInstance.meshes, options.transparencyPolicy ?? profile?.transparencyPolicy);
+    let registered = false;
+    const registerDeformation = () => {
+      if (options.deformation !== false) unregisterDeformation = registry.register({
+        root, meshes: prefabInstance.meshes.filter(mesh => mesh.getTotalVertices() > 0), kind: 'model', groupId: 'models', tags: [sourcePath], ...options.deformation,
+      });
+    };
+    const materials = createModelMaterialController(scene, prefabInstance.meshes, options.transparencyPolicy ?? profile?.transparencyPolicy, apply => {
+      if (registered) unregisterDeformation();
+      apply();
+      if (registered) registerDeformation();
+    });
+    releaseMaterials = materials.dispose;
+    await materials.update(options.materialOverrides, options.signal);
 
     const animationGroups = prefabInstance.entries.animationGroups;
     const skeletons = prefabInstance.entries.skeletons;
 
     let disposed = false;
     const entity: ModelEntity = {
+      materialSlots: materials.describe,
+      prepareMaterialBindings: materials.prepare,
+      updateMaterialBindings: materials.update,
       root,
       normalizationRoot,
       sourcePath,
@@ -82,16 +100,14 @@ export const createModelEntity = async (
         if (disposed) return;
         disposed = true;
         unregisterDeformation();
+        materials.dispose();
         prefabInstance.release();
         root.dispose();
       }
     };
 
     if (profile) applyModelAssetProfile(entity, profile);
-    if (options.deformation !== false) unregisterDeformation = registry.register({
-      root, meshes: entity.meshes.filter(mesh => mesh.getTotalVertices() > 0), kind: 'model', groupId: 'models', tags: [sourcePath],
-      ...options.deformation,
-    });
+    registerDeformation(); registered = true;
 
     if (options.autoPlayAnimation) {
       entity.playAnimation(typeof options.autoPlayAnimation === 'string'
@@ -102,6 +118,7 @@ export const createModelEntity = async (
     return entity;
   } catch (error) {
     unregisterDeformation();
+    releaseMaterials();
     releasePrefab();
     root.dispose();
     throw error;

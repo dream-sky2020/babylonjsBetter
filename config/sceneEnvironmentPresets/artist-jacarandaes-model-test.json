@@ -1,0 +1,1320 @@
+{
+  "presetKey": "artist-jacarandaes-model-test",
+  "name": "jacarandaes · 模型展示（27 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "spray-cans",
+      "name": "涂鸦喷罐分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "markers",
+      "name": "画笔分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "paint",
+      "name": "油漆桶与颜料分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "caps",
+      "name": "备用喷头分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 39
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-madmax-stand",
+      "name": "MadMax展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        18.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-hardcore-stand",
+      "name": "Hardcore展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        18.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-mtnoriginal-stand",
+      "name": "MTNOriginal展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        18.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-montana94-stand",
+      "name": "Montana94展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        18.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-alien-stand",
+      "name": "Alien展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        18.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-tekbond-stand",
+      "name": "Tekbond展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        14.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-bagraff-stand",
+      "name": "BAgraff展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        14.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-kwtblack-stand",
+      "name": "KWTBlack展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        14.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-kwtzear-stand",
+      "name": "KWTZear展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        14.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-kwtrayado-stand",
+      "name": "KWTRayado展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        14.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-loop-stand",
+      "name": "Loop展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        10.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-ironlak-stand",
+      "name": "Ironlak展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        10.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-montana94body-stand",
+      "name": "Montana94Body展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        10.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-loopalternate-stand",
+      "name": "LoopAlternate展台",
+      "parentId": "transform:spray-cans",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        10.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-grog-stand",
+      "name": "Grog展台",
+      "parentId": "transform:markers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint1-stand",
+      "name": "UniPaint1展台",
+      "parentId": "transform:markers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint2-stand",
+      "name": "UniPaint2展台",
+      "parentId": "transform:markers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint3-stand",
+      "name": "UniPaint3展台",
+      "parentId": "transform:markers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint4-stand",
+      "name": "UniPaint4展台",
+      "parentId": "transform:markers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint5-stand",
+      "name": "UniPaint5展台",
+      "parentId": "transform:markers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -0.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-remix-stand",
+      "name": "Remix展台",
+      "parentId": "transform:markers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -0.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "paint-paintbucket1-stand",
+      "name": "PaintBucket1展台",
+      "parentId": "transform:paint",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -7.5
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "paint-paintbucket2-stand",
+      "name": "PaintBucket2展台",
+      "parentId": "transform:paint",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -7.5
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "paint-paintbottle-stand",
+      "name": "PaintBottle展台",
+      "parentId": "transform:paint",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -7.5
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "caps-sparecap1-stand",
+      "name": "SpareCap1展台",
+      "parentId": "transform:caps",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -14.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "caps-sparecap2-stand",
+      "name": "SpareCap2展台",
+      "parentId": "transform:caps",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -14.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "caps-sparecap3-stand",
+      "name": "SpareCap3展台",
+      "parentId": "transform:caps",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -14.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "spray-cans-madmax",
+      "name": "MadMax",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/MadMax.glb",
+      "position": [
+        -7.99999995,
+        -7e-8,
+        18.49999988
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62047067,
+        0.62047067,
+        0.62047067
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-hardcore",
+      "name": "Hardcore",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/Hardcore.glb",
+      "position": [
+        -4,
+        -1e-7,
+        18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89988044,
+        0.89988044,
+        0.89988044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-mtnoriginal",
+      "name": "MTNOriginal",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/MTNOriginal.glb",
+      "position": [
+        6e-8,
+        -9e-8,
+        18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00832631,
+        1.00832631,
+        1.00832631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-montana94",
+      "name": "Montana94",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/Montana94.glb",
+      "position": [
+        3.99999996,
+        -6e-8,
+        18.50000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.97034058,
+        0.97034058,
+        0.97034058
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-alien",
+      "name": "Alien",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/Alien.glb",
+      "position": [
+        8,
+        -2.4e-7,
+        18.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49483774,
+        1.49483774,
+        1.49483774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-tekbond",
+      "name": "Tekbond",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/Tekbond.glb",
+      "position": [
+        -8,
+        -8e-8,
+        14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87308235,
+        0.87308235,
+        0.87308235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-bagraff",
+      "name": "BAgraff",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/BAgraff.glb",
+      "position": [
+        -4.00000034,
+        -1.4e-7,
+        14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.70349849,
+        0.70349849,
+        0.70349849
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-kwtblack",
+      "name": "KWTBlack",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/KWTBlack.glb",
+      "position": [
+        -1.6e-7,
+        -1.2e-7,
+        14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68910451,
+        0.68910451,
+        0.68910451
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-kwtzear",
+      "name": "KWTZear",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/KWTZear.glb",
+      "position": [
+        4,
+        0,
+        14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.79137276,
+        0.79137276,
+        0.79137276
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-kwtrayado",
+      "name": "KWTRayado",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/KWTRayado.glb",
+      "position": [
+        7.99999961,
+        -1e-7,
+        14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.82497528,
+        0.82497528,
+        0.82497528
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-loop",
+      "name": "Loop",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/Loop.glb",
+      "position": [
+        -6,
+        -1e-7,
+        10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00627367,
+        1.00627367,
+        1.00627367
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-ironlak",
+      "name": "Ironlak",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/Ironlak.glb",
+      "position": [
+        -2,
+        -1.3e-7,
+        10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12266742,
+        1.12266742,
+        1.12266742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-montana94body",
+      "name": "Montana94Body",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/Montana94Body.glb",
+      "position": [
+        2,
+        -7e-8,
+        10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.23498796,
+        1.23498796,
+        1.23498796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "spray-cans-loopalternate",
+      "name": "LoopAlternate",
+      "parentId": "transform:spray-cans",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/SprayCans/LoopAlternate.glb",
+      "position": [
+        6.00000122,
+        -1.3e-7,
+        10.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.220748,
+        1.220748,
+        1.220748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-grog",
+      "name": "Grog",
+      "parentId": "transform:markers",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Markers/Grog.glb",
+      "position": [
+        -8,
+        8e-8,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54113503,
+        1.54113503,
+        1.54113503
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint1",
+      "name": "UniPaint1",
+      "parentId": "transform:markers",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Markers/UniPaint1.glb",
+      "position": [
+        -4,
+        -7e-8,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11652306,
+        1.11652306,
+        1.11652306
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint2",
+      "name": "UniPaint2",
+      "parentId": "transform:markers",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Markers/UniPaint2.glb",
+      "position": [
+        0,
+        -7e-8,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11533926,
+        1.11533926,
+        1.11533926
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint3",
+      "name": "UniPaint3",
+      "parentId": "transform:markers",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Markers/UniPaint3.glb",
+      "position": [
+        4,
+        -7e-8,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.11851905,
+        1.11851905,
+        1.11851905
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint4",
+      "name": "UniPaint4",
+      "parentId": "transform:markers",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Markers/UniPaint4.glb",
+      "position": [
+        8,
+        -7e-8,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12095405,
+        1.12095405,
+        1.12095405
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-unipaint5",
+      "name": "UniPaint5",
+      "parentId": "transform:markers",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Markers/UniPaint5.glb",
+      "position": [
+        -2,
+        -7e-8,
+        -0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12996893,
+        1.12996893,
+        1.12996893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "markers-remix",
+      "name": "Remix",
+      "parentId": "transform:markers",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Markers/Remix.glb",
+      "position": [
+        2,
+        5e-8,
+        -0.50000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.15021334,
+        1.15021334,
+        1.15021334
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "paint-paintbucket1",
+      "name": "PaintBucket1",
+      "parentId": "transform:paint",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Paint/PaintBucket1.glb",
+      "position": [
+        -4,
+        -9e-8,
+        -7.50000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72070931,
+        0.72070931,
+        0.72070931
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "paint-paintbucket2",
+      "name": "PaintBucket2",
+      "parentId": "transform:paint",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Paint/PaintBucket2.glb",
+      "position": [
+        0,
+        -9e-8,
+        -7.49999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72268647,
+        0.72268647,
+        0.72268647
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "paint-paintbottle",
+      "name": "PaintBottle",
+      "parentId": "transform:paint",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Paint/PaintBottle.glb",
+      "position": [
+        4.00000011,
+        -1.4e-7,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.19220879,
+        1.19220879,
+        1.19220879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "caps-sparecap1",
+      "name": "SpareCap1",
+      "parentId": "transform:caps",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Caps/SpareCap1.glb",
+      "position": [
+        -4,
+        6.9e-7,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.83502934,
+        11.83502934,
+        11.83502934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "caps-sparecap2",
+      "name": "SpareCap2",
+      "parentId": "transform:caps",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Caps/SpareCap2.glb",
+      "position": [
+        0,
+        6.9e-7,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.83502934,
+        11.83502934,
+        11.83502934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "caps-sparecap3",
+      "name": "SpareCap3",
+      "parentId": "transform:caps",
+      "modelPath": "resources/Model/GLB/artist_jacarandaes/Caps/SpareCap3.glb",
+      "position": [
+        4,
+        6.9e-7,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.83502934,
+        11.83502934,
+        11.83502934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

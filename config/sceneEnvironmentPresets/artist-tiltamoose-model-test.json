@@ -1,0 +1,1390 @@
+{
+  "presetKey": "artist-tiltamoose-model-test",
+  "name": "tiltamoose · 模型展示（29 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "hallway",
+      "name": "酒店走廊模块分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "boxes",
+      "name": "箱柜与集装箱分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 33
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_01-stand",
+      "name": "hotel_hallway_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        15.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_doors_02-stand",
+      "name": "hotel_hallway_doors_02展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        15.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_doors_01-stand",
+      "name": "hotel_hallway_doors_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        15.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_arch_01-stand",
+      "name": "hotel_hallway_arch_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        15.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_wall_01-stand",
+      "name": "hotel_hallway_wall_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        15.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_wall_02-stand",
+      "name": "hotel_hallway_wall_02展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_corner_01-stand",
+      "name": "hotel_hallway_corner_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_tee_01-stand",
+      "name": "hotel_hallway_tee_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_cross_01-stand",
+      "name": "hotel_hallway_cross_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_door_02-stand",
+      "name": "hotel_hallway_door_02展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_door_01-stand",
+      "name": "hotel_hallway_door_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_01-stand",
+      "name": "hotel_hallway_post_01展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_02-stand",
+      "name": "hotel_hallway_post_02展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_06-stand",
+      "name": "hotel_hallway_post_06展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_05-stand",
+      "name": "hotel_hallway_post_05展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        7.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_03-stand",
+      "name": "hotel_hallway_post_03展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        3.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_04-stand",
+      "name": "hotel_hallway_post_04展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        3.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_door_03-stand",
+      "name": "hotel_hallway_door_03展台",
+      "parentId": "transform:hallway",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        3.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-box_ammo_00-stand",
+      "name": "box_ammo_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-box_large_00-stand",
+      "name": "box_large_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-box_small_00-stand",
+      "name": "box_small_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-crate_milk_00-stand",
+      "name": "crate_milk_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-crate_01-stand",
+      "name": "crate_01展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -3.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-crate_00-stand",
+      "name": "crate_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -7.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-box_wrapped_00-stand",
+      "name": "box_wrapped_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -7.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-locker_00-stand",
+      "name": "locker_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -7.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-locker_door_left_00-stand",
+      "name": "locker_door_left_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -7.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-locker_door_right_00-stand",
+      "name": "locker_door_right_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -7.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-shipping_container_00-stand",
+      "name": "shipping_container_00展台",
+      "parentId": "transform:boxes",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -11.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "hallway-hotel_hallway_01",
+      "name": "hotel_hallway_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_01.glb",
+      "position": [
+        -8,
+        0,
+        15.49999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57284897,
+        0.57284897,
+        0.57284897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_doors_02",
+      "name": "hotel_hallway_doors_02",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_doors_02.glb",
+      "position": [
+        -4,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44246263,
+        0.44246263,
+        0.44246263
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_doors_01",
+      "name": "hotel_hallway_doors_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_doors_01.glb",
+      "position": [
+        0,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44246263,
+        0.44246263,
+        0.44246263
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_arch_01",
+      "name": "hotel_hallway_arch_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_arch_01.glb",
+      "position": [
+        4,
+        -1.3e-7,
+        15.5000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55991037,
+        0.55991037,
+        0.55991037
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_wall_01",
+      "name": "hotel_hallway_wall_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_wall_01.glb",
+      "position": [
+        7.99999997,
+        0,
+        15.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57284897,
+        0.57284897,
+        0.57284897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_wall_02",
+      "name": "hotel_hallway_wall_02",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_wall_02.glb",
+      "position": [
+        -8.00000003,
+        0,
+        11.50000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55991029,
+        0.55991029,
+        0.55991029
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_corner_01",
+      "name": "hotel_hallway_corner_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_corner_01.glb",
+      "position": [
+        -4.00000007,
+        0,
+        11.50000013
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55195797,
+        0.55195797,
+        0.55195797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_tee_01",
+      "name": "hotel_hallway_tee_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_tee_01.glb",
+      "position": [
+        0,
+        0,
+        11.50000039
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46673963,
+        0.46673963,
+        0.46673963
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_cross_01",
+      "name": "hotel_hallway_cross_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_cross_01.glb",
+      "position": [
+        4,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666655,
+        0.46666655,
+        0.46666655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_door_02",
+      "name": "hotel_hallway_door_02",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_door_02.glb",
+      "position": [
+        8,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57284897,
+        0.57284897,
+        0.57284897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_door_01",
+      "name": "hotel_hallway_door_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_door_01.glb",
+      "position": [
+        -8,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46595194,
+        0.46595194,
+        0.46595194
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_01",
+      "name": "hotel_hallway_post_01",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_post_01.glb",
+      "position": [
+        -4,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666655,
+        0.46666655,
+        0.46666655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_02",
+      "name": "hotel_hallway_post_02",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_post_02.glb",
+      "position": [
+        0,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46666655,
+        0.46666655,
+        0.46666655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_06",
+      "name": "hotel_hallway_post_06",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_post_06.glb",
+      "position": [
+        4,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55999985,
+        0.55999985,
+        0.55999985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_05",
+      "name": "hotel_hallway_post_05",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_post_05.glb",
+      "position": [
+        8,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55999985,
+        0.55999985,
+        0.55999985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_03",
+      "name": "hotel_hallway_post_03",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_post_03.glb",
+      "position": [
+        -4,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57284701,
+        0.57284701,
+        0.57284701
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_post_04",
+      "name": "hotel_hallway_post_04",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_post_04.glb",
+      "position": [
+        0,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57284741,
+        0.57284741,
+        0.57284741
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "hallway-hotel_hallway_door_03",
+      "name": "hotel_hallway_door_03",
+      "parentId": "transform:hallway",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Hallway/hotel_hallway_door_03.glb",
+      "position": [
+        4,
+        0,
+        3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46595194,
+        0.46595194,
+        0.46595194
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-box_ammo_00",
+      "name": "box_ammo_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/box_ammo_00.glb",
+      "position": [
+        -8,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-box_large_00",
+      "name": "box_large_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/box_large_00.glb",
+      "position": [
+        -4,
+        -5e-8,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5555556,
+        1.5555556,
+        1.5555556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-box_small_00",
+      "name": "box_small_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/box_small_00.glb",
+      "position": [
+        0,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.6,
+        5.6,
+        5.6
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-crate_milk_00",
+      "name": "crate_milk_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/crate_milk_00.glb",
+      "position": [
+        4,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.50000021,
+        3.50000021,
+        3.50000021
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-crate_01",
+      "name": "crate_01",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/crate_01.glb",
+      "position": [
+        8,
+        8e-8,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-crate_00",
+      "name": "crate_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/crate_00.glb",
+      "position": [
+        -8,
+        8e-8,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-box_wrapped_00",
+      "name": "box_wrapped_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/box_wrapped_00.glb",
+      "position": [
+        -4,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7500001,
+        1.7500001,
+        1.7500001
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-locker_00",
+      "name": "locker_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/locker_00.glb",
+      "position": [
+        2e-8,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.21903704,
+        1.21903704,
+        1.21903704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-locker_door_left_00",
+      "name": "locker_door_left_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/locker_door_left_00.glb",
+      "position": [
+        3.99999999,
+        0,
+        -7.50000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27272726,
+        1.27272726,
+        1.27272726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-locker_door_right_00",
+      "name": "locker_door_right_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/locker_door_right_00.glb",
+      "position": [
+        8,
+        4e-8,
+        -7.50000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27272726,
+        1.27272726,
+        1.27272726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "boxes-shipping_container_00",
+      "name": "shipping_container_00",
+      "parentId": "transform:boxes",
+      "modelPath": "resources/Model/GLB/artist_tiltamoose/Boxes/shipping_container_00.glb",
+      "position": [
+        0,
+        -5.8e-7,
+        -11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.48907438,
+        0.48907438,
+        0.48907438
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

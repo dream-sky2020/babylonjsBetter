@@ -20,6 +20,12 @@ test('installation transforms survive roundtrip independently of proxy dimension
   assert.equal(migrated.weapons.left.enabled, false);
   assert.deepEqual(parseWeaponLibrary(parseWeaponLibrary(library)), parseWeaponLibrary(library));
 });
+test('per-hand material bindings survive legacy and current roundtrip', () => {
+  const p = example(); p.asset.materialOverrides = [{selector:{gltfMaterialIndex:0},textures:{baseColor:{path:'resources/a.png'}}}];
+  const next = parseWeaponProject(p);
+  assert.deepEqual(next.weapons.right.asset.materialOverrides,p.asset.materialOverrides);
+  assert.deepEqual(parseWeaponProject(JSON.parse(JSON.stringify(next))),next);
+});
 
 test('v3 roundtrip preserves proxy rotation, different installations and per-hand timing', () => {
   const p = createWeaponAnimationExamples()['dual-alternating-slash'];

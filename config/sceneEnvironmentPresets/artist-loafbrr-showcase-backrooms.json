@@ -1,0 +1,1104 @@
+{
+  "presetKey": "artist-loafbrr-showcase-backrooms",
+  "name": "Loafbrr · Backrooms · 24模型 · 模型 0.30 MiB + 贴图 1.06 MiB · 合计 1.36 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-backrooms-0",
+      "name": "Backrooms",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 21
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-3b104c70e7646404-stand",
+      "name": "Debri_Debris_Stack_1展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3d96e52e20560c5c-stand",
+      "name": "Debri_Debris_Stack_2展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6da650f0d5ed6275-stand",
+      "name": "Debri_Debris_Stack_3展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-969f1bbba80681a7-stand",
+      "name": "Debri_FloorDebris_1展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b779c82d9f721bdb-stand",
+      "name": "Debri_FloorDebris_2展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d265cc8f01934cd5-stand",
+      "name": "Debri_FloorDebris_3展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-10279f18d79f78e0-stand",
+      "name": "Debri_FloorDebris_4展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9763e9bad2d0a1b2-stand",
+      "name": "Debri_WallDebris_1展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f5f737a1f8a67302-stand",
+      "name": "Debri_WallDebris_2展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-40419320c1c65bc9-stand",
+      "name": "Debri_WallDebris_3展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-be1e0394c86f16db-stand",
+      "name": "Debri_WallDebris_4展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e15f89282317ae5a-stand",
+      "name": "Props_Bucket展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d627fdff53b8243c-stand",
+      "name": "Props_Chair展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0fe651b2142b30af-stand",
+      "name": "Props_Chest展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-96379d9960714c7d-stand",
+      "name": "Props_Key展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0f786db0764303b5-stand",
+      "name": "Props_Locker展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b46eaf7b539f1e22-stand",
+      "name": "Props_Padlock展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c7cb354fd30a2319-stand",
+      "name": "Props_PlugsA展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5ec7e177679b22b8-stand",
+      "name": "Props_PlugsB展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-77d8ac0da8981afb-stand",
+      "name": "Props_Stool展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-42cb75da0575b7ad-stand",
+      "name": "Props_Switch展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0c84c1989482492b-stand",
+      "name": "Props_Table1展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ff090df71d37113c-stand",
+      "name": "Props_Table2展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2d9ac9a455c7cb4f-stand",
+      "name": "Props_TrashCan展台",
+      "parentId": "transform:category-backrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-3b104c70e7646404",
+      "name": "Backrooms · Debri_Debris_Stack_1 · 模型 0.02 MiB · 贴图 0.63 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_Debris_Stack_1.glb",
+      "position": [
+        -21.99999939,
+        4e-8,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73649638,
+        0.73649638,
+        0.73649638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3d96e52e20560c5c",
+      "name": "Backrooms · Debri_Debris_Stack_2 · 模型 0.02 MiB · 贴图 0.84 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_Debris_Stack_2.glb",
+      "position": [
+        -17.99999897,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57761408,
+        0.57761408,
+        0.57761408
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6da650f0d5ed6275",
+      "name": "Backrooms · Debri_Debris_Stack_3 · 模型 0.02 MiB · 贴图 0.84 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_Debris_Stack_3.glb",
+      "position": [
+        -14.00000063,
+        0,
+        8.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5845397,
+        0.5845397,
+        0.5845397
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-969f1bbba80681a7",
+      "name": "Backrooms · Debri_FloorDebris_1 · 模型 0.01 MiB · 贴图 0.63 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_FloorDebris_1.glb",
+      "position": [
+        -10.00000087,
+        4e-8,
+        8.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.96850658,
+        0.96850658,
+        0.96850658
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b779c82d9f721bdb",
+      "name": "Backrooms · Debri_FloorDebris_2 · 模型 0.01 MiB · 贴图 0.63 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_FloorDebris_2.glb",
+      "position": [
+        -5.99999919,
+        -5e-8,
+        7.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0421363,
+        1.0421363,
+        1.0421363
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d265cc8f01934cd5",
+      "name": "Backrooms · Debri_FloorDebris_3 · 模型 0.01 MiB · 贴图 0.63 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_FloorDebris_3.glb",
+      "position": [
+        -2.00000142,
+        -1e-8,
+        7.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91669305,
+        0.91669305,
+        0.91669305
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-10279f18d79f78e0",
+      "name": "Backrooms · Debri_FloorDebris_4 · 模型 0.01 MiB · 贴图 0.63 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_FloorDebris_4.glb",
+      "position": [
+        -22.00000089,
+        4e-8,
+        3.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.82622691,
+        0.82622691,
+        0.82622691
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9763e9bad2d0a1b2",
+      "name": "Backrooms · Debri_WallDebris_1 · 模型 0.01 MiB · 贴图 0.51 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_WallDebris_1.glb",
+      "position": [
+        -17.99999989,
+        -3e-8,
+        4.00000016
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90349531,
+        0.90349531,
+        0.90349531
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f5f737a1f8a67302",
+      "name": "Backrooms · Debri_WallDebris_2 · 模型 0.01 MiB · 贴图 0.51 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_WallDebris_2.glb",
+      "position": [
+        -13.9999989,
+        3e-8,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80283504,
+        0.80283504,
+        0.80283504
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-40419320c1c65bc9",
+      "name": "Backrooms · Debri_WallDebris_3 · 模型 0.01 MiB · 贴图 0.51 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_WallDebris_3.glb",
+      "position": [
+        -10.00000053,
+        -3e-8,
+        4.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.88133081,
+        0.88133081,
+        0.88133081
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-be1e0394c86f16db",
+      "name": "Backrooms · Debri_WallDebris_4 · 模型 0.01 MiB · 贴图 0.51 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Debri_WallDebris_4.glb",
+      "position": [
+        -6.00000038,
+        5e-8,
+        3.99999984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91262442,
+        0.91262442,
+        0.91262442
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e15f89282317ae5a",
+      "name": "Backrooms · Props_Bucket · 模型 0.02 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Bucket.glb",
+      "position": [
+        -2,
+        0,
+        4.00000171
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.46301925,
+        5.46301925,
+        5.46301925
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d627fdff53b8243c",
+      "name": "Backrooms · Props_Chair · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Chair.glb",
+      "position": [
+        -21.99999902,
+        0,
+        -1.8e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.05699793,
+        2.05699793,
+        2.05699793
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0fe651b2142b30af",
+      "name": "Backrooms · Props_Chest · 模型 0.03 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Chest.glb",
+      "position": [
+        -18.00000057,
+        0,
+        -0.00000124
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.47978654,
+        3.47978654,
+        3.47978654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-96379d9960714c7d",
+      "name": "Backrooms · Props_Key · 模型 0.02 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Key.glb",
+      "position": [
+        -14.00001945,
+        -2.8e-7,
+        8.2e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.83706511,
+        23.83706511,
+        23.83706511
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0f786db0764303b5",
+      "name": "Backrooms · Props_Locker · 模型 0.02 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Locker.glb",
+      "position": [
+        -10,
+        0,
+        6.7e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b46eaf7b539f1e22",
+      "name": "Backrooms · Props_Padlock · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Padlock.glb",
+      "position": [
+        -5.99999914,
+        0,
+        1.2e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.63910645,
+        25.63910645,
+        25.63910645
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c7cb354fd30a2319",
+      "name": "Backrooms · Props_PlugsA · 模型 0.00 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_PlugsA.glb",
+      "position": [
+        -2.00000007,
+        -9.7e-7,
+        0.00000122
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.33333296,
+        9.33333296,
+        9.33333296
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5ec7e177679b22b8",
+      "name": "Backrooms · Props_PlugsB · 模型 0.00 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_PlugsB.glb",
+      "position": [
+        -22,
+        1.4e-7,
+        -3.99999906
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.33333389,
+        9.33333389,
+        9.33333389
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-77d8ac0da8981afb",
+      "name": "Backrooms · Props_Stool · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Stool.glb",
+      "position": [
+        -18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.01679828,
+        4.01679828,
+        4.01679828
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-42cb75da0575b7ad",
+      "name": "Backrooms · Props_Switch · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Switch.glb",
+      "position": [
+        -14.00000007,
+        -9.7e-7,
+        -3.999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.33333296,
+        9.33333296,
+        9.33333296
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0c84c1989482492b",
+      "name": "Backrooms · Props_Table1 · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Table1.glb",
+      "position": [
+        -10,
+        0,
+        -3.9999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.52667394,
+        2.52667394,
+        2.52667394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ff090df71d37113c",
+      "name": "Backrooms · Props_Table2 · 模型 0.01 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_Table2.glb",
+      "position": [
+        -5.99999991,
+        0,
+        -3.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.93193722,
+        2.93193722,
+        2.93193722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2d9ac9a455c7cb4f",
+      "name": "Backrooms · Props_TrashCan · 模型 0.02 MiB · 贴图 0.22 MiB",
+      "parentId": "transform:category-backrooms-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Backrooms/Props_TrashCan.glb",
+      "position": [
+        -2.00000112,
+        0,
+        -3.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.42106149,
+        2.42106149,
+        2.42106149
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

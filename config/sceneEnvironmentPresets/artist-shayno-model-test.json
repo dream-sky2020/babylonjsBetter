@@ -1,0 +1,400 @@
+{
+  "presetKey": "artist-shayno-model-test",
+  "name": "shayno · 模型展示（7 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "electronics",
+      "name": "电子设备与娱乐分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "tools",
+      "name": "工具分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 13
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-boombox-stand",
+      "name": "Boombox展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-monitor-stand",
+      "name": "Monitor展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-mouse-stand",
+      "name": "Mouse展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-computertower-stand",
+      "name": "ComputerTower展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-keyboard-stand",
+      "name": "Keyboard展台",
+      "parentId": "transform:electronics",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        5.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tools-hammer-stand",
+      "name": "Hammer展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -1.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tools-wrench-stand",
+      "name": "Wrench展台",
+      "parentId": "transform:tools",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -1.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "electronics-boombox",
+      "name": "Boombox",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_shayno/Electronics/Boombox.glb",
+      "position": [
+        -8,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.5902264,
+        4.5902264,
+        4.5902264
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-monitor",
+      "name": "Monitor",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_shayno/Electronics/Monitor.glb",
+      "position": [
+        -4.00000105,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.39623051,
+        5.39623051,
+        5.39623051
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-mouse",
+      "name": "Mouse",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_shayno/Electronics/Mouse.glb",
+      "position": [
+        -3.1e-7,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.99630314,
+        20.99630314,
+        20.99630314
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-computertower",
+      "name": "ComputerTower",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_shayno/Electronics/ComputerTower.glb",
+      "position": [
+        4,
+        0,
+        5.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.32537841,
+        4.32537841,
+        4.32537841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "electronics-keyboard",
+      "name": "Keyboard",
+      "parentId": "transform:electronics",
+      "modelPath": "resources/Model/GLB/artist_shayno/Electronics/Keyboard.glb",
+      "position": [
+        7.99999997,
+        0,
+        5.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.55145152,
+        4.55145152,
+        4.55145152
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tools-hammer",
+      "name": "Hammer",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_shayno/Tools/Hammer.glb",
+      "position": [
+        -2,
+        0,
+        -1.50000058
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.50249738,
+        6.50249738,
+        6.50249738
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tools-wrench",
+      "name": "Wrench",
+      "parentId": "transform:tools",
+      "modelPath": "resources/Model/GLB/artist_shayno/Tools/Wrench.glb",
+      "position": [
+        2,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.47830659,
+        8.47830659,
+        8.47830659
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

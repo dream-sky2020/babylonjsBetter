@@ -1,0 +1,965 @@
+{
+  "presetKey": "artist-tinsonator-model-test",
+  "name": "Tinsonator · PSX 城市设施与生活道具（17 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "tinsonator-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "tinsonator-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "tinsonator-publicfacilities",
+      "name": "公共设施套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "tinsonator-sanitation",
+      "name": "环卫套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "tinsonator-traffic",
+      "name": "交通套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "tinsonator-props",
+      "name": "生活道具套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "tinsonator-barrels",
+      "name": "油桶套件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "tinsonator-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 36
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-publicfacilities-zone",
+      "name": "公共设施套件分区",
+      "parentId": "transform:tinsonator-publicfacilities",
+      "geometry": {
+        "primitive": "box",
+        "width": 12.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        14
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "tinsonator-publicfacilities-payphone-stand",
+      "name": "公用电话展台",
+      "parentId": "transform:tinsonator-publicfacilities",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        14
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-publicfacilities-mailbox-stand",
+      "name": "邮箱展台",
+      "parentId": "transform:tinsonator-publicfacilities",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        14
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-publicfacilities-bench-stand",
+      "name": "长椅展台",
+      "parentId": "transform:tinsonator-publicfacilities",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        14
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-sanitation-zone",
+      "name": "环卫套件分区",
+      "parentId": "transform:tinsonator-sanitation",
+      "geometry": {
+        "primitive": "box",
+        "width": 12.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "tinsonator-sanitation-dumpstergarbage-stand",
+      "name": "垃圾箱（含垃圾）展台",
+      "parentId": "transform:tinsonator-sanitation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        7
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-sanitation-dumpsterempty-stand",
+      "name": "垃圾箱（空箱）展台",
+      "parentId": "transform:tinsonator-sanitation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        7
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-sanitation-garbagebag-stand",
+      "name": "垃圾袋展台",
+      "parentId": "transform:tinsonator-sanitation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        7
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-traffic-zone",
+      "name": "交通套件分区",
+      "parentId": "transform:tinsonator-traffic",
+      "geometry": {
+        "primitive": "box",
+        "width": 12.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#91836f"
+    },
+    {
+      "id": "tinsonator-traffic-arrowsign-stand",
+      "name": "方向路牌展台",
+      "parentId": "transform:tinsonator-traffic",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        0
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-traffic-stopsign-stand",
+      "name": "停车路牌展台",
+      "parentId": "transform:tinsonator-traffic",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        0
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-traffic-trafficcone-stand",
+      "name": "交通锥展台",
+      "parentId": "transform:tinsonator-traffic",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        0
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-zone",
+      "name": "生活道具套件分区",
+      "parentId": "transform:tinsonator-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 20.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        -7
+      ],
+      "color": "#7c859e"
+    },
+    {
+      "id": "tinsonator-props-briefcase-stand",
+      "name": "公文包展台",
+      "parentId": "transform:tinsonator-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-cardboardbox-stand",
+      "name": "纸箱展台",
+      "parentId": "transform:tinsonator-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-sleepingbag-stand",
+      "name": "睡袋展台",
+      "parentId": "transform:tinsonator-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-cokecan-stand",
+      "name": "饮料罐展台",
+      "parentId": "transform:tinsonator-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-keylock-stand",
+      "name": "挂锁展台",
+      "parentId": "transform:tinsonator-props",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -7
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-barrels-zone",
+      "name": "油桶套件分区",
+      "parentId": "transform:tinsonator-barrels",
+      "geometry": {
+        "primitive": "box",
+        "width": 12.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        0,
+        -0.15,
+        -14
+      ],
+      "color": "#8f7770"
+    },
+    {
+      "id": "tinsonator-barrels-oilbarrel1-stand",
+      "name": "油桶一展台",
+      "parentId": "transform:tinsonator-barrels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -14
+      ],
+      "color": "#8f7770",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-barrels-oilbarrel2-stand",
+      "name": "油桶二展台",
+      "parentId": "transform:tinsonator-barrels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -14
+      ],
+      "color": "#8f7770",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-barrels-explosivebarrel-stand",
+      "name": "爆炸桶展台",
+      "parentId": "transform:tinsonator-barrels",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -14
+      ],
+      "color": "#8f7770",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "tinsonator-publicfacilities-payphone",
+      "name": "公用电话",
+      "parentId": "transform:tinsonator-publicfacilities",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/PublicFacilities/Payphone.glb",
+      "position": [
+        -4,
+        0.01421521,
+        14
+      ],
+      "rotation": [
+        0,
+        -1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        1.17049781,
+        1.17049781,
+        1.17049781
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-publicfacilities-mailbox",
+      "name": "邮箱",
+      "parentId": "transform:tinsonator-publicfacilities",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/PublicFacilities/Mailbox.glb",
+      "position": [
+        0.00004596,
+        0.08209056,
+        13.9998648
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.98597468,
+        0.98597468,
+        0.98597468
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-publicfacilities-bench",
+      "name": "长椅",
+      "parentId": "transform:tinsonator-publicfacilities",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/PublicFacilities/Bench.glb",
+      "position": [
+        4.08925008,
+        -0.00303371,
+        13.94022043
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        0.86336077,
+        0.86336077,
+        0.86336077
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-sanitation-dumpstergarbage",
+      "name": "垃圾箱（含垃圾）",
+      "parentId": "transform:tinsonator-sanitation",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Sanitation/DumpsterGarbage.glb",
+      "position": [
+        -4.03061445,
+        -0.25705278,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73443647,
+        0.73443647,
+        0.73443647
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-sanitation-dumpsterempty",
+      "name": "垃圾箱（空箱）",
+      "parentId": "transform:tinsonator-sanitation",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Sanitation/DumpsterEmpty.glb",
+      "position": [
+        -0.03061445,
+        -0.25705278,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73443647,
+        0.73443647,
+        0.73443647
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-sanitation-garbagebag",
+      "name": "垃圾袋",
+      "parentId": "transform:tinsonator-sanitation",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Sanitation/GarbageBag.glb",
+      "position": [
+        3.93017995,
+        0.05466335,
+        6.98514308
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93017716,
+        0.93017716,
+        0.93017716
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-traffic-arrowsign",
+      "name": "方向路牌",
+      "parentId": "transform:tinsonator-traffic",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Traffic/ArrowSign.glb",
+      "position": [
+        -3.99089857,
+        0.04095441,
+        0.02051903
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        0.8005376,
+        0.8005376,
+        0.8005376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-traffic-stopsign",
+      "name": "停车路牌",
+      "parentId": "transform:tinsonator-traffic",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Traffic/StopSign.glb",
+      "position": [
+        0.00910143,
+        0.04095441,
+        0.02051903
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        0.8005376,
+        0.8005376,
+        0.8005376
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-traffic-trafficcone",
+      "name": "交通锥",
+      "parentId": "transform:tinsonator-traffic",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Traffic/TrafficCone.glb",
+      "position": [
+        4,
+        0.08932309,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.1681048,
+        4.1681048,
+        4.1681048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-briefcase",
+      "name": "公文包",
+      "parentId": "transform:tinsonator-props",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Props/Briefcase.glb",
+      "position": [
+        -7.99999994,
+        0.19579457,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.34554071,
+        1.34554071,
+        1.34554071
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-cardboardbox",
+      "name": "纸箱",
+      "parentId": "transform:tinsonator-props",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Props/CardboardBox.glb",
+      "position": [
+        -3.98827411,
+        0.51797193,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.50781538,
+        0.50781538,
+        0.50781538
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-sleepingbag",
+      "name": "睡袋",
+      "parentId": "transform:tinsonator-props",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Props/SleepingBag.glb",
+      "position": [
+        0,
+        0.05407112,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.0337166,
+        1.0337166,
+        1.0337166
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-cokecan",
+      "name": "饮料罐",
+      "parentId": "transform:tinsonator-props",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Props/CokeCan.glb",
+      "position": [
+        3.99696295,
+        1.31507432,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.0544257,
+        10.0544257,
+        10.0544257
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-props-keylock",
+      "name": "挂锁",
+      "parentId": "transform:tinsonator-props",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Props/KeyLock.glb",
+      "position": [
+        8,
+        0.8369656,
+        -7.05310711
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.59264211,
+        9.59264211,
+        9.59264211
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-barrels-oilbarrel1",
+      "name": "油桶一",
+      "parentId": "transform:tinsonator-barrels",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Barrels/OilBarrel1.glb",
+      "position": [
+        -4,
+        0.03433753,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.21210786,
+        1.21210786,
+        1.21210786
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-barrels-oilbarrel2",
+      "name": "油桶二",
+      "parentId": "transform:tinsonator-barrels",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Barrels/OilBarrel2.glb",
+      "position": [
+        0,
+        0.03433753,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.21210786,
+        1.21210786,
+        1.21210786
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "tinsonator-barrels-explosivebarrel",
+      "name": "爆炸桶",
+      "parentId": "transform:tinsonator-barrels",
+      "modelPath": "resources/Model/GLB/artist_tinsonator/Barrels/ExplosiveBarrel.glb",
+      "position": [
+        4,
+        0.03433753,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.21210786,
+        1.21210786,
+        1.21210786
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

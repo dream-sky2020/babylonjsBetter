@@ -1,0 +1,692 @@
+{
+  "presetKey": "artist-philip-erd-castle-model-test",
+  "name": "Philip Erd · 城堡与城墙（15 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "philip-erd-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "philip-erd-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "philip-erd-Castle",
+      "name": "城堡与城墙",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "philip-erd-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 32,
+        "height": 20
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-zone",
+      "name": "城堡与城墙分区",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 24.5,
+        "height": 0.1,
+        "depth": 12.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#7d909a"
+    },
+    {
+      "id": "philip-erd-Castle-1-stand",
+      "name": "archway_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-2-stand",
+      "name": "castle_1展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-3-stand",
+      "name": "pillar_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-4-stand",
+      "name": "tower_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-5-stand",
+      "name": "tower_small_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-6-stand",
+      "name": "tower_top_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-7-stand",
+      "name": "tower_top_roof_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        0
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-8-stand",
+      "name": "tower_window_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-9-stand",
+      "name": "tower_window_sparse_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-10-stand",
+      "name": "wall_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-11-stand",
+      "name": "wall_blank_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-12-stand",
+      "name": "wall_trim_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        0
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-13-stand",
+      "name": "wall_window_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-14-stand",
+      "name": "window_large_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-15-stand",
+      "name": "window_small_base展台",
+      "parentId": "transform:philip-erd-Castle",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#7d909a",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "philip-erd-Castle-1",
+      "name": "archway_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/archway_base.glb",
+      "position": [
+        -10,
+        0,
+        3.99999985
+      ],
+      "scaling": [
+        0.23333333,
+        0.23333333,
+        0.23333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-2",
+      "name": "castle_1",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/castle_1.glb",
+      "position": [
+        -6,
+        1e-8,
+        3.99999997
+      ],
+      "scaling": [
+        0.05368344,
+        0.05368344,
+        0.05368344
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-3",
+      "name": "pillar_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/pillar_base.glb",
+      "position": [
+        -2.00000077,
+        0,
+        3.99999972
+      ],
+      "scaling": [
+        0.33796663,
+        0.33796663,
+        0.33796663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-4",
+      "name": "tower_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/tower_base.glb",
+      "position": [
+        2.00000006,
+        0,
+        4
+      ],
+      "scaling": [
+        0.23370513,
+        0.23370513,
+        0.23370513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-5",
+      "name": "tower_small_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/tower_small_base.glb",
+      "position": [
+        6,
+        0,
+        4
+      ],
+      "scaling": [
+        0.22645681,
+        0.22645681,
+        0.22645681
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-6",
+      "name": "tower_top_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/tower_top_base.glb",
+      "position": [
+        9.99999958,
+        0,
+        3.99999989
+      ],
+      "scaling": [
+        0.2221467,
+        0.2221467,
+        0.2221467
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-7",
+      "name": "tower_top_roof_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/tower_top_roof_base.glb",
+      "position": [
+        -9.9999993,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19623249,
+        0.19623249,
+        0.19623249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-8",
+      "name": "tower_window_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/tower_window_base.glb",
+      "position": [
+        -6.00000038,
+        0,
+        3.8e-7
+      ],
+      "scaling": [
+        0.22818508,
+        0.22818508,
+        0.22818508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-9",
+      "name": "tower_window_sparse_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/tower_window_sparse_base.glb",
+      "position": [
+        -1.99999994,
+        0,
+        -1.1e-7
+      ],
+      "scaling": [
+        0.23091212,
+        0.23091212,
+        0.23091212
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-10",
+      "name": "wall_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/wall_base.glb",
+      "position": [
+        2,
+        0,
+        -2.7e-7
+      ],
+      "scaling": [
+        0.34999992,
+        0.34999992,
+        0.34999992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-11",
+      "name": "wall_blank_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/wall_blank_base.glb",
+      "position": [
+        6,
+        0,
+        -5.2e-7
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-12",
+      "name": "wall_trim_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/wall_trim_base.glb",
+      "position": [
+        10.00000008,
+        0,
+        2e-7
+      ],
+      "scaling": [
+        0.69999987,
+        0.69999987,
+        0.69999987
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-13",
+      "name": "wall_window_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/wall_window_base.glb",
+      "position": [
+        -10,
+        0,
+        -4.00000071
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-14",
+      "name": "window_large_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/window_large_base.glb",
+      "position": [
+        -5.99999926,
+        0,
+        -3.99999977
+      ],
+      "scaling": [
+        0.88889194,
+        0.88889194,
+        0.88889194
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Castle-15",
+      "name": "window_small_base",
+      "parentId": "transform:philip-erd-Castle",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Castle/window_small_base.glb",
+      "position": [
+        -1.99999763,
+        0,
+        -3.99999989
+      ],
+      "scaling": [
+        2.09490447,
+        2.09490447,
+        2.09490447
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

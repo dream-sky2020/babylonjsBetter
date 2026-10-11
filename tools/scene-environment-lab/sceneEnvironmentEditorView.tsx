@@ -5,6 +5,7 @@ import { SceneEditorHierarchy, SceneEditorToolbar, useSceneEditor } from '@/core
 import { InspectorPanel, InspectorSection, type EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { openCommandMenuAtPoint, type CommandMenuEntry } from '@/core/ui/menu';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
+import { readBundledResourceAssetPaths } from '@/core/resources/resourceManifest';
 import type { SceneEnvironmentPreset } from '@/core/scene/sceneEnvironment.types';
 import { applyEnvironmentBatchFields, applyEnvironmentFields, commonEnvironmentFields, environmentFields, environmentTarget, fieldValue, formatField, type EnvironmentField, type EnvironmentVectorChanges } from './sceneEnvironmentFields';
 import { modelAssetMenuEntries } from './modelAssetMenu';
@@ -12,6 +13,7 @@ import type { EnvironmentObjectKind } from './sceneEnvironmentObjects';
 import type { EnvironmentModelAssetProperties } from './sceneEnvironmentAdapter';
 import { environmentNodeEntries, environmentParentCandidates } from '@/core/scene/sceneEnvironment.hierarchy';
 import { EnvironmentSelection } from './sceneEnvironmentSelection';
+import { MODEL_TEXTURE_SLOTS, parseModelMaterialBindings, type ModelMaterialBindings } from '@/core/model/material/modelMaterialBindings';
 export type EnvironmentEditorHost = {
   read(): SceneEnvironmentPreset | undefined; write(preset: SceneEnvironmentPreset): void;
   create(kind: EnvironmentObjectKind, modelPath?: string, parentId?: string | null): void;
@@ -19,6 +21,7 @@ export type EnvironmentEditorHost = {
   canMove(intent: EditorHierarchyDropIntent): boolean; move(intent: EditorHierarchyDropIntent): void;
   markersVisible(): boolean; setMarkersVisible(visible: boolean): void;
   modelAssetProperties(id: string): EnvironmentModelAssetProperties | undefined;
+  modelMaterials?(id: string): { gltfMaterialIndex: number; name: string; textures: Record<string, string | null> }[];
 };
 
 export async function openEnvironmentCreateMenu(x: number, y: number, host: EnvironmentEditorHost, selectedId: string | null = null) {
@@ -81,6 +84,36 @@ function VectorField({ field, value, onChange }: { field: EnvironmentField; valu
     </div>
   </div>;
 }
+function MaterialForm({ editor, host, preset, id }: { editor: SceneEditor; host: EnvironmentEditorHost; preset: SceneEnvironmentPreset; id: string }) {
+  const [texturePaths] = useState(() => readBundledResourceAssetPaths().filter(path => /\.(png|jpe?g|webp)$/i.test(path)));
+  const model = preset.models.find(m => `model:${m.id}` === id)!;
+  const [bindings, setBindings] = useState<ModelMaterialBindings>(() => structuredClone(model.materialOverrides ?? []));
+  const [advanced,setAdvanced] = useState(JSON.stringify(bindings,null,2));
+  const [error,setError] = useState('');
+  const set = (next: ModelMaterialBindings) => { setBindings(next); setAdvanced(JSON.stringify(next,null,2)); };
+  const edit = (index: number, slot: typeof MODEL_TEXTURE_SLOTS[number], path: string) => {
+    const next = structuredClone(bindings); let b = next.find(b => b.selector.gltfMaterialIndex === index);
+    if (!b) { b = { selector: { gltfMaterialIndex: index }, textures: {} }; next.push(b); }
+    b.textures ??= {}; if (!path) delete b.textures[slot]; else if (path === '__remove__') b.textures[slot] = null; else b.textures[slot] = { ...b.textures[slot], path };
+    set(next);
+  };
+  return <InspectorSection title="材质与共享贴图" subtitle="按 glTF 材质索引绑定；空路径继承原模型">
+    <fieldset disabled={!editor.enabled} className="environment-fields">
+      <datalist id="model-shared-texture-paths">{texturePaths.map(path => <option key={path} value={path} />)}</datalist>
+      {(host.modelMaterials?.(id) ?? []).map(material => <div key={material.gltfMaterialIndex}>
+        <b>#{material.gltfMaterialIndex} · {material.name}</b>
+        {MODEL_TEXTURE_SLOTS.map(slot => { const value = bindings.find(b => b.selector.gltfMaterialIndex === material.gltfMaterialIndex)?.textures?.[slot];
+          return <label key={slot}><span>{slot}</span><input list="model-shared-texture-paths" aria-label={`材质 ${material.gltfMaterialIndex} ${slot}`} placeholder={material.textures[slot] ?? '继承（无贴图）'} value={value?.path ?? ''} onChange={e => edit(material.gltfMaterialIndex,slot,e.target.value)} />
+            <small>{value === null ? '显式移除' : value ? '实例覆盖' : '继承模型'}</small>
+            <button onClick={() => edit(material.gltfMaterialIndex,slot,'')}>恢复继承</button><button onClick={() => edit(material.gltfMaterialIndex,slot,'__remove__')}>移除贴图</button></label>; })}
+      </div>)}
+      <details><summary>UV、采样、透明参数（JSON）</summary><textarea aria-label="材质覆盖 JSON" rows={10} value={advanced} onChange={e => setAdvanced(e.target.value)} />
+        <p>uvSet 0–5；offset/scale 为二元数组；rotation 为弧度；wrapU/V：0 裁切、1 重复、2 镜像；alphaMode：OPAQUE / MASK / BLEND。</p></details>
+      <button onClick={() => { try { const overrides = parseModelMaterialBindings(JSON.parse(advanced)); const next = structuredClone(preset); next.models.find(m => m.id === model.id)!.materialOverrides = overrides; host.write(next); setError(''); } catch (e) { setError(String(e)); } }}>应用材质并预览</button>
+      <button onClick={() => set([])}>全部恢复继承</button>
+    </fieldset>{error && <p role="alert">{error}</p>}
+  </InspectorSection>;
+}
 function DeclarationForm({ editor, host, preset }: { editor: SceneEditor; host: EnvironmentEditorHost; preset: SceneEnvironmentPreset }) {
   const id = editor.selectedId;
   const target = environmentTarget(preset, id);
@@ -111,6 +144,7 @@ function DeclarationForm({ editor, host, preset }: { editor: SceneEditor; host: 
       {error && <p role="alert" style={{ color: '#ff9d9d' }}>{error}</p>}
       <p>应用后可撤销 / 重做；“保存预设”只保存当前场景。未应用输入不写入文件。</p>
     </InspectorSection>
+    {id?.startsWith('model:') && <MaterialForm key={JSON.stringify(preset.models)} editor={editor} host={host} preset={preset} id={id} />}
     {asset && <InspectorSection title="模型资产校正" subtitle="共享资产属性 · 只读" defaultOpen={false}>
       <p>模型资源的原点、旋转和缩放校正；实例变换在上方编辑。</p>
       <div className="environment-asset-properties">

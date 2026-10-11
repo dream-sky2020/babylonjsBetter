@@ -9,6 +9,7 @@ import type { ISceneEnvironmentComponent } from '@/core/entity/components/scene-
 import { createCameraLabController } from '@/core/camera/cameraLabController';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel';
 import { createSceneEnvironmentAsync } from '@/core/scene/createSceneEnvironment';
+import { updateSceneModelMaterials, isModelMaterialOnlyChange } from '@/core/scene/updateSceneModelMaterials';
 import { parseSceneEnvironmentPresetLibrary } from '@/core/scene/sceneEnvironment.parser';
 import { parseShadowQualityPresetLibrary } from '@/core/scene/shadowQualityPreset.parser';
 import { resolveShadowQuality } from '@/core/scene/resolveShadowQuality';
@@ -121,6 +122,7 @@ window.addEventListener('resize', resize);
 let library: SceneEnvironmentPresetLibrary = {};
 let shadowQualityLibrary: ShadowQualityPresetLibrary = {};
 let currentInstance: SceneEnvironmentInstance | null = null;
+let previewPreset: SceneEnvironmentPreset | null = null;
 let loadGeneration = 0;
 let loadAbort: AbortController | null = null;
 let binding: ReturnType<typeof createEnvironmentAdapter> | null = null;
@@ -157,6 +159,17 @@ const writePreset = (preset: SceneEnvironmentPreset) => {
     const settings = resolveShadowQuality(light.shadow, shadowQualityLibrary);
     if (settings.enabled && settings.generator.type === 'cascaded' && light.light.primitive !== 'directional') throw new Error('CSM 仅支持方向光');
   }
+  const candidate = resolved[activeKey];
+  if (currentInstance && previewPreset && currentInstance.presetKey === activeKey && isModelMaterialOnlyChange(previewPreset,candidate)) {
+    loadAbort?.abort(); const abort = new AbortController(); loadAbort = abort; const generation = ++loadGeneration;
+    editor.cancel(); editor.enabled = false; editor.refresh(); setStatus('正在准备材质资源……');
+    void updateSceneModelMaterials(currentInstance,previewPreset,candidate,abort.signal).then(() => {
+      if (generation !== loadGeneration || disposed) return;
+      previewPreset = candidate; history.set(next);
+    }).catch(error => { if (generation === loadGeneration) setStatus(`材质更新失败，保留旧效果与声明：${String(error)}`,true); })
+      .finally(() => { if (generation === loadGeneration) { editor.enabled = true; editor.refresh(); } });
+    return;
+  }
   history.set(next);
 };
 // Pointer dragover can fire many times without changing its semantic placement.
@@ -176,6 +189,7 @@ const editorHost = {
   shadowKeys: () => Object.keys(shadowQualityLibrary),
   markersVisible: () => markersVisible,
   modelAssetProperties: (id: string) => binding?.modelAssetProperties(id),
+  modelMaterials: (id: string) => currentInstance?.models.find(m => `model:${m.definition.id}` === id)?.entity.materialSlots() ?? [],
   setMarkersVisible: (visible: boolean) => { markersVisible = visible; binding?.setMarkersVisible(visible); editor.refresh(); },
   canMove: (intent: EditorHierarchyDropIntent) => {
     const preset = library[activeKey];
@@ -280,7 +294,20 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
     return;
   }
   loadButton.disabled = true;
+  if (currentInstance && previewPreset && currentInstance.presetKey === requestedKey) {
+    try {
+      if (await updateSceneModelMaterials(currentInstance, previewPreset, preset, loadAbort.signal)) {
+        if (generation !== loadGeneration) return;
+        previewPreset = preset; loadButton.disabled = false; editor.enabled = true; editor.refresh();
+        setStatus('已通过材质增量预览；模型、动画与场景保持原实例'); return;
+      }
+    } catch (error) {
+      if (generation === loadGeneration) { loadButton.disabled = false; editor.enabled = true; editor.refresh(); setStatus(`材质更新失败，保留旧效果：${String(error)}`, true); }
+      return;
+    }
+  }
   setStatus(`正在加载场景“${component.presetKey}”及 ${preset.models.length} 个本地模型……`);
+  if (generation !== loadGeneration) return;
   let nextInstance: SceneEnvironmentInstance;
   try {
     nextInstance = await createSceneEnvironmentAsync(scene, preset, {
@@ -302,6 +329,7 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
   editor.select(null); binding?.dispose(); binding = null;
   currentInstance?.dispose();
   currentInstance = nextInstance;
+  previewPreset = preset;
   nextInstance.root.setEnabled(true);
   scene.clearColor = Color4.FromHexString(preset.clearColor);
   const key = nextInstance.presetKey;
@@ -340,6 +368,7 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
 const saveButton = requireElement('#save-preset', HTMLButtonElement);
 saveButton.addEventListener('click', () => { void (async () => {
   editor.commit();
+  if (!editor.enabled || JSON.stringify(previewPreset) !== JSON.stringify(library[activeKey])) { setStatus('请先完成成功的预览再保存；失败的修改可撤销。', true); return; }
   parseSceneEnvironmentPresetLibrary(library);
   const key = activeKey;
   if (!rawLibrary[key]) return;

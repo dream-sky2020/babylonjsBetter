@@ -1,0 +1,287 @@
+{
+  "presetKey": "artist-elbolilloduro-seasonal-model-test-02",
+  "name": "Elbolilloduro · 节日与万圣节 2/2（5 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-halloween",
+      "name": "halloween",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 9
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-2b4b70abffdd2e85-stand",
+      "name": "Tree_04展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c3342ff55e6e25e6-stand",
+      "name": "Wall展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9bb2a7cff1a3d483-stand",
+      "name": "Wall_01展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5ea1beafb9a543b9-stand",
+      "name": "Wall_02展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-20017922c10e736c-stand",
+      "name": "Wall_03展台",
+      "parentId": "transform:category-halloween",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-2b4b70abffdd2e85",
+      "name": "halloween · Tree_04",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Tree_04_4210719b.glb",
+      "position": [
+        -20.00000007,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.27840102,
+        0.27840102,
+        0.27840102
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c3342ff55e6e25e6",
+      "name": "halloween · Wall",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Wall_a616e160.glb",
+      "position": [
+        -16.00000019,
+        0,
+        2.00000019
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.782802,
+        0.782802,
+        0.782802
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9bb2a7cff1a3d483",
+      "name": "halloween · Wall_01",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Wall_01_4a3e27d5.glb",
+      "position": [
+        -12.0000001,
+        0,
+        2.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85273857,
+        0.85273857,
+        0.85273857
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5ea1beafb9a543b9",
+      "name": "halloween · Wall_02",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Wall_02_24330469.glb",
+      "position": [
+        -8,
+        0,
+        2.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85273851,
+        0.85273851,
+        0.85273851
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-20017922c10e736c",
+      "name": "halloween · Wall_03",
+      "parentId": "transform:category-halloween",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/halloween/Wall_03_a09fd76f.glb",
+      "position": [
+        -4,
+        0,
+        2.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85273851,
+        0.85273851,
+        0.85273851
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

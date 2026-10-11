@@ -1,4 +1,5 @@
 import { parseSignalGraphDocument, type SignalGraphDocument } from '../signal/index.ts';
+import { parseModelMaterialBindings } from '../../model/material/modelMaterialBindings.ts';
 
 export type AnimationVec3 = Readonly<{ x: number; y: number; z: number }>;
 
@@ -90,6 +91,7 @@ export function parseAnimationScenePreset(value: unknown): AnimationScenePreset 
     ids.add(id);
     const parentId = raw.parentId === null ? null : text(raw.parentId, `objects[${index}].parentId`);
     const config = record(raw.config, `objects[${index}].config`);
+    if (raw.factoryTypeId === 'asset.model') parseModelMaterialBindings(config.materialOverrides);
     const scaling = vector(raw.scaling, `objects[${index}].scaling`);
     if ([scaling.x, scaling.y, scaling.z].some(component => component <= 0)) fail(`objects[${index}].scaling`);
     if (typeof raw.enabled !== 'boolean') fail(`objects[${index}].enabled`);

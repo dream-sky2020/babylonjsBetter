@@ -1,0 +1,1233 @@
+{
+  "presetKey": "artist-loafbrr-showcase-packages",
+  "name": "Loafbrr · Packages · 27模型 · 模型 0.71 MiB + 贴图 0.92 MiB · 合计 1.63 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-packages-0",
+      "name": "Packages",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 25
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-58631cc47f23d295-stand",
+      "name": "CardboardBox_1展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a5a49e54d62678e0-stand",
+      "name": "CardboardBox_2展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6b2a670b4b4e6f9d-stand",
+      "name": "CardboardBox_3展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d9749147e8e13584-stand",
+      "name": "CardboardBox_4展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-89bb7f7befa00c35-stand",
+      "name": "CardboardBox_5展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a7de91a112483e20-stand",
+      "name": "CardboardBox_6展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d4b899e9c62a622f-stand",
+      "name": "CardboardBox_7展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a3b0f5aa3b6c30fb-stand",
+      "name": "CardboardBox_8展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dada57de81d616ec-stand",
+      "name": "Crate_1展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6a116efacc1f2ea8-stand",
+      "name": "Crate_10展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-53a59c25bad5b56b-stand",
+      "name": "Crate_11展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dd933d107ddc30ce-stand",
+      "name": "Crate_2展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-252818fa0e8cdca6-stand",
+      "name": "Crate_3展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4f56f8b03b705b23-stand",
+      "name": "Crate_4展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-89c660df8c289fcc-stand",
+      "name": "Crate_5展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3203c3f0fd943ab4-stand",
+      "name": "Crate_6展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f9bd1737eb18dbfa-stand",
+      "name": "Crate_7展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-905cfe11e06d4b5f-stand",
+      "name": "Crate_8展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6e306af45161ed79-stand",
+      "name": "Crate_9展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-34d495a5d12c86f5-stand",
+      "name": "Drum_1展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b289be19e8ddf6ad-stand",
+      "name": "Drum_2展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-605c1dcb80f2557a-stand",
+      "name": "Drum_3展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5125dec55bbd7859-stand",
+      "name": "Pallet_1展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1ff87fbfd40932d0-stand",
+      "name": "Pallet_2展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f9442a01c27185af-stand",
+      "name": "Pallet_3展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d6047b0e27f5f27e-stand",
+      "name": "Shelf展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f1f98633ef40f297-stand",
+      "name": "Shelf_Long展台",
+      "parentId": "transform:category-packages-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-58631cc47f23d295",
+      "name": "Packages · CardboardBox_1 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/CardboardBox_1.glb",
+      "position": [
+        -22,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.92578104,
+        1.92578104,
+        1.92578104
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a5a49e54d62678e0",
+      "name": "Packages · CardboardBox_2 · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/CardboardBox_2.glb",
+      "position": [
+        -18,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.4195709,
+        3.4195709,
+        3.4195709
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6b2a670b4b4e6f9d",
+      "name": "Packages · CardboardBox_3 · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/CardboardBox_3.glb",
+      "position": [
+        -14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.10521192,
+        3.10521192,
+        3.10521192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d9749147e8e13584",
+      "name": "Packages · CardboardBox_4 · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/CardboardBox_4.glb",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.09959504,
+        5.09959504,
+        5.09959504
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-89bb7f7befa00c35",
+      "name": "Packages · CardboardBox_5 · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/CardboardBox_5.glb",
+      "position": [
+        -6,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.7038203,
+        3.7038203,
+        3.7038203
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a7de91a112483e20",
+      "name": "Packages · CardboardBox_6 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/CardboardBox_6.glb",
+      "position": [
+        -2,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.68435333,
+        2.68435333,
+        2.68435333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d4b899e9c62a622f",
+      "name": "Packages · CardboardBox_7 · 模型 0.01 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/CardboardBox_7.glb",
+      "position": [
+        -22,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37962601,
+        1.37962601,
+        1.37962601
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a3b0f5aa3b6c30fb",
+      "name": "Packages · CardboardBox_8 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/CardboardBox_8.glb",
+      "position": [
+        -18,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.7038203,
+        3.7038203,
+        3.7038203
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dada57de81d616ec",
+      "name": "Packages · Crate_1 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_1.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.01826019,
+        2.01826019,
+        2.01826019
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6a116efacc1f2ea8",
+      "name": "Packages · Crate_10 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_10.glb",
+      "position": [
+        -10,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.355427,
+        1.355427,
+        1.355427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-53a59c25bad5b56b",
+      "name": "Packages · Crate_11 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_11.glb",
+      "position": [
+        -6,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3780722,
+        1.3780722,
+        1.3780722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dd933d107ddc30ce",
+      "name": "Packages · Crate_2 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_2.glb",
+      "position": [
+        -2,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.18875434,
+        1.18875434,
+        1.18875434
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-252818fa0e8cdca6",
+      "name": "Packages · Crate_3 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_3.glb",
+      "position": [
+        -22,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0182595,
+        2.0182595,
+        2.0182595
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4f56f8b03b705b23",
+      "name": "Packages · Crate_4 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_4.glb",
+      "position": [
+        -18,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28575821,
+        1.28575821,
+        1.28575821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-89c660df8c289fcc",
+      "name": "Packages · Crate_5 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_5.glb",
+      "position": [
+        -14,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.05876377,
+        1.05876377,
+        1.05876377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3203c3f0fd943ab4",
+      "name": "Packages · Crate_6 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_6.glb",
+      "position": [
+        -10,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.37189564,
+        3.37189564,
+        3.37189564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f9bd1737eb18dbfa",
+      "name": "Packages · Crate_7 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_7.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86417417,
+        1.86417417,
+        1.86417417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-905cfe11e06d4b5f",
+      "name": "Packages · Crate_8 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_8.glb",
+      "position": [
+        -2,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.54864329,
+        1.54864329,
+        1.54864329
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6e306af45161ed79",
+      "name": "Packages · Crate_9 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Crate_9.glb",
+      "position": [
+        -22,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.18875452,
+        1.18875452,
+        1.18875452
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-34d495a5d12c86f5",
+      "name": "Packages · Drum_1 · 模型 0.03 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Drum_1.glb",
+      "position": [
+        -18,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.01357313,
+        3.01357313,
+        3.01357313
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b289be19e8ddf6ad",
+      "name": "Packages · Drum_2 · 模型 0.03 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Drum_2.glb",
+      "position": [
+        -14,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.01357313,
+        3.01357313,
+        3.01357313
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-605c1dcb80f2557a",
+      "name": "Packages · Drum_3 · 模型 0.03 MiB · 贴图 0.16 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Drum_3.glb",
+      "position": [
+        -10,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.01357313,
+        3.01357313,
+        3.01357313
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5125dec55bbd7859",
+      "name": "Packages · Pallet_1 · 模型 0.02 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Pallet_1.glb",
+      "position": [
+        -6,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.70254964,
+        1.70254964,
+        1.70254964
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1ff87fbfd40932d0",
+      "name": "Packages · Pallet_2 · 模型 0.02 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Pallet_2.glb",
+      "position": [
+        -2,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f9442a01c27185af",
+      "name": "Packages · Pallet_3 · 模型 0.01 MiB · 贴图 0.23 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Pallet_3.glb",
+      "position": [
+        -16,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33333324,
+        2.33333324,
+        2.33333324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d6047b0e27f5f27e",
+      "name": "Packages · Shelf · 模型 0.17 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Shelf.glb",
+      "position": [
+        -12,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85432183,
+        0.85432183,
+        0.85432183
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f1f98633ef40f297",
+      "name": "Packages · Shelf_Long · 模型 0.21 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-packages-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Packages/Shelf_Long.glb",
+      "position": [
+        -8,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47161273,
+        0.47161273,
+        0.47161273
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

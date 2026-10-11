@@ -1,0 +1,255 @@
+{
+  "presetKey": "artist-izkeas-model-test",
+  "name": "izkeas · 模型展示（4 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "weapons",
+      "name": "武器分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 8
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-daggerpsx-stand",
+      "name": "DaggerPSX展台",
+      "parentId": "transform:weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-longsword-stand",
+      "name": "Longsword展台",
+      "parentId": "transform:weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-sword-stand",
+      "name": "Sword展台",
+      "parentId": "transform:weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-vikingaxe-stand",
+      "name": "VikingAxe展台",
+      "parentId": "transform:weapons",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "weapons-daggerpsx",
+      "name": "DaggerPSX",
+      "parentId": "transform:weapons",
+      "modelPath": "resources/Model/GLB/artist_izkeas/Weapons/DaggerPSX.glb",
+      "position": [
+        -6,
+        -1e-7,
+        2
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        11.03071021,
+        11.03071021,
+        11.03071021
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-longsword",
+      "name": "Longsword",
+      "parentId": "transform:weapons",
+      "modelPath": "resources/Model/GLB/artist_izkeas/Weapons/Longsword.glb",
+      "position": [
+        -2.00000004,
+        1.8e-7,
+        1.99999993
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        2.70413092,
+        2.70413092,
+        2.70413092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-sword",
+      "name": "Sword",
+      "parentId": "transform:weapons",
+      "modelPath": "resources/Model/GLB/artist_izkeas/Weapons/Sword.glb",
+      "position": [
+        1.99999999,
+        4e-8,
+        2.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.99475135,
+        0.99475135,
+        0.99475135
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "weapons-vikingaxe",
+      "name": "VikingAxe",
+      "parentId": "transform:weapons",
+      "modelPath": "resources/Model/GLB/artist_izkeas/Weapons/VikingAxe.glb",
+      "position": [
+        5.99999999,
+        9e-8,
+        2
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        5.98782081,
+        5.98782081,
+        5.98782081
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1878 @@
+{
+  "presetKey": "artist-loafbrr-showcase-mine-props",
+  "name": "Loafbrr · MineProps · 42模型 · 模型 0.66 MiB + 贴图 0.98 MiB · 合计 1.64 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-mineprops-0",
+      "name": "MineProps",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 33
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-aa8f6fc3d6770fa7-stand",
+      "name": "Blockade展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a12deb5b41318ec8-stand",
+      "name": "Bomb展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8929355eeba59536-stand",
+      "name": "BoomBox展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e27f7c4cc6a0132f-stand",
+      "name": "Bottle展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-25fe2119da77c018-stand",
+      "name": "Bucket展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-81a84ac4bfe36e94-stand",
+      "name": "CartFrame展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-97e4e877776e77bc-stand",
+      "name": "Chain展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0dc230c4ecad4196-stand",
+      "name": "Cone展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2dfabd9ae2170ce7-stand",
+      "name": "Door展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a7fcbe59147ad5c2-stand",
+      "name": "Dynamit展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-00392a5110b354aa-stand",
+      "name": "Faucet展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a12897bdcd020cea-stand",
+      "name": "Fence展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-19f1e1edeb22d2ed-stand",
+      "name": "handle_1展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8e353d90b564adfd-stand",
+      "name": "Jar_1展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b701fdd9d99879c6-stand",
+      "name": "Jar_2展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-26ea82cf9e13fad0-stand",
+      "name": "Jar_3展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-14938d4aadcd9dc8-stand",
+      "name": "JarWood展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-322245c64c71757b-stand",
+      "name": "LeverContraption展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-aabe374a0170341a-stand",
+      "name": "Pipe展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-01891d9c15690f2f-stand",
+      "name": "PipeDonut展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9018b942858869e7-stand",
+      "name": "PipeHolder展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7dd65f9e2a3ce68b-stand",
+      "name": "Post_1展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-efc3fa7876a1bacc-stand",
+      "name": "Post_2展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8f5f03addaaf2972-stand",
+      "name": "Post_Half_1展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8cb93500b9e2f7d8-stand",
+      "name": "Post_Half_2展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-26502c8b07222869-stand",
+      "name": "Rail展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7188ad990fd56d13-stand",
+      "name": "Rail展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-111cd03b6d2dbf98-stand",
+      "name": "Rail_C展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-70f87e6ea6365c71-stand",
+      "name": "Rail_T展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-10c5a9bdb4a7b1d2-stand",
+      "name": "Rail_Y展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-49d10e3ee1dac6e5-stand",
+      "name": "Rocks_1展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ba380d950deae0a3-stand",
+      "name": "Rocks_2展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-70a6508a7182ad03-stand",
+      "name": "Rocks_3展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-654b375b4efe315d-stand",
+      "name": "Rocks_4展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-06741e8a7846a451-stand",
+      "name": "Rocks_5展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-33e7318eae1eef30-stand",
+      "name": "Rocks_6展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-736d8314ba8953fd-stand",
+      "name": "Rocks_7展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f96e427da4ab3982-stand",
+      "name": "Rocks_8展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a1ca1c138ff58b5b-stand",
+      "name": "SpikeHolder展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5f34b20eda8f96aa-stand",
+      "name": "StoneBowl展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-64c22c41c9f27a0d-stand",
+      "name": "ToolHandle展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7067f4b808b1c228-stand",
+      "name": "WoodPost展台",
+      "parentId": "transform:category-mineprops-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-aa8f6fc3d6770fa7",
+      "name": "MineProps · Blockade · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Blockade.glb",
+      "position": [
+        -22,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.349474,
+        1.349474,
+        1.349474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a12deb5b41318ec8",
+      "name": "MineProps · Bomb · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Bomb.glb",
+      "position": [
+        -18,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.88278257,
+        8.88278257,
+        8.88278257
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8929355eeba59536",
+      "name": "MineProps · BoomBox · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/BoomBox.glb",
+      "position": [
+        -14,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.75643227,
+        2.75643227,
+        2.75643227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e27f7c4cc6a0132f",
+      "name": "MineProps · Bottle · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Bottle.glb",
+      "position": [
+        -10,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.87289538,
+        8.87289538,
+        8.87289538
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-25fe2119da77c018",
+      "name": "MineProps · Bucket · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Bucket.glb",
+      "position": [
+        -6.0000004,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.31891556,
+        5.31891556,
+        5.31891556
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-81a84ac4bfe36e94",
+      "name": "MineProps · CartFrame · 模型 0.04 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/CartFrame.glb",
+      "position": [
+        -1.99999986,
+        0,
+        13.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.61314078,
+        1.61314078,
+        1.61314078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-97e4e877776e77bc",
+      "name": "MineProps · Chain · 模型 0.06 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Chain.glb",
+      "position": [
+        -21.99999998,
+        -9e-8,
+        9.99999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.74620067,
+        0.74620067,
+        0.74620067
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0dc230c4ecad4196",
+      "name": "MineProps · Cone · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Cone.glb",
+      "position": [
+        -18,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.47582981,
+        3.47582981,
+        3.47582981
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2dfabd9ae2170ce7",
+      "name": "MineProps · Door · 模型 0.03 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Door.glb",
+      "position": [
+        -14,
+        0,
+        10.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.33333339,
+        1.33333339,
+        1.33333339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a7fcbe59147ad5c2",
+      "name": "MineProps · Dynamit · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Dynamit.glb",
+      "position": [
+        -10.00000008,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.50281055,
+        4.50281055,
+        4.50281055
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-00392a5110b354aa",
+      "name": "MineProps · Faucet · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Faucet.glb",
+      "position": [
+        -6.00000032,
+        0,
+        10.00000257
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.56381929,
+        9.56381929,
+        9.56381929
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a12897bdcd020cea",
+      "name": "MineProps · Fence · 模型 0.00 MiB · 贴图 0.01 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Fence.glb",
+      "position": [
+        -2,
+        0,
+        10.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.85265234,
+        1.85265234,
+        1.85265234
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-19f1e1edeb22d2ed",
+      "name": "MineProps · handle_1 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/handle_1.glb",
+      "position": [
+        -22,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.01284803,
+        4.01284803,
+        4.01284803
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8e353d90b564adfd",
+      "name": "MineProps · Jar_1 · 模型 0.02 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Jar_1.glb",
+      "position": [
+        -18,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97604413,
+        2.97604413,
+        2.97604413
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b701fdd9d99879c6",
+      "name": "MineProps · Jar_2 · 模型 0.02 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Jar_2.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97604413,
+        2.97604413,
+        2.97604413
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-26ea82cf9e13fad0",
+      "name": "MineProps · Jar_3 · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Jar_3.glb",
+      "position": [
+        -10.00000018,
+        0,
+        6.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97604413,
+        2.97604413,
+        2.97604413
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-14938d4aadcd9dc8",
+      "name": "MineProps · JarWood · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/JarWood.glb",
+      "position": [
+        -6.00000009,
+        0,
+        6.0000012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.87550631,
+        2.87550631,
+        2.87550631
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-322245c64c71757b",
+      "name": "MineProps · LeverContraption · 模型 0.06 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/LeverContraption.glb",
+      "position": [
+        -2,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.56909896,
+        1.56909896,
+        1.56909896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-aabe374a0170341a",
+      "name": "MineProps · Pipe · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Pipe.glb",
+      "position": [
+        -21.99999976,
+        0,
+        1.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27272717,
+        1.27272717,
+        1.27272717
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-01891d9c15690f2f",
+      "name": "MineProps · PipeDonut · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/PipeDonut.glb",
+      "position": [
+        -18,
+        0,
+        2.00000031
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.93795231,
+        2.93795231,
+        2.93795231
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9018b942858869e7",
+      "name": "MineProps · PipeHolder · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/PipeHolder.glb",
+      "position": [
+        -14,
+        0,
+        2.00000053
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.52206013,
+        2.52206013,
+        2.52206013
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7dd65f9e2a3ce68b",
+      "name": "MineProps · Post_1 · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Post_1.glb",
+      "position": [
+        -10,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87500004,
+        0.87500004,
+        0.87500004
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-efc3fa7876a1bacc",
+      "name": "MineProps · Post_2 · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Post_2.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.87500004,
+        0.87500004,
+        0.87500004
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8f5f03addaaf2972",
+      "name": "MineProps · Post_Half_1 · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Post_Half_1.glb",
+      "position": [
+        -2,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74967726,
+        1.74967726,
+        1.74967726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8cb93500b9e2f7d8",
+      "name": "MineProps · Post_Half_2 · 模型 0.01 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Post_Half_2.glb",
+      "position": [
+        -22,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.74967726,
+        1.74967726,
+        1.74967726
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-26502c8b07222869",
+      "name": "MineProps · Rail · 模型 0.05 MiB · 贴图 0.01 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rail_42761fc2.glb",
+      "position": [
+        -17.99999983,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39996345,
+        1.39996345,
+        1.39996345
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7188ad990fd56d13",
+      "name": "MineProps · Rail · 模型 0.01 MiB · 贴图 0.01 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rail.glb",
+      "position": [
+        -14,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-111cd03b6d2dbf98",
+      "name": "MineProps · Rail_C · 模型 0.02 MiB · 贴图 0.01 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rail_C.glb",
+      "position": [
+        -9.99999914,
+        0,
+        -2.00000095
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86663826,
+        1.86663826,
+        1.86663826
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-70f87e6ea6365c71",
+      "name": "MineProps · Rail_T · 模型 0.03 MiB · 贴图 0.01 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rail_T.glb",
+      "position": [
+        -6.00000058,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-10c5a9bdb4a7b1d2",
+      "name": "MineProps · Rail_Y · 模型 0.04 MiB · 贴图 0.01 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rail_Y.glb",
+      "position": [
+        -1.99999971,
+        0,
+        -2.00000129
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40000138,
+        1.40000138,
+        1.40000138
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-49d10e3ee1dac6e5",
+      "name": "MineProps · Rocks_1 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rocks_1.glb",
+      "position": [
+        -22.00000081,
+        0,
+        -6.00000081
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.80935798,
+        6.80935798,
+        6.80935798
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ba380d950deae0a3",
+      "name": "MineProps · Rocks_2 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rocks_2.glb",
+      "position": [
+        -17.99999995,
+        0,
+        -5.99999838
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.10919733,
+        3.10919733,
+        3.10919733
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-70a6508a7182ad03",
+      "name": "MineProps · Rocks_3 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rocks_3.glb",
+      "position": [
+        -13.99999931,
+        0,
+        -6.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.10919733,
+        3.10919733,
+        3.10919733
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-654b375b4efe315d",
+      "name": "MineProps · Rocks_4 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rocks_4.glb",
+      "position": [
+        -10.00000043,
+        0,
+        -6.00000294
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.19080338,
+        5.19080338,
+        5.19080338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-06741e8a7846a451",
+      "name": "MineProps · Rocks_5 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rocks_5.glb",
+      "position": [
+        -6.00000057,
+        0,
+        -5.9999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7422558,
+        2.7422558,
+        2.7422558
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-33e7318eae1eef30",
+      "name": "MineProps · Rocks_6 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rocks_6.glb",
+      "position": [
+        -1.99999956,
+        0,
+        -5.99999736
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.95519664,
+        2.95519664,
+        2.95519664
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-736d8314ba8953fd",
+      "name": "MineProps · Rocks_7 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rocks_7.glb",
+      "position": [
+        -21.99999933,
+        0,
+        -9.99999941
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.82516889,
+        2.82516889,
+        2.82516889
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f96e427da4ab3982",
+      "name": "MineProps · Rocks_8 · 模型 0.00 MiB · 贴图 0.27 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/Rocks_8.glb",
+      "position": [
+        -17.99999985,
+        0,
+        -10.00000044
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.43526734,
+        2.43526734,
+        2.43526734
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a1ca1c138ff58b5b",
+      "name": "MineProps · SpikeHolder · 模型 0.01 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/SpikeHolder.glb",
+      "position": [
+        -14,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.16452458,
+        4.16452458,
+        4.16452458
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5f34b20eda8f96aa",
+      "name": "MineProps · StoneBowl · 模型 0.00 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/StoneBowl.glb",
+      "position": [
+        -10,
+        8e-8,
+        -9.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.25638084,
+        3.25638084,
+        3.25638084
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-64c22c41c9f27a0d",
+      "name": "MineProps · ToolHandle · 模型 0.02 MiB · 贴图 0.13 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/ToolHandle.glb",
+      "position": [
+        -5.99999992,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80769834,
+        1.80769834,
+        1.80769834
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7067f4b808b1c228",
+      "name": "MineProps · WoodPost · 模型 0.03 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-mineprops-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/MineProps/WoodPost.glb",
+      "position": [
+        -2,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

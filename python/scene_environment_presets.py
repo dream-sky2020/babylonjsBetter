@@ -2,6 +2,7 @@
 import json
 import os
 import re
+from model_material_bindings import validate_model_material_bindings
 
 
 def read_scene_environment_presets(directory):
@@ -29,6 +30,9 @@ def read_scene_environment_presets(directory):
         if not isinstance(value, dict) or value.get("presetKey") != key:
             raise ValueError("scene presetKey must match catalog key")
         result[key] = value
+        for model in value.get('models', []):
+            if 'materialOverrides' in model:
+                validate_model_material_bindings(model['materialOverrides'])
     resolved = set()
 
     def visit(key, pending):

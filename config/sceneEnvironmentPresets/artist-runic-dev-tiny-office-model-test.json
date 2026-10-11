@@ -1,0 +1,155 @@
+{
+  "presetKey": "artist-runic-dev-tiny-office-model-test",
+  "name": "Runic Dev · Tiny Office 模型展示（组合与拆分，共 5 件）",
+  "clearColor": "#263038",
+  "lights": [
+    {
+      "id": "runic-office-ambient",
+      "name": "柔和环境光",
+      "intensity": 1.15,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [0.2, 1, 0.1],
+        "groundColor": "#56616b"
+      }
+    },
+    {
+      "id": "runic-office-key",
+      "name": "展示主光",
+      "intensity": 0.85,
+      "color": "#fff4e8",
+      "light": {
+        "primitive": "directional",
+        "direction": [-0.45, -1, 0.35],
+        "position": [-8, 14, -7]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "runic-office-ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 15,
+        "height": 10.5
+      },
+      "position": [0, -0.17, 0],
+      "color": "#313b42",
+      "shadow": { "receive": true }
+    },
+    {
+      "id": "runic-office-platform-clipboard",
+      "name": "写字板展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 3,
+        "height": 0.3,
+        "depth": 3.3
+      },
+      "position": [-4, 0, -2.2],
+      "color": "#677984",
+      "shadow": { "receive": true }
+    },
+    {
+      "id": "runic-office-platform-mug",
+      "name": "马克杯展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 3,
+        "height": 0.3,
+        "depth": 3.3
+      },
+      "position": [0, 0, -2.2],
+      "color": "#677984",
+      "shadow": { "receive": true }
+    },
+    {
+      "id": "runic-office-platform-pen",
+      "name": "组合钢笔展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 3,
+        "height": 0.3,
+        "depth": 3.3
+      },
+      "position": [4, 0, -2.2],
+      "color": "#677984",
+      "shadow": { "receive": true }
+    },
+    {
+      "id": "runic-office-platform-pen-body",
+      "name": "独立笔身展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 3,
+        "height": 0.3,
+        "depth": 3.3
+      },
+      "position": [-2, 0, 2.2],
+      "color": "#677984",
+      "shadow": { "receive": true }
+    },
+    {
+      "id": "runic-office-platform-pen-cap",
+      "name": "独立笔帽展台",
+      "geometry": {
+        "primitive": "box",
+        "width": 3,
+        "height": 0.3,
+        "depth": 3.3
+      },
+      "position": [2, 0, 2.2],
+      "color": "#677984",
+      "shadow": { "receive": true }
+    }
+  ],
+  "models": [
+    {
+      "id": "runic-office-clipboard",
+      "name": "写字板 · Clipboard",
+      "modelPath": "resources/Model/GLB/artist_runic-dev/tiny-office-asset-pack/Clipboard_runic-dev_itch_io.glb",
+      "position": [-4, 0.15, -2.2],
+      "rotation": [0, 0, 0],
+      "scaling": [5, 5, 5],
+      "shadow": { "cast": true, "receive": true }
+    },
+    {
+      "id": "runic-office-mug",
+      "name": "马克杯 · Mug",
+      "modelPath": "resources/Model/GLB/artist_runic-dev/tiny-office-asset-pack/Mug_runic-dev_itch_io.glb",
+      "position": [0, 0.15, -2.2],
+      "rotation": [0, 0, 0],
+      "scaling": [8, 8, 8],
+      "shadow": { "cast": true, "receive": true }
+    },
+    {
+      "id": "runic-office-pen",
+      "name": "组合钢笔与笔帽 · Pen",
+      "modelPath": "resources/Model/GLB/artist_runic-dev/tiny-office-asset-pack/Pen_runic-dev_itch_io.glb",
+      "position": [4, 0.15, -2.2],
+      "rotation": [0, 0, 0],
+      "scaling": [8, 8, 8],
+      "shadow": { "cast": true, "receive": true }
+    },
+    {
+      "id": "runic-office-pen-body",
+      "name": "独立笔身 · PenBody",
+      "modelPath": "resources/Model/GLB/artist_runic-dev/tiny-office-asset-pack/PenBody_runic-dev_itch_io.glb",
+      "position": [-2, 0.15, 2.2],
+      "rotation": [0, 0, 0],
+      "scaling": [8, 8, 8],
+      "shadow": { "cast": true, "receive": true }
+    },
+    {
+      "id": "runic-office-pen-cap",
+      "name": "独立笔帽 · PenCap",
+      "modelPath": "resources/Model/GLB/artist_runic-dev/tiny-office-asset-pack/PenCap_runic-dev_itch_io.glb",
+      "position": [2, 0.15, 2.2],
+      "rotation": [0, 0, 0],
+      "scaling": [12, 12, 12],
+      "shadow": { "cast": true, "receive": true }
+    }
+  ]
+}

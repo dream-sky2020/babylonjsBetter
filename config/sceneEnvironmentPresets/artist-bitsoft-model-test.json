@@ -1,0 +1,2391 @@
+{
+  "presetKey": "artist-bitsoft-model-test",
+  "name": "Bitsoft · 游戏机、日用品与家具（53 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "bitsoft-bedroom",
+      "name": "bitsoft · 卧室桌组拆分物件",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bitsoft-consoles",
+      "name": "bitsoft · 游戏机与原有配色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bitsoft-products",
+      "name": "bitsoft · 日用品与食品",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bitsoft-furniture",
+      "name": "bitsoft · 桌椅与榻榻米",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bitsoft-buildings",
+      "name": "bitsoft · 郊区房屋",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 35
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_desk-stand",
+      "name": "BedroomDesk_Desk展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_chair-stand",
+      "name": "BedroomDesk_Chair展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_laptop-stand",
+      "name": "BedroomDesk_Laptop展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_mirror-stand",
+      "name": "BedroomDesk_Mirror展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_noticeboard-stand",
+      "name": "BedroomDesk_NoticeBoard展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_calendar-stand",
+      "name": "BedroomDesk_Calendar展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        15
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_tablelamp-stand",
+      "name": "BedroomDesk_TableLamp展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_magazines-stand",
+      "name": "BedroomDesk_Magazines展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_mouse-stand",
+      "name": "BedroomDesk_Mouse展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_poweroutlet-stand",
+      "name": "BedroomDesk_PowerOutlet展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_lampcable-stand",
+      "name": "BedroomDesk_LampCable展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_laptopcable-stand",
+      "name": "BedroomDesk_LaptopCable展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        11
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle01-stand",
+      "name": "BedroomDesk_CosmeticBottle01展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle02-stand",
+      "name": "BedroomDesk_CosmeticBottle02展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle03-stand",
+      "name": "BedroomDesk_CosmeticBottle03展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle04-stand",
+      "name": "BedroomDesk_CosmeticBottle04展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle05-stand",
+      "name": "BedroomDesk_CosmeticBottle05展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle06-stand",
+      "name": "BedroomDesk_CosmeticBottle06展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        7
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle07-stand",
+      "name": "BedroomDesk_CosmeticBottle07展台",
+      "parentId": "transform:bitsoft-bedroom",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        3
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-consoles-gc_16_bit-stand",
+      "name": "GC_16_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        15
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-gc_8_bit-stand",
+      "name": "GC_8_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        15
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-gc_64_bit-stand",
+      "name": "GC_64_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        15
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-n64_16_bit-stand",
+      "name": "N64_16_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        15
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-n64_64_bit-stand",
+      "name": "N64_64_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        15
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-n64_8_bit-stand",
+      "name": "N64_8_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        15
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-nes_8_bit-stand",
+      "name": "NES_8_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-nes_16_bit-stand",
+      "name": "NES_16_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-nes_64_bit-stand",
+      "name": "NES_64_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-nintendoplaystation-stand",
+      "name": "NintendoPlayStation展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-snes_16_bit-stand",
+      "name": "SNES_16_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-snes_64_bit-stand",
+      "name": "SNES_64_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        11
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-snes_8_bit-stand",
+      "name": "SNES_8_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        7
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-snes_sample-stand",
+      "name": "SNES_Sample展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        7
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-wii_16_bit-stand",
+      "name": "Wii_16_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        7
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-wii_8_bit-stand",
+      "name": "Wii_8_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        7
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-consoles-wii_64_bit-stand",
+      "name": "Wii_64_bit展台",
+      "parentId": "transform:bitsoft-consoles",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        7
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-products-ramen_015-stand",
+      "name": "ramen_015展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-ramen_013-stand",
+      "name": "ramen_013展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-ramen_012-stand",
+      "name": "ramen_012展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-ramen_009-stand",
+      "name": "ramen_009展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-bottle_007-stand",
+      "name": "bottle_007展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-bottle_006-stand",
+      "name": "bottle_006展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-bottle_005-stand",
+      "name": "bottle_005展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-bottle_004-stand",
+      "name": "bottle_004展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-bottle_003-stand",
+      "name": "bottle_003展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-bottle_002-stand",
+      "name": "bottle_002展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-bottle_001-stand",
+      "name": "bottle_001展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-products-bottle-stand",
+      "name": "bottle展台",
+      "parentId": "transform:bitsoft-products",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "bitsoft-furniture-schooldesk-stand",
+      "name": "SchoolDesk展台",
+      "parentId": "transform:bitsoft-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-furniture-schoolchair-stand",
+      "name": "SchoolChair展台",
+      "parentId": "transform:bitsoft-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-furniture-tatami-stand",
+      "name": "Tatami展台",
+      "parentId": "transform:bitsoft-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-furniture-japanesetable-stand",
+      "name": "JapaneseTable展台",
+      "parentId": "transform:bitsoft-furniture",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "bitsoft-buildings-suburbanhouse-stand",
+      "name": "SuburbanHouse展台",
+      "parentId": "transform:bitsoft-buildings",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -11
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_desk",
+      "name": "bitsoft · BedroomDesk_Desk",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/Desk.glb",
+      "position": [
+        -22,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.66666679,
+        2.66666679,
+        2.66666679
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_chair",
+      "name": "bitsoft · BedroomDesk_Chair",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/Chair.glb",
+      "position": [
+        -18,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.63560978,
+        3.63560978,
+        3.63560978
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_laptop",
+      "name": "bitsoft · BedroomDesk_Laptop",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/Laptop.glb",
+      "position": [
+        -14,
+        0,
+        14.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.29130839,
+        8.29130839,
+        8.29130839
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_mirror",
+      "name": "bitsoft · BedroomDesk_Mirror",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/Mirror.glb",
+      "position": [
+        -10,
+        0,
+        15.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.55023259,
+        6.55023259,
+        6.55023259
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_noticeboard",
+      "name": "bitsoft · BedroomDesk_NoticeBoard",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/NoticeBoard.glb",
+      "position": [
+        -6.00000005,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.55078776,
+        3.55078776,
+        3.55078776
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_calendar",
+      "name": "bitsoft · BedroomDesk_Calendar",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/Calendar.glb",
+      "position": [
+        -2.00000009,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.16821398,
+        6.16821398,
+        6.16821398
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_tablelamp",
+      "name": "bitsoft · BedroomDesk_TableLamp",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/TableLamp.glb",
+      "position": [
+        -21.99999994,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.87401708,
+        7.87401708,
+        7.87401708
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_magazines",
+      "name": "bitsoft · BedroomDesk_Magazines",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/Magazines.glb",
+      "position": [
+        -18,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.23280688,
+        12.23280688,
+        12.23280688
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_mouse",
+      "name": "bitsoft · BedroomDesk_Mouse",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/Mouse.glb",
+      "position": [
+        -14,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.24180233,
+        26.24180233,
+        26.24180233
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_poweroutlet",
+      "name": "bitsoft · BedroomDesk_PowerOutlet",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/PowerOutlet.glb",
+      "position": [
+        -9.99999956,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.65879204,
+        29.65879204,
+        29.65879204
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_lampcable",
+      "name": "bitsoft · BedroomDesk_LampCable",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/LampCable.glb",
+      "position": [
+        -6,
+        0,
+        11.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68660659,
+        3.68660659,
+        3.68660659
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_laptopcable",
+      "name": "bitsoft · BedroomDesk_LaptopCable",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/LaptopCable.glb",
+      "position": [
+        -2,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.67969186,
+        3.67969186,
+        3.67969186
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle01",
+      "name": "bitsoft · BedroomDesk_CosmeticBottle01",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/CosmeticBottle01.glb",
+      "position": [
+        -22,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        41.06778288,
+        41.06778288,
+        41.06778288
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle02",
+      "name": "bitsoft · BedroomDesk_CosmeticBottle02",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/CosmeticBottle02.glb",
+      "position": [
+        -18,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.2086587,
+        33.2086587,
+        33.2086587
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle03",
+      "name": "bitsoft · BedroomDesk_CosmeticBottle03",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/CosmeticBottle03.glb",
+      "position": [
+        -14,
+        0,
+        7.00000044
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.5585583,
+        29.5585583,
+        29.5585583
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle04",
+      "name": "bitsoft · BedroomDesk_CosmeticBottle04",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/CosmeticBottle04.glb",
+      "position": [
+        -10,
+        0,
+        6.99999972
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.83352028,
+        18.83352028,
+        18.83352028
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle05",
+      "name": "bitsoft · BedroomDesk_CosmeticBottle05",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/CosmeticBottle05.glb",
+      "position": [
+        -6,
+        0,
+        7.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.91859191,
+        17.91859191,
+        17.91859191
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle06",
+      "name": "bitsoft · BedroomDesk_CosmeticBottle06",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/CosmeticBottle06.glb",
+      "position": [
+        -2,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.30193613,
+        26.30193613,
+        26.30193613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-bedroom-bedroomdesk_cosmeticbottle07",
+      "name": "bitsoft · BedroomDesk_CosmeticBottle07",
+      "parentId": "transform:bitsoft-bedroom",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/BedroomDesk/CosmeticBottle07.glb",
+      "position": [
+        -12,
+        0,
+        2.99999967
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.86939536,
+        21.86939536,
+        21.86939536
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-gc_16_bit",
+      "name": "bitsoft · GC_16_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/GC_16_bit.glb",
+      "position": [
+        2,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.77361992,
+        13.77361992,
+        13.77361992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-gc_8_bit",
+      "name": "bitsoft · GC_8_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/GC_8_bit.glb",
+      "position": [
+        6,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.77361992,
+        13.77361992,
+        13.77361992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-gc_64_bit",
+      "name": "bitsoft · GC_64_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/GC_64_bit.glb",
+      "position": [
+        10,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.77361992,
+        13.77361992,
+        13.77361992
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-n64_16_bit",
+      "name": "bitsoft · N64_16_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/N64_16_bit.glb",
+      "position": [
+        14,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.87305557,
+        10.87305557,
+        10.87305557
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-n64_64_bit",
+      "name": "bitsoft · N64_64_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/N64_64_bit.glb",
+      "position": [
+        18.00000008,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.87305494,
+        10.87305494,
+        10.87305494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-n64_8_bit",
+      "name": "bitsoft · N64_8_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/N64_8_bit.glb",
+      "position": [
+        21.99999992,
+        0,
+        15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.87305494,
+        10.87305494,
+        10.87305494
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-nes_8_bit",
+      "name": "bitsoft · NES_8_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/NES_8_bit.glb",
+      "position": [
+        2.00000008,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.93750012,
+        10.93750012,
+        10.93750012
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-nes_16_bit",
+      "name": "bitsoft · NES_16_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/NES_16_bit.glb",
+      "position": [
+        6,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.93749948,
+        10.93749948,
+        10.93749948
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-nes_64_bit",
+      "name": "bitsoft · NES_64_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/NES_64_bit.glb",
+      "position": [
+        9.99999992,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.93750012,
+        10.93750012,
+        10.93750012
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-nintendoplaystation",
+      "name": "bitsoft · NintendoPlayStation",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/NintendoPlayStation.glb",
+      "position": [
+        14,
+        0,
+        11.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.3105531,
+        5.3105531,
+        5.3105531
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-snes_16_bit",
+      "name": "bitsoft · SNES_16_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/SNES_16_bit.glb",
+      "position": [
+        18,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.06784985,
+        11.06784985,
+        11.06784985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-snes_64_bit",
+      "name": "bitsoft · SNES_64_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/SNES_64_bit.glb",
+      "position": [
+        22,
+        0,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.06784985,
+        11.06784985,
+        11.06784985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-snes_8_bit",
+      "name": "bitsoft · SNES_8_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/SNES_8_bit.glb",
+      "position": [
+        4,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.06784985,
+        11.06784985,
+        11.06784985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-snes_sample",
+      "name": "bitsoft · SNES_Sample",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/SNES_Sample.glb",
+      "position": [
+        8,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.06784985,
+        11.06784985,
+        11.06784985
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-wii_16_bit",
+      "name": "bitsoft · Wii_16_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/Wii_16_bit.glb",
+      "position": [
+        12,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.23410935,
+        14.23410935,
+        14.23410935
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-wii_8_bit",
+      "name": "bitsoft · Wii_8_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/Wii_8_bit.glb",
+      "position": [
+        16,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.23410935,
+        14.23410935,
+        14.23410935
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-consoles-wii_64_bit",
+      "name": "bitsoft · Wii_64_bit",
+      "parentId": "transform:bitsoft-consoles",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Consoles/Wii_64_bit.glb",
+      "position": [
+        20,
+        0,
+        7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.23410935,
+        14.23410935,
+        14.23410935
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-ramen_015",
+      "name": "bitsoft · ramen_015",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/ramen_015.glb",
+      "position": [
+        2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.40623539,
+        17.40623539,
+        17.40623539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-ramen_013",
+      "name": "bitsoft · ramen_013",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/ramen_013.glb",
+      "position": [
+        6,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.40623539,
+        17.40623539,
+        17.40623539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-ramen_012",
+      "name": "bitsoft · ramen_012",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/ramen_012.glb",
+      "position": [
+        10,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.40623539,
+        17.40623539,
+        17.40623539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-ramen_009",
+      "name": "bitsoft · ramen_009",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/ramen_009.glb",
+      "position": [
+        14,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.40623539,
+        17.40623539,
+        17.40623539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-bottle_007",
+      "name": "bitsoft · bottle_007",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/bottle_007.glb",
+      "position": [
+        18,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.46067718,
+        16.46067718,
+        16.46067718
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-bottle_006",
+      "name": "bitsoft · bottle_006",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/bottle_006.glb",
+      "position": [
+        22,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.33647846,
+        15.33647846,
+        15.33647846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-bottle_005",
+      "name": "bitsoft · bottle_005",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/bottle_005.glb",
+      "position": [
+        2,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.81635452,
+        20.81635452,
+        20.81635452
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-bottle_004",
+      "name": "bitsoft · bottle_004",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/bottle_004.glb",
+      "position": [
+        6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.82690897,
+        17.82690897,
+        17.82690897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-bottle_003",
+      "name": "bitsoft · bottle_003",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/bottle_003.glb",
+      "position": [
+        10,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.47095044,
+        16.47095044,
+        16.47095044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-bottle_002",
+      "name": "bitsoft · bottle_002",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/bottle_002.glb",
+      "position": [
+        14,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.77299715,
+        21.77299715,
+        21.77299715
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-bottle_001",
+      "name": "bitsoft · bottle_001",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/bottle_001.glb",
+      "position": [
+        18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.49550017,
+        15.49550017,
+        15.49550017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-products-bottle",
+      "name": "bitsoft · bottle",
+      "parentId": "transform:bitsoft-products",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Products/bottle.glb",
+      "position": [
+        22,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.50683841,
+        16.50683841,
+        16.50683841
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-furniture-schooldesk",
+      "name": "bitsoft · SchoolDesk",
+      "parentId": "transform:bitsoft-furniture",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/SchoolDesk.glb",
+      "position": [
+        -18,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68498973,
+        3.68498973,
+        3.68498973
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-furniture-schoolchair",
+      "name": "bitsoft · SchoolChair",
+      "parentId": "transform:bitsoft-furniture",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/SchoolChair.glb",
+      "position": [
+        -14,
+        0,
+        -4.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.24007165,
+        3.24007165,
+        3.24007165
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-furniture-tatami",
+      "name": "bitsoft · Tatami",
+      "parentId": "transform:bitsoft-furniture",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/Tatami.glb",
+      "position": [
+        -10,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.79545444,
+        0.79545444,
+        0.79545444
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-furniture-japanesetable",
+      "name": "bitsoft · JapaneseTable",
+      "parentId": "transform:bitsoft-furniture",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Furniture/JapaneseTable.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.49999995,
+        3.49999995,
+        3.49999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "bitsoft-buildings-suburbanhouse",
+      "name": "bitsoft · SuburbanHouse",
+      "parentId": "transform:bitsoft-buildings",
+      "modelPath": "resources/Model/GLB/artist_bitsoft/Buildings/SuburbanHouse.glb",
+      "position": [
+        -12,
+        0,
+        -11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.28,
+        0.28,
+        0.28
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

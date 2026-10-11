@@ -1,0 +1,1878 @@
+{
+  "presetKey": "artist-loafbrr-showcase-rowhouses",
+  "name": "Loafbrr · Rowhouses · 42模型 · 模型 0.29 MiB + 贴图 0.71 MiB · 合计 1.01 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-rowhouses-0",
+      "name": "Rowhouses",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 33
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-37df4dc713c11ee4-stand",
+      "name": "Wall_Beam_2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-382438f7ea404484-stand",
+      "name": "Wall_Beam_2_Corner展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ff0301343ef4ed4e-stand",
+      "name": "Wall_Beam_Corner展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ef717e21b04c0173-stand",
+      "name": "Wall_Corner_1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cb9e5c7197889bff-stand",
+      "name": "Wall_Corner_2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-18415fe56401a6b8-stand",
+      "name": "Wall_Exterior展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b2b3350fc0149128-stand",
+      "name": "Wall_Exterior_Door展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b27c7e8b37f79300-stand",
+      "name": "Wall_Exterior_Window1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-16a0565194bc4ed7-stand",
+      "name": "Wall_Exterior_Window2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a1e3434307bcc660-stand",
+      "name": "Wall_Exterior_Window3展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e5f1c4b5df2e4557-stand",
+      "name": "Wall_Exterior_Window4展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-034533bc69578d18-stand",
+      "name": "Wall_Interior展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-59c00539ba14465e-stand",
+      "name": "Wall_Interior_Attic展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6b1f8e44f19a6a18-stand",
+      "name": "Wall_Interior_Attic_Door展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9bff00ee99f053cf-stand",
+      "name": "Wall_Interior_Attic_Tri_1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dea26de1053365fb-stand",
+      "name": "Wall_Interior_Attic_Tri_2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3025fc0757748c8b-stand",
+      "name": "Wall_Interior_Corner_1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-55a52d0defaa4d15-stand",
+      "name": "Wall_Interior_Corner_2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-42323239caba07ad-stand",
+      "name": "Wall_Interior_Cover_1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2a38c40f6c51e705-stand",
+      "name": "Wall_Interior_Cover_2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ce721e8b9af57577-stand",
+      "name": "Wall_Interior_Door展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2536ce9d3c80f657-stand",
+      "name": "Wall_Interior_Ends_1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3ce4e32b60b8cc52-stand",
+      "name": "Wall_Interior_Ends_2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d9fd4e2907e8d938-stand",
+      "name": "Wall_Interior_Half展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a3cf492035ff2d65-stand",
+      "name": "Wall_Roof展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-13fbbdda9122ad5e-stand",
+      "name": "Wall_Roof_Tri展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2f867f67999b682d-stand",
+      "name": "Wall_Roof_Tri_Half_1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0ca57536a380f40c-stand",
+      "name": "Wall_Roof_Tri_Half_2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c357f2634443b0bb-stand",
+      "name": "Wall_Roof_Tri_Window3展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-363f9ed3adb7b04a-stand",
+      "name": "Wall_Roof_Window_1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e80c49532e65133b-stand",
+      "name": "Wall_Roof_Window_2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2f5ddaeba7cc7058-stand",
+      "name": "Wall_Roof_Window_3展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9d147455c3031612-stand",
+      "name": "Wall_Roof_Window_4展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e4691e88306d9018-stand",
+      "name": "Window1展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-92beb977c3bea5e8-stand",
+      "name": "Window1_Shutter展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-104556e124223c3b-stand",
+      "name": "Window2展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-518cbc876d9c3c97-stand",
+      "name": "Window2_Shutter展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-85b5280484352b93-stand",
+      "name": "Window3展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d20f0a51b5add2a5-stand",
+      "name": "Window3_Shutter展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cda48e5ecd644c72-stand",
+      "name": "Window4展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6979851f8346fc55-stand",
+      "name": "Window4_Shutter展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7959b0c31c7b07b7-stand",
+      "name": "Window5展台",
+      "parentId": "transform:category-rowhouses-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-37df4dc713c11ee4",
+      "name": "Rowhouses · Wall_Beam_2 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Beam_2.glb",
+      "position": [
+        -22,
+        -2.9e-7,
+        14.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999908,
+        1.39999908,
+        1.39999908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-382438f7ea404484",
+      "name": "Rowhouses · Wall_Beam_2_Corner · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Beam_2_Corner.glb",
+      "position": [
+        -18,
+        -0.00000109,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.21029732,
+        5.21029732,
+        5.21029732
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ff0301343ef4ed4e",
+      "name": "Rowhouses · Wall_Beam_Corner · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Beam_Corner.glb",
+      "position": [
+        -14.00000011,
+        -5.6e-7,
+        14.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.66666324,
+        4.66666324,
+        4.66666324
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ef717e21b04c0173",
+      "name": "Rowhouses · Wall_Corner_1 · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Corner_1.glb",
+      "position": [
+        -10.00000001,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cb9e5c7197889bff",
+      "name": "Rowhouses · Wall_Corner_2 · 模型 0.00 MiB · 贴图 0.19 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Corner_2.glb",
+      "position": [
+        -5.99999996,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-18415fe56401a6b8",
+      "name": "Rowhouses · Wall_Exterior · 模型 0.00 MiB · 贴图 0.29 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Exterior.glb",
+      "position": [
+        -2,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b2b3350fc0149128",
+      "name": "Rowhouses · Wall_Exterior_Door · 模型 0.00 MiB · 贴图 0.29 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Exterior_Door.glb",
+      "position": [
+        -22,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b27c7e8b37f79300",
+      "name": "Rowhouses · Wall_Exterior_Window1 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Exterior_Window1.glb",
+      "position": [
+        -18,
+        1e-8,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-16a0565194bc4ed7",
+      "name": "Rowhouses · Wall_Exterior_Window2 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Exterior_Window2.glb",
+      "position": [
+        -14,
+        1e-8,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a1e3434307bcc660",
+      "name": "Rowhouses · Wall_Exterior_Window3 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Exterior_Window3.glb",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e5f1c4b5df2e4557",
+      "name": "Rowhouses · Wall_Exterior_Window4 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Exterior_Window4.glb",
+      "position": [
+        -6,
+        1e-8,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-034533bc69578d18",
+      "name": "Rowhouses · Wall_Interior · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior.glb",
+      "position": [
+        -2,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-59c00539ba14465e",
+      "name": "Rowhouses · Wall_Interior_Attic · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Attic.glb",
+      "position": [
+        -22,
+        1e-8,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6b1f8e44f19a6a18",
+      "name": "Rowhouses · Wall_Interior_Attic_Door · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Attic_Door.glb",
+      "position": [
+        -18,
+        1e-8,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9bff00ee99f053cf",
+      "name": "Rowhouses · Wall_Interior_Attic_Tri_1 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Attic_Tri_1.glb",
+      "position": [
+        -14,
+        1e-8,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dea26de1053365fb",
+      "name": "Rowhouses · Wall_Interior_Attic_Tri_2 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Attic_Tri_2.glb",
+      "position": [
+        -10,
+        1e-8,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3025fc0757748c8b",
+      "name": "Rowhouses · Wall_Interior_Corner_1 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Corner_1.glb",
+      "position": [
+        -6.00000033,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-55a52d0defaa4d15",
+      "name": "Rowhouses · Wall_Interior_Corner_2 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Corner_2.glb",
+      "position": [
+        -2.0000002,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-42323239caba07ad",
+      "name": "Rowhouses · Wall_Interior_Cover_1 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Cover_1.glb",
+      "position": [
+        -21.99999966,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2a38c40f6c51e705",
+      "name": "Rowhouses · Wall_Interior_Cover_2 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Cover_2.glb",
+      "position": [
+        -18.00000034,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ce721e8b9af57577",
+      "name": "Rowhouses · Wall_Interior_Door · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Door.glb",
+      "position": [
+        -14,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2536ce9d3c80f657",
+      "name": "Rowhouses · Wall_Interior_Ends_1 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Ends_1.glb",
+      "position": [
+        -9.99999965,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3ce4e32b60b8cc52",
+      "name": "Rowhouses · Wall_Interior_Ends_2 · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Ends_2.glb",
+      "position": [
+        -5.9999997,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d9fd4e2907e8d938",
+      "name": "Rowhouses · Wall_Interior_Half · 模型 0.00 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Interior_Half.glb",
+      "position": [
+        -2,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a3cf492035ff2d65",
+      "name": "Rowhouses · Wall_Roof · 模型 0.00 MiB · 贴图 0.29 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof.glb",
+      "position": [
+        -22,
+        1e-8,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-13fbbdda9122ad5e",
+      "name": "Rowhouses · Wall_Roof_Tri · 模型 0.00 MiB · 贴图 0.29 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof_Tri.glb",
+      "position": [
+        -18,
+        1e-8,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2f867f67999b682d",
+      "name": "Rowhouses · Wall_Roof_Tri_Half_1 · 模型 0.00 MiB · 贴图 0.29 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof_Tri_Half_1.glb",
+      "position": [
+        -14,
+        1e-8,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0ca57536a380f40c",
+      "name": "Rowhouses · Wall_Roof_Tri_Half_2 · 模型 0.00 MiB · 贴图 0.29 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof_Tri_Half_2.glb",
+      "position": [
+        -10,
+        1e-8,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c357f2634443b0bb",
+      "name": "Rowhouses · Wall_Roof_Tri_Window3 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof_Tri_Window3.glb",
+      "position": [
+        -6,
+        1e-8,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-363f9ed3adb7b04a",
+      "name": "Rowhouses · Wall_Roof_Window_1 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof_Window_1.glb",
+      "position": [
+        -2,
+        1e-8,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e80c49532e65133b",
+      "name": "Rowhouses · Wall_Roof_Window_2 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof_Window_2.glb",
+      "position": [
+        -22,
+        1e-8,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2f5ddaeba7cc7058",
+      "name": "Rowhouses · Wall_Roof_Window_3 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof_Window_3.glb",
+      "position": [
+        -18,
+        1e-8,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9d147455c3031612",
+      "name": "Rowhouses · Wall_Roof_Window_4 · 模型 0.01 MiB · 贴图 0.48 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Wall_Roof_Window_4.glb",
+      "position": [
+        -14,
+        1e-8,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e4691e88306d9018",
+      "name": "Rowhouses · Window1 · 模型 0.03 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window1.glb",
+      "position": [
+        -10.00000094,
+        0,
+        -6.00000014
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65633716,
+        1.65633716,
+        1.65633716
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-92beb977c3bea5e8",
+      "name": "Rowhouses · Window1_Shutter · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window1_Shutter.glb",
+      "position": [
+        -6.00000022,
+        0,
+        -5.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91746268,
+        1.91746268,
+        1.91746268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-104556e124223c3b",
+      "name": "Rowhouses · Window2 · 模型 0.02 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window2.glb",
+      "position": [
+        -1.99999837,
+        0,
+        -5.99999965
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.81885585,
+        1.81885585,
+        1.81885585
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-518cbc876d9c3c97",
+      "name": "Rowhouses · Window2_Shutter · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window2_Shutter.glb",
+      "position": [
+        -22.00000022,
+        0,
+        -9.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.91746268,
+        1.91746268,
+        1.91746268
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-85b5280484352b93",
+      "name": "Rowhouses · Window3 · 模型 0.03 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window3.glb",
+      "position": [
+        -18.00000069,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.53525468,
+        1.53525468,
+        1.53525468
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d20f0a51b5add2a5",
+      "name": "Rowhouses · Window3_Shutter · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window3_Shutter.glb",
+      "position": [
+        -13.99999883,
+        0,
+        -10.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.69574103,
+        1.69574103,
+        1.69574103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cda48e5ecd644c72",
+      "name": "Rowhouses · Window4 · 模型 0.03 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window4.glb",
+      "position": [
+        -9.99999985,
+        0,
+        -9.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.28070131,
+        1.28070131,
+        1.28070131
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6979851f8346fc55",
+      "name": "Rowhouses · Window4_Shutter · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window4_Shutter.glb",
+      "position": [
+        -5.99999967,
+        0,
+        -10.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39047754,
+        1.39047754,
+        1.39047754
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7959b0c31c7b07b7",
+      "name": "Rowhouses · Window5 · 模型 0.01 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-rowhouses-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Rowhouses/Window5.glb",
+      "position": [
+        -2.00000053,
+        -4e-8,
+        -10.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.77335505,
+        1.77335505,
+        1.77335505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

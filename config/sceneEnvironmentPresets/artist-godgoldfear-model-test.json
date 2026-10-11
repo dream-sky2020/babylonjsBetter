@@ -1,0 +1,1962 @@
+{
+  "presetKey": "artist-godgoldfear-model-test",
+  "name": "Godgoldfear 工业场景 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "godgoldfear-ambient",
+      "name": "测试环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "godgoldfear-key",
+      "name": "测试主光",
+      "intensity": 0.9,
+      "color": "#fff1d6",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          40,
+          70,
+          -30
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "godgoldfear-test-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 100,
+        "height": 137
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#303942",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-section-1",
+      "name": "建筑和储罐展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 94,
+        "height": 19.7
+      },
+      "position": [
+        0,
+        -0.045,
+        -54.15
+      ],
+      "color": "#46505b"
+    },
+    {
+      "id": "godgoldfear-section-2",
+      "name": "道路和桥梁展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 94,
+        "height": 19.7
+      },
+      "position": [
+        0,
+        -0.045,
+        -29.75
+      ],
+      "color": "#50534b"
+    },
+    {
+      "id": "godgoldfear-section-3",
+      "name": "工业管线展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 94,
+        "height": 19.7
+      },
+      "position": [
+        0,
+        -0.045,
+        -5.35
+      ],
+      "color": "#48575a"
+    },
+    {
+      "id": "godgoldfear-section-4",
+      "name": "围栏和墙体展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 94,
+        "height": 19.7
+      },
+      "position": [
+        0,
+        -0.045,
+        19.05
+      ],
+      "color": "#52504b"
+    },
+    {
+      "id": "godgoldfear-section-5",
+      "name": "设备和杂物展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 94,
+        "height": 30.4
+      },
+      "position": [
+        0,
+        -0.045,
+        48.8
+      ],
+      "color": "#4d4a55"
+    }
+  ],
+  "models": [
+    {
+      "id": "godgoldfear-model-01",
+      "name": "建筑和储罐 · Building_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_1_godgoldfear_itch_io.glb",
+      "position": [
+        -40.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3316,
+        0.3316,
+        0.3316
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-02",
+      "name": "建筑和储罐 · Building_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_2_godgoldfear_itch_io.glb",
+      "position": [
+        -30.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5554,
+        0.5554,
+        0.5554
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-03",
+      "name": "建筑和储罐 · Building_3",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_3_godgoldfear_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3773,
+        0.3773,
+        0.3773
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-04",
+      "name": "建筑和储罐 · Building_4",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_4_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4781,
+        0.4781,
+        0.4781
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-05",
+      "name": "建筑和储罐 · Building_5",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_5_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.8611,
+        0.8611,
+        0.8611
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-06",
+      "name": "建筑和储罐 · Building_6",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_6_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3274,
+        0.3274,
+        0.3274
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-07",
+      "name": "建筑和储罐 · Building_7",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_7_godgoldfear_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7756,
+        0.7756,
+        0.7756
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-08",
+      "name": "建筑和储罐 · Building_8",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_8_godgoldfear_itch_io.glb",
+      "position": [
+        30.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2453,
+        0.2453,
+        0.2453
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-09",
+      "name": "建筑和储罐 · Building_9",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_9_godgoldfear_itch_io.glb",
+      "position": [
+        40.0,
+        0.025,
+        -59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1998,
+        0.1998,
+        0.1998
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-10",
+      "name": "建筑和储罐 · Building_10",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_10_godgoldfear_itch_io.glb",
+      "position": [
+        -30.0,
+        0.025,
+        -48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1998,
+        0.1998,
+        0.1998
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-11",
+      "name": "建筑和储罐 · Building_11",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_11_godgoldfear_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2821,
+        0.2821,
+        0.2821
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-12",
+      "name": "建筑和储罐 · Building_12",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_12_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        -48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2821,
+        0.2821,
+        0.2821
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-13",
+      "name": "建筑和储罐 · Building_13",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Building_13_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9761,
+        0.9761,
+        0.9761
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-14",
+      "name": "建筑和储罐 · Cooling_tower",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Cooling_tower_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        -48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6644,
+        0.6644,
+        0.6644
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-15",
+      "name": "建筑和储罐 · Liquid_reservoir_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Liquid_reservoir_1_godgoldfear_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7044,
+        0.7044,
+        0.7044
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-16",
+      "name": "建筑和储罐 · Liquid_reservoir_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Liquid_reservoir_2_godgoldfear_itch_io.glb",
+      "position": [
+        30.0,
+        0.025,
+        -48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4467,
+        1.4467,
+        1.4467
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-17",
+      "name": "道路和桥梁 · Alphalt_Floor",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Alphalt_Floor_godgoldfear_itch_io.glb",
+      "position": [
+        -40.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4688,
+        0.4688,
+        0.4688
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-18",
+      "name": "道路和桥梁 · Bridges_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_1_godgoldfear_itch_io.glb",
+      "position": [
+        -30.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.545,
+        1.545,
+        1.545
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-19",
+      "name": "道路和桥梁 · Bridges_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_2_godgoldfear_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.545,
+        1.545,
+        1.545
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-20",
+      "name": "道路和桥梁 · Bridges_3",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_3_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2508,
+        1.2508,
+        1.2508
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-21",
+      "name": "道路和桥梁 · Bridges_end",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_end_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5769,
+        3.5769,
+        3.5769
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-22",
+      "name": "道路和桥梁 · Bridges_stairs_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_stairs_1_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2833,
+        1.2833,
+        1.2833
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-23",
+      "name": "道路和桥梁 · Bridges_stairs_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_stairs_2_godgoldfear_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2833,
+        1.2833,
+        1.2833
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-24",
+      "name": "道路和桥梁 · Bridges_support_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_support_1_godgoldfear_itch_io.glb",
+      "position": [
+        30.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4493,
+        1.4493,
+        1.4493
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-25",
+      "name": "道路和桥梁 · Bridges_support_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_support_2_godgoldfear_itch_io.glb",
+      "position": [
+        40.0,
+        0.025,
+        -35.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4384,
+        1.4384,
+        1.4384
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-26",
+      "name": "道路和桥梁 · Bridges_support_3",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_support_3_godgoldfear_itch_io.glb",
+      "position": [
+        -40.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4384,
+        1.4384,
+        1.4384
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-27",
+      "name": "道路和桥梁 · Bridges_turn",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bridges_turn_godgoldfear_itch_io.glb",
+      "position": [
+        -30.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3143,
+        2.3143,
+        2.3143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-28",
+      "name": "道路和桥梁 · Road_curved",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Road_curved_godgoldfear_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-29",
+      "name": "道路和桥梁 · Road_long",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Road_long_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-30",
+      "name": "道路和桥梁 · Road_short",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Road_short_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-31",
+      "name": "道路和桥梁 · Road_turn_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Road_turn_1_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-32",
+      "name": "道路和桥梁 · Road_turn_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Road_turn_2_godgoldfear_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-33",
+      "name": "道路和桥梁 · Road_turn_3",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Road_turn_3_godgoldfear_itch_io.glb",
+      "position": [
+        30.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-34",
+      "name": "道路和桥梁 · Roadblock",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Roadblock_godgoldfear_itch_io.glb",
+      "position": [
+        40.0,
+        0.025,
+        -24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.1938,
+        3.1938,
+        3.1938
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-35",
+      "name": "工业管线 · Pipes_arch",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_arch_godgoldfear_itch_io.glb",
+      "position": [
+        -40.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9857,
+        0.9857,
+        0.9857
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-36",
+      "name": "工业管线 · Pipes_horizontal_long",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_horizontal_long_godgoldfear_itch_io.glb",
+      "position": [
+        -30.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5454,
+        0.5454,
+        0.5454
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-37",
+      "name": "工业管线 · Pipes_horizontal_short",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_horizontal_short_godgoldfear_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4561,
+        1.4561,
+        1.4561
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-38",
+      "name": "工业管线 · Pipes_horizontal_turn_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_horizontal_turn_1_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-39",
+      "name": "工业管线 · Pipes_horizontal_turn_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_horizontal_turn_2_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-40",
+      "name": "工业管线 · Pipes_out_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_out_1_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2012,
+        3.2012,
+        3.2012
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-41",
+      "name": "工业管线 · Pipes_out_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_out_2_godgoldfear_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8636,
+        1.8636,
+        1.8636
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-42",
+      "name": "工业管线 · Pipes_support",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_support_godgoldfear_itch_io.glb",
+      "position": [
+        30.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4561,
+        1.4561,
+        1.4561
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-43",
+      "name": "工业管线 · Pipes_vertical_long",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_vertical_long_godgoldfear_itch_io.glb",
+      "position": [
+        40.0,
+        0.025,
+        -10.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6362,
+        1.6362,
+        1.6362
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-44",
+      "name": "工业管线 · Pipes_vertical_short",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_vertical_short_godgoldfear_itch_io.glb",
+      "position": [
+        -5.0,
+        0.025,
+        -0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.2723,
+        3.2723,
+        3.2723
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-45",
+      "name": "工业管线 · Pipes_vertical_turn",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Pipes_vertical_turn_godgoldfear_itch_io.glb",
+      "position": [
+        5.0,
+        0.025,
+        -0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-46",
+      "name": "围栏和墙体 · Concrete_miniwall_long",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Concrete_miniwall_long_godgoldfear_itch_io.glb",
+      "position": [
+        -40.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75,
+        0.75,
+        0.75
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-47",
+      "name": "围栏和墙体 · Concrete_miniwall_short",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Concrete_miniwall_short_godgoldfear_itch_io.glb",
+      "position": [
+        -30.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-48",
+      "name": "围栏和墙体 · Concrete_stairs",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Concrete_stairs_godgoldfear_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6475,
+        2.6475,
+        2.6475
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-49",
+      "name": "围栏和墙体 · Fence",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Fence_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6738,
+        2.6738,
+        2.6738
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-50",
+      "name": "围栏和墙体 · Fence_corner",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Fence_corner_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6108,
+        2.6108,
+        2.6108
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-51",
+      "name": "围栏和墙体 · Fence_long",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Fence_long_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.3222,
+        1.3222,
+        1.3222
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-52",
+      "name": "围栏和墙体 · Fence_short",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Fence_short_godgoldfear_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6443,
+        2.6443,
+        2.6443
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-53",
+      "name": "围栏和墙体 · Wall",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Wall_godgoldfear_itch_io.glb",
+      "position": [
+        30.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8612,
+        1.8612,
+        1.8612
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-54",
+      "name": "围栏和墙体 · Wall_column",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Wall_column_godgoldfear_itch_io.glb",
+      "position": [
+        40.0,
+        0.025,
+        13.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.2746,
+        2.2746,
+        2.2746
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-55",
+      "name": "围栏和墙体 · Wall_corner_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Wall_corner_1_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5046,
+        2.5046,
+        2.5046
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-56",
+      "name": "围栏和墙体 · Wall_corner_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Wall_corner_2_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5046,
+        2.5046,
+        2.5046
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-57",
+      "name": "围栏和墙体 · Wall_corner_3",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Wall_corner_3_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        24.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5046,
+        2.5046,
+        2.5046
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-58",
+      "name": "设备和杂物 · Bags_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bags_1_godgoldfear_itch_io.glb",
+      "position": [
+        -40.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9589,
+        2.9589,
+        2.9589
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-59",
+      "name": "设备和杂物 · Bags_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Bags_2_godgoldfear_itch_io.glb",
+      "position": [
+        -30.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.9589,
+        2.9589,
+        2.9589
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-60",
+      "name": "设备和杂物 · Barrel_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Barrel_1_godgoldfear_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-61",
+      "name": "设备和杂物 · Barrel_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Barrel_2_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-62",
+      "name": "设备和杂物 · Barrel_3",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Barrel_3_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-63",
+      "name": "设备和杂物 · Box_wide_wood",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Box_wide_wood_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.1896,
+        4.1896,
+        4.1896
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-64",
+      "name": "设备和杂物 · Box_wood",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Box_wood_godgoldfear_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-65",
+      "name": "设备和杂物 · Cargo_1_close",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Cargo_1_close_godgoldfear_itch_io.glb",
+      "position": [
+        30.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9375,
+        0.9375,
+        0.9375
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-66",
+      "name": "设备和杂物 · Cargo_1_open",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Cargo_1_open_godgoldfear_itch_io.glb",
+      "position": [
+        40.0,
+        0.025,
+        38.1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9375,
+        0.9375,
+        0.9375
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-67",
+      "name": "设备和杂物 · Cargo_2_empty",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Cargo_2_empty_godgoldfear_itch_io.glb",
+      "position": [
+        -40.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5192,
+        1.5192,
+        1.5192
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-68",
+      "name": "设备和杂物 · Cargo_2_full",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Cargo_2_full_godgoldfear_itch_io.glb",
+      "position": [
+        -30.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5192,
+        1.5192,
+        1.5192
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-69",
+      "name": "设备和杂物 · Generator",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Generator_godgoldfear_itch_io.glb",
+      "position": [
+        -20.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0557,
+        2.0557,
+        2.0557
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-70",
+      "name": "设备和杂物 · Metal_cabinet_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Metal_cabinet_1_godgoldfear_itch_io.glb",
+      "position": [
+        -10.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-71",
+      "name": "设备和杂物 · Metal_cabinet_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Metal_cabinet_2_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.7687,
+        3.7687,
+        3.7687
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-72",
+      "name": "设备和杂物 · Palet_single",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Palet_single_godgoldfear_itch_io.glb",
+      "position": [
+        10.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.2876,
+        4.2876,
+        4.2876
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-73",
+      "name": "设备和杂物 · Palet_stack",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Palet_stack_godgoldfear_itch_io.glb",
+      "position": [
+        20.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.389,
+        3.389,
+        3.389
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-74",
+      "name": "设备和杂物 · Ventilation_1",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Ventilation_1_godgoldfear_itch_io.glb",
+      "position": [
+        30.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.9923,
+        4.9923,
+        4.9923
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-75",
+      "name": "设备和杂物 · Ventilation_2",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Ventilation_2_godgoldfear_itch_io.glb",
+      "position": [
+        40.0,
+        0.025,
+        48.8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.534,
+        4.534,
+        4.534
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "godgoldfear-model-76",
+      "name": "设备和杂物 · Ventilation_3",
+      "modelPath": "resources/Model/GLB/artist_godgoldfear/industrial-exterior-v2/Ventilation_3_godgoldfear_itch_io.glb",
+      "position": [
+        0.0,
+        0.025,
+        59.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.0,
+        5.0,
+        5.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

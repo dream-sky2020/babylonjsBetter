@@ -1,0 +1,1140 @@
+{
+  "presetKey": "artist-retroassetslibrary-model-test",
+  "name": "Retro Assets Library 资源 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "retroassetslibrary-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "retroassetslibrary-key",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff0d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          25,
+          55,
+          -30
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "retroassetslibrary-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 42,
+        "height": 62
+      },
+      "position": [
+        0,
+        -0.06,
+        -4
+      ],
+      "color": "#303942",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-flashlight-ground",
+      "name": "手电筒与灯具展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 20
+      },
+      "position": [
+        0,
+        -0.045,
+        -23
+      ],
+      "color": "#4b5255"
+    },
+    {
+      "id": "retroassetslibrary-med-ground",
+      "name": "医疗用品展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 24
+      },
+      "position": [
+        0,
+        -0.045,
+        2
+      ],
+      "color": "#53504c"
+    },
+    {
+      "id": "retroassetslibrary-other-ground",
+      "name": "手机与电锯展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 40,
+        "height": 8
+      },
+      "position": [
+        0,
+        -0.045,
+        22
+      ],
+      "color": "#4b514b"
+    }
+  ],
+  "models": [
+    {
+      "id": "retroassetslibrary-model-01",
+      "name": "手电筒 · FlashLight_Set_5_1",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-1/FlashLight_Set_5_1_retroassetslibrary_itch_io.glb",
+      "position": [
+        -15,
+        1.225,
+        -29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.424,
+        25.424,
+        25.424
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-02",
+      "name": "手电筒 · FlashLight_Set_5_2",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-1/FlashLight_Set_5_2_retroassetslibrary_itch_io.glb",
+      "position": [
+        -9,
+        1.225,
+        -29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.143,
+        17.143,
+        17.143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-03",
+      "name": "手电筒 · FlashLight_Set_5_3",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-1/FlashLight_Set_5_3_retroassetslibrary_itch_io.glb",
+      "position": [
+        -3,
+        1.225,
+        -29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.505,
+        21.505,
+        21.505
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-04",
+      "name": "手电筒 · FlashLight_Set_1_1",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-2/FlashLight_Set_1_1_retroassetslibrary_itch_io.glb",
+      "position": [
+        3,
+        1.225,
+        -29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16,
+        16,
+        16
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-05",
+      "name": "手电筒 · FlashLight_Set_1_2",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-2/FlashLight_Set_1_2_retroassetslibrary_itch_io.glb",
+      "position": [
+        9,
+        1.225,
+        -29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.408,
+        20.408,
+        20.408
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-06",
+      "name": "手电筒 · FlashLight_Set_1_3",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-2/FlashLight_Set_1_3_retroassetslibrary_itch_io.glb",
+      "position": [
+        15,
+        1.225,
+        -29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.918,
+        25.918,
+        25.918
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-07",
+      "name": "手电筒 · FlashLight_Set_2_1",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-3/FlashLight_Set_2_1_retroassetslibrary_itch_io.glb",
+      "position": [
+        -15,
+        1.225,
+        -23
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.765,
+        11.765,
+        11.765
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-08",
+      "name": "手电筒 · FlashLight_Set_2_2",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-3/FlashLight_Set_2_2_retroassetslibrary_itch_io.glb",
+      "position": [
+        -9,
+        1.225,
+        -23
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.605,
+        11.605,
+        11.605
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-09",
+      "name": "手电筒 · FlashLight_Set_2_3",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-3/FlashLight_Set_2_3_retroassetslibrary_itch_io.glb",
+      "position": [
+        -3,
+        1.225,
+        -23
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.686,
+        10.686,
+        10.686
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-10",
+      "name": "手电筒 · FlashLight_Set_3_1",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-4/FlashLight_Set_3_1_retroassetslibrary_itch_io.glb",
+      "position": [
+        3,
+        1.225,
+        -23
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.945,
+        12.945,
+        12.945
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-11",
+      "name": "手电筒 · FlashLight_Set_3_2",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-4/FlashLight_Set_3_2_retroassetslibrary_itch_io.glb",
+      "position": [
+        9,
+        1.225,
+        -23
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.645,
+        12.645,
+        12.645
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-12",
+      "name": "手电筒 · FlashLight_Set_3_3",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-4/FlashLight_Set_3_3_retroassetslibrary_itch_io.glb",
+      "position": [
+        15,
+        1.225,
+        -23
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.468,
+        13.468,
+        13.468
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-13",
+      "name": "手电筒 · FlashLight_Set_4_1",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-5/FlashLight_Set_4_1_retroassetslibrary_itch_io.glb",
+      "position": [
+        -15,
+        1.225,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.667,
+        13.667,
+        13.667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-14",
+      "name": "手电筒 · FlashLight_Set_4_2",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-5/FlashLight_Set_4_2_retroassetslibrary_itch_io.glb",
+      "position": [
+        -9,
+        1.225,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.058,
+        13.058,
+        13.058
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-15",
+      "name": "手电筒 · FlashLight_Set_4_3",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/flashlight-pack-5/FlashLight_Set_4_3_retroassetslibrary_itch_io.glb",
+      "position": [
+        -3,
+        1.225,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.928,
+        11.928,
+        11.928
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-16",
+      "name": "灯具 · Lamp_1",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/lantern-pack-6/Lamp_1_retroassetslibrary_itch_io.glb",
+      "position": [
+        3,
+        1.225,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.748,
+        15.748,
+        15.748
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-17",
+      "name": "灯具 · Lamp_2",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/lantern-pack-6/Lamp_2_retroassetslibrary_itch_io.glb",
+      "position": [
+        9,
+        1.225,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.544,
+        15.544,
+        15.544
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-18",
+      "name": "灯具 · Lamp_3",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/lantern-pack-6/Lamp_3_retroassetslibrary_itch_io.glb",
+      "position": [
+        15,
+        1.225,
+        -17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.571,
+        7.571,
+        7.571
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-19",
+      "name": "医疗用品 · Med_1",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_1_retroassetslibrary_itch_io.glb",
+      "position": [
+        -12,
+        0.425,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.178,
+        0.178,
+        0.178
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-20",
+      "name": "医疗用品 · Med_2",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_2_retroassetslibrary_itch_io.glb",
+      "position": [
+        -6,
+        1.107,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.107,
+        0.107,
+        0.107
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-21",
+      "name": "医疗用品 · Med_3",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_3_retroassetslibrary_itch_io.glb",
+      "position": [
+        0,
+        1.323,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21,
+        0.21,
+        0.21
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-22",
+      "name": "医疗用品 · Med_4",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_4_retroassetslibrary_itch_io.glb",
+      "position": [
+        6,
+        1.177,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.38,
+        0.38,
+        0.38
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-23",
+      "name": "医疗用品 · Med_5",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_5_retroassetslibrary_itch_io.glb",
+      "position": [
+        12,
+        1.353,
+        -7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.418,
+        0.418,
+        0.418
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-24",
+      "name": "医疗用品 · Med_6",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_6_retroassetslibrary_itch_io.glb",
+      "position": [
+        -12,
+        1.512,
+        -1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-25",
+      "name": "医疗用品 · Med_7",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_7_retroassetslibrary_itch_io.glb",
+      "position": [
+        -6,
+        1.256,
+        -1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.321,
+        0.321,
+        0.321
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-26",
+      "name": "医疗用品 · Med_8",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_8_retroassetslibrary_itch_io.glb",
+      "position": [
+        0,
+        1.208,
+        -1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.412,
+        0.412,
+        0.412
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-27",
+      "name": "医疗用品 · Med_9",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_9_retroassetslibrary_itch_io.glb",
+      "position": [
+        6,
+        1.587,
+        -1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.348,
+        0.348,
+        0.348
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-28",
+      "name": "医疗用品 · Med_10",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_10_retroassetslibrary_itch_io.glb",
+      "position": [
+        12,
+        1.22,
+        -1
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.353,
+        0.353,
+        0.353
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-29",
+      "name": "医疗用品 · Med_11",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_11_retroassetslibrary_itch_io.glb",
+      "position": [
+        -12,
+        1.739,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.239,
+        0.239,
+        0.239
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-30",
+      "name": "医疗用品 · Med_12",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_12_retroassetslibrary_itch_io.glb",
+      "position": [
+        -6,
+        1.394,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.261,
+        0.261,
+        0.261
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-31",
+      "name": "医疗用品 · Med_13",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_13_retroassetslibrary_itch_io.glb",
+      "position": [
+        0,
+        1.694,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.434,
+        0.434,
+        0.434
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-32",
+      "name": "医疗用品 · Med_14",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_14_retroassetslibrary_itch_io.glb",
+      "position": [
+        5.922,
+        1.627,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.302,
+        0.302,
+        0.302
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-33",
+      "name": "医疗用品 · Med_15",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_15_retroassetslibrary_itch_io.glb",
+      "position": [
+        12,
+        1.672,
+        5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21,
+        0.21,
+        0.21
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-34",
+      "name": "医疗用品 · Med_16",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_16_retroassetslibrary_itch_io.glb",
+      "position": [
+        -11.996,
+        1.412,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.126,
+        0.126,
+        0.126
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-35",
+      "name": "医疗用品 · Med_17",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_17_retroassetslibrary_itch_io.glb",
+      "position": [
+        -6,
+        1.708,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.204,
+        0.204,
+        0.204
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-36",
+      "name": "医疗用品 · Med_18",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_18_retroassetslibrary_itch_io.glb",
+      "position": [
+        0,
+        1.376,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.382,
+        0.382,
+        0.382
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-37",
+      "name": "医疗用品 · Med_19",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_19_retroassetslibrary_itch_io.glb",
+      "position": [
+        6.024,
+        0.066,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.288,
+        0.288,
+        0.288
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-38",
+      "name": "医疗用品 · Med_20",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-med-pack/Med_20_retroassetslibrary_itch_io.glb",
+      "position": [
+        11.991,
+        0.064,
+        11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-39",
+      "name": "手机 · PSX_MOBILE_000",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-mobile-phone/PSX_MOBILE_000_retroassetslibrary_itch_io.glb",
+      "position": [
+        -12,
+        1.11,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.101,
+        6.101,
+        6.101
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-40",
+      "name": "手机 · PSX_MOBILE_001",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-mobile-phone/PSX_MOBILE_001_retroassetslibrary_itch_io.glb",
+      "position": [
+        -7.692,
+        1.11,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.101,
+        6.101,
+        6.101
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-41",
+      "name": "手机 · PSX_MOBILE_002",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-mobile-phone/PSX_MOBILE_002_retroassetslibrary_itch_io.glb",
+      "position": [
+        -3.262,
+        1.11,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.101,
+        6.101,
+        6.101
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-42",
+      "name": "手机 · PSX_MOBILE_003",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/psx-mobile-phone/PSX_MOBILE_003_retroassetslibrary_itch_io.glb",
+      "position": [
+        1.079,
+        1.11,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.101,
+        6.101,
+        6.101
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "retroassetslibrary-model-43",
+      "name": "电锯 · Chainsaw_PSX_GLB",
+      "modelPath": "resources/Model/GLB/artist_retroassetslibrary/chainsaw/Chainsaw_PSX_GLB_retroassetslibrary_itch_io.glb",
+      "position": [
+        12.101,
+        0.815,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.137,
+        0.137,
+        0.137
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,6026 @@
+{
+  "presetKey": "artist-kyle-fuji-mushrooms-model-test",
+  "name": "Kyle Fuji · 蘑菇与菌丝（138 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-mushrooms-0",
+      "name": "Mushrooms1",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-mushrooms-1",
+      "name": "Mushrooms2",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-mycelium-2",
+      "name": "Mycelium",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 56
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "kyle-fuji-d8102d35663f584c-stand",
+      "name": "Amanita_Muscaria_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-d891751b77825f46-stand",
+      "name": "Amanita_Muscaria_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-400e177d0cd3703e-stand",
+      "name": "Amanita_Muscaria_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-2e0202b7ce49c134-stand",
+      "name": "Amanita_Muscaria_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-6e152fdc3ae92176-stand",
+      "name": "Amanita_Muscaria_5展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-cfbfaa94bf01a219-stand",
+      "name": "Amanita_Muscaria_6展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        25.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-637ff39cf886e541-stand",
+      "name": "Amanita_Muscaria_7展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ca4fcb22f0b5530d-stand",
+      "name": "Amanita_Muscaria_8展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-87218b77d14a6c1c-stand",
+      "name": "Bolete_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-1120c0b12b070d20-stand",
+      "name": "Bolete_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-fd6fbafb36939d61-stand",
+      "name": "Bolete_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c95728a86dc282c4-stand",
+      "name": "Bolete_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-dc84cfbd1b0e3aed-stand",
+      "name": "Bolete_Blue_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-087d765a1b2d7b69-stand",
+      "name": "Bolete_Blue_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-d52c5832dffcd7c1-stand",
+      "name": "Bolete_Blue_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-720b06764cabff9c-stand",
+      "name": "Bolete_Blue_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-bba845d1750c9330-stand",
+      "name": "Bolete_Blue_Cracked_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-3c4c143e4ab9ebbc-stand",
+      "name": "Bolete_Blue_Cracked_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        17.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-4dff536efdd3091d-stand",
+      "name": "Bolete_Blue_Cracked_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-658d9b3f853a0683-stand",
+      "name": "Bolete_Blue_Cracked_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-348946817cc54cdb-stand",
+      "name": "Bolete_Cracked_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-99cdfdea4de594a7-stand",
+      "name": "Bolete_Cracked_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-81067e1ac182e36f-stand",
+      "name": "Bolete_Cracked_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-9558b22e3a04e571-stand",
+      "name": "Bolete_Cracked_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        13.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-406600176ef7149c-stand",
+      "name": "Chanterelle_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c64ed1dfcd12ac40-stand",
+      "name": "Chanterelle_10展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0f6c2106c8284832-stand",
+      "name": "Chanterelle_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-393af67e04b5f126-stand",
+      "name": "Chanterelle_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-d758d286d1359321-stand",
+      "name": "Chanterelle_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-a75c9bcd02446b60-stand",
+      "name": "Chanterelle_5展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-2810180fd4c40bcc-stand",
+      "name": "Chanterelle_6展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-37c45ba43955e693-stand",
+      "name": "Chanterelle_7展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ae68f8cecb48d8c7-stand",
+      "name": "Chanterelle_8展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-37d24c3c955f4f39-stand",
+      "name": "Chanterelle_9展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-b6b1c81abea76ef7-stand",
+      "name": "Chicken_of_the_Woods_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c77bb277c2d21290-stand",
+      "name": "Chicken_of_the_Woods_10展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-14c3e48976bc5366-stand",
+      "name": "Chicken_of_the_Woods_11展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-38e32e47ebb4c3ce-stand",
+      "name": "Chicken_of_the_Woods_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-65805a58948ae0b2-stand",
+      "name": "Chicken_of_the_Woods_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c402e4a036b00860-stand",
+      "name": "Chicken_of_the_Woods_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-597c77a7d3459ef6-stand",
+      "name": "Chicken_of_the_Woods_5展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-9eec1396e1d7c0fd-stand",
+      "name": "Chicken_of_the_Woods_6展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0a64723cce05d0df-stand",
+      "name": "Chicken_of_the_Woods_7展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-f28af0612aed5629-stand",
+      "name": "Chicken_of_the_Woods_8展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-1f4f132e82585ada-stand",
+      "name": "Chicken_of_the_Woods_9展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0bae71ddc52fd474-stand",
+      "name": "Cremini_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c6a20f3d8d63ae2b-stand",
+      "name": "Cremini_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-8af13017cc56463c-stand",
+      "name": "Jack_O_Lantern_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-042ae24d09143f4d-stand",
+      "name": "Jack_O_Lantern_10展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-a48a5bacfc8cdeff-stand",
+      "name": "Jack_O_Lantern_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-146c696328b6039f-stand",
+      "name": "Jack_O_Lantern_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ac52ca3603205306-stand",
+      "name": "Jack_O_Lantern_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-e7dca58f1d1d61fd-stand",
+      "name": "Jack_O_Lantern_5展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-9480c018e609ea31-stand",
+      "name": "Jack_O_Lantern_6展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-306a25fff461aa97-stand",
+      "name": "Jack_O_Lantern_7展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-cbdc0d4d6fa1f658-stand",
+      "name": "Jack_O_Lantern_8展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-752cbd2092584cb0-stand",
+      "name": "Jack_O_Lantern_9展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-899241b58869b865-stand",
+      "name": "Lions_Mane_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-48ee780403425ff3-stand",
+      "name": "Lions_Mane_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-e31d29360de09909-stand",
+      "name": "Lions_Mane_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -10.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-dfc15721c08cf7c0-stand",
+      "name": "Morel_1展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -14.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-a84198d413961e64-stand",
+      "name": "Morel_2展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -14.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-c4f8318941723b35-stand",
+      "name": "Morel_3展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -14.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-143bce86268a7c30-stand",
+      "name": "Morel_4展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -14.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-94b6f1b201a92030-stand",
+      "name": "Morel_5展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -14.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-3f27686a19ce5f5b-stand",
+      "name": "Morel_6展台",
+      "parentId": "transform:category-mushrooms-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -14.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ca72e76269d6a9ce-stand",
+      "name": "Morel_Red_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-8c0625f8520825df-stand",
+      "name": "Morel_Red_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-09a1fece76216e4a-stand",
+      "name": "Morel_Red_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-5831d6d82958be6c-stand",
+      "name": "Morel_Red_4展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-53fca8a98d74af4b-stand",
+      "name": "Morel_Red_5展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-573b221c7843eb85-stand",
+      "name": "Morel_Red_6展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        25.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-0b14877ca01ab544-stand",
+      "name": "Oyster_Blue_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-5ccd2ef5941c432d-stand",
+      "name": "Oyster_Blue_1_Side展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-e89b85727343d896-stand",
+      "name": "Oyster_Blue_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-364f6a24c16cd33e-stand",
+      "name": "Oyster_Blue_2_Side展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-fb1e978cef5bcd7b-stand",
+      "name": "Oyster_Blue_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-2ae4a828af71f875-stand",
+      "name": "Oyster_Blue_3_Side展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        21.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-a42e8389e256c246-stand",
+      "name": "Oyster_Pearl_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-eaa61760de462097-stand",
+      "name": "Oyster_Pearl_1_Side展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-9186fd478a4194b5-stand",
+      "name": "Oyster_Pearl_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-5ac57ec7eece176b-stand",
+      "name": "Oyster_Pearl_2_Side展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-27d3c45fa5e00e44-stand",
+      "name": "Oyster_Pearl_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-8f190ffdcdcb65f2-stand",
+      "name": "Oyster_Pearl_3_Side展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        17.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-e6e8d33d66e14f42-stand",
+      "name": "Portobello_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-46ba8a0dbb8d2030-stand",
+      "name": "Portobello_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-86e3ff1ea0bad260-stand",
+      "name": "Portobello_Cracked_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-400181c629751404-stand",
+      "name": "Portobello_Cracked_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-1a9521d9d239bbc4-stand",
+      "name": "Reishi_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-47c3635bcc3cb150-stand",
+      "name": "Reishi_10展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        13.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-583ec55b04b8de69-stand",
+      "name": "Reishi_11展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-3a4d6a4b0d516dc0-stand",
+      "name": "Reishi_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-2f07f9f38a4c24d6-stand",
+      "name": "Reishi_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-b5cf149f2403e771-stand",
+      "name": "Reishi_4展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-adbf5fcd8937b63d-stand",
+      "name": "Reishi_5展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-31d058b789b41f31-stand",
+      "name": "Reishi_6展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-3e71e8574ae271f7-stand",
+      "name": "Reishi_7展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-bc334e147caafcca-stand",
+      "name": "Reishi_8展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-5930f20dddf9b530-stand",
+      "name": "Reishi_9展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-b30e8926792d1698-stand",
+      "name": "Shiitake_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-e813b6c8e91341d2-stand",
+      "name": "Shiitake_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-c663199b7dd9709a-stand",
+      "name": "Shiitake_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-876f5b8916842284-stand",
+      "name": "Shiitake_4展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-74e4957dd0979d9a-stand",
+      "name": "Shiitake_5展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-2e63753cb9924c10-stand",
+      "name": "Shiitake_6展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-1b312c947757872b-stand",
+      "name": "Shiitake_Cracked_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-d9163242769de753-stand",
+      "name": "Shiitake_Cracked_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-57046ab7d4969a7a-stand",
+      "name": "Shiitake_Cracked_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-df2e49291364d865-stand",
+      "name": "Shiitake_Cracked_4展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-5efb67e9ec8ec6eb-stand",
+      "name": "Shiitake_Cracked_5展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-f2fc9db3f5850ef8-stand",
+      "name": "Shiitake_Cracked_6展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-3bfb9eb0cda2e425-stand",
+      "name": "Shiitake_Side_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-eb1589d9b5330efe-stand",
+      "name": "Shiitake_Side_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-aad68fd3ff481235-stand",
+      "name": "Shiitake_Side_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -2.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-4e67cd5d9b64c19c-stand",
+      "name": "Shiitake_Side_Cracked_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-9941093a93c57f75-stand",
+      "name": "Shiitake_Side_Cracked_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-53ae046a4069d7a3-stand",
+      "name": "Shiitake_Side_Cracked_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-14c1edd22d608f9e-stand",
+      "name": "Turkey_Tail_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-fc317c239503454f-stand",
+      "name": "Turkey_Tail_10展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-17e9c54c5e26e130-stand",
+      "name": "Turkey_Tail_11展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -6.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-2d80e4068c366628-stand",
+      "name": "Turkey_Tail_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-48381c1aef48a289-stand",
+      "name": "Turkey_Tail_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-6d19637b83ad59e8-stand",
+      "name": "Turkey_Tail_4展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-68bc730235bfa665-stand",
+      "name": "Turkey_Tail_5展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-845fc83ddd755797-stand",
+      "name": "Turkey_Tail_6展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-7d3be843b3a5efec-stand",
+      "name": "Turkey_Tail_7展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -10.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-40fd0ce48d74f780-stand",
+      "name": "Turkey_Tail_8展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-ff310301c4922560-stand",
+      "name": "Turkey_Tail_9展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-ffac35f727aa1239-stand",
+      "name": "White_Button_1展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-f9d0a2091316479c-stand",
+      "name": "White_Button_2展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-a77503b8b9bfed8f-stand",
+      "name": "White_Button_3展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-b72dff93674dfba7-stand",
+      "name": "White_Button_4展台",
+      "parentId": "transform:category-mushrooms-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -14.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-005f116fcec89a04-stand",
+      "name": "Grass展台",
+      "parentId": "transform:category-mycelium-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-55802c76886daf49-stand",
+      "name": "Mycelium_1展台",
+      "parentId": "transform:category-mycelium-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0efb6941a84aba54-stand",
+      "name": "Mycelium_2展台",
+      "parentId": "transform:category-mycelium-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-1adc49b2824a36c4-stand",
+      "name": "Mycelium_3展台",
+      "parentId": "transform:category-mycelium-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-994bf674969cf54a-stand",
+      "name": "Mycelium_4展台",
+      "parentId": "transform:category-mycelium-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-52c9c912aa5a04b7-stand",
+      "name": "Mycelium_Block展台",
+      "parentId": "transform:category-mycelium-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -21.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "kyle-fuji-d8102d35663f584c",
+      "name": "Mushrooms · Amanita_Muscaria_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Amanita_Muscaria_1.glb",
+      "position": [
+        -22,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.67928394,
+        15.67928394,
+        15.67928394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d891751b77825f46",
+      "name": "Mushrooms · Amanita_Muscaria_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Amanita_Muscaria_2.glb",
+      "position": [
+        -18,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.54000929,
+        10.54000929,
+        10.54000929
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-400e177d0cd3703e",
+      "name": "Mushrooms · Amanita_Muscaria_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Amanita_Muscaria_3.glb",
+      "position": [
+        -14,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.32486407,
+        8.32486407,
+        8.32486407
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2e0202b7ce49c134",
+      "name": "Mushrooms · Amanita_Muscaria_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Amanita_Muscaria_4.glb",
+      "position": [
+        -10,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.91183545,
+        29.91183545,
+        29.91183545
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6e152fdc3ae92176",
+      "name": "Mushrooms · Amanita_Muscaria_5",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Amanita_Muscaria_5.glb",
+      "position": [
+        -6,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.72278168,
+        15.72278168,
+        15.72278168
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-cfbfaa94bf01a219",
+      "name": "Mushrooms · Amanita_Muscaria_6",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Amanita_Muscaria_6.glb",
+      "position": [
+        -2,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.59581934,
+        10.59581934,
+        10.59581934
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-637ff39cf886e541",
+      "name": "Mushrooms · Amanita_Muscaria_7",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Amanita_Muscaria_7.glb",
+      "position": [
+        -22,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.35618377,
+        8.35618377,
+        8.35618377
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ca4fcb22f0b5530d",
+      "name": "Mushrooms · Amanita_Muscaria_8",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Amanita_Muscaria_8.glb",
+      "position": [
+        -18,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.44112567,
+        30.44112567,
+        30.44112567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-87218b77d14a6c1c",
+      "name": "Mushrooms · Bolete_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_1.glb",
+      "position": [
+        -14,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.41004208,
+        18.41004208,
+        18.41004208
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1120c0b12b070d20",
+      "name": "Mushrooms · Bolete_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_2.glb",
+      "position": [
+        -10,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.51157542,
+        18.51157542,
+        18.51157542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-fd6fbafb36939d61",
+      "name": "Mushrooms · Bolete_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_3.glb",
+      "position": [
+        -6,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.06639204,
+        9.06639204,
+        9.06639204
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c95728a86dc282c4",
+      "name": "Mushrooms · Bolete_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_4.glb",
+      "position": [
+        -2,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0867846,
+        9.0867846,
+        9.0867846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-dc84cfbd1b0e3aed",
+      "name": "Mushrooms · Bolete_Blue_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Blue_1.glb",
+      "position": [
+        -22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.41004208,
+        18.41004208,
+        18.41004208
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-087d765a1b2d7b69",
+      "name": "Mushrooms · Bolete_Blue_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Blue_2.glb",
+      "position": [
+        -18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.51157542,
+        18.51157542,
+        18.51157542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d52c5832dffcd7c1",
+      "name": "Mushrooms · Bolete_Blue_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Blue_3.glb",
+      "position": [
+        -14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.06639204,
+        9.06639204,
+        9.06639204
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-720b06764cabff9c",
+      "name": "Mushrooms · Bolete_Blue_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Blue_4.glb",
+      "position": [
+        -10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0867846,
+        9.0867846,
+        9.0867846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-bba845d1750c9330",
+      "name": "Mushrooms · Bolete_Blue_Cracked_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Blue_Cracked_1.glb",
+      "position": [
+        -6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.41004208,
+        18.41004208,
+        18.41004208
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-3c4c143e4ab9ebbc",
+      "name": "Mushrooms · Bolete_Blue_Cracked_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Blue_Cracked_2.glb",
+      "position": [
+        -2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.51157542,
+        18.51157542,
+        18.51157542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-4dff536efdd3091d",
+      "name": "Mushrooms · Bolete_Blue_Cracked_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Blue_Cracked_3.glb",
+      "position": [
+        -22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.06639204,
+        9.06639204,
+        9.06639204
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-658d9b3f853a0683",
+      "name": "Mushrooms · Bolete_Blue_Cracked_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Blue_Cracked_4.glb",
+      "position": [
+        -18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0867846,
+        9.0867846,
+        9.0867846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-348946817cc54cdb",
+      "name": "Mushrooms · Bolete_Cracked_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Cracked_1.glb",
+      "position": [
+        -14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.41004208,
+        18.41004208,
+        18.41004208
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-99cdfdea4de594a7",
+      "name": "Mushrooms · Bolete_Cracked_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Cracked_2.glb",
+      "position": [
+        -10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.51157542,
+        18.51157542,
+        18.51157542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-81067e1ac182e36f",
+      "name": "Mushrooms · Bolete_Cracked_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Cracked_3.glb",
+      "position": [
+        -6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.06639204,
+        9.06639204,
+        9.06639204
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9558b22e3a04e571",
+      "name": "Mushrooms · Bolete_Cracked_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Bolete_Cracked_4.glb",
+      "position": [
+        -2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0867846,
+        9.0867846,
+        9.0867846
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-406600176ef7149c",
+      "name": "Mushrooms · Chanterelle_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_1.glb",
+      "position": [
+        -22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.88740158,
+        20.88740158,
+        20.88740158
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c64ed1dfcd12ac40",
+      "name": "Mushrooms · Chanterelle_10",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_10.glb",
+      "position": [
+        -18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.87642723,
+        5.87642723,
+        5.87642723
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0f6c2106c8284832",
+      "name": "Mushrooms · Chanterelle_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_2.glb",
+      "position": [
+        -14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.03432651,
+        13.03432651,
+        13.03432651
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-393af67e04b5f126",
+      "name": "Mushrooms · Chanterelle_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_3.glb",
+      "position": [
+        -10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0436109,
+        9.0436109,
+        9.0436109
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d758d286d1359321",
+      "name": "Mushrooms · Chanterelle_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_4.glb",
+      "position": [
+        -6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        55.63566685,
+        55.63566685,
+        55.63566685
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a75c9bcd02446b60",
+      "name": "Mushrooms · Chanterelle_5",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_5.glb",
+      "position": [
+        -2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.84274048,
+        20.84274048,
+        20.84274048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2810180fd4c40bcc",
+      "name": "Mushrooms · Chanterelle_6",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_6.glb",
+      "position": [
+        -22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.05858828,
+        13.05858828,
+        13.05858828
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-37c45ba43955e693",
+      "name": "Mushrooms · Chanterelle_7",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_7.glb",
+      "position": [
+        -18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.06660202,
+        9.06660202,
+        9.06660202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ae68f8cecb48d8c7",
+      "name": "Mushrooms · Chanterelle_8",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_8.glb",
+      "position": [
+        -14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.0237796,
+        14.0237796,
+        14.0237796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-37d24c3c955f4f39",
+      "name": "Mushrooms · Chanterelle_9",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chanterelle_9.glb",
+      "position": [
+        -10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.37570792,
+        6.37570792,
+        6.37570792
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b6b1c81abea76ef7",
+      "name": "Mushrooms · Chicken_of_the_Woods_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_1.glb",
+      "position": [
+        -6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c77bb277c2d21290",
+      "name": "Mushrooms · Chicken_of_the_Woods_10",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_10.glb",
+      "position": [
+        -2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.31330441,
+        5.31330441,
+        5.31330441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-14c3e48976bc5366",
+      "name": "Mushrooms · Chicken_of_the_Woods_11",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_11.glb",
+      "position": [
+        -22,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.87642723,
+        5.87642723,
+        5.87642723
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-38e32e47ebb4c3ce",
+      "name": "Mushrooms · Chicken_of_the_Woods_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_2.glb",
+      "position": [
+        -18,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.28071748,
+        17.28071748,
+        17.28071748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-65805a58948ae0b2",
+      "name": "Mushrooms · Chicken_of_the_Woods_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_3.glb",
+      "position": [
+        -14,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c402e4a036b00860",
+      "name": "Mushrooms · Chicken_of_the_Woods_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_4.glb",
+      "position": [
+        -10,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-597c77a7d3459ef6",
+      "name": "Mushrooms · Chicken_of_the_Woods_5",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_5.glb",
+      "position": [
+        -6,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9eec1396e1d7c0fd",
+      "name": "Mushrooms · Chicken_of_the_Woods_6",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_6.glb",
+      "position": [
+        -2,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0a64723cce05d0df",
+      "name": "Mushrooms · Chicken_of_the_Woods_7",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_7.glb",
+      "position": [
+        -22,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f28af0612aed5629",
+      "name": "Mushrooms · Chicken_of_the_Woods_8",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_8.glb",
+      "position": [
+        -18,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.0237796,
+        14.0237796,
+        14.0237796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1f4f132e82585ada",
+      "name": "Mushrooms · Chicken_of_the_Woods_9",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Chicken_of_the_Woods_9.glb",
+      "position": [
+        -14,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.37570792,
+        6.37570792,
+        6.37570792
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0bae71ddc52fd474",
+      "name": "Mushrooms · Cremini_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Cremini_1.glb",
+      "position": [
+        -10,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.41524586,
+        23.41524586,
+        23.41524586
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c6a20f3d8d63ae2b",
+      "name": "Mushrooms · Cremini_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Cremini_2.glb",
+      "position": [
+        -6,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.6934081,
+        21.6934081,
+        21.6934081
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-8af13017cc56463c",
+      "name": "Mushrooms · Jack_O_Lantern_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_1.glb",
+      "position": [
+        -2,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.88740158,
+        20.88740158,
+        20.88740158
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-042ae24d09143f4d",
+      "name": "Mushrooms · Jack_O_Lantern_10",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_10.glb",
+      "position": [
+        -22,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.87642723,
+        5.87642723,
+        5.87642723
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a48a5bacfc8cdeff",
+      "name": "Mushrooms · Jack_O_Lantern_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_2.glb",
+      "position": [
+        -18,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.03432651,
+        13.03432651,
+        13.03432651
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-146c696328b6039f",
+      "name": "Mushrooms · Jack_O_Lantern_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_3.glb",
+      "position": [
+        -14,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.0436109,
+        9.0436109,
+        9.0436109
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ac52ca3603205306",
+      "name": "Mushrooms · Jack_O_Lantern_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_4.glb",
+      "position": [
+        -10,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        55.63566685,
+        55.63566685,
+        55.63566685
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e7dca58f1d1d61fd",
+      "name": "Mushrooms · Jack_O_Lantern_5",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_5.glb",
+      "position": [
+        -6,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.84274048,
+        20.84274048,
+        20.84274048
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9480c018e609ea31",
+      "name": "Mushrooms · Jack_O_Lantern_6",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_6.glb",
+      "position": [
+        -2,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.05858828,
+        13.05858828,
+        13.05858828
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-306a25fff461aa97",
+      "name": "Mushrooms · Jack_O_Lantern_7",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_7.glb",
+      "position": [
+        -22,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.06660202,
+        9.06660202,
+        9.06660202
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-cbdc0d4d6fa1f658",
+      "name": "Mushrooms · Jack_O_Lantern_8",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_8.glb",
+      "position": [
+        -18,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.0237796,
+        14.0237796,
+        14.0237796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-752cbd2092584cb0",
+      "name": "Mushrooms · Jack_O_Lantern_9",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Jack_O_Lantern_9.glb",
+      "position": [
+        -14,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.37570792,
+        6.37570792,
+        6.37570792
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-899241b58869b865",
+      "name": "Mushrooms · Lions_Mane_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Lions_Mane_1.glb",
+      "position": [
+        -10,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.69602812,
+        8.69602812,
+        8.69602812
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-48ee780403425ff3",
+      "name": "Mushrooms · Lions_Mane_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Lions_Mane_2.glb",
+      "position": [
+        -6,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.01690338,
+        21.01690338,
+        21.01690338
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e31d29360de09909",
+      "name": "Mushrooms · Lions_Mane_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Lions_Mane_3.glb",
+      "position": [
+        -2,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.76176515,
+        11.76176515,
+        11.76176515
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-dfc15721c08cf7c0",
+      "name": "Mushrooms · Morel_1",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_1.glb",
+      "position": [
+        -22,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.08281653,
+        29.08281653,
+        29.08281653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a84198d413961e64",
+      "name": "Mushrooms · Morel_2",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_2.glb",
+      "position": [
+        -18,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.08281653,
+        29.08281653,
+        29.08281653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c4f8318941723b35",
+      "name": "Mushrooms · Morel_3",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_3.glb",
+      "position": [
+        -14,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.46706271,
+        18.46706271,
+        18.46706271
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-143bce86268a7c30",
+      "name": "Mushrooms · Morel_4",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_4.glb",
+      "position": [
+        -10,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.42130773,
+        24.42130773,
+        24.42130773
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-94b6f1b201a92030",
+      "name": "Mushrooms · Morel_5",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_5.glb",
+      "position": [
+        -6,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.91892714,
+        15.91892714,
+        15.91892714
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-3f27686a19ce5f5b",
+      "name": "Mushrooms · Morel_6",
+      "parentId": "transform:category-mushrooms-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_6.glb",
+      "position": [
+        -2,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.89951524,
+        14.89951524,
+        14.89951524
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ca72e76269d6a9ce",
+      "name": "Mushrooms · Morel_Red_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_Red_1.glb",
+      "position": [
+        2,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.08281653,
+        29.08281653,
+        29.08281653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-8c0625f8520825df",
+      "name": "Mushrooms · Morel_Red_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_Red_2.glb",
+      "position": [
+        6,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.08281653,
+        29.08281653,
+        29.08281653
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-09a1fece76216e4a",
+      "name": "Mushrooms · Morel_Red_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_Red_3.glb",
+      "position": [
+        10,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.46706271,
+        18.46706271,
+        18.46706271
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-5831d6d82958be6c",
+      "name": "Mushrooms · Morel_Red_4",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_Red_4.glb",
+      "position": [
+        14,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.42130773,
+        24.42130773,
+        24.42130773
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-53fca8a98d74af4b",
+      "name": "Mushrooms · Morel_Red_5",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_Red_5.glb",
+      "position": [
+        18,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.91892714,
+        15.91892714,
+        15.91892714
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-573b221c7843eb85",
+      "name": "Mushrooms · Morel_Red_6",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Morel_Red_6.glb",
+      "position": [
+        22,
+        0,
+        25.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.89951524,
+        14.89951524,
+        14.89951524
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0b14877ca01ab544",
+      "name": "Mushrooms · Oyster_Blue_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Blue_1.glb",
+      "position": [
+        2,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.96644017,
+        15.96644017,
+        15.96644017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-5ccd2ef5941c432d",
+      "name": "Mushrooms · Oyster_Blue_1_Side",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Blue_1_Side.glb",
+      "position": [
+        6,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.56113533,
+        16.56113533,
+        16.56113533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e89b85727343d896",
+      "name": "Mushrooms · Oyster_Blue_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Blue_2.glb",
+      "position": [
+        10,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.25204205,
+        10.25204205,
+        10.25204205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-364f6a24c16cd33e",
+      "name": "Mushrooms · Oyster_Blue_2_Side",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Blue_2_Side.glb",
+      "position": [
+        14,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.25204205,
+        10.25204205,
+        10.25204205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-fb1e978cef5bcd7b",
+      "name": "Mushrooms · Oyster_Blue_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Blue_3.glb",
+      "position": [
+        18,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.2910199,
+        32.2910199,
+        32.2910199
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2ae4a828af71f875",
+      "name": "Mushrooms · Oyster_Blue_3_Side",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Blue_3_Side.glb",
+      "position": [
+        22,
+        0,
+        21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.09371521,
+        30.09371521,
+        30.09371521
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a42e8389e256c246",
+      "name": "Mushrooms · Oyster_Pearl_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Pearl_1.glb",
+      "position": [
+        2,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.96644017,
+        15.96644017,
+        15.96644017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-eaa61760de462097",
+      "name": "Mushrooms · Oyster_Pearl_1_Side",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Pearl_1_Side.glb",
+      "position": [
+        6,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.56113533,
+        16.56113533,
+        16.56113533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9186fd478a4194b5",
+      "name": "Mushrooms · Oyster_Pearl_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Pearl_2.glb",
+      "position": [
+        10,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.25204205,
+        10.25204205,
+        10.25204205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-5ac57ec7eece176b",
+      "name": "Mushrooms · Oyster_Pearl_2_Side",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Pearl_2_Side.glb",
+      "position": [
+        14,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.25204205,
+        10.25204205,
+        10.25204205
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-27d3c45fa5e00e44",
+      "name": "Mushrooms · Oyster_Pearl_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Pearl_3.glb",
+      "position": [
+        18,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.2910199,
+        32.2910199,
+        32.2910199
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-8f190ffdcdcb65f2",
+      "name": "Mushrooms · Oyster_Pearl_3_Side",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Oyster_Pearl_3_Side.glb",
+      "position": [
+        22,
+        0,
+        17.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.09371521,
+        30.09371521,
+        30.09371521
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e6e8d33d66e14f42",
+      "name": "Mushrooms · Portobello_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Portobello_1.glb",
+      "position": [
+        2,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.93958808,
+        10.93958808,
+        10.93958808
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-46ba8a0dbb8d2030",
+      "name": "Mushrooms · Portobello_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Portobello_2.glb",
+      "position": [
+        6,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.93958872,
+        10.93958872,
+        10.93958872
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-86e3ff1ea0bad260",
+      "name": "Mushrooms · Portobello_Cracked_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Portobello_Cracked_1.glb",
+      "position": [
+        10,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.93958808,
+        10.93958808,
+        10.93958808
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-400181c629751404",
+      "name": "Mushrooms · Portobello_Cracked_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Portobello_Cracked_2.glb",
+      "position": [
+        14,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.78475345,
+        10.78475345,
+        10.78475345
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1a9521d9d239bbc4",
+      "name": "Mushrooms · Reishi_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_1.glb",
+      "position": [
+        18,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-47c3635bcc3cb150",
+      "name": "Mushrooms · Reishi_10",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_10.glb",
+      "position": [
+        22,
+        0,
+        13.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.31330441,
+        5.31330441,
+        5.31330441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-583ec55b04b8de69",
+      "name": "Mushrooms · Reishi_11",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_11.glb",
+      "position": [
+        2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.87642723,
+        5.87642723,
+        5.87642723
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-3a4d6a4b0d516dc0",
+      "name": "Mushrooms · Reishi_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_2.glb",
+      "position": [
+        6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.28071748,
+        17.28071748,
+        17.28071748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2f07f9f38a4c24d6",
+      "name": "Mushrooms · Reishi_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_3.glb",
+      "position": [
+        10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b5cf149f2403e771",
+      "name": "Mushrooms · Reishi_4",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_4.glb",
+      "position": [
+        14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-adbf5fcd8937b63d",
+      "name": "Mushrooms · Reishi_5",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_5.glb",
+      "position": [
+        18,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-31d058b789b41f31",
+      "name": "Mushrooms · Reishi_6",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_6.glb",
+      "position": [
+        22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-3e71e8574ae271f7",
+      "name": "Mushrooms · Reishi_7",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_7.glb",
+      "position": [
+        2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-bc334e147caafcca",
+      "name": "Mushrooms · Reishi_8",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_8.glb",
+      "position": [
+        6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.0237796,
+        14.0237796,
+        14.0237796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-5930f20dddf9b530",
+      "name": "Mushrooms · Reishi_9",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Reishi_9.glb",
+      "position": [
+        10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.37570792,
+        6.37570792,
+        6.37570792
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b30e8926792d1698",
+      "name": "Mushrooms · Shiitake_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_1.glb",
+      "position": [
+        14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.42602655,
+        20.42602655,
+        20.42602655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e813b6c8e91341d2",
+      "name": "Mushrooms · Shiitake_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_2.glb",
+      "position": [
+        18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.42602655,
+        20.42602655,
+        20.42602655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c663199b7dd9709a",
+      "name": "Mushrooms · Shiitake_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_3.glb",
+      "position": [
+        22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        34.96524856,
+        34.96524856,
+        34.96524856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-876f5b8916842284",
+      "name": "Mushrooms · Shiitake_4",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_4.glb",
+      "position": [
+        2,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.0891607,
+        32.0891607,
+        32.0891607
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-74e4957dd0979d9a",
+      "name": "Mushrooms · Shiitake_5",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_5.glb",
+      "position": [
+        6,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.89400035,
+        11.89400035,
+        11.89400035
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2e63753cb9924c10",
+      "name": "Mushrooms · Shiitake_6",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_6.glb",
+      "position": [
+        10,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.89400035,
+        11.89400035,
+        11.89400035
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1b312c947757872b",
+      "name": "Mushrooms · Shiitake_Cracked_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Cracked_1.glb",
+      "position": [
+        14,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.42602655,
+        20.42602655,
+        20.42602655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d9163242769de753",
+      "name": "Mushrooms · Shiitake_Cracked_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Cracked_2.glb",
+      "position": [
+        18,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.42602655,
+        20.42602655,
+        20.42602655
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-57046ab7d4969a7a",
+      "name": "Mushrooms · Shiitake_Cracked_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Cracked_3.glb",
+      "position": [
+        22,
+        0,
+        1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        34.96524856,
+        34.96524856,
+        34.96524856
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-df2e49291364d865",
+      "name": "Mushrooms · Shiitake_Cracked_4",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Cracked_4.glb",
+      "position": [
+        2,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.0891607,
+        32.0891607,
+        32.0891607
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-5efb67e9ec8ec6eb",
+      "name": "Mushrooms · Shiitake_Cracked_5",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Cracked_5.glb",
+      "position": [
+        6,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.89400035,
+        11.89400035,
+        11.89400035
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f2fc9db3f5850ef8",
+      "name": "Mushrooms · Shiitake_Cracked_6",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Cracked_6.glb",
+      "position": [
+        10,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.89400035,
+        11.89400035,
+        11.89400035
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-3bfb9eb0cda2e425",
+      "name": "Mushrooms · Shiitake_Side_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Side_1.glb",
+      "position": [
+        14,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.2620308,
+        18.2620308,
+        18.2620308
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-eb1589d9b5330efe",
+      "name": "Mushrooms · Shiitake_Side_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Side_2.glb",
+      "position": [
+        18,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        52.56572719,
+        52.56572719,
+        52.56572719
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-aad68fd3ff481235",
+      "name": "Mushrooms · Shiitake_Side_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Side_3.glb",
+      "position": [
+        22,
+        0,
+        -2.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.93141907,
+        10.93141907,
+        10.93141907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-4e67cd5d9b64c19c",
+      "name": "Mushrooms · Shiitake_Side_Cracked_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Side_Cracked_1.glb",
+      "position": [
+        2,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.2620308,
+        18.2620308,
+        18.2620308
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9941093a93c57f75",
+      "name": "Mushrooms · Shiitake_Side_Cracked_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Side_Cracked_2.glb",
+      "position": [
+        6,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        52.56572719,
+        52.56572719,
+        52.56572719
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-53ae046a4069d7a3",
+      "name": "Mushrooms · Shiitake_Side_Cracked_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Shiitake_Side_Cracked_3.glb",
+      "position": [
+        10,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.93141907,
+        10.93141907,
+        10.93141907
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-14c1edd22d608f9e",
+      "name": "Mushrooms · Turkey_Tail_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_1.glb",
+      "position": [
+        14,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-fc317c239503454f",
+      "name": "Mushrooms · Turkey_Tail_10",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_10.glb",
+      "position": [
+        18,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.31330441,
+        5.31330441,
+        5.31330441
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-17e9c54c5e26e130",
+      "name": "Mushrooms · Turkey_Tail_11",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_11.glb",
+      "position": [
+        22,
+        0,
+        -6.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.87642723,
+        5.87642723,
+        5.87642723
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2d80e4068c366628",
+      "name": "Mushrooms · Turkey_Tail_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_2.glb",
+      "position": [
+        2,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.28071748,
+        17.28071748,
+        17.28071748
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-48381c1aef48a289",
+      "name": "Mushrooms · Turkey_Tail_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_3.glb",
+      "position": [
+        6,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6d19637b83ad59e8",
+      "name": "Mushrooms · Turkey_Tail_4",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_4.glb",
+      "position": [
+        10,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-68bc730235bfa665",
+      "name": "Mushrooms · Turkey_Tail_5",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_5.glb",
+      "position": [
+        14,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-845fc83ddd755797",
+      "name": "Mushrooms · Turkey_Tail_6",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_6.glb",
+      "position": [
+        18,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-7d3be843b3a5efec",
+      "name": "Mushrooms · Turkey_Tail_7",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_7.glb",
+      "position": [
+        22,
+        0,
+        -10.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.315795,
+        7.315795,
+        7.315795
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-40fd0ce48d74f780",
+      "name": "Mushrooms · Turkey_Tail_8",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_8.glb",
+      "position": [
+        2,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.0237796,
+        14.0237796,
+        14.0237796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ff310301c4922560",
+      "name": "Mushrooms · Turkey_Tail_9",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/Turkey_Tail_9.glb",
+      "position": [
+        6,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.37570792,
+        6.37570792,
+        6.37570792
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ffac35f727aa1239",
+      "name": "Mushrooms · White_Button_1",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/White_Button_1.glb",
+      "position": [
+        10,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.00092796,
+        26.00092796,
+        26.00092796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f9d0a2091316479c",
+      "name": "Mushrooms · White_Button_2",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/White_Button_2.glb",
+      "position": [
+        14,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.70887081,
+        25.70887081,
+        25.70887081
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a77503b8b9bfed8f",
+      "name": "Mushrooms · White_Button_3",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/White_Button_3.glb",
+      "position": [
+        18,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        39.90489313,
+        39.90489313,
+        39.90489313
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b72dff93674dfba7",
+      "name": "Mushrooms · White_Button_4",
+      "parentId": "transform:category-mushrooms-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mushrooms/White_Button_4.glb",
+      "position": [
+        22,
+        0,
+        -14.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        39.23009913,
+        39.23009913,
+        39.23009913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-005f116fcec89a04",
+      "name": "Mycelium · Grass",
+      "parentId": "transform:category-mycelium-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mycelium/Grass.glb",
+      "position": [
+        -22,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.94515395,
+        18.94515395,
+        18.94515395
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-55802c76886daf49",
+      "name": "Mycelium · Mycelium_1",
+      "parentId": "transform:category-mycelium-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mycelium/Mycelium_1.glb",
+      "position": [
+        -18,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.96867893,
+        3.96867893,
+        3.96867893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0efb6941a84aba54",
+      "name": "Mycelium · Mycelium_2",
+      "parentId": "transform:category-mycelium-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mycelium/Mycelium_2.glb",
+      "position": [
+        -14,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.96867893,
+        3.96867893,
+        3.96867893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1adc49b2824a36c4",
+      "name": "Mycelium · Mycelium_3",
+      "parentId": "transform:category-mycelium-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mycelium/Mycelium_3.glb",
+      "position": [
+        -10,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.96867893,
+        3.96867893,
+        3.96867893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-994bf674969cf54a",
+      "name": "Mycelium · Mycelium_4",
+      "parentId": "transform:category-mycelium-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mycelium/Mycelium_4.glb",
+      "position": [
+        -6,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.96867893,
+        3.96867893,
+        3.96867893
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-52c9c912aa5a04b7",
+      "name": "Mycelium · Mycelium_Block",
+      "parentId": "transform:category-mycelium-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Mycelium/Mycelium_Block.glb",
+      "position": [
+        -2,
+        0,
+        -21.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.66666546,
+        6.66666546,
+        6.66666546
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

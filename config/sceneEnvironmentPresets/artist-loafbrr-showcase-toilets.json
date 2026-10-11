@@ -1,0 +1,545 @@
+{
+  "presetKey": "artist-loafbrr-showcase-toilets",
+  "name": "Loafbrr · Toilets · 11模型 · 模型 0.74 MiB + 贴图 0.90 MiB · 合计 1.64 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-toilets-0",
+      "name": "Toilets",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 13
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-6e9947f90c317038-stand",
+      "name": "Sink_A展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b58b43c44724486a-stand",
+      "name": "Sink_B展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-de24398196fc1ceb-stand",
+      "name": "Sink_C展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8c1a93a4dd91faa4-stand",
+      "name": "Toilet_Elongated_A展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b7bcaa4dcef7cd35-stand",
+      "name": "Toilet_Elongated_B展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a0da8f8285f22b44-stand",
+      "name": "Toilet_Elongated_C展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1f724f4ffdabeccf-stand",
+      "name": "Toilet_Round_A展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4305181603fcc52e-stand",
+      "name": "Toilet_Round_B展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1ccf87ce4ef8fff5-stand",
+      "name": "Toilet_Round_C展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9e35961209f3a7f5-stand",
+      "name": "Urinal_A展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c77d41a4b92c8e28-stand",
+      "name": "Urinal_B展台",
+      "parentId": "transform:category-toilets-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-6e9947f90c317038",
+      "name": "Toilets · Sink_A · 模型 0.03 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Sink_A.glb",
+      "position": [
+        -21.99999995,
+        2e-7,
+        3.99999982
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.82926761,
+        6.82926761,
+        6.82926761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b58b43c44724486a",
+      "name": "Toilets · Sink_B · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Sink_B.glb",
+      "position": [
+        -17.99999983,
+        8e-8,
+        4.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.59999933,
+        5.59999933,
+        5.59999933
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-de24398196fc1ceb",
+      "name": "Toilets · Sink_C · 模型 0.03 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Sink_C.glb",
+      "position": [
+        -13.99999998,
+        0,
+        3.99999993
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.27626683,
+        3.27626683,
+        3.27626683
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8c1a93a4dd91faa4",
+      "name": "Toilets · Toilet_Elongated_A · 模型 0.08 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Toilet_Elongated_A.glb",
+      "position": [
+        -9.99999997,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.22152966,
+        4.22152966,
+        4.22152966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b7bcaa4dcef7cd35",
+      "name": "Toilets · Toilet_Elongated_B · 模型 0.08 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Toilet_Elongated_B.glb",
+      "position": [
+        -5.99999997,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.13263821,
+        4.13263821,
+        4.13263821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a0da8f8285f22b44",
+      "name": "Toilets · Toilet_Elongated_C · 模型 0.10 MiB · 贴图 0.24 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Toilet_Elongated_C.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.66625437,
+        3.66625437,
+        3.66625437
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1f724f4ffdabeccf",
+      "name": "Toilets · Toilet_Round_A · 模型 0.08 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Toilet_Round_A.glb",
+      "position": [
+        -20,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.22152947,
+        4.22152947,
+        4.22152947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4305181603fcc52e",
+      "name": "Toilets · Toilet_Round_B · 模型 0.08 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Toilet_Round_B.glb",
+      "position": [
+        -15.99999975,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.13263839,
+        4.13263839,
+        4.13263839
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1ccf87ce4ef8fff5",
+      "name": "Toilets · Toilet_Round_C · 模型 0.10 MiB · 贴图 0.29 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Toilet_Round_C.glb",
+      "position": [
+        -11.99999978,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.66625437,
+        3.66625437,
+        3.66625437
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9e35961209f3a7f5",
+      "name": "Toilets · Urinal_A · 模型 0.07 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Urinal_A.glb",
+      "position": [
+        -8,
+        0,
+        2.3e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.50569175,
+        4.50569175,
+        4.50569175
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c77d41a4b92c8e28",
+      "name": "Toilets · Urinal_B · 模型 0.07 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-toilets-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Toilets/Urinal_B.glb",
+      "position": [
+        -4,
+        0,
+        1.3e-7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.06320161,
+        5.06320161,
+        5.06320161
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

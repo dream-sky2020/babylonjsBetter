@@ -1,0 +1,690 @@
+{
+  "presetKey": "artist-acchihaven-model-test",
+  "name": "acchihaven · 模型展示（13 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "flashlights",
+      "name": "手电筒分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "knives",
+      "name": "刀具分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "fridge",
+      "name": "冰箱分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "television",
+      "name": "电视与设备分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 27
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "flashlights-flashlight_001-stand",
+      "name": "FlashLight_001展台",
+      "parentId": "transform:flashlights",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        12.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "flashlights-flashlight_002-stand",
+      "name": "FlashLight_002展台",
+      "parentId": "transform:flashlights",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        12.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "flashlights-flashlight_003-stand",
+      "name": "FlashLight_003展台",
+      "parentId": "transform:flashlights",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        12.5
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "knives-knife_001-stand",
+      "name": "knife_001展台",
+      "parentId": "transform:knives",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "knives-knife_002-stand",
+      "name": "knife_002展台",
+      "parentId": "transform:knives",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "knives-knife_003-stand",
+      "name": "knife_003展台",
+      "parentId": "transform:knives",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "knives-knife_004-stand",
+      "name": "knife_004展台",
+      "parentId": "transform:knives",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        5.5
+      ],
+      "color": "#7e919b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "fridge-fridge-stand",
+      "name": "Fridge展台",
+      "parentId": "transform:fridge",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -1.5
+      ],
+      "color": "#91836f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "television-retrotv-stand",
+      "name": "RetroTV展台",
+      "parentId": "transform:television",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -8.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "television-tablecloth-stand",
+      "name": "TableCloth展台",
+      "parentId": "transform:television",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -8.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "television-tv_stand-stand",
+      "name": "TV_Stand展台",
+      "parentId": "transform:television",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -8.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "television-vcr_player-stand",
+      "name": "VCR_Player展台",
+      "parentId": "transform:television",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -8.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "television-wire_switchboard-stand",
+      "name": "Wire_Switchboard展台",
+      "parentId": "transform:television",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -8.5
+      ],
+      "color": "#7c859e",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "flashlights-flashlight_001",
+      "name": "FlashLight_001",
+      "parentId": "transform:flashlights",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Flashlights/FlashLight_001.glb",
+      "position": [
+        -4,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.81620082,
+        8.81620082,
+        8.81620082
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "flashlights-flashlight_002",
+      "name": "FlashLight_002",
+      "parentId": "transform:flashlights",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Flashlights/FlashLight_002.glb",
+      "position": [
+        0,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.34952692,
+        9.34952692,
+        9.34952692
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "flashlights-flashlight_003",
+      "name": "FlashLight_003",
+      "parentId": "transform:flashlights",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Flashlights/FlashLight_003.glb",
+      "position": [
+        4,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.67349249,
+        18.67349249,
+        18.67349249
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "knives-knife_001",
+      "name": "knife_001",
+      "parentId": "transform:knives",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Knives/knife_001.glb",
+      "position": [
+        -6,
+        0,
+        5.50000067
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.81358548,
+        2.81358548,
+        2.81358548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "knives-knife_002",
+      "name": "knife_002",
+      "parentId": "transform:knives",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Knives/knife_002.glb",
+      "position": [
+        -2.00000007,
+        0,
+        5.49999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.45694401,
+        3.45694401,
+        3.45694401
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "knives-knife_003",
+      "name": "knife_003",
+      "parentId": "transform:knives",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Knives/knife_003.glb",
+      "position": [
+        1.99999998,
+        0,
+        5.49999996
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.84963554,
+        2.84963554,
+        2.84963554
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "knives-knife_004",
+      "name": "knife_004",
+      "parentId": "transform:knives",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Knives/knife_004.glb",
+      "position": [
+        6.00000001,
+        0,
+        5.50000062
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5943078,
+        3.5943078,
+        3.5943078
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "fridge-fridge",
+      "name": "Fridge",
+      "parentId": "transform:fridge",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Fridge/Fridge.glb",
+      "position": [
+        0,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "scaling": [
+        1.52781089,
+        1.52781089,
+        1.52781089
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "television-retrotv",
+      "name": "RetroTV",
+      "parentId": "transform:television",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Television/RetroTV.glb",
+      "position": [
+        -8,
+        0,
+        -8.5
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        2.59736337,
+        2.59736337,
+        2.59736337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "television-tablecloth",
+      "name": "TableCloth",
+      "parentId": "transform:television",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Television/TableCloth.glb",
+      "position": [
+        -4,
+        0,
+        -8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.0839634,
+        2.0839634,
+        2.0839634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "television-tv_stand",
+      "name": "TV_Stand",
+      "parentId": "transform:television",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Television/TV_Stand.glb",
+      "position": [
+        0,
+        0,
+        -8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.17269264,
+        2.17269264,
+        2.17269264
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "television-vcr_player",
+      "name": "VCR_Player",
+      "parentId": "transform:television",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Television/VCR_Player.glb",
+      "position": [
+        4,
+        0,
+        -8.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.78606505,
+        4.78606505,
+        4.78606505
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "television-wire_switchboard",
+      "name": "Wire_Switchboard",
+      "parentId": "transform:television",
+      "modelPath": "resources/Model/GLB/artist_acchihaven/Television/Wire_Switchboard.glb",
+      "position": [
+        8,
+        0,
+        -8.50000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.70018283,
+        3.70018283,
+        3.70018283
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

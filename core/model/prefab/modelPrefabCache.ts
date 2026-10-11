@@ -7,6 +7,9 @@ import {
   type Scene
 } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
+import { GLTFLoaderAnimationStartMode } from '@babylonjs/loaders/glTF/glTFFileLoader';
+import '../material/sharedTextureLoader.ts';
+import { resolveModelDependencyUrl } from '../material/modelTextureCache.ts';
 import { resolvePublicResourceUrl } from '@/core/resources/appAssetUrl.ts';
 
 export type ModelPrefabInstance = {
@@ -26,6 +29,7 @@ export type ModelPrefabCacheStats = {
 type PrefabEntry = {
   containerPromise: Promise<AssetContainer>;
   activeInstances: number;
+  retired?: boolean;
 };
 
 type ScenePrefabCache = {
@@ -53,8 +57,12 @@ const loadPrefab = (scene: Scene, sourcePath: string, cache: ScenePrefabCache): 
   cache.loadCount += 1;
   const entry: PrefabEntry = {
     activeInstances: 0,
-    containerPromise: LoadAssetContainerAsync(sourcePath, scene).catch((error: unknown) => {
-      cache.entries.delete(sourcePath);
+    // Cached source nodes must stay in their authored pose. Playback belongs to
+    // each instance's autoPlayAnimation/playAnimation, never the hidden prefab.
+    containerPromise: LoadAssetContainerAsync(sourcePath, scene, { pluginOptions: { gltf: {
+      preprocessUrlAsync: resolveModelDependencyUrl, animationStartMode: GLTFLoaderAnimationStartMode.NONE
+    } } }).catch((error: unknown) => {
+      if (cache.entries.get(sourcePath) === entry) cache.entries.delete(sourcePath);
       throw error;
     })
   };
@@ -93,6 +101,7 @@ export const instantiateModelPrefab = async (
       released = true;
       prefab.activeInstances = Math.max(0, prefab.activeInstances - 1);
       entries.dispose();
+      if (prefab.retired && prefab.activeInstances === 0) container.dispose();
     }
   };
 };
@@ -113,7 +122,8 @@ export const clearModelPrefabCache = (scene: Scene): void => {
   if (!cache || cache.disposed) return;
   cache.disposed = true;
   for (const entry of cache.entries.values()) {
-    void entry.containerPromise.then((container) => container.dispose()).catch(() => undefined);
+    entry.retired = true;
+    if (scene.isDisposed || entry.activeInstances === 0) void entry.containerPromise.then((container) => container.dispose()).catch(() => undefined);
   }
   cache.entries.clear();
   sceneCaches.delete(scene);

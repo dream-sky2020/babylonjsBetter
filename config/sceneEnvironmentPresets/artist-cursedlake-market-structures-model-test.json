@@ -1,0 +1,815 @@
+{
+  "presetKey": "artist-cursedlake-market-structures-model-test",
+  "name": "Cursedlake · 集市摊棚、柜台与容器 · 模型展示（22 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "cursedlake-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "cursedlake-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "cursedlake-MarketStructures",
+      "name": "摊棚、柜台与容器",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "cursedlake-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 20,
+        "height": 34
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "cursedlake-MarketStructures-zone",
+      "name": "摊棚、柜台与容器分区",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 16.5,
+        "height": 0.1,
+        "depth": 24.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-1-stand",
+      "name": "集市棚架（含布顶和隔帘）展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-2-stand",
+      "name": "肉铺柜台（含箱墩、树墩、台板和桌布）展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-3-stand",
+      "name": "杂货桌（含台面与横撑）展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-4-stand",
+      "name": "树墩 · Stump_2展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-5-stand",
+      "name": "绳索 · Rope展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-6-stand",
+      "name": "木桶展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-7-stand",
+      "name": "肉铺木架展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-8-stand",
+      "name": "开口木箱 · OpenBox展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-9-stand",
+      "name": "藤篮 · WickerBasket展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-10-stand",
+      "name": "搁架 · Shelf展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-11-stand",
+      "name": "衣物展示人偶 · Mannequin展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-12-stand",
+      "name": "封口麻袋 · Sack展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-13-stand",
+      "name": "剑架 · SwordStand展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-14-stand",
+      "name": "盾牌挂梁展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-15-stand",
+      "name": "木桶二展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-16-stand",
+      "name": "木桶三展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -2
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-17-stand",
+      "name": "木箱 · WoodenBox.001展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-18-stand",
+      "name": "封口麻袋 · Sack.001展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-19-stand",
+      "name": "封口麻袋 · Sack.002展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-20-stand",
+      "name": "搁架 · Shelf.001展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -6
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-21-stand",
+      "name": "衣物展示人偶 · Mannequin.001展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -10
+      ],
+      "color": "#8c9e94"
+    },
+    {
+      "id": "cursedlake-MarketStructures-22-stand",
+      "name": "衣物展示人偶 · Mannequin.002展台",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -10
+      ],
+      "color": "#8c9e94"
+    }
+  ],
+  "models": [
+    {
+      "id": "cursedlake-MarketStructures-1",
+      "name": "集市棚架（含布顶和隔帘）",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Canopy.glb",
+      "position": [
+        -6,
+        0,
+        10
+      ],
+      "scaling": [
+        0.31731453,
+        0.31731453,
+        0.31731453
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-2",
+      "name": "肉铺柜台（含箱墩、树墩、台板和桌布）",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/ButcherCounter.glb",
+      "position": [
+        -2,
+        0,
+        10
+      ],
+      "scaling": [
+        1.01814166,
+        1.01814166,
+        1.01814166
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-3",
+      "name": "杂货桌（含台面与横撑）",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/HerbalTable.glb",
+      "position": [
+        2,
+        0,
+        10
+      ],
+      "scaling": [
+        1.19005168,
+        1.19005168,
+        1.19005168
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-4",
+      "name": "树墩 · Stump_2",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Stump_2.glb",
+      "position": [
+        6.00000038,
+        0,
+        10.00000011
+      ],
+      "scaling": [
+        3.62353734,
+        3.62353734,
+        3.62353734
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-5",
+      "name": "绳索 · Rope",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Rope.glb",
+      "position": [
+        -6,
+        2e-8,
+        6.00000002
+      ],
+      "scaling": [
+        0.9321786,
+        0.9321786,
+        0.9321786
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-6",
+      "name": "木桶",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Barrel.glb",
+      "position": [
+        -2,
+        0,
+        6
+      ],
+      "scaling": [
+        2.82745633,
+        2.82745633,
+        2.82745633
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-7",
+      "name": "肉铺木架",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/ButcherRack.glb",
+      "position": [
+        2,
+        0,
+        6.00000001
+      ],
+      "scaling": [
+        1.02558844,
+        1.02558844,
+        1.02558844
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-8",
+      "name": "开口木箱 · OpenBox",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/OpenBox.glb",
+      "position": [
+        6,
+        0,
+        6
+      ],
+      "scaling": [
+        2.59381586,
+        2.59381586,
+        2.59381586
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-9",
+      "name": "藤篮 · WickerBasket",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/WickerBasket.glb",
+      "position": [
+        -6.00000013,
+        0,
+        1.99999996
+      ],
+      "scaling": [
+        5.69307707,
+        5.69307707,
+        5.69307707
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-10",
+      "name": "搁架 · Shelf",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Shelf.glb",
+      "position": [
+        -2.00000004,
+        0,
+        2
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-11",
+      "name": "衣物展示人偶 · Mannequin",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Mannequin.glb",
+      "position": [
+        1.99999989,
+        0,
+        1.99999984
+      ],
+      "scaling": [
+        1.52893568,
+        1.52893568,
+        1.52893568
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-12",
+      "name": "封口麻袋 · Sack",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sack.glb",
+      "position": [
+        6,
+        0,
+        1.99999993
+      ],
+      "scaling": [
+        2.18993862,
+        2.18993862,
+        2.18993862
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-13",
+      "name": "剑架 · SwordStand",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/SwordStand.glb",
+      "position": [
+        -5.99999996,
+        0,
+        -2.00000026
+      ],
+      "scaling": [
+        2.46517268,
+        2.46517268,
+        2.46517268
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-14",
+      "name": "盾牌挂梁",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/ShieldRail.glb",
+      "position": [
+        -2,
+        -1e-7,
+        -2
+      ],
+      "scaling": [
+        0.93036322,
+        0.93036322,
+        0.93036322
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-15",
+      "name": "木桶二",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Barrel_001.glb",
+      "position": [
+        2,
+        0,
+        -2
+      ],
+      "scaling": [
+        2.82745633,
+        2.82745633,
+        2.82745633
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-16",
+      "name": "木桶三",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Barrel_002.glb",
+      "position": [
+        6,
+        -8e-8,
+        -2
+      ],
+      "scaling": [
+        2.82745633,
+        2.82745633,
+        2.82745633
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-17",
+      "name": "木箱 · WoodenBox.001",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/WoodenBox_001.glb",
+      "position": [
+        -6,
+        0,
+        -6
+      ],
+      "scaling": [
+        3.30606802,
+        3.30606802,
+        3.30606802
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-18",
+      "name": "封口麻袋 · Sack.001",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sack_001.glb",
+      "position": [
+        -2.00000013,
+        -2e-8,
+        -5.99999987
+      ],
+      "scaling": [
+        2.1100203,
+        2.1100203,
+        2.1100203
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-19",
+      "name": "封口麻袋 · Sack.002",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Sack_002.glb",
+      "position": [
+        1.99999981,
+        -2e-8,
+        -6
+      ],
+      "scaling": [
+        2.13159264,
+        2.13159264,
+        2.13159264
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-20",
+      "name": "搁架 · Shelf.001",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Shelf_001.glb",
+      "position": [
+        6,
+        0,
+        -6.00000021
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-21",
+      "name": "衣物展示人偶 · Mannequin.001",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Mannequin_001.glb",
+      "position": [
+        -6.00000001,
+        0,
+        -9.99999984
+      ],
+      "scaling": [
+        1.52893568,
+        1.52893568,
+        1.52893568
+      ]
+    },
+    {
+      "id": "cursedlake-MarketStructures-22",
+      "name": "衣物展示人偶 · Mannequin.002",
+      "parentId": "transform:cursedlake-MarketStructures",
+      "modelPath": "resources/Model/GLB/artist_cursedlake/Market/Parts/Mannequin_002.glb",
+      "position": [
+        -2,
+        0,
+        -10.00000011
+      ],
+      "scaling": [
+        1.52893568,
+        1.52893568,
+        1.52893568
+      ]
+    }
+  ]
+}

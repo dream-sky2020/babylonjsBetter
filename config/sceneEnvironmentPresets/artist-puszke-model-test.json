@@ -1,0 +1,651 @@
+{
+  "presetKey": "artist-puszke-model-test",
+  "name": "Puszke · 国际象棋（13 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "puszke-white",
+      "name": "puszke · 白棋六种",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "puszke-black",
+      "name": "puszke · 黑棋六种",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "puszke-board",
+      "name": "puszke · 棋盘",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 16
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "puszke-white-white_rook-stand",
+      "name": "White_Rook展台",
+      "parentId": "transform:puszke-white",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "puszke-white-white_pawn-stand",
+      "name": "White_Pawn展台",
+      "parentId": "transform:puszke-white",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "puszke-white-white_knight-stand",
+      "name": "White_Knight展台",
+      "parentId": "transform:puszke-white",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "puszke-white-white_bishop-stand",
+      "name": "White_Bishop展台",
+      "parentId": "transform:puszke-white",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "puszke-white-white_king-stand",
+      "name": "White_King展台",
+      "parentId": "transform:puszke-white",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "puszke-white-white_queen-stand",
+      "name": "White_Queen展台",
+      "parentId": "transform:puszke-white",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "puszke-black-black_pawn-stand",
+      "name": "Black_Pawn展台",
+      "parentId": "transform:puszke-black",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "puszke-black-black_rook-stand",
+      "name": "Black_Rook展台",
+      "parentId": "transform:puszke-black",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "puszke-black-black_knight-stand",
+      "name": "Black_Knight展台",
+      "parentId": "transform:puszke-black",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "puszke-black-black_bishop-stand",
+      "name": "Black_Bishop展台",
+      "parentId": "transform:puszke-black",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "puszke-black-black_king-stand",
+      "name": "Black_King展台",
+      "parentId": "transform:puszke-black",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "puszke-black-black_queen-stand",
+      "name": "Black_Queen展台",
+      "parentId": "transform:puszke-black",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "puszke-board-chessboard-stand",
+      "name": "Chessboard展台",
+      "parentId": "transform:puszke-board",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "puszke-white-white_rook",
+      "name": "puszke · White_Rook",
+      "parentId": "transform:puszke-white",
+      "modelPath": "resources/Model/GLB/artist_puszke/White/White_Rook.glb",
+      "position": [
+        -22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.73520822,
+        3.73520822,
+        3.73520822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-white-white_pawn",
+      "name": "puszke · White_Pawn",
+      "parentId": "transform:puszke-white",
+      "modelPath": "resources/Model/GLB/artist_puszke/White/White_Pawn.glb",
+      "position": [
+        -18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.13041242,
+        4.13041242,
+        4.13041242
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-white-white_knight",
+      "name": "puszke · White_Knight",
+      "parentId": "transform:puszke-white",
+      "modelPath": "resources/Model/GLB/artist_puszke/White/White_Knight.glb",
+      "position": [
+        -14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.70182742,
+        3.70182742,
+        3.70182742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-white-white_bishop",
+      "name": "puszke · White_Bishop",
+      "parentId": "transform:puszke-white",
+      "modelPath": "resources/Model/GLB/artist_puszke/White/White_Bishop.glb",
+      "position": [
+        -10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.89219044,
+        3.89219044,
+        3.89219044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-white-white_king",
+      "name": "puszke · White_King",
+      "parentId": "transform:puszke-white",
+      "modelPath": "resources/Model/GLB/artist_puszke/White/White_King.glb",
+      "position": [
+        -5.99999994,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.75792803,
+        3.75792803,
+        3.75792803
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-white-white_queen",
+      "name": "puszke · White_Queen",
+      "parentId": "transform:puszke-white",
+      "modelPath": "resources/Model/GLB/artist_puszke/White/White_Queen.glb",
+      "position": [
+        -2.00000006,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.83561007,
+        3.83561007,
+        3.83561007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-black-black_pawn",
+      "name": "puszke · Black_Pawn",
+      "parentId": "transform:puszke-black",
+      "modelPath": "resources/Model/GLB/artist_puszke/Black/Black_Pawn.glb",
+      "position": [
+        2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.13041242,
+        4.13041242,
+        4.13041242
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-black-black_rook",
+      "name": "puszke · Black_Rook",
+      "parentId": "transform:puszke-black",
+      "modelPath": "resources/Model/GLB/artist_puszke/Black/Black_Rook.glb",
+      "position": [
+        6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.73520822,
+        3.73520822,
+        3.73520822
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-black-black_knight",
+      "name": "puszke · Black_Knight",
+      "parentId": "transform:puszke-black",
+      "modelPath": "resources/Model/GLB/artist_puszke/Black/Black_Knight.glb",
+      "position": [
+        10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.70182742,
+        3.70182742,
+        3.70182742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-black-black_bishop",
+      "name": "puszke · Black_Bishop",
+      "parentId": "transform:puszke-black",
+      "modelPath": "resources/Model/GLB/artist_puszke/Black/Black_Bishop.glb",
+      "position": [
+        14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.89219044,
+        3.89219044,
+        3.89219044
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-black-black_king",
+      "name": "puszke · Black_King",
+      "parentId": "transform:puszke-black",
+      "modelPath": "resources/Model/GLB/artist_puszke/Black/Black_King.glb",
+      "position": [
+        18.00000006,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.75792803,
+        3.75792803,
+        3.75792803
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-black-black_queen",
+      "name": "puszke · Black_Queen",
+      "parentId": "transform:puszke-black",
+      "modelPath": "resources/Model/GLB/artist_puszke/Black/Black_Queen.glb",
+      "position": [
+        21.99999994,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.83561007,
+        3.83561007,
+        3.83561007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "puszke-board-chessboard",
+      "name": "puszke · Chessboard",
+      "parentId": "transform:puszke-board",
+      "modelPath": "resources/Model/GLB/artist_puszke/Board/Chessboard.glb",
+      "position": [
+        -12,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24609368,
+        0.24609368,
+        0.24609368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

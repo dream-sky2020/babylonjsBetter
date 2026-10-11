@@ -1,0 +1,1548 @@
+{
+  "presetKey": "artist-bricchi-games-model-test",
+  "name": "Bricchi Games · 复古道具与车辆（11 个模型 / 22 件展示）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "bricchi-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "bricchi-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -20,
+          35,
+          -20
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "bricchi-bats",
+      "name": "棒球棍 · 5 种形态与双配色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bricchi-car",
+      "name": "复古汽车 · 四种配色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bricchi-axe",
+      "name": "斧头",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bricchi-computer",
+      "name": "复古电脑",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bricchi-fridge",
+      "name": "冰箱 · 双配色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bricchi-jetski",
+      "name": "水上摩托",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "bricchi-milkshake",
+      "name": "奶昔机 · 三种配色",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "bricchi-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 36,
+        "height": 38
+      },
+      "position": [
+        0,
+        -0.22,
+        1
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-zone",
+      "name": "棒球棍 · 5 种形态与双配色分区",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 20.5,
+        "height": 0.1,
+        "depth": 8.5
+      },
+      "position": [
+        0,
+        -0.15,
+        12
+      ],
+      "color": "#8b796d"
+    },
+    {
+      "id": "bricchi-bats-1-stand",
+      "name": "棒球棍 01 · 配色 1展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        10
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-2-stand",
+      "name": "棒球棍 01 · 配色 2展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        10
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-3-stand",
+      "name": "棒球棍 02 · 配色 1展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        10
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-4-stand",
+      "name": "棒球棍 02 · 配色 2展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        10
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-5-stand",
+      "name": "棒球棍 03 · 配色 1展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        10
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-6-stand",
+      "name": "棒球棍 03 · 配色 2展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        14
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-7-stand",
+      "name": "棒球棍 04 · 配色 1展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        14
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-8-stand",
+      "name": "棒球棍 04 · 配色 2展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        14
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-9-stand",
+      "name": "棒球棍 05 · 配色 1展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        14
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-bats-10-stand",
+      "name": "棒球棍 05 · 配色 2展台",
+      "parentId": "transform:bricchi-bats",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        14
+      ],
+      "color": "#8b796d",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-car-zone",
+      "name": "复古汽车 · 四种配色分区",
+      "parentId": "transform:bricchi-car",
+      "geometry": {
+        "primitive": "box",
+        "width": 8.5,
+        "height": 0.1,
+        "depth": 8.5
+      },
+      "position": [
+        -8,
+        -0.15,
+        0
+      ],
+      "color": "#748997"
+    },
+    {
+      "id": "bricchi-car-1-stand",
+      "name": "复古汽车 · 黑色展台",
+      "parentId": "transform:bricchi-car",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -2
+      ],
+      "color": "#748997",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-car-2-stand",
+      "name": "复古汽车 · 蓝色展台",
+      "parentId": "transform:bricchi-car",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -2
+      ],
+      "color": "#748997",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-car-3-stand",
+      "name": "复古汽车 · 红色展台",
+      "parentId": "transform:bricchi-car",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        2
+      ],
+      "color": "#748997",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-car-4-stand",
+      "name": "复古汽车 · 白色展台",
+      "parentId": "transform:bricchi-car",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        2
+      ],
+      "color": "#748997",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-axe-zone",
+      "name": "斧头分区",
+      "parentId": "transform:bricchi-axe",
+      "geometry": {
+        "primitive": "box",
+        "width": 4.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        4,
+        -0.15,
+        4
+      ],
+      "color": "#8a8174"
+    },
+    {
+      "id": "bricchi-axe-1-stand",
+      "name": "斧头 · 原色展台",
+      "parentId": "transform:bricchi-axe",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        4
+      ],
+      "color": "#8a8174",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-computer-zone",
+      "name": "复古电脑分区",
+      "parentId": "transform:bricchi-computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 4.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        10,
+        -0.15,
+        4
+      ],
+      "color": "#8f8a7b"
+    },
+    {
+      "id": "bricchi-computer-1-stand",
+      "name": "复古电脑 · 原色展台",
+      "parentId": "transform:bricchi-computer",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        4
+      ],
+      "color": "#8f8a7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-fridge-zone",
+      "name": "冰箱 · 双配色分区",
+      "parentId": "transform:bricchi-fridge",
+      "geometry": {
+        "primitive": "box",
+        "width": 8.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        6,
+        -0.15,
+        -3
+      ],
+      "color": "#87978c"
+    },
+    {
+      "id": "bricchi-fridge-1-stand",
+      "name": "冰箱 · 配色 1展台",
+      "parentId": "transform:bricchi-fridge",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        -3
+      ],
+      "color": "#87978c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-fridge-2-stand",
+      "name": "冰箱 · 配色 2展台",
+      "parentId": "transform:bricchi-fridge",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        -3
+      ],
+      "color": "#87978c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-jetski-zone",
+      "name": "水上摩托分区",
+      "parentId": "transform:bricchi-jetski",
+      "geometry": {
+        "primitive": "box",
+        "width": 4.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        10,
+        -0.15,
+        -10
+      ],
+      "color": "#779b9e"
+    },
+    {
+      "id": "bricchi-jetski-1-stand",
+      "name": "水上摩托 · 原色展台",
+      "parentId": "transform:bricchi-jetski",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -10
+      ],
+      "color": "#779b9e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-milkshake-zone",
+      "name": "奶昔机 · 三种配色分区",
+      "parentId": "transform:bricchi-milkshake",
+      "geometry": {
+        "primitive": "box",
+        "width": 12.5,
+        "height": 0.1,
+        "depth": 4.5
+      },
+      "position": [
+        -6,
+        -0.15,
+        -12
+      ],
+      "color": "#a18d86"
+    },
+    {
+      "id": "bricchi-milkshake-1-stand",
+      "name": "奶昔机 · 蓝色展台",
+      "parentId": "transform:bricchi-milkshake",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -12
+      ],
+      "color": "#a18d86",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-milkshake-2-stand",
+      "name": "奶昔机 · 绿色展台",
+      "parentId": "transform:bricchi-milkshake",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -12
+      ],
+      "color": "#a18d86",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "bricchi-milkshake-3-stand",
+      "name": "奶昔机 · 红色展台",
+      "parentId": "transform:bricchi-milkshake",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -12
+      ],
+      "color": "#a18d86",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "bricchi-bats-1",
+      "name": "棒球棍 01 · 配色 1",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_01.glb",
+      "position": [
+        -8.01588316,
+        1.37370197,
+        10.00095078
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330394,
+        3.98330394,
+        3.98330394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/c397d1d04518eb5feb27035c72282758f3083aabb50da47e8d117e2ad9411350.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-2",
+      "name": "棒球棍 01 · 配色 2",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_01.glb",
+      "position": [
+        -4.01588316,
+        1.37370197,
+        10.00095078
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330394,
+        3.98330394,
+        3.98330394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/2e28e02b068d39211a38ba1bf4e5c7a2028bf5c666db7f26a0bde445421c740d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-3",
+      "name": "棒球棍 02 · 配色 1",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_02.glb",
+      "position": [
+        -0.01558151,
+        1.46771642,
+        10.00112942
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330394,
+        3.98330394,
+        3.98330394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/c397d1d04518eb5feb27035c72282758f3083aabb50da47e8d117e2ad9411350.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-4",
+      "name": "棒球棍 02 · 配色 2",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_02.glb",
+      "position": [
+        3.98441849,
+        1.46771642,
+        10.00112942
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330394,
+        3.98330394,
+        3.98330394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/2e28e02b068d39211a38ba1bf4e5c7a2028bf5c666db7f26a0bde445421c740d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-5",
+      "name": "棒球棍 03 · 配色 1",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_03.glb",
+      "position": [
+        7.98092241,
+        1.30435985,
+        9.97888473
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330394,
+        3.98330394,
+        3.98330394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/c397d1d04518eb5feb27035c72282758f3083aabb50da47e8d117e2ad9411350.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-6",
+      "name": "棒球棍 03 · 配色 2",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_03.glb",
+      "position": [
+        -8.01907759,
+        1.30435985,
+        13.97888473
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330394,
+        3.98330394,
+        3.98330394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/2e28e02b068d39211a38ba1bf4e5c7a2028bf5c666db7f26a0bde445421c740d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-7",
+      "name": "棒球棍 04 · 配色 1",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_04.glb",
+      "position": [
+        -3.99999951,
+        1.30040177,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330394,
+        3.98330394,
+        3.98330394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/c397d1d04518eb5feb27035c72282758f3083aabb50da47e8d117e2ad9411350.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-8",
+      "name": "棒球棍 04 · 配色 2",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_04.glb",
+      "position": [
+        4.9e-7,
+        1.30040177,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330394,
+        3.98330394,
+        3.98330394
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/2e28e02b068d39211a38ba1bf4e5c7a2028bf5c666db7f26a0bde445421c740d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-9",
+      "name": "棒球棍 05 · 配色 1",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_05.glb",
+      "position": [
+        4.00000053,
+        1.28950066,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330378,
+        3.98330378,
+        3.98330378
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/c397d1d04518eb5feb27035c72282758f3083aabb50da47e8d117e2ad9411350.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-bats-10",
+      "name": "棒球棍 05 · 配色 2",
+      "parentId": "transform:bricchi-bats",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Baseball Bat/BaseballBat_05.glb",
+      "position": [
+        8.00000053,
+        1.28950066,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.98330378,
+        3.98330378,
+        3.98330378
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/2e28e02b068d39211a38ba1bf4e5c7a2028bf5c666db7f26a0bde445421c740d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-car-1",
+      "name": "复古汽车 · 黑色",
+      "parentId": "transform:bricchi-car",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Car1.0/RetroCar.glb",
+      "position": [
+        -9.95236885,
+        0.45796958,
+        -1.77723291
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59191921,
+        0.59191921,
+        0.59191921
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/fd1acc0bd9c4fadf12b455e6e647238db97080b9243ade242a14e33c1322beae.png"
+            }
+          }
+        },
+        {
+          "selector": {
+            "gltfMaterialIndex": 1
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/fd1acc0bd9c4fadf12b455e6e647238db97080b9243ade242a14e33c1322beae.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-car-2",
+      "name": "复古汽车 · 蓝色",
+      "parentId": "transform:bricchi-car",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Car1.0/RetroCar.glb",
+      "position": [
+        -5.95236885,
+        0.45796958,
+        -1.77723291
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59191921,
+        0.59191921,
+        0.59191921
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/9cf9986c88d41885a6142f3e69f352dcd7a786f6c2972d64f84edac56c493d25.png"
+            }
+          }
+        },
+        {
+          "selector": {
+            "gltfMaterialIndex": 1
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/9cf9986c88d41885a6142f3e69f352dcd7a786f6c2972d64f84edac56c493d25.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-car-3",
+      "name": "复古汽车 · 红色",
+      "parentId": "transform:bricchi-car",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Car1.0/RetroCar.glb",
+      "position": [
+        -9.95236885,
+        0.45796958,
+        2.22276709
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59191921,
+        0.59191921,
+        0.59191921
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/3c5f849927176a18a5448d1949f5c59cdbfc68130f56720dc250fecffe170172.png"
+            }
+          }
+        },
+        {
+          "selector": {
+            "gltfMaterialIndex": 1
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/3c5f849927176a18a5448d1949f5c59cdbfc68130f56720dc250fecffe170172.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-car-4",
+      "name": "复古汽车 · 白色",
+      "parentId": "transform:bricchi-car",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro Car1.0/RetroCar.glb",
+      "position": [
+        -5.95236885,
+        0.45796958,
+        2.22276709
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59191921,
+        0.59191921,
+        0.59191921
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/3fa2371bc6efde73e4a91774cf962f5a1328ae227eb0e484726f08bb631152f0.png"
+            }
+          }
+        },
+        {
+          "selector": {
+            "gltfMaterialIndex": 1
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/3fa2371bc6efde73e4a91774cf962f5a1328ae227eb0e484726f08bb631152f0.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-axe-1",
+      "name": "斧头 · 原色",
+      "parentId": "transform:bricchi-axe",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/Retro_Axe_PSX/RetroAxe.glb",
+      "position": [
+        4.26456786,
+        0.60198604,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.62310061,
+        4.62310061,
+        4.62310061
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/9e655d4a3c44a8810602e89f1a6dc9e66e0c6afdd057e485f088132049af5aa0.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-computer-1",
+      "name": "复古电脑 · 原色",
+      "parentId": "transform:bricchi-computer",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/RetroComputer/RetroComputer.glb",
+      "position": [
+        9.71367492,
+        0.14246005,
+        3.77083512
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        9.69282308,
+        9.69282308,
+        9.69282308
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/66fbadf309b17b97494016b67369f83b4eb388d71eaeda97a27c5f0d3d53fc26.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-fridge-1",
+      "name": "冰箱 · 配色 1",
+      "parentId": "transform:bricchi-fridge",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/RetroFridgePSX/RetroFridge.glb",
+      "position": [
+        4.00286326,
+        -0.01407944,
+        -2.93001585
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        1.61564539,
+        1.61564539,
+        1.61564539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/2efdd252d3276cc1ae2974e9c762f11af7a81c71d390f581c57664bcca83d997.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-fridge-2",
+      "name": "冰箱 · 配色 2",
+      "parentId": "transform:bricchi-fridge",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/RetroFridgePSX/RetroFridge.glb",
+      "position": [
+        8.00286326,
+        -0.01407944,
+        -2.93001585
+      ],
+      "rotation": [
+        0,
+        3.141592653589793,
+        0
+      ],
+      "scaling": [
+        1.61564539,
+        1.61564539,
+        1.61564539
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/da42630ffc4f64577d754ef609f629fbe13bbddc067b24fcd988b4e17e79e686.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-jetski-1",
+      "name": "水上摩托 · 原色",
+      "parentId": "transform:bricchi-jetski",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/RetroJetSki/RetroJetSki.glb",
+      "position": [
+        10.0994339,
+        0.52627104,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84618066,
+        0.84618066,
+        0.84618066
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/27740f99a0c3b525ed681a99a9e83772af6f83d5aa730987e4a2dd71ca1b7ee3.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-milkshake-1",
+      "name": "奶昔机 · 蓝色",
+      "parentId": "transform:bricchi-milkshake",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/RetroMilkshakeMachine/RetroMilkshakeMachine.glb",
+      "position": [
+        -10,
+        0.60203365,
+        -11.38040392
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49032968,
+        1.49032968,
+        1.49032968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/b9b2eb2b08596370c3857ba68267ec1caaf074bbe34172495b7c7e58b8288b7f.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-milkshake-2",
+      "name": "奶昔机 · 绿色",
+      "parentId": "transform:bricchi-milkshake",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/RetroMilkshakeMachine/RetroMilkshakeMachine.glb",
+      "position": [
+        -6,
+        0.60203365,
+        -11.38040392
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49032968,
+        1.49032968,
+        1.49032968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/5be7bf1d26688d61778282c841b461162cc5d5c4924be7bcbb8d43dc0b031087.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bricchi-milkshake-3",
+      "name": "奶昔机 · 红色",
+      "parentId": "transform:bricchi-milkshake",
+      "modelPath": "resources/Model/GLB/artist_bricchi-games/RetroMilkshakeMachine/RetroMilkshakeMachine.glb",
+      "position": [
+        -2,
+        0.60203365,
+        -11.38040392
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.49032968,
+        1.49032968,
+        1.49032968
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_bricchi-games/7edbeb30bc9a83dc296cb2f418aecd2306ca954cf7649f0b8798004a5fb5c273.png"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

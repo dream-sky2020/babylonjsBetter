@@ -1,0 +1,4415 @@
+{
+  "presetKey": "artist-elbolilloduro-nature-model-test-02",
+  "name": "Elbolilloduro · 自然场景与垂钓 2/2（101 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-vegetation",
+      "name": "Vegetation",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 73
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "elbolilloduro-69aea8f9e8f23281-stand",
+      "name": "Rock_09_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-cc04e586da9170d3-stand",
+      "name": "Rock_10展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-54a97a758aa0d7ae-stand",
+      "name": "Rock_10_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3fa1c98ce4dc69de-stand",
+      "name": "Rock_10_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2af08730d510338b-stand",
+      "name": "Rock_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7a45afcd387974d8-stand",
+      "name": "Seating展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        34
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-af253051d92a969e-stand",
+      "name": "shelve展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-19d162a5eadc3788-stand",
+      "name": "shelve_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fcf586d5f2c235fd-stand",
+      "name": "Shovel展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-31a6a55f1aa06182-stand",
+      "name": "Steering_wheel_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c38e8cc76e1c291c-stand",
+      "name": "Stove展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-20ba610c2095ea99-stand",
+      "name": "Table展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-25ad4c54c22033ad-stand",
+      "name": "Table_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-eda631407193e77d-stand",
+      "name": "teapot展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1d71b8d43b430089-stand",
+      "name": "Tire_004展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-06f3dd587daf6b15-stand",
+      "name": "Tire_005展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6ed46ca45f479099-stand",
+      "name": "Tire_006展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-750b7ea194da5f1b-stand",
+      "name": "toolbox展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2003c9bcb7a2f248-stand",
+      "name": "tray展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8c2ca07612ff7ad3-stand",
+      "name": "tray_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-82ac40bea5016b68-stand",
+      "name": "Tree展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b290c0a4edef306c-stand",
+      "name": "Tree_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7a5e97e55e427933-stand",
+      "name": "Tree_01_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b0b77accd79f9629-stand",
+      "name": "Tree_01_N_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3e144fbfb0b8ed5a-stand",
+      "name": "Tree_01_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7b90b71a66975940-stand",
+      "name": "Tree_02展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2e24c4cc0b15b44f-stand",
+      "name": "Tree_02_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-32e4cb1d9a69a7af-stand",
+      "name": "Tree_02_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0b0bece1bfa676e3-stand",
+      "name": "Tree_03展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f79050cc59fc92f4-stand",
+      "name": "Tree_03_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1999e76e2e143f16-stand",
+      "name": "Tree_03_N_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-9833a229afe42339-stand",
+      "name": "Tree_03_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a7727eda227a7f84-stand",
+      "name": "Tree_04展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-8fd32f8d91277e9d-stand",
+      "name": "Tree_04_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-962a485685bc1216-stand",
+      "name": "Tree_04_N_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-307d01c8dabad772-stand",
+      "name": "Tree_04_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e59ecc20b6d1633a-stand",
+      "name": "Tree_05展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e37405303718c665-stand",
+      "name": "Tree_05_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-60686a6cd7e89a8a-stand",
+      "name": "Tree_05_N_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b288d915b7527065-stand",
+      "name": "Tree_05_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2804ae5aa6354ee2-stand",
+      "name": "Tree_06展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-e329f6ea01961505-stand",
+      "name": "Tree_06_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-dfd0ed000cbeab57-stand",
+      "name": "Tree_06_N_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2ce96b8fd0b1545a-stand",
+      "name": "Tree_06_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fdda6905a0a1f2ea-stand",
+      "name": "Tree_07展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ec77daa0a20294d5-stand",
+      "name": "Tree_07_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c94f48f316436244-stand",
+      "name": "Tree_07_N_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-78e5e848389fb555-stand",
+      "name": "Tree_07_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-54c9103763e898d8-stand",
+      "name": "Tree_08展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a6fd26cb13d4b2a3-stand",
+      "name": "Tree_08_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-1f36efcc5dd4b6f5-stand",
+      "name": "Tree_08_N_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b1356329b282f551-stand",
+      "name": "Tree_08_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-952b3f84e5cc89a1-stand",
+      "name": "Tree_09展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a0de6d08f3aea504-stand",
+      "name": "Tree_09_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-72dc3ed30fbe5284-stand",
+      "name": "Tree_09_002展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f7faed4a3b6fa623-stand",
+      "name": "Tree_09_003展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b36d175fa85d02e8-stand",
+      "name": "Tree_B展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fbafb12100c93472-stand",
+      "name": "Tree_B_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2d16f127a1c4f672-stand",
+      "name": "Tree_B_002展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c432937b7a204148-stand",
+      "name": "Tree_B_003展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-adc5bf1658122384-stand",
+      "name": "Tree_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5bcdadd0e90b6f66-stand",
+      "name": "Tree_N_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bafc56115fb19e80-stand",
+      "name": "Tree_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-0afb8485f1837892-stand",
+      "name": "Trunk展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d926870adcf05837-stand",
+      "name": "Trunk_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-21f099ef767c1784-stand",
+      "name": "Trunk_01展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-62a01bb18dc89379-stand",
+      "name": "Trunk_01_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-139a998af9ee31d8-stand",
+      "name": "Trunk_01_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-70936e94f4ec1a3f-stand",
+      "name": "Trunk_02展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-f987812e7d2d2c2c-stand",
+      "name": "Trunk_02_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-c00fc8438073abe4-stand",
+      "name": "Trunk_02_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-bf4f9e20bae4226d-stand",
+      "name": "Trunk_N展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-49ebcd59ca992170-stand",
+      "name": "Trunk_N_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-05849fbcbf6874a6-stand",
+      "name": "Trunk_P展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-d048b530e2a5b0ba-stand",
+      "name": "Trunk_V展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-01134fcca229523d-stand",
+      "name": "Trunk_V_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-3691414c8dbbe9aa-stand",
+      "name": "Water_bottle展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-101ef914233a191f-stand",
+      "name": "Weatherby_Orion_I展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-5d2ed6599141494d-stand",
+      "name": "Weatherby_Orion_I_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fc03aa4367be7965-stand",
+      "name": "Windows展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-62128f350a3dfb31-stand",
+      "name": "Windows_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-99947787313aaa16-stand",
+      "name": "Windows_002展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a26904d3d98df6e8-stand",
+      "name": "Windows_004展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-2772391051c04f79-stand",
+      "name": "Windows_005展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -18
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-57845ae652500ba2-stand",
+      "name": "Windows_006展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-853311870368e7e2-stand",
+      "name": "Windows_007展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fd51e879fdbe933b-stand",
+      "name": "Windows_009展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-967a74813d84f821-stand",
+      "name": "Windows_010展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-46cca197a2e7ca79-stand",
+      "name": "Windows_011展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-12aa1e24dc83d4b0-stand",
+      "name": "Windows_012展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -22
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-4d12d1f86be5a494-stand",
+      "name": "Windows_013展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6128124fe38905f2-stand",
+      "name": "Windows_014展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-52ec03736a3aa915-stand",
+      "name": "Windows_015展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b50be4ec43cf36db-stand",
+      "name": "Windows_016展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-b543773a241c588e-stand",
+      "name": "Windows_017展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-ff8e31c514d633fb-stand",
+      "name": "Windows_018展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -26
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-68b88a471cbfe1c0-stand",
+      "name": "Windows_019展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-7a8dc2e825b29f65-stand",
+      "name": "Windows_040展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-a38101a512e651e7-stand",
+      "name": "Windows_C展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-6532cc5d47203128-stand",
+      "name": "Windows_C_001展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -30
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "elbolilloduro-fe76305dd858af17-stand",
+      "name": "Windows_C_002展台",
+      "parentId": "transform:category-vegetation",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -30
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "elbolilloduro-69aea8f9e8f23281",
+      "name": "Vegetation · Rock_09_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Rock_09_V_11acff5c.glb",
+      "position": [
+        -21.99999962,
+        0,
+        33.99999981
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19855166,
+        0.19855166,
+        0.19855166
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-cc04e586da9170d3",
+      "name": "Vegetation · Rock_10",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Rock_10_3784f5ca.glb",
+      "position": [
+        -18,
+        0,
+        34
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42235017,
+        0.42235017,
+        0.42235017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-54a97a758aa0d7ae",
+      "name": "Vegetation · Rock_10_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Rock_10_N_6020569d.glb",
+      "position": [
+        -14,
+        0,
+        34.0000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42235017,
+        0.42235017,
+        0.42235017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3fa1c98ce4dc69de",
+      "name": "Vegetation · Rock_10_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Rock_10_V_3f7cdd68.glb",
+      "position": [
+        -10,
+        0,
+        34.0000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42235017,
+        0.42235017,
+        0.42235017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2af08730d510338b",
+      "name": "Vegetation · Rock_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Rock_V_56385518.glb",
+      "position": [
+        -6,
+        0,
+        34.00000061
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.64309807,
+        0.64309807,
+        0.64309807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7a45afcd387974d8",
+      "name": "Vegetation · Seating",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Seating_070a605c.glb",
+      "position": [
+        -2.00000025,
+        0,
+        33.999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.52200349,
+        0.52200349,
+        0.52200349
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-af253051d92a969e",
+      "name": "Vegetation · shelve",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/shelve_0f6a4ed3.glb",
+      "position": [
+        -22,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36583129,
+        1.36583129,
+        1.36583129
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-19d162a5eadc3788",
+      "name": "Vegetation · shelve_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/shelve_001_1697867f.glb",
+      "position": [
+        -18,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.36583129,
+        1.36583129,
+        1.36583129
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fcf586d5f2c235fd",
+      "name": "Vegetation · Shovel",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Shovel_8c3e3900.glb",
+      "position": [
+        -13.99999727,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.85839261,
+        2.85839261,
+        2.85839261
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-31a6a55f1aa06182",
+      "name": "Vegetation · Steering_wheel_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Steering_wheel_001_9eceec82.glb",
+      "position": [
+        -10,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.96070821,
+        6.96070821,
+        6.96070821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c38e8cc76e1c291c",
+      "name": "Vegetation · Stove",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Stove_2c02c962.glb",
+      "position": [
+        -5.99999473,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.76338939,
+        2.76338939,
+        2.76338939
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-20ba610c2095ea99",
+      "name": "Vegetation · Table",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Table_2378108d.glb",
+      "position": [
+        -2,
+        0,
+        30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44036492,
+        2.44036492,
+        2.44036492
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-25ad4c54c22033ad",
+      "name": "Vegetation · Table_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Table_001_8241d4b9.glb",
+      "position": [
+        -22,
+        0,
+        25.99999535
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.44036492,
+        2.44036492,
+        2.44036492
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-eda631407193e77d",
+      "name": "Vegetation · teapot",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/teapot_39b7da16.glb",
+      "position": [
+        -18,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.94144476,
+        8.94144476,
+        8.94144476
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1d71b8d43b430089",
+      "name": "Vegetation · Tire_004",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tire_004_bfc90d1d.glb",
+      "position": [
+        -14,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68697609,
+        3.68697609,
+        3.68697609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-06f3dd587daf6b15",
+      "name": "Vegetation · Tire_005",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tire_005_47d52e1f.glb",
+      "position": [
+        -9.99999824,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68697609,
+        3.68697609,
+        3.68697609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6ed46ca45f479099",
+      "name": "Vegetation · Tire_006",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tire_006_fdf45c2f.glb",
+      "position": [
+        -6,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.68697609,
+        3.68697609,
+        3.68697609
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-750b7ea194da5f1b",
+      "name": "Vegetation · toolbox",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/toolbox_6dc9a238.glb",
+      "position": [
+        -2,
+        0,
+        26
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.30727826,
+        6.30727826,
+        6.30727826
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2003c9bcb7a2f248",
+      "name": "Vegetation · tray",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/tray_a7ebbdc6.glb",
+      "position": [
+        -22,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.42737796,
+        7.42737796,
+        7.42737796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8c2ca07612ff7ad3",
+      "name": "Vegetation · tray_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/tray_001_56a9ba6e.glb",
+      "position": [
+        -18,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.42737796,
+        7.42737796,
+        7.42737796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-82ac40bea5016b68",
+      "name": "Vegetation · Tree",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_197600eb.glb",
+      "position": [
+        -14.00000029,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15323461,
+        0.15323461,
+        0.15323461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b290c0a4edef306c",
+      "name": "Vegetation · Tree_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_01_368885e6.glb",
+      "position": [
+        -10,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11503643,
+        0.11503643,
+        0.11503643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7a5e97e55e427933",
+      "name": "Vegetation · Tree_01_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_01_N_dfbf535a.glb",
+      "position": [
+        -6,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11503643,
+        0.11503643,
+        0.11503643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b0b77accd79f9629",
+      "name": "Vegetation · Tree_01_N_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_01_N_01_f4233584.glb",
+      "position": [
+        -2,
+        0,
+        22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11503643,
+        0.11503643,
+        0.11503643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3e144fbfb0b8ed5a",
+      "name": "Vegetation · Tree_01_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_01_V_43fb410c.glb",
+      "position": [
+        -22,
+        0,
+        18.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.11503643,
+        0.11503643,
+        0.11503643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7b90b71a66975940",
+      "name": "Vegetation · Tree_02",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_02_209e053f.glb",
+      "position": [
+        -17.99999956,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23166331,
+        0.23166331,
+        0.23166331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2e24c4cc0b15b44f",
+      "name": "Vegetation · Tree_02_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_02_N_7a3aa0bd.glb",
+      "position": [
+        -13.99999956,
+        0,
+        17.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23166331,
+        0.23166331,
+        0.23166331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-32e4cb1d9a69a7af",
+      "name": "Vegetation · Tree_02_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_02_V_98712140.glb",
+      "position": [
+        -9.99999956,
+        0,
+        18.00000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.23166331,
+        0.23166331,
+        0.23166331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0b0bece1bfa676e3",
+      "name": "Vegetation · Tree_03",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_03_e6df36d3.glb",
+      "position": [
+        -5.99999984,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16340513,
+        0.16340513,
+        0.16340513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f79050cc59fc92f4",
+      "name": "Vegetation · Tree_03_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_03_N_7d463b0e.glb",
+      "position": [
+        -2,
+        0,
+        18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16340513,
+        0.16340513,
+        0.16340513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1999e76e2e143f16",
+      "name": "Vegetation · Tree_03_N_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_03_N_01_a63a5971.glb",
+      "position": [
+        -21.99999984,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16340513,
+        0.16340513,
+        0.16340513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-9833a229afe42339",
+      "name": "Vegetation · Tree_03_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_03_V_499aedc0.glb",
+      "position": [
+        -17.99999984,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.16340513,
+        0.16340513,
+        0.16340513
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a7727eda227a7f84",
+      "name": "Vegetation · Tree_04",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_04_5c9e25b1.glb",
+      "position": [
+        -14.00000007,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14098508,
+        0.14098508,
+        0.14098508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-8fd32f8d91277e9d",
+      "name": "Vegetation · Tree_04_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_04_N_8c5655f0.glb",
+      "position": [
+        -10.00000007,
+        0,
+        13.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14098508,
+        0.14098508,
+        0.14098508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-962a485685bc1216",
+      "name": "Vegetation · Tree_04_N_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_04_N_01_c01fa45b.glb",
+      "position": [
+        -5.99999986,
+        0,
+        14.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14238299,
+        0.14238299,
+        0.14238299
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-307d01c8dabad772",
+      "name": "Vegetation · Tree_04_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_04_V_e349ab91.glb",
+      "position": [
+        -2.00000007,
+        0,
+        14.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.14098508,
+        0.14098508,
+        0.14098508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e59ecc20b6d1633a",
+      "name": "Vegetation · Tree_05",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_05_2aac0ec3.glb",
+      "position": [
+        -22,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10543932,
+        0.10543932,
+        0.10543932
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e37405303718c665",
+      "name": "Vegetation · Tree_05_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_05_N_3c561ea6.glb",
+      "position": [
+        -18,
+        0,
+        9.9999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10543932,
+        0.10543932,
+        0.10543932
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-60686a6cd7e89a8a",
+      "name": "Vegetation · Tree_05_N_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_05_N_01_62194c71.glb",
+      "position": [
+        -14,
+        0,
+        10.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10591896,
+        0.10591896,
+        0.10591896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b288d915b7527065",
+      "name": "Vegetation · Tree_05_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_05_V_4883eec0.glb",
+      "position": [
+        -10,
+        0,
+        10.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10543932,
+        0.10543932,
+        0.10543932
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2804ae5aa6354ee2",
+      "name": "Vegetation · Tree_06",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_06_3fc59b4a.glb",
+      "position": [
+        -6.00000006,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1203638,
+        0.1203638,
+        0.1203638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-e329f6ea01961505",
+      "name": "Vegetation · Tree_06_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_06_N_4602d881.glb",
+      "position": [
+        -2.00000006,
+        0,
+        9.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1203638,
+        0.1203638,
+        0.1203638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-dfd0ed000cbeab57",
+      "name": "Vegetation · Tree_06_N_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_06_N_01_6f389d1e.glb",
+      "position": [
+        -22.00000006,
+        0,
+        5.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1203638,
+        0.1203638,
+        0.1203638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2ce96b8fd0b1545a",
+      "name": "Vegetation · Tree_06_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_06_V_8930a421.glb",
+      "position": [
+        -18.00000006,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1203638,
+        0.1203638,
+        0.1203638
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fdda6905a0a1f2ea",
+      "name": "Vegetation · Tree_07",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_07_f1c610f4.glb",
+      "position": [
+        -14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15779548,
+        0.15779548,
+        0.15779548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ec77daa0a20294d5",
+      "name": "Vegetation · Tree_07_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_07_N_2f789671.glb",
+      "position": [
+        -10,
+        0,
+        6.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15779548,
+        0.15779548,
+        0.15779548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c94f48f316436244",
+      "name": "Vegetation · Tree_07_N_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_07_N_01_54ad0810.glb",
+      "position": [
+        -6,
+        0,
+        5.9999997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15779548,
+        0.15779548,
+        0.15779548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-78e5e848389fb555",
+      "name": "Vegetation · Tree_07_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_07_V_f16fa148.glb",
+      "position": [
+        -2,
+        0,
+        5.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15779548,
+        0.15779548,
+        0.15779548
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-54c9103763e898d8",
+      "name": "Vegetation · Tree_08",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_08_3549aea1.glb",
+      "position": [
+        -22,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12015809,
+        0.12015809,
+        0.12015809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a6fd26cb13d4b2a3",
+      "name": "Vegetation · Tree_08_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_08_N_2dcfe3c3.glb",
+      "position": [
+        -18,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12015809,
+        0.12015809,
+        0.12015809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-1f36efcc5dd4b6f5",
+      "name": "Vegetation · Tree_08_N_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_08_N_01_6955386e.glb",
+      "position": [
+        -14,
+        0,
+        1.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12015809,
+        0.12015809,
+        0.12015809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b1356329b282f551",
+      "name": "Vegetation · Tree_08_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_08_V_b235dc2d.glb",
+      "position": [
+        -10,
+        0,
+        2.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.12015809,
+        0.12015809,
+        0.12015809
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-952b3f84e5cc89a1",
+      "name": "Vegetation · Tree_09",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_09_a7cde900.glb",
+      "position": [
+        -6,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.10093766,
+        0.10093766,
+        0.10093766
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a0de6d08f3aea504",
+      "name": "Vegetation · Tree_09_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_09_001_0072278b.glb",
+      "position": [
+        -1.99999981,
+        0,
+        1.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1003848,
+        0.1003848,
+        0.1003848
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-72dc3ed30fbe5284",
+      "name": "Vegetation · Tree_09_002",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_09_002_53b874d9.glb",
+      "position": [
+        -21.99999981,
+        0,
+        -1.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1003848,
+        0.1003848,
+        0.1003848
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f7faed4a3b6fa623",
+      "name": "Vegetation · Tree_09_003",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_09_003_1c02d955.glb",
+      "position": [
+        -17.99999981,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.1003848,
+        0.1003848,
+        0.1003848
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b36d175fa85d02e8",
+      "name": "Vegetation · Tree_B",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_B_a5524c40.glb",
+      "position": [
+        -14.00000087,
+        0,
+        -1.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45751022,
+        0.45751022,
+        0.45751022
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fbafb12100c93472",
+      "name": "Vegetation · Tree_B_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_B_001_c9c8299e.glb",
+      "position": [
+        -10.00000087,
+        0,
+        -1.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45751022,
+        0.45751022,
+        0.45751022
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2d16f127a1c4f672",
+      "name": "Vegetation · Tree_B_002",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_B_002_e2cc5de0.glb",
+      "position": [
+        -6.00000087,
+        0,
+        -1.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45751022,
+        0.45751022,
+        0.45751022
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c432937b7a204148",
+      "name": "Vegetation · Tree_B_003",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_B_003_1e87c198.glb",
+      "position": [
+        -2.00000087,
+        0,
+        -1.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.45751022,
+        0.45751022,
+        0.45751022
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-adc5bf1658122384",
+      "name": "Vegetation · Tree_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_N_8a0d7f20.glb",
+      "position": [
+        -22.00000029,
+        0,
+        -6.00000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15323461,
+        0.15323461,
+        0.15323461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5bcdadd0e90b6f66",
+      "name": "Vegetation · Tree_N_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_N_01_c2fd63de.glb",
+      "position": [
+        -18.00000029,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15323461,
+        0.15323461,
+        0.15323461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bafc56115fb19e80",
+      "name": "Vegetation · Tree_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Tree_V_2087649c.glb",
+      "position": [
+        -14.00000029,
+        0,
+        -6.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.15323461,
+        0.15323461,
+        0.15323461
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-0afb8485f1837892",
+      "name": "Vegetation · Trunk",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_717cc7e2.glb",
+      "position": [
+        -9.9999986,
+        0,
+        -6.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73498036,
+        0.73498036,
+        0.73498036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d926870adcf05837",
+      "name": "Vegetation · Trunk_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_001_f67569f7.glb",
+      "position": [
+        -6,
+        0,
+        -5.99999716
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97526246,
+        2.97526246,
+        2.97526246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-21f099ef767c1784",
+      "name": "Vegetation · Trunk_01",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_01_70088e60.glb",
+      "position": [
+        -2.00000121,
+        0,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63512063,
+        0.63512063,
+        0.63512063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-62a01bb18dc89379",
+      "name": "Vegetation · Trunk_01_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_01_N_8dd045af.glb",
+      "position": [
+        -22.00000121,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63512063,
+        0.63512063,
+        0.63512063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-139a998af9ee31d8",
+      "name": "Vegetation · Trunk_01_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_01_V_ba9720ea.glb",
+      "position": [
+        -18.00000121,
+        0,
+        -10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.63512063,
+        0.63512063,
+        0.63512063
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-70936e94f4ec1a3f",
+      "name": "Vegetation · Trunk_02",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_02_6e8b49e6.glb",
+      "position": [
+        -14.0000009,
+        0,
+        -10.00000045
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46958368,
+        0.46958368,
+        0.46958368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-f987812e7d2d2c2c",
+      "name": "Vegetation · Trunk_02_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_02_N_7be4e4b4.glb",
+      "position": [
+        -10.0000009,
+        0,
+        -10.00000045
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46958368,
+        0.46958368,
+        0.46958368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-c00fc8438073abe4",
+      "name": "Vegetation · Trunk_02_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_02_V_d33e0075.glb",
+      "position": [
+        -6.0000009,
+        0,
+        -10.00000045
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46958368,
+        0.46958368,
+        0.46958368
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-bf4f9e20bae4226d",
+      "name": "Vegetation · Trunk_N",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_N_1d368744.glb",
+      "position": [
+        -1.9999986,
+        0,
+        -10.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73498036,
+        0.73498036,
+        0.73498036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-49ebcd59ca992170",
+      "name": "Vegetation · Trunk_N_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_N_001_f54b2737.glb",
+      "position": [
+        -22,
+        0,
+        -13.99999716
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97526246,
+        2.97526246,
+        2.97526246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-05849fbcbf6874a6",
+      "name": "Vegetation · Trunk_P",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_P_ca4ffcc7.glb",
+      "position": [
+        -18,
+        0,
+        -13.99998601
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.33558595,
+        7.33558595,
+        7.33558595
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-d048b530e2a5b0ba",
+      "name": "Vegetation · Trunk_V",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_V_ae49e649.glb",
+      "position": [
+        -13.9999986,
+        0,
+        -14.0000007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.73498036,
+        0.73498036,
+        0.73498036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-01134fcca229523d",
+      "name": "Vegetation · Trunk_V_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Trunk_V_001_17b956c9.glb",
+      "position": [
+        -10,
+        0,
+        -13.99999716
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.97526246,
+        2.97526246,
+        2.97526246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-3691414c8dbbe9aa",
+      "name": "Vegetation · Water_bottle",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Water_bottle_c7f77324.glb",
+      "position": [
+        -6,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.48546739,
+        11.48546739,
+        11.48546739
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-101ef914233a191f",
+      "name": "Vegetation · Weatherby_Orion_I",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Weatherby_Orion_I_388a5758.glb",
+      "position": [
+        -2.00000399,
+        0,
+        -14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.18761578,
+        4.18761578,
+        4.18761578
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-5d2ed6599141494d",
+      "name": "Vegetation · Weatherby_Orion_I_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Weatherby_Orion_I_001_4a6de35e.glb",
+      "position": [
+        -22,
+        0,
+        -17.99999289
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.72596131,
+        3.72596131,
+        3.72596131
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fc03aa4367be7965",
+      "name": "Vegetation · Windows",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_a8a2e980.glb",
+      "position": [
+        -18.00000268,
+        0,
+        -17.99999732
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-62128f350a3dfb31",
+      "name": "Vegetation · Windows_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_001_dcfd1ea5.glb",
+      "position": [
+        -14.00000268,
+        0,
+        -18.00000268
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-99947787313aaa16",
+      "name": "Vegetation · Windows_002",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_002_07f33037.glb",
+      "position": [
+        -10.00000268,
+        0,
+        -18.00000268
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a26904d3d98df6e8",
+      "name": "Vegetation · Windows_004",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_004_f4e1d1e0.glb",
+      "position": [
+        -6.00000268,
+        0,
+        -18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-2772391051c04f79",
+      "name": "Vegetation · Windows_005",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_005_67fe2cad.glb",
+      "position": [
+        -1.99999732,
+        0,
+        -17.99999732
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-57845ae652500ba2",
+      "name": "Vegetation · Windows_006",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_006_4ca2fc92.glb",
+      "position": [
+        -21.99999732,
+        0,
+        -22.00000268
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-853311870368e7e2",
+      "name": "Vegetation · Windows_007",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_007_956c3434.glb",
+      "position": [
+        -17.99999732,
+        0,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fd51e879fdbe933b",
+      "name": "Vegetation · Windows_009",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_009_a31c709b.glb",
+      "position": [
+        -13.99999732,
+        0,
+        -22
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-967a74813d84f821",
+      "name": "Vegetation · Windows_010",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_010_542e7fd5.glb",
+      "position": [
+        -9.99999732,
+        0,
+        -22.00000268
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-46cca197a2e7ca79",
+      "name": "Vegetation · Windows_011",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_011_ccccfeac.glb",
+      "position": [
+        -6,
+        0,
+        -22.00000268
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-12aa1e24dc83d4b0",
+      "name": "Vegetation · Windows_012",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_012_62a61d85.glb",
+      "position": [
+        -1.99999732,
+        0,
+        -22.00000268
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-4d12d1f86be5a494",
+      "name": "Vegetation · Windows_013",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_013_cfd1c9ad.glb",
+      "position": [
+        -22,
+        0,
+        -26.00000268
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6128124fe38905f2",
+      "name": "Vegetation · Windows_014",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_014_7ffdb3c6.glb",
+      "position": [
+        -18,
+        0,
+        -26.00000268
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-52ec03736a3aa915",
+      "name": "Vegetation · Windows_015",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_015_7b82c9b1.glb",
+      "position": [
+        -14,
+        0,
+        -25.99999732
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b50be4ec43cf36db",
+      "name": "Vegetation · Windows_016",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_016_eb805dba.glb",
+      "position": [
+        -10,
+        0,
+        -25.99999732
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-b543773a241c588e",
+      "name": "Vegetation · Windows_017",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_017_8d9feb3d.glb",
+      "position": [
+        -6,
+        0,
+        -25.99999732
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-ff8e31c514d633fb",
+      "name": "Vegetation · Windows_018",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_018_60677831.glb",
+      "position": [
+        -2,
+        0,
+        -25.99999732
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40495887,
+        1.40495887,
+        1.40495887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-68b88a471cbfe1c0",
+      "name": "Vegetation · Windows_019",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_019_cef01e11.glb",
+      "position": [
+        -19.99999816,
+        0,
+        -29.99999816
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.96230848,
+        0.96230848,
+        0.96230848
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-7a8dc2e825b29f65",
+      "name": "Vegetation · Windows_040",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_040_c5d55cd5.glb",
+      "position": [
+        -15.99999777,
+        0,
+        -29.99999554
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.33984769,
+        2.33984769,
+        2.33984769
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-a38101a512e651e7",
+      "name": "Vegetation · Windows_C",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_C_4570b7df.glb",
+      "position": [
+        -11.99999837,
+        0,
+        -29.99999673
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.71353347,
+        1.71353347,
+        1.71353347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-6532cc5d47203128",
+      "name": "Vegetation · Windows_C_001",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_C_001_20b03d95.glb",
+      "position": [
+        -7.99999837,
+        0,
+        -30.00000327
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.71353347,
+        1.71353347,
+        1.71353347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "elbolilloduro-fe76305dd858af17",
+      "name": "Vegetation · Windows_C_002",
+      "parentId": "transform:category-vegetation",
+      "modelPath": "resources/Model/GLB/artist_elbolilloduro/Vegetation/Windows_C_002_926746d9.glb",
+      "position": [
+        -4,
+        0,
+        -30
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.18760192,
+        2.18760192,
+        2.18760192
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

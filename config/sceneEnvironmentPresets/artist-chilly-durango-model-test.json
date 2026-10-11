@@ -1,0 +1,2283 @@
+{
+  "presetKey": "artist-chilly-durango-model-test",
+  "name": "Chilly Durango 资源 · 模型加载测试",
+  "clearColor": "#18212b",
+  "lights": [
+    {
+      "id": "chilly-test-ambient",
+      "name": "展示环境光",
+      "intensity": 1.25,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#43505d"
+      }
+    },
+    {
+      "id": "chilly-test-key-light",
+      "name": "展示主光",
+      "intensity": 0.9,
+      "color": "#fff2d7",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          40,
+          70,
+          -30
+        ]
+      }
+    }
+  ],
+  "objects": [
+    {
+      "id": "chilly-test-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 112,
+        "height": 112
+      },
+      "position": [
+        0,
+        -0.06,
+        0
+      ],
+      "color": "#303942",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-pack-ground-1",
+      "name": "中世纪套件展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 106,
+        "height": 53.5
+      },
+      "position": [
+        0,
+        -0.045,
+        -22.5
+      ],
+      "color": "#4c514c"
+    },
+    {
+      "id": "chilly-pack-ground-2",
+      "name": "管线设备展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 106,
+        "height": 8.5
+      },
+      "position": [
+        0,
+        -0.045,
+        12.0
+      ],
+      "color": "#44525a"
+    },
+    {
+      "id": "chilly-pack-ground-3",
+      "name": "柴油朋克坦克展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 106,
+        "height": 8.5
+      },
+      "position": [
+        0,
+        -0.045,
+        24.0
+      ],
+      "color": "#4c4856"
+    },
+    {
+      "id": "chilly-pack-ground-4",
+      "name": "棚屋与栈桥展示区",
+      "geometry": {
+        "primitive": "ground",
+        "width": 106,
+        "height": 17.5
+      },
+      "position": [
+        0,
+        -0.045,
+        40.5
+      ],
+      "color": "#4a534f"
+    }
+  ],
+  "models": [
+    {
+      "id": "chilly-model-01",
+      "name": "中世纪套件 · Beam Long",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Beam-Long_chilly-durango_itch_io.glb",
+      "position": [
+        -46.75,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-02",
+      "name": "中世纪套件 · Beam Short",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Beam-Short_chilly-durango_itch_io.glb",
+      "position": [
+        -38.25,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-03",
+      "name": "中世纪套件 · Bed Double",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Bed-Double_chilly-durango_itch_io.glb",
+      "position": [
+        -29.75,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3333,
+        3.3333,
+        3.3333
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-04",
+      "name": "中世纪套件 · Bed Single",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Bed-Single_chilly-durango_itch_io.glb",
+      "position": [
+        -21.25,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3333,
+        3.3333,
+        3.3333
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-05",
+      "name": "中世纪套件 · Board",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Board_chilly-durango_itch_io.glb",
+      "position": [
+        -12.75,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-06",
+      "name": "中世纪套件 · Book Stack",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Book-Stack_chilly-durango_itch_io.glb",
+      "position": [
+        -4.25,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-07",
+      "name": "中世纪套件 · Bookshelf",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Bookshelf_chilly-durango_itch_io.glb",
+      "position": [
+        4.25,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5802,
+        3.5802,
+        3.5802
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-08",
+      "name": "中世纪套件 · Bottle",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Bottle_chilly-durango_itch_io.glb",
+      "position": [
+        12.75,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-09",
+      "name": "中世纪套件 · Candle",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Candle_chilly-durango_itch_io.glb",
+      "position": [
+        21.25,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-10",
+      "name": "中世纪套件 · Cooking Bowl",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Cooking-Bowl_chilly-durango_itch_io.glb",
+      "position": [
+        29.75,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-11",
+      "name": "中世纪套件 · Cooking Dish",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Cooking-Dish_chilly-durango_itch_io.glb",
+      "position": [
+        38.25,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-12",
+      "name": "中世纪套件 · Cooking Mug",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Cooking-Mug_chilly-durango_itch_io.glb",
+      "position": [
+        46.75,
+        0.025,
+        -45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-13",
+      "name": "中世纪套件 · Cooking Plate",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Cooking-Plate_chilly-durango_itch_io.glb",
+      "position": [
+        -46.75,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-14",
+      "name": "中世纪套件 · Cooking Pot",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Cooking-Pot_chilly-durango_itch_io.glb",
+      "position": [
+        -38.25,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-15",
+      "name": "中世纪套件 · Cot",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Cot_chilly-durango_itch_io.glb",
+      "position": [
+        -29.75,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3333,
+        3.3333,
+        3.3333
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-16",
+      "name": "中世纪套件 · Crate",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Crate_chilly-durango_itch_io.glb",
+      "position": [
+        -21.25,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-17",
+      "name": "中世纪套件 · Door Frame",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Door-Frame_chilly-durango_itch_io.glb",
+      "position": [
+        -12.75,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6738,
+        2.6738,
+        2.6738
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-18",
+      "name": "中世纪套件 · Door",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Door_chilly-durango_itch_io.glb",
+      "position": [
+        -4.25,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-19",
+      "name": "中世纪套件 · End Table",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/End-Table_chilly-durango_itch_io.glb",
+      "position": [
+        4.25,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-20",
+      "name": "中世纪套件 · Fireplace",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Fireplace_chilly-durango_itch_io.glb",
+      "position": [
+        12.75,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.6667,
+        2.6667,
+        2.6667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-21",
+      "name": "中世纪套件 · Floor Plane",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Floor-Plane_chilly-durango_itch_io.glb",
+      "position": [
+        21.25,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-22",
+      "name": "中世纪套件 · Floor Thick",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Floor-Thick_chilly-durango_itch_io.glb",
+      "position": [
+        29.75,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-23",
+      "name": "中世纪套件 · Floor Thin",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Floor-Thin_chilly-durango_itch_io.glb",
+      "position": [
+        38.25,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-24",
+      "name": "中世纪套件 · Logs",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Logs_chilly-durango_itch_io.glb",
+      "position": [
+        46.75,
+        0.025,
+        -36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-25",
+      "name": "中世纪套件 · Plank Long",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Plank-Long_chilly-durango_itch_io.glb",
+      "position": [
+        -46.75,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-26",
+      "name": "中世纪套件 · Plank Short",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Plank-Short_chilly-durango_itch_io.glb",
+      "position": [
+        -38.25,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-27",
+      "name": "中世纪套件 · Post Long",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Post-Long_chilly-durango_itch_io.glb",
+      "position": [
+        -29.75,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4,
+        2.4,
+        2.4
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-28",
+      "name": "中世纪套件 · Post Short",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Post-Short_chilly-durango_itch_io.glb",
+      "position": [
+        -21.25,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-29",
+      "name": "中世纪套件 · Roof Tiles",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Roof-Tiles_chilly-durango_itch_io.glb",
+      "position": [
+        -12.75,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-30",
+      "name": "中世纪套件 · Shelf Long",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Shelf-Long_chilly-durango_itch_io.glb",
+      "position": [
+        -4.25,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-31",
+      "name": "中世纪套件 · Shelf Short",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Shelf-Short_chilly-durango_itch_io.glb",
+      "position": [
+        4.25,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-32",
+      "name": "中世纪套件 · Side Table",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Side-Table_chilly-durango_itch_io.glb",
+      "position": [
+        12.75,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-33",
+      "name": "中世纪套件 · Sideboard",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Sideboard_chilly-durango_itch_io.glb",
+      "position": [
+        21.25,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-34",
+      "name": "中世纪套件 · Stairs Block",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Stairs-Block_chilly-durango_itch_io.glb",
+      "position": [
+        29.75,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.75,
+        3.75,
+        3.75
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-35",
+      "name": "中世纪套件 · Stairs Box",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Stairs-Box_chilly-durango_itch_io.glb",
+      "position": [
+        38.25,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.871,
+        3.871,
+        3.871
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-36",
+      "name": "中世纪套件 · Stairs Hollow",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Stairs-Hollow_chilly-durango_itch_io.glb",
+      "position": [
+        46.75,
+        0.025,
+        -27.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-37",
+      "name": "中世纪套件 · Stool",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Stool_chilly-durango_itch_io.glb",
+      "position": [
+        -46.75,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-38",
+      "name": "中世纪套件 · Stove",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Stove_chilly-durango_itch_io.glb",
+      "position": [
+        -38.25,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.7907,
+        2.7907,
+        2.7907
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-39",
+      "name": "中世纪套件 · Table Large",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Table-Large_chilly-durango_itch_io.glb",
+      "position": [
+        -29.75,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-40",
+      "name": "中世纪套件 · Table Small",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Table-Small_chilly-durango_itch_io.glb",
+      "position": [
+        -21.25,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-41",
+      "name": "中世纪套件 · Trestle",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Trestle_chilly-durango_itch_io.glb",
+      "position": [
+        -12.75,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-42",
+      "name": "中世纪套件 · Trunk Small",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Trunk-Small_chilly-durango_itch_io.glb",
+      "position": [
+        -4.25,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-43",
+      "name": "中世纪套件 · Trunk",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Trunk_chilly-durango_itch_io.glb",
+      "position": [
+        4.25,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-44",
+      "name": "中世纪套件 · Wall A Door",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-A-Door_chilly-durango_itch_io.glb",
+      "position": [
+        12.75,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-45",
+      "name": "中世纪套件 · Wall A Plain",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-A-Plain_chilly-durango_itch_io.glb",
+      "position": [
+        21.25,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-46",
+      "name": "中世纪套件 · Wall A Window Large",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-A-Window-Large_chilly-durango_itch_io.glb",
+      "position": [
+        29.75,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-47",
+      "name": "中世纪套件 · Wall A Window Small",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-A-Window-Small_chilly-durango_itch_io.glb",
+      "position": [
+        38.25,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-48",
+      "name": "中世纪套件 · Wall B Door",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-B-Door_chilly-durango_itch_io.glb",
+      "position": [
+        46.75,
+        0.025,
+        -18.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-49",
+      "name": "中世纪套件 · Wall B Pillar",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-B-Pillar_chilly-durango_itch_io.glb",
+      "position": [
+        -46.75,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-50",
+      "name": "中世纪套件 · Wall B Window Large",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-B-Window-Large_chilly-durango_itch_io.glb",
+      "position": [
+        -38.25,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-51",
+      "name": "中世纪套件 · Wall B Window Small",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-B-Window-Small_chilly-durango_itch_io.glb",
+      "position": [
+        -29.75,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-52",
+      "name": "中世纪套件 · Wall B",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-B_chilly-durango_itch_io.glb",
+      "position": [
+        -21.25,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-53",
+      "name": "中世纪套件 · Wall C Door",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-C-Door_chilly-durango_itch_io.glb",
+      "position": [
+        -12.75,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-54",
+      "name": "中世纪套件 · Wall C Pillar",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-C-Pillar_chilly-durango_itch_io.glb",
+      "position": [
+        -4.25,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-55",
+      "name": "中世纪套件 · Wall C Window Large",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-C-Window-Large_chilly-durango_itch_io.glb",
+      "position": [
+        4.25,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-56",
+      "name": "中世纪套件 · Wall C Window Small",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-C-Window-Small_chilly-durango_itch_io.glb",
+      "position": [
+        12.75,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-57",
+      "name": "中世纪套件 · Wall C",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-C_chilly-durango_itch_io.glb",
+      "position": [
+        21.25,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-58",
+      "name": "中世纪套件 · Wall Pillar A",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-Pillar-A_chilly-durango_itch_io.glb",
+      "position": [
+        29.75,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7143,
+        1.7143,
+        1.7143
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-59",
+      "name": "中世纪套件 · Wall Roof 30 Center",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-Roof-30-Center_chilly-durango_itch_io.glb",
+      "position": [
+        38.25,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-60",
+      "name": "中世纪套件 · Wall Roof 30",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-Roof-30_chilly-durango_itch_io.glb",
+      "position": [
+        46.75,
+        0.025,
+        -9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-61",
+      "name": "中世纪套件 · Wall Roof 45 Center",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-Roof-45-Center_chilly-durango_itch_io.glb",
+      "position": [
+        -21.25,
+        0.025,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-62",
+      "name": "中世纪套件 · Wall Roof 45",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-Roof-45_chilly-durango_itch_io.glb",
+      "position": [
+        -12.75,
+        0.025,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-63",
+      "name": "中世纪套件 · Wall Roof 60 Center",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-Roof-60-Center_chilly-durango_itch_io.glb",
+      "position": [
+        -4.25,
+        0.025,
+        -0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-64",
+      "name": "中世纪套件 · Wall Roof 60",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Wall-Roof-60_chilly-durango_itch_io.glb",
+      "position": [
+        4.25,
+        0.025,
+        0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7321,
+        1.7321,
+        1.7321
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-65",
+      "name": "中世纪套件 · Window Large",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Window-Large_chilly-durango_itch_io.glb",
+      "position": [
+        12.75,
+        0.025,
+        -0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.3333,
+        3.3333,
+        3.3333
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-66",
+      "name": "中世纪套件 · Window Small",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-medieval-fantasy-kit/Window-Small_chilly-durango_itch_io.glb",
+      "position": [
+        21.25,
+        0.025,
+        -0.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-67",
+      "name": "管线设备 · Circuit Breaker",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Circuit Breaker_chilly-durango_itch_io.glb",
+      "position": [
+        -33.9163,
+        0.025,
+        11.2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-68",
+      "name": "管线设备 · Generator",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Generator_chilly-durango_itch_io.glb",
+      "position": [
+        -25.5,
+        0.025,
+        12.3962
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.3004,
+        2.3004,
+        2.3004
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-69",
+      "name": "管线设备 · Pipe Valve",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Pipe Valve_chilly-durango_itch_io.glb",
+      "position": [
+        -17.9875,
+        0.7627,
+        12.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-70",
+      "name": "管线设备 · Pipes",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Pipes_chilly-durango_itch_io.glb",
+      "position": [
+        -9.7572,
+        0.6575,
+        9.3661
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.5302,
+        2.5302,
+        2.5302
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-71",
+      "name": "管线设备 · Pump",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Pump_chilly-durango_itch_io.glb",
+      "position": [
+        -1.2343,
+        0.0341,
+        12.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-72",
+      "name": "管线设备 · Switch",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Switch_chilly-durango_itch_io.glb",
+      "position": [
+        8.4,
+        0.425,
+        12.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-73",
+      "name": "管线设备 · Transformer",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Transformer_chilly-durango_itch_io.glb",
+      "position": [
+        15.8529,
+        0.025,
+        12.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.5859,
+        3.5859,
+        3.5859
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-74",
+      "name": "管线设备 · Turbine",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Turbine_chilly-durango_itch_io.glb",
+      "position": [
+        22.5,
+        0.025,
+        9.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4,
+        2.4,
+        2.4
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-75",
+      "name": "管线设备 · Wires",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/3d-retro-plumbing-and-wiring/Wires_chilly-durango_itch_io.glb",
+      "position": [
+        31.0499,
+        0.9923,
+        11.2871
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.9667,
+        1.9667,
+        1.9667
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-76",
+      "name": "柴油朋克坦克 · Tank A",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/dieselpunk-tanks/Tank A_chilly-durango_itch_io.glb",
+      "position": [
+        -4.25,
+        0.025,
+        24.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.5881,
+        1.5881,
+        1.5881
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-77",
+      "name": "柴油朋克坦克 · Tank B",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/dieselpunk-tanks/Tank B_chilly-durango_itch_io.glb",
+      "position": [
+        4.25,
+        0.025,
+        24.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.7268,
+        1.7268,
+        1.7268
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-78",
+      "name": "棚屋与栈桥 · Barrel",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Barrel_chilly-durango_itch_io.glb",
+      "position": [
+        -25.5,
+        0.025,
+        36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-79",
+      "name": "棚屋与栈桥 · Chainlink Fence",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Chainlink Fence_chilly-durango_itch_io.glb",
+      "position": [
+        -19.809,
+        0.025,
+        36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4,
+        2.4,
+        2.4
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-80",
+      "name": "棚屋与栈桥 · Concrete Barricade",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Concrete Barricade_chilly-durango_itch_io.glb",
+      "position": [
+        -8.5,
+        0.025,
+        36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-81",
+      "name": "棚屋与栈桥 · Concrete Ramps",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Concrete Ramps_chilly-durango_itch_io.glb",
+      "position": [
+        -2.9998,
+        0.025,
+        33.231
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4615,
+        0.4615,
+        0.4615
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-82",
+      "name": "棚屋与栈桥 · Handrail",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Handrail_chilly-durango_itch_io.glb",
+      "position": [
+        6.55,
+        0.025,
+        36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-83",
+      "name": "棚屋与栈桥 · Large Shed A",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Large Shed A_chilly-durango_itch_io.glb",
+      "position": [
+        17.0,
+        0.025,
+        36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4189,
+        0.4189,
+        0.4189
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-84",
+      "name": "棚屋与栈桥 · Large Shed B",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Large Shed B_chilly-durango_itch_io.glb",
+      "position": [
+        25.5,
+        0.025,
+        36.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.4189,
+        0.4189,
+        0.4189
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-85",
+      "name": "棚屋与栈桥 · Leanto A",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Leanto A_chilly-durango_itch_io.glb",
+      "position": [
+        -21.25,
+        0.8653,
+        46.5757
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.6805,
+        1.6805,
+        1.6805
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-86",
+      "name": "棚屋与栈桥 · Leanto B",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Leanto B_chilly-durango_itch_io.glb",
+      "position": [
+        -12.8869,
+        0.025,
+        45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9601,
+        0.9601,
+        0.9601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-87",
+      "name": "棚屋与栈桥 · Metal Gantry Floor",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Metal Gantry Floor_chilly-durango_itch_io.glb",
+      "position": [
+        -6.25,
+        0.025,
+        43.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-88",
+      "name": "棚屋与栈桥 · Pallet",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Pallet_chilly-durango_itch_io.glb",
+      "position": [
+        2.45,
+        0.025,
+        42.6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-89",
+      "name": "棚屋与栈桥 · Shack A",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Shack A_chilly-durango_itch_io.glb",
+      "position": [
+        12.75,
+        0.025,
+        45.0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9601,
+        0.9601,
+        0.9601
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    },
+    {
+      "id": "chilly-model-90",
+      "name": "棚屋与栈桥 · Stairs",
+      "modelPath": "resources/Model/GLB/artist_chilly-durango/shacks-shanties-sheds-and-gantries-0001/Stairs_chilly-durango_itch_io.glb",
+      "position": [
+        18.85,
+        0.025,
+        43.15
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "shadow": {
+        "cast": false,
+        "receive": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1964 @@
+{
+  "presetKey": "artist-loafbrr-showcase-chainlink-fence",
+  "name": "Loafbrr · ChainlinkFence · 44模型 · 模型 1.95 MiB + 贴图 0.28 MiB · 合计 2.23 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-chainlinkfence-0",
+      "name": "ChainlinkFence",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 37
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-97b8c0e436e6bb44-stand",
+      "name": "Brace_1展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1f54b2e0e72ccd68-stand",
+      "name": "Brace_2展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8c31bbfb796b214d-stand",
+      "name": "Brace_FenceFabric_1展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f0fea6a3a0c0d69f-stand",
+      "name": "Brace_FenceFabric_2展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ab303fdb6d6294ee-stand",
+      "name": "Brace_Gate_1展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-de19f5f679ac63ad-stand",
+      "name": "Brace_Gate_2展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        16
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4be28f927e4f3fb9-stand",
+      "name": "Brace_Gate_3展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fffae4833b2c8d5c-stand",
+      "name": "Brace_Gate_4展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7d20a65ffbb2b419-stand",
+      "name": "Brace_Gate_Pole_1展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7ecb07d294e9f53d-stand",
+      "name": "Brace_Gate_Pole_2展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a479b8dd0072122f-stand",
+      "name": "Brace_Gate_Pole_3展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-40f3c1e0f8cfd899-stand",
+      "name": "Brace_Gate_Pole_4展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-51debba309316e96-stand",
+      "name": "Brace_TopPole_1展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f7454aa144bf79fd-stand",
+      "name": "Brace_TopPole_2展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e04bfaaa1dc78216-stand",
+      "name": "Brace_TopPole_3展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6de39c75b6714dbc-stand",
+      "name": "Brace_TopPole_4展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d4eeb6da32fe7196-stand",
+      "name": "ChainlinkFence_Fabric展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-308cb05329ff0dd9-stand",
+      "name": "ChainlinkFence_Fabric_End_1展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-dfc32e46e0227e5e-stand",
+      "name": "ChainlinkFence_Fabric_End_1_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8bfbf5411d57d6fc-stand",
+      "name": "ChainlinkFence_Fabric_End_2展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c423a6dfafa31996-stand",
+      "name": "ChainlinkFence_Fabric_End_2_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8fda8e0e80ed3449-stand",
+      "name": "ChainlinkFence_Fabric_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-46d38f203a923c68-stand",
+      "name": "ChainlinkFence_Fabric_Middle展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e3326a9a8ecd571a-stand",
+      "name": "ChainlinkFence_Fabric_Middle_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-22c58999a5aa52ed-stand",
+      "name": "ChainlinkFence_Gate_1_Group展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a2b2367880501c2a-stand",
+      "name": "ChainlinkFence_Gate_1_Group_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2ad2da9f3f8a6dff-stand",
+      "name": "ChainlinkFence_Gate_2_Group展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-77eeb1d145833721-stand",
+      "name": "ChainlinkFence_Gate_2_Group_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-eac284c1d3377ecc-stand",
+      "name": "ChainlinkFence_Gate_Wide_1_Group展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d0f772bdf7d80fdf-stand",
+      "name": "ChainlinkFence_Gate_Wide_1_Group_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c7800c8bc747c436-stand",
+      "name": "ChainlinkFence_Gate_Wide_2_Group展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d1b7fd3eb8e26ae7-stand",
+      "name": "ChainlinkFence_Gate_Wide_2_Group_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e1aae69e40b89f90-stand",
+      "name": "ChainlinkFence_Pole_Support展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4bc78287e4542da6-stand",
+      "name": "ChainlinkFence_Pole_Support_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e3c394dce8c6dc27-stand",
+      "name": "ChainlinkFence_Post_Braceless展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d65765c1d69eab3a-stand",
+      "name": "ChainlinkFence_Post_Braceless_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e256ca0f9f85ad43-stand",
+      "name": "ChainlinkFence_Post_Corner_1展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bf01c05dfea1fadd-stand",
+      "name": "ChainlinkFence_Post_Corner_1_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-92c86d9aca94d02f-stand",
+      "name": "ChainlinkFence_Post_Corner_2展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-46291935bb50b663-stand",
+      "name": "ChainlinkFence_Post_Corner_2_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-444960ffb4c61446-stand",
+      "name": "ChainlinkFence_Post_End_1展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-682264ff489b6a72-stand",
+      "name": "ChainlinkFence_Post_End_1_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -8
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-975862c366a970df-stand",
+      "name": "ChainlinkFence_Post_End_2展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-258db7c058d5cd66-stand",
+      "name": "ChainlinkFence_Post_End_2_Half展台",
+      "parentId": "transform:category-chainlinkfence-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -12
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-97b8c0e436e6bb44",
+      "name": "ChainlinkFence · Brace_1 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_1.glb",
+      "position": [
+        -22,
+        4.1e-7,
+        15.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.87719253,
+        15.87719253,
+        15.87719253
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1f54b2e0e72ccd68",
+      "name": "ChainlinkFence · Brace_2 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_2.glb",
+      "position": [
+        -18,
+        4.1e-7,
+        15.99999976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.87719253,
+        15.87719253,
+        15.87719253
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8c31bbfb796b214d",
+      "name": "ChainlinkFence · Brace_FenceFabric_1 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_FenceFabric_1.glb",
+      "position": [
+        -14,
+        0,
+        16.00000113
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.83767652,
+        13.83767652,
+        13.83767652
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f0fea6a3a0c0d69f",
+      "name": "ChainlinkFence · Brace_FenceFabric_2 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_FenceFabric_2.glb",
+      "position": [
+        -10,
+        0,
+        16.00000113
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.83767652,
+        13.83767652,
+        13.83767652
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ab303fdb6d6294ee",
+      "name": "ChainlinkFence · Brace_Gate_1 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_Gate_1.glb",
+      "position": [
+        -6,
+        1.5e-7,
+        16.00000084
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.23936611,
+        10.23936611,
+        10.23936611
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-de19f5f679ac63ad",
+      "name": "ChainlinkFence · Brace_Gate_2 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_Gate_2.glb",
+      "position": [
+        -2,
+        1.5e-7,
+        16.00000084
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.23936611,
+        10.23936611,
+        10.23936611
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4be28f927e4f3fb9",
+      "name": "ChainlinkFence · Brace_Gate_3 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_Gate_3.glb",
+      "position": [
+        -22,
+        1.5e-7,
+        12.00000084
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.23936611,
+        10.23936611,
+        10.23936611
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fffae4833b2c8d5c",
+      "name": "ChainlinkFence · Brace_Gate_4 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_Gate_4.glb",
+      "position": [
+        -18,
+        1.5e-7,
+        12.00000084
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.23936611,
+        10.23936611,
+        10.23936611
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7d20a65ffbb2b419",
+      "name": "ChainlinkFence · Brace_Gate_Pole_1 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_Gate_Pole_1.glb",
+      "position": [
+        -14,
+        2.1e-7,
+        11.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.31488742,
+        11.31488742,
+        11.31488742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7ecb07d294e9f53d",
+      "name": "ChainlinkFence · Brace_Gate_Pole_2 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_Gate_Pole_2.glb",
+      "position": [
+        -10,
+        2.1e-7,
+        11.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.31488538,
+        11.31488538,
+        11.31488538
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a479b8dd0072122f",
+      "name": "ChainlinkFence · Brace_Gate_Pole_3 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_Gate_Pole_3.glb",
+      "position": [
+        -6,
+        3e-7,
+        11.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.31488538,
+        11.31488538,
+        11.31488538
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-40f3c1e0f8cfd899",
+      "name": "ChainlinkFence · Brace_Gate_Pole_4 · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_Gate_Pole_4.glb",
+      "position": [
+        -2,
+        3e-7,
+        11.99999983
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.31488742,
+        11.31488742,
+        11.31488742
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-51debba309316e96",
+      "name": "ChainlinkFence · Brace_TopPole_1 · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_TopPole_1.glb",
+      "position": [
+        -22,
+        0,
+        7.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.55699315,
+        13.55699315,
+        13.55699315
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f7454aa144bf79fd",
+      "name": "ChainlinkFence · Brace_TopPole_2 · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_TopPole_2.glb",
+      "position": [
+        -18,
+        0,
+        7.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.55699315,
+        13.55699315,
+        13.55699315
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e04bfaaa1dc78216",
+      "name": "ChainlinkFence · Brace_TopPole_3 · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_TopPole_3.glb",
+      "position": [
+        -14,
+        0,
+        7.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.55699315,
+        13.55699315,
+        13.55699315
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6de39c75b6714dbc",
+      "name": "ChainlinkFence · Brace_TopPole_4 · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/Brace_TopPole_4.glb",
+      "position": [
+        -10,
+        0.00000162,
+        7.9999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.55699315,
+        13.55699315,
+        13.55699315
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d4eeb6da32fe7196",
+      "name": "ChainlinkFence · ChainlinkFence_Fabric · 模型 0.01 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Fabric.glb",
+      "position": [
+        -6.0000005,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39173559,
+        1.39173559,
+        1.39173559
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-308cb05329ff0dd9",
+      "name": "ChainlinkFence · ChainlinkFence_Fabric_End_1 · 模型 0.01 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Fabric_End_1.glb",
+      "position": [
+        -1.99999983,
+        0,
+        8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39173559,
+        1.39173559,
+        1.39173559
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-dfc32e46e0227e5e",
+      "name": "ChainlinkFence · ChainlinkFence_Fabric_End_1_Half · 模型 0.01 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Fabric_End_1_Half.glb",
+      "position": [
+        -21.99999982,
+        0,
+        3.99999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50178761,
+        1.50178761,
+        1.50178761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8bfbf5411d57d6fc",
+      "name": "ChainlinkFence · ChainlinkFence_Fabric_End_2 · 模型 0.01 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Fabric_End_2.glb",
+      "position": [
+        -17.99999983,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.38895897,
+        1.38895897,
+        1.38895897
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c423a6dfafa31996",
+      "name": "ChainlinkFence · ChainlinkFence_Fabric_End_2_Half · 模型 0.01 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Fabric_End_2_Half.glb",
+      "position": [
+        -13.99999982,
+        0,
+        3.99999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50178761,
+        1.50178761,
+        1.50178761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8fda8e0e80ed3449",
+      "name": "ChainlinkFence · ChainlinkFence_Fabric_Half · 模型 0.01 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Fabric_Half.glb",
+      "position": [
+        -10.0000005,
+        0,
+        3.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39999533,
+        1.39999533,
+        1.39999533
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-46d38f203a923c68",
+      "name": "ChainlinkFence · ChainlinkFence_Fabric_Middle · 模型 0.01 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Fabric_Middle.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39173559,
+        1.39173559,
+        1.39173559
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e3326a9a8ecd571a",
+      "name": "ChainlinkFence · ChainlinkFence_Fabric_Middle_Half · 模型 0.01 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Fabric_Middle_Half.glb",
+      "position": [
+        -2,
+        0,
+        3.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.61954388,
+        1.61954388,
+        1.61954388
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-22c58999a5aa52ed",
+      "name": "ChainlinkFence · ChainlinkFence_Gate_1_Group · 模型 0.13 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Gate_1_Group.glb",
+      "position": [
+        -21.99999993,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26641689,
+        1.26641689,
+        1.26641689
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a2b2367880501c2a",
+      "name": "ChainlinkFence · ChainlinkFence_Gate_1_Group_Half · 模型 0.12 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Gate_1_Group_Half.glb",
+      "position": [
+        -17.99999993,
+        0,
+        -2e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39241719,
+        1.39241719,
+        1.39241719
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2ad2da9f3f8a6dff",
+      "name": "ChainlinkFence · ChainlinkFence_Gate_2_Group · 模型 0.13 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Gate_2_Group.glb",
+      "position": [
+        -13.99999974,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.26641689,
+        1.26641689,
+        1.26641689
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-77eeb1d145833721",
+      "name": "ChainlinkFence · ChainlinkFence_Gate_2_Group_Half · 模型 0.12 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Gate_2_Group_Half.glb",
+      "position": [
+        -10.00000021,
+        0,
+        -2e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.392417,
+        1.392417,
+        1.392417
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-eac284c1d3377ecc",
+      "name": "ChainlinkFence · ChainlinkFence_Gate_Wide_1_Group · 模型 0.13 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Gate_Wide_1_Group.glb",
+      "position": [
+        -5.99999992,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69809896,
+        0.69809896,
+        0.69809896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d0f772bdf7d80fdf",
+      "name": "ChainlinkFence · ChainlinkFence_Gate_Wide_1_Group_Half · 模型 0.12 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Gate_Wide_1_Group_Half.glb",
+      "position": [
+        -1.99999992,
+        0,
+        -1e-8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69809896,
+        0.69809896,
+        0.69809896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c7800c8bc747c436",
+      "name": "ChainlinkFence · ChainlinkFence_Gate_Wide_2_Group · 模型 0.13 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Gate_Wide_2_Group.glb",
+      "position": [
+        -22.00000006,
+        0,
+        -4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69809896,
+        0.69809896,
+        0.69809896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d1b7fd3eb8e26ae7",
+      "name": "ChainlinkFence · ChainlinkFence_Gate_Wide_2_Group_Half · 模型 0.12 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Gate_Wide_2_Group_Half.glb",
+      "position": [
+        -17.99999998,
+        0,
+        -4.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.69809883,
+        0.69809883,
+        0.69809883
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e1aae69e40b89f90",
+      "name": "ChainlinkFence · ChainlinkFence_Pole_Support · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Pole_Support.glb",
+      "position": [
+        -13.99999988,
+        0,
+        -4.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.92387825,
+        0.92387825,
+        0.92387825
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4bc78287e4542da6",
+      "name": "ChainlinkFence · ChainlinkFence_Pole_Support_Half · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Pole_Support_Half.glb",
+      "position": [
+        -9.99999984,
+        0,
+        -4.00000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2199877,
+        1.2199877,
+        1.2199877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e3c394dce8c6dc27",
+      "name": "ChainlinkFence · ChainlinkFence_Post_Braceless · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_Braceless.glb",
+      "position": [
+        -6,
+        0,
+        -3.99999991
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86684811,
+        0.86684811,
+        0.86684811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d65765c1d69eab3a",
+      "name": "ChainlinkFence · ChainlinkFence_Post_Braceless_Half · 模型 0.01 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_Braceless_Half.glb",
+      "position": [
+        -2.00000001,
+        0,
+        -4.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13460982,
+        1.13460982,
+        1.13460982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e256ca0f9f85ad43",
+      "name": "ChainlinkFence · ChainlinkFence_Post_Corner_1 · 模型 0.12 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_Corner_1.glb",
+      "position": [
+        -21.99999992,
+        0,
+        -8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86684811,
+        0.86684811,
+        0.86684811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bf01c05dfea1fadd",
+      "name": "ChainlinkFence · ChainlinkFence_Post_Corner_1_Half · 模型 0.10 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_Corner_1_Half.glb",
+      "position": [
+        -17.99999989,
+        0,
+        -7.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13460982,
+        1.13460982,
+        1.13460982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-92c86d9aca94d02f",
+      "name": "ChainlinkFence · ChainlinkFence_Post_Corner_2 · 模型 0.12 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_Corner_2.glb",
+      "position": [
+        -14.00000008,
+        0,
+        -8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86684811,
+        0.86684811,
+        0.86684811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-46291935bb50b663",
+      "name": "ChainlinkFence · ChainlinkFence_Post_Corner_2_Half · 模型 0.10 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_Corner_2_Half.glb",
+      "position": [
+        -10.00000011,
+        0,
+        -7.99999989
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13460982,
+        1.13460982,
+        1.13460982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-444960ffb4c61446",
+      "name": "ChainlinkFence · ChainlinkFence_Post_End_1 · 模型 0.06 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_End_1.glb",
+      "position": [
+        -6,
+        0,
+        -8
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86684811,
+        0.86684811,
+        0.86684811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-682264ff489b6a72",
+      "name": "ChainlinkFence · ChainlinkFence_Post_End_1_Half · 模型 0.06 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_End_1_Half.glb",
+      "position": [
+        -2,
+        0,
+        -8.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13460982,
+        1.13460982,
+        1.13460982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-975862c366a970df",
+      "name": "ChainlinkFence · ChainlinkFence_Post_End_2 · 模型 0.06 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_End_2.glb",
+      "position": [
+        -13.99999997,
+        0,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.86684811,
+        0.86684811,
+        0.86684811
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-258db7c058d5cd66",
+      "name": "ChainlinkFence · ChainlinkFence_Post_End_2_Half · 模型 0.06 MiB · 贴图 0.28 MiB",
+      "parentId": "transform:category-chainlinkfence-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/ChainlinkFence/ChainlinkFence_Post_End_2_Half.glb",
+      "position": [
+        -9.99999996,
+        0,
+        -12.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.13460982,
+        1.13460982,
+        1.13460982
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

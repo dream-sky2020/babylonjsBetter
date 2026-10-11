@@ -1,0 +1,3999 @@
+{
+  "presetKey": "artist-kyle-fuji-life-model-test",
+  "name": "Kyle Fuji · 食物、卧室与节庆（89 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-bedroom-0",
+      "name": "Bedroom",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-christmas-1",
+      "name": "Christmas",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-christmascandles-2",
+      "name": "ChristmasCandles",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-christmassnowman-3",
+      "name": "ChristmasSnowman",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-christmastree-4",
+      "name": "ChristmasTree",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-fooddishes-5",
+      "name": "FoodDishes",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-foodfruit-6",
+      "name": "FoodFruit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-foodjunk_food-7",
+      "name": "FoodJunk_Food",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-foodother-8",
+      "name": "FoodOther",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-foodsushi-9",
+      "name": "FoodSushi",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-foodveggies-10",
+      "name": "FoodVeggies",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 60
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "kyle-fuji-31e6b8cf637cb33a-stand",
+      "name": "Bed展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ca1c07c3664856dd-stand",
+      "name": "Bed_Table展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-66870e41fb55a26c-stand",
+      "name": "Bed_Table_Drawer展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-f5967bd62cd1e67a-stand",
+      "name": "Dresser1展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-6f0c5f074052d004-stand",
+      "name": "Dresser2展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-7d89acd8aa8b9845-stand",
+      "name": "Dresser3展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        27.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-79175e421d93c0c7-stand",
+      "name": "Dresser4展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-36ab331072ff8280-stand",
+      "name": "Lamp1展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0a593e5f6718ae58-stand",
+      "name": "Lamp2展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-34e1fa810c502e84-stand",
+      "name": "Large_Drawer展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-1a325f3d9f8545e6-stand",
+      "name": "Pole1展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-b398985aeb25ad46-stand",
+      "name": "Pole2展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-00055019fab724d1-stand",
+      "name": "Small_Drawer展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-f6810d6cec33b68c-stand",
+      "name": "Wall_Fixture展台",
+      "parentId": "transform:category-bedroom-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-6ebe47d8e71d34b9-stand",
+      "name": "candy_cane展台",
+      "parentId": "transform:category-christmas-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-7d7635d273ccd47f-stand",
+      "name": "present_1展台",
+      "parentId": "transform:category-christmas-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-1faf67f547e2829e-stand",
+      "name": "present_2展台",
+      "parentId": "transform:category-christmas-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-9ac1cc55b5296b2f-stand",
+      "name": "ribbon展台",
+      "parentId": "transform:category-christmas-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-89ef5741b656067e-stand",
+      "name": "sign展台",
+      "parentId": "transform:category-christmas-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-6be19829665db06f-stand",
+      "name": "wreath展台",
+      "parentId": "transform:category-christmas-1",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        27.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-8ddf31c4dd1ed50c-stand",
+      "name": "candle_flame展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-0e238cbdebcc5f88-stand",
+      "name": "candle_holder_1展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-d90097f157c394ae-stand",
+      "name": "candle_holder_2展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-b5db42214bc138e5-stand",
+      "name": "candle_holder_3展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-764f241992cb2546-stand",
+      "name": "candle_holder_4展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-34518eb1e9c5e4f1-stand",
+      "name": "candle_holder_5展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        20.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-6a801a34abfadf78-stand",
+      "name": "candle_saucer展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-1130b46cc097ba2d-stand",
+      "name": "candle_stick_1展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-5c351506be072c2b-stand",
+      "name": "candle_stick_2展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-369f761ba5cab3ed-stand",
+      "name": "candle_stick_3展台",
+      "parentId": "transform:category-christmascandles-2",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        16.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-2c44584dea560970-stand",
+      "name": "arms展台",
+      "parentId": "transform:category-christmassnowman-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-cf16408d28f2c482-stand",
+      "name": "nose展台",
+      "parentId": "transform:category-christmassnowman-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-99faab31be38a38f-stand",
+      "name": "snow_man展台",
+      "parentId": "transform:category-christmassnowman-3",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-728dd99dff9c61b5-stand",
+      "name": "ornaments_1展台",
+      "parentId": "transform:category-christmastree-4",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-9c6a849011248078-stand",
+      "name": "ornaments_2展台",
+      "parentId": "transform:category-christmastree-4",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-3004e28a3d91200e-stand",
+      "name": "ornaments_3展台",
+      "parentId": "transform:category-christmastree-4",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-f0fa65360699dcff-stand",
+      "name": "ribbon展台",
+      "parentId": "transform:category-christmastree-4",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-2d160773a9d7223b-stand",
+      "name": "star展台",
+      "parentId": "transform:category-christmastree-4",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-2b9e93399c419b13-stand",
+      "name": "tree展台",
+      "parentId": "transform:category-christmastree-4",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        9.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-a13455e3ba2a1617-stand",
+      "name": "tree_snow展台",
+      "parentId": "transform:category-christmastree-4",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-eab7212bc61464bd-stand",
+      "name": "Bowl展台",
+      "parentId": "transform:category-fooddishes-5",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-6538ba40d8e0446d-stand",
+      "name": "Bowl_Contents展台",
+      "parentId": "transform:category-fooddishes-5",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-a38942e1a1c11e3c-stand",
+      "name": "Dish展台",
+      "parentId": "transform:category-fooddishes-5",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-d9a2c8c99c143e9c-stand",
+      "name": "Dish_Contents展台",
+      "parentId": "transform:category-fooddishes-5",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-b2de1d7e2ca8fa74-stand",
+      "name": "Plate展台",
+      "parentId": "transform:category-fooddishes-5",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-857bc9f322f7d84c-stand",
+      "name": "Sushi_Block展台",
+      "parentId": "transform:category-fooddishes-5",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-08b896940e144f3a-stand",
+      "name": "Apple展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-22baa3d3da52c465-stand",
+      "name": "Banana展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-b16237cdc258d0ba-stand",
+      "name": "Coconut展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-9ecaeec7a497b50f-stand",
+      "name": "Lemon展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-40d6396c49e1f9cc-stand",
+      "name": "Lime展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-a31611c9b77330b6-stand",
+      "name": "Orange展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -1.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ee1d31856cd444c3-stand",
+      "name": "Pineapple展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-310493077cf4e1a0-stand",
+      "name": "Watermelon展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-791ff4d26e9a65c1-stand",
+      "name": "Watermelon_Slice展台",
+      "parentId": "transform:category-foodfruit-6",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -5.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-e174d15918a8f18b-stand",
+      "name": "Burger展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-744f3085bdbf0e70-stand",
+      "name": "Cheese_Pizza展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-cf8e4c6db42f69b7-stand",
+      "name": "Fries展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-c2eb2e133dc9fd1d-stand",
+      "name": "Hot_Dog展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-01331249a08bcb86-stand",
+      "name": "Ice_Cream_Cone展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-39b06702032d3df0-stand",
+      "name": "Pepperoni_Pizza展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -1.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-b6215f25d77fe1f7-stand",
+      "name": "Scoop_1展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-94be17e3294e34fd-stand",
+      "name": "Scoop_2展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-cc8ce2758b729a8d-stand",
+      "name": "Soda_Can展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-a72996ee18d99455-stand",
+      "name": "Soda_Can_Beer展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-a347dbe4ab0d70b0-stand",
+      "name": "Soda_Can_Cola展台",
+      "parentId": "transform:category-foodjunk_food-7",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        -5.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-a81200770bddd1a8-stand",
+      "name": "Drumstick展台",
+      "parentId": "transform:category-foodother-8",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-9d4d36c1359babf5-stand",
+      "name": "Egg展台",
+      "parentId": "transform:category-foodother-8",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-877be59342ad56a1-stand",
+      "name": "Egg_Cooked展台",
+      "parentId": "transform:category-foodother-8",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-de721eebfb536a9e-stand",
+      "name": "Meat_Haunch展台",
+      "parentId": "transform:category-foodother-8",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-6d02997fd726d6db-stand",
+      "name": "Steak展台",
+      "parentId": "transform:category-foodother-8",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -12.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-b1648f9f8112159d-stand",
+      "name": "Salmon_Maki展台",
+      "parentId": "transform:category-foodsushi-9",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        -12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-f32ae7f8b30a501e-stand",
+      "name": "Salmon_Nigiri展台",
+      "parentId": "transform:category-foodsushi-9",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        -12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-401d4e744d54006f-stand",
+      "name": "Shiromi_Maki展台",
+      "parentId": "transform:category-foodsushi-9",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        -12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-21ca293c5ba9852e-stand",
+      "name": "Shiromi_Nigiri展台",
+      "parentId": "transform:category-foodsushi-9",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        -12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-14fc09e5ecc857d4-stand",
+      "name": "Shrimp_Nigiri展台",
+      "parentId": "transform:category-foodsushi-9",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        -12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-42c9cf24826cd73f-stand",
+      "name": "Tuna_Maki展台",
+      "parentId": "transform:category-foodsushi-9",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        -12.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-be6cbc66210ed8b0-stand",
+      "name": "Tuna_Nigiri展台",
+      "parentId": "transform:category-foodsushi-9",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        -16.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "kyle-fuji-08f41e4174edfdfe-stand",
+      "name": "Broccoli展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-799a3b983d5eaa11-stand",
+      "name": "Carrot展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-60544e87d1c6312c-stand",
+      "name": "Corn展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-2662cad74883e064-stand",
+      "name": "Cucumber展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-d1f6f58b631586cb-stand",
+      "name": "Eggplant展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-8311dc060c53da15-stand",
+      "name": "Mushroom展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -19.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-537417564f9f2609-stand",
+      "name": "Onion_Red展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-fa2e739b5bae3906-stand",
+      "name": "Onion_White展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-a278c589e6fe74a7-stand",
+      "name": "Potato展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-ae5629b0ca684c72-stand",
+      "name": "Tomato展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "kyle-fuji-3b4ddc89b5bf1399-stand",
+      "name": "Zucchini展台",
+      "parentId": "transform:category-foodveggies-10",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -23.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "kyle-fuji-31e6b8cf637cb33a",
+      "name": "Bedroom · Bed",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Bed.glb",
+      "position": [
+        -22,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.33333339,
+        1.33333339,
+        1.33333339
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ca1c07c3664856dd",
+      "name": "Bedroom · Bed_Table",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Bed_Table.glb",
+      "position": [
+        -18,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.516129,
+        4.516129,
+        4.516129
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-66870e41fb55a26c",
+      "name": "Bedroom · Bed_Table_Drawer",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Bed_Table_Drawer.glb",
+      "position": [
+        -14,
+        0,
+        27.4999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.08860775,
+        7.08860775,
+        7.08860775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f5967bd62cd1e67a",
+      "name": "Bedroom · Dresser1",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Dresser1.glb",
+      "position": [
+        -10,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.29768806,
+        2.29768806,
+        2.29768806
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6f0c5f074052d004",
+      "name": "Bedroom · Dresser2",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Dresser2.glb",
+      "position": [
+        -6,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.29768806,
+        2.29768806,
+        2.29768806
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-7d89acd8aa8b9845",
+      "name": "Bedroom · Dresser3",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Dresser3.glb",
+      "position": [
+        -2,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.21617755,
+        2.21617755,
+        2.21617755
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-79175e421d93c0c7",
+      "name": "Bedroom · Dresser4",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Dresser4.glb",
+      "position": [
+        -22,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4514899,
+        1.4514899,
+        1.4514899
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-36ab331072ff8280",
+      "name": "Bedroom · Lamp1",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Lamp1.glb",
+      "position": [
+        -18,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.38002443,
+        3.38002443,
+        3.38002443
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0a593e5f6718ae58",
+      "name": "Bedroom · Lamp2",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Lamp2.glb",
+      "position": [
+        -14,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.65729966,
+        8.65729966,
+        8.65729966
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-34e1fa810c502e84",
+      "name": "Bedroom · Large_Drawer",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Large_Drawer.glb",
+      "position": [
+        -10,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.10854363,
+        3.10854363,
+        3.10854363
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1a325f3d9f8545e6",
+      "name": "Bedroom · Pole1",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Pole1.glb",
+      "position": [
+        -6,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666637,
+        1.86666637,
+        1.86666637
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b398985aeb25ad46",
+      "name": "Bedroom · Pole2",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Pole2.glb",
+      "position": [
+        -2,
+        0,
+        23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.37958774,
+        7.37958774,
+        7.37958774
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-00055019fab724d1",
+      "name": "Bedroom · Small_Drawer",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Small_Drawer.glb",
+      "position": [
+        -14,
+        0,
+        19.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.0886074,
+        7.0886074,
+        7.0886074
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f6810d6cec33b68c",
+      "name": "Bedroom · Wall_Fixture",
+      "parentId": "transform:category-bedroom-0",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Bedroom/Wall_Fixture.glb",
+      "position": [
+        -10,
+        0,
+        19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.17323413,
+        7.17323413,
+        7.17323413
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6ebe47d8e71d34b9",
+      "name": "Christmas · candy_cane",
+      "parentId": "transform:category-christmas-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Christmas/candy_cane.glb",
+      "position": [
+        2,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.08301303,
+        24.08301303,
+        24.08301303
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-7d7635d273ccd47f",
+      "name": "Christmas · present_1",
+      "parentId": "transform:category-christmas-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Christmas/present_1.glb",
+      "position": [
+        6,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.40107252,
+        10.40107252,
+        10.40107252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1faf67f547e2829e",
+      "name": "Christmas · present_2",
+      "parentId": "transform:category-christmas-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Christmas/present_2.glb",
+      "position": [
+        10,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.19999904,
+        11.19999904,
+        11.19999904
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9ac1cc55b5296b2f",
+      "name": "Christmas · ribbon",
+      "parentId": "transform:category-christmas-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Christmas/ribbon.glb",
+      "position": [
+        14,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.36755309,
+        17.36755309,
+        17.36755309
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-89ef5741b656067e",
+      "name": "Christmas · sign",
+      "parentId": "transform:category-christmas-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Christmas/sign.glb",
+      "position": [
+        18,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9669479,
+        0.9669479,
+        0.9669479
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6be19829665db06f",
+      "name": "Christmas · wreath",
+      "parentId": "transform:category-christmas-1",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/Christmas/wreath.glb",
+      "position": [
+        21.99999999,
+        0,
+        27.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.82826534,
+        5.82826534,
+        5.82826534
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-8ddf31c4dd1ed50c",
+      "name": "ChristmasCandles · candle_flame",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_flame.glb",
+      "position": [
+        2,
+        0.01074361,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        119.05324295,
+        119.05324295,
+        119.05324295
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-0e238cbdebcc5f88",
+      "name": "ChristmasCandles · candle_holder_1",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_holder_1.glb",
+      "position": [
+        6,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.56399141,
+        12.56399141,
+        12.56399141
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d90097f157c394ae",
+      "name": "ChristmasCandles · candle_holder_2",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_holder_2.glb",
+      "position": [
+        10,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.56399141,
+        12.56399141,
+        12.56399141
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b5db42214bc138e5",
+      "name": "ChristmasCandles · candle_holder_3",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_holder_3.glb",
+      "position": [
+        14,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.33623688,
+        9.33623688,
+        9.33623688
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-764f241992cb2546",
+      "name": "ChristmasCandles · candle_holder_4",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_holder_4.glb",
+      "position": [
+        18,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.77096127,
+        6.77096127,
+        6.77096127
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-34518eb1e9c5e4f1",
+      "name": "ChristmasCandles · candle_holder_5",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_holder_5.glb",
+      "position": [
+        22,
+        0,
+        20.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.35660381,
+        5.35660381,
+        5.35660381
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6a801a34abfadf78",
+      "name": "ChristmasCandles · candle_saucer",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_saucer.glb",
+      "position": [
+        6,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.19832997,
+        12.19832997,
+        12.19832997
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-1130b46cc097ba2d",
+      "name": "ChristmasCandles · candle_stick_1",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_stick_1.glb",
+      "position": [
+        10,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        27.99999854,
+        27.99999854,
+        27.99999854
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-5c351506be072c2b",
+      "name": "ChristmasCandles · candle_stick_2",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_stick_2.glb",
+      "position": [
+        14,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        27.99999854,
+        27.99999854,
+        27.99999854
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-369f761ba5cab3ed",
+      "name": "ChristmasCandles · candle_stick_3",
+      "parentId": "transform:category-christmascandles-2",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasCandles/candle_stick_3.glb",
+      "position": [
+        18,
+        0,
+        16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        46.02151437,
+        46.02151437,
+        46.02151437
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2c44584dea560970",
+      "name": "ChristmasSnowman · arms",
+      "parentId": "transform:category-christmassnowman-3",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasSnowman/arms.glb",
+      "position": [
+        -16,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.982955,
+        2.982955,
+        2.982955
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-cf16408d28f2c482",
+      "name": "ChristmasSnowman · nose",
+      "parentId": "transform:category-christmassnowman-3",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasSnowman/nose.glb",
+      "position": [
+        -12.00000007,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.97839747,
+        18.97839747,
+        18.97839747
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-99faab31be38a38f",
+      "name": "ChristmasSnowman · snow_man",
+      "parentId": "transform:category-christmassnowman-3",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasSnowman/snow_man.glb",
+      "position": [
+        -8,
+        0,
+        12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.58288055,
+        2.58288055,
+        2.58288055
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-728dd99dff9c61b5",
+      "name": "ChristmasTree · ornaments_1",
+      "parentId": "transform:category-christmastree-4",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasTree/ornaments_1.glb",
+      "position": [
+        2,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.27420407,
+        2.27420407,
+        2.27420407
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9c6a849011248078",
+      "name": "ChristmasTree · ornaments_2",
+      "parentId": "transform:category-christmastree-4",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasTree/ornaments_2.glb",
+      "position": [
+        6,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.27471096,
+        2.27471096,
+        2.27471096
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-3004e28a3d91200e",
+      "name": "ChristmasTree · ornaments_3",
+      "parentId": "transform:category-christmastree-4",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasTree/ornaments_3.glb",
+      "position": [
+        10,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.27303311,
+        2.27303311,
+        2.27303311
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f0fa65360699dcff",
+      "name": "ChristmasTree · ribbon",
+      "parentId": "transform:category-christmastree-4",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasTree/ribbon.glb",
+      "position": [
+        14,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.88047412,
+        1.88047412,
+        1.88047412
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2d160773a9d7223b",
+      "name": "ChristmasTree · star",
+      "parentId": "transform:category-christmastree-4",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasTree/star.glb",
+      "position": [
+        18,
+        5.5e-7,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.54534927,
+        9.54534927,
+        9.54534927
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2b9e93399c419b13",
+      "name": "ChristmasTree · tree",
+      "parentId": "transform:category-christmastree-4",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasTree/tree.glb",
+      "position": [
+        22,
+        0,
+        9.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40117692,
+        1.40117692,
+        1.40117692
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a13455e3ba2a1617",
+      "name": "ChristmasTree · tree_snow",
+      "parentId": "transform:category-christmastree-4",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/ChristmasTree/tree_snow.glb",
+      "position": [
+        12,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.8315523,
+        1.8315523,
+        1.8315523
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-eab7212bc61464bd",
+      "name": "FoodDishes · Bowl",
+      "parentId": "transform:category-fooddishes-5",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodDishes/Bowl.glb",
+      "position": [
+        -22,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.46270246,
+        9.46270246,
+        9.46270246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6538ba40d8e0446d",
+      "name": "FoodDishes · Bowl_Contents",
+      "parentId": "transform:category-fooddishes-5",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodDishes/Bowl_Contents.glb",
+      "position": [
+        -18,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.26975586,
+        10.26975586,
+        10.26975586
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a38942e1a1c11e3c",
+      "name": "FoodDishes · Dish",
+      "parentId": "transform:category-fooddishes-5",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodDishes/Dish.glb",
+      "position": [
+        -14,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.46270246,
+        9.46270246,
+        9.46270246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d9a2c8c99c143e9c",
+      "name": "FoodDishes · Dish_Contents",
+      "parentId": "transform:category-fooddishes-5",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodDishes/Dish_Contents.glb",
+      "position": [
+        -10,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.93572765,
+        9.93572765,
+        9.93572765
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b2de1d7e2ca8fa74",
+      "name": "FoodDishes · Plate",
+      "parentId": "transform:category-fooddishes-5",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodDishes/Plate.glb",
+      "position": [
+        -6,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.46270246,
+        9.46270246,
+        9.46270246
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-857bc9f322f7d84c",
+      "name": "FoodDishes · Sushi_Block",
+      "parentId": "transform:category-fooddishes-5",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodDishes/Sushi_Block.glb",
+      "position": [
+        -2,
+        0,
+        5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.28769251,
+        12.28769251,
+        12.28769251
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-08b896940e144f3a",
+      "name": "FoodFruit · Apple",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Apple.glb",
+      "position": [
+        -22,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.23566157,
+        26.23566157,
+        26.23566157
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-22baa3d3da52c465",
+      "name": "FoodFruit · Banana",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Banana.glb",
+      "position": [
+        -18,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.14881896,
+        14.14881896,
+        14.14881896
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b16237cdc258d0ba",
+      "name": "FoodFruit · Coconut",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Coconut.glb",
+      "position": [
+        -14,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.5046879,
+        23.5046879,
+        23.5046879
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9ecaeec7a497b50f",
+      "name": "FoodFruit · Lemon",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Lemon.glb",
+      "position": [
+        -10,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.47266292,
+        29.47266292,
+        29.47266292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-40d6396c49e1f9cc",
+      "name": "FoodFruit · Lime",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Lime.glb",
+      "position": [
+        -6,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.47266292,
+        29.47266292,
+        29.47266292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a31611c9b77330b6",
+      "name": "FoodFruit · Orange",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Orange.glb",
+      "position": [
+        -2,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.76641132,
+        31.76641132,
+        31.76641132
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ee1d31856cd444c3",
+      "name": "FoodFruit · Pineapple",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Pineapple.glb",
+      "position": [
+        -16,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.70842612,
+        7.70842612,
+        7.70842612
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-310493077cf4e1a0",
+      "name": "FoodFruit · Watermelon",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Watermelon.glb",
+      "position": [
+        -12,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.26319707,
+        13.26319707,
+        13.26319707
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-791ff4d26e9a65c1",
+      "name": "FoodFruit · Watermelon_Slice",
+      "parentId": "transform:category-foodfruit-6",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodFruit/Watermelon_Slice.glb",
+      "position": [
+        -8,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.27387976,
+        21.27387976,
+        21.27387976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-e174d15918a8f18b",
+      "name": "FoodJunk_Food · Burger",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Burger.glb",
+      "position": [
+        2,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.0102227,
+        24.0102227,
+        24.0102227
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-744f3085bdbf0e70",
+      "name": "FoodJunk_Food · Cheese_Pizza",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Cheese_Pizza.glb",
+      "position": [
+        6,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.82665979,
+        21.82665979,
+        21.82665979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-cf8e4c6db42f69b7",
+      "name": "FoodJunk_Food · Fries",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Fries.glb",
+      "position": [
+        10,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.19556537,
+        29.19556537,
+        29.19556537
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-c2eb2e133dc9fd1d",
+      "name": "FoodJunk_Food · Hot_Dog",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Hot_Dog.glb",
+      "position": [
+        14,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.87720793,
+        14.87720793,
+        14.87720793
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-01331249a08bcb86",
+      "name": "FoodJunk_Food · Ice_Cream_Cone",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Ice_Cream_Cone.glb",
+      "position": [
+        18,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.06679333,
+        32.06679333,
+        32.06679333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-39b06702032d3df0",
+      "name": "FoodJunk_Food · Pepperoni_Pizza",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Pepperoni_Pizza.glb",
+      "position": [
+        22,
+        0,
+        -1.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.82665979,
+        21.82665979,
+        21.82665979
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b6215f25d77fe1f7",
+      "name": "FoodJunk_Food · Scoop_1",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Scoop_1.glb",
+      "position": [
+        4,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        27.63958337,
+        27.63958337,
+        27.63958337
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-94be17e3294e34fd",
+      "name": "FoodJunk_Food · Scoop_2",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Scoop_2.glb",
+      "position": [
+        8,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.93207785,
+        33.93207785,
+        33.93207785
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-cc8ce2758b729a8d",
+      "name": "FoodJunk_Food · Soda_Can",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Soda_Can.glb",
+      "position": [
+        12,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.95081941,
+        22.95081941,
+        22.95081941
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a72996ee18d99455",
+      "name": "FoodJunk_Food · Soda_Can_Beer",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Soda_Can_Beer.glb",
+      "position": [
+        16,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.95081941,
+        22.95081941,
+        22.95081941
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a347dbe4ab0d70b0",
+      "name": "FoodJunk_Food · Soda_Can_Cola",
+      "parentId": "transform:category-foodjunk_food-7",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodJunk_Food/Soda_Can_Cola.glb",
+      "position": [
+        20,
+        0,
+        -5.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.95081941,
+        22.95081941,
+        22.95081941
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a81200770bddd1a8",
+      "name": "FoodOther · Drumstick",
+      "parentId": "transform:category-foodother-8",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodOther/Drumstick.glb",
+      "position": [
+        -20,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.41037862,
+        17.41037862,
+        17.41037862
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-9d4d36c1359babf5",
+      "name": "FoodOther · Egg",
+      "parentId": "transform:category-foodother-8",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodOther/Egg.glb",
+      "position": [
+        -16,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        40.12406735,
+        40.12406735,
+        40.12406735
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-877be59342ad56a1",
+      "name": "FoodOther · Egg_Cooked",
+      "parentId": "transform:category-foodother-8",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodOther/Egg_Cooked.glb",
+      "position": [
+        -12,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        23.43495777,
+        23.43495777,
+        23.43495777
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-de721eebfb536a9e",
+      "name": "FoodOther · Meat_Haunch",
+      "parentId": "transform:category-foodother-8",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodOther/Meat_Haunch.glb",
+      "position": [
+        -8,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.63026396,
+        10.63026396,
+        10.63026396
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-6d02997fd726d6db",
+      "name": "FoodOther · Steak",
+      "parentId": "transform:category-foodother-8",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodOther/Steak.glb",
+      "position": [
+        -4,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        17.82403088,
+        17.82403088,
+        17.82403088
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-b1648f9f8112159d",
+      "name": "FoodSushi · Salmon_Maki",
+      "parentId": "transform:category-foodsushi-9",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodSushi/Salmon_Maki.glb",
+      "position": [
+        2,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        69.99985814,
+        69.99985814,
+        69.99985814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-f32ae7f8b30a501e",
+      "name": "FoodSushi · Salmon_Nigiri",
+      "parentId": "transform:category-foodsushi-9",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodSushi/Salmon_Nigiri.glb",
+      "position": [
+        6,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.84791153,
+        33.84791153,
+        33.84791153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-401d4e744d54006f",
+      "name": "FoodSushi · Shiromi_Maki",
+      "parentId": "transform:category-foodsushi-9",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodSushi/Shiromi_Maki.glb",
+      "position": [
+        10,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        69.99985814,
+        69.99985814,
+        69.99985814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-21ca293c5ba9852e",
+      "name": "FoodSushi · Shiromi_Nigiri",
+      "parentId": "transform:category-foodsushi-9",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodSushi/Shiromi_Nigiri.glb",
+      "position": [
+        14,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.84791153,
+        33.84791153,
+        33.84791153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-14fc09e5ecc857d4",
+      "name": "FoodSushi · Shrimp_Nigiri",
+      "parentId": "transform:category-foodsushi-9",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodSushi/Shrimp_Nigiri.glb",
+      "position": [
+        18,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.15155409,
+        31.15155409,
+        31.15155409
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-42c9cf24826cd73f",
+      "name": "FoodSushi · Tuna_Maki",
+      "parentId": "transform:category-foodsushi-9",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodSushi/Tuna_Maki.glb",
+      "position": [
+        22,
+        0,
+        -12.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        69.99985814,
+        69.99985814,
+        69.99985814
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-be6cbc66210ed8b0",
+      "name": "FoodSushi · Tuna_Nigiri",
+      "parentId": "transform:category-foodsushi-9",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodSushi/Tuna_Nigiri.glb",
+      "position": [
+        12,
+        0,
+        -16.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.84791153,
+        33.84791153,
+        33.84791153
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-08f41e4174edfdfe",
+      "name": "FoodVeggies · Broccoli",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Broccoli.glb",
+      "position": [
+        -22,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        68.93466002,
+        68.93466002,
+        68.93466002
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-799a3b983d5eaa11",
+      "name": "FoodVeggies · Carrot",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Carrot.glb",
+      "position": [
+        -18,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.94568427,
+        13.94568427,
+        13.94568427
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-60544e87d1c6312c",
+      "name": "FoodVeggies · Corn",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Corn.glb",
+      "position": [
+        -14,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        15.41589603,
+        15.41589603,
+        15.41589603
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-2662cad74883e064",
+      "name": "FoodVeggies · Cucumber",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Cucumber.glb",
+      "position": [
+        -10,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.96493116,
+        10.96493116,
+        10.96493116
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-d1f6f58b631586cb",
+      "name": "FoodVeggies · Eggplant",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Eggplant.glb",
+      "position": [
+        -6,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.96493116,
+        10.96493116,
+        10.96493116
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-8311dc060c53da15",
+      "name": "FoodVeggies · Mushroom",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Mushroom.glb",
+      "position": [
+        -2,
+        0,
+        -19.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        68.95602981,
+        68.95602981,
+        68.95602981
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-537417564f9f2609",
+      "name": "FoodVeggies · Onion_Red",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Onion_Red.glb",
+      "position": [
+        -20,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.58629209,
+        29.58629209,
+        29.58629209
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-fa2e739b5bae3906",
+      "name": "FoodVeggies · Onion_White",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Onion_White.glb",
+      "position": [
+        -16,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.58629209,
+        29.58629209,
+        29.58629209
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-a278c589e6fe74a7",
+      "name": "FoodVeggies · Potato",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Potato.glb",
+      "position": [
+        -12,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.89389565,
+        21.89389565,
+        21.89389565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-ae5629b0ca684c72",
+      "name": "FoodVeggies · Tomato",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Tomato.glb",
+      "position": [
+        -8,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.76667434,
+        32.76667434,
+        32.76667434
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "kyle-fuji-3b4ddc89b5bf1399",
+      "name": "FoodVeggies · Zucchini",
+      "parentId": "transform:category-foodveggies-10",
+      "modelPath": "resources/Model/GLB/artist_kyle-fuji/FoodVeggies/Zucchini.glb",
+      "position": [
+        -4,
+        0,
+        -23.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.96493116,
+        10.96493116,
+        10.96493116
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

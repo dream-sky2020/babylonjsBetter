@@ -1,0 +1,545 @@
+{
+  "presetKey": "artist-loafbrr-showcase-carts",
+  "name": "Loafbrr · Carts · 11模型 · 模型 0.48 MiB + 贴图 0.67 MiB · 合计 1.16 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-carts-0",
+      "name": "Carts",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 13
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-ac1444065f30c95d-stand",
+      "name": "Cart_1展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-0dd6c0292141d9c8-stand",
+      "name": "Cart_2展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a2d0edbff31b3ac0-stand",
+      "name": "Cart_3展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-baf247b7f5eb4fe0-stand",
+      "name": "Cart_5展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-09cdda4846488531-stand",
+      "name": "Cart_6展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8579540d37c48c90-stand",
+      "name": "Cart_7展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        4
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7aabe8589941dc8f-stand",
+      "name": "Stacker_A_1展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-58d1f45b150263ff-stand",
+      "name": "Stacker_A_2展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a8c59020cf03e401-stand",
+      "name": "Stacker_A_3展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-06b76843c9ada280-stand",
+      "name": "Stacker_B展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-895bd9c16db4ffcf-stand",
+      "name": "Stepladder展台",
+      "parentId": "transform:category-carts-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        0
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-ac1444065f30c95d",
+      "name": "Carts · Cart_1 · 模型 0.04 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Cart_1.glb",
+      "position": [
+        -22,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80262642,
+        1.80262642,
+        1.80262642
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-0dd6c0292141d9c8",
+      "name": "Carts · Cart_2 · 模型 0.03 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Cart_2.glb",
+      "position": [
+        -18,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80262642,
+        1.80262642,
+        1.80262642
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a2d0edbff31b3ac0",
+      "name": "Carts · Cart_3 · 模型 0.03 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Cart_3.glb",
+      "position": [
+        -14,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80262613,
+        1.80262613,
+        1.80262613
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-baf247b7f5eb4fe0",
+      "name": "Carts · Cart_5 · 模型 0.04 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Cart_5.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80262642,
+        1.80262642,
+        1.80262642
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-09cdda4846488531",
+      "name": "Carts · Cart_6 · 模型 0.04 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Cart_6.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.80262642,
+        1.80262642,
+        1.80262642
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8579540d37c48c90",
+      "name": "Carts · Cart_7 · 模型 0.04 MiB · 贴图 0.21 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Cart_7.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.68130976,
+        1.68130976,
+        1.68130976
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7aabe8589941dc8f",
+      "name": "Carts · Stacker_A_1 · 模型 0.05 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Stacker_A_1.glb",
+      "position": [
+        -20,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.67042922,
+        1.67042922,
+        1.67042922
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-58d1f45b150263ff",
+      "name": "Carts · Stacker_A_2 · 模型 0.05 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Stacker_A_2.glb",
+      "position": [
+        -16,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.60831365,
+        1.60831365,
+        1.60831365
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a8c59020cf03e401",
+      "name": "Carts · Stacker_A_3 · 模型 0.05 MiB · 贴图 0.18 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Stacker_A_3.glb",
+      "position": [
+        -12,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.2802763,
+        1.2802763,
+        1.2802763
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-06b76843c9ada280",
+      "name": "Carts · Stacker_B · 模型 0.07 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Stacker_B.glb",
+      "position": [
+        -8,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.1689853,
+        1.1689853,
+        1.1689853
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-895bd9c16db4ffcf",
+      "name": "Carts · Stepladder · 模型 0.05 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-carts-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Carts/Stepladder.glb",
+      "position": [
+        -4,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.95961502,
+        0.95961502,
+        0.95961502
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

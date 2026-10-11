@@ -3,6 +3,7 @@ import os
 import math
 import json
 from werkzeug.utils import secure_filename
+from model_material_bindings import validate_model_material_bindings
 
 ALLOWED_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".svg"}
 ANCHOR_MIN, ANCHOR_MAX = -1, 2
@@ -961,6 +962,11 @@ def validate_model_scene_preset_payload(payload: dict) -> list[str]:
             if not isinstance(instance.get("name"), str) or not instance.get("name", "").strip():
                 errors.append(f"{i_path}.name must be a non-empty string")
             model_path = instance.get("modelPath")
+            if "materialOverrides" in instance:
+                try:
+                    validate_model_material_bindings(instance["materialOverrides"])
+                except ValueError as error:
+                    errors.append(f"{i_path}.materialOverrides: {error}")
             if not isinstance(model_path, str) or not model_path.startswith("/resources/") or not model_path.lower().split("?", 1)[0].endswith((".glb", ".gltf")):
                 errors.append(f"{i_path}.modelPath must be a /resources/*.glb or *.gltf path")
             transform = instance.get("transform")
@@ -1050,6 +1056,11 @@ def validate_model_display_config_payload(payload: dict) -> list[str]:
             continue
         if config.get("modelPath") != key:
             errors.append(f"{path}.modelPath must match its object key")
+        if "materialOverrides" in config:
+            try:
+                validate_model_material_bindings(config['materialOverrides'])
+            except ValueError as error:
+                errors.append(f"{path}.materialOverrides: {error}")
         rotation = config.get("rotationDeg")
         if not isinstance(rotation, dict):
             errors.append(f"{path}.rotationDeg must be an object")

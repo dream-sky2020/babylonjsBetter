@@ -1,0 +1,1252 @@
+{
+  "presetKey": "artist-philip-erd-cargo-model-test",
+  "name": "Philip Erd · 货物、箱桶与杂物（29 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "philip-erd-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "philip-erd-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "philip-erd-Cargo",
+      "name": "货物、箱桶与杂物",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "philip-erd-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 32,
+        "height": 28
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-zone",
+      "name": "货物、箱桶与杂物分区",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 24.5,
+        "height": 0.1,
+        "depth": 20.5
+      },
+      "position": [
+        0,
+        -0.15,
+        0
+      ],
+      "color": "#9b8d6e"
+    },
+    {
+      "id": "philip-erd-Cargo-1-stand",
+      "name": "bag_1展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-2-stand",
+      "name": "bag_2展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-3-stand",
+      "name": "barrel_large展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-4-stand",
+      "name": "barrel_medium展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-5-stand",
+      "name": "barrel_medium_covered展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-6-stand",
+      "name": "barrel_small展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-7-stand",
+      "name": "basket_1展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-8-stand",
+      "name": "basket_1_thatch展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-9-stand",
+      "name": "bottle_1展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-10-stand",
+      "name": "bottle_2展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-11-stand",
+      "name": "bottle_3展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-12-stand",
+      "name": "box_medium展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-13-stand",
+      "name": "box_small展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        0
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-14-stand",
+      "name": "crate_1_bottle_1展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-15-stand",
+      "name": "crate_1_bottle_2展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-16-stand",
+      "name": "crate_1_bottle_3展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        0
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-17-stand",
+      "name": "crate_1_edible_green展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        0
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-18-stand",
+      "name": "crate_1_edible_red展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        0
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-19-stand",
+      "name": "crate_1_edible_yellow展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-20-stand",
+      "name": "crate_1_empty展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-21-stand",
+      "name": "crate_1_orange展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-22-stand",
+      "name": "crate_1_thatch展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-23-stand",
+      "name": "edible_green展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-24-stand",
+      "name": "edible_orange展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -4
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-25-stand",
+      "name": "edible_red展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-26-stand",
+      "name": "edible_yellow展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-27-stand",
+      "name": "package_large展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-28-stand",
+      "name": "package_medium展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        -8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-29-stand",
+      "name": "package_small展台",
+      "parentId": "transform:philip-erd-Cargo",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        -8
+      ],
+      "color": "#9b8d6e",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "philip-erd-Cargo-1",
+      "name": "bag_1",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/bag_1.glb",
+      "position": [
+        -9.99999971,
+        0,
+        7.99999993
+      ],
+      "scaling": [
+        2.39579098,
+        2.39579098,
+        2.39579098
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-2",
+      "name": "bag_2",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/bag_2.glb",
+      "position": [
+        -5.99999975,
+        0,
+        8.00000004
+      ],
+      "scaling": [
+        2.76661284,
+        2.76661284,
+        2.76661284
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-3",
+      "name": "barrel_large",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_large.glb",
+      "position": [
+        -2.00000008,
+        0,
+        8.00000008
+      ],
+      "scaling": [
+        1.29978109,
+        1.29978109,
+        1.29978109
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-4",
+      "name": "barrel_medium",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_medium.glb",
+      "position": [
+        2,
+        0,
+        7.99999986
+      ],
+      "scaling": [
+        2.36704656,
+        2.36704656,
+        2.36704656
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-5",
+      "name": "barrel_medium_covered",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_medium_covered.glb",
+      "position": [
+        5.9999997,
+        0,
+        7.99999993
+      ],
+      "scaling": [
+        2.23937244,
+        2.23937244,
+        2.23937244
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-6",
+      "name": "barrel_small",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/barrel_small.glb",
+      "position": [
+        10,
+        0,
+        8.00000013
+      ],
+      "scaling": [
+        4.44506252,
+        4.44506252,
+        4.44506252
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-7",
+      "name": "basket_1",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/basket_1.glb",
+      "position": [
+        -10,
+        0,
+        4
+      ],
+      "scaling": [
+        3.02025605,
+        3.02025605,
+        3.02025605
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-8",
+      "name": "basket_1_thatch",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/basket_1_thatch.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "scaling": [
+        3.02025605,
+        3.02025605,
+        3.02025605
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-9",
+      "name": "bottle_1",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/bottle_1.glb",
+      "position": [
+        -2,
+        0,
+        4
+      ],
+      "scaling": [
+        4.4970387,
+        4.4970387,
+        4.4970387
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-10",
+      "name": "bottle_2",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/bottle_2.glb",
+      "position": [
+        2.00000004,
+        0,
+        3.9999999
+      ],
+      "scaling": [
+        5.28202541,
+        5.28202541,
+        5.28202541
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-11",
+      "name": "bottle_3",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/bottle_3.glb",
+      "position": [
+        6,
+        0,
+        3.99999995
+      ],
+      "scaling": [
+        4.22518385,
+        4.22518385,
+        4.22518385
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-12",
+      "name": "box_medium",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/box_medium.glb",
+      "position": [
+        9.99999975,
+        4.3e-7,
+        3.99999971
+      ],
+      "scaling": [
+        2.79999816,
+        2.79999816,
+        2.79999816
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-13",
+      "name": "box_small",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/box_small.glb",
+      "position": [
+        -10.00000143,
+        0,
+        -2.6e-7
+      ],
+      "scaling": [
+        4.36952589,
+        4.36952589,
+        4.36952589
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-14",
+      "name": "crate_1_bottle_1",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_bottle_1.glb",
+      "position": [
+        -6,
+        0,
+        -9e-8
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-15",
+      "name": "crate_1_bottle_2",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_bottle_2.glb",
+      "position": [
+        -2,
+        0,
+        -9e-8
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-16",
+      "name": "crate_1_bottle_3",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_bottle_3.glb",
+      "position": [
+        2,
+        0,
+        -9e-8
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-17",
+      "name": "crate_1_edible_green",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_edible_green.glb",
+      "position": [
+        6,
+        0,
+        -9e-8
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-18",
+      "name": "crate_1_edible_red",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_edible_red.glb",
+      "position": [
+        10,
+        0,
+        3e-8
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-19",
+      "name": "crate_1_edible_yellow",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_edible_yellow.glb",
+      "position": [
+        -10,
+        0,
+        -4.00000009
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-20",
+      "name": "crate_1_empty",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_empty.glb",
+      "position": [
+        -6,
+        0,
+        -4
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-21",
+      "name": "crate_1_orange",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_orange.glb",
+      "position": [
+        -2,
+        0,
+        -4.00000009
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-22",
+      "name": "crate_1_thatch",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/crate_1_thatch.glb",
+      "position": [
+        2,
+        0,
+        -4.00000009
+      ],
+      "scaling": [
+        3.86019103,
+        3.86019103,
+        3.86019103
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-23",
+      "name": "edible_green",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/edible_green.glb",
+      "position": [
+        6,
+        0,
+        -4
+      ],
+      "scaling": [
+        5.56366701,
+        5.56366701,
+        5.56366701
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-24",
+      "name": "edible_orange",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/edible_orange.glb",
+      "position": [
+        9.99999996,
+        0,
+        -3.99999995
+      ],
+      "scaling": [
+        5.55588005,
+        5.55588005,
+        5.55588005
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-25",
+      "name": "edible_red",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/edible_red.glb",
+      "position": [
+        -10.00000009,
+        0,
+        -8
+      ],
+      "scaling": [
+        12.33370239,
+        12.33370239,
+        12.33370239
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-26",
+      "name": "edible_yellow",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/edible_yellow.glb",
+      "position": [
+        -6,
+        0,
+        -8.00000001
+      ],
+      "scaling": [
+        7.63717851,
+        7.63717851,
+        7.63717851
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-27",
+      "name": "package_large",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/package_large.glb",
+      "position": [
+        -2,
+        0,
+        -8
+      ],
+      "scaling": [
+        1.01796437,
+        1.01796437,
+        1.01796437
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-28",
+      "name": "package_medium",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/package_medium.glb",
+      "position": [
+        2.00000129,
+        0,
+        -8.00000008
+      ],
+      "scaling": [
+        2.53699474,
+        2.53699474,
+        2.53699474
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "philip-erd-Cargo-29",
+      "name": "package_small",
+      "parentId": "transform:philip-erd-Cargo",
+      "modelPath": "resources/Model/GLB/artist_philip-erd/Cargo/package_small.glb",
+      "position": [
+        5.99999865,
+        0,
+        -8.00000008
+      ],
+      "scaling": [
+        5.33604672,
+        5.33604672,
+        5.33604672
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

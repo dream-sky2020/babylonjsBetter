@@ -1,0 +1,1835 @@
+{
+  "presetKey": "artist-loafbrr-showcase-pickups",
+  "name": "Loafbrr · Pickups · 41模型 · 模型 0.80 MiB + 贴图 1.68 MiB · 合计 2.48 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-pickups-0",
+      "name": "Pickups",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 33
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-f60b0831aa07a2f1-stand",
+      "name": "Prop_AmmoBox_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-994e61d871fd4b0f-stand",
+      "name": "Prop_AmmoBox_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e67ac72143074c2f-stand",
+      "name": "Prop_Bag_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1fbfd577a6c51382-stand",
+      "name": "Prop_Bag_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c6a1edc084a4a2dc-stand",
+      "name": "Prop_Battery展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-014c3ba71c116942-stand",
+      "name": "Prop_Bomb展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-58b4c93777aa664e-stand",
+      "name": "Prop_Bone_Dog展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-56a03b55468158d0-stand",
+      "name": "Prop_Bone_Fish展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-741b0a39694e6b42-stand",
+      "name": "Prop_Bullet_Pistol_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e421672d7351dc12-stand",
+      "name": "Prop_Bullet_Pistol_A_Shot展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6656a4454b2a7617-stand",
+      "name": "Prop_Bullet_Pistol_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-047083402a9f893b-stand",
+      "name": "Prop_Bullet_Pistol_B_shot展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fb81808c74b9ec27-stand",
+      "name": "Prop_Bullet_Rifle_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3ce983c0ddc3c5e0-stand",
+      "name": "Prop_Bullet_Rifle_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-42c5fe68cdf5e2dc-stand",
+      "name": "Prop_Bullet_Shotgun展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1fb79dcc4ebb7ca1-stand",
+      "name": "Prop_Bullet_Shotgun_Pellet展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5dd77fb13b5888f3-stand",
+      "name": "Prop_Bullet_Shotgun_Shot展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-acdaada26187cb34-stand",
+      "name": "Prop_Burger_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f79c00be37817a06-stand",
+      "name": "Prop_Burger_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b8903684b43f8ba6-stand",
+      "name": "Prop_Coin_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ca85167797039b68-stand",
+      "name": "Prop_Coin_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b334b2512bec6e48-stand",
+      "name": "Prop_Cup_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-1832b8326c208a9b-stand",
+      "name": "Prop_Cup_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a5b421752afb625f-stand",
+      "name": "Prop_Diamond展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-995bed036a82d3e2-stand",
+      "name": "Prop_Fuse展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-80414bf284913289-stand",
+      "name": "Prop_Gold展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7d0411abd1306805-stand",
+      "name": "Prop_GoldBars展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6040e4fed78c93b3-stand",
+      "name": "Prop_Hotdog_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-57068ec042103371-stand",
+      "name": "Prop_Hotdog_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9b3844ecb58180dd-stand",
+      "name": "Prop_Key_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-88ca0e4f53de67d1-stand",
+      "name": "Prop_Key_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4e28473f828b6f34-stand",
+      "name": "Prop_Pickup_Ammo展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-ebc0ac6a706849c8-stand",
+      "name": "Prop_Pickup_Health展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e3acb8430116eb3d-stand",
+      "name": "Prop_Pickup_Shield展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-75436613370730ba-stand",
+      "name": "Prop_PickupBase展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-f0015ae3f6f25b0d-stand",
+      "name": "Prop_Shield展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-5eb3db4687e70aae-stand",
+      "name": "Prop_Star展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cbb1bb0ef1b82437-stand",
+      "name": "Prop_SupplyBag展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8849fe800985c7f5-stand",
+      "name": "Prop_SupplyCase_A展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-6b2cc160bc4547c6-stand",
+      "name": "Prop_SupplyCase_B展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-cddc34c8bd3d38ef-stand",
+      "name": "Prop_Trophy展台",
+      "parentId": "transform:category-pickups-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-f60b0831aa07a2f1",
+      "name": "Pickups · Prop_AmmoBox_A · 模型 0.07 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_AmmoBox_A.glb",
+      "position": [
+        -22.0000004,
+        0,
+        14.00000035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.31617411,
+        13.31617411,
+        13.31617411
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-994e61d871fd4b0f",
+      "name": "Pickups · Prop_AmmoBox_B · 模型 0.07 MiB · 贴图 0.12 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_AmmoBox_B.glb",
+      "position": [
+        -17.99999961,
+        0,
+        13.99999985
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.05177684,
+        13.05177684,
+        13.05177684
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e67ac72143074c2f",
+      "name": "Pickups · Prop_Bag_A · 模型 0.00 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bag_A.glb",
+      "position": [
+        -14,
+        0,
+        13.99999973
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        14.25636916,
+        14.25636916,
+        14.25636916
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1fbfd577a6c51382",
+      "name": "Pickups · Prop_Bag_B · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bag_B.glb",
+      "position": [
+        -10,
+        0,
+        13.99999975
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.34822266,
+        13.34822266,
+        13.34822266
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c6a1edc084a4a2dc",
+      "name": "Pickups · Prop_Battery · 模型 0.02 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Battery.glb",
+      "position": [
+        -6,
+        3.1e-7,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        55.44554262,
+        55.44554262,
+        55.44554262
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-014c3ba71c116942",
+      "name": "Pickups · Prop_Bomb · 模型 0.01 MiB · 贴图 0.04 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bomb.glb",
+      "position": [
+        -1.99999927,
+        -9e-8,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        12.21329476,
+        12.21329476,
+        12.21329476
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-58b4c93777aa664e",
+      "name": "Pickups · Prop_Bone_Dog · 模型 0.02 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bone_Dog.glb",
+      "position": [
+        -22,
+        3e-8,
+        9.99999998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.14655603,
+        16.14655603,
+        16.14655603
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-56a03b55468158d0",
+      "name": "Pickups · Prop_Bone_Fish · 模型 0.03 MiB · 贴图 0.20 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bone_Fish.glb",
+      "position": [
+        -18.00000027,
+        -1.3e-7,
+        9.99999987
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.69500209,
+        20.69500209,
+        20.69500209
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-741b0a39694e6b42",
+      "name": "Pickups · Prop_Bullet_Pistol_A · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Pistol_A.glb",
+      "position": [
+        -14.00000244,
+        0,
+        9.99999992
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        87.50000094,
+        87.50000094,
+        87.50000094
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e421672d7351dc12",
+      "name": "Pickups · Prop_Bullet_Pistol_A_Shot · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Pistol_A_Shot.glb",
+      "position": [
+        -10.00000441,
+        0,
+        10.00000015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        156.5000435,
+        156.5000435,
+        156.5000435
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6656a4454b2a7617",
+      "name": "Pickups · Prop_Bullet_Pistol_B · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Pistol_B.glb",
+      "position": [
+        -5.99999951,
+        -9.9e-7,
+        9.99999958
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        151.35134178,
+        151.35134178,
+        151.35134178
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-047083402a9f893b",
+      "name": "Pickups · Prop_Bullet_Pistol_B_shot · 模型 0.02 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Pistol_B_shot.glb",
+      "position": [
+        -2.00000196,
+        8.9e-7,
+        9.99999582
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        191.08775601,
+        191.08775601,
+        191.08775601
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fb81808c74b9ec27",
+      "name": "Pickups · Prop_Bullet_Rifle_A · 模型 0.02 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Rifle_A.glb",
+      "position": [
+        -22.00000054,
+        -2.3e-7,
+        6.00000077
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.29652206,
+        31.29652206,
+        31.29652206
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3ce983c0ddc3c5e0",
+      "name": "Pickups · Prop_Bullet_Rifle_B · 模型 0.02 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Rifle_B.glb",
+      "position": [
+        -17.99999992,
+        -3.2e-7,
+        5.99999907
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        43.10312007,
+        43.10312007,
+        43.10312007
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-42c5fe68cdf5e2dc",
+      "name": "Pickups · Prop_Bullet_Shotgun · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Shotgun.glb",
+      "position": [
+        -14,
+        -1.4e-7,
+        6.00000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        36.74540637,
+        36.74540637,
+        36.74540637
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1fb79dcc4ebb7ca1",
+      "name": "Pickups · Prop_Bullet_Shotgun_Pellet · 模型 0.00 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Shotgun_Pellet.glb",
+      "position": [
+        -10,
+        6.1e-7,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        524.53364647,
+        524.53364647,
+        524.53364647
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5dd77fb13b5888f3",
+      "name": "Pickups · Prop_Bullet_Shotgun_Shot · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Bullet_Shotgun_Shot.glb",
+      "position": [
+        -6,
+        -1.4e-7,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        37.1816423,
+        37.1816423,
+        37.1816423
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-acdaada26187cb34",
+      "name": "Pickups · Prop_Burger_A · 模型 0.02 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Burger_A.glb",
+      "position": [
+        -2.00000159,
+        0,
+        6.00000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        29.44707278,
+        29.44707278,
+        29.44707278
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f79c00be37817a06",
+      "name": "Pickups · Prop_Burger_B · 模型 0.02 MiB · 贴图 0.14 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Burger_B.glb",
+      "position": [
+        -21.99999833,
+        3e-8,
+        1.99999978
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        28.86486,
+        28.86486,
+        28.86486
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b8903684b43f8ba6",
+      "name": "Pickups · Prop_Coin_A · 模型 0.02 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Coin_A.glb",
+      "position": [
+        -18,
+        2.8e-7,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.66666592,
+        18.66666592,
+        18.66666592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ca85167797039b68",
+      "name": "Pickups · Prop_Coin_B · 模型 0.02 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Coin_B.glb",
+      "position": [
+        -14,
+        2.8e-7,
+        1.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.66666592,
+        18.66666592,
+        18.66666592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b334b2512bec6e48",
+      "name": "Pickups · Prop_Cup_A · 模型 0.02 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Cup_A.glb",
+      "position": [
+        -10,
+        0,
+        1.99999979
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.8201515,
+        13.8201515,
+        13.8201515
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-1832b8326c208a9b",
+      "name": "Pickups · Prop_Cup_B · 模型 0.01 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Cup_B.glb",
+      "position": [
+        -6,
+        0,
+        1.99999949
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.98226404,
+        20.98226404,
+        20.98226404
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a5b421752afb625f",
+      "name": "Pickups · Prop_Diamond · 模型 0.00 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Diamond.glb",
+      "position": [
+        -2,
+        0,
+        2.00000095
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.75642177,
+        21.75642177,
+        21.75642177
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-995bed036a82d3e2",
+      "name": "Pickups · Prop_Fuse · 模型 0.01 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Fuse.glb",
+      "position": [
+        -22,
+        2.9e-7,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        51.98839634,
+        51.98839634,
+        51.98839634
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-80414bf284913289",
+      "name": "Pickups · Prop_Gold · 模型 0.00 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Gold.glb",
+      "position": [
+        -18,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        24.92852062,
+        24.92852062,
+        24.92852062
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7d0411abd1306805",
+      "name": "Pickups · Prop_GoldBars · 模型 0.02 MiB · 贴图 0.06 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_GoldBars.glb",
+      "position": [
+        -14,
+        0,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.42324255,
+        20.42324255,
+        20.42324255
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6040e4fed78c93b3",
+      "name": "Pickups · Prop_Hotdog_A · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Hotdog_A.glb",
+      "position": [
+        -10,
+        -4e-8,
+        -2.00000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.716833,
+        11.716833,
+        11.716833
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-57068ec042103371",
+      "name": "Pickups · Prop_Hotdog_B · 模型 0.03 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Hotdog_B.glb",
+      "position": [
+        -6,
+        -4e-8,
+        -2.00000033
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.716833,
+        11.716833,
+        11.716833
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b3844ecb58180dd",
+      "name": "Pickups · Prop_Key_A · 模型 0.02 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Key_A.glb",
+      "position": [
+        -1.99999905,
+        -3.4e-7,
+        -2.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        49.63149031,
+        49.63149031,
+        49.63149031
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-88ca0e4f53de67d1",
+      "name": "Pickups · Prop_Key_B · 模型 0.02 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Key_B.glb",
+      "position": [
+        -21.99999962,
+        -1.5e-7,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        38.37211507,
+        38.37211507,
+        38.37211507
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4e28473f828b6f34",
+      "name": "Pickups · Prop_Pickup_Ammo · 模型 0.03 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Pickup_Ammo.glb",
+      "position": [
+        -18,
+        -1.3e-7,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.94968663,
+        16.94968663,
+        16.94968663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-ebc0ac6a706849c8",
+      "name": "Pickups · Prop_Pickup_Health · 模型 0.01 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Pickup_Health.glb",
+      "position": [
+        -14,
+        -1.3e-7,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.94968663,
+        16.94968663,
+        16.94968663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e3acb8430116eb3d",
+      "name": "Pickups · Prop_Pickup_Shield · 模型 0.02 MiB · 贴图 0.09 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Pickup_Shield.glb",
+      "position": [
+        -10,
+        -1.3e-7,
+        -6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.94968663,
+        16.94968663,
+        16.94968663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-75436613370730ba",
+      "name": "Pickups · Prop_PickupBase · 模型 0.02 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_PickupBase.glb",
+      "position": [
+        -6.00000025,
+        0,
+        -5.99999942
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.08854036,
+        11.08854036,
+        11.08854036
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-f0015ae3f6f25b0d",
+      "name": "Pickups · Prop_Shield · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Shield.glb",
+      "position": [
+        -2,
+        0,
+        -5.99999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.14058775,
+        5.14058775,
+        5.14058775
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-5eb3db4687e70aae",
+      "name": "Pickups · Prop_Star · 模型 0.02 MiB · 贴图 0.11 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Star.glb",
+      "position": [
+        -20,
+        3.3e-7,
+        -10.00000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.84452067,
+        21.84452067,
+        21.84452067
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cbb1bb0ef1b82437",
+      "name": "Pickups · Prop_SupplyBag · 模型 0.02 MiB · 贴图 0.10 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_SupplyBag.glb",
+      "position": [
+        -16.00000007,
+        0,
+        -10.00000025
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.79576597,
+        8.79576597,
+        8.79576597
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8849fe800985c7f5",
+      "name": "Pickups · Prop_SupplyCase_A · 模型 0.03 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_SupplyCase_A.glb",
+      "position": [
+        -12,
+        0,
+        -9.99999986
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.79418838,
+        4.79418838,
+        4.79418838
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-6b2cc160bc4547c6",
+      "name": "Pickups · Prop_SupplyCase_B · 模型 0.03 MiB · 贴图 0.08 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_SupplyCase_B.glb",
+      "position": [
+        -8,
+        3e-8,
+        -10.0000001
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.36717075,
+        4.36717075,
+        4.36717075
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-cddc34c8bd3d38ef",
+      "name": "Pickups · Prop_Trophy · 模型 0.03 MiB · 贴图 0.05 MiB",
+      "parentId": "transform:category-pickups-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Pickups/Prop_Trophy.glb",
+      "position": [
+        -4.00000059,
+        1e-7,
+        -9.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.29675858,
+        13.29675858,
+        13.29675858
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

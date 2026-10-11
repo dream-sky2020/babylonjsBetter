@@ -1,0 +1,1663 @@
+{
+  "presetKey": "artist-loafbrr-showcase-fruit",
+  "name": "Loafbrr · Fruit · 37模型 · 模型 0.89 MiB + 贴图 0.61 MiB · 合计 1.50 MiB",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-fruit-0",
+      "name": "Fruit",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 33
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "loafbrr-65e97bc5544f965a-stand",
+      "name": "Crate_1展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fc7e6244694bdfbe-stand",
+      "name": "Crate_2展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8e7aeddeed7194e2-stand",
+      "name": "Fruit_Crate_1展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-692988370cccc35e-stand",
+      "name": "Fruit_Crate_2展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c91bfbd1f110c2c7-stand",
+      "name": "Fruit_Crate_3展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e7d54085376b5a96-stand",
+      "name": "Fruit_Crate_4展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        14
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-129645353420b72b-stand",
+      "name": "Fruit_Crate_5展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2e9bdddbeccdb6a9-stand",
+      "name": "Fruit_Crate_6展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e40aed4f70848175-stand",
+      "name": "Fruit_Crate_7展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-9b248edcbccca2cc-stand",
+      "name": "Fruit_Crate_8展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-16a9234011f8585f-stand",
+      "name": "Fruit_Stand_1展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e41fed6a4ee1d71c-stand",
+      "name": "Fruit_Stand_2展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        10
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d884f95d3cc38e3a-stand",
+      "name": "Fruit_Stand_3展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-3406a7d6c228adef-stand",
+      "name": "Fruit_Stand_4展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-14327a2e37229fd0-stand",
+      "name": "Fruit_Stand_5展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-7efcab569523850d-stand",
+      "name": "Fruit_Stand_6展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-49277d210d5040e2-stand",
+      "name": "Fruit_Stand_7展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b018293956319cd2-stand",
+      "name": "Fruits_apple展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-85b02b14360dfd31-stand",
+      "name": "Fruits_apricot展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8a2d34ba902fb015-stand",
+      "name": "Fruits_avocado展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c578a16f8c259fb5-stand",
+      "name": "Fruits_banana展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-73cab15d8a4086b0-stand",
+      "name": "Fruits_cherry_002展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d56c4da939f82d0b-stand",
+      "name": "Fruits_cherry_005展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-633e8c7b3f0ac127-stand",
+      "name": "Fruits_cherry_007展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-4a629b5787ecd917-stand",
+      "name": "Fruits_coconut展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-e09289c2f927db51-stand",
+      "name": "Fruits_cucumber展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-b1a1935c802774a2-stand",
+      "name": "Fruits_cucumber_001展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-76d734bf50e3606a-stand",
+      "name": "Fruits_cucumber_002展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-bb11a58b98d8ce86-stand",
+      "name": "Fruits_guava展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8c70f1ac8866d4c2-stand",
+      "name": "Fruits_lime展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-c40a50bf0e045c7d-stand",
+      "name": "Fruits_mango展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-fea555d53ea4b3f4-stand",
+      "name": "Fruits_orange_002展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d0655a2da1a934fe-stand",
+      "name": "Fruits_papaya展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-a598da36abbaefeb-stand",
+      "name": "Fruits_peach展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-8ff29896c7a28b5b-stand",
+      "name": "Fruits_pear展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-d011836cfbe5db7b-stand",
+      "name": "Fruits_persimmon展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "loafbrr-2182e6817e07e084-stand",
+      "name": "Fruits_watermelon展台",
+      "parentId": "transform:category-fruit-0",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        -10
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "loafbrr-65e97bc5544f965a",
+      "name": "Fruit · Crate_1 · 模型 0.02 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Crate_1.glb",
+      "position": [
+        -22,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.4002527,
+        3.4002527,
+        3.4002527
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fc7e6244694bdfbe",
+      "name": "Fruit · Crate_2 · 模型 0.01 MiB · 贴图 0.25 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Crate_2.glb",
+      "position": [
+        -18,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.87713565,
+        4.87713565,
+        4.87713565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8e7aeddeed7194e2",
+      "name": "Fruit · Fruit_Crate_1 · 模型 0.04 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Crate_1.glb",
+      "position": [
+        -14,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.87713565,
+        4.87713565,
+        4.87713565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-692988370cccc35e",
+      "name": "Fruit · Fruit_Crate_2 · 模型 0.04 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Crate_2.glb",
+      "position": [
+        -10,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.87713565,
+        4.87713565,
+        4.87713565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c91bfbd1f110c2c7",
+      "name": "Fruit · Fruit_Crate_3 · 模型 0.05 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Crate_3.glb",
+      "position": [
+        -6,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.87713565,
+        4.87713565,
+        4.87713565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e7d54085376b5a96",
+      "name": "Fruit · Fruit_Crate_4 · 模型 0.04 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Crate_4.glb",
+      "position": [
+        -2,
+        0,
+        14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.87713565,
+        4.87713565,
+        4.87713565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-129645353420b72b",
+      "name": "Fruit · Fruit_Crate_5 · 模型 0.03 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Crate_5.glb",
+      "position": [
+        -22,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.87713565,
+        4.87713565,
+        4.87713565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2e9bdddbeccdb6a9",
+      "name": "Fruit · Fruit_Crate_6 · 模型 0.05 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Crate_6.glb",
+      "position": [
+        -18,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.87713565,
+        4.87713565,
+        4.87713565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e40aed4f70848175",
+      "name": "Fruit · Fruit_Crate_7 · 模型 0.04 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Crate_7.glb",
+      "position": [
+        -14,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.87713565,
+        4.87713565,
+        4.87713565
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-9b248edcbccca2cc",
+      "name": "Fruit · Fruit_Crate_8 · 模型 0.05 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Crate_8.glb",
+      "position": [
+        -10,
+        0,
+        10
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.39161951,
+        2.39161951,
+        2.39161951
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-16a9234011f8585f",
+      "name": "Fruit · Fruit_Stand_1 · 模型 0.05 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Stand_1.glb",
+      "position": [
+        -6.00000031,
+        0,
+        10.00000029
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.00813355,
+        3.00813355,
+        3.00813355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e41fed6a4ee1d71c",
+      "name": "Fruit · Fruit_Stand_2 · 模型 0.05 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Stand_2.glb",
+      "position": [
+        -1.99999992,
+        0,
+        10.00000008
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.79654891,
+        2.79654891,
+        2.79654891
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d884f95d3cc38e3a",
+      "name": "Fruit · Fruit_Stand_3 · 模型 0.05 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Stand_3.glb",
+      "position": [
+        -22.0000003,
+        0,
+        6.00000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.90115542,
+        2.90115542,
+        2.90115542
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-3406a7d6c228adef",
+      "name": "Fruit · Fruit_Stand_4 · 模型 0.06 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Stand_4.glb",
+      "position": [
+        -18.0000003,
+        0,
+        6.00000028
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.91190496,
+        2.91190496,
+        2.91190496
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-14327a2e37229fd0",
+      "name": "Fruit · Fruit_Stand_5 · 模型 0.03 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Stand_5.glb",
+      "position": [
+        -14.00000034,
+        0,
+        6.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8278381,
+        2.8278381,
+        2.8278381
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-7efcab569523850d",
+      "name": "Fruit · Fruit_Stand_6 · 模型 0.04 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Stand_6.glb",
+      "position": [
+        -10.00000029,
+        0,
+        5.99999977
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.75241728,
+        2.75241728,
+        2.75241728
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-49277d210d5040e2",
+      "name": "Fruit · Fruit_Stand_7 · 模型 0.06 MiB · 贴图 0.61 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruit_Stand_7.glb",
+      "position": [
+        -6.00000017,
+        0,
+        6.00000027
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.83343331,
+        2.83343331,
+        2.83343331
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b018293956319cd2",
+      "name": "Fruit · Fruits_apple · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_apple.glb",
+      "position": [
+        -1.99999526,
+        -0.0000012,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.19474687,
+        20.19474687,
+        20.19474687
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-85b02b14360dfd31",
+      "name": "Fruit · Fruits_apricot · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_apricot.glb",
+      "position": [
+        -22.00000439,
+        -4.5e-7,
+        1.99999903
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.97503017,
+        19.97503017,
+        19.97503017
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8a2d34ba902fb015",
+      "name": "Fruit · Fruits_avocado · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_avocado.glb",
+      "position": [
+        -17.9999998,
+        6e-7,
+        2.00000005
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.4594776,
+        13.4594776,
+        13.4594776
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c578a16f8c259fb5",
+      "name": "Fruit · Fruits_banana · 模型 0.00 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_banana.glb",
+      "position": [
+        -14,
+        -2.7e-7,
+        2.00000051
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.08794307,
+        9.08794307,
+        9.08794307
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-73cab15d8a4086b0",
+      "name": "Fruit · Fruits_cherry_002 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_cherry_002.glb",
+      "position": [
+        -9.99999963,
+        -8.3e-7,
+        1.99999959
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        44.55461154,
+        44.55461154,
+        44.55461154
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d56c4da939f82d0b",
+      "name": "Fruit · Fruits_cherry_005 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_cherry_005.glb",
+      "position": [
+        -5.99999872,
+        0.00000193,
+        1.99999964
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        43.07429551,
+        43.07429551,
+        43.07429551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-633e8c7b3f0ac127",
+      "name": "Fruit · Fruits_cherry_007 · 模型 0.02 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_cherry_007.glb",
+      "position": [
+        -2.00000288,
+        8.6e-7,
+        2.00000443
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        41.74914643,
+        41.74914643,
+        41.74914643
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-4a629b5787ecd917",
+      "name": "Fruit · Fruits_coconut · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_coconut.glb",
+      "position": [
+        -22.00000198,
+        -4.2e-7,
+        -2.00000026
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.98329914,
+        13.98329914,
+        13.98329914
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-e09289c2f927db51",
+      "name": "Fruit · Fruits_cucumber · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_cucumber.glb",
+      "position": [
+        -18,
+        1.4e-7,
+        -2.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.14982704,
+        9.14982704,
+        9.14982704
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-b1a1935c802774a2",
+      "name": "Fruit · Fruits_cucumber_001 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_cucumber_001.glb",
+      "position": [
+        -14.00000087,
+        1.4e-7,
+        -2.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.38021245,
+        9.38021245,
+        9.38021245
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-76d734bf50e3606a",
+      "name": "Fruit · Fruits_cucumber_002 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_cucumber_002.glb",
+      "position": [
+        -9.99999898,
+        4.1e-7,
+        -2.00000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        9.23968531,
+        9.23968531,
+        9.23968531
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-bb11a58b98d8ce86",
+      "name": "Fruit · Fruits_guava · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_guava.glb",
+      "position": [
+        -5.99999974,
+        -0.0000018,
+        -1.99999949
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        34.53037287,
+        34.53037287,
+        34.53037287
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8c70f1ac8866d4c2",
+      "name": "Fruit · Fruits_lime · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_lime.glb",
+      "position": [
+        -2.00000129,
+        -3e-7,
+        -2.00000004
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.39098347,
+        20.39098347,
+        20.39098347
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-c40a50bf0e045c7d",
+      "name": "Fruit · Fruits_mango · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_mango.glb",
+      "position": [
+        -21.99999996,
+        -8e-7,
+        -6.0000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        21.44389172,
+        21.44389172,
+        21.44389172
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-fea555d53ea4b3f4",
+      "name": "Fruit · Fruits_orange_002 · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_orange_002.glb",
+      "position": [
+        -17.99999773,
+        3.1e-7,
+        -5.99999969
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.97356235,
+        20.97356235,
+        20.97356235
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d0655a2da1a934fe",
+      "name": "Fruit · Fruits_papaya · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_papaya.glb",
+      "position": [
+        -14.00000111,
+        -3.1e-7,
+        -6.00000054
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.13839804,
+        5.13839804,
+        5.13839804
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-a598da36abbaefeb",
+      "name": "Fruit · Fruits_peach · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_peach.glb",
+      "position": [
+        -10.00000374,
+        4.3e-7,
+        -6.00000022
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        19.29636309,
+        19.29636309,
+        19.29636309
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-8ff29896c7a28b5b",
+      "name": "Fruit · Fruits_pear · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_pear.glb",
+      "position": [
+        -5.99999984,
+        2.5e-7,
+        -6.00000057
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        16.88402479,
+        16.88402479,
+        16.88402479
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-d011836cfbe5db7b",
+      "name": "Fruit · Fruits_persimmon · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_persimmon.glb",
+      "position": [
+        -2.00000572,
+        -2.9e-7,
+        -6.00000181
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        25.60144749,
+        25.60144749,
+        25.60144749
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "loafbrr-2182e6817e07e084",
+      "name": "Fruit · Fruits_watermelon · 模型 0.01 MiB · 贴图 0.15 MiB",
+      "parentId": "transform:category-fruit-0",
+      "modelPath": "resources/Model/GLB/artist_loafbrr/Fruit/Fruits_watermelon.glb",
+      "position": [
+        -11.99999963,
+        0,
+        -9.99999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.12369053,
+        6.12369053,
+        6.12369053
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

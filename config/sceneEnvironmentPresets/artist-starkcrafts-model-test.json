@@ -1,0 +1,1445 @@
+{
+  "presetKey": "artist-starkcrafts-model-test",
+  "name": "Starkcrafts · 骷髅、森林、地牢与雪地（31 模型）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "category-dungeon",
+      "name": "Dungeon",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-dungeondamaged",
+      "name": "DungeonDamaged",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-forest",
+      "name": "Forest",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-skull",
+      "name": "Skull",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "category-snow",
+      "name": "Snow",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 31
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "starkcrafts-57d1288c8790b96f-stand",
+      "name": "RuinBigPillar展台",
+      "parentId": "transform:category-dungeon",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-169cf88aa1a76432-stand",
+      "name": "RuinColdron展台",
+      "parentId": "transform:category-dungeon",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-6020dde2e04a09ac-stand",
+      "name": "RuinGate展台",
+      "parentId": "transform:category-dungeon",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-a028b874a88c70bc-stand",
+      "name": "RuinHalfArche展台",
+      "parentId": "transform:category-dungeon",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-85549509bd551a19-stand",
+      "name": "RuinPillar展台",
+      "parentId": "transform:category-dungeon",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-64f85643bc2271e6-stand",
+      "name": "RuinWall展台",
+      "parentId": "transform:category-dungeon",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        13
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-88a09f8ea3f752c0-stand",
+      "name": "RuniStepp展台",
+      "parentId": "transform:category-dungeon",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-6f4c06f8687496bc-stand",
+      "name": "RuinBigPillar_Damaged展台",
+      "parentId": "transform:category-dungeondamaged",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "starkcrafts-8b6d93c465245453-stand",
+      "name": "RuinHalfArche_Damaged展台",
+      "parentId": "transform:category-dungeondamaged",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "starkcrafts-d32a27a24e024b5a-stand",
+      "name": "RuinPillar_Damaged展台",
+      "parentId": "transform:category-dungeondamaged",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "starkcrafts-cbe7ba2aea13102e-stand",
+      "name": "RuinWall_Damaged展台",
+      "parentId": "transform:category-dungeondamaged",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        13
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "starkcrafts-b8f2c03414be7e6b-stand",
+      "name": "Dandelion展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-2898fd97a501da9f-stand",
+      "name": "Grass展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-d14a74beddf44f7a-stand",
+      "name": "Lavender展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-9be15f9fb963d0db-stand",
+      "name": "PineConre展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-e7abcebc1c7b9954-stand",
+      "name": "Reed展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-38bb7fb40bc3d90f-stand",
+      "name": "Rock展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.11,
+        6
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-6f115b2e3d0836e9-stand",
+      "name": "Tree1展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-48795c7b55c913cf-stand",
+      "name": "Tree2展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-748cfd8df55e241d-stand",
+      "name": "Tree3展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-af5d4cee91557be2-stand",
+      "name": "Tree4展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-e1537eb1d0c8940f-stand",
+      "name": "Treetrunk展台",
+      "parentId": "transform:category-forest",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.11,
+        2
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-4c8ed0659d2916f9-stand",
+      "name": "BoneSkull展台",
+      "parentId": "transform:category-skull",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.11,
+        2
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "starkcrafts-d80d309eb01f78c1-stand",
+      "name": "Curved_Old_Woodboard展台",
+      "parentId": "transform:category-snow",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-43117feaeb6bece1-stand",
+      "name": "Curved_Old_Woodlog展台",
+      "parentId": "transform:category-snow",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-06212e070464751f-stand",
+      "name": "Old_Woodboard展台",
+      "parentId": "transform:category-snow",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-bee1ac7b573d9b0f-stand",
+      "name": "Old_Woodlog展台",
+      "parentId": "transform:category-snow",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-b7f4347a2d090c53-stand",
+      "name": "Rock展台",
+      "parentId": "transform:category-snow",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-7f59dfae538bab8c-stand",
+      "name": "Rocky_Wall展台",
+      "parentId": "transform:category-snow",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.11,
+        -5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-66c83e8dd49fa71d-stand",
+      "name": "Snowy_Pinetree展台",
+      "parentId": "transform:category-snow",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.11,
+        -9
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "starkcrafts-8f4eb6e2a1287360-stand",
+      "name": "Snowy_Tree展台",
+      "parentId": "transform:category-snow",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.11,
+        -9
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "starkcrafts-57d1288c8790b96f",
+      "name": "Dungeon · RuinBigPillar",
+      "parentId": "transform:category-dungeon",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Dungeon/RuinBigPillar.glb",
+      "position": [
+        -22,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55999989,
+        0.55999989,
+        0.55999989
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-169cf88aa1a76432",
+      "name": "Dungeon · RuinColdron",
+      "parentId": "transform:category-dungeon",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Dungeon/RuinColdron.glb",
+      "position": [
+        -18,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.65261112,
+        1.65261112,
+        1.65261112
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-6020dde2e04a09ac",
+      "name": "Dungeon · RuinGate",
+      "parentId": "transform:category-dungeon",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Dungeon/RuinGate.glb",
+      "position": [
+        -14,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.54901962,
+        0.54901962,
+        0.54901962
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-a028b874a88c70bc",
+      "name": "Dungeon · RuinHalfArche",
+      "parentId": "transform:category-dungeon",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Dungeon/RuinHalfArche.glb",
+      "position": [
+        -10,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.24396582,
+        1.24396582,
+        1.24396582
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-85549509bd551a19",
+      "name": "Dungeon · RuinPillar",
+      "parentId": "transform:category-dungeon",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Dungeon/RuinPillar.glb",
+      "position": [
+        -6,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.55999995,
+        0.55999995,
+        0.55999995
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-64f85643bc2271e6",
+      "name": "Dungeon · RuinWall",
+      "parentId": "transform:category-dungeon",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Dungeon/RuinWall.glb",
+      "position": [
+        -2,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.56,
+        0.56,
+        0.56
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-88a09f8ea3f752c0",
+      "name": "Dungeon · RuniStepp",
+      "parentId": "transform:category-dungeon",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Dungeon/RuniStepp.glb",
+      "position": [
+        -12,
+        0,
+        9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7,
+        0.7,
+        0.7
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-6f4c06f8687496bc",
+      "name": "DungeonDamaged · RuinBigPillar_Damaged",
+      "parentId": "transform:category-dungeondamaged",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/DungeonDamaged/RuinBigPillar_Damaged.glb",
+      "position": [
+        6,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80410855,
+        0.80410855,
+        0.80410855
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-8b6d93c465245453",
+      "name": "DungeonDamaged · RuinHalfArche_Damaged",
+      "parentId": "transform:category-dungeondamaged",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/DungeonDamaged/RuinHalfArche_Damaged.glb",
+      "position": [
+        10,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.71303908,
+        1.71303908,
+        1.71303908
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-d32a27a24e024b5a",
+      "name": "DungeonDamaged · RuinPillar_Damaged",
+      "parentId": "transform:category-dungeondamaged",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/DungeonDamaged/RuinPillar_Damaged.glb",
+      "position": [
+        14,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.74154508,
+        0.74154508,
+        0.74154508
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-cbe7ba2aea13102e",
+      "name": "DungeonDamaged · RuinWall_Damaged",
+      "parentId": "transform:category-dungeondamaged",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/DungeonDamaged/RuinWall_Damaged.glb",
+      "position": [
+        18,
+        0,
+        13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.68113669,
+        0.68113669,
+        0.68113669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-b8f2c03414be7e6b",
+      "name": "Forest · Dandelion",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Dandelion.glb",
+      "position": [
+        2,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.65998649,
+        3.65998649,
+        3.65998649
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-2898fd97a501da9f",
+      "name": "Forest · Grass",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Grass.glb",
+      "position": [
+        6,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.17070067,
+        1.17070067,
+        1.17070067
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-d14a74beddf44f7a",
+      "name": "Forest · Lavender",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Lavender.glb",
+      "position": [
+        10,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39603487,
+        1.39603487,
+        1.39603487
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-9be15f9fb963d0db",
+      "name": "Forest · PineConre",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/PineConre.glb",
+      "position": [
+        14,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.19121436,
+        8.19121436,
+        8.19121436
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-e7abcebc1c7b9954",
+      "name": "Forest · Reed",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Reed.glb",
+      "position": [
+        18,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.11867547,
+        2.11867547,
+        2.11867547
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-38bb7fb40bc3d90f",
+      "name": "Forest · Rock",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Rock.glb",
+      "position": [
+        22,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90184667,
+        0.90184667,
+        0.90184667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-6f115b2e3d0836e9",
+      "name": "Forest · Tree1",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Tree1.glb",
+      "position": [
+        4,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21511837,
+        0.21511837,
+        0.21511837
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-48795c7b55c913cf",
+      "name": "Forest · Tree2",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Tree2.glb",
+      "position": [
+        8,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.13250389,
+        0.13250389,
+        0.13250389
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-748cfd8df55e241d",
+      "name": "Forest · Tree3",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Tree3.glb",
+      "position": [
+        12,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08027646,
+        0.08027646,
+        0.08027646
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-af5d4cee91557be2",
+      "name": "Forest · Tree4",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Tree4.glb",
+      "position": [
+        16,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.08185437,
+        0.08185437,
+        0.08185437
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-e1537eb1d0c8940f",
+      "name": "Forest · Treetrunk",
+      "parentId": "transform:category-forest",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Forest/Treetrunk.glb",
+      "position": [
+        20,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.02245021,
+        1.02245021,
+        1.02245021
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-4c8ed0659d2916f9",
+      "name": "Skull · BoneSkull",
+      "parentId": "transform:category-skull",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Skull/BoneSkull.glb",
+      "position": [
+        -12,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.7972299,
+        8.7972299,
+        8.7972299
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-d80d309eb01f78c1",
+      "name": "Snow · Curved_Old_Woodboard",
+      "parentId": "transform:category-snow",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Snow/Curved_Old_Woodboard.glb",
+      "position": [
+        -22,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39422208,
+        1.39422208,
+        1.39422208
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-43117feaeb6bece1",
+      "name": "Snow · Curved_Old_Woodlog",
+      "parentId": "transform:category-snow",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Snow/Curved_Old_Woodlog.glb",
+      "position": [
+        -18,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.39257414,
+        1.39257414,
+        1.39257414
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-06212e070464751f",
+      "name": "Snow · Old_Woodboard",
+      "parentId": "transform:category-snow",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Snow/Old_Woodboard.glb",
+      "position": [
+        -14,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40159958,
+        1.40159958,
+        1.40159958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-bee1ac7b573d9b0f",
+      "name": "Snow · Old_Woodlog",
+      "parentId": "transform:category-snow",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Snow/Old_Woodlog.glb",
+      "position": [
+        -10,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.40238663,
+        1.40238663,
+        1.40238663
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-b7f4347a2d090c53",
+      "name": "Snow · Rock",
+      "parentId": "transform:category-snow",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Snow/Rock.glb",
+      "position": [
+        -6,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37745072,
+        1.37745072,
+        1.37745072
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-7f59dfae538bab8c",
+      "name": "Snow · Rocky_Wall",
+      "parentId": "transform:category-snow",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Snow/Rocky_Wall.glb",
+      "position": [
+        -2,
+        0,
+        -5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.62929578,
+        0.62929578,
+        0.62929578
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-66c83e8dd49fa71d",
+      "name": "Snow · Snowy_Pinetree",
+      "parentId": "transform:category-snow",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Snow/Snowy_Pinetree.glb",
+      "position": [
+        -14,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.47309796,
+        0.47309796,
+        0.47309796
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "starkcrafts-8f4eb6e2a1287360",
+      "name": "Snow · Snowy_Tree",
+      "parentId": "transform:category-snow",
+      "modelPath": "resources/Model/GLB/artist_starkcrafts/Snow/Snowy_Tree.glb",
+      "position": [
+        -10,
+        0,
+        -9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.37668669,
+        0.37668669,
+        0.37668669
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    }
+  ]
+}

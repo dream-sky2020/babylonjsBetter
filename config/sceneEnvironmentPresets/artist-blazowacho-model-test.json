@@ -1,0 +1,570 @@
+{
+  "presetKey": "artist-blazowacho-model-test",
+  "name": "blazowacho · 模型展示（11 件）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "apocalypse",
+      "name": "末日生存道具分区",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 24,
+        "height": 14
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-plastic_bottle-stand",
+      "name": "plastic_bottle展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-air_con-stand",
+      "name": "air_con展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-plastic_bottle2-stand",
+      "name": "plastic_bottle2展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-cardboard_box-stand",
+      "name": "cardboard_box展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-pos_machine-stand",
+      "name": "pOS_machine展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        6
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-plant_pot-stand",
+      "name": "plant_pot展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-radio-stand",
+      "name": "radio展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-sleeping_bag-stand",
+      "name": "sleeping_bag展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-metal_cabinet-stand",
+      "name": "metal_cabinet展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        4,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-first_aid_kit-stand",
+      "name": "first_aid_kit展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-tyre-stand",
+      "name": "tyre展台",
+      "parentId": "transform:apocalypse",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        0,
+        -0.1,
+        -2
+      ],
+      "color": "#80958a",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "apocalypse-plastic_bottle",
+      "name": "plastic_bottle",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/plastic_bottle.glb",
+      "position": [
+        -8,
+        -3e-8,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        7.67386785,
+        7.67386785,
+        7.67386785
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-air_con",
+      "name": "air_con",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/air_con.glb",
+      "position": [
+        -4,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        3.16703899,
+        3.16703899,
+        3.16703899
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-plastic_bottle2",
+      "name": "plastic_bottle2",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/plastic_bottle2.glb",
+      "position": [
+        0,
+        4e-8,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.30341651,
+        8.30341651,
+        8.30341651
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-cardboard_box",
+      "name": "cardboard_box",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/cardboard_box.glb",
+      "position": [
+        4,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.72874593,
+        6.72874593,
+        6.72874593
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-pos_machine",
+      "name": "pOS_machine",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/pOS_machine.glb",
+      "position": [
+        8.00000022,
+        0,
+        6
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.9927877,
+        10.9927877,
+        10.9927877
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-plant_pot",
+      "name": "plant_pot",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/plant_pot.glb",
+      "position": [
+        -8,
+        3e-8,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        6.41770895,
+        6.41770895,
+        6.41770895
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-radio",
+      "name": "radio",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/radio.glb",
+      "position": [
+        -4,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        10.10697933,
+        10.10697933,
+        10.10697933
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-sleeping_bag",
+      "name": "sleeping_bag",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/sleeping_bag.glb",
+      "position": [
+        0,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55839778,
+        1.55839778,
+        1.55839778
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-metal_cabinet",
+      "name": "metal_cabinet",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/metal_cabinet.glb",
+      "position": [
+        4,
+        0,
+        2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.51113349,
+        1.51113349,
+        1.51113349
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-first_aid_kit",
+      "name": "first_aid_kit",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/first_aid_kit.glb",
+      "position": [
+        8,
+        1e-8,
+        1.99999999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        8.39360365,
+        8.39360365,
+        8.39360365
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "apocalypse-tyre",
+      "name": "tyre",
+      "parentId": "transform:apocalypse",
+      "modelPath": "resources/Model/GLB/artist_blazowacho/Apocalypse/tyre.glb",
+      "position": [
+        0,
+        5e-8,
+        -2
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        5.53647783,
+        5.53647783,
+        5.53647783
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

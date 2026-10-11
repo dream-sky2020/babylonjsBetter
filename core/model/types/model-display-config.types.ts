@@ -1,4 +1,5 @@
 export type ModelDisplayConfig = {
+  materialOverrides?: import('../material/modelMaterialBindings.ts').ModelMaterialBindings;
   modelPath: string;
   rotationDeg: { x: number; y: number; z: number };
   scale: number;

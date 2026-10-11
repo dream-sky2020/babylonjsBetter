@@ -1,0 +1,3782 @@
+{
+  "presetKey": "artist-gataki-model-test",
+  "name": "Gataki · 复古环境与生存套件（79 件 / 6 个主题）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "gataki-ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "gataki-key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -30,
+          45,
+          -25
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "gataki-barriers",
+      "name": "复古路障与木箱（9 件）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gataki-brazil",
+      "name": "巴西建筑与街景（13 件）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gataki-survival",
+      "name": "野外生存道具（5 件）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gataki-truck",
+      "name": "复古垃圾车（1 件）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gataki-island",
+      "name": "椰子树、太阳伞与沙滩垫（25 件）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "gataki-raft",
+      "name": "模块化木筏与营地（26 件）",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "gataki-ground",
+      "name": "模型展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 64,
+        "height": 64
+      },
+      "position": [
+        5,
+        -0.22,
+        -4
+      ],
+      "color": "#34414b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-zone",
+      "name": "复古路障与木箱分区",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 13,
+        "height": 0.1,
+        "depth": 13
+      },
+      "position": [
+        -16,
+        -0.15,
+        -26
+      ],
+      "color": "#7a8b8c"
+    },
+    {
+      "id": "gataki-barriers-001-stand",
+      "name": "Barrier 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -30
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-002-stand",
+      "name": "BigWoodenBox 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -30
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-003-stand",
+      "name": "ConcreteBarrier 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -30
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-004-stand",
+      "name": "ConcreteBarrierDemaged 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -26
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-005-stand",
+      "name": "ConcreteBarrierWithFence 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -26
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-006-stand",
+      "name": "ConcreteBarrierWithFence.001 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -26
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-007-stand",
+      "name": "ConcreteBarrierWithFenceDemaged 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        -22
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-008-stand",
+      "name": "Cone 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        -22
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-009-stand",
+      "name": "WoodenBox 展台",
+      "parentId": "transform:gataki-barriers",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -22
+      ],
+      "color": "#7a8b8c",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-zone",
+      "name": "巴西建筑与街景分区",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 17,
+        "height": 0.1,
+        "depth": 17
+      },
+      "position": [
+        -10,
+        -0.15,
+        8
+      ],
+      "color": "#a18c72"
+    },
+    {
+      "id": "gataki-brazil-001-stand",
+      "name": "Gound 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        2
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-002-stand",
+      "name": "Houses_1 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        2
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-003-stand",
+      "name": "Houses_2 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        2
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-004-stand",
+      "name": "Houses_3 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        2
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-005-stand",
+      "name": "Houses_4 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        6
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-006-stand",
+      "name": "Houses_5 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        6
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-007-stand",
+      "name": "Plants_1 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        6
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-008-stand",
+      "name": "Plants_2 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        6
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-009-stand",
+      "name": "Plants_3 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        10
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-010-stand",
+      "name": "Props_1 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        10
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-011-stand",
+      "name": "Props_2 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        10
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-012-stand",
+      "name": "Props_3 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        10
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-013-stand",
+      "name": "Props_4 展台",
+      "parentId": "transform:gataki-brazil",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        14
+      ],
+      "color": "#a18c72",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-zone",
+      "name": "野外生存道具分区",
+      "parentId": "transform:gataki-survival",
+      "geometry": {
+        "primitive": "box",
+        "width": 13,
+        "height": 0.1,
+        "depth": 9
+      },
+      "position": [
+        -8,
+        -0.15,
+        -12
+      ],
+      "color": "#87926f"
+    },
+    {
+      "id": "gataki-survival-001-stand",
+      "name": "Axe 展台",
+      "parentId": "transform:gataki-survival",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -14
+      ],
+      "color": "#87926f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-002-stand",
+      "name": "Campfire 展台",
+      "parentId": "transform:gataki-survival",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -14
+      ],
+      "color": "#87926f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-003-stand",
+      "name": "Mattress 展台",
+      "parentId": "transform:gataki-survival",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        -14
+      ],
+      "color": "#87926f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-004-stand",
+      "name": "Picaxe_Stone 展台",
+      "parentId": "transform:gataki-survival",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -10
+      ],
+      "color": "#87926f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-005-stand",
+      "name": "Tent 展台",
+      "parentId": "transform:gataki-survival",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        -10
+      ],
+      "color": "#87926f",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-truck-zone",
+      "name": "复古垃圾车分区",
+      "parentId": "transform:gataki-truck",
+      "geometry": {
+        "primitive": "box",
+        "width": 5,
+        "height": 0.1,
+        "depth": 5
+      },
+      "position": [
+        3,
+        -0.15,
+        -28
+      ],
+      "color": "#80949a"
+    },
+    {
+      "id": "gataki-truck-001-stand",
+      "name": "GarbageTruck 展台",
+      "parentId": "transform:gataki-truck",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        3,
+        -0.1,
+        -28
+      ],
+      "color": "#80949a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-zone",
+      "name": "椰子树、太阳伞与沙滩垫分区",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 25,
+        "height": 0.1,
+        "depth": 21
+      },
+      "position": [
+        20,
+        -0.15,
+        -20
+      ],
+      "color": "#b39e7b"
+    },
+    {
+      "id": "gataki-island-001-stand",
+      "name": "CoconutPalm_01 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -28
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-002-stand",
+      "name": "CoconutPalm_02 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -28
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-003-stand",
+      "name": "CoconutPalm_03 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -28
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-004-stand",
+      "name": "CoconutPalm_04 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -28
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-005-stand",
+      "name": "CoconutPalm_05 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -28
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-006-stand",
+      "name": "CoconutPalm_06 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        30,
+        -0.1,
+        -28
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-007-stand",
+      "name": "CoconutPalm_07 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -24
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-008-stand",
+      "name": "CoconutPalm_08 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -24
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-009-stand",
+      "name": "CoconutPalm_09 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -24
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-010-stand",
+      "name": "CoconutPalm_10 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -24
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-011-stand",
+      "name": "CoconutPalm_11 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -24
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-012-stand",
+      "name": "CoconutPalm_12 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        30,
+        -0.1,
+        -24
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-013-stand",
+      "name": "CoconutPalm_13 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -20
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-014-stand",
+      "name": "CoconutPalm_14 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -20
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-015-stand",
+      "name": "SunUmbrella_01 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -20
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-016-stand",
+      "name": "SunUmbrella_02 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -20
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-017-stand",
+      "name": "SunUmbrella_03 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -20
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-018-stand",
+      "name": "SunUmbrella_04 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        30,
+        -0.1,
+        -20
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-019-stand",
+      "name": "SunUmbrella_05 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -16
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-020-stand",
+      "name": "SunUmbrella_06 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        -16
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-021-stand",
+      "name": "SunUmbrella_07 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        -16
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-022-stand",
+      "name": "BeachMat_Blue_01 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        -16
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-023-stand",
+      "name": "BeachMat_Blue_02 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        26,
+        -0.1,
+        -16
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-024-stand",
+      "name": "BeachMat_Red_01 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        30,
+        -0.1,
+        -16
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-025-stand",
+      "name": "BeachMat_Red_02 展台",
+      "parentId": "transform:gataki-island",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        -12
+      ],
+      "color": "#b39e7b",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-zone",
+      "name": "模块化木筏与营地分区",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 25,
+        "height": 0.1,
+        "depth": 21
+      },
+      "position": [
+        18,
+        -0.15,
+        8
+      ],
+      "color": "#99836a"
+    },
+    {
+      "id": "gataki-raft-001-stand",
+      "name": "Barrel 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        0
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-002-stand",
+      "name": "Bed 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        0
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-003-stand",
+      "name": "Campfire 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        0
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-004-stand",
+      "name": "CampfireWithPan 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        0
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-005-stand",
+      "name": "Foundation1 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        24,
+        -0.1,
+        0
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-006-stand",
+      "name": "Foundation2 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        28,
+        -0.1,
+        0
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-007-stand",
+      "name": "Foundation3 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        4
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-008-stand",
+      "name": "HighPlatformer 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        4
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-009-stand",
+      "name": "Pan 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        4
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-010-stand",
+      "name": "Pillar 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        4
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-011-stand",
+      "name": "Platformer1 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        24,
+        -0.1,
+        4
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-012-stand",
+      "name": "Platformer1/2 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        28,
+        -0.1,
+        4
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-013-stand",
+      "name": "Platformer1/4 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        8
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-014-stand",
+      "name": "Platformer2 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        8
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-015-stand",
+      "name": "Platformer3 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        8
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-016-stand",
+      "name": "Stair1/2 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        8
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-017-stand",
+      "name": "Stairs 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        24,
+        -0.1,
+        8
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-018-stand",
+      "name": "Table 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        28,
+        -0.1,
+        8
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-019-stand",
+      "name": "Wall 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        12
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-020-stand",
+      "name": "Wall1/2 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        12
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-021-stand",
+      "name": "Wall1/2Door 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        16,
+        -0.1,
+        12
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-022-stand",
+      "name": "Wall1/2_2 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        20,
+        -0.1,
+        12
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-023-stand",
+      "name": "Wall1/4 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        24,
+        -0.1,
+        12
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-024-stand",
+      "name": "WallDoor 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        28,
+        -0.1,
+        12
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-025-stand",
+      "name": "WallFrame 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        8,
+        -0.1,
+        16
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-026-stand",
+      "name": "WallWindows 展台",
+      "parentId": "transform:gataki-raft",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        12,
+        -0.1,
+        16
+      ],
+      "color": "#99836a",
+      "shadow": {
+        "receive": true
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "gataki-barriers-001",
+      "name": "Barrier",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/Barrier.glb",
+      "position": [
+        -8.75800689,
+        0,
+        -30.99962101
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.49841761,
+        2.49841761,
+        2.49841761
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-002",
+      "name": "BigWoodenBox",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/BigWoodenBox.glb",
+      "position": [
+        -12.5,
+        0,
+        -34.9
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-003",
+      "name": "ConcreteBarrier",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/ConcreteBarrier.glb",
+      "position": [
+        -16.2,
+        0,
+        -30.70000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-004",
+      "name": "ConcreteBarrierDemaged",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/ConcreteBarrierDemaged.glb",
+      "position": [
+        -24.2,
+        0,
+        -30.90000002
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.4,
+        1.4,
+        1.4
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-005",
+      "name": "ConcreteBarrierWithFence",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/ConcreteBarrierWithFence.glb",
+      "position": [
+        -16,
+        0,
+        -26.37748984
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75497965,
+        0.75497965,
+        0.75497965
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-006",
+      "name": "ConcreteBarrierWithFence.001",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/ConcreteBarrierWithFence.001.glb",
+      "position": [
+        -12.00000007,
+        1.4e-7,
+        -23.14335553
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.21279888,
+        1.21279888,
+        1.21279888
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-007",
+      "name": "ConcreteBarrierWithFenceDemaged",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/ConcreteBarrierWithFenceDemaged.glb",
+      "position": [
+        -20,
+        0,
+        -24.64242879
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.75497965,
+        0.75497965,
+        0.75497965
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-008",
+      "name": "Cone",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/Cone.glb",
+      "position": [
+        2.76911349,
+        0,
+        -36.59819939
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.17091411,
+        4.17091411,
+        4.17091411
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-barriers-009",
+      "name": "WoodenBox",
+      "parentId": "transform:gataki-barriers",
+      "modelPath": "resources/Model/GLB/artist_gataki/BarriersRetro/WoodenBox.glb",
+      "position": [
+        -5,
+        0,
+        -23.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.8,
+        2.8,
+        2.8
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-001",
+      "name": "Gound",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Gound.glb",
+      "position": [
+        -15.58737354,
+        0.21575114,
+        1.89158272
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.19224925,
+        0.19224925,
+        0.19224925
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-002",
+      "name": "Houses_1",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Houses_1.glb",
+      "position": [
+        -12.7111596,
+        0.24327022,
+        3.80250316
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.41453254,
+        0.41453254,
+        0.41453254
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-003",
+      "name": "Houses_2",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Houses_2.glb",
+      "position": [
+        -7.94117927,
+        0.08466192,
+        1.88943997
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.29265734,
+        0.29265734,
+        0.29265734
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-004",
+      "name": "Houses_3",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Houses_3.glb",
+      "position": [
+        -2.2800408,
+        0.02281122,
+        2.28602836
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.24845615,
+        0.24845615,
+        0.24845615
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-005",
+      "name": "Houses_4",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Houses_4.glb",
+      "position": [
+        -15.1846321,
+        0.12371962,
+        4.3028391
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.32127326,
+        0.32127326,
+        0.32127326
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-006",
+      "name": "Houses_5",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Houses_5.glb",
+      "position": [
+        -12.49983144,
+        0.09133349,
+        3.94622492
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.25484871,
+        0.25484871,
+        0.25484871
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-007",
+      "name": "Plants_1",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Plants_1.glb",
+      "position": [
+        -7.20241049,
+        0.05858109,
+        6.45655455
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.42042212,
+        0.42042212,
+        0.42042212
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-008",
+      "name": "Plants_2",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Plants_2.glb",
+      "position": [
+        -4.02521701,
+        0.37051361,
+        6.52702586
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.44630343,
+        0.44630343,
+        0.44630343
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-009",
+      "name": "Plants_3",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Plants_3.glb",
+      "position": [
+        -17.87814056,
+        -0.39886456,
+        10.88273373
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.97415317,
+        0.97415317,
+        0.97415317
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-010",
+      "name": "Props_1",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Props_1.glb",
+      "position": [
+        -12.6569405,
+        0.02429542,
+        10.28781124
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.46973808,
+        0.46973808,
+        0.46973808
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-011",
+      "name": "Props_2",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Props_2.glb",
+      "position": [
+        -7.36818527,
+        0.04292069,
+        10.57324419
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.57205049,
+        0.57205049,
+        0.57205049
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-012",
+      "name": "Props_3",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Props_3.glb",
+      "position": [
+        -3.59079788,
+        0.00540793,
+        10.05368173
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.22137887,
+        0.22137887,
+        0.22137887
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-brazil-013",
+      "name": "Props_4",
+      "parentId": "transform:gataki-brazil",
+      "modelPath": "resources/Model/GLB/artist_gataki/Environment Brazil Theme/Props_4.glb",
+      "position": [
+        -15.68782697,
+        0.36890667,
+        13.88863216
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.21353201,
+        0.21353201,
+        0.21353201
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-001",
+      "name": "Axe",
+      "parentId": "transform:gataki-survival",
+      "modelPath": "resources/Model/GLB/artist_gataki/FreeSurvivalKit/Axe.glb",
+      "position": [
+        -7.47094875,
+        -0.22920066,
+        -18.80350656
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.50956831,
+        1.50956831,
+        1.50956831
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-002",
+      "name": "Campfire",
+      "parentId": "transform:gataki-survival",
+      "modelPath": "resources/Model/GLB/artist_gataki/FreeSurvivalKit/Campfire.glb",
+      "position": [
+        -7.95002864,
+        0.53891298,
+        -16.58961676
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.85049478,
+        0.85049478,
+        0.85049478
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-003",
+      "name": "Mattress",
+      "parentId": "transform:gataki-survival",
+      "modelPath": "resources/Model/GLB/artist_gataki/FreeSurvivalKit/Mattress.glb",
+      "position": [
+        -6.3897237,
+        -0.00196071,
+        -16.50710751
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.59883807,
+        0.59883807,
+        0.59883807
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-004",
+      "name": "Picaxe_Stone",
+      "parentId": "transform:gataki-survival",
+      "modelPath": "resources/Model/GLB/artist_gataki/FreeSurvivalKit/Picaxe_Stone.glb",
+      "position": [
+        -5.64848011,
+        0.03431441,
+        -13.82503854
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.27072403,
+        1.27072403,
+        1.27072403
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-survival-005",
+      "name": "Tent",
+      "parentId": "transform:gataki-survival",
+      "modelPath": "resources/Model/GLB/artist_gataki/FreeSurvivalKit/Tent.glb",
+      "position": [
+        -7.99194282,
+        0.06139759,
+        -8.85255585
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.2250325,
+        0.2250325,
+        0.2250325
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-truck-001",
+      "name": "GarbageTruck",
+      "parentId": "transform:gataki-truck",
+      "modelPath": "resources/Model/GLB/artist_gataki/Garbage-Truck-PSX/GarbageTruck.glb",
+      "position": [
+        3.00000006,
+        0.00393183,
+        -28.25287621
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.35893237,
+        0.35893237,
+        0.35893237
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-001",
+      "name": "CoconutPalm_01",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_01.glb",
+      "position": [
+        9.92818172,
+        0,
+        -27.96104618
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.81324092,
+        0.81324092,
+        0.81324092
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-002",
+      "name": "CoconutPalm_02",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_02.glb",
+      "position": [
+        13.7821435,
+        0,
+        -27.89175366
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76525228,
+        0.76525228,
+        0.76525228
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-003",
+      "name": "CoconutPalm_03",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_03.glb",
+      "position": [
+        18.35465582,
+        0,
+        -28.03262216
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.97134633,
+        0.97134633,
+        0.97134633
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-004",
+      "name": "CoconutPalm_04",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_04.glb",
+      "position": [
+        22.28630135,
+        0,
+        -27.94713009
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.80342483,
+        0.80342483,
+        0.80342483
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-005",
+      "name": "CoconutPalm_05",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_05.glb",
+      "position": [
+        26.14622307,
+        0,
+        -28.20853634
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.72139325,
+        0.72139325,
+        0.72139325
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-006",
+      "name": "CoconutPalm_06",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_06.glb",
+      "position": [
+        29.9398516,
+        0,
+        -28.55136682
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.84744958,
+        0.84744958,
+        0.84744958
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-007",
+      "name": "CoconutPalm_07",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_07.glb",
+      "position": [
+        9.92485692,
+        0,
+        -23.96104786
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.7293947,
+        0.7293947,
+        0.7293947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-008",
+      "name": "CoconutPalm_08",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_08.glb",
+      "position": [
+        13.88121181,
+        0,
+        -23.97123625
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.78486731,
+        0.78486731,
+        0.78486731
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-009",
+      "name": "CoconutPalm_09",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_09.glb",
+      "position": [
+        17.90057554,
+        0,
+        -24.07915774
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.6520772,
+        0.6520772,
+        0.6520772
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-010",
+      "name": "CoconutPalm_10",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_10.glb",
+      "position": [
+        21.88539044,
+        0,
+        -23.64169752
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.77775297,
+        0.77775297,
+        0.77775297
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-011",
+      "name": "CoconutPalm_11",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_11.glb",
+      "position": [
+        26.12161963,
+        0,
+        -23.93946746
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.65224915,
+        0.65224915,
+        0.65224915
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-012",
+      "name": "CoconutPalm_12",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_12.glb",
+      "position": [
+        29.98911234,
+        0,
+        -24.17102794
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.60706086,
+        0.60706086,
+        0.60706086
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-013",
+      "name": "CoconutPalm_13",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_13.glb",
+      "position": [
+        9.67262836,
+        0,
+        -19.97395007
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93933292,
+        0.93933292,
+        0.93933292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-014",
+      "name": "CoconutPalm_14",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/CoconutPalm_14.glb",
+      "position": [
+        14.02086441,
+        0,
+        -19.65783327
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.89408947,
+        0.89408947,
+        0.89408947
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-015",
+      "name": "SunUmbrella_01",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/SunUmbrella_01.glb",
+      "position": [
+        18.12907578,
+        0,
+        -20.26133011
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37981906,
+        1.37981906,
+        1.37981906
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-016",
+      "name": "SunUmbrella_02",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/SunUmbrella_02.glb",
+      "position": [
+        21.95814628,
+        0,
+        -19.6956331
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.31583767,
+        1.31583767,
+        1.31583767
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-017",
+      "name": "SunUmbrella_03",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/SunUmbrella_03.glb",
+      "position": [
+        25.76218601,
+        0,
+        -20.3416805
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.34362133,
+        1.34362133,
+        1.34362133
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-018",
+      "name": "SunUmbrella_04",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/SunUmbrella_04.glb",
+      "position": [
+        29.88647998,
+        0,
+        -19.94117023
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.35792518,
+        1.35792518,
+        1.35792518
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-019",
+      "name": "SunUmbrella_05",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/SunUmbrella_05.glb",
+      "position": [
+        10.1857851,
+        0,
+        -15.92788312
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37537232,
+        1.37537232,
+        1.37537232
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-020",
+      "name": "SunUmbrella_06",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/SunUmbrella_06.glb",
+      "position": [
+        14.18578375,
+        0,
+        -15.92788248
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.375372,
+        1.375372,
+        1.375372
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-021",
+      "name": "SunUmbrella_07",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/SunUmbrella_07.glb",
+      "position": [
+        18.18578393,
+        0,
+        -15.92788116
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.37537216,
+        1.37537216,
+        1.37537216
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-022",
+      "name": "BeachMat_Blue_01",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/BeachMat_Blue_01.glb",
+      "position": [
+        22,
+        0.02,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55957551,
+        1.55957551,
+        1.55957551
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-023",
+      "name": "BeachMat_Blue_02",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/BeachMat_Blue_02.glb",
+      "position": [
+        26,
+        0.02,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.57707292,
+        1.57707292,
+        1.57707292
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-024",
+      "name": "BeachMat_Red_01",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/BeachMat_Red_01.glb",
+      "position": [
+        30,
+        0.02,
+        -16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.55664786,
+        1.55664786,
+        1.55664786
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-island-025",
+      "name": "BeachMat_Red_02",
+      "parentId": "transform:gataki-island",
+      "modelPath": "resources/Model/GLB/artist_gataki/Island/Parts/BeachMat_Red_02.glb",
+      "position": [
+        10,
+        0.02,
+        -12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.27372304,
+        2.27372304,
+        2.27372304
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-001",
+      "name": "Barrel",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Barrel.glb",
+      "position": [
+        3.99610394,
+        0,
+        -28.02727106
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.66926391,
+        2.66926391,
+        2.66926391
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-002",
+      "name": "Bed",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Bed.glb",
+      "position": [
+        0.18392353,
+        0.00993997,
+        -16.55763331
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.12532745,
+        1.12532745,
+        1.12532745
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-003",
+      "name": "Campfire",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Campfire.glb",
+      "position": [
+        12.40718215,
+        0.27113079,
+        -36.41743193
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        2.4255722,
+        2.4255722,
+        2.4255722
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-004",
+      "name": "CampfireWithPan",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/CampfireWithPan.glb",
+      "position": [
+        22.9307654,
+        0.11190005,
+        -15.0300617
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.00107278,
+        1.00107278,
+        1.00107278
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-005",
+      "name": "Foundation1",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Foundation1.glb",
+      "position": [
+        14.21484562,
+        0.68316181,
+        -1.39798563
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93213628,
+        0.93213628,
+        0.93213628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-006",
+      "name": "Foundation2",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Foundation2.glb",
+      "position": [
+        22.57000076,
+        0.66621857,
+        -1.35865551
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90901817,
+        0.90901817,
+        0.90901817
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-007",
+      "name": "Foundation3",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Foundation3.glb",
+      "position": [
+        6.66058252,
+        0.66621857,
+        2.65302943
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90901817,
+        0.90901817,
+        0.90901817
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-008",
+      "name": "HighPlatformer",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/HighPlatformer.glb",
+      "position": [
+        14.28964256,
+        0,
+        6.30050833
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.76717042,
+        0.76717042,
+        0.76717042
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-009",
+      "name": "Pan",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Pan.glb",
+      "position": [
+        29.36375768,
+        0.0574668,
+        -42.8208551
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        4.45458627,
+        4.45458627,
+        4.45458627
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-010",
+      "name": "Pillar",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Pillar.glb",
+      "position": [
+        18.60086555,
+        0,
+        10.99913438
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93333333,
+        0.93333333,
+        0.93333333
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-011",
+      "name": "Platformer1",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Platformer1.glb",
+      "position": [
+        14.21508219,
+        0.05154824,
+        -1.59468182
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93213628,
+        0.93213628,
+        0.93213628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-012",
+      "name": "Platformer1/2",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Platformer1_2.glb",
+      "position": [
+        31.49946485,
+        0.0515811,
+        -1.59916998
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93273439,
+        0.93273439,
+        0.93273439
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-013",
+      "name": "Platformer1/4",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Platformer1_4.glb",
+      "position": [
+        15.00342399,
+        0.10104504,
+        6.59643071
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86666667,
+        1.86666667,
+        1.86666667
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-014",
+      "name": "Platformer2",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Platformer2.glb",
+      "position": [
+        6.57000068,
+        0.05026979,
+        2.54974685
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90901821,
+        0.90901821,
+        0.90901821
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-015",
+      "name": "Platformer3",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Platformer3.glb",
+      "position": [
+        14.66058252,
+        0.05026979,
+        2.56143203
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.90901817,
+        0.90901817,
+        0.90901817
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-016",
+      "name": "Stair1/2",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Stair1_2.glb",
+      "position": [
+        10.36529124,
+        0.04047978,
+        -1.6582072
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91968794,
+        0.91968794,
+        0.91968794
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-017",
+      "name": "Stairs",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Stairs.glb",
+      "position": [
+        18.50388674,
+        0.04047978,
+        -1.65700665
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.91968797,
+        0.91968797,
+        0.91968797
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-018",
+      "name": "Table",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Table.glb",
+      "position": [
+        18.83621569,
+        0.01348766,
+        -14.87858976
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.52696262,
+        1.52696262,
+        1.52696262
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-019",
+      "name": "Wall",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Wall.glb",
+      "position": [
+        6.60260936,
+        0.00179547,
+        13.40023876
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93213628,
+        0.93213628,
+        0.93213628
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-020",
+      "name": "Wall1/2",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Wall1_2.glb",
+      "position": [
+        2.2026484,
+        0.00179733,
+        16.20099379
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93310163,
+        0.93310163,
+        0.93310163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-021",
+      "name": "Wall1/2Door",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Wall1_2Door.glb",
+      "position": [
+        10.40160574,
+        0,
+        18.99826222
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93310163,
+        0.93310163,
+        0.93310163
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-022",
+      "name": "Wall1/2_2",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Wall1_2_2.glb",
+      "position": [
+        19.34709637,
+        0,
+        16.1993404
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93273439,
+        0.93273439,
+        0.93273439
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-023",
+      "name": "Wall1/4",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/Wall1_4.glb",
+      "position": [
+        14.30460732,
+        0,
+        20.39329458
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        1.86427242,
+        1.86427242,
+        1.86427242
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-024",
+      "name": "WallDoor",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/WallDoor.glb",
+      "position": [
+        22.40459928,
+        0,
+        13.39974999
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9327025,
+        0.9327025,
+        0.9327025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-025",
+      "name": "WallFrame",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/WallFrame.glb",
+      "position": [
+        -1.79256197,
+        0,
+        22.99730433
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.9327025,
+        0.9327025,
+        0.9327025
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    },
+    {
+      "id": "gataki-raft-026",
+      "name": "WallWindows",
+      "parentId": "transform:gataki-raft",
+      "modelPath": "resources/Model/GLB/artist_gataki/ModularRaft/WallWindows.glb",
+      "position": [
+        2.2133945,
+        0.00179546,
+        17.39889857
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        0.93213517,
+        0.93213517,
+        0.93213517
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      }
+    }
+  ]
+}

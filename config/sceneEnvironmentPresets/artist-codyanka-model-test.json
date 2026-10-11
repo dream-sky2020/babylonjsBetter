@@ -1,0 +1,1868 @@
+{
+  "presetKey": "artist-codyanka-model-test",
+  "name": "Codyanka · 医疗道具与易拉罐（17 款，36 展示实例）",
+  "clearColor": "#202a33",
+  "lights": [
+    {
+      "id": "ambient",
+      "name": "展示环境光",
+      "intensity": 1.2,
+      "color": "#ffffff",
+      "light": {
+        "primitive": "hemispheric",
+        "direction": [
+          0.3,
+          1,
+          0.2
+        ],
+        "groundColor": "#687888"
+      }
+    },
+    {
+      "id": "key",
+      "name": "展示主光",
+      "intensity": 0.8,
+      "color": "#fff3e1",
+      "light": {
+        "primitive": "directional",
+        "direction": [
+          -0.4,
+          -1,
+          0.3
+        ],
+        "position": [
+          -15,
+          25,
+          -15
+        ]
+      }
+    }
+  ],
+  "transformNodes": [
+    {
+      "id": "codyanka-medical",
+      "name": "codyanka · 医疗道具",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "codyanka-soda",
+      "name": "codyanka · 易拉罐形状",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "codyanka-packaging",
+      "name": "codyanka · 包装与磨损版本",
+      "role": "empty",
+      "position": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "ground",
+      "name": "展示地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 52,
+        "height": 28
+      },
+      "position": [
+        0,
+        -0.22,
+        0
+      ],
+      "color": "#34414b"
+    },
+    {
+      "id": "codyanka-medical-bandage-stand",
+      "name": "Bandage展台",
+      "parentId": "transform:codyanka-medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -20,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-medical-medkit-stand",
+      "name": "Medkit展台",
+      "parentId": "transform:codyanka-medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -16,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-medical-pill-stand",
+      "name": "Pill展台",
+      "parentId": "transform:codyanka-medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-medical-pillbottle-stand",
+      "name": "PillBottle展台",
+      "parentId": "transform:codyanka-medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -8,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-medical-syringe-stand",
+      "name": "Syringe展台",
+      "parentId": "transform:codyanka-medical",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -4,
+        -0.1,
+        11.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_fat500-stand",
+      "name": "Can_Fat500展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_fat500_crushed-stand",
+      "name": "Can_Fat500_Crushed展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_fat500_dented-stand",
+      "name": "Can_Fat500_Dented展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_short150-stand",
+      "name": "Can_Short150展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_slim250-stand",
+      "name": "Can_Slim250展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_slim250_dented-stand",
+      "name": "Can_Slim250_Dented展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        11.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_standard330-stand",
+      "name": "Can_Standard330展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        2,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_crushed_a-stand",
+      "name": "Can_Standard330_Crushed_A展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        6,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_crushed_b-stand",
+      "name": "Can_Standard330_Crushed_B展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        10,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_crushed_c-stand",
+      "name": "Can_Standard330_Crushed_C展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        14,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_dented_a-stand",
+      "name": "Can_Standard330_Dented_A展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        18,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_dented_b-stand",
+      "name": "Can_Standard330_Dented_B展台",
+      "parentId": "transform:codyanka-soda",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        22,
+        -0.1,
+        7.5
+      ],
+      "color": "#7e919b"
+    },
+    {
+      "id": "codyanka-soda-can_dr_piper-stand",
+      "name": "can_dr_piper展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_dr_piper_worn-stand",
+      "name": "can_dr_piper_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_fantom_orange-stand",
+      "name": "can_fantom_orange展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_fantom_orange_worn-stand",
+      "name": "can_fantom_orange_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_generic_cola_worn-stand",
+      "name": "can_generic_cola_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_kola_classic-stand",
+      "name": "can_kola_classic展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        4.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_kola_classic_worn-stand",
+      "name": "can_kola_classic_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_monstro-stand",
+      "name": "can_monstro展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_monstro_worn-stand",
+      "name": "can_monstro_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_mountain_dusk-stand",
+      "name": "can_mountain_dusk展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_mountain_dusk_worn-stand",
+      "name": "can_mountain_dusk_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_pepso-stand",
+      "name": "can_pepso展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        0.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_pepso_worn-stand",
+      "name": "can_pepso_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -22,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_red_bullet-stand",
+      "name": "can_red_bullet展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -18,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_red_bullet_worn-stand",
+      "name": "can_red_bullet_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -14,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_rokstar-stand",
+      "name": "can_rokstar展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -10,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_rokstar_worn-stand",
+      "name": "can_rokstar_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -6,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_sprit-stand",
+      "name": "can_sprit展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -2,
+        -0.1,
+        -3.5
+      ],
+      "color": "#80958a"
+    },
+    {
+      "id": "codyanka-soda-can_sprit_worn-stand",
+      "name": "can_sprit_worn展台",
+      "parentId": "transform:codyanka-packaging",
+      "geometry": {
+        "primitive": "box",
+        "width": 3.3,
+        "height": 0.2,
+        "depth": 3.3
+      },
+      "position": [
+        -12,
+        -0.1,
+        -7.5
+      ],
+      "color": "#80958a"
+    }
+  ],
+  "models": [
+    {
+      "id": "codyanka-medical-bandage",
+      "name": "codyanka · Bandage",
+      "parentId": "transform:codyanka-medical",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Medical/Bandage.glb",
+      "position": [
+        -20,
+        0,
+        11.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        26.21100752,
+        26.21100752,
+        26.21100752
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-medical-medkit",
+      "name": "codyanka · Medkit",
+      "parentId": "transform:codyanka-medical",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Medical/Medkit.glb",
+      "position": [
+        -16,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        11.42857121,
+        11.42857121,
+        11.42857121
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-medical-pill",
+      "name": "codyanka · Pill",
+      "parentId": "transform:codyanka-medical",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Medical/Pill.glb",
+      "position": [
+        -12,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        189.18918913,
+        189.18918913,
+        189.18918913
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-medical-pillbottle",
+      "name": "codyanka · PillBottle",
+      "parentId": "transform:codyanka-medical",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Medical/PillBottle.glb",
+      "position": [
+        -8,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        27.58620567,
+        27.58620567,
+        27.58620567
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-medical-syringe",
+      "name": "codyanka · Syringe",
+      "parentId": "transform:codyanka-medical",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Medical/Syringe.glb",
+      "position": [
+        -4,
+        0,
+        11.49999995
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        13.99999927,
+        13.99999927,
+        13.99999927
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_fat500",
+      "name": "codyanka · Can_Fat500",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Fat500.glb",
+      "position": [
+        2,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.66666592,
+        18.66666592,
+        18.66666592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_fat500_crushed",
+      "name": "codyanka · Can_Fat500_Crushed",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Fat500_Crushed.glb",
+      "position": [
+        6,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        30.18297727,
+        30.18297727,
+        30.18297727
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_fat500_dented",
+      "name": "codyanka · Can_Fat500_Dented",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Fat500_Dented.glb",
+      "position": [
+        10,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        18.66666592,
+        18.66666592,
+        18.66666592
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_short150",
+      "name": "codyanka · Can_Short150",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Short150.glb",
+      "position": [
+        14,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.8181766,
+        31.8181766,
+        31.8181766
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_slim250",
+      "name": "codyanka · Can_Slim250",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Slim250.glb",
+      "position": [
+        18,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.89552187,
+        20.89552187,
+        20.89552187
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_slim250_dented",
+      "name": "codyanka · Can_Slim250_Dented",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Slim250_Dented.glb",
+      "position": [
+        22,
+        0,
+        11.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        20.89552187,
+        20.89552187,
+        20.89552187
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_standard330",
+      "name": "codyanka · Can_Standard330",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        2,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_crushed_a",
+      "name": "codyanka · Can_Standard330_Crushed_A",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330_Crushed_A.glb",
+      "position": [
+        6,
+        0,
+        7.49999994
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        31.71836355,
+        31.71836355,
+        31.71836355
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_crushed_b",
+      "name": "codyanka · Can_Standard330_Crushed_B",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330_Crushed_B.glb",
+      "position": [
+        10,
+        0,
+        7.50000006
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        33.12301654,
+        33.12301654,
+        33.12301654
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_crushed_c",
+      "name": "codyanka · Can_Standard330_Crushed_C",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330_Crushed_C.glb",
+      "position": [
+        14,
+        0,
+        7.50000003
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        32.39036564,
+        32.39036564,
+        32.39036564
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_dented_a",
+      "name": "codyanka · Can_Standard330_Dented_A",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330_Dented_A.glb",
+      "position": [
+        18,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_standard330_dented_b",
+      "name": "codyanka · Can_Standard330_Dented_B",
+      "parentId": "transform:codyanka-soda",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330_Dented_B.glb",
+      "position": [
+        22,
+        0,
+        7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source"
+    },
+    {
+      "id": "codyanka-soda-can_dr_piper",
+      "name": "codyanka · can_dr_piper",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -22,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/1ba4576e45ab4b9fe99b82a2284b89e25b17c93ad79e036cedc3da6d4968da27.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_dr_piper_worn",
+      "name": "codyanka · can_dr_piper_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -18,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/b2ccf01baec37dffc4b2a3f06584edc4af030363471dc2bfa71293436695798d.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_fantom_orange",
+      "name": "codyanka · can_fantom_orange",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -14,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/7a7fd5bd6f76773bbf6385236fb9f9a2002c0376ca3d8a6fba97bc63e595c0ec.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_fantom_orange_worn",
+      "name": "codyanka · can_fantom_orange_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -10,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/776190f4d703720782262b2b7f264626915b74e8f8b0e6ed68fb39affbc9b9c1.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_generic_cola_worn",
+      "name": "codyanka · can_generic_cola_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -6,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/6a213e0ef6ef8f51cb48c379e35459c39acb5661503a01cdeb0c0ce80c0f3547.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_kola_classic",
+      "name": "codyanka · can_kola_classic",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -2,
+        0,
+        4.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/4e28447cda5607d32bd0dd4cc9d6153e0196da6b9a847f86f6d07e77a433535c.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_kola_classic_worn",
+      "name": "codyanka · can_kola_classic_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -22,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/5d2acb1d70189d9317bf9cb108032e67d5a176f84f537a35c72b3096d5e20a94.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_monstro",
+      "name": "codyanka · can_monstro",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -18,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/7736185afce2f790ca2d8648ba2888210a167119694cf6ec53dd10b6e19e2caf.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_monstro_worn",
+      "name": "codyanka · can_monstro_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -14,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/79298e96f2c2432ab340aeb32d33c86c5211225a8a4e4cb0c6cb4329c057b39b.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_mountain_dusk",
+      "name": "codyanka · can_mountain_dusk",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -10,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/916a207f49ea82e7d4724f6e7ce7db26753e1c4b0668934e4b3d48c8fd116431.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_mountain_dusk_worn",
+      "name": "codyanka · can_mountain_dusk_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -6,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/9c7248896a8816443393f346f76b067bbde339565772ab244eac268be2f800b5.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_pepso",
+      "name": "codyanka · can_pepso",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -2,
+        0,
+        0.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/e8b62281ee7369f095af05293caad5a9359f16d9d371077597821200272a50b2.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_pepso_worn",
+      "name": "codyanka · can_pepso_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -22,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/7c1ffb1ff1ed5915feebc304eb0c4b5f1ce2d56dca445fe2f56857d8cbb1980b.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_red_bullet",
+      "name": "codyanka · can_red_bullet",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -18,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/79b8b2a5788a46fa60c07c33bc51cb32e10a6fa2ee64f03d90f1b9877dea2c1f.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_red_bullet_worn",
+      "name": "codyanka · can_red_bullet_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -14,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/3330a28085aa9de067cd0b1a34782daf43fbc5fa6269ec4520259dfea4b30251.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_rokstar",
+      "name": "codyanka · can_rokstar",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -10,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/c808c2290688febf0265e63c1802ca8dc6e4ad4131af4d38d43a74c5c5ed59d7.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_rokstar_worn",
+      "name": "codyanka · can_rokstar_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -6,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/1ab854f3587b9c660f6bb8126f760495e9ae2e392f8ee3a5dc8840f9658db1a3.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_sprit",
+      "name": "codyanka · can_sprit",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -2,
+        0,
+        -3.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/669e1babc52c276a5167fd4d9f034ab63ca5896dfe1c890184c6d2310a6d356f.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "codyanka-soda-can_sprit_worn",
+      "name": "codyanka · can_sprit_worn",
+      "parentId": "transform:codyanka-packaging",
+      "modelPath": "resources/Model/GLB/artist_codyanka/Soda/Can_Standard330.glb",
+      "position": [
+        -12,
+        0,
+        -7.5
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scaling": [
+        22.76422426,
+        22.76422426,
+        22.76422426
+      ],
+      "shadow": {
+        "cast": true,
+        "receive": true
+      },
+      "transparencyPolicy": "source",
+      "materialOverrides": [
+        {
+          "selector": {
+            "gltfMaterialIndex": 0
+          },
+          "textures": {
+            "baseColor": {
+              "path": "resources/Model/SharedTextures/artist_codyanka/e6251c5d72dbc0f649fc47dc24d380e1bae5792c6bdd6a18392bc8ce3094b295.png"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
