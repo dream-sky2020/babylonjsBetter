@@ -63,7 +63,7 @@ Valsekamerplant 展示共有 7 个预设：灌木、办公、中世纪、围栏�
 
 `extendsPresetKey` 与原有 `lightShadowOverrides` 继续有效。继承场景编辑只在自身声明增加实际变化的顶层覆盖字段；objects/models/lights/transformNodes 数组按整个字段覆盖，未覆盖的字段继续继承。不会修改基础文件或移除继承链接。修改灯光数组时将已有阴影覆盖合入 lights 并移除冗余 lightShadowOverrides。基础场景未保存的修改不会随子场景一起保存，应先保存基础场景才能在刷新后保留其影响。
 
-保存边界 `scripts/sceneEnvironmentPresetStore.ts` 校验文件名、大小写冲突、Windows 保留名、presetKey、继承链、稳定 ID 和阴影引用/档位/CSM 适用性，拒绝符号链接和目录外引用。每目录的保存请求串行校验，使用同目录唯一临时文件和原子 rename；失败清理临时文件。多开发服务器/外部编辑器同时修改仍为最后一次写入生效，未实现跨进程冲突检测。模型路径校验格式，资源存在性由预览加载报告。
+保存边界 `codex-tools/sceneEnvironmentPresetStore.ts` 校验文件名、大小写冲突、Windows 保留名、presetKey、继承链、稳定 ID 和阴影引用/档位/CSM 适用性，拒绝符号链接和目录外引用。每目录的保存请求串行校验，使用同目录唯一临时文件和原子 rename；失败清理临时文件。多开发服务器/外部编辑器同时修改仍为最后一次写入生效，未实现跨进程冲突检测。模型路径校验格式，资源存在性由预览加载报告。
 
 ## 迁移与验证
 

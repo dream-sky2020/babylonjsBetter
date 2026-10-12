@@ -1,0 +1,3191 @@
+[
+  {
+    "author": "cursedlake",
+    "sourcePath": "Mushrooms_Pack/All_in_1/GlowingMushrooms.fbx",
+    "objects": [
+      {
+        "name": "Mushroom_01",
+        "vertices": 122,
+        "faces": 132,
+        "dimensions": [
+          0.9253036379814148,
+          0.8941985368728638,
+          2.1549322605133057
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_02",
+        "vertices": 254,
+        "faces": 264,
+        "dimensions": [
+          1.9637196063995361,
+          1.9696578979492188,
+          3.403656482696533
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_03",
+        "vertices": 242,
+        "faces": 252,
+        "dimensions": [
+          3.648958444595337,
+          3.6489555835723877,
+          3.354437828063965
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_04",
+        "vertices": 114,
+        "faces": 120,
+        "dimensions": [
+          0.818061351776123,
+          0.8237597346305847,
+          1.962692141532898
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_05",
+        "vertices": 122,
+        "faces": 128,
+        "dimensions": [
+          1.0379334688186646,
+          1.0329666137695312,
+          2.813720226287842
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_06",
+        "vertices": 170,
+        "faces": 182,
+        "dimensions": [
+          1.9816534519195557,
+          1.8409945964813232,
+          1.752964735031128
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_07",
+        "vertices": 146,
+        "faces": 156,
+        "dimensions": [
+          1.8511829376220703,
+          1.8890973329544067,
+          1.524135947227478
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_08",
+        "vertices": 123,
+        "faces": 128,
+        "dimensions": [
+          3.241257667541504,
+          2.3180174827575684,
+          0.6750738024711609
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_09",
+        "vertices": 266,
+        "faces": 276,
+        "dimensions": [
+          3.648305892944336,
+          3.6489555835723877,
+          3.3442461490631104
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_10",
+        "vertices": 158,
+        "faces": 168,
+        "dimensions": [
+          1.1920855045318604,
+          1.1920855045318604,
+          1.3611860275268555
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_11",
+        "vertices": 56,
+        "faces": 60,
+        "dimensions": [
+          0.1383090317249298,
+          0.14953026175498962,
+          0.43494507670402527
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Mushroom_11.1",
+        "vertices": 168,
+        "faces": 180,
+        "dimensions": [
+          0.30470511317253113,
+          0.23829230666160583,
+          0.44647347927093506
+        ],
+        "materials": [
+          "Mushroom_Glow"
+        ],
+        "uvLayers": 1
+      }
+    ],
+    "materials": [
+      {
+        "name": "Mushroom_Glow",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Game Assets\\Itch.io_assetst\\Mushroom Pack\\Textures\\GMushrooms_Albedo.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "author": "cursedlake",
+    "sourcePath": "SpaceFoodKiosk/ChefDroid.fbx",
+    "objects": [
+      {
+        "name": "Body",
+        "vertices": 225,
+        "faces": 235,
+        "dimensions": [
+          0.550338089466095,
+          0.5122332572937012,
+          1.180903673171997
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Head",
+        "vertices": 160,
+        "faces": 157,
+        "dimensions": [
+          0.6055318117141724,
+          0.6742589473724365,
+          0.4233951270580292
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.005",
+        "vertices": 38,
+        "faces": 36,
+        "dimensions": [
+          0.387199729681015,
+          0.3069174885749817,
+          0.5526708364486694
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.006",
+        "vertices": 38,
+        "faces": 36,
+        "dimensions": [
+          0.30265921354293823,
+          0.2461276352405548,
+          0.6074453592300415
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.001",
+        "vertices": 40,
+        "faces": 39,
+        "dimensions": [
+          0.48348546028137207,
+          0.4076269268989563,
+          0.08488369733095169
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.002",
+        "vertices": 38,
+        "faces": 36,
+        "dimensions": [
+          0.10355976969003677,
+          0.46396327018737793,
+          0.5526707768440247
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.003",
+        "vertices": 38,
+        "faces": 36,
+        "dimensions": [
+          0.10355978459119797,
+          0.3611900806427002,
+          0.6074452996253967
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.004",
+        "vertices": 40,
+        "faces": 39,
+        "dimensions": [
+          0.17270053923130035,
+          0.5675100684165955,
+          0.08488369733095169
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.008",
+        "vertices": 38,
+        "faces": 36,
+        "dimensions": [
+          0.37983015179634094,
+          0.3180588185787201,
+          0.5526707768440247
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.009",
+        "vertices": 38,
+        "faces": 36,
+        "dimensions": [
+          0.29763251543045044,
+          0.254136323928833,
+          0.607445478439331
+        ],
+        "materials": [
+          "Droid"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cylinder.010",
+        "vertices": 69,
+        "faces": 73,
+        "dimensions": [
+          0.36350491642951965,
+          0.2838941514492035,
+          0.46498507261276245
+        ],
+        "materials": [
+          "Droid",
+          "Props"
+        ],
+        "uvLayers": 1
+      }
+    ],
+    "materials": [
+      {
+        "name": "Props",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Props.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Droid",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Droid.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      }
+    ],
+    "actions": [
+      "Armature|Armature|Idle"
+    ]
+  },
+  {
+    "author": "cursedlake",
+    "sourcePath": "SpaceFoodKiosk/FoodKiosk.fbx",
+    "objects": [
+      {
+        "name": "Barrel",
+        "vertices": 122,
+        "faces": 132,
+        "dimensions": [
+          0.8200000524520874,
+          0.8200000524520874,
+          1.1399999856948853
+        ],
+        "materials": [
+          "Barrel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Barrel.001",
+        "vertices": 122,
+        "faces": 132,
+        "dimensions": [
+          0.8200000524520874,
+          0.8200000524520874,
+          1.1399999856948853
+        ],
+        "materials": [
+          "Barrel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Barstool",
+        "vertices": 74,
+        "faces": 81,
+        "dimensions": [
+          0.5962938070297241,
+          0.5872347950935364,
+          0.679660439491272
+        ],
+        "materials": [
+          "Barstool"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Barstool.001",
+        "vertices": 74,
+        "faces": 81,
+        "dimensions": [
+          0.5962938070297241,
+          0.5872347950935364,
+          0.679660439491272
+        ],
+        "materials": [
+          "Barstool"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Barstool.002",
+        "vertices": 74,
+        "faces": 81,
+        "dimensions": [
+          0.5962938070297241,
+          0.5872347950935364,
+          0.679660439491272
+        ],
+        "materials": [
+          "Barstool"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Barstool.003",
+        "vertices": 74,
+        "faces": 81,
+        "dimensions": [
+          0.5962938070297241,
+          0.5872347950935364,
+          0.679660439491272
+        ],
+        "materials": [
+          "Barstool"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Barstool.004",
+        "vertices": 74,
+        "faces": 81,
+        "dimensions": [
+          0.5962938070297241,
+          0.5872347950935364,
+          0.679660439491272
+        ],
+        "materials": [
+          "Barstool"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Beam_1",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          0.28169965744018555,
+          3.687497615814209,
+          0.0876159593462944
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Beam_2",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          0.28169965744018555,
+          3.687497615814209,
+          0.0876159593462944
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Beam_3",
+        "vertices": 40,
+        "faces": 20,
+        "dimensions": [
+          3.20011568069458,
+          2.1925089359283447,
+          0.05194295197725296
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "BigLamp_1",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          2.0496065616607666,
+          0.448823481798172,
+          0.11148227751255035
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "BigLamp_2",
+        "vertices": 42,
+        "faces": 21,
+        "dimensions": [
+          1.7599999904632568,
+          0.20986738801002502,
+          0.05849588289856911
+        ],
+        "materials": [],
+        "uvLayers": 1
+      },
+      {
+        "name": "Bottle_1",
+        "vertices": 35,
+        "faces": 30,
+        "dimensions": [
+          0.11699143797159195,
+          0.11405821889638901,
+          0.20500516891479492
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Bottle_2",
+        "vertices": 35,
+        "faces": 30,
+        "dimensions": [
+          0.11699143797159195,
+          0.11405821889638901,
+          0.20500516891479492
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Bowl",
+        "vertices": 102,
+        "faces": 87,
+        "dimensions": [
+          0.3743407726287842,
+          0.3727439045906067,
+          0.07220106571912766
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Box",
+        "vertices": 56,
+        "faces": 54,
+        "dimensions": [
+          0.8467211723327637,
+          1.1362329721450806,
+          0.8467211723327637
+        ],
+        "materials": [
+          "Box"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Counter",
+        "vertices": 129,
+        "faces": 122,
+        "dimensions": [
+          4.828722953796387,
+          3.0587663650512695,
+          1.0823650360107422
+        ],
+        "materials": [
+          "Counter"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "CutBoard",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          0.8331080079078674,
+          0.4993055760860443,
+          0.031896837055683136
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Dish_1",
+        "vertices": 17,
+        "faces": 1,
+        "dimensions": [
+          0.34739208221435547,
+          0.3459101617336273,
+          7.450580596923828e-09
+        ],
+        "materials": [
+          "Dishes"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Dish_2",
+        "vertices": 14,
+        "faces": 13,
+        "dimensions": [
+          0.3955678939819336,
+          0.39775750041007996,
+          0.0
+        ],
+        "materials": [
+          "Dishes"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Dish_3",
+        "vertices": 161,
+        "faces": 205,
+        "dimensions": [
+          0.7268060445785522,
+          0.2084668129682541,
+          0.12419117987155914
+        ],
+        "materials": [
+          "Dishes"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Dispenser_1",
+        "vertices": 48,
+        "faces": 46,
+        "dimensions": [
+          0.3389121890068054,
+          0.3108677566051483,
+          1.0784553289413452
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Dispenser_2",
+        "vertices": 48,
+        "faces": 46,
+        "dimensions": [
+          0.3389121890068054,
+          0.3108677566051483,
+          1.0784553289413452
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Env_1",
+        "vertices": 95,
+        "faces": 84,
+        "dimensions": [
+          1.4701699018478394,
+          0.5297098755836487,
+          4.476719856262207
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Env_2",
+        "vertices": 62,
+        "faces": 48,
+        "dimensions": [
+          0.7832068800926208,
+          0.5403240919113159,
+          4.862696647644043
+        ],
+        "materials": [
+          "Counter"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Env_3",
+        "vertices": 31,
+        "faces": 30,
+        "dimensions": [
+          0.2001393437385559,
+          0.2026401311159134,
+          2.0262327194213867
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Env_4",
+        "vertices": 72,
+        "faces": 60,
+        "dimensions": [
+          0.387938529253006,
+          0.47983232140541077,
+          0.17687341570854187
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Glass",
+        "vertices": 32,
+        "faces": 26,
+        "dimensions": [
+          0.08000010251998901,
+          0.08000010251998901,
+          0.10000006854534149
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Lamp_1",
+        "vertices": 43,
+        "faces": 43,
+        "dimensions": [
+          0.27824562788009644,
+          0.27126947045326233,
+          0.4673829972743988
+        ],
+        "materials": [
+          "Lamp"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Lamp_2",
+        "vertices": 43,
+        "faces": 43,
+        "dimensions": [
+          0.27824562788009644,
+          0.27126947045326233,
+          0.4673829972743988
+        ],
+        "materials": [
+          "Lamp"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Lamp_3",
+        "vertices": 43,
+        "faces": 43,
+        "dimensions": [
+          0.27824562788009644,
+          0.27126947045326233,
+          0.4673829972743988
+        ],
+        "materials": [
+          "Lamp"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Lamp_4",
+        "vertices": 43,
+        "faces": 43,
+        "dimensions": [
+          0.27824562788009644,
+          0.27126947045326233,
+          0.4673829972743988
+        ],
+        "materials": [
+          "Lamp"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Lamp_5",
+        "vertices": 43,
+        "faces": 43,
+        "dimensions": [
+          0.27824562788009644,
+          0.27126947045326233,
+          0.4673829972743988
+        ],
+        "materials": [
+          "Lamp"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Lamp_6",
+        "vertices": 43,
+        "faces": 43,
+        "dimensions": [
+          0.27824562788009644,
+          0.27126947045326233,
+          0.4673829972743988
+        ],
+        "materials": [
+          "Lamp"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Plane.001",
+        "vertices": 176,
+        "faces": 182,
+        "dimensions": [
+          6.827045917510986,
+          3.7881288528442383,
+          0.9734474420547485
+        ],
+        "materials": [
+          "Roof"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Plate",
+        "vertices": 68,
+        "faces": 53,
+        "dimensions": [
+          0.2793962359428406,
+          0.27820438146591187,
+          0.022236304357647896
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Poster_1",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          0.6978001594543457,
+          0.05203240364789963,
+          1.0754460096359253
+        ],
+        "materials": [
+          "Posters"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Poster_2",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          0.6978001594543457,
+          0.05203240364789963,
+          1.0754460096359253
+        ],
+        "materials": [
+          "Posters"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Poster_3",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          0.6978001594543457,
+          0.05203240364789963,
+          1.0754460096359253
+        ],
+        "materials": [
+          "Posters"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Poster_4",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          0.052032433450222015,
+          0.6978001594543457,
+          1.0754460096359253
+        ],
+        "materials": [
+          "Posters"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Pot_1",
+        "vertices": 182,
+        "faces": 180,
+        "dimensions": [
+          0.5881220698356628,
+          0.4200001060962677,
+          0.25999999046325684
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Pot_2",
+        "vertices": 94,
+        "faces": 79,
+        "dimensions": [
+          0.5557754039764404,
+          0.67121821641922,
+          0.30000001192092896
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Shelf",
+        "vertices": 24,
+        "faces": 14,
+        "dimensions": [
+          1.2907226085662842,
+          0.28030338883399963,
+          0.759003221988678
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Sign",
+        "vertices": 32,
+        "faces": 26,
+        "dimensions": [
+          2.796238660812378,
+          0.07255859673023224,
+          0.7296817302703857
+        ],
+        "materials": [
+          "Sign"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Sign_2",
+        "vertices": 32,
+        "faces": 29,
+        "dimensions": [
+          1.5138444900512695,
+          0.18860234320163727,
+          1.9141236543655396
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Sign_2.1",
+        "vertices": 12,
+        "faces": 8,
+        "dimensions": [
+          1.1200705766677856,
+          0.0010000020265579224,
+          1.4407763481140137
+        ],
+        "materials": [
+          "HoloScreen"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Stove",
+        "vertices": 8,
+        "faces": 5,
+        "dimensions": [
+          0.7155635952949524,
+          0.7401139736175537,
+          0.047250896692276
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Table",
+        "vertices": 15,
+        "faces": 11,
+        "dimensions": [
+          0.9905374050140381,
+          1.9220943450927734,
+          0.9589328765869141
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Table_2",
+        "vertices": 16,
+        "faces": 8,
+        "dimensions": [
+          4.271454811096191,
+          2.5171029567718506,
+          0.06082314997911453
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Ventilation",
+        "vertices": 8,
+        "faces": 5,
+        "dimensions": [
+          0.3475930690765381,
+          0.07682974636554718,
+          0.6030341386795044
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Ventilation.001",
+        "vertices": 8,
+        "faces": 5,
+        "dimensions": [
+          0.3475930690765381,
+          0.07682974636554718,
+          0.6030341386795044
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Ventilation.002",
+        "vertices": 8,
+        "faces": 5,
+        "dimensions": [
+          0.3475930690765381,
+          0.07682974636554718,
+          0.6030341386795044
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Wall",
+        "vertices": 70,
+        "faces": 80,
+        "dimensions": [
+          4.296791076660156,
+          2.5753026008605957,
+          2.565648078918457
+        ],
+        "materials": [
+          "Panels"
+        ],
+        "uvLayers": 1
+      }
+    ],
+    "materials": [
+      {
+        "name": "Box",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Box.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Posters",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Posters.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Roof",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Roof.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Barstool",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Barstool.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Lamp",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Lamp.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "HoloScreen",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\HoloScreen.png"
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\HoloScreen.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Image Texture.001",
+            "Alpha",
+            "Principled BSDF",
+            "Alpha"
+          ]
+        ]
+      },
+      {
+        "name": "Dishes",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Dishes.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Sign",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Sign.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Barrel",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Barrel.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Props",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Props.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Panels",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Panels.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Counter",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\SpaceFoodKiosk\\Textures\\Counter.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "author": "cursedlake",
+    "sourcePath": "Post-apocaliptic Shelter/PostapocalipticShelter.fbx",
+    "objects": [
+      {
+        "name": "Bag",
+        "vertices": 16,
+        "faces": 10,
+        "dimensions": [
+          2.154634475708008,
+          2.3754706382751465,
+          0.6812466979026794
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Barrel",
+        "vertices": 24,
+        "faces": 14,
+        "dimensions": [
+          0.8000001907348633,
+          0.8000001907348633,
+          1.0999999046325684
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cable",
+        "vertices": 2496,
+        "faces": 2448,
+        "dimensions": [
+          6.663715362548828,
+          8.727670669555664,
+          5.269186019897461
+        ],
+        "materials": [
+          "Cable"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "CarLight",
+        "vertices": 96,
+        "faces": 72,
+        "dimensions": [
+          1.4934215545654297,
+          0.20259612798690796,
+          0.3473074436187744
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "ClosedBox",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          1.1318421363830566,
+          0.7579481601715088,
+          0.4352129101753235
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "ClosedBox.1",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          1.0759161710739136,
+          1.195957899093628,
+          0.4352129101753235
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "ClosedBox.3",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          1.0395240783691406,
+          1.2002458572387695,
+          0.4352129101753235
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "ElectricalPanel",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          0.1209336519241333,
+          0.39215412735939026,
+          0.6600233912467957
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "ElectricalPanel.2",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          0.23550619184970856,
+          0.7636809349060059,
+          1.2853295803070068
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Fence",
+        "vertices": 40,
+        "faces": 26,
+        "dimensions": [
+          0.14063489437103271,
+          2.3430585861206055,
+          0.7592166662216187
+        ],
+        "materials": [
+          "Grill",
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Fence.001",
+        "vertices": 40,
+        "faces": 26,
+        "dimensions": [
+          0.14063489437103271,
+          2.3430585861206055,
+          0.7592166662216187
+        ],
+        "materials": [
+          "Grill",
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Fence.002",
+        "vertices": 40,
+        "faces": 26,
+        "dimensions": [
+          2.3251752853393555,
+          0.5971580147743225,
+          0.7592166662216187
+        ],
+        "materials": [
+          "Grill",
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Floor",
+        "vertices": 16,
+        "faces": 9,
+        "dimensions": [
+          2.9126088619232178,
+          7.944138526916504,
+          0.1322394460439682
+        ],
+        "materials": [
+          "Trailer"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Generator",
+        "vertices": 20,
+        "faces": 18,
+        "dimensions": [
+          1.856290340423584,
+          1.1729882955551147,
+          1.1729882955551147
+        ],
+        "materials": [
+          "Generator"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Light",
+        "vertices": 74,
+        "faces": 68,
+        "dimensions": [
+          0.8354471325874329,
+          0.8354471325874329,
+          0.2783963978290558
+        ],
+        "materials": [
+          "Props",
+          "Lamp"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "PSXFakeLight",
+        "vertices": 48,
+        "faces": 48,
+        "dimensions": [
+          3.05904221534729,
+          3.05904221534729,
+          1.1039729118347168
+        ],
+        "materials": [
+          "FakeLight"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "PSXFakeLight.001",
+        "vertices": 48,
+        "faces": 48,
+        "dimensions": [
+          1.5539799928665161,
+          1.5539799928665161,
+          0.5608133673667908
+        ],
+        "materials": [
+          "FakeLight"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Plane.001",
+        "vertices": 40,
+        "faces": 42,
+        "dimensions": [
+          0.27997052669525146,
+          1.1401045322418213,
+          1.2150782346725464
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Poles",
+        "vertices": 40,
+        "faces": 22,
+        "dimensions": [
+          0.228253573179245,
+          4.7466912269592285,
+          2.6567797660827637
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "RolledCarpet",
+        "vertices": 24,
+        "faces": 14,
+        "dimensions": [
+          1.395745038986206,
+          0.7383524775505066,
+          1.2314574718475342
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Roof",
+        "vertices": 80,
+        "faces": 76,
+        "dimensions": [
+          3.532838821411133,
+          5.022212505340576,
+          1.1127675771713257
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "RustyTruck",
+        "vertices": 317,
+        "faces": 291,
+        "dimensions": [
+          2.6686503887176514,
+          5.686596393585205,
+          3.1991729736328125
+        ],
+        "materials": [
+          "Truck"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Sign",
+        "vertices": 16,
+        "faces": 10,
+        "dimensions": [
+          0.02124655246734619,
+          0.7008823156356812,
+          0.759458601474762
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "StreetLight",
+        "vertices": 92,
+        "faces": 79,
+        "dimensions": [
+          1.600000023841858,
+          2.8876137733459473,
+          7.8171539306640625
+        ],
+        "materials": [
+          "Props",
+          "Lamp"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Table",
+        "vertices": 8,
+        "faces": 6,
+        "dimensions": [
+          1.2758116722106934,
+          1.2774816751480103,
+          0.03730392083525658
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Tire",
+        "vertices": 72,
+        "faces": 72,
+        "dimensions": [
+          0.7574424147605896,
+          1.1923168897628784,
+          1.231145977973938
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Tire.001",
+        "vertices": 72,
+        "faces": 72,
+        "dimensions": [
+          0.7817802429199219,
+          0.7817802429199219,
+          0.2994541823863983
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Tire.002",
+        "vertices": 72,
+        "faces": 72,
+        "dimensions": [
+          0.7817802429199219,
+          0.7817802429199219,
+          0.2994541823863983
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Tire.003",
+        "vertices": 72,
+        "faces": 72,
+        "dimensions": [
+          0.7817802429199219,
+          0.7817802429199219,
+          0.2994541823863983
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Tire.004",
+        "vertices": 72,
+        "faces": 72,
+        "dimensions": [
+          0.8044500350952148,
+          0.8044499754905701,
+          0.29945433139801025
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Tire.005",
+        "vertices": 72,
+        "faces": 72,
+        "dimensions": [
+          0.8044500350952148,
+          0.8044499754905701,
+          0.29945433139801025
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Tire.006",
+        "vertices": 72,
+        "faces": 72,
+        "dimensions": [
+          0.8044500350952148,
+          0.8044499754905701,
+          0.29945433139801025
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Tire.007",
+        "vertices": 72,
+        "faces": 72,
+        "dimensions": [
+          1.1923171281814575,
+          1.1923171281814575,
+          0.4567067623138428
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Trailer",
+        "vertices": 68,
+        "faces": 57,
+        "dimensions": [
+          3.053079128265381,
+          8.035993576049805,
+          3.415030002593994
+        ],
+        "materials": [
+          "Trailer"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Wheels",
+        "vertices": 144,
+        "faces": 124,
+        "dimensions": [
+          2.501126527786255,
+          1.192317008972168,
+          1.1923168897628784
+        ],
+        "materials": [
+          "Wheel"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "WoodenBox",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          0.9342942237854004,
+          1.1496363878250122,
+          0.32515251636505127
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "WoodenBox.001",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          0.7466244101524353,
+          1.0457381010055542,
+          0.32515251636505127
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "WoodenBox.002",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          0.9342942237854004,
+          1.1496363878250122,
+          0.32515251636505127
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "WoodenBox.003",
+        "vertices": 16,
+        "faces": 14,
+        "dimensions": [
+          0.7466244101524353,
+          1.0457381010055542,
+          0.32515251636505127
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "WoodenPole",
+        "vertices": 8,
+        "faces": 5,
+        "dimensions": [
+          0.18609896302223206,
+          0.18609896302223206,
+          5.05340576171875
+        ],
+        "materials": [
+          "Props"
+        ],
+        "uvLayers": 1
+      }
+    ],
+    "materials": [
+      {
+        "name": "Generator",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Generator.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Props",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Props_diff.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "FakeLight",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Gradient.png"
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Gradient.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Image Texture.001",
+            "Alpha",
+            "Principled BSDF",
+            "Alpha"
+          ]
+        ]
+      },
+      {
+        "name": "Truck",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Truck.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Lamp",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ]
+        ]
+      },
+      {
+        "name": "Wheel",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Wheel.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      },
+      {
+        "name": "Cable",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ]
+        ]
+      },
+      {
+        "name": "Grill",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Grill.png"
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Grill.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Image Texture.001",
+            "Alpha",
+            "Principled BSDF",
+            "Alpha"
+          ]
+        ]
+      },
+      {
+        "name": "Trailer",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Post-apocaliptic Shelter\\Textures\\Trailer.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ]
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "author": "xeniithh",
+    "sourcePath": "xenith psx tree/Tree/xenith psx tree.obj",
+    "objects": [
+      {
+        "name": "Cube.001_Cube.002",
+        "vertices": 14,
+        "faces": 18,
+        "dimensions": [
+          1.8641480207443237,
+          1.9632370471954346,
+          1.9247379302978516
+        ],
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cube.002_Cube.003",
+        "vertices": 11,
+        "faces": 16,
+        "dimensions": [
+          1.8317149877548218,
+          1.9408869743347168,
+          1.8895529508590698
+        ],
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cube.003_Cube.004",
+        "vertices": 13,
+        "faces": 17,
+        "dimensions": [
+          1.8643519878387451,
+          1.9413349628448486,
+          1.9249498844146729
+        ],
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cube.004_Cube.005",
+        "vertices": 15,
+        "faces": 20,
+        "dimensions": [
+          1.8710349798202515,
+          1.970491886138916,
+          1.954198956489563
+        ],
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cube.005_Cube.006",
+        "vertices": 15,
+        "faces": 20,
+        "dimensions": [
+          1.4126859903335571,
+          1.487779140472412,
+          1.4754780530929565
+        ],
+        "materials": [
+          "Material.002"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cube.006_Cube.007",
+        "vertices": 15,
+        "faces": 20,
+        "dimensions": [
+          1.4126859903335571,
+          1.4877779483795166,
+          1.4754769802093506
+        ],
+        "materials": [
+          "Material.003"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cube.007_Cube.008",
+        "vertices": 15,
+        "faces": 20,
+        "dimensions": [
+          1.4126869440078735,
+          1.487779140472412,
+          1.4754780530929565
+        ],
+        "materials": [
+          "Material.004"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cube.008_Cube.009",
+        "vertices": 15,
+        "faces": 20,
+        "dimensions": [
+          1.4126869440078735,
+          1.487779140472412,
+          1.4754769802093506
+        ],
+        "materials": [
+          "Material.005"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "Cube_Cube.001",
+        "vertices": 12,
+        "faces": 16,
+        "dimensions": [
+          1.8201889991760254,
+          1.9286727905273438,
+          1.9123950004577637
+        ],
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1
+      },
+      {
+        "name": "tree_Mesh",
+        "vertices": 167,
+        "faces": 197,
+        "dimensions": [
+          3.206835985183716,
+          4.954750061035156,
+          3.566624164581299
+        ],
+        "materials": [
+          "bark"
+        ],
+        "uvLayers": 1
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.003",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Documents\\\\treetex.png"
+          }
+        ],
+        "links": [
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ]
+        ]
+      },
+      {
+        "name": "Material.004",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Documents\\\\treetex.png"
+          }
+        ],
+        "links": [
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ]
+        ]
+      },
+      {
+        "name": "Material.005",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Documents\\\\treetex.png"
+          }
+        ],
+        "links": [
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ]
+        ]
+      },
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Documents\\\\treetex.png"
+          }
+        ],
+        "links": [
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ]
+        ]
+      },
+      {
+        "name": "bark",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Documents\\\\idek.png"
+          },
+          {
+            "type": "TEX_COORD",
+            "image": null
+          },
+          {
+            "type": "MAPPING",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Desktop\\\\zombie game project\\\\models and textures\\\\Projects\\\\trees\\\\barkspecular.png"
+          },
+          {
+            "type": "TEX_COORD",
+            "image": null
+          },
+          {
+            "type": "MAPPING",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Desktop\\\\zombie game project\\\\models and textures\\\\Projects\\\\trees\\\\barkspecular.png"
+          },
+          {
+            "type": "TEX_COORD",
+            "image": null
+          },
+          {
+            "type": "MAPPING",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Desktop\\\\zombie game project\\\\models and textures\\\\Projects\\\\trees\\\\barkNormal.png"
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_COORD",
+            "image": null
+          },
+          {
+            "type": "MAPPING",
+            "image": null
+          }
+        ],
+        "links": [
+          [
+            "Texture Coordinate",
+            "UV",
+            "Mapping",
+            "Vector"
+          ],
+          [
+            "Mapping",
+            "Vector",
+            "Image Texture",
+            "Vector"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Texture Coordinate.001",
+            "UV",
+            "Mapping.001",
+            "Vector"
+          ],
+          [
+            "Mapping.001",
+            "Vector",
+            "Image Texture.001",
+            "Vector"
+          ],
+          [
+            "Image Texture.001",
+            "Color",
+            "Principled BSDF",
+            "Specular IOR Level"
+          ],
+          [
+            "Texture Coordinate.002",
+            "UV",
+            "Mapping.002",
+            "Vector"
+          ],
+          [
+            "Mapping.002",
+            "Vector",
+            "Image Texture.002",
+            "Vector"
+          ],
+          [
+            "Image Texture.002",
+            "Color",
+            "Principled BSDF",
+            "Metallic"
+          ],
+          [
+            "Texture Coordinate.003",
+            "UV",
+            "Mapping.003",
+            "Vector"
+          ],
+          [
+            "Mapping.003",
+            "Vector",
+            "Image Texture.003",
+            "Vector"
+          ],
+          [
+            "Image Texture.003",
+            "Color",
+            "Normal Map",
+            "Color"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ]
+        ]
+      },
+      {
+        "name": "Material.002",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——xeniithh\\xenith psx tree\\Tree\\C:\\\\Users\\\\xenith\\\\Documents\\\\treetex.png"
+          }
+        ],
+        "links": [
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ]
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "author": "cursedlake",
+    "sourcePath": "Shovel-PSX/Shovel-PSX.fbx",
+    "objects": [
+      {
+        "name": "Shovel",
+        "vertices": 378,
+        "faces": 366,
+        "dimensions": [
+          0.9755253195762634,
+          0.21797911822795868,
+          4.429545879364014
+        ],
+        "materials": [
+          "Shovel"
+        ],
+        "uvLayers": 1
+      }
+    ],
+    "materials": [
+      {
+        "name": "Shovel",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Shovel-PSX\\Shovel_diff_bloody.png"
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "D:\\Model\\ARTIST——cursedlake\\Shovel-PSX\\Shovel_diff_bloody.png"
+          }
+        ],
+        "links": [
+          [
+            "Principled BSDF",
+            "BSDF",
+            "Material Output",
+            "Surface"
+          ],
+          [
+            "Normal Map",
+            "Normal",
+            "Principled BSDF",
+            "Normal"
+          ],
+          [
+            "Image Texture",
+            "Color",
+            "Principled BSDF",
+            "Base Color"
+          ],
+          [
+            "Image Texture.001",
+            "Alpha",
+            "Principled BSDF",
+            "Alpha"
+          ]
+        ]
+      }
+    ],
+    "actions": []
+  }
+]

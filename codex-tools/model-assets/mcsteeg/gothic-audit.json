@@ -1,0 +1,264 @@
+{
+  "objects": [
+    {
+      "name": "Bench",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "Bench"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "Chair",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "Chair"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "Room Divider",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "Divider"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "Bed",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "Bed"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "SideTable",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "SideTable"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "Desk",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "SideTable"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "CandleStick",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "CandleStick",
+        "Candle2"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "ChestRig",
+      "type": "ARMATURE",
+      "parent": null,
+      "modifiers": [],
+      "materials": [],
+      "uvLayers": null
+    },
+    {
+      "name": "Chest",
+      "type": "MESH",
+      "parent": "ChestRig",
+      "modifiers": [
+        {
+          "type": "ARMATURE",
+          "object": "ChestRig"
+        }
+      ],
+      "materials": [
+        "Chest"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "DeviderRig",
+      "type": "ARMATURE",
+      "parent": null,
+      "modifiers": [],
+      "materials": [],
+      "uvLayers": null
+    },
+    {
+      "name": "Dresser",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "Drawer"
+      ],
+      "uvLayers": 1
+    },
+    {
+      "name": "DinnerTable",
+      "type": "MESH",
+      "parent": null,
+      "modifiers": [],
+      "materials": [
+        "SideTable"
+      ],
+      "uvLayers": 1
+    }
+  ],
+  "actions": [],
+  "materials": {
+    "Chair": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/Chair_Texture.png",
+      "sha256": "2a8f55a67b0ead3cc3285c3026a09bf996942dafad4b9941f66dd89e0a89fb89",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": false,
+      "cutoff": 0.5,
+      "nearest": true
+    },
+    "Bed": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/Bed_Texture.png",
+      "sha256": "0f342ca18891c9613fc46ca694ea1c70cd45c48c583f2ecfb6067324b64777bc",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": false,
+      "cutoff": 0.5,
+      "nearest": true
+    },
+    "Chest": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/Chest2_lowColorDepth.png",
+      "sha256": "ee8f48dddd8bf4b2a7d24ccb8782e2bd6f52e07e8256a8c8f85381373d45cea9",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": false,
+      "cutoff": 0.5,
+      "nearest": true
+    },
+    "Drawer": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/Drawer.png",
+      "sha256": "cd3426bbf396bbb8c9a6cacc9cfc433bcf7a584fb49f7340cd9d42475f47a716",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": false,
+      "cutoff": 0.5,
+      "nearest": true
+    },
+    "Bench": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/Bench_Texture2.png",
+      "sha256": "f2a9bf83a62e78f7b2dd6ab52a2a6697242938f75c4c8faa0670720f2887556d",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": false,
+      "cutoff": 0.5,
+      "nearest": true
+    },
+    "CandleStick": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/Candle_stick.png",
+      "sha256": "71527254b65f3f0c24aaa6c56565e7fde9359488d7d438d1c24e781d0b3f361d",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": false,
+      "cutoff": 0.5,
+      "nearest": true
+    },
+    "Candle2": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/GothicFence.png",
+      "sha256": "482e3da05b6f8c9d5f17bb0f96ffb1f2360f19cd4150b94139eaddfda16f22f7",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": true,
+      "cutoff": 0.5,
+      "nearest": true
+    },
+    "SideTable": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/SideTable.png",
+      "sha256": "e352cb2c3e6ae60dacda52f65e3791694c91fffa3ef166c7f65e66f792e79b3b",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": false,
+      "cutoff": 0.5,
+      "nearest": true
+    },
+    "Divider": {
+      "textureSource": "Gothic Furniture/Gothic Furniture/Textures/Divider.png",
+      "sha256": "cabd50f66d0e3a264ace55307b67e2e713f96d119a1a2e98d4d777db47d92214",
+      "color": [
+        0.9063317,
+        0.9063317,
+        0.9063317,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 1.0,
+      "cutout": false,
+      "cutoff": 0.5,
+      "nearest": true
+    }
+  }
+}

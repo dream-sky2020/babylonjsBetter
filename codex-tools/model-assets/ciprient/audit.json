@@ -1,0 +1,984 @@
+[
+  {
+    "category": "Ambulance",
+    "name": "Ambulance",
+    "label": "救护车",
+    "sourcePath": "Ambulance/Ambulance/Blender/Ambulance.blend",
+    "sourceSha256": "b11a3b6758cea4be630eedc98912d56bf1451e5624d30eb4add783bfbbe8b00d",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "FRW",
+      "CarBody",
+      "FLW",
+      "BRW",
+      "BLW",
+      "Lights"
+    ],
+    "textureSource": "Ambulance/Ambulance/Textures/ambulance.png",
+    "objects": [
+      {
+        "name": "FRW",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "CarBody",
+        "vertices": 30,
+        "faces": 22,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "FLW",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "BRW",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "BLW",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "Lights",
+        "vertices": 8,
+        "faces": 5,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "ambulance.png",
+            "path": "//..\\Textures\\ambulance.png",
+            "interpolation": "Closest",
+            "links": []
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "category": "Cars",
+    "name": "ArmyCar",
+    "label": "军用车",
+    "sourcePath": "Cars/Cars/ArmyCar/ArmyCar.blend",
+    "sourceSha256": "798b3d7fa1e3688f327d089478e52687d9e123ef7adf3caf35d46b0bff7871aa",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "W_FL",
+      "CarBody",
+      "W_BL",
+      "W_FR",
+      "W_BR"
+    ],
+    "textureSource": "Cars/Cars/Textures/army_car.png",
+    "objects": [
+      {
+        "name": "W_FL",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "CarBody",
+        "vertices": 111,
+        "faces": 108,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "W_BL",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "W_FR",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "W_BR",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "army_car.png",
+            "path": "//army_car.png",
+            "interpolation": "Closest",
+            "links": []
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "category": "Cars",
+    "name": "Pickup",
+    "label": "皮卡",
+    "sourcePath": "Cars/Cars/Pickup/pickup.blend",
+    "sourceSha256": "a75ad5ea3d00b83e1cb85a9a70b4e00aeef997e16c0f9d0a132bc02e52c4dfc2",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "BLW",
+      "CarBody",
+      "BRW",
+      "FLW",
+      "FRW"
+    ],
+    "textureSource": "Cars/Cars/Textures/pickup.png",
+    "objects": [
+      {
+        "name": "BLW",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "CarBody",
+        "vertices": 45,
+        "faces": 41,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "BRW",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "FLW",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "FRW",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "pickup.png.002",
+            "path": "//..\\Textures\\pickup.png",
+            "interpolation": "Closest",
+            "links": []
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "category": "Cars",
+    "name": "RedCar",
+    "label": "红色汽车",
+    "sourcePath": "Cars/Cars/RedCar/RedCar.blend",
+    "sourceSha256": "c64dbc89182452a65925771c215c09b3d58417fec3b513392f5000ccd037cc70",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "FL",
+      "CarBody",
+      "FR",
+      "BL",
+      "BR"
+    ],
+    "textureSource": "Cars/Cars/Textures/red_car.png",
+    "objects": [
+      {
+        "name": "FL",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "CarBody",
+        "vertices": 78,
+        "faces": 60,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "FR",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "BL",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "BR",
+        "vertices": 16,
+        "faces": 10,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "red_car.png.001",
+            "path": "//red_car.png",
+            "interpolation": "Closest",
+            "links": []
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "category": "Weapons",
+    "name": "Knife",
+    "label": "刀",
+    "sourcePath": "PSX Weapons/PSX Weapons/FBX/Knife.fbx",
+    "sourceSha256": "f7dd81e701dadaf86662a4e4e9861b28bb7588a846104e32fddd34896dbf338c",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "Knife"
+    ],
+    "textureSource": "PSX Weapons/PSX Weapons/Textures/knife.png",
+    "objects": [
+      {
+        "name": "Knife",
+        "vertices": 28,
+        "faces": 26,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Normal"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": []
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "knife.png.001",
+            "path": "C:\\Users\\Ciprian\\Desktop\\Weapons\\Textures\\knife.png",
+            "interpolation": "Linear",
+            "links": []
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "category": "Weapons",
+    "name": "MetalPipe",
+    "label": "金属管",
+    "sourcePath": "PSX Weapons/PSX Weapons/FBX/MetalPipe.fbx",
+    "sourceSha256": "e47f8fd76e9bac65d2841deb17ac3742309bb8c232c1a2c38d95bcbbea7dd887",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "Bottom"
+    ],
+    "textureSource": "PSX Weapons/PSX Weapons/Textures/metal.png",
+    "objects": [
+      {
+        "name": "Bottom",
+        "vertices": 80,
+        "faces": 60,
+        "materials": [
+          "Material.002",
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.002",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Normal"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": []
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "metal.png.001",
+            "path": "C:\\Users\\Ciprian\\Desktop\\PSX Weapons\\Textures\\metal.png",
+            "interpolation": "Linear",
+            "links": []
+          }
+        ]
+      },
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Normal"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": []
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "metal.png.001",
+            "path": "C:\\Users\\Ciprian\\Desktop\\PSX Weapons\\Textures\\metal.png",
+            "interpolation": "Linear",
+            "links": []
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "category": "Weapons",
+    "name": "Shovel",
+    "label": "铲子",
+    "sourcePath": "PSX Weapons/PSX Weapons/FBX/Shovel.fbx",
+    "sourceSha256": "73999bdf5e5bd18024ac9e98f94b8356e51b91baed76fc459182239bddc54bb0",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "Shovel"
+    ],
+    "textureSource": "PSX Weapons/PSX Weapons/Textures/shovel.png",
+    "objects": [
+      {
+        "name": "Shovel",
+        "vertices": 81,
+        "faces": 79,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Normal"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": []
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "shovel.png",
+            "path": "C:\\Users\\Ciprian\\Desktop\\Weapons\\Textures\\shovel.png",
+            "interpolation": "Linear",
+            "links": []
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "category": "Weapons",
+    "name": "WoodenBat",
+    "label": "木棒",
+    "sourcePath": "PSX Weapons/PSX Weapons/FBX/WoodenBat.fbx",
+    "sourceSha256": "43fbb0491cdba126ce7a46187515ccded2818eadf29e1ce8ad656eb5333610b6",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "Cylinder"
+    ],
+    "textureSource": "PSX Weapons/PSX Weapons/Textures/bat.png",
+    "objects": [
+      {
+        "name": "Cylinder",
+        "vertices": 60,
+        "faces": 52,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Normal"
+              ]
+            ]
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "NORMAL_MAP",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": []
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "bat.png",
+            "path": "C:\\Users\\Ciprian\\Desktop\\PSX Weapons\\Textures\\bat.png",
+            "interpolation": "Linear",
+            "links": []
+          }
+        ]
+      }
+    ],
+    "actions": []
+  },
+  {
+    "category": "Wheelchair",
+    "name": "Wheelchair",
+    "label": "轮椅",
+    "sourcePath": "PSX Wheelchair/PSX Wheelchair/Wheelchair.blend",
+    "sourceSha256": "41ad97d113369bae5833a7e4cd815ebee2931649f856d1dffa7809dc5bb51ed7",
+    "fallbackReason": null,
+    "sourceObjects": [
+      "Wheels",
+      "Chair",
+      "Pipes",
+      "FeetRest",
+      "FeetPlates",
+      "SmallWheels"
+    ],
+    "textureSource": "PSX Wheelchair/PSX Wheelchair/wheelchair.png",
+    "objects": [
+      {
+        "name": "Wheels",
+        "vertices": 432,
+        "faces": 362,
+        "materials": [
+          "Material"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "Chair",
+        "vertices": 16,
+        "faces": 14,
+        "materials": [
+          "Material"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "Pipes",
+        "vertices": 576,
+        "faces": 546,
+        "materials": [
+          "Material.001"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "FeetRest",
+        "vertices": 8,
+        "faces": 4,
+        "materials": [
+          "Material"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "FeetPlates",
+        "vertices": 16,
+        "faces": 12,
+        "materials": [
+          "Material"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      },
+      {
+        "name": "SmallWheels",
+        "vertices": 32,
+        "faces": 20,
+        "materials": [
+          "Material"
+        ],
+        "uvLayers": 1,
+        "parent": null,
+        "modifiers": []
+      }
+    ],
+    "materials": [
+      {
+        "name": "Material",
+        "nodes": [
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          },
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Base Color"
+              ]
+            ]
+          },
+          {
+            "type": "TEX_IMAGE",
+            "image": "wheelchair.png",
+            "path": "//..\\wheelchair.png",
+            "interpolation": "Closest",
+            "links": []
+          }
+        ]
+      },
+      {
+        "name": "Material.001",
+        "nodes": [
+          {
+            "type": "BSDF_PRINCIPLED",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": []
+          },
+          {
+            "type": "OUTPUT_MATERIAL",
+            "image": null,
+            "path": null,
+            "interpolation": null,
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Surface"
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "actions": []
+  }
+]

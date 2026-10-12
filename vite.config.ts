@@ -1,4 +1,4 @@
-import { writeSceneEnvironmentPreset, readSceneEnvironmentPresets } from './scripts/sceneEnvironmentPresetStore.ts'
+import { writeSceneEnvironmentPreset, readSceneEnvironmentPresets } from './codex-tools/sceneEnvironmentPresetStore.ts'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'

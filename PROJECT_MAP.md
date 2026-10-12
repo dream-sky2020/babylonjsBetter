@@ -112,9 +112,14 @@ Core 新增 `DungeonObstacleControl` 类型 Token，Loader 提供当前 Session 
 
 Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loader 提交 Session 后通知观察者，原地图 Reader 消费模块统一申请共享 Session；配置与存档切换读取共享库/存档。存档继续使用同一份 LabState 活数据，Core 工厂、同步玩家格步规则与能力 Service 未改变。其余活数据 Service 尚未全部迁移；通信图与时间线属于后续阶段。规范和入口见 tools/lab-kit/README.md。
 
+## 2026-10-12：明确 Codex 工具归档目录
+
+scripts/ 更名为 codex-tools/，集中保存辅助工具与资源处理档案。现行 package 命令、Vite 导入、类型检查配置和验证页面路径同步更新；目录 README 与 AGENTS.md 约定先复用已有工具，一次性工具放 .asset-migration/ 并在完成后清理。
+
+
 ## 2026-10-12：再次检查临时资源残留
 
-清理工作区外层 `.tools/` 模型处理工具与预览、scripts/model-assets 下1091张未跟踪且运行代码未引用的处理图片副本，以及根目录 `_chilly_inspect.txt`，共2077文件、233.69 MiB。保留public正式资源、原有代码、项目命令依赖、来源/许可/清单记录及恢复快照；外层texture-compression含原始备份，未清除。现有package命令入口检查通过，原历史导入/优化脚本已删除，其副本图片也已清理。
+清理工作区外层 `.tools/` 模型处理工具与预览、codex-tools/model-assets 下1091张未跟踪且运行代码未引用的处理图片副本，以及根目录 `_chilly_inspect.txt`，共2077文件、233.69 MiB。保留public正式资源、原有代码、项目命令依赖、来源/许可/清单记录及恢复快照；外层texture-compression含原始备份，未清除。现有package命令入口检查通过，原历史导入/优化脚本已删除，其副本图片也已清理。
 
 ## 2026-10-11：清理一次性资源处理脚本
 
@@ -126,11 +131,11 @@ Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loa
 
 ## 2026-10-11：按剩余模型重建展示预设
 
-用当前发布 manifest 重建 56 个 `artist-loafbrr-showcase-*`，每个剩余资源文件夹一份，每件模型只展示一次，共 3234 件模型，最大预设188件；旧 artist-loafbrr-*model-test 页面及索引已替换，未恢复贴图审查页与已删除资源。父节点按文件夹分区编号，六列网格双区域摆放；名称显示模型数量、GLB大小、去重依赖图大小与合计，每模型显示自身GLB及依赖图大小。入口 `node --experimental-strip-types scripts/buildLoafbrrShowcase.mjs --by-folder`，配套 `--check` 完整重建对照；showcases.json 更新。原配置快照 `.asset-migration/loafbrr/showcase-rebuild-snapshots/`。当前资源哈希/引用、完整覆盖一次、目录配置与父节点名称验证通过；未做浏览器视觉验证。
+用当前发布 manifest 重建 56 个 `artist-loafbrr-showcase-*`，每个剩余资源文件夹一份，每件模型只展示一次，共 3234 件模型，最大预设188件；旧 artist-loafbrr-*model-test 页面及索引已替换，未恢复贴图审查页与已删除资源。父节点按文件夹分区编号，六列网格双区域摆放；名称显示模型数量、GLB大小、去重依赖图大小与合计，每模型显示自身GLB及依赖图大小。入口 `node --experimental-strip-types codex-tools/buildLoafbrrShowcase.mjs --by-folder`，配套 `--check` 完整重建对照；showcases.json 更新。原配置快照 `.asset-migration/loafbrr/showcase-rebuild-snapshots/`。当前资源哈希/引用、完整覆盖一次、目录配置与父节点名称验证通过；未做浏览器视觉验证。
 
 ## 2026-10-11：Loafbrr 贴图统一限制 256
 
-按用户要求缩小全部 1088 张当前发布贴图，最长边不超过 256、保持比例、小图不放大，法线缩小后归一化。模型/UV/材质引用不变，文件名保留为稳定资源 ID，当前内容哈希以清单为准。图片 169551243→55981963 字节，减少 113569280 字节（108.31 MiB）；3234 件模型加图合计 145830635 字节（139.07 MiB）。public 与现有 dist 图片、依赖及 manifest 同步，导入器通过 `resolution-256/report.json` 与 images 发布副本覆盖旧源图，并拒绝大于256的新图发布。处理脚本 `scripts/model-assets/loafbrr/resizePublished256.py`；恢复快照 `.asset-migration/loafbrr/resolution-256-snapshots/`，未修改 D:/Model。全部图片实际解码/尺寸、哈希、GLB引用、导入副本及已有dist一致性验证通过；未进行运行时视觉对照，缩小会损失细节。
+按用户要求缩小全部 1088 张当前发布贴图，最长边不超过 256、保持比例、小图不放大，法线缩小后归一化。模型/UV/材质引用不变，文件名保留为稳定资源 ID，当前内容哈希以清单为准。图片 169551243→55981963 字节，减少 113569280 字节（108.31 MiB）；3234 件模型加图合计 145830635 字节（139.07 MiB）。public 与现有 dist 图片、依赖及 manifest 同步，导入器通过 `resolution-256/report.json` 与 images 发布副本覆盖旧源图，并拒绝大于256的新图发布。处理脚本 `codex-tools/model-assets/loafbrr/resizePublished256.py`；恢复快照 `.asset-migration/loafbrr/resolution-256-snapshots/`，未修改 D:/Model。全部图片实际解码/尺寸、哈希、GLB引用、导入副本及已有dist一致性验证通过；未进行运行时视觉对照，缩小会损失细节。
 
 ## 2026-10-11：删除 Loafbrr 贴图审查预设
 
@@ -140,7 +145,7 @@ Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loa
 
 后续按用户要求全局删除 MoonDesert 的 191 件模型与 306 张不再引用的贴图：GLB 11595880 字节、图片 65672055 字节，合计 77267935 字节（73.69 MiB）。对应文件夹审查预设移除，其他展示引用、依赖与排除清单同步，剩余 3234 模型、1088 图；重建审查分页为 71 页，文件夹审查为 56 页。
 
-新增 57 个 `artist-loafbrr-folder-texture-review-*` 预设，一份对应 GLB/artist_loafbrr 下一个非空文件夹，内部按单张贴图分组，不限制模型数量；覆盖 3425 件模型、13250 次展示，最大页 975 实例。预设名称显示独立模型数、展示数、去重 GLB 大小与全部依赖贴图大小；父节点显示图大小、完整文件名、模型数量与组内 GLB 大小；模型名称显示自身 GLB 大小、本图与全部依赖图大小。多图模型仍在对应组重复展示。入口 `node --experimental-strip-types scripts/mergeLoafbrrTextureReview.mjs --by-folder`，映射 `scripts/model-assets/loafbrr/folder-texture-review-presets.json`。保留原合并审查与主题预设，未修改资源。
+新增 57 个 `artist-loafbrr-folder-texture-review-*` 预设，一份对应 GLB/artist_loafbrr 下一个非空文件夹，内部按单张贴图分组，不限制模型数量；覆盖 3425 件模型、13250 次展示，最大页 975 实例。预设名称显示独立模型数、展示数、去重 GLB 大小与全部依赖贴图大小；父节点显示图大小、完整文件名、模型数量与组内 GLB 大小；模型名称显示自身 GLB 大小、本图与全部依赖图大小。多图模型仍在对应组重复展示。入口 `node --experimental-strip-types codex-tools/mergeLoafbrrTextureReview.mjs --by-folder`，映射 `codex-tools/model-assets/loafbrr/folder-texture-review-presets.json`。保留原合并审查与主题预设，未修改资源。
 
 ## 2026-10-11：贴图审查预设合并分页
 
@@ -148,29 +153,29 @@ Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loa
 
 后续清理：合并第 001 页用户指定的 5c6eecfc、62aaf202、a4c2d0df 三组已全局移除，共 88 件独立模型与 9 张不再引用的贴图（含指定三图），实际释放 3505499 字节（3.34 MiB）。重新按原规则生成 74 页，现有 3438 模型、1400 图；依赖、排除清单与展示大小同步更新。
 
-最新展示规则：1409 个单图模型组完整装入 76 个 `artist-loafbrr-texture-review-merged-001` 起的预设，每页最多 200 个模型实例；3526 件独立模型共 13640 次展示，引用多图的模型保留在各对应组。每组模型和展台共用一个父节点，名称为贴图文件大小与完整文件名，分区双列摆放。预设名称显示实例数、去重模型文件大小、全部实际依赖贴图的去重大小及合计，均为文件字节而非显存估算。`scripts/buildLoafbrrTextureReview.mjs` 重建后自动调用 `scripts/mergeLoafbrrTextureReview.mjs` 合并，映射仍在 `scripts/model-assets/loafbrr/texture-review-presets.json`；原单图配置与索引快照保存于 `.asset-migration/loafbrr/review-merge-snapshots/`。未修改资源与主题预设。
+最新展示规则：1409 个单图模型组完整装入 76 个 `artist-loafbrr-texture-review-merged-001` 起的预设，每页最多 200 个模型实例；3526 件独立模型共 13640 次展示，引用多图的模型保留在各对应组。每组模型和展台共用一个父节点，名称为贴图文件大小与完整文件名，分区双列摆放。预设名称显示实例数、去重模型文件大小、全部实际依赖贴图的去重大小及合计，均为文件字节而非显存估算。`codex-tools/buildLoafbrrTextureReview.mjs` 重建后自动调用 `codex-tools/mergeLoafbrrTextureReview.mjs` 合并，映射仍在 `codex-tools/model-assets/loafbrr/texture-review-presets.json`；原单图配置与索引快照保存于 `.asset-migration/loafbrr/review-merge-snapshots/`。未修改资源与主题预设。
 
 ## 2026-10-11：Loafbrr 按贴图组审查预设
 
 后续清理：无贴图审查预设及 4 件无贴图模型已按用户要求删除，目录索引和映射同步；现有 3526 模型，单图审查预设仍为 1409 个。
 
-最新规则：撤销组 514 删除，恢复 MoonDesert/DemoLvl 与三张专用贴图及自然第 03 页展台。原 36 个完整贴图集合审查预设已替换为 `artist-loafbrr-texture-review-0001` 至 `-1409`，每张图片一个预设，每个预设包含所有实际引用该图的模型，不按其他材质图片拆分；同一模型可出现在多个单图预设。另有 `artist-loafbrr-texture-review-untextured` 放置 4 件无贴图模型。入口仍为 `scripts/buildLoafbrrTextureReview.mjs`，调用 `.tools/finishSingleTextureReviews.mjs` 完成覆盖验证与目录注册。全部 3530 模型覆盖、1409 张图片逐图引用集合一致、配置目录验证通过。
+最新规则：撤销组 514 删除，恢复 MoonDesert/DemoLvl 与三张专用贴图及自然第 03 页展台。原 36 个完整贴图集合审查预设已替换为 `artist-loafbrr-texture-review-0001` 至 `-1409`，每张图片一个预设，每个预设包含所有实际引用该图的模型，不按其他材质图片拆分；同一模型可出现在多个单图预设。另有 `artist-loafbrr-texture-review-untextured` 放置 4 件无贴图模型。入口仍为 `codex-tools/buildLoafbrrTextureReview.mjs`，调用 `.tools/finishSingleTextureReviews.mjs` 完成覆盖验证与目录注册。全部 3530 模型覆盖、1409 张图片逐图引用集合一致、配置目录验证通过。
 
-新增 `artist-loafbrr-texture-review-01` 至 `-36`，在场景预设目录及 index.json 注册。现存 3530 模型按完整贴图文件集合分为 515 组，每件模型在新审查预设中展示一次，分组按贴图总字节降序，同组模型及展台分区排列。节点和模型名称包含每张贴图哈希前缀、单图大小及合计，含仅被 ≤2 件模型引用的图片标注低复用。生成入口 `scripts/buildLoafbrrTextureReview.mjs`，完整映射 `scripts/model-assets/loafbrr/texture-review-presets.json`。现有主题预设及资源文件不变，多个组可能共享部分贴图，组体积不能简单相加。
+新增 `artist-loafbrr-texture-review-01` 至 `-36`，在场景预设目录及 index.json 注册。现存 3530 模型按完整贴图文件集合分为 515 组，每件模型在新审查预设中展示一次，分组按贴图总字节降序，同组模型及展台分区排列。节点和模型名称包含每张贴图哈希前缀、单图大小及合计，含仅被 ≤2 件模型引用的图片标注低复用。生成入口 `codex-tools/buildLoafbrrTextureReview.mjs`，完整映射 `codex-tools/model-assets/loafbrr/texture-review-presets.json`。现有主题预设及资源文件不变，多个组可能共享部分贴图，组体积不能简单相加。
 
 ## 2026-10-11：Loafbrr 墙梁纹理区域优化
 
-按收益清单先完成 Rowhouses/Wall_Beam_Corner、Wall_Beam_2、Wall_Beam_2_Corner。整组颜色/法线/金属粗糙度PNG采用保留循环边缘的512×384裁剪和KHR_texture_transform，原像素密度、模型BIN与采样不变。实际模型+贴图658893→503875字节，净减155018字节；当前3530模型/1409图合计340777673字节。保守裁剪通过90组多角度/距离WebGL对照；实际共享加载器与候选像素一致，最粗mipmap不承诺数学无损。紧裁剪512×256因远景差异被拒绝。当前manifest/dependencies及dist对应资源同步；importLoafbrrAssets.mjs通过replayTextureOptimization.mjs确定性重放，来源哈希变化即拒绝；publication-exclusions继续先行过滤。恢复快照在.asset-migration/loafbrr/wall-beam-optimization/snapshot，详细范围、未处理原因与复核入口见scripts/model-assets/loafbrr/texture-optimization/README.md。其余3527模型/1406图未变，未修改D:/Model。
+按收益清单先完成 Rowhouses/Wall_Beam_Corner、Wall_Beam_2、Wall_Beam_2_Corner。整组颜色/法线/金属粗糙度PNG采用保留循环边缘的512×384裁剪和KHR_texture_transform，原像素密度、模型BIN与采样不变。实际模型+贴图658893→503875字节，净减155018字节；当前3530模型/1409图合计340777673字节。保守裁剪通过90组多角度/距离WebGL对照；实际共享加载器与候选像素一致，最粗mipmap不承诺数学无损。紧裁剪512×256因远景差异被拒绝。当前manifest/dependencies及dist对应资源同步；importLoafbrrAssets.mjs通过replayTextureOptimization.mjs确定性重放，来源哈希变化即拒绝；publication-exclusions继续先行过滤。恢复快照在.asset-migration/loafbrr/wall-beam-optimization/snapshot，详细范围、未处理原因与复核入口见codex-tools/model-assets/loafbrr/texture-optimization/README.md。其余3527模型/1406图未变，未修改D:/Model。
 
 ## 2026-10-08：资源许可不明确时继续导入并记录来源
 
-按用户最新约定，缺失、不明确或存在冲突的许可不阻止模型导入；模型与共享贴图继续分别按 `artist_作者名称` 归档。作者目录的 NOTICE/许可来源记录及导入清单须保留作者、套件、模型映射、原始路径、已取得的来源链接、许可原文与署名信息，明确标记“许可未核实、按用户要求导入”。导入决定与作者授权证据分开记录，不把未知改写成CC0或已核实商业许可；同作者不同套件逐项记录。已有许可证据与历史明确的非商业资源排除记录保留。后续导入入口约定见 `scripts/model-assets/README.md`，AGENTS.md已指向该约定；本次仅更新约定，不修改Loafbrr已核实的许可记录或运行时资源。
+按用户最新约定，缺失、不明确或存在冲突的许可不阻止模型导入；模型与共享贴图继续分别按 `artist_作者名称` 归档。作者目录的 NOTICE/许可来源记录及导入清单须保留作者、套件、模型映射、原始路径、已取得的来源链接、许可原文与署名信息，明确标记“许可未核实、按用户要求导入”。导入决定与作者授权证据分开记录，不把未知改写成CC0或已核实商业许可；同作者不同套件逐项记录。已有许可证据与历史明确的非商业资源排除记录保留。后续导入入口约定见 `codex-tools/model-assets/README.md`，AGENTS.md已指向该约定；本次仅更新约定，不修改Loafbrr已核实的许可记录或运行时资源。
 
 ## 2026-10-08：Loafbrr 模型、共享贴图与主题分页
 
 只读审计7381个来源文件，83个原生glTF2场景及Blender/FBX补充库；发布GLB/artist_loafbrr下6832个GLB，共享SharedTextures/artist_loafbrr下2353张最大512 PNG。模型加图688972778字节（657.06 MiB）；合并140重复候选，排除3630碰撞辅助节点与制作/预览格式。作者商业说明与署名保留于SourceNotices，许可不是全作者统一CC0，详细license-sources记录正文/元数据冲突。
 
-顶点/程序材质烘焙成PBR；特殊遮罩542图元新增烘焙UV，并在来源有UV时保留旧UV，绘制位置/法线字节复制不变。混合BSDF加权近似、缺失屋顶金属图非金属回退有记录；102组恒定关键帧动作、1骨架保留。39个artist-loafbrr主题预设每页≤200、完整覆盖一次；逐件/整预设真实WebGL、默认构建、正式file:// Lab/Inspector及四消费者、公用缓存/实例隔离、public/dist一致均通过；原文件全SHA未改、核心3D加载器未改。图片目录选择器改用virtual:app-public-assets和core/resources/publicAssetManifest.ts提供的路径清单（public全目录），替代eager图片导入，避免EMFILE及重复打包；atlas JSON同样只列路径；图集编辑器图片统一经resolveAppAssetUrl解析，开发期增删热更新及正式file://图片目录验证通过。复核入口与限制见scripts/model-assets/loafbrr/README.md，来源/依赖/别名/逐件/生产报告同目录；日志截图在.asset-migration/loafbrr。
+顶点/程序材质烘焙成PBR；特殊遮罩542图元新增烘焙UV，并在来源有UV时保留旧UV，绘制位置/法线字节复制不变。混合BSDF加权近似、缺失屋顶金属图非金属回退有记录；102组恒定关键帧动作、1骨架保留。39个artist-loafbrr主题预设每页≤200、完整覆盖一次；逐件/整预设真实WebGL、默认构建、正式file:// Lab/Inspector及四消费者、公用缓存/实例隔离、public/dist一致均通过；原文件全SHA未改、核心3D加载器未改。图片目录选择器改用virtual:app-public-assets和core/resources/publicAssetManifest.ts提供的路径清单（public全目录），替代eager图片导入，避免EMFILE及重复打包；atlas JSON同样只列路径；图集编辑器图片统一经resolveAppAssetUrl解析，开发期增删热更新及正式file://图片目录验证通过。复核入口与限制见codex-tools/model-assets/loafbrr/README.md，来源/依赖/别名/逐件/生产报告同目录；日志截图在.asset-migration/loafbrr。
 
 ## 2026-10-07：Kyle Fuji 成品套件与材质恢复
 
@@ -178,7 +183,7 @@ Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loa
 
 111张实际引用PNG共享于 SharedTextures/artist_kyle-fuji/，最大512，小图不放大；59个图像角色缩小，法线重归一化。图集alpha粗糙度打包标准G/B材质图，不作实体透明；火焰MASK/unlit。模型3052552字节、图27674182字节，合计 **30726734字节（29.30 MiB）**。床原Diffuse缺失，按作者RGB区域遮罩补配棕色框架/蓝被子/浅色枕头；源材质槽为空的柜体/灯接供给图，少量程序材质采用明确记录的PBR近似，不宣称外观无损。恢复床头柜FBX内7动作，加大小抽屉各1及火焰1，共10动作、1骨架；实际运行采样逐个确认运动，静态几何/法线/UV保留、Y-up居中落地。
 
-三个展示预设 artist-kyle-fuji-life-model-test（89）、artist-kyle-fuji-mushrooms-model-test（138）、artist-kyle-fuji-rocks-model-test（77），覆盖每件一次，原索引项保留。复核入口及材质取舍见 scripts/model-assets/kyle-fuji/README.md；manifest/images/source-plan/validation记录依赖、来源和逐件加载；逐件与完整预设WebGL、默认构建、正式file:// Lab/材质Inspector及四消费者均通过，417个public/dist发布文件一致；记录见overview-validation/production-validation。核心加载器未改，原始来源SHA未改；日志/截图和本轮中间副本清理记录位于 .asset-migration/kyle-fuji/。
+三个展示预设 artist-kyle-fuji-life-model-test（89）、artist-kyle-fuji-mushrooms-model-test（138）、artist-kyle-fuji-rocks-model-test（77），覆盖每件一次，原索引项保留。复核入口及材质取舍见 codex-tools/model-assets/kyle-fuji/README.md；manifest/images/source-plan/validation记录依赖、来源和逐件加载；逐件与完整预设WebGL、默认构建、正式file:// Lab/材质Inspector及四消费者均通过，417个public/dist发布文件一致；记录见overview-validation/production-validation。核心加载器未改，原始来源SHA未改；日志/截图和本轮中间副本清理记录位于 .asset-migration/kyle-fuji/。
 
 ## 2026-10-07：Craigsnedeker Classic64（仅 CC0）
 
@@ -186,7 +191,7 @@ Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loa
 
 879文件、132主blend、3 ZIP的876条目SHA审计；当前191件CC0 glTF2.0 GLB在public/resources/Model/GLB/artist_craigsnedeker/，合并229重复候选。Classic64 646来源网格有模型/别名，历史审计保留许可排除记录。137PNG/JPEG共享于SharedTextures/artist_craigsnedeker/，最大512、2张缩小。模型3422336字节、图2500541字节，共5922877字节（5.65 MiB）。Y-up居中落地、修改器求值、保留比例/几何/UV/有效法线，无骨架/动作。修复旧节点/同包名字/短货架色图，叶片/网格/灌木MASK，实体OPAQUE；4来源部分旧材质无可恢复图节点，保持源纯色，棚屋原本未上图。SourceNotices保留Classic64四份CC0/来源文本，核心加载器未改。
 
-artist-craigsnedeker-model-test单一预设展示191件、23区域，原索引不变。保留GLB SHA及原逐件验证保持，移除后完整预设WebGL、默认构建、正式file:// Lab/Inspector和四消费者、public/dist一致结果见scripts/model-assets/craigsnedeker/production-validation.json；转换/限制/许可/复核见同目录README.md，截图/日志/许可删除/缓存清理在.asset-migration/craigsnedeker/。
+artist-craigsnedeker-model-test单一预设展示191件、23区域，原索引不变。保留GLB SHA及原逐件验证保持，移除后完整预设WebGL、默认构建、正式file:// Lab/Inspector和四消费者、public/dist一致结果见codex-tools/model-assets/craigsnedeker/production-validation.json；转换/限制/许可/复核见同目录README.md，截图/日志/许可删除/缓存清理在.asset-migration/craigsnedeker/。
 
 ## 2026-10-07：Starkcrafts 骷髅、森林、地牢与雪地
 
@@ -194,7 +199,7 @@ artist-craigsnedeker-model-test单一预设展示191件、23区域，原索引�
 
 22张实际引用的FBX内嵌PNG按原编码提取，共享于 SharedTextures/artist_starkcrafts/，64～256像素，无缺图、不缩放重编码。点采样/nearest mipmap用于像素风格，实际植被透明使用MASK=.5，实体OPAQUE；标准PBR、原高光/双面保留，省略空法线占位。模型426692字节、图片1022363字节，合计 **1449055字节（1.38 MiB）**。HDR天空/预览/未用地表图/其他格式保留在来源，不进入模型发布，原全文件SHA未改，无附带许可文本。
 
-单一 artist-starkcrafts-model-test 展示31件、五分类内部区域，原索引项不变。逐件/完整预设WebGL、UV/法线/材质/镂空/贴图/布局/缓存/材质隔离通过；默认构建与正式file:// Lab/材质Inspector、四消费者启动通过，54作者发布文件及预设/索引public/dist一致，核心加载器未改。详细记录、复核入口见 scripts/model-assets/starkcrafts/README.md；截图/日志/本次中间副本清理记录位于.asset-migration/starkcrafts/。
+单一 artist-starkcrafts-model-test 展示31件、五分类内部区域，原索引项不变。逐件/完整预设WebGL、UV/法线/材质/镂空/贴图/布局/缓存/材质隔离通过；默认构建与正式file:// Lab/材质Inspector、四消费者启动通过，54作者发布文件及预设/索引public/dist一致，核心加载器未改。详细记录、复核入口见 codex-tools/model-assets/starkcrafts/README.md；截图/日志/本次中间副本清理记录位于.asset-migration/starkcrafts/。
 
 ## 2026-10-07：Keysrec 空调、手推车与纸箱
 
@@ -202,7 +207,7 @@ artist-craigsnedeker-model-test单一预设展示191件、23区域，原索引�
 
 3张原编码512×512 PNG共享于 SharedTextures/artist_keysrec/，不缩放重编码，5款纸箱共享一图；手推车原16bit PNG保留，实际浏览器加载通过。模型243088字节、图片1644929字节，合计 **1888017字节（1.80 MiB）**。原来源SHA复核未改，无附带许可文本，不推断授权范围。
 
-单一 artist-keysrec-model-test 展示全部7件，空调/手推车与纸箱两区域，原索引项不变。逐件/完整预设WebGL、原材质与贴图采样/尺寸/透明、布局、材质隔离、共享缓存通过；默认完整构建与正式file:// Lab/材质Inspector、四消费者启动通过，11个作者发布文件及预设/索引public/dist一致。核心加载器未改。来源、转换、验证及复核入口见 scripts/model-assets/keysrec/README.md，截图/日志与本次中间副本清理记录位于.asset-migration/keysrec/。
+单一 artist-keysrec-model-test 展示全部7件，空调/手推车与纸箱两区域，原索引项不变。逐件/完整预设WebGL、原材质与贴图采样/尺寸/透明、布局、材质隔离、共享缓存通过；默认完整构建与正式file:// Lab/材质Inspector、四消费者启动通过，11个作者发布文件及预设/索引public/dist一致。核心加载器未改。来源、转换、验证及复核入口见 codex-tools/model-assets/keysrec/README.md，截图/日志与本次中间副本清理记录位于.asset-migration/keysrec/。
 
 ## 2026-10-06：Heyheythere 模型与共享贴图
 
@@ -210,7 +215,7 @@ artist-craigsnedeker-model-test单一预设展示191件、23区域，原索引�
 
 38张实际引用PNG共享于 SharedTextures/artist_heyheythere/，最大512，33张缩小、5张保留原编码，纹理875584字节；模型8511952字节，模型加图 **9387536字节（8.95 MiB）**。模型目录保留35份CC BY 4.0原许可及署名；图标、闲置图、纯贴图包、其他引擎脚本和制作文件不进入运行时，原来源全文件SHA复核未修改。
 
-新增三个 artist-heyheythere-* 展示预设：城市交通179件、室内生活168件、自然武器冒险151件，套件内分区，覆盖498件各一次，原索引项不变。全部逐件与预设实际WebGL、默认完整构建、正式file:// Lab/材质Inspector与四消费者启动通过；572个作者发布文件与dist一致。核心加载器未改。来源、映射、图片尺寸、验证记录与复核入口见 scripts/model-assets/heyheythere/README.md；日志/截图位于.asset-migration/heyheythere/，本次中间副本/测试缓存清理记录见cleanup.json。
+新增三个 artist-heyheythere-* 展示预设：城市交通179件、室内生活168件、自然武器冒险151件，套件内分区，覆盖498件各一次，原索引项不变。全部逐件与预设实际WebGL、默认完整构建、正式file:// Lab/材质Inspector与四消费者启动通过；572个作者发布文件与dist一致。核心加载器未改。来源、映射、图片尺寸、验证记录与复核入口见 codex-tools/model-assets/heyheythere/README.md；日志/截图位于.asset-migration/heyheythere/，本次中间副本/测试缓存清理记录见cleanup.json。
 
 ## 2026-10-06：Elbolilloduro 场景物件与共享贴图
 
@@ -218,7 +223,7 @@ artist-craigsnedeker-model-test单一预设展示191件、23区域，原索引�
 
 1845 张实际引用 PNG/JPEG 共享于 SharedTextures/artist_elbolilloduro/，按用户选择最大512，小图保留编码，法线缩图后归一化。模型 132002124 字节加图 178814743 字节共 **310816867 字节（296.42 MiB）**，制作文件/重复格式/闲置图不进入运行时。修复旧COLLADA路径和51个改名贴图模型；23个模型仍缺作者原图，另1个消防栓只有未绘制空黑生成测试图，均采用来源默认纯色回退并记录近似，未虚构贴图。20个静态模型291个退化零法线修复，其他BIN字节不变；11190渲染网格、1231647三角形实例，不简化、不重铺UV，核心加载器未改。
 
-按8主题分页的 41 个 artist-elbolilloduro-* 展示预设，每页最多180件，覆盖全部模型且每件一次。全部逐件/预设WebGL检查、默认完整构建、正式file:// Lab/Inspector与四消费者通过；8638个public/dist发布文件及配置一致，原索引项未改。原始压缩包采用大小+CRC清单核验，不宣称逐字节全部解包验证。详细限制、来源/转换/验证、复核入口见 scripts/model-assets/elbolilloduro/README.md；截图/日志在.asset-migration/elbolilloduro/。中间副本/测试缓存清理释放1202286169字节（1146.59 MiB）。
+按8主题分页的 41 个 artist-elbolilloduro-* 展示预设，每页最多180件，覆盖全部模型且每件一次。全部逐件/预设WebGL检查、默认完整构建、正式file:// Lab/Inspector与四消费者通过；8638个public/dist发布文件及配置一致，原索引项未改。原始压缩包采用大小+CRC清单核验，不宣称逐字节全部解包验证。详细限制、来源/转换/验证、复核入口见 codex-tools/model-assets/elbolilloduro/README.md；截图/日志在.asset-migration/elbolilloduro/。中间副本/测试缓存清理释放1202286169字节（1146.59 MiB）。
 
 ## 2026-10-06：Feldagger 道具与备用外观
 
@@ -228,7 +233,7 @@ artist-craigsnedeker-model-test单一预设展示191件、23区域，原索引�
 
 18 张原编码 PNG 按哈希共享于 `SharedTextures/artist_feldagger/`，最大 256×256，不缩放/重编码。钞票/南瓜转 unlit，其他沿 PBR/法线/原采样；修复匕首 RGB→Normal 为标准线性切线法线，冰淇淋各口味改用自身 alpha。镂空采用 MASK=.5，省略未连接的棺材顶点颜色和 Blender 专用影子分支，材质取舍有记录，不宣称逐像素无损。模型 106,416 字节加图片 1,083,643 字节，共 **1,190,059 字节（1.13 MiB）**。原来源未修改，未用参考图/PDN 不发布，核心加载器未改。
 
-单一预设 `artist-feldagger-model-test` 展示全部 12 款、22 实例、六个内部类别；无标记匕首、四口味冰淇淋及四色棺材用 materialOverrides 共享换图。导入复核、布局/整库目录检查、逐模型和概览实际 WebGL 全通过，22 独立材质、18 图各请求/上传一次；默认完整构建、正式 file:// Lab/材质 Inspector 与四消费者通过，31 发布文件 public/dist 一致。审计、最终报告及复现说明见 `scripts/model-assets/feldagger/README.md`，截图/日志在 `.asset-migration/feldagger/`。本次中间副本与 Blender/Electron 缓存已清理，释放 46,257,655 字节（44.11 MiB）。
+单一预设 `artist-feldagger-model-test` 展示全部 12 款、22 实例、六个内部类别；无标记匕首、四口味冰淇淋及四色棺材用 materialOverrides 共享换图。导入复核、布局/整库目录检查、逐模型和概览实际 WebGL 全通过，22 独立材质、18 图各请求/上传一次；默认完整构建、正式 file:// Lab/材质 Inspector 与四消费者通过，31 发布文件 public/dist 一致。审计、最终报告及复现说明见 `codex-tools/model-assets/feldagger/README.md`，截图/日志在 `.asset-migration/feldagger/`。本次中间副本与 Blender/Electron 缓存已清理，释放 46,257,655 字节（44.11 MiB）。
 
 ## 2026-10-05：Puszke 像素风国际象棋
 
@@ -236,7 +241,7 @@ artist-craigsnedeker-model-test单一预设展示191件、23区域，原索引�
 
 13 张原编码 PNG 按哈希共享于 `SharedTextures/artist_puszke/`，棋子 128×128、棋盘 512×512，不缩放/重编码。按 blend 相对路径区分黑白同名图，作者 Image Color→Emission strength=1 转标准 `KHR_materials_unlit`，保留烘焙外观、Closest 点采样、双面与不透明；没有法线/PBR 图。模型 400,152 字节加图片 293,641 字节，共 **693,793 字节（0.66 MiB）**。来源未修改，FBX/ZIP 不重复发布，核心加载器未改。
 
-一个预设 `artist-puszke-model-test` 展示全部 13 款，黑白棋子/棋盘三个内部区域，按真实边界缩放到最大边 2.8、底部落地。`importPuszkeAssets.mjs --verify`、`buildPuszkeShowcase.mjs --check`、`verifyPuszkeAssets.mjs` 及 `--overview` 全通过；13 独立材质、13 图各请求/上传一次。默认构建、正式 file:// Lab/材质 Inspector 和四消费者通过，`puszke/checkPublication.mjs` 核验 27 个 public/dist 文件及配置/新增索引一致。来源/转换/去重/最终验证见 `scripts/model-assets/puszke/`，复现说明见该目录 README；截图/日志在 `.asset-migration/puszke/`。本轮中间几何和 Blender/Electron 缓存已清理，释放 40,458,120 字节（38.58 MiB）。
+一个预设 `artist-puszke-model-test` 展示全部 13 款，黑白棋子/棋盘三个内部区域，按真实边界缩放到最大边 2.8、底部落地。`importPuszkeAssets.mjs --verify`、`buildPuszkeShowcase.mjs --check`、`verifyPuszkeAssets.mjs` 及 `--overview` 全通过；13 独立材质、13 图各请求/上传一次。默认构建、正式 file:// Lab/材质 Inspector 和四消费者通过，`puszke/checkPublication.mjs` 核验 27 个 public/dist 文件及配置/新增索引一致。来源/转换/去重/最终验证见 `codex-tools/model-assets/puszke/`，复现说明见该目录 README；截图/日志在 `.asset-migration/puszke/`。本轮中间几何和 Blender/Electron 缓存已清理，释放 40,458,120 字节（38.58 MiB）。
 
 ## 2026-10-05：Caliberuk 岩石、海岛构件与油桶
 
@@ -252,7 +257,7 @@ Sea 删除后 201 模型逐件/完整预设 WebGL 加载通过，212 独立材�
 
 42 张实际引用 PNG 按哈希共享于 `SharedTextures/artist_caliberuk/`，21 张岩石图最大 256×256，其他最大 512×512，不放大小图；34 缩小、2 原编码、6 仅优化编码保持像素。按来源点/线性采样选择 nearest/lanczos 缩图，透明通道/packed PBR/色彩空间与原采样保持，法线图缩小后归一化。油桶两种烘焙版本来源图均实际 1024，均按非岩石最大 512 处理。模型 8,083,464 字节加图片 8,170,482 字节，合计 **16,253,946 字节（15.50 MiB）**。Unity 专用图、未引用独立图、Update_2 备用涂装及工业材质不入运行时；原来源全部保留，油桶/海岛说明在 notices/，核心加载器未改。
 
-一个作者预设 `artist-caliberuk-model-test` 展示全部 203 件，10 个内部分类区域；实测边界布局最大边 2.8、底部落地、source 透明策略，展台顶部 -.01 避免平面共面。`importCaliberukAssets.mjs --verify`、`buildCaliberukShowcase.mjs --check`、`verifyCaliberukAssets.mjs` 及 `--overview` 全通过；完整 WebGL 场景 215 份独立材质、42 图各请求/上传一次。默认完整构建、正式 file:// Lab/材质 Inspector 与其他四消费者启动通过。`scripts/model-assets/caliberuk/checkPublication.mjs` 核验 248 个 public/dist 文件、配置/新增索引、来源哈希和最终几何证明；审计/最终报告/复现说明见该目录 README。截图/日志在 `.asset-migration/caliberuk/`；本轮中间副本和 Electron 缓存已清理，释放 229,524,823 字节（218.89 MiB）。
+一个作者预设 `artist-caliberuk-model-test` 展示全部 203 件，10 个内部分类区域；实测边界布局最大边 2.8、底部落地、source 透明策略，展台顶部 -.01 避免平面共面。`importCaliberukAssets.mjs --verify`、`buildCaliberukShowcase.mjs --check`、`verifyCaliberukAssets.mjs` 及 `--overview` 全通过；完整 WebGL 场景 215 份独立材质、42 图各请求/上传一次。默认完整构建、正式 file:// Lab/材质 Inspector 与其他四消费者启动通过。`codex-tools/model-assets/caliberuk/checkPublication.mjs` 核验 248 个 public/dist 文件、配置/新增索引、来源哈希和最终几何证明；审计/最终报告/复现说明见该目录 README。截图/日志在 `.asset-migration/caliberuk/`；本轮中间副本和 Electron 缓存已清理，释放 229,524,823 字节（218.89 MiB）。
 
 ## 2026-10-05：Retrovandal 动物玩具、BMX 与飞船
 
@@ -262,7 +267,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 恢复 Blender 忽略的旧 FBX 单层 LayeredTexture 颜色连接及原 Diffuse；玩具沿作者配套法线图（Bunny 使用 toyrabbit），normal linear/scale=1；轮辐原 PNG alpha 保留为 MASK=.5。BMX OBJ 未附 MTL，FBX 缺少 frame；从同套 3DS 恢复原绿色车架，车架采用非金属漆材质，原 shininess 与 colour 一致，使用对应 PBR 粗糙度近似。旧 Phong/层纹理转换为 PBR 为材质近似，不声称逐像素无损。35 张原编码 PNG/JPEG 按哈希共享于 `SharedTextures/artist_retrovandal/`，最大 1024×1024，不缩放/重编码；22 张飞船涂装 512×512，uvmap.jpg 为制作指南而非运行时贴图。模型/图像 7,499,391 字节（7.15 MiB），沿既有作者 URI/缓存，加载器未改；玩具/飞船原说明和署名在 notices/，BMX 来源未附独立说明。
 
-单一预设 `artist-retrovandal-model-test`，玩具/BMX/飞船三内部区域，29 展示实例；22 涂装共享 Fighter.glb，以 materialOverrides 切共享图。实测最大边 2.8/底部落地，玩具转向展示视角。`scripts/model-assets/retrovandal/` 保存审计、复现和最终报告；`importRetrovandalAssets.mjs --verify`、`buildRetrovandalShowcase.mjs --check`、`verifyRetrovandalAssets.mjs` 及 `--overview` 通过；单模型 14 图片、概览 35 图片各请求/上传一次，33 独立材质。默认 dist 构建、正式 file:// Lab/材质 Inspector 与其他四消费者通过；`retrovandal/checkPublication.mjs` 核验 46 文件 public/dist 哈希、配置和新增索引一致。截图/日志在 `.asset-migration/retrovandal/`；清理本次中间副本和 Blender/Electron 缓存释放 105,841,904 字节（100.94 MiB，包含 BMX 材质复核新增缓存），来源未修改。
+单一预设 `artist-retrovandal-model-test`，玩具/BMX/飞船三内部区域，29 展示实例；22 涂装共享 Fighter.glb，以 materialOverrides 切共享图。实测最大边 2.8/底部落地，玩具转向展示视角。`codex-tools/model-assets/retrovandal/` 保存审计、复现和最终报告；`importRetrovandalAssets.mjs --verify`、`buildRetrovandalShowcase.mjs --check`、`verifyRetrovandalAssets.mjs` 及 `--overview` 通过；单模型 14 图片、概览 35 图片各请求/上传一次，33 独立材质。默认 dist 构建、正式 file:// Lab/材质 Inspector 与其他四消费者通过；`retrovandal/checkPublication.mjs` 核验 46 文件 public/dist 哈希、配置和新增索引一致。截图/日志在 `.asset-migration/retrovandal/`；清理本次中间副本和 Blender/Electron 缓存释放 105,841,904 字节（100.94 MiB，包含 BMX 材质复核新增缓存），来源未修改。
 
 ## 2026-10-05：Bitsoft 游戏机、日用品与家具
 
@@ -272,7 +277,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 30 张 PNG 按哈希共享于 `SharedTextures/artist_bitsoft/`，沿既有作者 URI 映射；25 张保留原编码，5 张派生图转镜框/影子透明度、金属颜色亮度和木/金属粗糙度 G 通道，量化误差 ≤1/255，原尺寸最大 1024×1024。源程序 AO/ColorRamp 乘色近似烘焙到浮点 COLOR_0，隔离备选物件避免互相遮挡，不宣称逐像素材质无损。直接图像表面沿 KHR_materials_unlit，其他保持 PBR/透明裁切及采样；学校木/金属法线沿来源实际链和强度，两张缺失的橡胶图沿黑色/roughness=.5 后备，省略缺失法线。模型/图像共 11,637,960 字节（11.10 MiB），无额外压缩解码要求，核心加载器未改。12 套原许可说明随模型保存，来源未修改。
 
-单一预设 `artist-bitsoft-model-test` 展示全部 53 件，五个内部类型区；按实测最大边 2.8/底部居中/source 透明策略，展台顶部 -.01 避免原影子共面。`scripts/model-assets/bitsoft/` 保存审计和最终验证；`importBitsoftAssets.mjs --verify` 核验来源/发布/图片/无孤立图，`buildBitsoftShowcase.mjs --check` 检查覆盖/布局/整库目录，`verifyBitsoftAssets.mjs` 及 `--overview` 实际 WebGL 全通过，67 份独立材质，30 图各下载一次；SNES 相同图片的不同来源采样分别保留，纹理上传 31 次。默认 dist 构建、正式 file:// Lab/材质 Inspector 与其他四模型消费者启动通过，`bitsoft/checkPublication.mjs` 核验 96 个 public/dist 文件及配置一致。截图/日志在 `.asset-migration/bitsoft/`，中间副本和 Blender/Electron 缓存已清理，累计释放 117,688,339 字节（112.24 MiB），本次拆分清理 57,185,381 字节（54.54 MiB）；详见该审计目录 README。
+单一预设 `artist-bitsoft-model-test` 展示全部 53 件，五个内部类型区；按实测最大边 2.8/底部居中/source 透明策略，展台顶部 -.01 避免原影子共面。`codex-tools/model-assets/bitsoft/` 保存审计和最终验证；`importBitsoftAssets.mjs --verify` 核验来源/发布/图片/无孤立图，`buildBitsoftShowcase.mjs --check` 检查覆盖/布局/整库目录，`verifyBitsoftAssets.mjs` 及 `--overview` 实际 WebGL 全通过，67 份独立材质，30 图各下载一次；SNES 相同图片的不同来源采样分别保留，纹理上传 31 次。默认 dist 构建、正式 file:// Lab/材质 Inspector 与其他四模型消费者启动通过，`bitsoft/checkPublication.mjs` 核验 96 个 public/dist 文件及配置一致。截图/日志在 `.asset-migration/bitsoft/`，中间副本和 Blender/Electron 缓存已清理，累计释放 117,688,339 字节（112.24 MiB），本次拆分清理 57,185,381 字节（54.54 MiB）；详见该审计目录 README。
 
 ## 2026-10-05：Qabsurdo 模块化房屋构件
 
@@ -280,7 +285,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 12 张原编码 PNG/JPEG 共享于 `SharedTextures/artist_qabsurdo/`，沿既有 `__shared_textures__/artist_qabsurdo/` 映射；原尺寸最大 480×480，不缩放/重编码。修复作者旧绝对路径，按路径文件名匹配真实图。普通材质 TransparentColor 白色被 Blender 回退成 alpha=0，结合 FBX 缺省 Opacity/TransparencyFactor 和作者截图修复为不透明；玻璃以显式来源 Opacity=.5 转 BLEND，不照搬非标准 RGB-to-alpha 路径，材质取舍有记录。织物地板 2.5 倍重复沿 KHR_texture_transform，包含 V 翻转补偿；其余沿标准 FBX PBR/双面/线性采样/mipmap/repeat，省略未接图片的法线占位。模型/图片共 511,316 字节（0.49 MiB），无压缩解码要求，核心加载器未改。
 
-单一预设 `artist-qabsurdo-model-test` 展示全部 28 件，四个内部类型区；实际顶点测量最大边 2.8/底部居中/source 透明策略，墙与门的展示实例转向初始视角。`scripts/model-assets/qabsurdo/` 保存来源/拆分/转换/材质审计及最终验证；`importQabsurdoAssets.mjs --verify` 核验来源/发布/图片/无孤立图，`buildQabsurdoShowcase.mjs --check` 检查覆盖/布局/整库目录，`verifyQabsurdoAssets.mjs` 及 `--overview` 实际 WebGL 全通过，47 份独立材质、12 图各请求/上传一次。默认 dist 构建及正式 file:// Lab/材质 Inspector、其他四模型消费者启动通过，`qabsurdo/checkPublication.mjs` 核验 41 个 public/dist 文件与配置一致。截图/日志在 `.asset-migration/qabsurdo/`，转换 GLB 和 Blender/Electron 缓存已清理，累计释放 76,514,159 字节（72.97 MiB）；来源未修改，复现与透明策略取舍见该目录 README。
+单一预设 `artist-qabsurdo-model-test` 展示全部 28 件，四个内部类型区；实际顶点测量最大边 2.8/底部居中/source 透明策略，墙与门的展示实例转向初始视角。`codex-tools/model-assets/qabsurdo/` 保存来源/拆分/转换/材质审计及最终验证；`importQabsurdoAssets.mjs --verify` 核验来源/发布/图片/无孤立图，`buildQabsurdoShowcase.mjs --check` 检查覆盖/布局/整库目录，`verifyQabsurdoAssets.mjs` 及 `--overview` 实际 WebGL 全通过，47 份独立材质、12 图各请求/上传一次。默认 dist 构建及正式 file:// Lab/材质 Inspector、其他四模型消费者启动通过，`qabsurdo/checkPublication.mjs` 核验 41 个 public/dist 文件与配置一致。截图/日志在 `.asset-migration/qabsurdo/`，转换 GLB 和 Blender/Electron 缓存已清理，累计释放 76,514,159 字节（72.97 MiB）；来源未修改，复现与透明策略取舍见该目录 README。
 
 ## 2026-10-05：Codyanka 医疗道具与易拉罐
 
@@ -288,7 +293,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 24 张原编码 PNG（医疗 4、10 套易拉罐包装 clean/worn 共 20，最大 256×256）共享于 `SharedTextures/artist_codyanka/`，沿既有 `__shared_textures__/artist_codyanka/` 映射，不缩放/重编码；修复 FBX .fbm 旧路径，不发布未用 512×512 合集。注射器沿作者 Unity Point/mipmap/repeat、玻璃 BLEND、Body/Fluid OPAQUE，玻璃原图 alpha=255 不人为改透明度；其余沿 FBX 线性采样。保留原 CC0 注射器说明，不扩展至其他套件。模型/图片共 1,062,539 字节（1.01 MiB），核心加载器未改，无动画/骨骼/Draco/KTX2 要求。
 
-单一预设 `artist-codyanka-model-test` 展示 17 款及 19 个复用标准罐的备用包装样例，共 36 实例、三个内部区域；沿 materialOverrides 切共享图，不复制几何，实际顶点测量最大边 2.8/居中落地/source 透明策略。`scripts/model-assets/codyanka/` 保存来源/转换/材质审计与最终验证；`importCodyankaAssets.mjs --verify` 检查来源/发布/图片/无孤立图，`buildCodyankaShowcase.mjs --check` 检查覆盖/布局/整库目录。`verifyCodyankaAssets.mjs` 及 `--overview` 实际 WebGL 全通过，完整展示 38 份独立材质、24 图各请求/上传一次。默认 dist 构建及正式 file:// Lab/材质 Inspector、其他四模型消费者启动通过，`codyanka/checkPublication.mjs` 核验 43 个 public/dist 文件和配置一致。截图/日志在 `.asset-migration/codyanka/`；转换 GLB 和 Blender/Electron 缓存已清理，释放 45,526,625 字节（43.42 MiB），来源未修改。复现和跨平台材质取舍见该目录 README。
+单一预设 `artist-codyanka-model-test` 展示 17 款及 19 个复用标准罐的备用包装样例，共 36 实例、三个内部区域；沿 materialOverrides 切共享图，不复制几何，实际顶点测量最大边 2.8/居中落地/source 透明策略。`codex-tools/model-assets/codyanka/` 保存来源/转换/材质审计与最终验证；`importCodyankaAssets.mjs --verify` 检查来源/发布/图片/无孤立图，`buildCodyankaShowcase.mjs --check` 检查覆盖/布局/整库目录。`verifyCodyankaAssets.mjs` 及 `--overview` 实际 WebGL 全通过，完整展示 38 份独立材质、24 图各请求/上传一次。默认 dist 构建及正式 file:// Lab/材质 Inspector、其他四模型消费者启动通过，`codyanka/checkPublication.mjs` 核验 43 个 public/dist 文件和配置一致。截图/日志在 `.asset-migration/codyanka/`；转换 GLB 和 Blender/Electron 缓存已清理，释放 45,526,625 字节（43.42 MiB），来源未修改。复现和跨平台材质取舍见该目录 README。
 
 ## 2026-10-05：Oxygen3d 环境构件、设施与道具
 
@@ -296,7 +301,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 386 件发布至 `public/resources/Model/GLB/artist_oxygen3d/`，19 张原编码 PNG/JPEG 共享于 `SharedTextures/artist_oxygen3d/`，沿既有 `__shared_textures__/artist_oxygen3d/` 映射；没有缩放或重编码，最大图 2731×2048。保留实际标准 PBR/normal/ORM/emissive/alpha/采样；不把未接图片的 FBX 法线占位或常量材质名称推断为缺图。模型与图片共 53,897,195 字节（51.40 MiB），无动画/骨骼/Draco/KTX2 要求，核心加载器未修改。新增单一预设 `artist-oxygen3d-model-test`，13 个内部类型区展示全部模型，真实顶点测量统一最大边 2.8、底部居中与 source 透明策略。
 
-`scripts/model-assets/oxygen3d/` 保存来源/分包/转换审计及 validation/overview-validation/production-validation；`importOxygen3dAssets.mjs --verify` 核验来源/发布/图片/无孤立图，`buildOxygen3dShowcase.mjs --check` 核验覆盖/布局/整库目录，`verifyOxygen3dAssets.mjs` 和 `--overview` 实际 WebGL 检查通过：475 渲染网格、487,425 三角形、439 份独立材质，19 图各请求/上传一次。默认 dist 完整构建、正式 file:// Lab/材质 Inspector 与其他四消费者启动通过；`oxygen3d/checkPublication.mjs` 核验 406 个 public/dist 文件及预设/索引一致。截图/日志在 `.asset-migration/oxygen3d/`，转换副本和 Blender/Electron 缓存已清理，释放 159,278,324 字节（151.90 MiB），来源未修改；复现与材质取舍见该目录 README。
+`codex-tools/model-assets/oxygen3d/` 保存来源/分包/转换审计及 validation/overview-validation/production-validation；`importOxygen3dAssets.mjs --verify` 核验来源/发布/图片/无孤立图，`buildOxygen3dShowcase.mjs --check` 核验覆盖/布局/整库目录，`verifyOxygen3dAssets.mjs` 和 `--overview` 实际 WebGL 检查通过：475 渲染网格、487,425 三角形、439 份独立材质，19 图各请求/上传一次。默认 dist 完整构建、正式 file:// Lab/材质 Inspector 与其他四消费者启动通过；`oxygen3d/checkPublication.mjs` 核验 406 个 public/dist 文件及预设/索引一致。截图/日志在 `.asset-migration/oxygen3d/`，转换副本和 Blender/Electron 缓存已清理，释放 159,278,324 字节（151.90 MiB），来源未修改；复现与材质取舍见该目录 README。
 
 ## 2026-10-05：Aleksicluka 与 Dysfunctional-games PSX 道具和角色
 
@@ -306,7 +311,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 46 张原编码 PNG/JPEG（最大边 1024，不缩放/重编码）按作者放在 `SharedTextures/artist_<作者>/`，继续使用既有 `__shared_textures__/artist_<作者>/` 映射；旧 blend 路径按同包原图解析，Glock 颜色图从原 blend 内嵌图片提取。模型 1,760,296 字节 + 图片 11,503,885 字节 = **13,264,181 字节（12.65 MiB）**，不发布重复格式、压缩包、GIF 和备用分辨率图；核心加载器未改动，原始来源未修改。
 
-新增一个预设 `artists-aleksicluka-dysfunctional-games-model-test`，全部 41 件、五个内部作者/类型分区，按真实顶点（角色含蒙皮/morph）测量生成最大边 2.8、居中落地及 source 透明策略，不自动播放动画。来源/分包/材质/转换审计在 `scripts/model-assets/two-psx-authors/`；`importTwoPsxAuthorAssets.mjs --verify` 核验来源/发布，`--refresh` 可在已发布文件和路径集合核验后重建；`buildTwoPsxAuthorShowcase.mjs --check` 校验布局、覆盖及整库目录。
+新增一个预设 `artists-aleksicluka-dysfunctional-games-model-test`，全部 41 件、五个内部作者/类型分区，按真实顶点（角色含蒙皮/morph）测量生成最大边 2.8、居中落地及 source 透明策略，不自动播放动画。来源/分包/材质/转换审计在 `codex-tools/model-assets/two-psx-authors/`；`importTwoPsxAuthorAssets.mjs --verify` 核验来源/发布，`--refresh` 可在已发布文件和路径集合核验后重建；`buildTwoPsxAuthorShowcase.mjs --check` 校验布局、覆盖及整库目录。
 
 `verifyTwoPsxAuthorAssets.mjs` / `--overview` 实际 WebGL 逐件/整场景检查通过：56 渲染网格、10,313 三角形、原图/采样/正确图片索引、UV/法线/顶点颜色、透明度、材质隔离；52 份独立材质，46 图各请求/上传一次。角色中间帧动画真实改变蒙皮顶点且坐标有限。默认 dist 构建、正式 file:// Lab/材质 Inspector 与其他四消费者启动通过；`two-psx-authors/checkPublication.mjs` 核验 89 个 public/dist 文件、预设和索引，结果在 validation/overview-validation/production-validation。截图和日志在 `.asset-migration/two-psx-authors/`；本轮解包副本、嵌入 GLB、图片副本及 Blender/Electron 缓存已清理，释放 194,576,512 字节（185.56 MiB），保留来源审计和最终验证。复现步骤、标准材质取舍和缺图说明见该目录 README。
 
@@ -328,7 +333,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 `local-model-loading-test`（20 模型）与 `crossroads`（161 模型）的 32 处引用更新为对应作者路径，保持 ID、朝向、缩放及其他声明，只补偿新模型居中原点导致的位置差异；不把旧偏移注入作者公共资产。三个旧 modelAssetProfiles 条目没有有效变换（均为默认值），随旧路径清除，其他条目不变。场景编辑器菜单/添加/失败撤销验证的测试资源同步到作者纸箱，支持实际目录层级选择。
 
-`t4kum/auditLegacyCuboids.mjs` 在删除前确定唯一匹配，`replaceLegacyCuboids.mjs` 更新配置及记录，`--verify` 检查旧资源不存在、新路径 public/dist 和配置一致，反向还原核对其他预设字段与资产校正没有变化。删除前 `verifyT4kumAssets.mjs --legacy` 实际加载 32 对新旧实例并双向比较世界顶点，最大距离 2.056×10⁻⁶；原图尺寸变化按像素 UV 比较，最大误差低于 0.00005 像素。默认完整构建、六个菜单/字段测试、实际编辑器浏览器回归、两个正式 file:// 预设及材质 Inspector、四个其他消费者启动均通过；T4Kum 作者预设整库校验通过。映射及配置变更持久化在 `scripts/model-assets/t4kum/legacy-cuboid-replacement.json`，最终验证在 legacy-cuboid-validation.json；本轮日志/旧配置小型副本/顶点验证在 `.asset-migration/cuboid-replacement/`，不保留重复 GLB 备份，浏览器临时缓存已清理。
+`t4kum/auditLegacyCuboids.mjs` 在删除前确定唯一匹配，`replaceLegacyCuboids.mjs` 更新配置及记录，`--verify` 检查旧资源不存在、新路径 public/dist 和配置一致，反向还原核对其他预设字段与资产校正没有变化。删除前 `verifyT4kumAssets.mjs --legacy` 实际加载 32 对新旧实例并双向比较世界顶点，最大距离 2.056×10⁻⁶；原图尺寸变化按像素 UV 比较，最大误差低于 0.00005 像素。默认完整构建、六个菜单/字段测试、实际编辑器浏览器回归、两个正式 file:// 预设及材质 Inspector、四个其他消费者启动均通过；T4Kum 作者预设整库校验通过。映射及配置变更持久化在 `codex-tools/model-assets/t4kum/legacy-cuboid-replacement.json`，最终验证在 legacy-cuboid-validation.json；本轮日志/旧配置小型副本/顶点验证在 `.asset-migration/cuboid-replacement/`，不保留重复 GLB 备份，浏览器临时缓存已清理。
 
 ## 2026-10-05：T4Kum 像素风书架、书籍、纸箱与时钟
 
@@ -336,7 +341,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 三张原 glTF 内嵌 PNG 沿原编码在 `SharedTextures/artist_t4kum/` 按内容哈希共享，使用既有 `__shared_textures__/artist_t4kum/` 映射；与旁边独立 PNG 的像素内容不同，未盲目替换。尺寸 2048×2048 / 1024×2048 / 512×512，合计 815,478 字节；保留 NEAREST 无 mipmap / CLAMP、标准 baseColor、metallic=0、roughness=1、MASK cutoff=0.05 和双面。模型 112,192 字节，模型加图 **927,670 字节（0.88 MiB）**。原 OBJ/FBX/MTL、重复 RAR 和网页不重复发布，三个套件授权原文留在作者目录 Licenses/。原始来源未修改，核心加载器未改动。
 
-新增并登记一个预设 `artist-t4kum-model-test` 展示全部 27 件，场景内部五类型分区，实际顶点边界测量生成最大边 2.8、居中落地布局，指定 source 透明策略。来源审计、拆分及图片依赖在 `scripts/model-assets/t4kum/`；`auditSources.py` 审计来源和压缩包，`importT4kumAssets.mjs --verify` 从原 glTF 精确重建并核验全部发布文件，`buildT4kumShowcase.mjs --check` 校验布局、完整覆盖和整库目录。
+新增并登记一个预设 `artist-t4kum-model-test` 展示全部 27 件，场景内部五类型分区，实际顶点边界测量生成最大边 2.8、居中落地布局，指定 source 透明策略。来源审计、拆分及图片依赖在 `codex-tools/model-assets/t4kum/`；`auditSources.py` 审计来源和压缩包，`importT4kumAssets.mjs --verify` 从原 glTF 精确重建并核验全部发布文件，`buildT4kumShowcase.mjs --check` 校验布局、完整覆盖和整库目录。
 
 `verifyT4kumAssets.mjs` / `--overview` 逐件及完整场景的实际 WebGL 验证通过：31 网格、868 三角形、原图尺寸/采样、PBR/透明度、居中落地、27 份实例独立材质，三图各请求/上传一次。默认完整构建和正式 file:// Lab/材质 Inspector、其他四消费者启动通过；`t4kum/checkPublication.mjs` 核验 37 个 public/dist 资源文件、预设与索引，结果在 validation/overview-validation/production-validation。截图和日志位于 `.asset-migration/t4kum/`；本轮解包副本及浏览器缓存已清理，释放 46,672,674 字节（44.51 MiB），保留审计及验证结果。复现步骤见该目录 README。
 
@@ -344,7 +349,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 根目录的 84 个乱码/空拼写目录仅含空 `Microsoft/Spelling/neutral` 子树或为空，与 Windows Codex 沙箱原生拼写检查问题相符；已移至忽略目录 `.asset-migration/stray-spelling-directories/`，清单保存原路径与时间，未改动模型或图片。
 
-所有 20 个 Electron 验证入口使用 `scripts/electronWorkspace.cjs`，资源及报告路径通过 `resolveRepoPath` 锚定仓库；19 个启动脚本统一用 `scripts/spawnElectron.mjs` 在进程启动前指定系统临时工作目录，进程关闭后清理。`verify:file` 经 `scripts/runElectronVerification.mjs` 使用同样隔离。此措施隔离异常写入，不宣称修复 Windows/Codex 的底层缺陷。三次实际隐藏窗口验证真实 PNG 加载、两次正常退出和一次失败退出均通过，临时目录清理成功，根目录无新增乱码目录。新增入口须遵循 AGENTS.md 的同样规则。
+所有 20 个 Electron 验证入口使用 `codex-tools/electronWorkspace.cjs`，资源及报告路径通过 `resolveRepoPath` 锚定仓库；19 个启动脚本统一用 `codex-tools/spawnElectron.mjs` 在进程启动前指定系统临时工作目录，进程关闭后清理。`verify:file` 经 `codex-tools/runElectronVerification.mjs` 使用同样隔离。此措施隔离异常写入，不宣称修复 Windows/Codex 的底层缺陷。三次实际隐藏窗口验证真实 PNG 加载、两次正常退出和一次失败退出均通过，临时目录清理成功，根目录无新增乱码目录。新增入口须遵循 AGENTS.md 的同样规则。
 
 ## 2026-10-04：旧 Ggbot 汽车引用统一至作者资源
 
@@ -358,7 +363,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 41 张来源 PNG 沿原编码逐字节共享于 `SharedTextures/artist_ggbot/`，使用现有 `__shared_textures__/artist_ggbot/` 映射。车辆 128×128、车轮 48×48、车影 64×128，不升降尺寸；保留 NEAREST 像素采样与来源标准 PBR 常量。车影沿原 RGBA alpha×0.5，BLEND 双面，预设显式 `transparencyPolicy: source` 保留渐变，避免默认裁切策略改变外观。模型 306,924 字节 + 图片 844,027 字节 = 1,150,951 字节（1.10 MiB），换色不复制几何。本轮不修改核心加载器。
 
-新增并登记一个作者预设 `artist-ggbot-model-test`，12 款 / 41 件展示，11 个内部车型/配件分区。原作者全部颜色、积雪和警车涂装通过 glTF 材质索引 0 的实例贴图覆盖；按用户选择，单配色模型保留原版，不额外制作涂装。实际顶点边界测量布局，最大边 2.8、居中落地，平面车影抬高 0.02。来源/转换/配色依赖和说明在 `scripts/model-assets/ggbot/`；`auditSources.py`/`audit.py`、`prepare.mjs`/`convert.py` 完成审计和转换，`importGgbotAssets.mjs --verify` 核验来源/发布/原 PNG/几何和无孤立图片，`buildGgbotShowcase.mjs --check` 验证预设及整库目录。
+新增并登记一个作者预设 `artist-ggbot-model-test`，12 款 / 41 件展示，11 个内部车型/配件分区。原作者全部颜色、积雪和警车涂装通过 glTF 材质索引 0 的实例贴图覆盖；按用户选择，单配色模型保留原版，不额外制作涂装。实际顶点边界测量布局，最大边 2.8、居中落地，平面车影抬高 0.02。来源/转换/配色依赖和说明在 `codex-tools/model-assets/ggbot/`；`auditSources.py`/`audit.py`、`prepare.mjs`/`convert.py` 完成审计和转换，`importGgbotAssets.mjs --verify` 核验来源/发布/原 PNG/几何和无孤立图片，`buildGgbotShowcase.mjs --check` 验证预设及整库目录。
 
 `verifyGgbotAssets.mjs` / `--overview` 实际 WebGL 验证 12 款、全部 41 配色的采样/尺寸/PBR/透明车影、实例材质隔离及完整场景位置/落地，41 张共享图各请求/上传一次。默认完整构建及正式 file:// Lab/材质 Inspector、其他四消费者启动由生产验证检查；`ggbot/checkPublication.mjs` 核验 54 个 public/dist 资源文件、预设与索引，结果存入 validation/overview-validation/production-validation。日志及截图在 `.asset-migration/ggbot/`，本轮临时几何和浏览器缓存完成后清理。
 
@@ -368,7 +373,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 按用户后续指定，`artist_rayzngames/Fan/TableFan.glb` 的蓝/绿/淡红/黄四颜色图、法线及 ORM 六图全部从 2048×2048 缩为 512×512，合计 21,067,896 → 1,731,885 字节（20.09 → 1.65 MiB，减少 91.78%）。只改 GLB 图片 URI，BIN 和其余 JSON 相同，7 网格/7,014 三角形、UV/法线/材质/采样不变；四配色实例覆盖路径同步，原作者预设仍为 107 款/163 件。六张无其他引用的旧图从 public/dist 清理，39 个 D:/Model 来源只读且哈希不变，其余 106 模型及其图片不变。Ray 作者现为 21 张图片，模型加图 35,149,362 字节（33.52 MiB）；下方此前 TableFan 保留大图的记录为历史。
 
-`scripts/optimizeTableFanTextures512.mjs --verify` / `model-assets/tablefan-512/report.json` 校验尺寸、来源、旧图清除和非图片数据不变；既有 `selected-textures-512/replay.mjs` 及 Ray 导入器支持默认图和配色覆盖图的确定性重放，重导入保留 512 并不发布旧图。前次飞刀/城市风扇审计沿原始基线验证后续调整链。Ray 实际逐件加载验证严格核验优化图片 512 和四配色更新，完整作者场景验证尺寸/落地/独立材质、21 图各上传一次；正式发布验证沿 `rayzngames/checkPublication.mjs`。记录和复现说明见 `model-assets/tablefan-512/README.md` 与 Ray 最新验证文件，小型调整前 GLB/清单/预设备份及日志在 `.asset-migration/tablefan-512/`，不额外保留旧大图副本。
+`codex-tools/optimizeTableFanTextures512.mjs --verify` / `model-assets/tablefan-512/report.json` 校验尺寸、来源、旧图清除和非图片数据不变；既有 `selected-textures-512/replay.mjs` 及 Ray 导入器支持默认图和配色覆盖图的确定性重放，重导入保留 512 并不发布旧图。前次飞刀/城市风扇审计沿原始基线验证后续调整链。Ray 实际逐件加载验证严格核验优化图片 512 和四配色更新，完整作者场景验证尺寸/落地/独立材质、21 图各上传一次；正式发布验证沿 `rayzngames/checkPublication.mjs`。记录和复现说明见 `model-assets/tablefan-512/README.md` 与 Ray 最新验证文件，小型调整前 GLB/清单/预设备份及日志在 `.asset-migration/tablefan-512/`，不额外保留旧大图副本。
 
 ## 2026-10-04：Realduende 飞刀与 Rayzngames 城市风扇贴图缩至 512
 
@@ -376,7 +381,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 飞刀三张旧图无其他引用，从 public/dist 移除。城市旧图集仍由其他 51 件城市道具使用，为风扇单独生成四张小图；其余城市模型及独立 TableFan/四配色哈希不变。public 资源净减少 10,897,863 字节（10.39 MiB），城市共用大图不计为删除。Rayzngames 现有 21 张图片，模型加图 54,485,373 字节；七作者仍 112 张图片，模型加图 13,754,651 字节，下方原导入大小属于调整前历史。
 
-两套 manifest、图片来源/尺寸记录、测量哈希和作者 README 已同步。`scripts/optimizeSelectedModelTextures512.mjs --verify` 校验两模型图像尺寸、来源/其他模型图片不变、旧图无残留及几何/材质不变；`selected-textures-512/resize.py` 执行确定性缩图，`replay.mjs` 接入两原导入器，重做转换时保持 512 调整；`verifySelectedModelTextures512.mjs` 实际加载两模型，检查 PBR/镂空、原边界/三角形、实例材质隔离及图片共享，七张图片各请求/上传一次。两个作者及其余六作者预设真实加载通过，Rayzngames 21 图、七作者 112 图各上传一次。默认完整构建、两变更预设的正式 file:// Lab/材质 Inspector、四其他消费者启动以及 public/dist 对应验证通过。记录在 `scripts/model-assets/selected-textures-512/`，本轮截图/日志和小型调整前 GLB/清单备份在 `.asset-migration/selected-textures-512/`，大图不另留副本，原始 D:/Model 来源保持不变。
+两套 manifest、图片来源/尺寸记录、测量哈希和作者 README 已同步。`codex-tools/optimizeSelectedModelTextures512.mjs --verify` 校验两模型图像尺寸、来源/其他模型图片不变、旧图无残留及几何/材质不变；`selected-textures-512/resize.py` 执行确定性缩图，`replay.mjs` 接入两原导入器，重做转换时保持 512 调整；`verifySelectedModelTextures512.mjs` 实际加载两模型，检查 PBR/镂空、原边界/三角形、实例材质隔离及图片共享，七张图片各请求/上传一次。两个作者及其余六作者预设真实加载通过，Rayzngames 21 图、七作者 112 图各上传一次。默认完整构建、两变更预设的正式 file:// Lab/材质 Inspector、四其他消费者启动以及 public/dist 对应验证通过。记录在 `codex-tools/model-assets/selected-textures-512/`，本轮截图/日志和小型调整前 GLB/清单备份在 `.asset-migration/selected-textures-512/`，大图不另留副本，原始 D:/Model 来源保持不变。
 
 ## 2026-10-04：Rayzngames 模型、共享 PBR 与作者展示
 
@@ -384,7 +389,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 用户明确选择贴图最大 2048×2048；原始 4K/8K 不修改。FBX 无可用贴图链接，按同套来源补齐标准 baseColor/alpha、切线法线、ORM 及城市自发光；ORM R=AO（未提供则白）、G=roughness、B=metallic，城市 smoothness 转 1-smoothness，16 位灰度量化为 8 位。法线缩小后重新归一化，船采用明确的 OpenGL 来源，其他按来源方向；城市透明镂空 MASK，船玻璃和医疗透明度用 BLEND。图像降低分辨率属于经确认的有损处理。17 张 PNG 按内容哈希在 `SharedTextures/artist_rayzngames/` 共享，沿既有 core/model URI；风扇四配色和医疗两配色用实例材质覆盖，不重复几何。模型加贴图 53,750,692 字节（51.26 MiB），原全部 FBX+图片 430,126,579 字节（约减少 87.50%），不发布 ZIP、重复高模和非运行时烘焙图。
 
-新增一个作者预设 `artist-rayzngames-model-test`，107 款 / 163 件展示，内部六类型分区、紧凑两列展台，最大边 2.8、居中落地，已登记 `config/sceneEnvironmentPresets/index.json`。逐件和完整预设的实际 WebGL 加载、PBR/UV/法线/配色、材质隔离及布局验证通过，163 件使用 164 份独立材质；共享图各请求/上传 17 次。默认完整构建、正式 file:// Lab/材质 Inspector 与四消费者启动，以及 125 个新资源文件、预设和索引的 public/dist 内容验证通过。来源/转换/通道配方与验证记录在 `scripts/model-assets/rayzngames/`，截图和日志在 `.asset-migration/rayzngames/`；转换副本、临时贴图和浏览器/Blender 缓存完成后清理，原始来源保持不变。核心加载器未修改。
+新增一个作者预设 `artist-rayzngames-model-test`，107 款 / 163 件展示，内部六类型分区、紧凑两列展台，最大边 2.8、居中落地，已登记 `config/sceneEnvironmentPresets/index.json`。逐件和完整预设的实际 WebGL 加载、PBR/UV/法线/配色、材质隔离及布局验证通过，163 件使用 164 份独立材质；共享图各请求/上传 17 次。默认完整构建、正式 file:// Lab/材质 Inspector 与四消费者启动，以及 125 个新资源文件、预设和索引的 public/dist 内容验证通过。来源/转换/通道配方与验证记录在 `codex-tools/model-assets/rayzngames/`，截图和日志在 `.asset-migration/rayzngames/`；转换副本、临时贴图和浏览器/Blender 缓存完成后清理，原始来源保持不变。核心加载器未修改。
 
 `auditSources.py`/`audit.py`/`auditComponents.py`/`verifyArchives.py` 审计来源、独立医疗几何岛和压缩包，`prepare.mjs` 保证完整对象覆盖，`prepareTextures.py` 生成标准通道，`convert.py` 只导出选定完整物件并恢复拆片源法线；`importRayzngamesAssets.mjs --verify` 验证来源/发布哈希、三角形/PBR/图片尺寸与依赖，`buildRayzngamesShowcase.mjs --check` 检查预设及目录，`verifyRayzngamesAssets.mjs`/`--overview` 实际加载，`checkPublication.mjs` 记录正式发布检查。已清理本轮临时副本、浏览器/Blender 缓存和補拆前临时备份，共释放 152,705,562 字节（145.63 MiB），清理后来源/发布/预设及 public/dist 验证再次通过；保留源审计、转换记录、截图和日志。完整复现及取舍见该目录 README。
 
@@ -396,7 +401,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 112 张实际使用 PNG/JPEG 在 `SharedTextures/artist_<作者>/` 按内容哈希共享，沿既有 core/model URI，模型加图 25,387,195 字节（24.21 MiB）。98 张保持来源文件或原 GLB 内嵌编码，14 张由 Blender 为颜色/透明或 ORM 通道合并生成，不主动降分辨率或有损压缩。飞刀连入作者原法线、金属度、粗糙度和 AO，保留 4K 原图，是主要图片占用；独立 bump 不与法线重复叠加。来源及尺寸见 `seven-authors/image-provenance.json`。
 
-新增七个作者预设 `artist-<作者>-model-test`，每作者一个、每件展示一次（最多 29 件），按实际顶点测量统一最大边 2.8、居中落地，保留场景内部类型分区，已登记 `config/sceneEnvironmentPresets/index.json`。完整依赖/来源及导入说明位于 `scripts/model-assets/seven-authors/`；`prepare.mjs` 校验物件组合覆盖，`convert.py` 转换，`nativeModels.mjs` 逐字段/缓冲反向验证合并和原点调整；`importSevenAuthorAssets.mjs --verify` 从原生输入重建并校验来源/发布，可用转换中间结果重新外提逐字节比较。`buildSevenAuthorShowcases.mjs --check` 验证预设及整个项目目录；`verifySevenAuthorAssets.mjs` / `--overview` 实际加载逐件和完整场景，`checkPublication.mjs` 记录正式发布检查。本轮没有修改核心加载器。
+新增七个作者预设 `artist-<作者>-model-test`，每作者一个、每件展示一次（最多 29 件），按实际顶点测量统一最大边 2.8、居中落地，保留场景内部类型分区，已登记 `config/sceneEnvironmentPresets/index.json`。完整依赖/来源及导入说明位于 `codex-tools/model-assets/seven-authors/`；`prepare.mjs` 校验物件组合覆盖，`convert.py` 转换，`nativeModels.mjs` 逐字段/缓冲反向验证合并和原点调整；`importSevenAuthorAssets.mjs --verify` 从原生输入重建并校验来源/发布，可用转换中间结果重新外提逐字节比较。`buildSevenAuthorShowcases.mjs --check` 验证预设及整个项目目录；`verifySevenAuthorAssets.mjs` / `--overview` 实际加载逐件和完整场景，`checkPublication.mjs` 记录正式发布检查。本轮没有修改核心加载器。
 
 126 件共 40,698 个三角形、185 个渲染网格，逐件居中/落地、几何/法线/UV/贴图、飞刀 PBR 及七个场景材质隔离验证通过，112 张图各请求/上传一次。默认完整构建、七个正式 file:// Lab/材质 Inspector、其他四消费者启动及 245 个 public/dist 文件、七份预设与索引哈希检查通过；记录在 `seven-authors/validation.json`、`overview-validation.json`、`production-validation.json`，截图/日志在 `.asset-migration/seven-authors/`。已释放本轮转换/验证临时副本和缓存 82,507,943 字节，清理后来源/发布/预设再验证通过；小型装配前备份和源审计仍留在 public/dist 外。
 
@@ -404,7 +409,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 按用户反馈，最近一批五作者的 19 个细分/精选展示合并为 5 个完整作者展示：`artist-shayno-model-test` 7 件、`artist-izkeas-model-test` 4 件、`artist-alstrainfinite-model-test` 116 件、`artist-duendeds-model-test` 19 件、`artist-tiltamoose-model-test` 29 件。175 个 GLB 全部覆盖、每件仅展示一次，原作者主键保持不变；14 个细分预设从 config 文件和目录索引删除。类别作为场景内部层级保留；Alstrainfinite 十类使用两列分区排布，其他作者保持内部主题分区。其他作者的既有展示及先前明确合并的 Valsekamerplant 大型主题不变。
 
-`scripts/buildFiveAuthorShowcases.mjs` 直接生成完整作者展示，首次合并在 `.asset-migration/author-preset-merge/before/` 保存旧预设、索引和报告；`--check` 校验全部覆盖及无旧键/文件残留。`five-authors/showcases.json`、README、展示验证及发布检查同步为 5 场景，避免再次生成 19 份细分预设。模型、贴图、八件缺图替代材质与来源未改动；下方 19 预设记录属于合并前历史。
+`codex-tools/buildFiveAuthorShowcases.mjs` 直接生成完整作者展示，首次合并在 `.asset-migration/author-preset-merge/before/` 保存旧预设、索引和报告；`--check` 校验全部覆盖及无旧键/文件残留。`five-authors/showcases.json`、README、展示验证及发布检查同步为 5 场景，避免再次生成 19 份细分预设。模型、贴图、八件缺图替代材质与来源未改动；下方 19 预设记录属于合并前历史。
 
 五个作者完整场景的贴图、尺寸/落地、实例材质隔离验证通过，58 张图片仍各请求/上传一次。默认完整构建、五个正式 file:// Lab/材质 Inspector 和四个其他消费者启动通过；238 个 public 资源文件与合并前哈希相同，public/dist 资源、五份预设及索引一致，14 个旧预设在 config/dist 均无残留。最新记录在 `five-authors/overview-validation.json` 与 `production-validation.json`，本轮日志在 `.asset-migration/author-preset-merge/`；验证缓存已释放。
 
@@ -412,7 +417,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 按用户要求补充替代材质：`artist_izkeas/Weapons/DaggerPSX.glb` 复用同作者 Longsword 的四张刀刃/握柄/护手/柄头共享图，通过 KHR_texture_transform 取绘制区域，原 UV 缓冲不变；`artist_alstrainfinite/CabinetsDoors/Door1–6.glb` 复用同作者已有 8×8 调色板，按门板/把手/玻璃重映射 TEXCOORD_0；`artist_shayno/Electronics/Boombox.glb` 的 Material.078 复用同机身已有镜面图。缺失原图仍在 missingImages 中，textureRepair 明确记录替代，不声明原图恢复。所有顶点位置、索引、法线、节点变换保持不变，其余 167 件模型与 58 张图片哈希不变；无新增图片，GLB 合计增加 2,456 字节，五作者模型加图当前 33,108,159 字节。下方导入节为替代前记录。
 
-`scripts/repairFiveAuthorMissingTextures.mjs` / `--verify` 从 public/dist 外小型备份重做并逐字节验证；`five-authors/missingTextureRepair.mjs` 声明替代规则；`repairDocumentation.mjs` 更新受影响作者说明及原始来源/图片复用关系。首次导入器自动执行替代，可用转换结果的校验先外提再应用替代；原始 D:/Model 来源保持只读。仅橱柜与门预设调整六扇门展示朝向，19 预设仍覆盖 175 件，每次最多 20 件。
+`codex-tools/repairFiveAuthorMissingTextures.mjs` / `--verify` 从 public/dist 外小型备份重做并逐字节验证；`five-authors/missingTextureRepair.mjs` 声明替代规则；`repairDocumentation.mjs` 更新受影响作者说明及原始来源/图片复用关系。首次导入器自动执行替代，可用转换结果的校验先外提再应用替代；原始 D:/Model 来源保持只读。仅橱柜与门预设调整六扇门展示朝向，19 预设仍覆盖 175 件，每次最多 20 件。
 
 全部 175 件实际 Babylon 加载和 19 场景验证通过，177,253 个三角形、492 个渲染网格不变，58 张图片各请求/上传一次；匕首四部位颜色图、六扇门颜色图、录音机三个部位镜面图均就绪。截图位于 `.asset-migration/five-authors/`；本轮日志/小型备份位于 `.asset-migration/missing-texture-repair/`，依赖及证明见 `five-authors/missing-texture-repair.json`。
 
@@ -424,9 +429,9 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 58 张 PNG/JPEG 按作者共享在 `SharedTextures/artist_<作者>/`，使用既有 core/model URI；43 张与来源编码逐字节相同，15 张由 Blender 为标准 PBR 连接生成。旧 Diffuse/Glossy 混合近似转换为 PBR，酒店 RGB 法线通过 Normal Map 正确连接；保留作者比例、法线、UV，不主动降图片分辨率，外提阶段逐字段/缓冲反向验证无损。模型加图片合计 33,105,703 字节（31.57 MiB），其中 Izkeas 图片 17,354,741 字节是主要占用。来源确实缺少图片的 8 件（录音机一张镜面图、匕首四张图、Door1–6 的 TextureLowPoly）保留作者材质常量并记录 missingImages，没有猜测替代图片。
 
-新增 19 个预设，每次最多 20 件，整库覆盖 175 个模型。Shayno 总览 7、Izkeas 总览 4；Alstrainfinite 精选 20 及车辆 15、旧家电 12、电子设备 14、武器农具 12、橱柜与门 13、旧橱柜 7、宝箱与配件 9、舟船渔具 16、家电 13、南瓜 5；Duendeds 总览 19、仙人掌 13、蜡烛 6；Tiltamoose 精选 8、走廊 18、箱柜与集装箱 11。完整键见 `scripts/model-assets/five-authors/showcases.json`，已登记 sceneEnvironmentPresets/index.json。实际顶点测量生成尺寸/居中/落地，武器转向宽面展示，资源姿态不变。
+新增 19 个预设，每次最多 20 件，整库覆盖 175 个模型。Shayno 总览 7、Izkeas 总览 4；Alstrainfinite 精选 20 及车辆 15、旧家电 12、电子设备 14、武器农具 12、橱柜与门 13、旧橱柜 7、宝箱与配件 9、舟船渔具 16、家电 13、南瓜 5；Duendeds 总览 19、仙人掌 13、蜡烛 6；Tiltamoose 精选 8、走廊 18、箱柜与集装箱 11。完整键见 `codex-tools/model-assets/five-authors/showcases.json`，已登记 sceneEnvironmentPresets/index.json。实际顶点测量生成尺寸/居中/落地，武器转向宽面展示，资源姿态不变。
 
-`prepare.mjs` 在 public/dist 外读取 RAR 原图；`convert.py` 修复来源路径并转换；`importFiveAuthorAssets.mjs --verify` 校验来源、发布及可用转换结果的无损外提；`buildFiveAuthorShowcases.mjs --check` 验证预设与整库；`verifyFiveAuthorAssets.mjs` / `--overview` 实际加载每件和 19 个场景。175 件共 177,253 个三角形、492 个渲染网格，几何/法线/UV/贴图、蜡烛发光与 PBR 图、走廊法线及预设尺寸/落地/材质隔离检查通过，58 张图片各请求/上传一次。来源/转换/图片依赖与测量在 `scripts/model-assets/five-authors/`，正式构建/加载日志和截图在 `.asset-migration/five-authors/`，发布校验由 checkPublication.mjs 记录。本轮未修改核心加载器。
+`prepare.mjs` 在 public/dist 外读取 RAR 原图；`convert.py` 修复来源路径并转换；`importFiveAuthorAssets.mjs --verify` 校验来源、发布及可用转换结果的无损外提；`buildFiveAuthorShowcases.mjs --check` 验证预设与整库；`verifyFiveAuthorAssets.mjs` / `--overview` 实际加载每件和 19 个场景。175 件共 177,253 个三角形、492 个渲染网格，几何/法线/UV/贴图、蜡烛发光与 PBR 图、走廊法线及预设尺寸/落地/材质隔离检查通过，58 张图片各请求/上传一次。来源/转换/图片依赖与测量在 `codex-tools/model-assets/five-authors/`，正式构建/加载日志和截图在 `.asset-migration/five-authors/`，发布校验由 checkPublication.mjs 记录。本轮未修改核心加载器。
 
 默认完整构建、19 个正式 file:// Lab/材质 Inspector、四个其他模型消费者启动，以及 238 个新 public/dist 文件、19 份预设与索引哈希检查通过，结果在 `five-authors/production-validation.json`。已清理 143,236,016 字节本轮转换/解包/浏览器缓存；清理后来源、发布和预设再校验通过，原始来源未改动。
 
@@ -444,7 +449,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 新图按内容哈希保存于 `SharedTextures/artist_duhgless/`，旧两张 4K 图从 public/dist 移除，D:/Model 原始作者目录及全部来源哈希未修改；未额外复制原大图。Duhgless 仍为 11 个 GLB、23 张共享图，图合计 7,263,724 字节，模型加图 8,225,120 字节。三作者仍为 120 个 GLB、89 张图，合计 22,189,576 字节（21.16 MiB）。其余 119 个模型和 87 张图片哈希不变；下方原生导入/拆分节中的 4K 和 45.80 MiB 数值为优化前记录。
 
-`optimizeHydrantTextures.mjs` 复用 `three-authors/hydrant512.py`，清单记录原图哈希和派生规则；`--verify` 从只读原图重做重采样逐字节比对。三作者首次导入器自动执行优化，既有校验器区分原始图片与派生图片，避免重建时恢复大图。同步作者说明、测量哈希与发布记录，展示预设无需修改。小型 GLB/清单备份、截图与日志在 `.asset-migration/hydrant-512/`，优化与实际加载记录在 `scripts/model-assets/three-authors/hydrant-512.json` 与 `scripts/model-assets/hydrant-512/`。
+`optimizeHydrantTextures.mjs` 复用 `three-authors/hydrant512.py`，清单记录原图哈希和派生规则；`--verify` 从只读原图重做重采样逐字节比对。三作者首次导入器自动执行优化，既有校验器区分原始图片与派生图片，避免重建时恢复大图。同步作者说明、测量哈希与发布记录，展示预设无需修改。小型 GLB/清单备份、截图与日志在 `.asset-migration/hydrant-512/`，优化与实际加载记录在 `codex-tools/model-assets/three-authors/hydrant-512.json` 与 `codex-tools/model-assets/hydrant-512/`。
 
 `verifyHydrant512.mjs` 实测 GPU 两张 512 图、原边界/法线/UV、法线强度、实例材质隔离及图片共享通过；全部作者来源/资源校验与六预设只读检查通过。默认完整构建、Duhgless 正式 file:// 展示及材质 Inspector、四个其他模型消费者启动、212 个三作者 public/dist 文件与六预设哈希检查通过。本轮仅修改资源及导入/验证记录，没有调整核心加载器。
 
@@ -454,7 +459,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 22 张原编码图片（20 PNG、2 JPEG）无损共享在 `SharedTextures/artist_tinsonator/`，GLB 沿既有作者共享 URI。部分内嵌图与外部同名图不同，沿原 GLB 图片及实际材质区域，不凭 Texture1/2 文件名添加换色。模型 220,720 字节、图 2,068,722 字节，共 2,289,442 字节（2.18 MiB），比原 17 个内嵌 GLB 少 482,310 字节（17.4%，包括已证明重复的桶）；不缩图或有损压缩，不发布重复 FBX/OBJ、ZIP、快捷方式和未使用图片。
 
-预设 `artist-tinsonator-model-test` 展示全部 17 件，五分区、独立展台，实际加载顶点测量最大边 2.8、居中落地，并调整电话、长椅和路牌正面展示朝向。登记 `config/sceneEnvironmentPresets/index.json`。`importTinsonatorAssets.mjs --verify` 从来源重建逐字节比对；`buildTinsonatorShowcase.mjs --check` 校验预设与整库；`verifyTinsonatorAssets.mjs` / `--overview` 实际检查逐件模型与完整展示。审计、来源/共享依赖、测量、布局及发布验证保存在 `scripts/model-assets/tinsonator/`，截图和构建/加载日志在 `.asset-migration/tinsonator/`。
+预设 `artist-tinsonator-model-test` 展示全部 17 件，五分区、独立展台，实际加载顶点测量最大边 2.8、居中落地，并调整电话、长椅和路牌正面展示朝向。登记 `config/sceneEnvironmentPresets/index.json`。`importTinsonatorAssets.mjs --verify` 从来源重建逐字节比对；`buildTinsonatorShowcase.mjs --check` 校验预设与整库；`verifyTinsonatorAssets.mjs` / `--overview` 实际检查逐件模型与完整展示。审计、来源/共享依赖、测量、布局及发布验证保存在 `codex-tools/model-assets/tinsonator/`，截图和构建/加载日志在 `.asset-migration/tinsonator/`。
 
 17 件共 2,888 个三角形、29 个渲染网格，五区尺寸/居中/落地、Alpha 标记与 26 个实例材质隔离通过，22 张图片各读取/上传一次。默认完整构建、正式 file:// 展示与材质 Inspector、四个其他模型消费者启动，以及 40 个新 public/dist 文件、预设/索引哈希检查通过。清理本次验证缓存后再次核对来源与发布；本轮没有修改核心加载模块。
 
@@ -464,7 +469,7 @@ BMX 外观复核已恢复作者同套 3DS 中的绿色车架；源套件只有�
 
 Cursedlake 当前 108 个 GLB，共 1,808,900 字节，64 张共享图共 12,043,025 字节；三作者当前 120 个 GLB 与原 89 张图共 48,026,740 字节（45.80 MiB）。拆分仅增加 67,712 字节元数据，其他 37 个 GLB 和全部共享图哈希不变，未重复内嵌或裁切图片。总览 `artist-cursedlake-model-test` 改为 36 件代表/配色，三主题 `artist-cursedlake-shelter-model-test`、`artist-cursedlake-playground-model-test`、`artist-cursedlake-kiosk-model-test` 分别展示 29、11、44 件（餐亭含原机器人）。六个作者/主题预设覆盖全部 120 个模型，每次最多 44 件。
 
-`scripts/model-assets/three-authors/cursedlakeParts.mjs` 声明完整物件关系并调用既有逐字段/缓冲反向校验拆分器；`splitCursedlakeScenes.mjs --verify` 从原始源 GLB 重做全部拆分逐字节比对。首次导入器自动执行拆分，防止复现时恢复旧组合资源；清单、布局生成、逐件/主题与发布校验同步升级。120 件仍为 54,278 个三角形、296 个渲染网格；六预设的尺寸/落地、材质隔离、贴图和原机器人 Idle 验证通过，共享图片仅请求/上传各 89 次。默认完整构建、四个 Cursedlake 正式 file:// 预设/材质 Inspector、其他模型消费者及 public/dist 哈希检查通过。
+`codex-tools/model-assets/three-authors/cursedlakeParts.mjs` 声明完整物件关系并调用既有逐字段/缓冲反向校验拆分器；`splitCursedlakeScenes.mjs --verify` 从原始源 GLB 重做全部拆分逐字节比对。首次导入器自动执行拆分，防止复现时恢复旧组合资源；清单、布局生成、逐件/主题与发布校验同步升级。120 件仍为 54,278 个三角形、296 个渲染网格；六预设的尺寸/落地、材质隔离、贴图和原机器人 Idle 验证通过，共享图片仅请求/上传各 89 次。默认完整构建、四个 Cursedlake 正式 file:// 预设/材质 Inspector、其他模型消费者及 public/dist 哈希检查通过。
 
 本轮修复 `core/model/prefab/modelPrefabCache.ts` 加载隐藏源动画自动启动：glTF 设置 `GLTFLoaderAnimationStartMode.NONE`，保证缓存作者初始姿势，实例显式自动播放与 playAnimation 保留。新增共享纹理浏览器回归检查隐藏动画不播放、渲染后再次实例化姿势一致、显式动作和换图动作不变，在 HTTP/file:// 通过；像素差 0，17 项材质测试通过。截图与日志仍在 `.asset-migration/three-authors/`，验证缓存清理后再次核对来源与发布。
 
@@ -478,7 +483,7 @@ Cursedlake 当前 108 个 GLB，共 1,808,900 字节，64 张共享图共 12,043
 
 作者独立预设 `artist-xeniithh-model-test` 展示 1 件，`artist-duhgless-model-test` 展示 11 件、三分区，`artist-cursedlake-model-test` 展示 30 件实例、八分区，包含两个复用模型的配色。完整组装场景与作者独立物件沿来源结构保留，没有拆散自行车、车辆、机器人或建筑部件。三份预设登记目录，实际加载顶点测量最大边 2.8、居中落地，薄平面提升 0.02。
 
-`scripts/model-assets/three-authors/` 保存来源/转换/原生 GLB 审计与实际测量，`convert.py` 审计四个 FBX 并仅转换两件；`importThreeAuthorAssets.mjs --verify` 校验来源与发布哈希，重新外提 38 个原生 GLB 证明无损；`buildThreeAuthorShowcases.mjs --check` 校验三个预设与整库；`verifyThreeAuthorAssets.mjs` / `--overview` 实际加载全部模型、动画、配色与场景，`checkPublication.mjs` 验证正式 Lab 日志及发布哈希。暂存截图/日志在 `.asset-migration/three-authors/`，验证后清理 embedded 和 electron-test。
+`codex-tools/model-assets/three-authors/` 保存来源/转换/原生 GLB 审计与实际测量，`convert.py` 审计四个 FBX 并仅转换两件；`importThreeAuthorAssets.mjs --verify` 校验来源与发布哈希，重新外提 38 个原生 GLB 证明无损；`buildThreeAuthorShowcases.mjs --check` 校验三个预设与整库；`verifyThreeAuthorAssets.mjs` / `--overview` 实际加载全部模型、动画、配色与场景，`checkPublication.mjs` 验证正式 Lab 日志及发布哈希。暂存截图/日志在 `.asset-migration/three-authors/`，验证后清理 embedded 和 electron-test。
 
 本轮 40 件共 54,278 个三角形、296 个渲染网格，三个预设 42 件实例尺寸/落地、贴图、透明、材质隔离检查通过，全作者顺序加载 89 张图片各请求/上传一次。默认完整构建、三个正式 file:// Lab/材质 Inspector、其他四个模型消费者启动、132 个新 public/dist 文件和三份预设哈希检查通过，清理后再次核对来源和发布。
 
@@ -488,7 +493,7 @@ Cursedlake 当前 108 个 GLB，共 1,808,900 字节，64 张共享图共 12,043
 
 旧 Diffuse/Glossy/Emission 节点映射为标准 PBR，恢复原色、图片、UV 重复变换和发光强度；海盗旧透明混合近似为图集 alpha BLEND，沿项目默认深度安全裁切策略。此为旧着色节点的近似迁移。45 张原编码 PNG 无损共享在 `SharedTextures/artist_philip-erd/`，保留尺寸、采样和 8/16 位编码；模型 11,490,804 字节 + 图片 23,433,701 字节，合计 34,924,505 字节（33.31 MiB）。六份来源 CC0 许可保存在作者目录的 Licenses；279 个来源文件及压缩包哈希记录，原始来源未修改。
 
-`artist-philip-erd-model-test` 为八类 32 件代表的轻量总览，另有 cargo、castle、halloween、pirate、steampunk、windows、modular-buildings、stones 八个主题预设覆盖全部模型，单次最多 114 件。九份预设已登记至目录；普通/LOD 成对展示，基于实际加载顶点测量统一最大边 2.8、居中落地，薄平面提升 0.02。`scripts/model-assets/philip-erd/` 保存审计、来源/转换、逐件、主题和发布验证记录；`importPhilipErdAssets.mjs --verify` 检查来源/发布哈希与原图字节，`buildPhilipErdShowcase.mjs --check` 校验预设与整库，`verifyPhilipErdAssets.mjs` / `--overview` 验证实际模型与九个场景。暂存截图/日志在 `.asset-migration/philip-erd/`，验证后清理内嵌转换副本和测试缓存。
+`artist-philip-erd-model-test` 为八类 32 件代表的轻量总览，另有 cargo、castle、halloween、pirate、steampunk、windows、modular-buildings、stones 八个主题预设覆盖全部模型，单次最多 114 件。九份预设已登记至目录；普通/LOD 成对展示，基于实际加载顶点测量统一最大边 2.8、居中落地，薄平面提升 0.02。`codex-tools/model-assets/philip-erd/` 保存审计、来源/转换、逐件、主题和发布验证记录；`importPhilipErdAssets.mjs --verify` 检查来源/发布哈希与原图字节，`buildPhilipErdShowcase.mjs --check` 校验预设与整库，`verifyPhilipErdAssets.mjs` / `--overview` 验证实际模型与九个场景。暂存截图/日志在 `.asset-migration/philip-erd/`，验证后清理内嵌转换副本和测试缓存。
 
 本轮修复 `core/model/material/sharedTextureLoader.ts` 的透明加载时序：共享图片异步分配晚于 Babylon 原 Alpha 设置，现等材质图片分配完成后重做原 glTF Alpha 设置，恢复 MASK/BLEND 的图片透明标记；默认裁切策略不变。新增原始 MASK/BLEND 与默认裁切回归检查，验证相同 GPU 图片、实例隔离，在 HTTP 与正式 file:// 均通过，嵌入/共享图片渲染像素差为 0。17 项材质测试、默认完整构建和正式 file:// Lab/材质 Inspector、四个其他模型消费者启动通过。
 
@@ -500,7 +505,7 @@ Cursedlake 当前 108 个 GLB，共 1,808,900 字节，64 张共享图共 12,043
 
 家具 FBX 没有贴图连接，按作者同包 Unity 材质 GUID 恢复九张原 PNG，沿颜色系数、最近点采样、背面剔除和烛台第二材质 MASK/0.5 阈值。九件刚体导出高度沿 -Z，添加 +90° X 根节点旋转使其 +Y 朝上，顶点/UV/法线不变；蒙皮宝箱原本 +Y 朝上。全作者 41 张原编码 PNG 按哈希共享，位于 `SharedTextures/artist_mcsteeg/`，沿既有作者共享 URI 和 core/model 解析；没有降采样或有损压缩。模型 932,088 字节 + 图片 5,973,586 字节，合计 6,905,674 字节（6.59 MiB）。箱桶许可及家具署名保存在作者目录的 Licenses。
 
-预设 `artist-mcsteeg-model-test` 登记至目录，176 件分八主题排列，基于实际项目加载器包围盒最大边 2.8、居中落地，极薄平面提升 0.02 避免重面。`scripts/model-assets/mcsteeg/` 保存 123 个来源文件哈希、GLB/FBX 审计、材质映射、转换与测量记录；`convert.py` 仅转换家具，`splitRoots.mjs` 逐字段/缓冲反向验证拆分，`importMcsteegAssets.mjs` 导入及 `--verify` 校验，`buildMcsteegShowcase.mjs` 生成与 `--check` 整库校验，`verifyMcsteegAssets.mjs` / `--overview` 验证单件和总览。转换与截图在 `.asset-migration/mcsteeg/`，完成后清理内嵌副本和浏览器缓存，原始来源未修改。
+预设 `artist-mcsteeg-model-test` 登记至目录，176 件分八主题排列，基于实际项目加载器包围盒最大边 2.8、居中落地，极薄平面提升 0.02 避免重面。`codex-tools/model-assets/mcsteeg/` 保存 123 个来源文件哈希、GLB/FBX 审计、材质映射、转换与测量记录；`convert.py` 仅转换家具，`splitRoots.mjs` 逐字段/缓冲反向验证拆分，`importMcsteegAssets.mjs` 导入及 `--verify` 校验，`buildMcsteegShowcase.mjs` 生成与 `--check` 整库校验，`verifyMcsteegAssets.mjs` / `--overview` 验证单件和总览。转换与截图在 `.asset-migration/mcsteeg/`，完成后清理内嵌副本和浏览器缓存，原始来源未修改。
 
 本轮验证：176 件共 12,376 个三角形，货车动画和宝箱骨架可加载，八分区尺寸/落地正确，179 个独立材质，41 张图各请求/上传一次。总览与八类近景、默认完整构建、正式 file:// Lab/材质 Inspector、四个其他模型消费者启动与 public/dist 资源哈希检查通过；清理后来源与发布哈希再次检查。
 
@@ -510,7 +515,7 @@ Cursedlake 当前 108 个 GLB，共 1,808,900 字节，64 张共享图共 12,043
 
 九张原编码 PNG 位于 `SharedTextures/artist_ciprient/`，默认图无损外提，图片与来源逐字节一致，沿既有作者共享 URI 和 core/model 解析。车辆/轮椅沿最近点 mipmap、武器沿 FBX 线性 mipmap，保留原 PBR 参数；八图 256×256、皮卡 246×246，没有缩图或有损压缩。GLB 248,808 字节 + 图片 173,694 字节，合计 422,502 字节（412.60 KiB）。源目录及四个 ZIP 没有许可说明。展示预设 `artist-ciprient-model-test` 登记至目录，九件按车辆/武器/轮椅三个区排列，基于实际加载器包围盒统一最大边 2.8、居中落地，救护车和军用车调整展示朝向。
 
-`scripts/model-assets/ciprient/` 保存来源、修复/转换与测量记录；`convert.py` 审计并转换，读取后退出源文件保存的编辑模式再导出；`importCiprientAssets.mjs` 首次导入与 `--verify` 校验，`buildCiprientShowcase.mjs` 生成及 `--check` 校验整库，`verifyCiprientAssets.mjs` / `--overview` 检查几何、UV、法线、材质、贴图与场景。临时输出在 `.asset-migration/ciprient/`，验证后释放内嵌转换副本和测试缓存。
+`codex-tools/model-assets/ciprient/` 保存来源、修复/转换与测量记录；`convert.py` 审计并转换，读取后退出源文件保存的编辑模式再导出；`importCiprientAssets.mjs` 首次导入与 `--verify` 校验，`buildCiprientShowcase.mjs` 生成及 `--check` 校验整库，`verifyCiprientAssets.mjs` / `--overview` 检查几何、UV、法线、材质、贴图与场景。临时输出在 `.asset-migration/ciprient/`，验证后释放内嵌转换副本和测试缓存。
 
 本轮验证通过：九件共 3,388 个三角形、32 个渲染网格，三分区尺寸与落地正确，11 个独立材质，九张图片各请求/上传一次。总览与三个近景、默认完整构建、正式 file:// Lab/材质 Inspector、四个其他模型消费者启动及 public/dist 资源哈希检查通过；41 个来源文件哈希未变，临时转换副本与测试缓存已清理。
 
@@ -520,7 +525,7 @@ Cursedlake 当前 108 个 GLB，共 1,808,900 字节，64 张共享图共 12,043
 
 棒球棍成对网格的顶点、拓扑和 UV 完全相同，复用五个 GLB 展示双配色；汽车四配色、冰箱双配色、奶昔机三配色，`artist-bricchi-games-model-test` 按七物品区展示 22 件，通过 glTF 材质索引覆盖底色，汽车同时覆盖车身和车窗而保留发光图。按实际项目加载器测量的包围盒统一最大边 2.8、居中落地；电脑和冰箱面朝展示方向。保留九个活动动画组，五个为棒球棍旋转，四个为 FBX 恒定变换；只保留与导出物品关联的活动 action，避免重复的 FBX take。
 
-15 张原编码 PNG 位于 `SharedTextures/artist_bricchi-games/`，默认图片无损外提，沿作者共享 URI 和 core/model 解析；网格/材质/动画二进制在外提阶段保持。模型 560,740 字节 + 图片 5,817,235 字节，合计 6,377,975 字节（6.08 MiB）。原目录与压缩包未发现许可文档。来源/转换及测量记录见 `scripts/model-assets/bricchi-games/`；`convert.py` 审计并转换，`importBricchiGamesAssets.mjs` 导入与 `--verify` 校验，`buildBricchiGamesShowcase.mjs` 生成并用 `--check` 校验整库，`verifyBricchiGamesAssets.mjs` / `--overview` 检查单件、全部变体、动画、车窗/发光和场景材质隔离。临时输出在 `.asset-migration/bricchi-games/`，验证后清理内嵌贴图副本和浏览器缓存。
+15 张原编码 PNG 位于 `SharedTextures/artist_bricchi-games/`，默认图片无损外提，沿作者共享 URI 和 core/model 解析；网格/材质/动画二进制在外提阶段保持。模型 560,740 字节 + 图片 5,817,235 字节，合计 6,377,975 字节（6.08 MiB）。原目录与压缩包未发现许可文档。来源/转换及测量记录见 `codex-tools/model-assets/bricchi-games/`；`convert.py` 审计并转换，`importBricchiGamesAssets.mjs` 导入与 `--verify` 校验，`buildBricchiGamesShowcase.mjs` 生成并用 `--check` 校验整库，`verifyBricchiGamesAssets.mjs` / `--overview` 检查单件、全部变体、动画、车窗/发光和场景材质隔离。临时输出在 `.asset-migration/bricchi-games/`，验证后清理内嵌贴图副本和浏览器缓存。
 
 本轮验证通过：11 个基础模型共 10,880 个三角形、九个动画组；22 件场景尺寸/落地正确，26 个独立材质，15 张图各请求/上传一次。总览和五个近景、默认完整构建、正式 file:// Lab/材质 Inspector、四个其他模型消费者启动及 public/dist 发布哈希检查通过。36 个来源文件/压缩包哈希未变；验证缓存与转换副本已清理。
 
@@ -530,11 +535,11 @@ Cursedlake 当前 108 个 GLB，共 1,808,900 字节，64 张共享图共 12,043
 
 按俯视角游戏范围，洞穴主题已移除，Blender 审计和导入排除 The Cave，原始来源保留。完整 `Island/Island.glb` 及其地形大图也已从 public 和 dist 移除；基础转换不再生成完整海岛，避免复现时恢复。`Island/Parts/` 保留 14 棵椰子树、7 把太阳伞和 4 张垫子。`islandParts.py -- --export` 从源 Blender 文件保留完整树干/叶片、伞杆/伞面并以底部为原点；垫子原本绘制在地面贴图中，现为独立平面。
 
-`scripts/optimizeGatakiIslandTextures.mjs` 先扫描整个项目的 GLB 依赖，再将四个垫子使用的区域无损裁切、拼入 512×512 PNG 图集，并重映射四个 GLB 的 UV/图片引用；保留所有其他网格字节和材质字段。纹理未降采样，保留 2 像素采样邻域及 8 像素边缘延展，PNG 解码逐像素一致。2048×2048 地形大图 7,184,621 字节替换为 160,130 字节图集；椰子树/太阳伞原有贴图几乎整图在用，保持原分辨率。除四个垫子外，剩余模型与原有保留图片哈希不变。
+`codex-tools/optimizeGatakiIslandTextures.mjs` 先扫描整个项目的 GLB 依赖，再将四个垫子使用的区域无损裁切、拼入 512×512 PNG 图集，并重映射四个 GLB 的 UV/图片引用；保留所有其他网格字节和材质字段。纹理未降采样，保留 2 像素采样邻域及 8 像素边缘延展，PNG 解码逐像素一致。2048×2048 地形大图 7,184,621 字节替换为 160,130 字节图集；椰子树/太阳伞原有贴图几乎整图在用，保持原分辨率。除四个垫子外，剩余模型与原有保留图片哈希不变。
 
 当前 79 个 GLB 共 5,577,252 字节，44 张共享图片共 21,223,362 字节，合计 26,800,614 字节（25.56 MiB）。相对拆出道具后的 80 件版本减少 7,120,851 字节（6.79 MiB）。共享图片仍位于 `SharedTextures/artist_gataki/`，沿作者共享 URI 和 core/model 加载。`artist-gataki-model-test` 展示六分区的 79 件模型；最大边 2.8、居中落地，垫子抬高 0.02 避免重面闪烁。
 
-`scripts/model-assets/gataki/` 保存来源/依赖清单、组件与原点、UV 测量及 `island-texture-optimization.json` 裁切记录；`importGatakiAssets.mjs` 首次导入 54 件基础模型和 25 件独立道具后自动整理贴图，`--verify` 检查来源与发布哈希，存在临时原始输出时重做 UV 变换比对。`buildGatakiShowcase.mjs --check` 校验预设与整库；`verifyGatakiAssets.mjs` / `--overview` 验证单件与完整场景。当前 79 件共 178,506 个三角形、44 张图各请求/上传一次，布局与近景检查通过。转换输出和截图在 `.asset-migration/gataki/`，验证后释放浏览器缓存和不再使用的完整海岛临时副本。
+`codex-tools/model-assets/gataki/` 保存来源/依赖清单、组件与原点、UV 测量及 `island-texture-optimization.json` 裁切记录；`importGatakiAssets.mjs` 首次导入 54 件基础模型和 25 件独立道具后自动整理贴图，`--verify` 检查来源与发布哈希，存在临时原始输出时重做 UV 变换比对。`buildGatakiShowcase.mjs --check` 校验预设与整库；`verifyGatakiAssets.mjs` / `--overview` 验证单件与完整场景。当前 79 件共 178,506 个三角形、44 张图各请求/上传一次，布局与近景检查通过。转换输出和截图在 `.asset-migration/gataki/`，验证后释放浏览器缓存和不再使用的完整海岛临时副本。
 
 整理后默认完整构建、正式 file:// Lab/材质 Inspector、四个其他模型消费者启动及 public/dist 发布哈希检查通过。65,494 个保留像素与原图一致，UV 反变换正确；旧完整海岛和地形大图在两个发布目录均不存在，验证缓存和旧转换副本已释放。
 
@@ -542,17 +547,17 @@ Cursedlake 当前 108 个 GLB，共 1,808,900 字节，64 张共享图共 12,043
 
 `D:/Model/ARTIST——ddv23` 的油桶、廓尔喀刀、M9 刺刀已是原生 glTF 2.0 GLB，直接无损外提默认图片，保留几何、法线、UV、节点、材质和原采样，不经 Blender 重导出。3 个 GLB 位于 `public/resources/Model/GLB/artist_ddv23/`，全部 11 张原编码 PNG 位于 `SharedTextures/artist_ddv23/`；GLB 沿既有作者共享 URI 适配加载。独立预设 `artist-ddv23-model-test` 已登记至目录，按三个物品分区展示 11 种配色实例，通过 `materialOverrides` 复用 3 个模型，材质独立。模型 31,212 字节、贴图 346,626 字节，来源未修改。
 
-`scripts/importDdv23Assets.mjs` 导入并用 `--verify` 比对来源与发布哈希、重新外提证明无损；拒绝覆盖已有目录。`scripts/buildDdv23Showcase.mjs` 使用真实项目加载器测得的包围盒生成居中落地布局，`--check` 校验已保存预设与整库。`scripts/verifyDdv23Assets.mjs` 验证单模型全部配色，`--overview` 检查完整场景的 11 张贴图、实例材质隔离与尺寸/落地。来源/依赖清单和测量记录在 `scripts/model-assets/ddv23/`，临时截图与日志在 `.asset-migration/ddv23/`，不进入发布目录。默认完整构建及正式 file:// Lab 加载、材质 Inspector 验证通过。
+`codex-tools/importDdv23Assets.mjs` 导入并用 `--verify` 比对来源与发布哈希、重新外提证明无损；拒绝覆盖已有目录。`codex-tools/buildDdv23Showcase.mjs` 使用真实项目加载器测得的包围盒生成居中落地布局，`--check` 校验已保存预设与整库。`codex-tools/verifyDdv23Assets.mjs` 验证单模型全部配色，`--overview` 检查完整场景的 11 张贴图、实例材质隔离与尺寸/落地。来源/依赖清单和测量记录在 `codex-tools/model-assets/ddv23/`，临时截图与日志在 `.asset-migration/ddv23/`，不进入发布目录。默认完整构建及正式 file:// Lab 加载、材质 Inspector 验证通过。
 
 ## 2026-10-04：共享贴图复核与收尾
 
 模型和共享贴图现在按同一作者目录组织：`GLB/artist_flakdeau19/` 对应 `SharedTextures/artist_flakdeau19/`，Valsekamerplant 对应 `artist_valsekamerplant/`。1464 个 GLB 的 `images.uri` 改为 `__shared_textures__/artist_<author>/<hash>.png|jpg`；加载适配保留作者段并严格拒绝目录穿越、多层目录和编码分隔符。90 张图片仅移动、编码不变，模型二进制不变，来源与依赖清单同步更新。Valsekamerplant 权威清单位于其 SharedTextures 作者目录。目录整理候选及原 JSON 在 `.asset-migration/model-author-layout/`。
 
-Flakdeau19 原 FBX/Blender 资源经 Blender 4.3 转为 225 个 glTF 2.0 GLB，按用户指定存放在 `public/resources/Model/GLB/artist_flakdeau19/`，独立艺术家预设 `artist-flakdeau19-model-test` 展示五个物品分区，不纳入 Valsekamerplant 的 1239 件分类。单张原编码调色板沿既有 SharedTextures 和 core/model 适配共享，最近点且无 mipmap。`scripts/model-assets/flakdeau19/` 保存转换脚本、来源清单和浏览器包围盒记录；`importFlakdeau19Assets.mjs` 导入/校验，`buildFlakdeau19Showcase.mjs` 生成并校验整库，`verifyFlakdeau19Assets.mjs` 检查实际加载与场景布局。正式浏览器脚本支持 `MODEL_TEXTURE_PRESET_KEY` / `MODEL_TEXTURE_PRESET_MODELS` 选择验证主题，缺省仍验证合并城市场景。来源及复现见该资源开发目录的 README。
+Flakdeau19 原 FBX/Blender 资源经 Blender 4.3 转为 225 个 glTF 2.0 GLB，按用户指定存放在 `public/resources/Model/GLB/artist_flakdeau19/`，独立艺术家预设 `artist-flakdeau19-model-test` 展示五个物品分区，不纳入 Valsekamerplant 的 1239 件分类。单张原编码调色板沿既有 SharedTextures 和 core/model 适配共享，最近点且无 mipmap。`codex-tools/model-assets/flakdeau19/` 保存转换脚本、来源清单和浏览器包围盒记录；`importFlakdeau19Assets.mjs` 导入/校验，`buildFlakdeau19Showcase.mjs` 生成并校验整库，`verifyFlakdeau19Assets.mjs` 检查实际加载与场景布局。正式浏览器脚本支持 `MODEL_TEXTURE_PRESET_KEY` / `MODEL_TEXTURE_PRESET_MODELS` 选择验证主题，缺省仍验证合并城市场景。来源及复现见该资源开发目录的 README。
 
-Valsekamerplant 展示从 1239 件总览拆为 7 个主题预设：灌木（262 件）、办公（180 件）、中世纪（193 件）、围栏套件（79 件）、城市道路（104 件）、盆栽（10 件），以及合并城市围墙、交通路障、城市卫生和城市设施的城市场景（411 件）。旧总览及被合并的细分预设从目录和磁盘移除。`scripts/buildValsekamerplantShowcase.mjs` 生成居中布局，验证整库后写回并清理已登记的旧分类文件；支持 `--check` 只读验证。分类及键清单见 `docs/valsekamerplant-scene-presets.md`，正式浏览器验证加载合并城市场景，全部资源验证仍覆盖 1239 个 GLB。
+Valsekamerplant 展示从 1239 件总览拆为 7 个主题预设：灌木（262 件）、办公（180 件）、中世纪（193 件）、围栏套件（79 件）、城市道路（104 件）、盆栽（10 件），以及合并城市围墙、交通路障、城市卫生和城市设施的城市场景（411 件）。旧总览及被合并的细分预设从目录和磁盘移除。`codex-tools/buildValsekamerplantShowcase.mjs` 生成居中布局，验证整库后写回并清理已登记的旧分类文件；支持 `--check` 只读验证。分类及键清单见 `docs/valsekamerplant-scene-presets.md`，正式浏览器验证加载合并城市场景，全部资源验证仍覆盖 1239 个 GLB。
 
-Valsekamerplant 的 public 模型目录仅保留 GLB 和资源说明；展示预设生成所需的历史导入/包围盒记录移至 `scripts/model-assets/valsekamerplant/`，由 `buildValsekamerplantShowcase.mjs` 读取，不进入发布资源。无引用的旧截图及核查报告已清理，共享图片及权威依赖清单仍位于 `public/resources/Model/SharedTextures/`。
+Valsekamerplant 的 public 模型目录仅保留 GLB 和资源说明；展示预设生成所需的历史导入/包围盒记录移至 `codex-tools/model-assets/valsekamerplant/`，由 `buildValsekamerplantShowcase.mjs` 读取，不进入发布资源。无引用的旧截图及核查报告已清理，共享图片及权威依赖清单仍位于 `public/resources/Model/SharedTextures/`。
 
 `PreparedModelMaterials` 补充 rollback/finalize；场景批量材质更新在所有提交成功后才释放旧材质，中途失败逆序回滚，浏览器故障注入验证旧材质对象和纹理租约恢复。Animation Workbench 的材质签名仅在成功后写入，以请求版本隔离过期回调，支持取消未完成覆盖并恢复继承。
 
@@ -566,7 +571,7 @@ Valsekamerplant 的 public 模型目录仅保留 GLB 和资源说明；展示预
 
 `SceneEnvironmentModel.materialOverrides` 使用 glTF 材质索引和五种显式贴图槽，缺省继承、null 移除；`core/scene/updateSceneModelMaterials.ts` 准备多个目标后同步提交。Scene Environment Lab 的逐槽路径/资源候选、高级 UV/采样/透明 JSON 与批量覆盖走既有 DocumentHistory、场景 parser 和单文件 PUT。单模型换图不重建场景；保存仍属开发 API，正式版导出 JSON。Model Scene、Model Display、武器 asset 和 Animation Workbench 的 asset.model.config 同步保留/验证覆盖，其他 createModelEntity 调用方直接继承共享资源能力；没有新增全局材质配置库或其他 Lab 的专用贴图 UI。Python Model Scene/Display 后备校验与只读场景目录检查同步。
 
-Valsekamerplant 1239 个 GLB 已无损外提并真正移除图片二进制：作者目录整理后模型 12,205,952 字节 + 89 张原编码图片 3,770,510 字节，另有依赖清单 591,474 字节。`scripts/sharedTextureMigration.mjs --verify` 校验工程文件/图片哈希；备份和候选位于 public/dist 外的 `.asset-migration/`。完整验证和限制见 `docs/model-shared-textures-implementation.md`；`build:model-validation` 使用全仓原构建配置但输出至新的验证目录，`test:model-materials-production` 打开正式 file:// 页面。
+Valsekamerplant 1239 个 GLB 已无损外提并真正移除图片二进制：作者目录整理后模型 12,205,952 字节 + 89 张原编码图片 3,770,510 字节，另有依赖清单 591,474 字节。`codex-tools/sharedTextureMigration.mjs --verify` 校验工程文件/图片哈希；备份和候选位于 public/dist 外的 `.asset-migration/`。完整验证和限制见 `docs/model-shared-textures-implementation.md`；`build:model-validation` 使用全仓原构建配置但输出至新的验证目录，`test:model-materials-production` 打开正式 file:// 页面。
 
 ## 2026-10-01：Scene Environment 父子节点第二阶段
 
@@ -596,9 +601,9 @@ Dungeon `sceneEnvironmentDisplay.ts` 仅映射声明顶层位置，将子树作�
 
 `core/model/entity/createModelEntity.ts` 在加载/应用资产配置失败时清理临时节点与 prefab 实例；可选 parent 在异步准备前挂载模型根，供场景候选隐藏加载使用。场景工厂同步创建失败也释放已分配的阴影和根节点。
 
-场景事实源现为 `config/sceneEnvironmentPresets/index.json` 与同目录每预设一个 JSON。`core/scene/sceneEnvironment.catalog.ts` 拥有目录校验、组装和继承声明编辑；`sceneEnvironment.loader.ts` 为 Lab / Dungeon 统一读取入口，开发同源 API、构建 eager glob 收录目录。Vite GET 组装库，PUT 接收 `{presetKey,declaration}`，由 `scripts/sceneEnvironmentPresetStore.ts` 串行验证整库及阴影引用后仅原子替换当前文件；目录 HMR 被抑制以保护草稿。Python GET 使用 `python/scene_environment_presets.py` 只读组装，完整类型校验继续由 TS 消费者承担。
+场景事实源现为 `config/sceneEnvironmentPresets/index.json` 与同目录每预设一个 JSON。`core/scene/sceneEnvironment.catalog.ts` 拥有目录校验、组装和继承声明编辑；`sceneEnvironment.loader.ts` 为 Lab / Dungeon 统一读取入口，开发同源 API、构建 eager glob 收录目录。Vite GET 组装库，PUT 接收 `{presetKey,declaration}`，由 `codex-tools/sceneEnvironmentPresetStore.ts` 串行验证整库及阴影引用后仅原子替换当前文件；目录 HMR 被抑制以保护草稿。Python GET 使用 `python/scene_environment_presets.py` 只读组装，完整类型校验继续由 TS 消费者承担。
 
-继承保留 `extendsPresetKey` 与 `lightShadowOverrides`，新增明确的 objects/models/lights 顶层覆盖，编辑只写派生文件。`scripts/migrateSceneEnvironmentPresets.ts` 可重跑，比较迁移前后解析结果后移除旧总文件，拒绝覆盖不同内容的现有文件；5 个预设已迁移。对象树与画布右键可添加几何体、光源，并从 `public` 模型清单的压缩目录树中选取 GLB/GLTF 文件；新对象进入声明历史并通过当前预设保存。Inspector 不删除对象或改 ID，阴影高级覆盖使用 JSON；模型路径资源存在性在预览时检测，保存没有跨进程冲突检测。详情与验证命令见 `tools/scene-environment-lab/README.md`。本节取代 2026-09-26 条目中的场景整库保存和继承物化说明。
+继承保留 `extendsPresetKey` 与 `lightShadowOverrides`，新增明确的 objects/models/lights 顶层覆盖，编辑只写派生文件。`codex-tools/migrateSceneEnvironmentPresets.ts` 可重跑，比较迁移前后解析结果后移除旧总文件，拒绝覆盖不同内容的现有文件；5 个预设已迁移。对象树与画布右键可添加几何体、光源，并从 `public` 模型清单的压缩目录树中选取 GLB/GLTF 文件；新对象进入声明历史并通过当前预设保存。Inspector 不删除对象或改 ID，阴影高级覆盖使用 JSON；模型路径资源存在性在预览时检测，保存没有跨进程冲突检测。详情与验证命令见 `tools/scene-environment-lab/README.md`。本节取代 2026-09-26 条目中的场景整库保存和继承物化说明。
 
 ## 2026-09-28：组合式 Dungeon 系统装配工作台（第一阶段）
 
@@ -674,7 +679,7 @@ LabKit 新增可选 `createLab({ initialCamera, cameraPresets }) → createLabCa
 
 `SceneEnvironmentInstance.nodes` 新增声明 ID 到节点的只读映射，场景创建支持 AbortSignal；模型只注册实例根，辅助节点不自动开放编辑。Scene Environment Lab 保留现有入口、相机控制和 CSM 调试，通过 React 面板挂载共享编辑 UI。重载和 CSM 调试消费当前草稿，使用代次及取消信号释放过期实例。
 
-Vite 新增 `/api/scene-environment-presets` GET/PUT：共享 parser 校验、临时文件原子替换，保存仍为 `config/sceneEnvironmentPresets.json`，并抑制该文件保存导致的 HMR。Python 同名接口保持只读。未修改的继承声明原样保存，修改继承预设时仅将该预设物化为独立声明。构建版导出 JSON。`scripts/sceneEnvironmentPresetStore.ts` 提供可测试的保存边界。
+Vite 新增 `/api/scene-environment-presets` GET/PUT：共享 parser 校验、临时文件原子替换，保存仍为 `config/sceneEnvironmentPresets.json`，并抑制该文件保存导致的 HMR。Python 同名接口保持只读。未修改的继承声明原样保存，修改继承预设时仅将该预设物化为独立声明。构建版导出 JSON。`codex-tools/sceneEnvironmentPresetStore.ts` 提供可测试的保存边界。
 
 验证入口：`npm run test:scene-editor`、`npm run build:scene-editors`。共享 API、各 Lab 生命周期及暂不支持的通道见 `core/scene-editor/README.md` 和四个 Lab 的 README。
 

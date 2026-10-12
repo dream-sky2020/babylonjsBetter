@@ -44,7 +44,7 @@
 
 本次不只信任迁移清单：逐个读取 `D:/Model/ARTIST——valsekamerplant` 原始 GLB，核对 sourceSha256，再重新执行无损提取，与工程候选哈希比较；提取内部断言核对所有保留 bufferView 内容及非存储 JSON 字段，编码图片与共享图片逐字节哈希一致。**1239 个全部通过**，包含动画数据；原始来源未修改。
 
-本地工程迁移前备份位于 `.asset-migration/valsekamerplant/backup/`，不进入 public/dist。迁移前 `manifest.json` 和 `validation.json` 保留 `recordStage` 标签，现位于 `scripts/model-assets/valsekamerplant/`，供展示预设生成脚本读取；它们不表示当前文件哈希。2026-10-04 清理 public 时删除了无引用的展示截图、Blender 核查报告和旧场景验证报告，模型及共享图片未改动。
+本地工程迁移前备份位于 `.asset-migration/valsekamerplant/backup/`，不进入 public/dist。迁移前 `manifest.json` 和 `validation.json` 保留 `recordStage` 标签，现位于 `codex-tools/model-assets/valsekamerplant/`，供展示预设生成脚本读取；它们不表示当前文件哈希。2026-10-04 清理 public 时删除了无引用的展示截图、Blender 核查报告和旧场景验证报告，模型及共享图片未改动。
 
 ## 本次验证结果与复现
 

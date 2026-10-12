@@ -14,4 +14,4 @@
 | 围栏套件 · 全部材质（79 件） | 79 | `artist-valsekamerplant-fences-model-test` |
 | 盆栽 · 植物与花盆（10 件） | 10 | `artist-valsekamerplant-plants-model-test` |
 
-由 `node --experimental-strip-types scripts/buildValsekamerplantShowcase.mjs` 生成；该命令会覆盖这些主题预设。`--check` 仅验证生成输入及候选目录，不写文件。布局使用 `scripts/model-assets/valsekamerplant/` 的历史包围盒。
+由 `node --experimental-strip-types codex-tools/buildValsekamerplantShowcase.mjs` 生成；该命令会覆盖这些主题预设。`--check` 仅验证生成输入及候选目录，不写文件。布局使用 `codex-tools/model-assets/valsekamerplant/` 的历史包围盒。
