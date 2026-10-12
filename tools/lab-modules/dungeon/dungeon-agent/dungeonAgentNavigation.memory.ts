@@ -8,6 +8,9 @@ export type DungeonAgentNavigation = {
   repairCount: number | undefined;
   blockedReason: string | null; blockedFromTileIndex: number | null; blockedToTileIndex: number | undefined;
   retryRemainingSeconds: number | null; consecutiveFailures: number | null;
+  plan?: DungeonAgentNavigationPlan;
+  reservationPlanSequence?: number;
+  reservationStartIndex?: number;
 };
 export type DungeonAgentNavigationData = { loadId: number; presetKey: string; agents: Map<string, DungeonAgentNavigation> };
 const EMPTY: readonly never[] = Object.freeze([]);
@@ -25,7 +28,7 @@ export const DUNGEON_AGENT_NAVIGATION_MEMORY = defineLabSharedData({
     loadId: v.loadId, presetKey: v.presetKey, agentCount: v.agents.size, agents: v.agents,
   } : { loaded: false },
 });
-/** Stable view records; plans and blocked records may be replaced by Core. */
+/** @deprecated Legacy view adapter; composed sessions use allocateDungeonAgentStorage. */
 export const createDungeonAgentNavigationData = (loadId: number, presetKey: string, source: readonly DungeonRuntimeAgent[]): DungeonAgentNavigationData => ({
   loadId, presetKey, agents: new Map(source.map(agent => [agent.binding.entity.id, {
     entityId: agent.binding.entity.id,

@@ -1,25 +1,37 @@
 import type { DungeonRuntime } from '../dungeon-runtime';
-import { createDungeonAgentRuntimeState, updateDungeonAgentMovements } from './dungeonAgent.runtime';
+import { createDungeonAgentRuntimeState, updateDungeonAgentMovements, getDungeonActiveAgents } from './dungeonAgent.runtime.ts';
 import { updateDungeonAgentControllers, runDungeonAgentControllersAfterPlayerStep,
-  type DungeonAgentControllerRegistry } from './dungeonAgent.controllers';
+  type DungeonAgentControllerRegistry } from './dungeonAgent.controllers.ts';
 import type { DungeonPlayerStepCompleted } from '../dungeon-player-movement/dungeonPlayerStepEvents';
+
+export type DungeonAgentSettings = {
+  controllersEnabled: boolean; decisionIntervalSeconds: number; maxPathSearchesPerDecision: number;
+};
+export type DungeonAgentSystemStorage = NonNullable<Parameters<typeof createDungeonAgentRuntimeState>[3]> & {
+  settings: DungeonAgentSettings;
+  clock: { decisionElapsed: number };
+};
 
 /** Headless Agent system. Controls edit settings; simulation never reads UI elements. */
 export class DungeonAgentSystem {
   readonly state: ReturnType<typeof createDungeonAgentRuntimeState>;
   readonly runtime: DungeonRuntime;
   readonly registry: DungeonAgentControllerRegistry;
-  readonly settings = { controllersEnabled: true, decisionIntervalSeconds: 0.1, maxPathSearchesPerDecision: 2 };
-  private decisionElapsed = 0;
+  readonly settings: DungeonAgentSettings;
+  private readonly clock: { decisionElapsed: number };
+  private get decisionElapsed() { return this.clock.decisionElapsed; }
+  private set decisionElapsed(value: number) { this.clock.decisionElapsed = value; }
 
-  constructor(runtime: DungeonRuntime, registry: DungeonAgentControllerRegistry) {
+  constructor(runtime: DungeonRuntime, registry: DungeonAgentControllerRegistry, storage?: DungeonAgentSystemStorage) {
     this.runtime = runtime;
     this.registry = registry;
-    this.state = createDungeonAgentRuntimeState(runtime.map, runtime.traversal, runtime.movementResolver);
+    this.settings = storage?.settings ?? { controllersEnabled: true, decisionIntervalSeconds: 0.1, maxPathSearchesPerDecision: 2 };
+    this.clock = storage?.clock ?? { decisionElapsed: 0 };
+    this.state = createDungeonAgentRuntimeState(runtime.map, runtime.traversal, runtime.movementResolver, storage);
   }
 
   update(deltaSeconds: number) {
-    const changed = new Set(this.state.activeAgents ?? []);
+    const changed = new Set(getDungeonActiveAgents(this.state));
     const completed = updateDungeonAgentMovements(this.state, deltaSeconds);
     this.decisionElapsed += deltaSeconds;
     let actions: ReturnType<typeof updateDungeonAgentControllers> = [];
@@ -32,7 +44,7 @@ export class DungeonAgentSystem {
         reservationPenalty: 2, maxPathSearchesPerUpdate: this.settings.maxPathSearchesPerDecision,
       });
     }
-    this.state.activeAgents?.forEach(agent => changed.add(agent));
+    getDungeonActiveAgents(this.state).forEach(agent => changed.add(agent));
     for (const action of actions) {
       const index = this.state.agentIndexByEntityId.get(action.entityId);
       if (index !== undefined) changed.add(this.state.agents[index]!);

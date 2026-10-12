@@ -23,9 +23,14 @@ export const createDungeonAgentRuntimeState = (
   map: DungeonRuntimeMap,
   traversal: DungeonTraversalWorld = createDungeonTraversalWorld(map),
   movementResolver: DungeonMovementResolver = createDungeonMovementResolver(traversal),
+  storage?: {
+    createAgent(binding: DungeonRuntimeAgent['binding']): DungeonRuntimeAgent;
+    turnCounter: { turnNumber: number };
+    activeAgentIds: Set<string>;
+  },
 ): DungeonAgentRuntimeState => {
   const bindings = scanDungeonDocumentAgents(map.document);
-  const agents: DungeonRuntimeAgent[] = bindings.map((binding) => ({
+  const agents: DungeonRuntimeAgent[] = bindings.map((binding) => storage?.createAgent(binding) ?? ({
     binding,
     tileIndex: binding.initialTileIndex,
     facing: binding.gridAgent.initialFacing,
@@ -47,9 +52,12 @@ export const createDungeonAgentRuntimeState = (
       movementProfileId: agent.binding.gridAgent.movementProfileId,
     });
   });
+  const turnCounter = storage?.turnCounter ?? { turnNumber: 0 };
   return {
-    activeAgents: new Set(),
-    turnNumber: 0,
+    // Rebuildable execution indexes contain facades, never a second copy of agent state.
+    activeAgents: storage ? undefined : new Set(),
+    activeAgentIds: storage?.activeAgentIds,
+    get turnNumber() { return turnCounter.turnNumber; }, set turnNumber(value) { turnCounter.turnNumber = value; },
     agents,
     agentIndexByEntityId: new Map(agents.map((agent, index) => [agent.binding.entity.id, index])),
     traversal,
@@ -60,6 +68,22 @@ export const createDungeonAgentRuntimeState = (
 export const resolveDungeonAgentPriority = (agent: DungeonRuntimeAgent): number => (
   agent.priorityOverride ?? agent.binding.gridAgent.priority
 );
+
+/** Preserve insertion order while resolving host-owned IDs to the existing Core facades. */
+export const getDungeonActiveAgents = (state: DungeonAgentRuntimeState) => state.activeAgentIds
+  ? [...state.activeAgentIds].flatMap(id => {
+    const index = state.agentIndexByEntityId.get(id);
+    return index === undefined ? [] : [state.agents[index]!];
+  })
+  : state.activeAgents ?? state.agents;
+const activateAgent = (state: DungeonAgentRuntimeState, agent: DungeonRuntimeAgent) => {
+  state.activeAgentIds?.add(agent.binding.entity.id);
+  state.activeAgents?.add(agent);
+};
+const deactivateAgent = (state: DungeonAgentRuntimeState, agent: DungeonRuntimeAgent) => {
+  state.activeAgentIds?.delete(agent.binding.entity.id);
+  state.activeAgents?.delete(agent);
+};
 
 export const syncDungeonAgentPathReservation = (
   state: DungeonAgentRuntimeState,
@@ -201,7 +225,7 @@ export const startDungeonAgentMovement = (
     visualProgress: 0,
     rotationProgress: 0,
   };
-  if (durationSeconds > 0) state.activeAgents?.add(agent);
+  if (durationSeconds > 0) activateAgent(state, agent);
   if (durationSeconds === 0) {
     const advance = state.movementResolver.advanceActor(entityId, 0);
     if (advance.committed) {
@@ -241,7 +265,7 @@ export const startDungeonAgentTurn = (
     elapsedSeconds: 0,
     durationSeconds: duration,
   } : null;
-  if (agent.movement) state.activeAgents?.add(agent);
+  if (agent.movement) activateAgent(state, agent);
   return {
     started: true,
     completed: duration === 0,
@@ -257,8 +281,8 @@ export const updateDungeonAgentMovements = (
 ): readonly string[] => {
   if (!Number.isFinite(deltaSeconds) || deltaSeconds < 0) throw new RangeError('Agent 帧时间必须是非负有限数。');
   const completed: string[] = [];
-  (state.activeAgents ?? state.agents).forEach((agent) => {
-    if (!agent.movement) { state.activeAgents?.delete(agent); return; }
+  getDungeonActiveAgents(state).forEach((agent) => {
+    if (!agent.movement) { deactivateAgent(state, agent); return; }
     if (agent.movement.kind === 'move' || agent.movement.kind === 'rollback') {
       const advance = state.movementResolver.advanceActor(agent.binding.entity.id, deltaSeconds);
       if (advance.state === 'rollback') {
@@ -286,14 +310,14 @@ export const updateDungeonAgentMovements = (
       if (!advance.completed) return;
       if (advance.rolledBack) agent.facing = agent.movement.toFacing;
       agent.movement = null;
-      state.activeAgents?.delete(agent);
+      deactivateAgent(state, agent);
       completed.push(agent.binding.entity.id);
       return;
     }
     agent.movement.elapsedSeconds += deltaSeconds;
     if (agent.movement.elapsedSeconds < agent.movement.durationSeconds) return;
     agent.movement = null;
-    state.activeAgents?.delete(agent);
+    deactivateAgent(state, agent);
     completed.push(agent.binding.entity.id);
   });
   return completed;

@@ -77,18 +77,26 @@ export type DungeonDirectionalTraversalInspection = Readonly<{
   blockingEntityIds: readonly string[];
 }>;
 
+export type DungeonTraversalStorage = {
+  actors: Map<string, DungeonTraversalActor>;
+  occupantIdsByTile: ReadonlyArray<Set<string>>;
+  pathReservationsByTile: ReadonlyArray<Map<string, number>>;
+  pathReservationTileIndicesByActor: Map<string, Set<number>>;
+};
+
 export class DungeonTraversalWorld {
   readonly map: DungeonRuntimeMap;
   readonly obstacles: readonly DungeonObstacleBinding[];
   readonly obstacleStates: ReadonlyMap<string, boolean>;
-  readonly actors = new Map<string, DungeonTraversalActor>();
-  readonly occupantIdsByTile: ReadonlyArray<Set<string>>;
+  readonly storage: DungeonTraversalStorage;
+  get actors() { return this.storage.actors; }
+  get occupantIdsByTile() { return this.storage.occupantIdsByTile; }
   /** 寻路使用的软预约；不参与移动 Commit 或抢占。 */
-  readonly pathReservationsByTile: ReadonlyArray<Map<string, number>>;
+  get pathReservationsByTile() { return this.storage.pathReservationsByTile; }
   /** @deprecated 使用 pathReservationsByTile；保留给现有调用方兼容。 */
-  readonly reservationsByTile: ReadonlyArray<Map<string, number>>;
+  get reservationsByTile() { return this.storage.pathReservationsByTile; }
   /** 反向索引让单个 Actor 清理预约时只访问其实际路线，而不扫描整张地图。 */
-  private readonly pathReservationTileIndicesByActor = new Map<string, Set<number>>();
+  private get pathReservationTileIndicesByActor() { return this.storage.pathReservationTileIndicesByActor; }
   private readonly changeListeners = new Set<(change: DungeonTraversalChange) => void>();
 
   subscribe(listener: (change: DungeonTraversalChange) => void): () => void {
@@ -118,16 +126,20 @@ export class DungeonTraversalWorld {
     map: DungeonRuntimeMap,
     obstacles: readonly DungeonObstacleBinding[] = [],
     obstacleStates: ReadonlyMap<string, boolean> = new Map(),
+    storage?: DungeonTraversalStorage,
   ) {
     this.map = map;
     this.obstacles = obstacles;
     this.obstacleStates = obstacleStates;
-    this.occupantIdsByTile = Array.from({ length: map.topology.tileIds.length }, () => new Set<string>());
-    this.pathReservationsByTile = Array.from(
-      { length: map.topology.tileIds.length },
-      () => new Map<string, number>(),
-    );
-    this.reservationsByTile = this.pathReservationsByTile;
+    this.storage = storage ?? {
+      actors: new Map(), pathReservationTileIndicesByActor: new Map(),
+      occupantIdsByTile: Array.from({ length: map.topology.tileIds.length }, () => new Set()),
+      pathReservationsByTile: Array.from({ length: map.topology.tileIds.length }, () => new Map()),
+    };
+    if (this.occupantIdsByTile.length !== map.topology.tileIds.length
+      || this.pathReservationsByTile.length !== map.topology.tileIds.length) {
+      throw new RangeError('通行存储的占位表尺寸与地图不一致。');
+    }
   }
 
   registerActor(actor: DungeonTraversalActor): void {
@@ -452,4 +464,5 @@ export const createDungeonTraversalWorld = (
   map: DungeonRuntimeMap,
   obstacles: readonly DungeonObstacleBinding[] = [],
   obstacleStates: ReadonlyMap<string, boolean> = new Map(),
-): DungeonTraversalWorld => new DungeonTraversalWorld(map, obstacles, obstacleStates);
+  storage?: DungeonTraversalStorage,
+): DungeonTraversalWorld => new DungeonTraversalWorld(map, obstacles, obstacleStates, storage);

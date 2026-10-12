@@ -1,9 +1,10 @@
-import { DUNGEON_AGENT_NAVIGATION_MEMORY, createDungeonAgentNavigationData } from './dungeonAgentNavigation.memory';
+import { DUNGEON_AGENT_NAVIGATION_MEMORY } from './dungeonAgentNavigation.memory';
 import { DUNGEON_TRAVERSAL_STATE_MEMORY } from '../dungeon-traversal/dungeonTraversal.memory';
 import { DUNGEON_MOVEMENT_STATE_MEMORY } from '../dungeon-movement/dungeonMovement.memory';
 import { DUNGEON_GRID_MEMORY, type DungeonGridData } from '../dungeon-grid/dungeonGrid.memory';
-import { DUNGEON_AGENTS_MEMORY, DUNGEON_AGENT_STATE_MEMORY, createDungeonAgentMemoryData, type DungeonAgentState } from './dungeonAgent.memory';
-import { DUNGEON_AGENT_SETTINGS_MEMORY, DUNGEON_AGENT_CONTROLLER_MEMORY, createDungeonAgentControllerData } from './dungeonAgentController.memory';
+import { DUNGEON_AGENTS_MEMORY, DUNGEON_AGENT_STATE_MEMORY, type DungeonAgentState } from './dungeonAgent.memory';
+import { DUNGEON_AGENT_SETTINGS_MEMORY, DUNGEON_AGENT_CONTROLLER_MEMORY } from './dungeonAgentController.memory';
+import { allocateDungeonAgentStorage } from './dungeonAgentStorage.memory';
 import { DUNGEON_AGENT_CONTROL_SERVICE_KEY, type DungeonAgentCommands } from '@/core/dungeon-agent/dungeonAgentControl';
 import { DungeonAgentSystem } from '@/core/dungeon-agent/dungeonAgentSystem';
 import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
@@ -85,8 +86,13 @@ export const dungeonAgentLabModule: LabModule = {
     const agentControl = context.services.get(DUNGEON_AGENT_CONTROL_SERVICE_KEY);
     const overheadView = context.services.get<DungeonOverheadViewService>(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY);
     const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
-    const offPreparation = assembly.registerPreparation('dungeon-agent', runtime =>
-      new DungeonAgentSystem(runtime, controllerRegistry));
+    let prepared: { loadId: number; data: ReturnType<typeof allocateDungeonAgentStorage> } | null = null;
+    const offPreparation = assembly.registerPreparation('dungeon-agent', (runtime, loadId) => {
+      const data = allocateDungeonAgentStorage(loadId, '');
+      const system = new DungeonAgentSystem(runtime, controllerRegistry, data.storage);
+      prepared = { loadId, data };
+      return system;
+    });
     let agentSystem: DungeonAgentCommands | null = null;
 
     const panel = context.ui.addPanel('dungeon-agent', '可移动 Dungeon Agent');
@@ -739,25 +745,29 @@ export const dungeonAgentLabModule: LabModule = {
       if (!nextSystem) return;
       loaded = next;
       agentSystem = nextSystem;
-      const state = agentSystem.state;
-      const data = createDungeonAgentMemoryData(next.loadId, next.presetKey, state.agents);
+      if (!prepared || prepared.loadId !== next.loadId) return;
+      const data = prepared.data;
+      for (const domain of [data.descriptions, data.state, data.settings, data.controllers, data.navigation]) {
+        domain.presetKey = next.presetKey;
+      }
       descriptionsMemory.replace(data.descriptions);
       agentStateMemory.replace(data.state);
-      const controllerData = createDungeonAgentControllerData(next.loadId, next.presetKey, state, agentSystem.settings);
-      controllerData.settings.controllersEnabled = controllerToggle.input.checked;
-      settingsMemory.replace(controllerData.settings);
-      controllersMemory.replace(controllerData.controllers);
-      navigationMemory.replace(createDungeonAgentNavigationData(next.loadId, next.presetKey, state.agents));
+      data.settings.controllersEnabled = controllerToggle.input.checked;
+      settingsMemory.replace(data.settings);
+      controllersMemory.replace(data.controllers);
+      navigationMemory.replace(data.navigation);
+      prepared = null;
+      const agentCount = data.descriptions.agents.size;
       try {
         disposeMarkers();
         populateAgentSelect();
         renderMarkers();
-        status.textContent = state.agents.length
-          ? `已从地图扫描并创建 ${state.agents.length} 个 Dungeon Agent。`
+        status.textContent = agentCount
+          ? `已从地图扫描并创建 ${agentCount} 个 Dungeon Agent。`
           : '当前地图没有 dungeon-agent；可先在地图编辑器的 Tile 中添加。';
         void context.communication.publish(dungeonAgentsLoadedEvent, {
           loadId: next.loadId,
-          agentCount: state.agents.length,
+          agentCount,
         });
       } catch (error) {
 
@@ -778,6 +788,7 @@ export const dungeonAgentLabModule: LabModule = {
 
     return () => {
       offPreparation();
+      prepared = null;
       offMapChanged();
       offRuntimeChanged();
       offView();

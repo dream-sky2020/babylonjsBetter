@@ -49,8 +49,8 @@ import {
 import { DUNGEON_SESSION_INFO_MEMORY, createDungeonSessionInfoController } from './dungeonSession.memory';
 import { DUNGEON_PLAYER_SPAWN_MEMORY, createDungeonPlayerSpawnData } from '../player-spawn/playerSpawn.memory';
 import { DUNGEON_GRID_MEMORY, createDungeonGridData } from '../dungeon-grid/dungeonGrid.memory';
-import { DUNGEON_TRAVERSAL_STATE_MEMORY, createDungeonTraversalStateData } from '../dungeon-traversal/dungeonTraversal.memory';
-import { DUNGEON_MOVEMENT_STATE_MEMORY, createDungeonMovementStateData } from '../dungeon-movement/dungeonMovement.memory';
+import { DUNGEON_TRAVERSAL_STATE_MEMORY, allocateDungeonTraversalStateData, type DungeonTraversalOwnedData } from '../dungeon-traversal/dungeonTraversal.memory';
+import { DUNGEON_MOVEMENT_STATE_MEMORY, allocateDungeonMovementStateData, type DungeonMovementOwnedData } from '../dungeon-movement/dungeonMovement.memory';
 import { DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY, createDungeonMovementControl } from '@/core/dungeon-movement/dungeonMovementControl';
 import { DUNGEON_PLAYER_CONTROL_SERVICE_KEY, createDungeonPlayerControl } from '@/core/dungeon-player-movement/dungeonPlayerControl';
 import { DUNGEON_DEFORMATION_SETTINGS_MEMORY, createDungeonDeformationData } from '../dungeon-visual-deformation/dungeonDeformation.memory';
@@ -64,7 +64,7 @@ import { DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY, createDungeonTraversalControl } 
 import { DUNGEON_OBSTACLES_MEMORY, createDungeonObstaclesData } from '../dungeon-obstacle/dungeonObstacles.memory';
 import { DUNGEON_OBSTACLE_CONTROL_SERVICE_KEY } from '@/core/dungeon-obstacle/dungeonObstacleControl';
 import { setDungeonObstacleActive } from '@/core/dungeon-obstacle';
-import { DUNGEON_PLAYER_STATE_MEMORY, DUNGEON_OBSTACLE_STATE_MEMORY, createDungeonPlayerStateData, createDungeonObstacleStateData } from '../dungeon-runtime/dungeonRuntime.memory';
+import { DUNGEON_PLAYER_STATE_MEMORY, DUNGEON_OBSTACLE_STATE_MEMORY, allocateDungeonPlayerStateData, allocateDungeonObstacleStateData, type DungeonPlayerStateData, type DungeonObstacleStateData } from '../dungeon-runtime/dungeonRuntime.memory';
 import { DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY } from './dungeonMapLoader.view';
 import {
   createDungeonMapDeltaStore,
@@ -351,7 +351,17 @@ export const dungeonMapLoaderLabModule: LabModule = {
           let committed = false;
           try {
             const spawn = resolveDungeonDocumentPlayerSpawn(liveDocument, libraries.environments);
-            const runtime = assembly.create(liveDocument, spawn);
+            let candidatePlayer!: DungeonPlayerStateData;
+            let candidateObstacles!: DungeonObstacleStateData;
+            let candidateTraversal: DungeonTraversalOwnedData | null = null;
+            let candidateMovement: DungeonMovementOwnedData | null = null;
+            const runtime = assembly.create(liveDocument, spawn, {
+              player: (binding, facing) => candidatePlayer = allocateDungeonPlayerStateData(loadId, presetKey, binding, facing),
+              obstacles: bindings => candidateObstacles = allocateDungeonObstacleStateData(loadId, presetKey, bindings),
+              traversal: map => candidateTraversal = allocateDungeonTraversalStateData(loadId, presetKey, map.topology.tileIds.length),
+              movement: traversal => candidateMovement = allocateDungeonMovementStateData(loadId, presetKey,
+                traversal.occupantIdsByTile.length, traversal.map.topology.pointIds.length),
+            });
             const saved = runtimeSaves.current[presetKey];
             const warnings = saved
               ? applyDungeonRuntimeSaveState(runtime, saved, (position) => resolveDungeonMapTileWorldLayout(
@@ -382,13 +392,11 @@ export const dungeonMapLoaderLabModule: LabModule = {
             overheadMemory.replace(createDungeonOverheadSettingsData(loadId, presetKey, liveDocument));
             transitionMemory.replace(createDungeonTransitionData(loadId, presetKey, liveDocument));
             gridMemory.replace(createDungeonGridData(loadId, presetKey, runtime.map, binding.component));
-            movementMemory.replace(runtime.installedSystems?.movement === false ? null
-              : createDungeonMovementStateData(loadId, presetKey, runtime.movementResolver));
-            traversalMemory.replace(runtime.installedSystems?.traversal === false ? null
-              : createDungeonTraversalStateData(loadId, presetKey, runtime.traversal));
+            movementMemory.replace(candidateMovement);
+            traversalMemory.replace(candidateTraversal);
             obstaclesMemory.replace(createDungeonObstaclesData(loadId, presetKey, obstacles));
-            playerState.replace(createDungeonPlayerStateData(loadId, presetKey, runtime));
-            obstacleState.replace(createDungeonObstacleStateData(loadId, presetKey, runtime));
+            playerState.replace(candidatePlayer);
+            obstacleState.replace(candidateObstacles);
             playerSpawn.replace(createDungeonPlayerSpawnData(loadId, presetKey, spawn));
             sessionInfo.commit(loadId, presetKey, liveDocument.identity.id);
             try {

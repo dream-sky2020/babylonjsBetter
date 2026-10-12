@@ -15,10 +15,12 @@ export type DungeonAgentState = {
   fromFacing: DungeonMovementDirection | null; toFacing: DungeonMovementDirection | null;
   elapsedSeconds: number | null; durationSeconds: number | null;
   visualProgress: number | undefined; rotationProgress: number | undefined;
+  /** Authoritative movement record in new Sessions; old adapters remain compatible. */
+  movement?: DungeonAgentMovement | null;
 };
 type Data<T> = { loadId: number; presetKey: string; agents: Map<string, T> };
 export type DungeonAgentsData = Data<DungeonAgentDescription>;
-export type DungeonAgentStateData = Data<DungeonAgentState>;
+export type DungeonAgentStateData = Data<DungeonAgentState> & { activeAgentIds?: Set<string> };
 const record = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === 'object';
 const direction = (value: unknown) => ['north', 'east', 'south', 'west', 'north-east', 'south-east', 'south-west', 'north-west'].includes(value as string);
 const data = (value: unknown, check: (row: Record<string, unknown>) => boolean) => record(value)
@@ -29,22 +31,26 @@ const descriptions = defineLabMemoryType<DungeonAgentsData | null>('DungeonAgent
     && typeof row.factionId === 'string' && Number.isInteger(row.initialTileIndex) && typeof row.blocksMovement === 'boolean'
     && Number.isFinite(row.actionPeriod) && Number.isFinite(row.initialPriority)));
 const states = defineLabMemoryType<DungeonAgentStateData | null>('DungeonAgentStateData',
-  (value): value is DungeonAgentStateData | null => value === null || data(value, row => Number.isInteger(row.tileIndex)
+  (value): value is DungeonAgentStateData | null => value === null || (data(value, row => Number.isInteger(row.tileIndex)
     && direction(row.facing) && typeof row.enabled === 'boolean' && Number.isFinite(row.effectivePriority)
     && (row.priorityOverride === undefined || Number.isFinite(row.priorityOverride))
     && (row.movementKind === null || (['move', 'turn', 'rollback'].includes(row.movementKind as string)
       && Number.isInteger(row.fromTileIndex) && Number.isInteger(row.toTileIndex) && direction(row.fromFacing) && direction(row.toFacing)
-      && Number.isFinite(row.elapsedSeconds) && Number.isFinite(row.durationSeconds)))));
+      && Number.isFinite(row.elapsedSeconds) && Number.isFinite(row.durationSeconds))))
+    && record(value) && (!('activeAgentIds' in value) || (value.activeAgentIds instanceof Set
+      && [...value.activeAgentIds].every(id => typeof id === 'string')))));
 export const DUNGEON_AGENTS_MEMORY = defineLabSharedData({
   key: 'dungeon.agents', label: 'Agent 描述', type: descriptions, create: () => null,
   inspect: (value: DungeonAgentsData | null) => value ? { loadId: value.loadId, presetKey: value.presetKey, agentCount: value.agents.size, agents: value.agents } : { loaded: false },
 });
 export const DUNGEON_AGENT_STATE_MEMORY = defineLabSharedData({
   key: 'dungeon.agent-state', label: 'Agent 基础运行状态', type: states, create: () => null,
-  inspect: (value: DungeonAgentStateData | null) => value ? { loadId: value.loadId, presetKey: value.presetKey, agentCount: value.agents.size, agents: value.agents } : { loaded: false },
+  inspect: (value: DungeonAgentStateData | null) => value ? { loadId: value.loadId, presetKey: value.presetKey, agentCount: value.agents.size,
+    agents: value.agents, activeAgentIds: value.activeAgentIds } : { loaded: false },
 });
 
-/** Build the index once per Session. All fields read the original Core authority;
+/** @deprecated Legacy view adapter. Composed sessions allocate authority before Core construction.
+ * All fields read the original Core authority;
  * replacement of movement objects is visible without copying or notifications. */
 export const createDungeonAgentMemoryData = (loadId: number, presetKey: string, source: readonly DungeonRuntimeAgent[]) => {
   const agents = new Map<string, DungeonAgentDescription>(), runtime = new Map<string, DungeonAgentState>();
@@ -64,6 +70,7 @@ export const createDungeonAgentMemoryData = (loadId: number, presetKey: string, 
     runtime.set(entityId, {
       entityId,
       get tileIndex() { return agent.tileIndex; }, set tileIndex(value) { agent.tileIndex = value; },
+      get movement() { return agent.movement; }, set movement(value) { agent.movement = value; },
       get facing() { return agent.facing; }, set facing(value) { agent.facing = value; },
       get enabled() { return agent.enabled; }, set enabled(value) { agent.enabled = value; },
       get priorityOverride() { return agent.priorityOverride; }, set priorityOverride(value) { agent.priorityOverride = value; },

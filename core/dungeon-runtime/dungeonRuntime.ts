@@ -2,7 +2,9 @@ import type { DungeonRuntimeFactories } from './dungeonRuntimeAssembly';
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
 import { createDungeonObstacleStatesFromBindings, scanDungeonDocumentObstacles } from '../dungeon-obstacle/dungeonObstacle.ts';
 import type { DungeonMapDocumentV2 } from '../map-document/index.ts';
-import type { DungeonRuntime, DungeonRuntimePlayerPosition } from './dungeonRuntime.types';
+import type { DungeonRuntime, DungeonRuntimePlayerPosition, DungeonPlayerStorage } from './dungeonRuntime.types';
+import type { DungeonTraversalStorage } from '../dungeon-traversal/dungeonTraversal';
+import type { DungeonMovementStorage } from '../dungeon-movement/dungeonMovement.types';
 import { createDungeonRuntimeMap, isDungeonRuntimePositionInside } from './dungeonRuntimeMap.ts';
 import {
   createDungeonTraversalWorld,
@@ -10,11 +12,20 @@ import {
 } from '../dungeon-traversal/index.ts';
 import { createDungeonMovementResolver } from '../dungeon-movement/index.ts';
 
+/** Plain data factories injected by a composed host; no dependency on host infrastructure. */
+export type DungeonRuntimeStorageFactories = {
+  player(spawn: DungeonPlayerSpawnBinding, facing: DungeonRuntime['playerFacing']): DungeonPlayerStorage;
+  obstacles(bindings: DungeonRuntime['obstacles']): { states: Map<string, boolean> };
+  traversal(map: DungeonRuntime['map']): DungeonTraversalStorage;
+  movement(traversal: DungeonRuntime['traversal']): DungeonMovementStorage;
+};
+
 export type DungeonRuntimeCreationOptions = Readonly<{
   playerMovementProfileId?: string;
   /** Explicit assembly: an empty object installs no traversal or movement capability. */
   systems?: DungeonRuntimeFactories;
   registerPlayer?: boolean;
+  storage?: DungeonRuntimeStorageFactories;
 }>;
 
 /** 使用已经解析并校验过的玩家出生点创建地图运行时。 */
@@ -29,10 +40,18 @@ export const createDungeonRuntime = (
     obstacles: scanDungeonDocumentObstacles, traversal: createDungeonTraversalWorld, movement: createDungeonMovementResolver,
   };
   const obstacles = factories.obstacles?.(document) ?? [];
-  const obstacleStates = createDungeonObstacleStatesFromBindings(obstacles);
+  const obstacleStorage = options.storage?.obstacles(obstacles) ?? { states: createDungeonObstacleStatesFromBindings(obstacles) };
+  const obstacleStates = obstacleStorage.states;
   if (factories.movement && !factories.traversal) throw new Error('移动系统需要先安装通行系统。');
-  const traversal = factories.traversal?.(map, obstacles, obstacleStates);
-  const movementResolver = traversal ? factories.movement?.(traversal) : undefined;
+  const traversal = factories.traversal?.(map, obstacles, obstacleStates, options.storage?.traversal(map));
+  const movementResolver = traversal ? factories.movement?.(traversal, {}, options.storage?.movement(traversal)) : undefined;
+  const playerStorage = options.storage?.player(playerSpawn, playerFacing) ?? {
+    playerPosition: { tileX: playerSpawn.tilePosition.x, tileY: playerSpawn.tilePosition.y },
+    playerFacing, playerWorldPosition: [...playerSpawn.worldPosition],
+    playerWorldRotationY: playerFacing === 'north' ? Math.PI
+      : playerFacing === 'east' ? Math.PI / 2 : playerFacing === 'west' ? -Math.PI / 2 : 0,
+    playerMovement: null,
+  } satisfies DungeonPlayerStorage;
   const playerTileIndex = playerSpawn.tilePosition.y * map.width + playerSpawn.tilePosition.x;
   if (options.registerPlayer !== false) traversal?.registerActor({
     id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
@@ -56,17 +75,12 @@ export const createDungeonRuntime = (
     },
     installedSystems: Object.freeze({ obstacles: !!factories.obstacles, traversal: !!traversal, movement: !!movementResolver }),
     obstacles,
-    playerPosition: {
-      tileX: playerSpawn.tilePosition.x,
-      tileY: playerSpawn.tilePosition.y,
-    },
-    playerFacing,
-    playerWorldPosition: [...playerSpawn.worldPosition],
-    playerWorldRotationY: playerFacing === 'north' ? Math.PI
-      : playerFacing === 'east' ? Math.PI / 2
-        : playerFacing === 'west' ? -Math.PI / 2 : 0,
-    playerMovement: null,
-    obstacleStates,
+    get playerPosition() { return playerStorage.playerPosition; }, set playerPosition(value) { playerStorage.playerPosition = value; },
+    get playerFacing() { return playerStorage.playerFacing; }, set playerFacing(value) { playerStorage.playerFacing = value; },
+    get playerWorldPosition() { return playerStorage.playerWorldPosition; }, set playerWorldPosition(value) { playerStorage.playerWorldPosition = value; },
+    get playerWorldRotationY() { return playerStorage.playerWorldRotationY; }, set playerWorldRotationY(value) { playerStorage.playerWorldRotationY = value; },
+    get playerMovement() { return playerStorage.playerMovement; }, set playerMovement(value) { playerStorage.playerMovement = value; },
+    get obstacleStates() { return obstacleStorage.states; }, set obstacleStates(value) { obstacleStorage.states = value; },
   };
 };
 

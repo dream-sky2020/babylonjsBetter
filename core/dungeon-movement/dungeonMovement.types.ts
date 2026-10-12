@@ -1,5 +1,15 @@
 import type { DungeonMovementDirection } from './dungeonMovement.direction.ts';
 
+/** Data supplied by the host; the resolver only operates on this storage. */
+export type DungeonMovementStorage = {
+  config: DungeonMovementResolverConfig;
+  activeRequests: Map<string, DungeonMoveRequest>;
+  activeRequestIdByActor: Map<string, string>;
+  movementReservationsByTile: ReadonlyArray<Map<string, string>>;
+  movementReservationsByPoint: ReadonlyArray<Map<string, string>>;
+  nextRequestSequence: number;
+};
+
 export type DungeonMoveRequestState =
   | 'forward-before-commit'
   | 'forward-after-commit'

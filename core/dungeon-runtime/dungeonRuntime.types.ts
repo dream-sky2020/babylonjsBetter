@@ -39,8 +39,17 @@ export type DungeonRuntimePlayerMovement = {
 
 /**
  * 一次已加载地牢地图的运行时状态。
- * 玩家状态保存在这里；玩家、Agent 和其他动态 Actor 的通行占位统一交给 traversal。
+ * 组合式 Host 中这是共享数据的兼容门面，不再持有另一份玩家状态。
+ * 玩家、Agent 和其他动态 Actor 的通行占位统一交给 traversal。
  */
+export type DungeonPlayerStorage = {
+  playerPosition: DungeonRuntimePlayerPosition;
+  playerFacing: DungeonMapDirection;
+  playerWorldPosition: DungeonRuntimeWorldPosition;
+  playerWorldRotationY: number;
+  playerMovement: DungeonRuntimePlayerMovement | null;
+};
+
 export type DungeonRuntime = {
   /** Undefined only for legacy externally constructed runtimes. */
   readonly installedSystems?: Readonly<{ obstacles?: boolean; traversal: boolean; movement: boolean }>;

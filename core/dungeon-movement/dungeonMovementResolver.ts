@@ -7,6 +7,7 @@ import type {
   DungeonMovementDebugSnapshot,
   DungeonMovementResolverConfig,
   DungeonMovementChange,
+  DungeonMovementStorage,
 } from './dungeonMovement.types.ts';
 import {
   getDungeonDiagonalCornerIndex,
@@ -29,12 +30,15 @@ const requireUnitInterval = (value: number, label: string): number => {
  */
 export class DungeonMovementResolver {
   readonly traversal: DungeonTraversalWorld;
-  config: DungeonMovementResolverConfig;
-  readonly movementReservationsByTile: ReadonlyArray<Map<string, string>>;
-  readonly movementReservationsByPoint: ReadonlyArray<Map<string, string>>;
-  private readonly requests = new Map<string, DungeonMoveRequest>();
-  private readonly activeRequestIdByActor = new Map<string, string>();
-  private nextRequestSequence = 1;
+  readonly storage: DungeonMovementStorage;
+  get config() { return this.storage.config; }
+  set config(value: DungeonMovementResolverConfig) { this.storage.config = value; }
+  get movementReservationsByTile() { return this.storage.movementReservationsByTile; }
+  get movementReservationsByPoint() { return this.storage.movementReservationsByPoint; }
+  private get requests() { return this.storage.activeRequests; }
+  private get activeRequestIdByActor() { return this.storage.activeRequestIdByActor; }
+  private get nextRequestSequence() { return this.storage.nextRequestSequence; }
+  private set nextRequestSequence(value: number) { this.storage.nextRequestSequence = value; }
   private readonly changeListeners = new Set<(change: DungeonMovementChange) => void>();
 
   subscribe(listener: (change: DungeonMovementChange) => void): () => void {
@@ -57,27 +61,31 @@ export class DungeonMovementResolver {
   constructor(
     traversal: DungeonTraversalWorld,
     config: Partial<DungeonMovementResolverConfig> = {},
+    storage?: DungeonMovementStorage,
   ) {
     this.traversal = traversal;
-    this.config = {
-      progressWeight: config.progressWeight ?? 1,
-      commitProgress: requireUnitInterval(config.commitProgress ?? 0.5, '默认提交进度'),
-      playerBasePriority: config.playerBasePriority ?? 1000,
+    // Standalone callers retain their convenience allocation; composed hosts inject storage.
+    this.storage = storage ?? {
+      config: {
+        progressWeight: config.progressWeight ?? 1,
+        commitProgress: requireUnitInterval(config.commitProgress ?? 0.5, '默认提交进度'),
+        playerBasePriority: config.playerBasePriority ?? 1000,
+      },
+      activeRequests: new Map(), activeRequestIdByActor: new Map(), nextRequestSequence: 1,
+      movementReservationsByTile: Array.from({ length: traversal.occupantIdsByTile.length }, () => new Map()),
+      movementReservationsByPoint: Array.from({ length: traversal.map.topology.pointIds.length }, () => new Map()),
     };
+    requireUnitInterval(this.config.commitProgress, '默认提交进度');
     if (!Number.isFinite(this.config.progressWeight) || this.config.progressWeight < 0) {
       throw new RangeError('移动进度优先级权重必须是非负有限数。');
     }
     if (!Number.isFinite(this.config.playerBasePriority)) {
       throw new RangeError('玩家基础移动优先级必须是有限数。');
     }
-    this.movementReservationsByTile = Array.from(
-      { length: traversal.occupantIdsByTile.length },
-      () => new Map<string, string>(),
-    );
-    this.movementReservationsByPoint = Array.from(
-      { length: traversal.map.topology.pointIds.length },
-      () => new Map<string, string>(),
-    );
+    if (this.movementReservationsByTile.length !== traversal.occupantIdsByTile.length
+      || this.movementReservationsByPoint.length !== traversal.map.topology.pointIds.length) {
+      throw new RangeError('移动存储的预留表尺寸与地图不一致。');
+    }
   }
 
   updateConfig(next: Partial<DungeonMovementResolverConfig>): void {
@@ -343,4 +351,5 @@ export class DungeonMovementResolver {
 export const createDungeonMovementResolver = (
   traversal: DungeonTraversalWorld,
   config: Partial<DungeonMovementResolverConfig> = {},
-): DungeonMovementResolver => new DungeonMovementResolver(traversal, config);
+  storage?: DungeonMovementStorage,
+): DungeonMovementResolver => new DungeonMovementResolver(traversal, config, storage);

@@ -1,6 +1,7 @@
-import { createDungeonObstacleStatesFromBindings } from '../dungeon-obstacle';
+import { createDungeonObstacleStatesFromBindings } from '../dungeon-obstacle/dungeonObstacle.ts';
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
-import { setDungeonRuntimePlayerPosition, type DungeonRuntime } from '../dungeon-runtime';
+import { setDungeonRuntimePlayerPosition } from '../dungeon-runtime/dungeonRuntime.ts';
+import type { DungeonRuntime } from '../dungeon-runtime/dungeonRuntime.types.ts';
 import type { DungeonMapDirection } from '../map';
 import { isDungeonRuntimePositionInside } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import type {

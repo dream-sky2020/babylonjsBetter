@@ -1,10 +1,25 @@
 import { defineLabMemoryType, defineLabSharedData } from '../../../lab-kit/shared-memory/LabMemory.ts';
 import type { DungeonRuntime } from '@/core/dungeon-runtime/dungeonRuntime.types';
+import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
+import { createDungeonObstacleStatesFromBindings } from '../../../../core/dungeon-obstacle/dungeonObstacle.ts';
 
 type Identity = { loadId: number; presetKey: string };
 type PlayerFields = Pick<DungeonRuntime, 'playerPosition' | 'playerFacing' | 'playerWorldPosition' | 'playerWorldRotationY' | 'playerMovement'>;
 export type DungeonPlayerStateData = Identity & PlayerFields;
 export type DungeonObstacleStateData = Identity & { states: DungeonRuntime['obstacleStates'] };
+
+/** Authoritative candidate data, created before Core preparation and published on commit. */
+export const allocateDungeonPlayerStateData = (loadId: number, presetKey: string,
+  spawn: DungeonPlayerSpawnBinding, playerFacing: DungeonRuntime['playerFacing'] = 'south'): DungeonPlayerStateData => ({
+  loadId, presetKey, playerPosition: { tileX: spawn.tilePosition.x, tileY: spawn.tilePosition.y }, playerFacing,
+  playerWorldPosition: [...spawn.worldPosition], playerMovement: null,
+  playerWorldRotationY: playerFacing === 'north' ? Math.PI : playerFacing === 'east' ? Math.PI / 2
+    : playerFacing === 'west' ? -Math.PI / 2 : 0,
+});
+export const allocateDungeonObstacleStateData = (loadId: number, presetKey: string,
+  bindings: DungeonRuntime['obstacles']): DungeonObstacleStateData => ({
+  loadId, presetKey, states: createDungeonObstacleStatesFromBindings(bindings),
+});
 
 const record = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === 'object' && !Array.isArray(value);
 const identity = (value: Record<string, unknown>) => Number.isSafeInteger(value.loadId) && (value.loadId as number) > 0 && typeof value.presetKey === 'string';
@@ -52,7 +67,7 @@ export const DUNGEON_OBSTACLE_STATE_MEMORY = defineLabSharedData({
   } : { loaded: false },
 });
 
-/** Transitional live field bridge: Core can replace fields without a second state or sync loop.
+/** @deprecated Legacy live field bridge; composed sessions use allocateDungeonPlayerStateData.
  * Setters forward writes to the same authority; they are not access controls.
  */
 export const createDungeonPlayerStateData = (loadId: number, presetKey: string, source: PlayerFields): DungeonPlayerStateData => ({
@@ -64,6 +79,7 @@ export const createDungeonPlayerStateData = (loadId: number, presetKey: string, 
   get playerMovement() { return source.playerMovement; }, set playerMovement(value) { source.playerMovement = value; },
 });
 
+/** @deprecated Legacy view adapter; composed sessions use allocateDungeonObstacleStateData. */
 export const createDungeonObstacleStateData = (loadId: number, presetKey: string, source: Pick<DungeonRuntime, 'obstacleStates'>): DungeonObstacleStateData => ({
   loadId, presetKey,
   get states() { return source.obstacleStates; }, set states(value) { source.obstacleStates = value; },

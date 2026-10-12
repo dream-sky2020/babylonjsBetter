@@ -1,8 +1,8 @@
 import type { scanDungeonDocumentObstacles } from '../dungeon-obstacle';
-import { createServiceToken } from '../system-runtime/ServiceToken';
+import { createServiceToken } from '../system-runtime/ServiceToken.ts';
 import type { createDungeonTraversalWorld } from '../dungeon-traversal';
 import type { createDungeonMovementResolver } from '../dungeon-movement';
-import { createDungeonRuntime } from './dungeonRuntime';
+import { createDungeonRuntime, type DungeonRuntimeStorageFactories } from './dungeonRuntime.ts';
 import type { DungeonMapDocumentV2 } from '../map-document';
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
 import type { DungeonRuntime } from './dungeonRuntime.types';
@@ -90,10 +90,10 @@ export class DungeonRuntimeAssembly {
     return () => { this.preparers.delete(id); };
   }
 
-  create(document: DungeonMapDocumentV2, spawn: DungeonPlayerSpawnBinding): DungeonRuntime {
+  create(document: DungeonMapDocumentV2, spawn: DungeonPlayerSpawnBinding, storage?: DungeonRuntimeStorageFactories): DungeonRuntime {
     this.prepared = true;
     if (this.factories.movement && !this.factories.traversal) throw new Error('移动系统缺少通行系统。');
-    return createDungeonRuntime(document, spawn, 'south', { systems: { ...this.factories }, registerPlayer: false });
+    return createDungeonRuntime(document, spawn, 'south', { systems: { ...this.factories }, registerPlayer: false, storage });
   }
 
   /** Run after save/entrance restoration and before publishing the candidate Session. */
