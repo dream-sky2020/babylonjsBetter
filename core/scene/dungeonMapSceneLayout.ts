@@ -5,13 +5,17 @@ export type DungeonMapTileWorldLayout = {
   size: readonly [number, number, number];
 };
 
+/** Only spatial settings are required; callers need not supply a complete scene component. */
+export type DungeonMapTileLayoutSettings = Pick<ISceneEnvironmentComponent,
+  'mapAnchorMode' | 'mapOffset' | 'tileSpacing' | 'tileSize'>;
+
 /**
  * 地图 x 映射到世界 X，地图 y 映射到世界 Z。
  * first-tile：mapOffset 是 (0,0) 格子的底面中心。
  * map-center：mapOffset 是整张格子布局的 3D 中心。
  */
 export const resolveDungeonMapTileWorldLayout = (
-  component: ISceneEnvironmentComponent,
+  component: DungeonMapTileLayoutSettings,
   mapWidth: number,
   mapHeight: number,
   tileX: number,

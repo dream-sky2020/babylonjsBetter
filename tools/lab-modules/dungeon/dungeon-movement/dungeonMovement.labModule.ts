@@ -1,13 +1,14 @@
+import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
+import { DUNGEON_MOVEMENT_STATE_MEMORY, type DungeonMovementStateData } from './dungeonMovement.memory';
+import { DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY } from '@/core/dungeon-movement/dungeonMovementControl';
 import type { Mesh } from '@babylonjs/core';
 import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import { createDungeonMovementResolver } from '@/core/dungeon-movement';
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import { applyDungeonViewToNode, createDungeonViewConsumer, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
-import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
+import { resolveDungeonMapTileWorldLayout } from '@/core/scene/dungeonMapSceneLayout';
 import { createLabField, createLabJson, createLabStatus, createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
-import { DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY, type DungeonMapLoaderReferences,
-  type LoadedDungeonReferences } from '../dungeon-map-loader/dungeonMapLoader.references';
 import { dungeonMovementChangedEvent } from './dungeonMovement.protocol';
 import { DUNGEON_MOVEMENT_VIEW_SERVICE_KEY } from './dungeonMovement.view';
 
@@ -17,7 +18,9 @@ export const dungeonMovementLabModule: LabModule = {
   setup(context) {
     const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
     const uninstall = assembly.install('movement', createDungeonMovementResolver);
-    const references = context.services.get<DungeonMapLoaderReferences>(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY);
+    const movementMemory = context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY);
+    const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
+    const control = context.services.get(DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY);
     const panel = context.ui.addPanel('dungeon-movement', '地牢移动仲裁');
     const toggle = createLabSwitch('显示移动目标格临时预留', false, {
       preference: { ui: context.ui, key: 'dungeon-movement/debug' },
@@ -41,7 +44,7 @@ export const dungeonMovementLabModule: LabModule = {
       createLabField('玩家基础优先级', playerBasePriority),
       createLabField('移动进度优先级权重', progressWeight), apply, status, summary);
 
-    let current: LoadedDungeonReferences | null = null;
+    let current: DungeonMovementStateData | null = null;
     let root: TransformNode | null = null;
     let materials: StandardMaterial[] = [];
     let view: ResolvedDungeonView | null = null;
@@ -60,7 +63,7 @@ export const dungeonMovementLabModule: LabModule = {
       materials.forEach(material => material.dispose()); materials = [];
     };
     const syncConfig = () => {
-      const config = current?.runtime.movementResolver.config;
+      const config = current?.config;
       if (!config) return;
       commitProgress.value = String(config.commitProgress);
       playerBasePriority.value = String(config.playerBasePriority);
@@ -68,21 +71,21 @@ export const dungeonMovementLabModule: LabModule = {
     };
     const refreshSummary = () => {
       if (!current || panel.content.hidden) return;
-      const snapshot = current.runtime.movementResolver.debugSnapshot();
       summary.textContent = JSON.stringify({
         loadId: current.loadId,
-        activeMoves: snapshot.activeMoves,
-        targetReservations: snapshot.movementReservationsByTile.flatMap((owners, index) =>
-          Object.keys(owners).length ? [{ tileIndex: index, actors: owners }] : []),
-        crossingPointReservations: snapshot.movementReservationsByPoint.flatMap((owners, index) =>
-          Object.keys(owners).length ? [{ pointIndex: index, actors: owners }] : []),
+        activeMoves: control.debugActiveMoves(current.loadId),
+        targetReservations: current.movementReservationsByTile.flatMap((owners, index) =>
+          owners.size ? [{ tileIndex: index, actors: Object.fromEntries(owners) }] : []),
+        crossingPointReservations: current.movementReservationsByPoint.flatMap((owners, index) =>
+          owners.size ? [{ pointIndex: index, actors: Object.fromEntries(owners) }] : []),
       }, null, 2);
       lastSummaryAt = performance.now();
     };
     const renderMarkers = (full = true) => {
       if (!toggle.input.checked || !current) { disposeMarkers(); pendingTiles.clear(); return; }
       const loaded = current;
-      const map = loaded.runtime.map;
+      const map = gridMemory.current;
+      if (!map || map.loadId !== loaded.loadId) { disposeMarkers(); return; }
       if (!root) {
         full = true;
         root = new TransformNode('movement_debug_' + loaded.loadId, context.scene);
@@ -91,13 +94,13 @@ export const dungeonMovementLabModule: LabModule = {
         material.diffuseColor = Color3.FromHexString('#22d3ee'); material.alpha = 0.3; material.wireframe = true;
         materials.push(material);
       }
-      if (full) loaded.runtime.movementResolver.movementReservationsByTile.forEach((_, index) => pendingTiles.add(index));
+      if (full) loaded.movementReservationsByTile.forEach((_, index) => pendingTiles.add(index));
       pendingTiles.forEach(index => {
-        if (!loaded.runtime.movementResolver.movementReservationsByTile[index]?.size) {
+        if (!loaded.movementReservationsByTile[index]?.size) {
           boxes.get(index)?.dispose(); boxes.delete(index); return;
         }
         if (boxes.has(index)) return;
-        const layout = resolveDungeonMapTileWorldLayout(loaded.sceneBinding.component,
+        const layout = resolveDungeonMapTileWorldLayout(map,
           map.width, map.height, index % map.width, Math.floor(index / map.width));
         const box = MeshBuilder.CreateBox('movement_target_' + loaded.loadId + '_' + index, {
           width: layout.size[0] * 0.58, height: Math.max(0.1, layout.size[1] * 0.12), depth: layout.size[2] * 0.58,
@@ -107,24 +110,28 @@ export const dungeonMovementLabModule: LabModule = {
       });
       pendingTiles.clear();
     };
-    apply.addEventListener('click', () => {
+    const applyConfig = () => {
       if (!current) { status.textContent = '请先加载地图。'; return; }
       try {
-        current.runtime.movementResolver.updateConfig({
+        const applied = control.updateConfig(current.loadId, {
           commitProgress: commitProgress.value.trim() ? Number(commitProgress.value) : NaN,
           playerBasePriority: playerBasePriority.value.trim() ? Number(playerBasePriority.value) : NaN,
           progressWeight: progressWeight.value.trim() ? Number(progressWeight.value) : NaN,
         });
-        status.textContent = '已应用到本次运行的共享移动仲裁器。';
+        status.textContent = applied ? '已应用到本次运行的共享移动仲裁器。' : '地图已切换，请重新应用配置。';
       } catch (error) { status.textContent = error instanceof Error ? error.message : String(error); }
-    });
-    toggle.input.addEventListener('change', () => renderMarkers());
+    };
+    const onToggle = () => renderMarkers();
+    apply.addEventListener('click', applyConfig);
+    toggle.input.addEventListener('change', onToggle);
     context.services.set(DUNGEON_MOVEMENT_VIEW_SERVICE_KEY, { acquire: viewConsumer.acquire });
     const offMap = context.communication.on(dungeonMapChangedEvent, event => {
-      const loaded = references.current;
+      const loaded = movementMemory.current;
       if (!loaded || loaded.loadId !== event.loadId) return;
       offChanges?.(); disposeMarkers(); pendingTiles.clear(); current = loaded; sequence = 0;
-      offChanges = loaded.runtime.movementResolver.subscribe(change => {
+      dirty = false; lastSummaryAt = 0;
+      offChanges = control.subscribe(loaded.loadId, change => {
+        movementMemory.markChanged();
         sequence += 1;
         if (change.kind === 'config-changed') syncConfig();
         dirty = true;
@@ -142,7 +149,7 @@ export const dungeonMovementLabModule: LabModule = {
       run: () => {
         if (!current) return;
         if (dirty) { dirty = false; renderMarkers(false); refreshSummary(); return; }
-        if (!panel.content.hidden && current.runtime.movementResolver.hasActiveRequests
+        if (!panel.content.hidden && current.activeRequests.size > 0
           && performance.now() - lastSummaryAt >= 250) refreshSummary();
       },
     });
@@ -151,6 +158,7 @@ export const dungeonMovementLabModule: LabModule = {
     });
     visibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
     return () => {
+      apply.removeEventListener('click', applyConfig); toggle.input.removeEventListener('change', onToggle);
       uninstall();
       offMap(); offChanges?.(); stopFrameTask();
       visibilityObserver.disconnect(); viewConsumer.dispose();

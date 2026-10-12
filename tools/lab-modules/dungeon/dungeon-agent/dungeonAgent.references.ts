@@ -1,5 +1,8 @@
 import type { DungeonAgentRuntimeState } from '@/core/dungeon-agent';
 
+/** @deprecated Compatibility exports only. Current modules use Agent domain memories;
+ * the dungeon:agent-runtime service is no longer registered. */
+
 export type LoadedDungeonAgentRuntime = Readonly<{
   loadId: number;
   state: DungeonAgentRuntimeState;

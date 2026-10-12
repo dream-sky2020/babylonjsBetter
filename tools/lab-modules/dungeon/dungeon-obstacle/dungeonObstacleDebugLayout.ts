@@ -1,7 +1,7 @@
 import type { DungeonObstacleBinding } from '@/core/dungeon-obstacle';
-import type { ISceneEnvironmentComponent } from '@/core/entity';
+import type { DungeonMapTileLayoutSettings } from '@/core/scene/dungeonMapSceneLayout';
 import type { DungeonMapDirection } from '@/core/map';
-import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
+import { resolveDungeonMapTileWorldLayout } from '../../../../core/scene/dungeonMapSceneLayout.ts';
 
 export type DungeonObstacleDebugLayout = {
   center: readonly [number, number, number];
@@ -9,7 +9,7 @@ export type DungeonObstacleDebugLayout = {
 };
 
 export const resolveDungeonEdgeDebugLayout = (
-  component: ISceneEnvironmentComponent,
+  component: DungeonMapTileLayoutSettings,
   mapWidth: number,
   mapHeight: number,
   tileX: number,
@@ -46,7 +46,7 @@ export const resolveDungeonEdgeDebugLayout = (
 };
 
 export const resolveDungeonTileDebugLayout = (
-  component: ISceneEnvironmentComponent,
+  component: DungeonMapTileLayoutSettings,
   mapWidth: number,
   mapHeight: number,
   tileX: number,
@@ -66,8 +66,8 @@ export const resolveDungeonTileDebugLayout = (
 
 /** 计算组合式 Lab 中阻碍 Debug 盒的布局，不参与正式碰撞规则。 */
 export const resolveDungeonObstacleDebugLayout = (
-  binding: DungeonObstacleBinding,
-  component: ISceneEnvironmentComponent,
+  binding: Pick<DungeonObstacleBinding, 'placement'>,
+  component: DungeonMapTileLayoutSettings,
   mapWidth: number,
   mapHeight: number,
 ): DungeonObstacleDebugLayout => {

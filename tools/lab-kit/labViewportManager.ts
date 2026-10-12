@@ -31,13 +31,21 @@ export class LabViewportManager {
   private readonly resizeObserver: ResizeObserver;
   private exclusiveLayerId: string | null = null;
   private disposed = false;
+  readonly root: HTMLElement;
+  readonly babylonCanvas: HTMLCanvasElement;
+  private readonly inputGate: LabViewportInputGate;
+  private readonly resizeBabylon: () => void;
 
   constructor(
-    readonly root: HTMLElement,
-    readonly babylonCanvas: HTMLCanvasElement,
-    private readonly inputGate: LabViewportInputGate,
-    private readonly resizeBabylon: () => void,
+    root: HTMLElement,
+    babylonCanvas: HTMLCanvasElement,
+    inputGate: LabViewportInputGate,
+    resizeBabylon: () => void,
   ) {
+    this.root = root;
+    this.babylonCanvas = babylonCanvas;
+    this.inputGate = inputGate;
+    this.resizeBabylon = resizeBabylon;
     this.overlayHost = document.createElement('div');
     this.overlayHost.className = 'lab-viewport-overlays';
     root.append(this.overlayHost);
@@ -96,7 +104,8 @@ export class LabViewportManager {
     const body = document.createElement('div');
     body.className = 'lab-viewport-layer-body';
     root.append(toolbar, body);
-    this.overlayHost.append(root);
+    if (options.fullWindow) (this.root.closest('.lab-host') ?? this.root).append(root);
+    else this.overlayHost.append(root);
 
     const entry: LayerEntry = {
       id,

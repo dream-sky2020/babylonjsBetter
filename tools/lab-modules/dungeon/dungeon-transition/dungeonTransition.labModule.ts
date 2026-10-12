@@ -1,3 +1,9 @@
+import { DUNGEON_LIBRARIES_MEMORY } from '../dungeon-libraries/dungeonLibraries.memory';
+import { DUNGEON_TRANSITION_DATA_MEMORY } from './dungeonTransition.memory';
+import { DUNGEON_PLAYER_STATE_MEMORY } from '../dungeon-runtime/dungeonRuntime.memory';
+import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
+import { DUNGEON_TRANSITION_CONTROL_SERVICE_KEY } from '@/core/dungeon-transition/dungeonTransitionControl';
+import type { DungeonExitData } from '@/core/dungeon-transition/dungeonTransitionData';
 import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
 import { applyDungeonViewToNode } from '@/core/dungeon-view/dungeonOverheadView.ts';
 import {
@@ -11,14 +17,8 @@ import {
 import {
   createDungeonTransitionController,
   findDungeonDocumentEntrance,
-  findDungeonDocumentExitAfterMovement,
-  findDungeonDocumentExitForInteraction,
-  findDungeonDocumentExitForMoveAttempt,
-  scanDungeonDocumentEntrances,
-  scanDungeonDocumentExits,
-  type DungeonExitBinding,
 } from '@/core/dungeon-transition';
-import { resolveDungeonExitTriggers, type DungeonExitTrigger } from '@/core/entity';
+import type { DungeonExitTrigger } from '@/core/entity';
 import {
   createLabJson,
   createLabStatus,
@@ -27,18 +27,10 @@ import {
   type LabModule,
 } from '@/tools/lab-kit';
 import {
-  DUNGEON_LIBRARIES_SERVICE_KEY,
-} from '../dungeon-libraries/dungeonLibraries.protocol';
-import type { DungeonLabLibrariesReference } from '../dungeon-libraries/dungeonLibraries.references';
-import {
   dungeonMapChangedEvent,
   dungeonMapSwitchRequest,
   dungeonRuntimeCommitRequest,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
-import {
-  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-  type DungeonMapLoaderReferences,
-} from '../dungeon-map-loader/dungeonMapLoader.references';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import {
   PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
@@ -70,10 +62,11 @@ export const dungeonTransitionLabModule: LabModule = {
   dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-libraries', 'dungeon-overhead-view'],
   setup(context) {
     const playerSteps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
-    const references = context.services.get<DungeonMapLoaderReferences>(
-      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-    );
-    const libraries = context.services.get<DungeonLabLibrariesReference>(DUNGEON_LIBRARIES_SERVICE_KEY);
+    const transitionMemory = context.memory.acquire(DUNGEON_TRANSITION_DATA_MEMORY);
+    const playerMemory = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
+    const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
+    const control = context.services.get(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY);
+    const libraries = context.memory.acquire(DUNGEON_LIBRARIES_MEMORY);
     const blockedAttempts = context.services.get<DungeonPlayerBlockedAttemptService>(
       PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
     );
@@ -120,8 +113,8 @@ export const dungeonTransitionLabModule: LabModule = {
 
     const renderDebugBoxes = (): void => {
       disposeDebugBoxes();
-      const loaded = references.current;
-      if (!debugBoxesToggle.input.checked || !loaded) return;
+      const loaded = transitionMemory.current, grid = gridMemory.current;
+      if (!debugBoxesToggle.input.checked || !loaded || !grid || loaded.loadId !== grid.loadId) return;
       const colors = {
         entrance: '#35d07f',
         tile: '#e45aa6',
@@ -145,24 +138,24 @@ export const dungeonTransitionLabModule: LabModule = {
       debugRoot = new TransformNode(`dungeon_transition_debug_${loaded.loadId}`, context.scene);
       syncDebugView();
       const targets: DungeonTransitionDebugBinding[] = [
-        ...scanDungeonDocumentEntrances(loaded.runtime.map.document)
+        ...loaded.entrances
           .map((binding) => ({ kind: 'entrance' as const, binding })),
-        ...scanDungeonDocumentExits(loaded.runtime.map.document)
+        ...loaded.exits
           .map((binding) => ({ kind: 'exit' as const, binding })),
       ];
       targets.forEach((target) => {
         const locationKind: DebugLocationKind = target.kind === 'entrance'
           ? 'entrance'
           : target.binding.location.kind;
-        const triggers = target.kind === 'exit' ? resolveDungeonExitTriggers(target.binding.component) : [];
+        const triggers = target.kind === 'exit' ? target.binding.triggers : [];
         const layout = resolveDungeonTransitionDebugLayout(
           target,
-          loaded.spawn.sceneEnvironmentComponent,
-          loaded.map.width,
-          loaded.map.height,
+          grid,
+          grid.width,
+          grid.height,
         );
         const box = MeshBuilder.CreateBox(
-          `dungeon_transition_${loaded.loadId}_${target.binding.entity.id}`,
+          `dungeon_transition_${loaded.loadId}_${target.binding.entityId}`,
           { width: layout.size[0], height: layout.size[1], depth: layout.size[2] },
           context.scene,
         );
@@ -177,7 +170,7 @@ export const dungeonTransitionLabModule: LabModule = {
 
         if (triggers.length > 1) {
           const outline = MeshBuilder.CreateBox(
-            `dungeon_transition_outline_${loaded.loadId}_${target.binding.entity.id}`,
+            `dungeon_transition_outline_${loaded.loadId}_${target.binding.entityId}`,
             {
               width: layout.size[0] * 1.12,
               height: layout.size[1] * 1.12,
@@ -192,9 +185,9 @@ export const dungeonTransitionLabModule: LabModule = {
         }
 
         if (target.kind === 'exit') {
-          const labelText = triggerLabel(resolveDungeonExitTriggers(target.binding.component));
+          const labelText = triggerLabel(target.binding.triggers);
           const texture = new DynamicTexture(
-            `dungeon_transition_label_texture_${loaded.loadId}_${target.binding.entity.id}`,
+            `dungeon_transition_label_texture_${loaded.loadId}_${target.binding.entityId}`,
             { width: 1024, height: 160 },
             context.scene,
             false,
@@ -202,7 +195,7 @@ export const dungeonTransitionLabModule: LabModule = {
           texture.hasAlpha = true;
           texture.drawText(labelText, null, 112, 'bold 68px Segoe UI', '#ffffff', 'rgba(3, 12, 9, 0.82)', true, true);
           const labelMaterial = new StandardMaterial(
-            `dungeon_transition_label_material_${loaded.loadId}_${target.binding.entity.id}`,
+            `dungeon_transition_label_material_${loaded.loadId}_${target.binding.entityId}`,
             context.scene,
           );
           labelMaterial.diffuseTexture = texture;
@@ -211,7 +204,7 @@ export const dungeonTransitionLabModule: LabModule = {
           labelMaterial.backFaceCulling = false;
           labelMaterial.useAlphaFromDiffuseTexture = true;
           const label = MeshBuilder.CreatePlane(
-            `dungeon_transition_label_${loaded.loadId}_${target.binding.entity.id}`,
+            `dungeon_transition_label_${loaded.loadId}_${target.binding.entityId}`,
             { width: Math.max(1.45, labelText.length * 0.28), height: 0.55 },
             context.scene,
           );
@@ -225,27 +218,24 @@ export const dungeonTransitionLabModule: LabModule = {
     };
 
     const refreshDebug = (): void => {
-      const loaded = references.current;
+      const loaded = transitionMemory.current, player = playerMemory.current;
       debug.textContent = JSON.stringify(loaded ? {
         transitioning: controller.transitioning,
         presetKey: loaded.presetKey,
-        playerPosition: loaded.runtime.playerPosition,
-        playerFacing: loaded.runtime.playerFacing,
-        entrances: scanDungeonDocumentEntrances(loaded.runtime.map.document)
-          .map(({ entity, component, tileX, tileY }) => ({
-          entityId: entity.id, entranceId: component.entranceId, tileX, tileY, facing: component.facing,
-        })),
-        exits: scanDungeonDocumentExits(loaded.runtime.map.document).map(({ entity, component, location }) => ({
-          entityId: entity.id, location: location.kind, triggers: resolveDungeonExitTriggers(component),
-          triggerLabel: triggerLabel(resolveDungeonExitTriggers(component)),
-          targetMapPresetKey: component.targetMapPresetKey,
-          targetEntranceId: component.targetEntranceId,
+        playerPosition: player?.loadId === loaded.loadId ? player.playerPosition : null,
+        playerFacing: player?.loadId === loaded.loadId ? player.playerFacing : null,
+        entrances: loaded.entrances,
+        exits: loaded.exits.map(exit => ({
+          entityId: exit.entityId, location: exit.location.kind, triggers: exit.triggers,
+          triggerLabel: triggerLabel(exit.triggers),
+          targetMapPresetKey: exit.targetMapPresetKey,
+          targetEntranceId: exit.targetEntranceId,
         })),
       } : { transitioning: false, loaded: false }, null, 2);
     };
 
     const controller = createDungeonTransitionController({
-      getCurrentPresetKey: () => references.current?.presetKey ?? '',
+      getCurrentPresetKey: () => transitionMemory.current?.presetKey ?? '',
       switchDungeon: async (presetKey, entranceId) => (
         await context.communication.request(dungeonMapSwitchRequest, { presetKey, entranceId })
       ).loaded,
@@ -253,28 +243,28 @@ export const dungeonTransitionLabModule: LabModule = {
 
     let pendingTransition = false;
     let disposed = false;
-    const executeTransition = async (exit: DungeonExitBinding): Promise<void> => {
+    const executeTransition = async (exit: DungeonExitData): Promise<void> => {
       if (disposed || pendingTransition || !enabledToggle.input.checked || controller.transitioning) return;
-      const source = references.current;
+      const source = transitionMemory.current;
       if (!source) return;
       pendingTransition = true;
       const payload: DungeonTransitionEventPayload = {
         sourcePresetKey: source.presetKey,
-        targetPresetKey: exit.component.targetMapPresetKey,
-        targetEntranceId: exit.component.targetEntranceId,
-        exitEntityId: exit.entity.id,
+        targetPresetKey: exit.targetMapPresetKey,
+        targetEntranceId: exit.targetEntranceId,
+        exitEntityId: exit.entityId,
       };
       try {
-        const target = libraries.require().maps[exit.component.targetMapPresetKey];
-        if (!target) throw new Error(`目标地图预设“${exit.component.targetMapPresetKey}”不存在。`);
+        const target = libraries.require().maps[exit.targetMapPresetKey];
+        if (!target) throw new Error(`目标地图预设“${exit.targetMapPresetKey}”不存在。`);
         // 在切换并释放来源场景前完成目标入口预校验。
-        findDungeonDocumentEntrance(target, exit.component.targetEntranceId);
+        findDungeonDocumentEntrance(target, exit.targetEntranceId);
         inputLock = context.keyboard.acquireLock({ ownerId: 'dungeon-transition', label: '地牢地图传送' });
         status.textContent = `正在切换到 ${payload.targetPresetKey} / ${payload.targetEntranceId}……`;
         refreshDebug();
         await context.communication.publish(dungeonTransitionStartedEvent, payload);
         if (disposed) return;
-        const result = await controller.transition(exit);
+        const result = await controller.transitionTo(exit);
         if (disposed) return;
         if (!result.transitioned) throw new Error(`地图切换未完成：${result.reason ?? 'unknown'}。`);
         await context.communication.request(dungeonRuntimeCommitRequest, { reason: 'dungeon-transition-arrived' });
@@ -292,11 +282,11 @@ export const dungeonTransitionLabModule: LabModule = {
       }
     };
 
-    const findInteractionExit = (): DungeonExitBinding | null => {
-      const loaded = references.current;
-      if (!loaded || !enabledToggle.input.checked || !interactToggle.input.checked) return null;
-      return findDungeonDocumentExitForInteraction(
-        loaded.runtime.map, loaded.runtime.playerPosition, loaded.runtime.playerFacing,
+    const findInteractionExit = (): DungeonExitData | null => {
+      const loaded = transitionMemory.current, player = playerMemory.current;
+      if (!loaded || !player || loaded.loadId !== player.loadId || !enabledToggle.input.checked || !interactToggle.input.checked) return null;
+      return control.findInteraction(
+        loaded.loadId, player.playerPosition, player.playerFacing,
       );
     };
 
@@ -319,10 +309,10 @@ export const dungeonTransitionLabModule: LabModule = {
       if (!enabledToggle.input.checked || !moveAttemptToggle.input.checked || controller.transitioning) return false;
       if (attempt.direction !== 'north' && attempt.direction !== 'east'
         && attempt.direction !== 'south' && attempt.direction !== 'west') return false;
-      const loaded = references.current;
+      const loaded = transitionMemory.current;
       if (!loaded) return false;
       try {
-        const exit = findDungeonDocumentExitForMoveAttempt(loaded.runtime.map, attempt.from, attempt.direction);
+        const exit = control.findMoveAttempt(loaded.loadId, attempt.from, attempt.direction);
         if (!exit) return false;
         status.textContent = `尝试向 ${attempt.direction} 移动，命中 PUSH 出口。`;
         void executeTransition(exit);
@@ -348,7 +338,7 @@ export const dungeonTransitionLabModule: LabModule = {
     interactToggle.input.addEventListener('change', () => keyboardRegistration.setEnabled(interactToggle.input.checked));
 
     const offMapChanged = context.communication.on(dungeonMapChangedEvent, (changed) => {
-      const loaded = references.current;
+      const loaded = transitionMemory.current;
       if (!loaded || loaded.loadId !== changed.loadId) return;
       status.textContent = `地图“${loaded.presetKey}”已加载；等待移动或交互出口。`;
       refreshDebug();
@@ -356,7 +346,7 @@ export const dungeonTransitionLabModule: LabModule = {
     });
     const offRuntimeChanged = playerSteps.subscribe('dungeon-transition', 100, (changed) => {
       if (pendingTransition) return true;
-      const loaded = references.current;
+      const loaded = transitionMemory.current;
       if (!loaded || loaded.loadId !== changed.loadId) return;
       const nextPosition = changed.to;
       const previousPosition = changed.from;
@@ -364,7 +354,7 @@ export const dungeonTransitionLabModule: LabModule = {
       if (!enabledToggle.input.checked || !enterToggle.input.checked || controller.transitioning || !previousPosition) return;
 
       try {
-        const exit = findDungeonDocumentExitAfterMovement(loaded.runtime.map, previousPosition, nextPosition);
+        const exit = control.findAfterMovement(loaded.loadId, previousPosition, nextPosition);
         if (exit) { void executeTransition(exit); return true; }
       } catch (error) {
         status.textContent = error instanceof Error ? error.message : String(error);
@@ -380,8 +370,10 @@ export const dungeonTransitionLabModule: LabModule = {
       offView();
       keyboardRegistration.dispose();
       interactButton.removeEventListener('click', tryInteraction);
+      debugBoxesToggle.input.removeEventListener('change', renderDebugBoxes);
       inputLock?.release();
       disposeDebugBoxes();
+      panel.root.remove();
     };
   },
 };

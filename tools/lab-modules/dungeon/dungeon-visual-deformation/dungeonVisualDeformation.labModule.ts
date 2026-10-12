@@ -1,9 +1,8 @@
+import { DUNGEON_DEFORMATION_SETTINGS_MEMORY, readDungeonDeformationData } from './dungeonDeformation.memory';
 import { DEFAULT_DEFORMATION_SETTINGS, parseDeformationSettings, selectDeformationView, type DeformationSettings, type DeformationRule } from '@/core/render-deformation/deformation.ts';
-import { readDeformationSettings } from '@/core/render-deformation/deformation.document.ts';
 import { getVisualDeformationRegistry } from '@/core/render-deformation/visualDeformationRegistry.ts';
 import { createLabField, createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
-import { DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY, type DungeonMapLoaderReferences } from '../dungeon-map-loader/dungeonMapLoader.references';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 
 export const DUNGEON_VISUAL_DEFORMATION_SERVICE_KEY = 'dungeon:visual-deformation';
@@ -12,7 +11,7 @@ export const dungeonVisualDeformationLabModule: LabModule = {
   id: 'dungeon-visual-deformation', dependencies: ['dungeon-overhead-view', 'dungeon-map-loader'],
   setup(context) {
     const view = context.services.get<DungeonOverheadViewService>(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY);
-    const refs = context.services.get<DungeonMapLoaderReferences>(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY);
+    const settingsMemory = context.memory.acquire(DUNGEON_DEFORMATION_SETTINGS_MEMORY);
     const registry = getVisualDeformationRegistry(context.scene);
     let lease: ReturnType<typeof registry.acquire> | null = null;
     const panel = context.ui.addPanel('dungeon-visual-deformation', '物体变形');
@@ -125,7 +124,9 @@ export const dungeonVisualDeformationLabModule: LabModule = {
     targetSearch.addEventListener('input', renderTargets);
     const reconcile = () => {
       try {
-        current = state.draft ?? (refs.current ? readDeformationSettings(refs.current.document) : null)
+        const mapSettings = settingsMemory.current;
+        if (!state.draft && mapSettings?.error) throw new Error(mapSettings.error);
+        current = state.draft ?? (mapSettings ? readDungeonDeformationData(mapSettings) : null)
           ?? { ...structuredClone(DEFAULT_DEFORMATION_SETTINGS), enabled: true };
         const deformationView = selectDeformationView(current, view.view?.config ?? null, view.configuredView?.config ?? null);
         if (!current.enabled || !deformationView) { lease?.release(); lease = null; }
@@ -168,7 +169,10 @@ export const dungeonVisualDeformationLabModule: LabModule = {
       })); } catch (error) { status.textContent = String(error); }
     };
     reset.onclick = () => service.setDraft(null);
-    const offView = view.subscribe(reconcile); const offMap = context.communication.on(dungeonMapChangedEvent, reconcile);
+    const offView = view.subscribe(reconcile);
+    const offMap = context.communication.on(dungeonMapChangedEvent, event => {
+      if (settingsMemory.current?.loadId === event.loadId) reconcile();
+    });
     const offTargets = registry.subscribe(renderTargets); reconcile(); renderTargets();
     return () => {
       offView(); offMap(); offTargets(); unmountTransitionControl(); lease?.release(); registration.unregister();

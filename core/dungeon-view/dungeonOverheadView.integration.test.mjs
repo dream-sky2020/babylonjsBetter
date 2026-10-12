@@ -33,6 +33,20 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     const { applySceneEnvironmentDisplayView } = await server.ssrLoadModule('/core/dungeon-view/sceneEnvironmentDisplay.ts');
     const { createDungeonViewConsumer } = await server.ssrLoadModule('/core/dungeon-view/dungeonOverheadView.ts');
     const { DungeonRuntimeAssembly, DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } = await server.ssrLoadModule('/core/dungeon-runtime/dungeonRuntimeAssembly.ts');
+    const { LabMemoryRegistry } = await server.ssrLoadModule('/tools/lab-kit/shared-memory/LabMemory.ts');
+    const gridData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-grid/dungeonGrid.memory.ts');
+    const playerDataMemory = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts');
+    const spawnData = await server.ssrLoadModule('/tools/lab-modules/dungeon/player-spawn/playerSpawn.memory.ts');
+    const sessionData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-map-loader/dungeonSession.memory.ts');
+    const obstacleData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-obstacle/dungeonObstacles.memory.ts');
+    const traversalData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-traversal/dungeonTraversal.memory.ts');
+    const movementData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-movement/dungeonMovement.memory.ts');
+    const overheadData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-overhead-view/dungeonOverhead.memory.ts');
+    const deformationData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-visual-deformation/dungeonDeformation.memory.ts');
+    const playerControl = await server.ssrLoadModule('/core/dungeon-player-movement/dungeonPlayerControl.ts');
+    const movementControl = await server.ssrLoadModule('/core/dungeon-movement/dungeonMovementControl.ts');
+    const traversalControl = await server.ssrLoadModule('/core/dungeon-traversal/dungeonTraversalControl.ts');
+    const obstacleControl = await server.ssrLoadModule('/core/dungeon-obstacle/dungeonObstacleControl.ts');
     const definitions = await server.ssrLoadModule('/tools/entity-container-editor/entityDefinitionCatalog.ts');
     const viewEntity = definitions.entityTypeRegistry.get('dungeon-overhead-view');
     assert.deepEqual(viewEntity.allowedContainers, ['map']);
@@ -44,9 +58,22 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     const camera = new ArcRotateCamera('camera', 1, 1, 40, Vector3.Zero(), scene); c = createCameraLabController(camera);
     const canvas = document.querySelector('canvas'); canvas.hasPointerCapture = () => false;
     viewport = new LabViewportManager(document.body, canvas, c, () => {});
-    const refs = { current: null }; const services = new Map([['dungeon:map-loader-references', refs]]);
+    const refs = { current: null }; const services = new Map(); const memory = new LabMemoryRegistry();
+    const publishMemory = (definition, value) => memory.scope('dungeon-map-loader').acquire(definition).replace(value);
     const assembly = new DungeonRuntimeAssembly(); services.set(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, assembly);
     cleanups.push(() => assembly.dispose());
+    services.set(playerControl.DUNGEON_PLAYER_CONTROL_SERVICE_KEY, playerControl.createDungeonPlayerControl(() => refs.current
+      ? { loadId: refs.current.loadId, runtime: refs.current.runtime, system: assembly.readPreparation(refs.current.runtime, 'player-movement') } : null));
+    services.set(movementControl.DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY, movementControl.createDungeonMovementControl(() => refs.current
+      ? { loadId: refs.current.loadId, resolver: refs.current.runtime.movementResolver } : null));
+    services.set(traversalControl.DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY, traversalControl.createDungeonTraversalControl(() => refs.current
+      ? { loadId: refs.current.loadId, traversal: refs.current.runtime.traversal } : null));
+    services.set(obstacleControl.DUNGEON_OBSTACLE_CONTROL_SERVICE_KEY, {
+      setActive(loadId, id, active) { if (refs.current?.loadId !== loadId) return false; refs.current.runtime.obstacleStates.set(id, active); return true; },
+      subscribe(loadId, listener) { return refs.current?.loadId === loadId ? refs.current.runtime.traversal.subscribe(change => {
+        if (change.kind === 'obstacle-state-changed') listener();
+      }) : () => {}; },
+    });
     const environmentRoot = new TransformNode('scene_environment_test', scene);
     const environmentBox = MeshBuilder.CreateBox('scene-box', { size: 2 }, scene); environmentBox.parent = environmentRoot;
     const environmentPreset = { objects: [{ id: 'box', position: [12, 0, 24], geometry: { primitive: 'box' } }], models: [], lights: [] };
@@ -59,11 +86,15 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
       on(event, fn) { const set = handlers.get(event) ?? new Set(); set.add(fn); handlers.set(event, set); return () => { set.delete(fn); if (!set.size) handlers.delete(event); }; },
       publish: async () => {}, request: async () => {},
     };
-    const scheduler = { isPaused: false, register: () => () => {} };
+    const scheduler = { isPaused: false, register: ({ phase, run }) => {
+      if (phase !== 'presentation') return () => {};
+      const observer = scene.onBeforeRenderObservable.add(() => run(0.016));
+      return () => scene.onBeforeRenderObservable.remove(observer);
+    } };
     const context = { engine, scene, canvas, camera, cameraController: c, keyboard, labState, viewport, services, communication, scheduler,
       ui: new LabUi(document.querySelector('aside'), document.getElementById('status')) };
     for (const id of ['dungeon-player-camera', 'dungeon-traversal', 'dungeon-movement', 'player-movement', 'dungeon-grid', 'dungeon-obstacle', 'dungeon-overhead-view', 'dungeon-visual-deformation']) {
-      const lifecycle = catalog[id].setup(context);
+      const lifecycle = catalog[id].setup({ ...context, memory: memory.scope(id) });
       cleanups.push(typeof lifecycle === 'function' ? lifecycle : () => lifecycle?.dispose?.());
     }
     const coordinator = services.get('dungeon:overhead-view'); const playerCamera = services.get('dungeon:player-camera');
@@ -81,8 +112,25 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
       { entity: { id: 'block' }, component: {}, placement: { kind: 'tile', tileX: 2, tileY: 2 } },
     ];
     refs.current = { document: mapDocument, runtime, loadId: 1, map, spawn, sceneBinding: { component: environment }, obstacles };
-    const emitMap = () => handlers.get(dungeonMapChangedEvent)?.forEach(fn => fn({ loadId: refs.current.loadId }));
+    const emitMap = () => {
+      const { loadId, runtime, document, spawn, sceneBinding, obstacles } = refs.current;
+      publishMemory(gridData.DUNGEON_GRID_MEMORY, gridData.createDungeonGridData(loadId, 'test', runtime.map, sceneBinding.component));
+      publishMemory(playerDataMemory.DUNGEON_PLAYER_STATE_MEMORY, playerDataMemory.createDungeonPlayerStateData(loadId, 'test', runtime));
+      publishMemory(playerDataMemory.DUNGEON_OBSTACLE_STATE_MEMORY, playerDataMemory.createDungeonObstacleStateData(loadId, 'test', runtime));
+      publishMemory(spawnData.DUNGEON_PLAYER_SPAWN_MEMORY, { loadId, presetKey: 'test', spawnPointId: 'spawn', actorSpawnId: 'actor',
+        tilePosition: spawn.tilePosition, worldPosition: spawn.worldPosition, tileSize: spawn.sceneEnvironmentComponent.tileSize });
+      publishMemory(sessionData.DUNGEON_SESSION_INFO_MEMORY, { loadId, presetKey: 'test', mapId: runtime.map.id,
+        status: 'ready', pendingLoadId: null, pendingPresetKey: null, error: null });
+      publishMemory(obstacleData.DUNGEON_OBSTACLES_MEMORY, obstacleData.createDungeonObstaclesData(loadId, 'test', obstacles));
+      publishMemory(traversalData.DUNGEON_TRAVERSAL_STATE_MEMORY, traversalData.createDungeonTraversalStateData(loadId, 'test', runtime.traversal));
+      publishMemory(movementData.DUNGEON_MOVEMENT_STATE_MEMORY, movementData.createDungeonMovementStateData(loadId, 'test', runtime.movementResolver));
+      publishMemory(overheadData.DUNGEON_OVERHEAD_SETTINGS_MEMORY, overheadData.createDungeonOverheadSettingsData(loadId, 'test', document));
+      publishMemory(deformationData.DUNGEON_DEFORMATION_SETTINGS_MEMORY, deformationData.createDungeonDeformationData(loadId, 'test', document));
+      handlers.get(dungeonMapChangedEvent)?.forEach(fn => fn({ loadId }));
+    };
     emitMap();
+    assert.deepEqual(memory.inspect().filter(entry => entry.modules.includes('dungeon-overhead-view')).map(entry => entry.key).sort(),
+      ['dungeon.grid', 'dungeon.overhead-settings']);
     services.get('dungeon-grid-debug:view').setVisible(true); services.get('dungeon-obstacle:view').setVisible(true);
     assert.equal(coordinator.view, null); assert.equal(playerCamera.mode, 'first-person');
     c.setVerticalFovDeg(73);

@@ -1,5 +1,5 @@
-import type { DungeonEntranceBinding, DungeonExitBinding } from '@/core/dungeon-transition';
-import type { ISceneEnvironmentComponent } from '@/core/entity';
+import type { DungeonEntranceData, DungeonExitData } from '@/core/dungeon-transition/dungeonTransitionData';
+import type { DungeonMapTileLayoutSettings } from '@/core/scene/dungeonMapSceneLayout';
 import {
   resolveDungeonEdgeDebugLayout,
   resolveDungeonTileDebugLayout,
@@ -7,13 +7,13 @@ import {
 } from '../dungeon-obstacle/dungeonObstacleDebugLayout';
 
 export type DungeonTransitionDebugBinding =
-  | Readonly<{ kind: 'entrance'; binding: DungeonEntranceBinding }>
-  | Readonly<{ kind: 'exit'; binding: DungeonExitBinding }>;
+  | Readonly<{ kind: 'entrance'; binding: DungeonEntranceData }>
+  | Readonly<{ kind: 'exit'; binding: DungeonExitData }>;
 
 /** 与阻碍 Debug 共用空间规则，保证格子、独立边和公用边盒对齐。 */
 export const resolveDungeonTransitionDebugLayout = (
   target: DungeonTransitionDebugBinding,
-  component: ISceneEnvironmentComponent,
+  component: DungeonMapTileLayoutSettings,
   mapWidth: number,
   mapHeight: number,
 ): DungeonObstacleDebugLayout => {
@@ -39,7 +39,7 @@ export const resolveDungeonTransitionDebugLayout = (
     );
   }
   const side = location.sides[0];
-  if (!side) throw new Error(`公用边出口“${target.binding.entity.id}”缺少边端点。`);
+  if (!side) throw new Error(`公用边出口“${target.binding.entityId}”缺少边端点。`);
   return resolveDungeonEdgeDebugLayout(
     component, mapWidth, mapHeight,
     side.x, side.y, side.direction, false,

@@ -4,6 +4,8 @@
 
 实现仍位于相邻的 `dungeon-first-person-camera/dungeonFirstPersonCamera.labModule.ts`；此目录导出正式 `dungeon-player-camera` ID，旧 ID 是兼容别名。
 
+共享内存只申请 `dungeon.player-state`（连续位置/旋转、格坐标与朝向）、`dungeon.player-spawn`（格子高度）、`dungeon.session`（地图标识）。不接收完整 Runtime、地图文档或场景组件。Core 替换姿态字段后立即可见，切图通过地图广播更新绑定，原 presentation 任务持续跟随姿态。
+
 - DRPG 第一人称：固定透视。由 Dungeon Runtime 绑定玩家位置/朝向，保留自由观察、回正和独立 FOV。此时俯视投影和范围控件禁用。
 - 第三人称俯视：选择透视或正交。`orthographicSize` 是世界单位的垂直可见半范围，完整可见高度为两倍；正交下距离输入禁用，原透视距离和 FOV 保留。仰角、地图朝向和目标高度继续由已有控件设置。
 - 当前模块没有侧视、独立等距预设、无人机或正交第一人称模式。可用俯视角度调整得到倾斜观察，但不新增相机模式。

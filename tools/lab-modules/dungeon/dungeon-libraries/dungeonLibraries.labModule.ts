@@ -3,26 +3,24 @@ import { loadSceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.
 import { validateDungeonTransitionDocumentLibrary } from '@/core/dungeon-transition';
 import { loadDungeonMapDocumentLibraryV2 } from '@/core/map';
 import { parseSceneEnvironmentPresetLibrary, parseShadowQualityPresetLibrary } from '@/core/scene';
-import type { LabModule } from '@/tools/lab-kit';
+import type { LabModule, LabStateJsonValue } from '@/tools/lab-kit';
 import {
-  DUNGEON_LIBRARIES_SERVICE_KEY,
   dungeonMapCatalogRequest,
 } from './dungeonLibraries.protocol';
-import { createDungeonLabLibrariesReference } from './dungeonLibraries.references';
+import { DUNGEON_LIBRARIES_MEMORY } from './dungeonLibraries.memory';
 
 const selectDevData = (payload: unknown) => (payload as Record<string, unknown>).data;
 
 export const dungeonLibrariesLabModule: LabModule = {
   id: 'dungeon-libraries',
   setup(context) {
-    const controller = createDungeonLabLibrariesReference();
-    context.services.set(DUNGEON_LIBRARIES_SERVICE_KEY, controller.reference);
+    const librariesMemory = context.memory.acquire(DUNGEON_LIBRARIES_MEMORY);
     const stateRegistration = context.labState.registerReference({
       moduleId: 'dungeon-libraries',
       key: 'loaded-libraries',
       version: 1,
-      value: controller.reference,
-      inspect: (reference) => {
+      value: librariesMemory,
+      inspect: (reference): LabStateJsonValue => {
         const libraries = reference.current;
         return libraries ? {
           loaded: true,
@@ -33,7 +31,7 @@ export const dungeonLibrariesLabModule: LabModule = {
       },
     });
     context.communication.handle(dungeonMapCatalogRequest, () => {
-      const libraries = controller.reference.require();
+      const libraries = librariesMemory.require();
       return Object.values(libraries.maps).map(({ identity, grid }) => ({
         presetKey: identity.presetKey,
         name: identity.name,
@@ -53,7 +51,7 @@ export const dungeonLibrariesLabModule: LabModule = {
         if (transitionIssues.length) {
           throw new Error(`地牢入口/出口配置无效：\n${transitionIssues.map(({ message }) => `- ${message}`).join('\n')}`);
         }
-        controller.commit({
+        librariesMemory.replace({
           maps,
           environments: parseSceneEnvironmentPresetLibrary(environments),
           shadows: parseShadowQualityPresetLibrary(shadows),
@@ -61,9 +59,8 @@ export const dungeonLibrariesLabModule: LabModule = {
         stateRegistration.markChanged();
       },
       dispose() {
-        controller.clear();
+        librariesMemory.replace(null);
         stateRegistration.unregister();
-        context.services.delete(DUNGEON_LIBRARIES_SERVICE_KEY);
       },
     };
   },

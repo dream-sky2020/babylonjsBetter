@@ -8,6 +8,9 @@ import {
   type LabExecutionPlanEntry,
 } from './execution-plan';
 import { createLabState, createLabStatePanel } from './lab-state';
+import { LabMemoryRegistry } from './shared-memory';
+import { createLabMemoryPanel } from './shared-memory/labMemoryPanel';
+import { createLabCommunicationPanel } from './labCommunicationPanel';
 import { LabCommunication } from './labCommunication';
 import { createLabCommunicationLogPanel } from './labCommunicationLogPanel';
 import { LabServiceRegistry } from './labServiceRegistry';
@@ -162,6 +165,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   });
   const runner = new SystemRunner();
   const services = new LabServiceRegistry();
+  const memory = new LabMemoryRegistry();
   const ui = new LabUi(panels, status);
   const disposeExecutionPlanPanel = createLabExecutionPlanPanel(ui, executionMonitor, runner, services, communication);
   const disposeCommunicationLogPanel = createLabCommunicationLogPanel(ui, communication.journal);
@@ -208,9 +212,12 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const disposeKeyboardPanel = createLabKeyboardDebugPanel(ui, keyboard);
   const cameraSystem = createLabCameraSystem(stage, ui, camera, keyboard, options.initialCamera, options.cameraPresets);
   const viewport = new LabViewportManager(stage, canvas, cameraSystem, () => engine.resize());
+  const disposeMemoryPanel = createLabMemoryPanel(ui, viewport, memory, executionPlan.entries.map(entry => entry.module));
+  const disposeCommunicationPanel = createLabCommunicationPanel(ui, viewport, communication);
   stage.append(badge);
   const allModuleIds = new Set(executionPlan.entries.map(({ moduleId }) => moduleId));
   const context: LabContext = {
+    memory: memory.scope('lab:host'),
     scheduler: { get isPaused() { return runner.isPaused; }, register: task => runner.register('lab:host', task) },
     labState,
     engine,
@@ -242,6 +249,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       } finally {
         runner.removeOwner(entry.moduleId);
         services.removeOwner(entry.moduleId);
+        memory.removeModule(entry.moduleId);
         moduleCommunication.dispose();
         if (!failed) executionMonitor.completeDispose(entry.moduleId);
       }
@@ -256,8 +264,10 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       const moduleCommunication = communication.scope(entry.moduleId);
       executionMonitor.beginSetup(entry.moduleId);
       try {
+        for (const event of entry.module.events ?? []) moduleCommunication.declareEvent(event.definition, { publishes: event.publishes });
         const result = await entry.module.setup({
           ...context,
+          memory: memory.scope(entry.moduleId),
           ui: ui.scope(entry.module),
           scheduler: { get isPaused() { return runner.isPaused; }, register: task => runner.register(entry.moduleId, task) },
           communication: moduleCommunication,
@@ -270,6 +280,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
         executionMonitor.fail(entry.moduleId, error);
         runner.removeOwner(entry.moduleId);
         services.removeOwner(entry.moduleId);
+        memory.removeModule(entry.moduleId);
         moduleCommunication.dispose();
         throw moduleFailure(entry, 'setup', error, options.modules, executionPlan);
       }
@@ -315,6 +326,9 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     const cleanupErrors = disposeModules();
     disposeLabStatePanel();
     disposeKeyboardPanel();
+    disposeMemoryPanel();
+    disposeCommunicationPanel();
+    memory.dispose();
     viewport.dispose();
     cameraSystem.dispose();
     keyboard.dispose();
@@ -343,6 +357,9 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       const cleanupErrors = disposeModules();
       disposeLabStatePanel();
       disposeKeyboardPanel();
+      disposeMemoryPanel();
+      disposeCommunicationPanel();
+      memory.dispose();
       viewport.dispose();
       cameraSystem.dispose();
       keyboard.dispose();

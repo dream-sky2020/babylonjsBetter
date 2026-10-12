@@ -108,6 +108,8 @@ export class DungeonMovementResolver {
   }
 
   get hasActiveRequests(): boolean { return this.requests.size > 0; }
+  /** Live request records for shared diagnostics; no snapshot or per-frame copy. */
+  get activeRequests(): ReadonlyMap<string, DungeonMoveRequest> { return this.requests; }
 
   priorityOf(request: DungeonMoveRequest): number {
     const progress = request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds);
@@ -312,7 +314,16 @@ export class DungeonMovementResolver {
   debugSnapshot(): DungeonMovementDebugSnapshot {
     return {
       config: this.config,
-      activeMoves: [...this.requests.values()].map((request) => ({
+      activeMoves: this.debugActiveMoves(),
+      movementReservationsByTile: this.movementReservationsByTile
+        .map((reservations) => Object.fromEntries(reservations)),
+      movementReservationsByPoint: this.movementReservationsByPoint
+        .map((reservations) => Object.fromEntries(reservations)),
+    };
+  }
+
+  debugActiveMoves(): DungeonMovementDebugSnapshot['activeMoves'] {
+    return [...this.requests.values()].map((request) => ({
         requestId: request.id,
         actorId: request.actorId,
         fromTileIndex: request.fromTileIndex,
@@ -325,12 +336,7 @@ export class DungeonMovementResolver {
           : request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds),
         commitProgress: request.commitProgress,
         priority: this.priorityOf(request),
-      })),
-      movementReservationsByTile: this.movementReservationsByTile
-        .map((reservations) => Object.fromEntries(reservations)),
-      movementReservationsByPoint: this.movementReservationsByPoint
-        .map((reservations) => Object.fromEntries(reservations)),
-    };
+      }));
   }
 }
 

@@ -10,6 +10,44 @@ import {
 const sumRequest = createLabRequest<{ left: number; right: number }, number>('test.sum');
 const changedEvent = createLabEvent<{ value: number }>('test.changed');
 
+test('event catalog retains declared zero-listener events and separates module count from callback count', () => {
+  const communication = new LabCommunication(), source = communication.scope('source'), receiver = communication.scope('receiver');
+  source.declareEvent(changedEvent, { publishes: true });
+  assert.equal(communication.inspectEvents()[0].listenerCount, 0);
+  const off = receiver.on(changedEvent, () => {}); receiver.on(changedEvent, () => {});
+  assert.equal(communication.inspectEvents()[0].listenerCount, 2); assert.equal(communication.inspectEvents()[0].moduleCount, 1);
+  off(); assert.equal(communication.inspectEvents()[0].listenerCount, 1);
+  receiver.dispose(); source.dispose();
+  assert.equal(communication.inspectEvents()[0].listenerCount, 0); assert.deepEqual(communication.inspectEvents()[0].declaredPublishers, []);
+  communication.dispose();
+});
+
+test('dispatch records preserve parameter snapshots and recipient identities after unsubscribe', async () => {
+  const communication = new LabCommunication(), source = communication.scope('undeclared-source'), receiver = communication.scope('receiver');
+  receiver.on(changedEvent, () => {}); receiver.on(changedEvent, () => { throw new Error('failed listener'); });
+  const payload = { value: 1 }, pending = source.publish(changedEvent, payload);
+  payload.value = 2; receiver.dispose();
+  const report = await pending; assert.equal(report.delivered, 1); assert.equal(report.failed.length, 1);
+  const records = communication.journal.getEntries();
+  const start = records.find(entry => entry.phase === 'event-published')!, end = records.find(entry => entry.phase === 'event-completed')!;
+  assert.deepEqual(start.payloadPreview, { value: 1 }); assert.equal(start.recipients?.length, 2);
+  assert.notEqual(start.recipients![0].listenerId, start.recipients![1].listenerId);
+  assert.deepEqual(end.listenerResults?.map(result => result.status), ['success', 'failed']);
+  assert.equal(communication.inspectEvents()[0].listenerCount, 0);
+  assert.deepEqual(communication.inspectEvents()[0].observedPublishers, ['undeclared-source']);
+  communication.dispose();
+});
+
+test('conflicting described event definitions fail at registration while legacy definitions remain compatible', () => {
+  const communication = new LabCommunication(), scope = communication.scope('test');
+  scope.declareEvent(changedEvent);
+  const described = createLabEvent<{ value: number }>('test.changed', 1, { label: 'Changed', fields: [{ name: 'value', type: 'number' }] });
+  scope.declareEvent(described); assert.equal(communication.inspectEvents()[0].definition.metadata?.label, 'Changed');
+  assert.throws(() => scope.on(createLabEvent('test.changed', 1, { label: 'Conflicting' }), () => {}), /冲突定义/);
+  scope.on(changedEvent, () => {}); assert.equal(communication.inspectEvents()[0].listenerCount, 1);
+  communication.dispose();
+});
+
 test('typed request reaches one handler and returns its result', async () => {
   const communication = new LabCommunication();
   const server = communication.scope('server');

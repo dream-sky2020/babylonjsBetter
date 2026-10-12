@@ -1,3 +1,8 @@
+import { DUNGEON_GRID_MEMORY, type DungeonGridData } from '../dungeon-grid/dungeonGrid.memory';
+import { DUNGEON_PLAYER_STATE_MEMORY, DUNGEON_OBSTACLE_STATE_MEMORY, type DungeonPlayerStateData } from '../dungeon-runtime/dungeonRuntime.memory';
+import { DUNGEON_MOVEMENT_STATE_MEMORY } from '../dungeon-movement/dungeonMovement.memory';
+import { DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY } from '@/core/dungeon-movement/dungeonMovementControl';
+import { DUNGEON_PLAYER_CONTROL_SERVICE_KEY, type DungeonPlayerCommands } from '@/core/dungeon-player-movement/dungeonPlayerControl';
 import { DungeonPlayerSystem } from '@/core/dungeon-player-movement/dungeonPlayerSystem';
 import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import { DungeonPlayerStepEvents, DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
@@ -6,7 +11,6 @@ import { createDungeonViewConsumer, applyDungeonViewToNode } from '@/core/dungeo
 import { PLAYER_MOVEMENT_VIEW_SERVICE_KEY } from './playerMovement.view';
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import {
-  inspectDungeonPlayerMovement,
   resolveDungeonPlayerRelativeMovementDirection,
   type DungeonPlayerMovementOptions,
   type DungeonPlayerRelativeMovement,
@@ -15,14 +19,7 @@ import {
   type DungeonPlayerTurnTimingMode,
 } from '@/core/dungeon-player-movement';
 import type { DungeonMovementDirection, DungeonMovementDirectionMode } from '@/core/dungeon-movement';
-import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
-import {
-  setDungeonRuntimePlayerMovementProfile,
-  setDungeonRuntimePlayerPosition,
-  type DungeonRuntime,
-} from '@/core/dungeon-runtime';
-import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '@/core/dungeon-traversal';
-import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
+import { resolveDungeonMapTileWorldLayout } from '@/core/scene/dungeonMapSceneLayout';
 import {
   createLabField,
   createLabJson,
@@ -36,10 +33,6 @@ import {
   dungeonRuntimeChangedEvent,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import {
-  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-  type DungeonMapLoaderReferences,
-} from '../dungeon-map-loader/dungeonMapLoader.references';
-import {
   DUNGEON_PLAYER_ABSOLUTE_KEY_DIRECTIONS,
   DungeonPlayerDirectionalInput,
   resolveDungeonPlayerContinuousHoldThreshold,
@@ -50,7 +43,7 @@ import {
   type DungeonPlayerBlockedAttempt,
 } from './playerMovement.blockedAttempt';
 
-type MovementView = { loadId: number; runtime: DungeonRuntime; spawn: DungeonPlayerSpawnBinding };
+type MovementView = { loadId: number; player: DungeonPlayerStateData; grid: DungeonGridData };
 
 const createNumberInput = (value: number, min: number | undefined, step: number): HTMLInputElement => {
   const input = document.createElement('input');
@@ -86,15 +79,18 @@ export const playerMovementLabModule: LabModule = {
   id: 'player-movement',
   dependencies: ['dungeon-map-loader', 'dungeon-movement'],
   setup(context) {
-    const references = context.services.get<DungeonMapLoaderReferences>(
-      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-    );
+    const playerMemory = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
+    const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
+    const movementMemory = context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY);
+    const obstacleMemory = context.memory.acquire(DUNGEON_OBSTACLE_STATE_MEMORY);
+    const playerControl = context.services.get(DUNGEON_PLAYER_CONTROL_SERVICE_KEY);
+    const movementControl = context.services.get(DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY);
     const steps = new DungeonPlayerStepEvents();
     context.services.set(DUNGEON_PLAYER_STEP_SERVICE_KEY, Object.freeze({ subscribe: steps.subscribe.bind(steps) }));
     const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
     const offPreparation = assembly.registerPreparation('player-movement', (runtime, loadId) =>
       new DungeonPlayerSystem(runtime, loadId, steps));
-    let playerSystem: DungeonPlayerSystem | null = null;
+    let playerSystem: DungeonPlayerCommands | null = null;
     const observeStep = (result: { step?: import('@/core/dungeon-player-movement/dungeonPlayerStepEvents').DungeonPlayerStepCompleted }) => {
       if (result.step) void context.communication.publish(dungeonPlayerStepCompletedEvent, result.step,
         result.step.requestId ? { correlationId: result.step.requestId } : undefined);
@@ -292,10 +288,7 @@ export const playerMovementLabModule: LabModule = {
         button.disabled = !eightWayToggle.input.checked;
       });
       if (current) {
-        setDungeonRuntimePlayerMovementProfile(
-          current.runtime,
-          eightWayToggle.input.checked ? 'ground-eight-way' : 'ground-four-way',
-        );
+        playerSystem?.setMovementProfile(eightWayToggle.input.checked ? 'ground-eight-way' : 'ground-four-way');
         status.textContent = eightWayToggle.input.checked
           ? '玩家已切换为八方向移动；WASD / 方向键可组合斜向。'
           : '玩家已切换为四方向移动；斜向按钮已禁用。';
@@ -313,11 +306,11 @@ export const playerMovementLabModule: LabModule = {
       disposeMarker();
       if (!debugMarkerToggle.input.checked) return;
       const layout = resolveDungeonMapTileWorldLayout(
-        event.spawn.sceneEnvironmentComponent,
-        event.runtime.map.width,
-        event.runtime.map.height,
-        event.runtime.playerPosition.tileX,
-        event.runtime.playerPosition.tileY,
+        event.grid,
+        event.grid.width,
+        event.grid.height,
+        event.player.playerPosition.tileX,
+        event.player.playerPosition.tileY,
       );
       const tileShortSide = Math.min(layout.size[0], layout.size[2]);
       const markerHeight = Math.max(layout.size[1] * 1.5, 1.2);
@@ -380,14 +373,21 @@ export const playerMovementLabModule: LabModule = {
       if (!force && now - lastJsonUpdateTime < 250) return;
       lastJsonUpdateTime = now;
       runtimeJson.textContent = JSON.stringify({
-        mapId: current.runtime.map.id,
-        playerPosition: current.runtime.playerPosition,
-        playerFacing: current.runtime.playerFacing,
-        playerWorldPosition: current.runtime.playerWorldPosition,
-        playerWorldRotationY: current.runtime.playerWorldRotationY,
-        playerMovement: current.runtime.playerMovement,
-        movementResolver: current.runtime.movementResolver.debugSnapshot(),
-        obstacleStates: Object.fromEntries(current.runtime.obstacleStates),
+        mapId: current.grid.mapId,
+        playerPosition: current.player.playerPosition,
+        playerFacing: current.player.playerFacing,
+        playerWorldPosition: current.player.playerWorldPosition,
+        playerWorldRotationY: current.player.playerWorldRotationY,
+        playerMovement: current.player.playerMovement,
+        movementResolver: movementMemory.current?.loadId === current.loadId ? {
+          config: movementMemory.current.config,
+          activeMoves: movementControl.debugActiveMoves(current.loadId),
+          targetReservations: movementMemory.current.movementReservationsByTile.flatMap((owners, tileIndex) =>
+            owners.size ? [{ tileIndex, actors: Object.fromEntries(owners) }] : []),
+          crossingPointReservations: movementMemory.current.movementReservationsByPoint.flatMap((owners, pointIndex) =>
+            owners.size ? [{ pointIndex, actors: Object.fromEntries(owners) }] : []),
+        } : null,
+        obstacleStates: obstacleMemory.current?.loadId === current.loadId ? Object.fromEntries(obstacleMemory.current.states) : {},
       }, null, 2);
     };
     const panelVisibilityObserver = new MutationObserver(() => {
@@ -398,8 +398,8 @@ export const playerMovementLabModule: LabModule = {
     const syncMarker = () => {
       if (!current) return;
       if (markerRoot) {
-        markerRoot.position.set(...current.runtime.playerWorldPosition);
-        markerRoot.rotation.y = current.runtime.playerWorldRotationY;
+        markerRoot.position.set(...current.player.playerWorldPosition);
+        markerRoot.rotation.y = current.player.playerWorldRotationY;
       }
       refreshRuntimeJson();
     };
@@ -417,18 +417,17 @@ export const playerMovementLabModule: LabModule = {
     const resolveWorldPosition = (event: MovementView) => (
       position: Readonly<{ tileX: number; tileY: number }>,
     ): readonly [number, number, number] => resolveDungeonMapTileWorldLayout(
-      event.spawn.sceneEnvironmentComponent,
-      event.runtime.map.width,
-      event.runtime.map.height,
+      event.grid,
+      event.grid.width,
+      event.grid.height,
       position.tileX,
       position.tileY,
     ).center;
 
     const interceptBlockedAttempt = (
-      event: MovementView,
       direction: DungeonMovementDirection,
     ): boolean => {
-      const inspection = inspectDungeonPlayerMovement(event.runtime, direction, {
+      const inspection = playerSystem!.inspect(direction, {
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
       });
@@ -440,7 +439,7 @@ export const playerMovementLabModule: LabModule = {
     const move = (direction: DungeonMovementDirection): boolean => {
       if (!current || !playerSystem || assembly.isPaused || context.scheduler.isPaused) return false;
       const event = current;
-      if (interceptBlockedAttempt(event, direction)) {
+      if (interceptBlockedAttempt(direction)) {
         status.textContent = `向 ${direction} 的受阻移动已由其他模块接管。`;
         return true;
       }
@@ -500,9 +499,9 @@ export const playerMovementLabModule: LabModule = {
       if (assembly.isPaused || context.scheduler.isPaused) return;
       if (!current) return;
       const event = current;
-      const facingBeforeMove = event.runtime.playerFacing;
+      const facingBeforeMove = event.player.playerFacing;
       const direction = resolveDungeonPlayerRelativeMovementDirection(facingBeforeMove, movement);
-      if (interceptBlockedAttempt(event, direction)) {
+      if (interceptBlockedAttempt(direction)) {
         status.textContent = `${movement} 的受阻移动已由其他模块接管。`;
         return;
       }
@@ -553,16 +552,14 @@ export const playerMovementLabModule: LabModule = {
       }
       const event = current;
       try {
-        setDungeonRuntimePlayerPosition(event.runtime, { tileX, tileY });
+        playerSystem!.teleport({ tileX, tileY }, resolveWorldPosition(event)({ tileX, tileY }));
       } catch (error) {
         status.textContent = error instanceof Error ? error.message : '目标位置无效。';
         return;
       }
-      const worldPosition = resolveWorldPosition(event)({ tileX, tileY });
-      event.runtime.playerWorldPosition = [...worldPosition];
       syncMarker();
       refreshRuntimeJson(true);
-      status.textContent = `玩家已瞬移到 (${tileX}, ${tileY})，保持朝向 ${event.runtime.playerFacing}。`;
+      status.textContent = `玩家已瞬移到 (${tileX}, ${tileY})，保持朝向 ${event.player.playerFacing}。`;
       void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-position-teleported' });
     };
 
@@ -590,10 +587,10 @@ export const playerMovementLabModule: LabModule = {
         if (!direction) return 'ignored';
         directionalInput.keyDown(event.code, direction, performance.now(), event.repeat);
         if (!event.repeat) {
-          if (!current?.runtime.playerMovement && directionMode() === 'eight-way') {
+          if (!current?.player.playerMovement && directionMode() === 'eight-way') {
             // 延迟到下一渲染帧，让同一帧到达的第二个轴参与当前格步合成。
             pendingEightWayInitialMove = true;
-          } else if (!current?.runtime.playerMovement) {
+          } else if (!current?.player.playerMovement) {
             const nextDirection = directionalInput.consume(performance.now(), 0, directionMode());
             if (nextDirection) move(nextDirection);
           }
@@ -658,12 +655,12 @@ export const playerMovementLabModule: LabModule = {
       enabled: () => !assembly.isPaused,
       run: (deltaSeconds) => {
         if (!current) return;
-        if (!current.runtime.playerMovement && pendingEightWayInitialMove) {
+        if (!current.player.playerMovement && pendingEightWayInitialMove) {
           pendingEightWayInitialMove = false;
           const nextDirection = directionalInput.consume(performance.now(), 0, 'eight-way');
           if (nextDirection) move(nextDirection);
         }
-        if (!current.runtime.playerMovement
+        if (!current.player.playerMovement
           && inputPolicy.continuous
           && continuousHoldMovementDurationSeconds !== null) {
           const nextDirection = directionalInput.consume(
@@ -673,15 +670,16 @@ export const playerMovementLabModule: LabModule = {
           );
           if (nextDirection) move(nextDirection);
         }
-        if (!current.runtime.playerMovement) return;
+        if (!current.player.playerMovement) return;
         let remainingSeconds = deltaSeconds;
         let continuationCount = 0;
-        while (current.runtime.playerMovement && continuationCount++ < 8) {
-          const movementKind = current.runtime.movementResolver
-            .getActiveRequest(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)?.state === 'rollback'
+        while (current.player.playerMovement && continuationCount++ < 8) {
+          const requestId = current.player.playerMovement.requestId;
+          const movementKind = requestId && movementMemory.current?.loadId === current.loadId
+            && movementMemory.current.activeRequests.get(requestId)?.state === 'rollback'
             ? 'rollback'
-            : current.runtime.playerMovement.kind;
-          const completedMovementDurationSeconds = current.runtime.playerMovement.movementDurationSeconds;
+            : current.player.playerMovement.kind;
+          const completedMovementDurationSeconds = current.player.playerMovement.movementDurationSeconds;
           const completedMovementHoldThresholdSeconds = resolveContinuousHoldThreshold(
             completedMovementDurationSeconds,
           );
@@ -694,10 +692,10 @@ export const playerMovementLabModule: LabModule = {
           if (!result.completed) break;
           remainingSeconds = result.remainingSeconds;
           status.textContent = movementKind === 'blocked' || movementKind === 'rollback'
-            ? `移动受阻：玩家退回 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})。`
+            ? `移动受阻：玩家退回 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})。`
             : movementKind === 'turn'
-            ? `原地转向完成：玩家仍位于 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})，朝向 ${current.runtime.playerFacing}。`
-            : `移动完成：玩家位于 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})，朝向 ${current.runtime.playerFacing}。`;
+            ? `原地转向完成：玩家仍位于 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})，朝向 ${current.player.playerFacing}。`
+            : `移动完成：玩家位于 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})，朝向 ${current.player.playerFacing}。`;
           void context.communication.request(dungeonRuntimeCommitRequest, {
             reason: movementKind === 'turn' ? 'player-turn-completed'
               : movementKind === 'blocked' || movementKind === 'rollback'
@@ -715,30 +713,30 @@ export const playerMovementLabModule: LabModule = {
           );
           if (!nextDirection) break;
           move(nextDirection);
-          if (!current.runtime.playerMovement || remainingSeconds <= 0) break;
+          if (!current.player.playerMovement || remainingSeconds <= 0) break;
         }
       },
     });
     const offReady = context.communication.on(dungeonMapChangedEvent, (changed) => {
-      const loaded = references.current;
-      if (!loaded || loaded.loadId !== changed.loadId) return;
+      const loaded = playerMemory.current, grid = gridMemory.current;
+      if (!loaded || !grid || loaded.loadId !== changed.loadId || grid.loadId !== changed.loadId) return;
       const event: MovementView = {
         loadId: changed.loadId,
-        runtime: loaded.runtime,
-        spawn: loaded.spawn,
+        player: loaded,
+        grid,
       };
       clearDirectionalInput();
       current = event;
-      playerSystem = assembly.readPreparation<DungeonPlayerSystem>(loaded.runtime, 'player-movement');
+      playerSystem = playerControl.acquire(loaded.loadId);
       syncMovementProfile();
-      teleportXInput.max = String(event.runtime.map.width - 1);
-      teleportYInput.max = String(event.runtime.map.height - 1);
-      teleportXInput.value = String(event.runtime.playerPosition.tileX);
-      teleportYInput.value = String(event.runtime.playerPosition.tileY);
+      teleportXInput.max = String(event.grid.width - 1);
+      teleportYInput.max = String(event.grid.height - 1);
+      teleportXInput.value = String(event.player.playerPosition.tileX);
+      teleportYInput.value = String(event.player.playerPosition.tileY);
       createMarker(event);
       syncMarker();
       refreshRuntimeJson(true);
-      status.textContent = `玩家已在出生格 (${event.runtime.playerPosition.tileX}, ${event.runtime.playerPosition.tileY}) 创建，朝向 ${event.runtime.playerFacing}。`;
+      status.textContent = `玩家已在出生格 (${event.player.playerPosition.tileX}, ${event.player.playerPosition.tileY}) 创建，朝向 ${event.player.playerFacing}。`;
     });
     const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => refreshRuntimeJson());
     return () => {

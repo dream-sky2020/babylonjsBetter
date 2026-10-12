@@ -1,6 +1,8 @@
 import type { ArcRotateCamera, Engine, Scene } from '@babylonjs/core';
 import type { LabState, LabStateSnapshot } from './lab-state';
+import type { LabMemoryScope } from './shared-memory';
 import type { LabCommunicationScope } from './labCommunication';
+import type { LabEventDefinition } from './labCommunication.types';
 import type { LabCommunicationJournalReader } from './labCommunicationJournal';
 import type { LabServiceScope } from './labServiceRegistry';
 import type { LabExecutionPlan } from './execution-plan';
@@ -12,6 +14,8 @@ import type { LabKeyboardRouter } from './keyboard';
 import type { CameraLabController, CameraLabControllerState, CameraViewPreset } from '@/core/camera/cameraLabController.ts';
 
 export type LabContext = {
+  /** 按统一定义申请共享数据；不存在即创建，存在则检查类型并复用引用。无读写权限检查。 */
+  memory: LabMemoryScope;
   /** Host owns cleanup; task phase/order is independent of panel order. */
   scheduler: { readonly isPaused: boolean; register(task: SystemTask): () => void };
   /** 当前 Lab 独占的活数据引用注册中心；模块仍直接使用自己持有的引用。 */
@@ -36,6 +40,8 @@ export type LabContext = {
 };
 
 export type LabModule = {
+  /** Descriptive protocol declarations; actual listeners still come from on(). */
+  events?: readonly { definition: LabEventDefinition<any>; publishes?: boolean }[];
   id: string;
   manifest?: LabSystemManifest;
   dependencies?: readonly string[];

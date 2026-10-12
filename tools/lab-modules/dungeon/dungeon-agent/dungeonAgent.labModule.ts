@@ -1,3 +1,10 @@
+import { DUNGEON_AGENT_NAVIGATION_MEMORY, createDungeonAgentNavigationData } from './dungeonAgentNavigation.memory';
+import { DUNGEON_TRAVERSAL_STATE_MEMORY } from '../dungeon-traversal/dungeonTraversal.memory';
+import { DUNGEON_MOVEMENT_STATE_MEMORY } from '../dungeon-movement/dungeonMovement.memory';
+import { DUNGEON_GRID_MEMORY, type DungeonGridData } from '../dungeon-grid/dungeonGrid.memory';
+import { DUNGEON_AGENTS_MEMORY, DUNGEON_AGENT_STATE_MEMORY, createDungeonAgentMemoryData, type DungeonAgentState } from './dungeonAgent.memory';
+import { DUNGEON_AGENT_SETTINGS_MEMORY, DUNGEON_AGENT_CONTROLLER_MEMORY, createDungeonAgentControllerData } from './dungeonAgentController.memory';
+import { DUNGEON_AGENT_CONTROL_SERVICE_KEY, type DungeonAgentCommands } from '@/core/dungeon-agent/dungeonAgentControl';
 import { DungeonAgentSystem } from '@/core/dungeon-agent/dungeonAgentSystem';
 import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
 import { applyDungeonViewToNode } from '@/core/dungeon-view/dungeonOverheadView.ts';
@@ -9,23 +16,13 @@ import {
   type DungeonMovementDirection,
 } from '@/core/dungeon-movement';
 import {
-  clearDungeonAgentControllerOverride,
   createDefaultDungeonAgentControllerRegistry,
   createDefaultDungeonAgentControllerParameters,
-  normalizeDungeonAgentControllerParameters,
   normalizeDungeonAgentTilePointList,
-  resolveDungeonAgentPriority,
-  resolveDungeonAgentControllerConfig,
-  setDungeonAgentControllerOverride,
-  startDungeonAgentMovement,
-  startDungeonAgentTurn,
-  syncDungeonAgentPathReservation,
   type DungeonAgentControllerAction,
   type DungeonAgentControllerParameter,
   type DungeonAgentTilePoint,
-  type DungeonAgentRuntimeState,
   type DungeonAgentTurn,
-  type DungeonRuntimeAgent,
 } from '@/core/dungeon-agent';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
 import {
@@ -38,18 +35,9 @@ import {
 import {
   dungeonMapChangedEvent,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
-import {
-  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-  type DungeonMapLoaderReferences,
-  type LoadedDungeonReferences,
-} from '../dungeon-map-loader/dungeonMapLoader.references';
 import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import { createDungeonAgentDebugMarker, type DungeonAgentDebugMarker } from './dungeonAgentDebugMarker';
 import { dungeonAgentsChangedEvent, dungeonAgentsLoadedEvent } from './dungeonAgent.protocol';
-import {
-  createDungeonAgentRuntimeReferences,
-  DUNGEON_AGENT_RUNTIME_SERVICE_KEY,
-} from './dungeonAgent.references';
 
 const FACTION_COLORS: Readonly<Record<string, string>> = {
   hostile: '#ef4444',
@@ -82,19 +70,24 @@ const lerp = (from: number, to: number, progress: number): number => from + (to 
 
 export const dungeonAgentLabModule: LabModule = {
   id: 'dungeon-agent',
+  events: [{ definition: dungeonAgentsLoadedEvent, publishes: true }, { definition: dungeonAgentsChangedEvent, publishes: true }],
   dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view'],
   setup(context) {
     const playerSteps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
-    const mapReferences = context.services.get<DungeonMapLoaderReferences>(
-      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-    );
+    const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
+    const descriptionsMemory = context.memory.acquire(DUNGEON_AGENTS_MEMORY);
+    const agentStateMemory = context.memory.acquire(DUNGEON_AGENT_STATE_MEMORY);
+    const settingsMemory = context.memory.acquire(DUNGEON_AGENT_SETTINGS_MEMORY);
+    const controllersMemory = context.memory.acquire(DUNGEON_AGENT_CONTROLLER_MEMORY);
+    const navigationMemory = context.memory.acquire(DUNGEON_AGENT_NAVIGATION_MEMORY);
+    const traversalMemory = context.memory.acquire(DUNGEON_TRAVERSAL_STATE_MEMORY);
+    const movementMemory = context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY);
+    const agentControl = context.services.get(DUNGEON_AGENT_CONTROL_SERVICE_KEY);
     const overheadView = context.services.get<DungeonOverheadViewService>(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY);
     const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
     const offPreparation = assembly.registerPreparation('dungeon-agent', runtime =>
       new DungeonAgentSystem(runtime, controllerRegistry));
-    let agentSystem: DungeonAgentSystem | null = null;
-    const agentReferenceController = createDungeonAgentRuntimeReferences();
-    context.services.set(DUNGEON_AGENT_RUNTIME_SERVICE_KEY, agentReferenceController.references);
+    let agentSystem: DungeonAgentCommands | null = null;
 
     const panel = context.ui.addPanel('dungeon-agent', '可移动 Dungeon Agent');
     const debugToggle = createLabSwitch('显示 Agent Debug 模型', true, {
@@ -179,8 +172,7 @@ export const dungeonAgentLabModule: LabModule = {
       runtimeJson,
     );
 
-    let loaded: LoadedDungeonReferences | null = null;
-    let state: DungeonAgentRuntimeState | null = null;
+    let loaded: DungeonGridData | null = null;
     const controllerRegistry = createDefaultDungeonAgentControllerRegistry();
     const displayRoot = new TransformNode('dungeon_agent_display_mapping', context.scene);
     const syncDisplayView = () => applyDungeonViewToNode(displayRoot, overheadView.displayedView);
@@ -209,8 +201,8 @@ export const dungeonAgentLabModule: LabModule = {
     const tilePosition = (tileIndex: number) => {
       if (!loaded) return { tileX: 0, tileY: 0 };
       return {
-        tileX: tileIndex % loaded.runtime.map.width,
-        tileY: Math.floor(tileIndex / loaded.runtime.map.width),
+        tileX: tileIndex % loaded.width,
+        tileY: Math.floor(tileIndex / loaded.width),
       };
     };
 
@@ -218,32 +210,33 @@ export const dungeonAgentLabModule: LabModule = {
       if (!loaded) return [0, 0, 0];
       const { tileX, tileY } = tilePosition(tileIndex);
       return resolveDungeonMapTileWorldLayout(
-        loaded.spawn.sceneEnvironmentComponent,
-        loaded.runtime.map.width,
-        loaded.runtime.map.height,
+        loaded,
+        loaded.width,
+        loaded.height,
         tileX,
         tileY,
       ).center;
     };
 
-    const syncMarker = (agent: DungeonRuntimeAgent) => {
-      const marker = markers.get(agent.binding.entity.id);
-      if (!marker) return;
-      const movement = agent.movement;
-      if (!movement) {
+    const syncMarker = (entityId: string) => {
+      const marker = markers.get(entityId);
+      const data = agentStateMemory.current;
+      const agent = data?.loadId === loaded?.loadId ? data?.agents.get(entityId) : undefined;
+      if (!marker || !agent) return;
+      if (!agent.movementKind) {
         marker.setPose(tileWorldPosition(agent.tileIndex), getDungeonMovementDirectionYaw(agent.facing));
         return;
       }
-      const progress = movement.visualProgress ?? (movement.durationSeconds <= 0
+      const progress = agent.visualProgress ?? (agent.durationSeconds! <= 0
         ? 1
-        : Math.min(1, movement.elapsedSeconds / movement.durationSeconds));
-      const from = tileWorldPosition(movement.fromTileIndex);
-      const to = tileWorldPosition(movement.toTileIndex);
-      const fromYaw = getDungeonMovementDirectionYaw(movement.fromFacing);
-      const rotationProgress = movement.rotationProgress ?? progress;
+        : Math.min(1, agent.elapsedSeconds! / agent.durationSeconds!));
+      const from = tileWorldPosition(agent.fromTileIndex!);
+      const to = tileWorldPosition(agent.toTileIndex!);
+      const fromYaw = getDungeonMovementDirectionYaw(agent.fromFacing!);
+      const rotationProgress = agent.rotationProgress ?? progress;
       const yaw = fromYaw + shortestAngleDelta(
         fromYaw,
-        getDungeonMovementDirectionYaw(movement.toFacing),
+        getDungeonMovementDirectionYaw(agent.toFacing!),
       ) * rotationProgress;
       marker.setPose([
         lerp(from[0], to[0], progress),
@@ -254,55 +247,60 @@ export const dungeonAgentLabModule: LabModule = {
 
     const renderMarkers = () => {
       disposeMarkers();
-      if (!debugToggle.input.checked || !loaded || !state) return;
-      state.agents.forEach((agent) => {
+      const descriptions = descriptionsMemory.current;
+      const runtime = agentStateMemory.current;
+      if (!debugToggle.input.checked || !loaded || descriptions?.loadId !== loaded.loadId || runtime?.loadId !== loaded.loadId) return;
+      descriptions.agents.forEach((description, entityId) => {
+        const agent = runtime.agents.get(entityId);
+        if (!agent) return;
         const { tileX, tileY } = tilePosition(agent.tileIndex);
         const layout = resolveDungeonMapTileWorldLayout(
-          loaded!.spawn.sceneEnvironmentComponent,
-          loaded!.runtime.map.width,
-          loaded!.runtime.map.height,
+          loaded!,
+          loaded!.width,
+          loaded!.height,
           tileX,
           tileY,
         );
-        const factionId = agent.binding.faction?.factionId ?? 'neutral';
+        const factionId = description.factionId;
         const marker = createDungeonAgentDebugMarker(
           context.scene,
-          `${loaded!.loadId}_${agent.binding.entity.id}`,
+          `${loaded!.loadId}_${entityId}`,
           layout,
           FACTION_COLORS[factionId] ?? '#94a3b8',
         );
         marker.root.parent = displayRoot;
-        markers.set(agent.binding.entity.id, marker);
-        syncMarker(agent);
+        markers.set(entityId, marker);
+        syncMarker(entityId);
       });
     };
 
-    const selectedAgent = (): DungeonRuntimeAgent | undefined => {
-      if (!state) return undefined;
-      const index = state.agentIndexByEntityId.get(selectedAgentSelect.value);
-      return index === undefined ? undefined : state.agents[index];
+    const selectedAgent = (): DungeonAgentState | undefined => {
+      const data = agentStateMemory.current;
+      return data?.loadId === loaded?.loadId ? data?.agents.get(selectedAgentSelect.value) : undefined;
     };
+    const agentName = (entityId: string) => descriptionsMemory.current?.agents.get(entityId)?.name ?? entityId;
+    const traversal = () => traversalMemory.current?.loadId === loaded?.loadId ? traversalMemory.current : null;
 
-    const effectiveController = (agent: DungeonRuntimeAgent) => {
-      const config = resolveDungeonAgentControllerConfig(agent);
+    const effectiveController = (agent: DungeonAgentState) => {
+      const row = controllersMemory.require().agents.get(agent.entityId)!;
+      const config = { controllerId: row.controllerId, parameters: row.parameters };
       return { config, definition: controllerRegistry.get(config.controllerId) };
     };
 
     const applyParameterValue = (
-      agent: DungeonRuntimeAgent,
+      agent: DungeonAgentState,
       parameter: DungeonAgentControllerParameter,
       value: unknown,
     ) => {
       const currentAgent = selectedAgent();
-      if (!currentAgent || currentAgent.binding.entity.id !== agent.binding.entity.id) return;
+      if (!currentAgent || currentAgent.entityId !== agent.entityId) return;
       const current = effectiveController(currentAgent);
       if (!current.definition) return;
       const parameters = { ...current.config.parameters, [parameter.key]: value };
-      setDungeonAgentControllerOverride(
-        currentAgent,
+      agentSystem!.setController(
+        currentAgent.entityId,
         current.definition,
-        normalizeDungeonAgentControllerParameters(current.definition, parameters),
-        state ?? undefined,
+        parameters,
       );
       controllerSource.value = '本次运行覆盖（不写回地图）';
       status.textContent = `已更新 ${current.definition.label} 的“${parameter.label}”。`;
@@ -310,7 +308,7 @@ export const dungeonAgentLabModule: LabModule = {
     };
 
     const createTileListControl = (
-      agent: DungeonRuntimeAgent,
+      agent: DungeonAgentState,
       parameter: Extract<DungeonAgentControllerParameter, { type: 'tile-list' }>,
     ): ParameterControl => {
       const root = document.createElement('div');
@@ -348,7 +346,7 @@ export const dungeonAgentLabModule: LabModule = {
           const xInput = document.createElement('input');
           xInput.type = 'number';
           xInput.min = '0';
-          xInput.max = String(Math.max(0, (loaded?.runtime.map.width ?? 1) - 1));
+          xInput.max = String(Math.max(0, (loaded?.width ?? 1) - 1));
           xInput.step = '1';
           xInput.value = String(point.x);
           xInput.title = '格子 X';
@@ -356,7 +354,7 @@ export const dungeonAgentLabModule: LabModule = {
           const yInput = document.createElement('input');
           yInput.type = 'number';
           yInput.min = '0';
-          yInput.max = String(Math.max(0, (loaded?.runtime.map.height ?? 1) - 1));
+          yInput.max = String(Math.max(0, (loaded?.height ?? 1) - 1));
           yInput.step = '1';
           yInput.value = String(point.y);
           yInput.title = '格子 Y';
@@ -368,8 +366,8 @@ export const dungeonAgentLabModule: LabModule = {
           const updateCoordinate = () => {
             const x = Number(xInput.value);
             const y = Number(yInput.value);
-            const width = loaded?.runtime.map.width ?? 1;
-            const height = loaded?.runtime.map.height ?? 1;
+            const width = loaded?.width ?? 1;
+            const height = loaded?.height ?? 1;
             if (!Number.isInteger(x) || !Number.isInteger(y)
               || x < 0 || y < 0 || x >= width || y >= height) {
               status.textContent = `巡逻点必须位于地图范围：X 0–${width - 1}，Y 0–${height - 1}。`;
@@ -387,7 +385,7 @@ export const dungeonAgentLabModule: LabModule = {
       addButton.addEventListener('click', () => {
         const last = points[points.length - 1];
         const currentPosition = tilePosition(agent.tileIndex);
-        const width = loaded?.runtime.map.width ?? 1;
+        const width = loaded?.width ?? 1;
         const next = last
           ? { x: (last.x + 1) % width, y: last.y }
           : { x: currentPosition.tileX, y: currentPosition.tileY };
@@ -409,7 +407,7 @@ export const dungeonAgentLabModule: LabModule = {
     };
 
     const createParameterControl = (
-      agent: DungeonRuntimeAgent,
+      agent: DungeonAgentState,
       parameter: DungeonAgentControllerParameter,
     ): ParameterControl => {
       if (parameter.type === 'tile-list') return createTileListControl(agent, parameter);
@@ -443,11 +441,10 @@ export const dungeonAgentLabModule: LabModule = {
           const current = effectiveController(agent);
           const parameters = { ...current.config.parameters };
           delete parameters[parameter.key];
-          if (current.definition) setDungeonAgentControllerOverride(
-            agent,
+          if (current.definition) agentSystem!.setController(
+            agent.entityId,
             current.definition,
             parameters,
-            state ?? undefined,
           );
           refreshPanel();
           return;
@@ -466,9 +463,9 @@ export const dungeonAgentLabModule: LabModule = {
       };
     };
 
-    const renderControllerParameters = (agent: DungeonRuntimeAgent | undefined) => {
+    const renderControllerParameters = (agent: DungeonAgentState | undefined) => {
       const current = agent ? effectiveController(agent) : undefined;
-      const nextKey = agent && current ? `${agent.binding.entity.id}:${current.config.controllerId}` : '';
+      const nextKey = agent && current ? `${agent.entityId}:${current.config.controllerId}` : '';
       if (nextKey !== renderedParameterKey) {
         renderedParameterKey = nextKey;
         parameterControls.clear();
@@ -497,15 +494,22 @@ export const dungeonAgentLabModule: LabModule = {
     };
 
     const refreshPanel = () => {
+      if (agentStateMemory.current) agentStateMemory.markChanged();
+      if (controllersMemory.current) controllersMemory.markChanged();
+      if (navigationMemory.current) navigationMemory.markChanged();
       const agent = selectedAgent();
-      if (agent) {
+      const data = agentStateMemory.current;
+      const descriptionData = descriptionsMemory.current;
+      const basic = data?.loadId === loaded?.loadId ? data?.agents.get(selectedAgentSelect.value) : undefined;
+      const description = descriptionData?.loadId === loaded?.loadId ? descriptionData?.agents.get(selectedAgentSelect.value) : undefined;
+      if (agent && basic && description) {
         const current = effectiveController(agent);
-        const position = tilePosition(agent.tileIndex);
-        positionInput.value = `(${position.tileX}, ${position.tileY}) · index ${agent.tileIndex}`;
-        facingInput.value = agent.facing;
-        const actor = state?.traversal.actors.get(agent.binding.entity.id);
+        const position = tilePosition(basic.tileIndex);
+        positionInput.value = `(${position.tileX}, ${position.tileY}) · index ${basic.tileIndex}`;
+        facingInput.value = basic.facing;
+        const actor = traversal()?.actors.get(agent.entityId);
         movementModeSelect.value = resolveDungeonMovementProfile(
-          actor?.movementProfileId ?? agent.binding.gridAgent.movementProfileId,
+          actor?.movementProfileId ?? description.movementProfileId,
         ).directionMode === 'eight-way' ? 'ground-eight-way' : 'ground-four-way';
         moveControls.querySelectorAll<HTMLButtonElement>('[data-agent-move*="-"]').forEach((button) => {
           button.disabled = movementModeSelect.value !== 'ground-eight-way';
@@ -513,11 +517,11 @@ export const dungeonAgentLabModule: LabModule = {
         controllerSelect.value = current.config.controllerId;
         controllerDescription.textContent = current.definition?.description
           ?? `未注册的 Controller：“${current.config.controllerId}”。`;
-        controllerSource.value = agent.controllerOverride
+        controllerSource.value = controllersMemory.current?.agents.get(selectedAgentSelect.value)?.source === 'runtime-override'
           ? '本次运行覆盖（不写回地图）'
           : '地图初始配置';
-        factionInput.value = agent.binding.faction?.factionId ?? 'neutral';
-        priorityInput.value = String(resolveDungeonAgentPriority(agent));
+        factionInput.value = description.factionId;
+        priorityInput.value = String(basic.effectivePriority);
       } else {
         positionInput.value = '';
         facingInput.value = '';
@@ -533,40 +537,32 @@ export const dungeonAgentLabModule: LabModule = {
       }
       controllerSelect.disabled = !agent;
       movementModeSelect.disabled = !agent;
-      resetControllerButton.disabled = !agent?.controllerOverride;
+      resetControllerButton.disabled = controllersMemory.current?.agents.get(selectedAgentSelect.value)?.source !== 'runtime-override';
       resetPriorityButton.disabled = !agent || agent.priorityOverride === undefined;
       renderControllerParameters(agent);
       if (!panel.content.hidden) {
-        runtimeJson.textContent = JSON.stringify(state ? {
-          loadId: loaded?.loadId,
-          turnNumber: state.turnNumber,
-          agents: state.agents.map((item) => ({
-            entityId: item.binding.entity.id,
-            name: item.binding.entity.name,
-            tileIndex: item.tileIndex,
-            tilePosition: tilePosition(item.tileIndex),
-            facing: item.facing,
-            blocksMovement: item.binding.gridAgent.blocksMovement,
-            actionPeriod: item.binding.gridAgent.actionPeriod,
-            priority: item.binding.gridAgent.priority,
-            effectivePriority: resolveDungeonAgentPriority(item),
-            prioritySource: item.priorityOverride === undefined ? 'map' : 'runtime-override',
-            movementProfileId: state!.traversal.actors.get(item.binding.entity.id)?.movementProfileId
-              ?? item.binding.gridAgent.movementProfileId,
-            spatialFootprint: state!.traversal.actors.get(item.binding.entity.id)?.spatialFootprint
-              ?? item.binding.gridAgent.spatialFootprint
-              ?? 'center',
-            controllerId: resolveDungeonAgentControllerConfig(item).controllerId,
-            controllerParameters: resolveDungeonAgentControllerConfig(item).parameters,
-            controllerSource: item.controllerOverride ? 'runtime-override' : 'map',
-            controllerState: item.controllerState,
-            navigationPlan: item.navigationPlan,
-            factionId: item.binding.faction?.factionId ?? 'neutral',
-            movement: item.movement,
-          })),
-          occupantsByTile: state.traversal.occupantIdsByTile.map((occupants) => [...occupants]),
-          pathReservationsByTile: state.traversal.pathReservationsByTile.map((reservations) => Object.fromEntries(reservations)),
-          movement: state.movementResolver.debugSnapshot(),
+        const agents = agentStateMemory.current?.agents;
+        const selectedNavigation = navigationMemory.current?.agents.get(selectedAgentSelect.value);
+        const movement = movementMemory.current?.loadId === loaded?.loadId ? movementMemory.current : null;
+        const preview = [];
+        if (agents) for (const item of agents.values()) {
+          if (preview.length === 20) break;
+          preview.push({ ...item, name: agentName(item.entityId) });
+        }
+        runtimeJson.textContent = JSON.stringify(loaded ? {
+          loadId: loaded.loadId,
+          turnNumber: controllersMemory.current?.turnNumber,
+          agentCount: agents?.size ?? 0,
+          agentsPreview: preview,
+          selectedNavigation: selectedNavigation ? {
+            ...selectedNavigation,
+            tileIndices: selectedNavigation.tileIndices.slice(0, 20),
+            directions: selectedNavigation.directions.slice(0, 20),
+            pathLength: selectedNavigation.tileIndices.length,
+          } : null,
+          actorCount: traversal()?.actors.size ?? 0,
+          activeMovementRequestCount: movement?.activeRequests.size ?? 0,
+          inspection: '完整 Agent、路径和预约数据请在系统与共享内存面板分页查看。',
         } : { loaded: false }, null, 2);
       }
     };
@@ -590,19 +586,17 @@ export const dungeonAgentLabModule: LabModule = {
     resetPriorityButton.addEventListener('click', () => {
       const agent = selectedAgent();
       if (!agent) return;
-      delete agent.priorityOverride;
+      agent.priorityOverride = undefined;
       status.textContent = '已恢复地图中的移动冲突优先级。';
       refreshPanel();
     });
 
     const populateAgentSelect = () => {
       const previous = selectedAgentSelect.value;
-      const options = (state?.agents ?? []).map((agent) => {
+      const options = [...(descriptionsMemory.current?.agents.values() ?? [])].map((agent) => {
         const option = document.createElement('option');
-        option.value = agent.binding.entity.id;
-        option.textContent = agent.binding.entity.name
-          ? `${agent.binding.entity.name} · ${agent.binding.entity.id}`
-          : agent.binding.entity.id;
+        option.value = agent.entityId;
+        option.textContent = agent.name === agent.entityId ? agent.entityId : `${agent.name} · ${agent.entityId}`;
         return option;
       });
       selectedAgentSelect.replaceChildren(...options);
@@ -637,40 +631,38 @@ export const dungeonAgentLabModule: LabModule = {
 
     const moveSelectedAgent = (direction: DungeonMovementDirection) => {
       const agent = selectedAgent();
-      if (!agent || !state || !loaded || assembly.isPaused || context.scheduler.isPaused) return;
-      const result = startDungeonAgentMovement(
-        state,
-        loaded.runtime.map,
-        agent.binding.entity.id,
+      if (!agent || !agentSystem || !loaded || assembly.isPaused || context.scheduler.isPaused) return;
+      const result = agentSystem!.move(
+        agent.entityId,
         direction,
         {
           durationSeconds: movementDuration(),
         },
       );
       status.textContent = result.started
-        ? `${agent.binding.entity.name ?? agent.binding.entity.id} 开始向 ${direction} 移动。`
+        ? `${agentName(agent.entityId)} 开始向 ${direction} 移动。`
         : `移动失败：${result.blockedReason ?? 'unknown'}。`;
-      syncMarker(agent);
+      syncMarker(agent.entityId);
       refreshPanel();
       if (result.started) void context.communication.publish(dungeonAgentsChangedEvent, {
         loadId: loaded.loadId,
-        entityIds: [agent.binding.entity.id],
+        entityIds: [agent.entityId],
         reason: 'manual-move-started',
       });
     };
 
     const turnSelectedAgent = (turn: DungeonAgentTurn) => {
       const agent = selectedAgent();
-      if (!agent || !state || !loaded || assembly.isPaused || context.scheduler.isPaused) return;
-      const result = startDungeonAgentTurn(state, agent.binding.entity.id, turn, movementDuration());
+      if (!agent || !agentSystem || !loaded || assembly.isPaused || context.scheduler.isPaused) return;
+      const result = agentSystem!.turn(agent.entityId, turn, movementDuration());
       status.textContent = result.started
-        ? `${agent.binding.entity.name ?? agent.binding.entity.id} 开始${turn}转向。`
+        ? `${agentName(agent.entityId)} 开始${turn}转向。`
         : `转向失败：${result.blockedReason ?? 'unknown'}。`;
-      syncMarker(agent);
+      syncMarker(agent.entityId);
       refreshPanel();
       if (result.started) void context.communication.publish(dungeonAgentsChangedEvent, {
         loadId: loaded.loadId,
-        entityIds: [agent.binding.entity.id],
+        entityIds: [agent.entityId],
         reason: 'manual-turn-started',
       });
     };
@@ -684,38 +676,36 @@ export const dungeonAgentLabModule: LabModule = {
     selectedAgentSelect.addEventListener('change', refreshPanel);
     movementModeSelect.addEventListener('change', () => {
       const agent = selectedAgent();
-      if (!agent || !state) return;
-      const actor = state.traversal.actors.get(agent.binding.entity.id);
-      if (!actor) return;
-      state.traversal.setActorMovementProfile(actor.id, movementModeSelect.value);
-      agent.navigationPlan = undefined;
-      syncDungeonAgentPathReservation(state, agent);
+      if (!agent || !agentSystem) return;
+      agentSystem.setMovementProfile(agent.entityId, movementModeSelect.value);
       refreshPanel();
     });
     controllerSelect.addEventListener('change', () => {
       const agent = selectedAgent();
       const definition = controllerRegistry.get(controllerSelect.value);
       if (!agent || !definition) return;
-      setDungeonAgentControllerOverride(
-        agent,
+      agentSystem!.setController(
+        agent.entityId,
         definition,
         createDefaultDungeonAgentControllerParameters(definition),
-        state ?? undefined,
       );
       renderedParameterKey = '';
-      status.textContent = `已将 ${agent.binding.entity.name ?? agent.binding.entity.id} 的 Controller 切换为“${definition.label}”；仅影响本次运行。`;
+      status.textContent = `已将 ${agentName(agent.entityId)} 的 Controller 切换为“${definition.label}”；仅影响本次运行。`;
       refreshPanel();
     });
     resetControllerButton.addEventListener('click', () => {
       const agent = selectedAgent();
       if (!agent) return;
-      clearDungeonAgentControllerOverride(agent, state ?? undefined);
+      agentSystem!.resetController(agent.entityId);
       renderedParameterKey = '';
-      status.textContent = `已恢复 ${agent.binding.entity.name ?? agent.binding.entity.id} 的地图 Controller 配置。`;
+      status.textContent = `已恢复 ${agentName(agent.entityId)} 的地图 Controller 配置。`;
       refreshPanel();
     });
     controllerToggle.input.addEventListener('change', () => {
-      if (agentSystem) agentSystem.settings.controllersEnabled = controllerToggle.input.checked;
+      if (settingsMemory.current) {
+        settingsMemory.current.controllersEnabled = controllerToggle.input.checked;
+        settingsMemory.markChanged();
+      }
     });
     debugToggle.input.addEventListener('change', renderMarkers);
 
@@ -723,11 +713,11 @@ export const dungeonAgentLabModule: LabModule = {
       id: 'update', phase: 'simulation', order: 200, description: '推进 Agent 动作和决策',
       enabled: () => !assembly.isPaused,
       run: (deltaSeconds) => {
-        if (!state || !loaded) return;
+        if (!loaded) return;
 
         if (!agentSystem) return;
         const { completed, actions, changed } = agentSystem.update(deltaSeconds);
-        changed.forEach(syncMarker);
+        changed.forEach(agent => syncMarker(agent.binding.entity.id));
         if (!completed.length && !actions.length) return;
         status.textContent = actions.length
           ? describeControllerActions(actions)
@@ -743,13 +733,21 @@ export const dungeonAgentLabModule: LabModule = {
     });
 
     const offMapChanged = context.communication.on(dungeonMapChangedEvent, (changed) => {
-      const next = mapReferences.current;
+      const next = gridMemory.current;
       if (!next || next.loadId !== changed.loadId) return;
+      const nextSystem = agentControl.acquire(next.loadId);
+      if (!nextSystem) return;
       loaded = next;
-      agentSystem = assembly.readPreparation<DungeonAgentSystem>(next.runtime, 'dungeon-agent');
-      agentSystem.settings.controllersEnabled = controllerToggle.input.checked;
-      state = agentSystem.state;
-      agentReferenceController.commit({ loadId: next.loadId, state });
+      agentSystem = nextSystem;
+      const state = agentSystem.state;
+      const data = createDungeonAgentMemoryData(next.loadId, next.presetKey, state.agents);
+      descriptionsMemory.replace(data.descriptions);
+      agentStateMemory.replace(data.state);
+      const controllerData = createDungeonAgentControllerData(next.loadId, next.presetKey, state, agentSystem.settings);
+      controllerData.settings.controllersEnabled = controllerToggle.input.checked;
+      settingsMemory.replace(controllerData.settings);
+      controllersMemory.replace(controllerData.controllers);
+      navigationMemory.replace(createDungeonAgentNavigationData(next.loadId, next.presetKey, state.agents));
       try {
         disposeMarkers();
         populateAgentSelect();
@@ -769,14 +767,11 @@ export const dungeonAgentLabModule: LabModule = {
     });
 
     const offRuntimeChanged = playerSteps.subscribe('dungeon-agent', 200, (changed) => {
-      if (!agentSystem?.settings.controllersEnabled || !loaded || !state || changed.loadId !== loaded.loadId) return;
+      if (!agentSystem || !settingsMemory.current?.controllersEnabled || !loaded || changed.loadId !== loaded.loadId) return;
 
       const actions = agentSystem?.afterPlayerStep(changed) ?? [];
-      actions.forEach(action => {
-        const index = state!.agentIndexByEntityId.get(action.entityId);
-        if (index !== undefined) syncMarker(state!.agents[index]!);
-      });
-      status.textContent = `玩家格步触发第 ${state.turnNumber} 回合；${describeControllerActions(actions)}`;
+      actions.forEach(action => syncMarker(action.entityId));
+      status.textContent = `玩家格步触发第 ${controllersMemory.current?.turnNumber} 回合；${describeControllerActions(actions)}`;
       refreshPanel();
       publishControllerActions(actions);
     });
@@ -790,8 +785,12 @@ export const dungeonAgentLabModule: LabModule = {
       panelVisibilityObserver.disconnect();
       disposeMarkers();
       displayRoot.dispose();
-      agentReferenceController.clear();
-      context.services.delete(DUNGEON_AGENT_RUNTIME_SERVICE_KEY);
+      descriptionsMemory.replace(null);
+      agentStateMemory.replace(null);
+      settingsMemory.replace(null);
+      controllersMemory.replace(null);
+      navigationMemory.replace(null);
+      panel.root.remove();
     };
   },
 };

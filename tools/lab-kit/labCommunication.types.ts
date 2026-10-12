@@ -1,6 +1,13 @@
 declare const labRequestTypes: unique symbol;
 declare const labEventPayload: unique symbol;
 
+export type LabEventMetadata<TPayload> = Readonly<{
+  label: string;
+  description?: string;
+  trigger?: string;
+  fields?: readonly Readonly<{ name: keyof TPayload & string; type: string; description?: string; required?: boolean }>[];
+}>;
+
 export type LabRequestDefinition<TInput, TOutput> = Readonly<{
   kind: 'request';
   type: string;
@@ -13,6 +20,7 @@ export type LabEventDefinition<TPayload> = Readonly<{
   kind: 'event';
   type: string;
   version: number;
+  metadata?: LabEventMetadata<TPayload>;
   /** 仅供 TypeScript 保留协议类型，不存在于运行时对象。 */
   [labEventPayload]?: TPayload;
 }>;
@@ -97,5 +105,11 @@ export const createLabRequest = <TInput, TOutput>(
 export const createLabEvent = <TPayload>(
   type: string,
   version = 1,
-): LabEventDefinition<TPayload> => Object.freeze({ kind: 'event', type, version });
+  metadata?: LabEventMetadata<TPayload>,
+): LabEventDefinition<TPayload> => {
+  if (!type.trim() || !Number.isSafeInteger(version) || version < 1) throw new Error('事件名称不能为空，版本必须为正整数。');
+  return Object.freeze({ kind: 'event', type, version, ...(metadata ? { metadata: Object.freeze({
+    ...metadata, ...(metadata.fields ? { fields: Object.freeze(metadata.fields.map(field => Object.freeze({ ...field }))) } : {}),
+  }) } : {}) });
+};
 

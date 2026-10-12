@@ -20,6 +20,8 @@ test('Lab module follows view publication, UI groups, snapshots, late objects an
     const { getVisualDeformationRegistry } = await server.ssrLoadModule('/core/render-deformation/visualDeformationRegistry.ts');
     const { meshDeformationMatrices } = await server.ssrLoadModule('/core/render-deformation/deformationMaterial.ts');
     const { DEFAULT_DEFORMATION_SETTINGS } = await server.ssrLoadModule('/core/render-deformation/deformation.ts');
+    const { LabMemoryRegistry } = await server.ssrLoadModule('/tools/lab-kit/shared-memory/LabMemory.ts');
+    const { DUNGEON_DEFORMATION_SETTINGS_MEMORY } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-visual-deformation/dungeonDeformation.memory.ts');
     const { componentDefinitions } = await server.ssrLoadModule('/tools/entity-container-editor/entityDefinitionCatalog.ts');
     assert.ok(componentDefinitions.some(c => c.type === 'visual-deformation'));
     engine = new NullEngine(); scene = new Scene(engine); labState = new LabState();
@@ -31,12 +33,15 @@ test('Lab module follows view publication, UI groups, snapshots, late objects an
     let applyTransitionSettings = null;
     const view = { view: configuredView, configuredView, subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
       mountTransitionControl(row, apply) { overheadPanel.content.append(row); applyTransitionSettings = apply; return () => { row.remove(); applyTransitionSettings = null; }; } };
-    const services = new Map([['dungeon:overhead-view', view], ['dungeon:map-loader-references', { current: null }]]);
+    const services = new Map([['dungeon:overhead-view', view]]);
+    const memory = new LabMemoryRegistry(), mapMemory = memory.scope('loader').acquire(DUNGEON_DEFORMATION_SETTINGS_MEMORY);
     cleanup = dungeonVisualDeformationLabModule.setup({ scene, engine, services, labState,
+      memory: memory.scope('dungeon-visual-deformation'),
       ui,
       communication: { on(_event, fn) { events.add(fn); return () => events.delete(fn); } },
     });
     const service = services.get('dungeon:visual-deformation');
+    assert.deepEqual(memory.inspect().filter(entry => entry.modules.includes('dungeon-visual-deformation')).map(entry => entry.key), ['dungeon.deformation-settings']);
     assert.equal(registry.controlled, true);
     assert.equal(service.settings.enabled, true);
     service.setDraft({ ...structuredClone(DEFAULT_DEFORMATION_SETTINGS), enabled: true, selection: 'rules', rules: [{ selector: 'group', value: 'trees', strength: .6 }] });
@@ -66,6 +71,20 @@ test('Lab module follows view publication, UI groups, snapshots, late objects an
     await labState.restore(snapshot); assert.ok(meshDeformationMatrices.has(mesh));
     view.view = null; view.configuredView = null; listeners.forEach(fn => fn());
     assert.equal(registry.controlled, false); assert.equal(meshDeformationMatrices.has(mesh), false);
+    // Map configuration stays separate from the explicit saved draft, across switches and errors.
+    view.view = configuredView; view.configuredView = configuredView;
+    const flatMap = (loadId, strength) => ({ loadId, presetKey: `map-${loadId}`, hasMapSettings: true, error: null,
+      enabled: true, restoreOutsideOverhead: false, selection: 'all', ...DEFAULT_DEFORMATION_SETTINGS.config, strength, rules: [] });
+    mapMemory.replace(flatMap(1, .35)); events.forEach(fn => fn({ loadId: 1 }));
+    service.setDraft(null); assert.equal(service.settings.config.strength, .35);
+    service.setDraft({ ...service.settings, config: { ...service.settings.config, strength: .8 } });
+    mapMemory.replace(flatMap(2, .2)); events.forEach(fn => fn({ loadId: 2 }));
+    assert.equal(service.settings.config.strength, .8);
+    service.setDraft(null); assert.equal(service.settings.config.strength, .2);
+    events.forEach(fn => fn({ loadId: 1 })); assert.equal(service.settings.config.strength, .2);
+    mapMemory.replace({ ...flatMap(3, .4), error: 'invalid map configuration' }); events.forEach(fn => fn({ loadId: 3 }));
+    assert.equal(registry.controlled, false); assert.match(document.querySelector('[data-deformation-status]').textContent, /invalid map configuration/);
+    service.setDraft({ ...structuredClone(DEFAULT_DEFORMATION_SETTINGS), enabled: true }); assert.equal(registry.controlled, true);
     cleanup(); cleanup = null;
     assert.equal(registry.controlled, false); assert.equal(meshDeformationMatrices.has(mesh), false); assert.equal(listeners.size, 0); assert.equal(events.size, 0);
     assert.equal(labState.inspect().length, 0); assert.equal(scene.onBeforeActiveMeshesEvaluationObservable.hasObservers(), false);

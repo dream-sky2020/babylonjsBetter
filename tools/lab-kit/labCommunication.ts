@@ -24,6 +24,7 @@ type RegisteredRequestHandler = {
 };
 
 type RegisteredEventListener = {
+  listenerId: string;
   moduleId: string;
   listener: AnyEventListener;
 };
@@ -58,6 +59,11 @@ export class LabCommunication {
   readonly journal: LabCommunicationJournal;
   private readonly requestHandlers = new Map<string, RegisteredRequestHandler>();
   private readonly eventListeners = new Map<string, Set<RegisteredEventListener>>();
+  private readonly eventDefinitions = new Map<string, {
+    definition: LabEventDefinition<any>; declaredPublishers: Map<string, number>; observedPublishers: Set<string>;
+  }>();
+  private readonly bindingListeners = new Set<() => void>();
+  private nextListenerId = 1;
   private readonly activeRequests = new Set<AbortController>();
   private disposed = false;
 
@@ -72,6 +78,53 @@ export class LabCommunication {
       events: [...this.eventListeners].map(([protocol, listeners]) => ({
         protocol, consumers: [...new Set([...listeners].map(listener => listener.moduleId))],
       })),
+    };
+  }
+
+  inspectEvents() {
+    return [...this.eventDefinitions].map(([protocol, entry]) => {
+      const listeners = [...(this.eventListeners.get(protocol) ?? [])];
+      return { protocol, definition: entry.definition,
+        declaredPublishers: [...entry.declaredPublishers.keys()], observedPublishers: [...entry.observedPublishers],
+        listeners: listeners.map(({ listenerId, moduleId }) => ({ listenerId, moduleId })),
+        listenerCount: listeners.length, moduleCount: new Set(listeners.map(listener => listener.moduleId)).size };
+    });
+  }
+
+  subscribeBindings(listener: () => void): () => void {
+    this.bindingListeners.add(listener); return () => { this.bindingListeners.delete(listener); };
+  }
+
+  private bindingsChanged() { this.bindingListeners.forEach(listener => listener()); }
+
+  private rememberEvent<T>(definition: LabEventDefinition<T>) {
+    const key = protocolKey(definition), existing = this.eventDefinitions.get(key);
+    if (existing) {
+      if (existing.definition === definition) return existing;
+      if (definition.metadata && existing.definition.metadata
+        && JSON.stringify(definition.metadata) !== JSON.stringify(existing.definition.metadata)) {
+        throw new Error(`事件协议“${key}”存在冲突定义，请导入同一份协议。`);
+      }
+      if (definition.metadata && !existing.definition.metadata) { existing.definition = definition; this.bindingsChanged(); }
+      return existing;
+    }
+    const entry = { definition, declaredPublishers: new Map<string, number>(), observedPublishers: new Set<string>() };
+    this.eventDefinitions.set(key, entry); this.bindingsChanged(); return entry;
+  }
+
+  /** Declaration describes design; it never grants or checks publish permission. */
+  declareEvent<T>(moduleId: string, definition: LabEventDefinition<T>, publishes = false): () => void {
+    this.requireActive(definition.type);
+    const entry = this.rememberEvent(definition);
+    if (publishes) { entry.declaredPublishers.set(moduleId, (entry.declaredPublishers.get(moduleId) ?? 0) + 1); this.bindingsChanged(); }
+    let active = true;
+    return () => {
+      if (!active) return; active = false;
+      if (publishes) {
+        const count = entry.declaredPublishers.get(moduleId) ?? 0;
+        if (count <= 1) entry.declaredPublishers.delete(moduleId); else entry.declaredPublishers.set(moduleId, count - 1);
+        this.bindingsChanged();
+      }
     };
   }
 
@@ -94,6 +147,7 @@ export class LabCommunication {
     this.activeRequests.clear();
     this.requestHandlers.clear();
     this.eventListeners.clear();
+    this.eventDefinitions.clear(); this.bindingListeners.clear();
   }
 
   registerRequest<TInput, TOutput>(
@@ -127,14 +181,17 @@ export class LabCommunication {
     listener: LabEventListener<TPayload>,
   ): () => void {
     this.requireActive(definition.type);
+    this.rememberEvent(definition);
     const key = protocolKey(definition);
     const listeners = this.eventListeners.get(key) ?? new Set<RegisteredEventListener>();
-    const registered = { moduleId, listener: listener as AnyEventListener };
+    const registered = { listenerId: `listener:${this.nextListenerId++}`, moduleId, listener: listener as AnyEventListener };
     listeners.add(registered);
     this.eventListeners.set(key, listeners);
+    this.bindingsChanged();
     return () => {
-      listeners.delete(registered);
+      if (!listeners.delete(registered)) return;
       if (!listeners.size) this.eventListeners.delete(key);
+      this.bindingsChanged();
     };
   }
 
@@ -258,6 +315,10 @@ export class LabCommunication {
     options: LabPublishOptions = {},
   ): Promise<LabPublishReport> {
     this.requireActive(definition.type);
+    const registeredEvent = this.rememberEvent(definition);
+    if (!registeredEvent.observedPublishers.has(sourceModuleId)) {
+      registeredEvent.observedPublishers.add(sourceModuleId); this.bindingsChanged();
+    }
     const startedAt = monotonicNow();
     const message: LabMessageEnvelope<TPayload> = Object.freeze({
       id: createMessageId(),
@@ -270,6 +331,7 @@ export class LabCommunication {
       payload,
     });
     const listeners = [...(this.eventListeners.get(protocolKey(definition)) ?? [])];
+    const recipients = Object.freeze(listeners.map(({ listenerId, moduleId }) => Object.freeze({ listenerId, moduleId })));
     this.journal.append({
       messageId: message.id,
       ...(message.correlationId ? { correlationId: message.correlationId } : {}),
@@ -280,6 +342,7 @@ export class LabCommunication {
       sourceModuleId,
       status: 'pending',
       listenerCount: listeners.length,
+      recipients,
       payloadPreview: createLabCommunicationLogPreview(payload),
     });
     const results = await Promise.allSettled(listeners.map(({ listener }) => (
@@ -319,6 +382,11 @@ export class LabCommunication {
       listenerCount: listeners.length,
       deliveredCount: report.delivered,
       failedCount: report.failed.length,
+      recipients,
+      listenerResults: Object.freeze(results.map((result, index) => Object.freeze({
+        ...recipients[index], status: result.status === 'fulfilled' ? 'success' as const : 'failed' as const,
+        ...(result.status === 'rejected' ? { error: createLabCommunicationLogError(result.reason) } : {}),
+      }))),
     });
     return report;
   }
@@ -361,6 +429,11 @@ export class LabCommunicationScope {
   on<TPayload>(definition: LabEventDefinition<TPayload>, listener: LabEventListener<TPayload>): () => void {
     this.requireActive(definition.type);
     return this.track(this.communication.registerEvent(this.moduleId, definition, listener));
+  }
+
+  declareEvent<T>(definition: LabEventDefinition<T>, options: { publishes?: boolean } = {}): () => void {
+    this.requireActive(definition.type);
+    return this.track(this.communication.declareEvent(this.moduleId, definition, options.publishes));
   }
 
   request<TInput, TOutput>(

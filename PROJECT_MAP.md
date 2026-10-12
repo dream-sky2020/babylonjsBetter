@@ -1,5 +1,117 @@
 # Babylon.js Better 项目地图
 
+## 2026-10-12：模块通信工作台第一批
+
+LabCommunication 增加事件目录、声明发布关系和 bindings 订阅；LabModule.events 在 Host setup 前注册，未触发/无监听事件也可显示。on/publish 自动兼容登记旧事件；同协议版本的冲突描述在登记时报错，复用同一事件对象发布时不重复比较。声明不授予权限，不检查发布者资格，不增加业务轮询或逐条 payload 校验。
+
+通信工作台复用全窗口 Viewport、节点画布坐标工具和有限嵌套检查器，提供搜索/无监听/失败筛选，声明与实际发布来源、实际监听模块/回调数、最近 50 次触发及参数预览。关系图按注册变化更新，日志详情动画帧合并刷新，隐藏不渲染。每次发布记录当时 listenerId/moduleId 与逐回调结果，取消订阅不改变历史；参数沿用深度 3、每容器 12 项、总 120 节点的有界快照，截断明确提示，日志默认最多 500 条阶段记录。原请求和异步广播行为不变，现有通信日志仍保留；Core 同步 PlayerStepEvents 属于独立能力，不经过此目录。
+
+Dungeon 地图切换、Agent 装载和 Agent 动作变化补充字段/触发说明及发布声明。新增 labCommunicationPanel.test.mjs 和目录/历史/兼容性回归，Host 在正常销毁和失败回滚中清理工作台。
+
+## 2026-10-12：Agent 状态第三批——寻路与撤出旧 Reader
+
+新增 dungeon.agent-navigation，按 entityId 索引目标、路径数组、执行索引、成本、计划版本、修复次数和阻塞/重试字段；活字段读取 Core 当前计划，路径及 blocked 替换无需同步，Inspector 分页原 Map/路径。Agent 申请已有 dungeon.traversal-state 与 dungeon.movement-state，显示复用权威数据，不再复制完整占位、预约表或调用 Resolver debugSnapshot。
+
+Agent 面板不再长期持有 DungeonAgentRuntimeState：选择、参数编辑、显示和标记通过领域内存关联，转向/通行模式通过 Core AgentControl 委托原逻辑，保留路径预约清理。调试输出限制前 20 个 Agent 和所选路径前 20 项，完整数据从系统图分页检查。停止注册 dungeon:agent-runtime；旧 references 文件仅留弃用兼容导出。五块 Agent 内存在有效切图通知后发布、卸载置空；Core state/settings 目前仍仅作为切图建立活字段适配的过渡入口，尚未从 Commands 类型移除。Debug 固定 4Hz，无权限与业务轮询。
+
+## 2026-10-12：Agent 状态第二批——决策设置与 Controller
+
+dungeon-agent 发布/读取 dungeon.agent-settings（总开关、决策间隔、寻路预算）和 dungeon.agent-controller-state（回合数，以及按 entityId 索引的行动计时、有效 Controller ID/参数、配置来源和内部状态）。Session 活字段连接原 Core 状态，参数和内部状态整体替换后自动可见；Inspector 分页原 Map，不复制全部 Agent。自定义 Controller 内部状态暂保留原结构，使用有限嵌套检查。
+
+Controller 显示、参数编辑来源和回合显示改用共享内存；切换/参数修改/恢复通过 DungeonAgentControl 委托原 Core API，保留参数规范化、计时/内部状态/寻路重置及预约清理。旧 Session 命令拒绝操作新地图，卸载清空四块 Agent 内存；无权限机制、无业务轮询，Debug 仍固定 4Hz。寻路、通行操作和旧 Runtime Reader 尚待下一批。
+
+## 2026-10-12：Agent 状态第一批——描述与基础运行状态
+
+dungeon-agent 新增 dungeon.agents 与 dungeon.agent-state，按 entityId 的 Map 关联浅层记录；描述去掉 Entity/Component，运行状态平铺位置、朝向、启用、优先级覆盖和移动进度。Session 建立时创建索引和活字段适配，直接连接 Core 原状态，movement 整体替换后仍可见，不复制业务状态、无权限或变化检测轮询。Inspector 直接分页 Map，不为采样遍历所有 Agent。
+
+模块在有效 mapChanged 后发布并在 agentsLoaded 前完成两块内存更新；列表、位置/朝向、阵营/优先级显示与 Debug 标记已迁移。离散面板更新 markChanged 通知 Debug，连续动画不逐帧广播内存变化。旧 Session 广播被忽略，卸载置空。Controller、寻路、操作及旧 Runtime Reader 本批保留，后续继续拆分。共享内存面板仍固定 4Hz。
+
+## 2026-10-12：共享内存第十二批整理——撤出完整装载内存
+
+最后一个完整装载消费者 dungeon-agent 改为仅申请 dungeon.grid；Core DungeonAgentControl 按 Session 提供准备好的 Agent 系统状态/设置、推进、玩家格步响应和手动移动，不向模块暴露 Runtime 或地图对象。Loader 缓存准备结果，不逐帧重复查询；旧命令不能操作新 Session。Agent 自身 Domain State 与旧 Agent Runtime Reader 本批保留，尚未完成细分，不建立新的大内存块。
+
+当前 Loader 不再创建/发布 dungeon.loaded-references，也不再生成已无消费者的 DungeonMapCanvasView；装载所需资源仍由 Loader 内部持有。loaded-dungeon 的原 LabState 调试摘要由 Session、格子、玩家和障碍状态内存组合，原字段与存档格式保持。旧完整内存定义/别名和 Reader 工具只作为弃用兼容导出，不进入正常 Lab 系统图。所有当前 Dungeon 模块均不再申请完整装载内存；后续重点是 Agent 自身状态与领域能力的整理。
+
+## 2026-10-12：共享内存第十一批按模块迁移——地图传送
+
+`dungeon-transition` 脱离完整装载引用，只申请 dungeon.transitions、dungeon.player-state、dungeon.grid、dungeon.libraries。入口/出口描述保留标识、触发方式、目标预设/入口和空间地址，不包含 Entity、Component 或旧 Edge 对象图；Loader 提交后广播前发布，释放置空，Inspector 分页原描述列表。
+
+Core 新增 DungeonTransitionControl Token，按当前 Session 委托原文档规则完成 enter/interact/move-attempt 查询，返回轻量描述，旧 loadId 查询被忽略。传送控制器新增 transitionTo 小型目标接口，旧 transition(binding) 继续兼容；目标入口预校验、同步 PlayerStepCompleted / 100 停止续步、输入锁、失败/完成广播与 Loader 原子落点不变。Debug 布局复用格子参数和原空间公式。模块集成验证覆盖自动规则优先于 Agent、交互/PUSH、输入锁释放及卸载。
+
+## 2026-10-12：共享内存第十批按模块迁移——俯视显示协调
+
+`dungeon-overhead-view` 仅申请 dungeon.overhead-settings 与 dungeon.grid，不再读取完整装载引用、地图文档或场景组件。俯角、水平朝向、投影、正交范围、比例策略、目标屏幕比例、手动倍率和第一人称恢复选项平铺；布局原点和尺寸复用格子内存，坐标/补偿公式仍由 Core resolveOverheadView 计算。
+
+Loader 提交后广播前解析地图配置一次，释放置空；无/禁用组件维持原布局，配置错误作为诊断数据保留且不阻断地图加载。原 LabState 草稿与启用开关、相机模式/lease 协调、显示比例和变形服务保持原链路，旧地图广播被忽略，无新增权限或业务轮询。真实多模块集成测试改为发布领域内存并提供 Session 能力，验证切图、快照、模式切换及资源释放。
+
+## 2026-10-12：共享内存第九批按模块迁移——物体视觉变形
+
+`dungeon-visual-deformation` 只申请 `dungeon.deformation-settings`，不再读取完整装载引用或地图文档。新内存平铺 Session 标识、enabled、restoreOutsideOverhead、selection、mode、参考俯角、强度、高度倍率、倾斜量及规则列表。Loader 提交后广播前解析发布，释放置空；缺少配置维持原启用默认，配置错误保留为诊断数据，不使地图加载失败。
+
+地图配置每次切图解析一次，视角变化直接读取小型领域内存，不再重新建立全地图查询索引。LabState 草稿仍作为显式覆盖独立保存；恢复地图配置重新读取当前共享值，切图不清除草稿。原变形 lease、对象注册表、俯视协调和存档格式不变，无权限或业务轮询。集成测试覆盖规则 UI、快照、晚加入对象、切图/草稿/错误恢复与释放。
+
+## 2026-10-12：共享内存第八批按模块迁移——玩家输入与移动
+
+`player-movement` 脱离完整装载引用，复用 dungeon.player-state、dungeon.grid、dungeon.movement-state、dungeon.obstacle-state，不新增内存块。显示、输入续步判断与回退判断读取同一份 Core 活数据，世界坐标计算使用原 Core 布局函数；Debug 仅输出非空预约项，不再复制完整空预留表。
+
+Core 新增 DungeonPlayerControl 的 Session 命令接口，Loader 缓存已准备的 DungeonPlayerSystem 能力，提供 move/moveRelative/turn/update、检查、移动模式与瞬移，不暴露 Runtime。旧 Session 命令不能操作新地图，没有权限机制。玩家模块仍注册原 preparation 和同步 PlayerStepEvents，格步事件/传送优先级/停止续步、输入路由、暂停、调度和存档链路保持原行为。
+
+## 2026-10-12：共享内存第七批按模块迁移——移动仲裁模块
+
+`dungeon-movement` 仅申请 `dungeon.movement-state` 与 `dungeon.grid`，不再读取完整装载引用。内存包含配置、活动请求 Map、逐格临时预留与交叉点临时预留 Map 数组；配置直接连接 Core（updateConfig 整体替换后立即可见），集合复用原引用，Inspector 分页且不克隆预留表。Loader 提交后广播前发布，未安装 movement 时为 null，释放置空。
+
+Core 新增 DungeonMovementControl Token 与 Session 适配，提供配置更新、变化订阅和小型活动进度摘要，旧 Session 操作与通知被忽略，无权限检查。Resolver 暴露活动请求活集合，并从原 debugSnapshot 提取 debugActiveMoves，旧快照格式/仲裁逻辑不变；Lab 不再为进度采样复制完整格子/交叉点预留表。切图清空 dirty/待更新索引，保留原变化广播、增量标记、可见活动进度采样与 View Consumer。其他消费者与存档逐步迁移。
+
+## 2026-10-12：共享内存第六批按模块迁移——通行模块
+
+`dungeon-traversal` 仅申请 `dungeon.traversal-state` 与 `dungeon.grid`，不再读取完整装载引用。新状态包含 Actor Map、逐格实占位 Set 数组和寻路软预约 Map 数组，直接复用 Core 集合，Inspector 按页显示，不复制整张通行世界或扫描全部格子生成采样摘要。Loader 提交后广播前发布，未安装通行系统时为 null，释放置空。
+
+Core 新增 `DungeonTraversalControl` Token 与 Session 适配，Loader 提供 inspectStep/subscribe；旧 loadId 操作和旧世界通知不会进入新 Session，无权限检查。模块沿用原通行工厂、变化广播、dirty 合并调度与增量标记；切图重置待更新状态和检查结果。内存中无能力方法、文档、障碍绑定或 Runtime，其他模块和存档格式维持原链路。
+
+## 2026-10-12：共享内存第五批按模块迁移——障碍模块
+
+`dungeon-obstacle` 改为申请 `dungeon.obstacles`、`dungeon.obstacle-state`、`dungeon.grid`，脱离完整装载引用。新增浅层障碍描述列表（标识、名称、放置、占位范围），不暴露完整 Entity/Component；放置及标量从 Core binding 活读，Debug 直接分页小型记录。Loader 提交后广播前发布，释放置空。
+
+Core 新增 `DungeonObstacleControl` 类型 Token，Loader 提供当前 Session 的启停与障碍变化订阅能力，沿用 setDungeonObstacleActive 的 Map 修改和通行通知。旧 loadId/暂停时不执行操作，属于原生命周期与暂停语义，没有新增权限。障碍模块仍安装原 obstacles 工厂、提供原 View Consumer；布局函数缩小参数为 placement 与四项空间设置，公式不变。其他消费者逐批迁移，存档格式不变。
+
+## 2026-10-12：共享内存第四批按模块迁移——玩家相机
+
+`dungeon-player-camera`（实现仍在 `dungeon-first-person-camera/`）不再申请完整装载引用，仅申请 `dungeon.player-state`、`dungeon.player-spawn`、`dungeon.session` 元信息。玩家内存补充连续旋转 `playerWorldRotationY`，沿用直接连接 Core 的活字段 getter/setter；格子顶部偏移从已解析出生点的 tileSize 计算，地图标识从 Session 元信息读取，不再经 Runtime/场景组件访问。
+
+切图广播按 loadId 更新绑定和高度，presentation 任务继续读取连续姿态完成相机跟随、平滑和自由观察，没有新增变化检测轮询或权限机制。相机模式服务、View Consumer、投影 LabState 存档与旧模块 ID 保持原行为。相机模块集成测试改用真实共享内存与调度接口，覆盖连续位置/旋转替换、切图高度变化、旧通知、视角/投影与存档恢复。
+
+## 2026-10-12：共享内存第三批按模块迁移——运行态观察
+
+`dungeon-runtime` 不再申请完整装载引用，改为复用 `dungeon.grid` 的地图标识/尺寸，并申请 `dungeon.player-state` 和 `dungeon.obstacle-state`。新定义位于 `tools/lab-modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts`，玩家字段与障碍 Map 分开，无地图文档、场景资源、通行系统或移动仲裁器。
+
+普通 getter/setter 作为旧 Core Runtime 的过渡活字段接口，Core 整体替换坐标/移动/Map 后立即可见，共享写入直接回到 Core，无复制同步、Proxy、权限或轮询。Loader 提交后广播前发布，释放置空，运行态 commit 通知 Debug 后广播。观察面板按通知读取当前共享句柄并核对 loadId，存档和其他业务模块维持原链路。Debug 玩家投影小型复制、阻碍 ID 限 20 项，障碍 Map 直接交给有限嵌套面板分页。
+
+## 2026-10-12：共享内存第二批按模块迁移——格子 Debug
+
+`dungeon-grid` 改为只申请 `dungeon.grid`，不再申请完整装载引用。新内存位于 `tools/lab-modules/dungeon/dungeon-grid/dungeonGrid.memory.ts`，平铺地图标识、尺寸、格子 ID 和四项世界布局参数；ID/布局数组复用 Core 原引用，Debug 仅复制小型参数和前 20 个 ID 预览。Loader 成功提交后、通知前发布，释放时置空，失败候选保留旧值。
+
+`core/scene/dungeonMapSceneLayout.ts` 将坐标函数参数缩小为 DungeonMapTileLayoutSettings（Pick 四项布局字段），函数实现与旧组件调用不变。格子模块继续按 loadId 消费地图通知，沿用原坐标计算、Debug 清理和俯视 View Consumer；其他模块和 LabState 存档维持现有链路。
+
+## 2026-10-12：共享内存第一批按模块迁移——出生点
+
+新增 `tools/lab-modules/dungeon/player-spawn/playerSpawn.memory.ts` 定义 `dungeon.player-spawn`：仅会话 ID/预设 key、出生实体/组件 ID、格坐标、世界位置和格子尺寸。位置与尺寸直接引用 Core 出生 Binding，Debug 投影小型复制，不创建第二份工作状态。Loader 成功提交 Session 后、通知观察者前发布，失败加载保留旧值，释放置空。
+
+`player-spawn` 不再申请 dungeon.loaded-references 或读取完整 Runtime/地图/场景/Entity；收到地图变化后按 loadId 更新 Debug。原完整对象暂留供其他模块逐项迁移，其他 Core 系统和 LabState 存档不变。本批迁移以单模块为界；申请关系图能看到 Loader 与出生点模块共同连接新的小型内存。
+
+## 2026-10-12：有限嵌套内存面板与 Session 元信息
+
+共享内存详情默认两层分组、可选三层；更深对象进入独立详情并用面包屑返回，集合每页 20 项，保留平铺路径模式。新增 `sharedDataInspector.ts`，保留分组/分页/导航状态和字段 DOM，4Hz 采样仅更新变化的值。数据深度约定写入 Lab 规范，作为软规范，不增加权限或逐帧结构检查。
+
+`dungeon.session` 改为浅层会话元信息，由 Loader 在准备、提交、失败和释放边界更新；失败保留旧活动身份，过期异步结果不能覆盖新候选。完整 LoadedDungeonReferences 暂存 `dungeon.loaded-references`，显示“完整装载引用（迁移中）”，旧导出兼容别名及各模块读取链路保留。该阶段未将地图、玩家、障碍等一次性拆开；后续按模块实际所需的数据逐项迁移。原 LabState 存档数据与 Core Runtime 不变。
+
+## 2026-10-12：组合式 Lab 共享数据申请与系统图
+
+`tools/lab-kit/shared-memory/` 新增每个 Host 独立的 LabMemoryRegistry：模块按领域统一定义 acquire，同 key 不存在则创建、同 schema 则复用同一句柄、类型冲突报错；没有读写权限、所有权或依赖授权检查，日常读写不校验、不克隆、不套 Proxy。创建/替换时校验，markChanged 只通知调试界面，不发布业务事件。Host 记录并清理模块申请关系。
+
+系统面板“系统与共享内存”打开覆盖完整 Lab 窗口的节点工作台，沿用对白编辑器的列表/画布/详情布局；抽出 `core/ui/node-graph/graphViewport.ts` 供两个画布共用坐标转换及适配。支持实际模块/内存连线、选中高亮、拖动/缩放/搜索、模块面板导航和按字段路径平铺的数据表。4Hz 可选详情采样只在打开时运行。LabViewport 增加 fullWindow HTML Layer 选项，仍沿用相机输入暂停/恢复和 Host 释放机制。
+
+Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loader 提交 Session 后通知观察者，原地图 Reader 消费模块统一申请共享 Session；配置与存档切换读取共享库/存档。存档继续使用同一份 LabState 活数据，Core 工厂、同步玩家格步规则与能力 Service 未改变。其余活数据 Service 尚未全部迁移；通信图与时间线属于后续阶段。规范和入口见 tools/lab-kit/README.md。
+
 ## 2026-10-12：再次检查临时资源残留
 
 清理工作区外层 `.tools/` 模型处理工具与预览、scripts/model-assets 下1091张未跟踪且运行代码未引用的处理图片副本，以及根目录 `_chilly_inspect.txt`，共2077文件、233.69 MiB。保留public正式资源、原有代码、项目命令依赖、来源/许可/清单记录及恢复快照；外层texture-compression含原始备份，未清除。现有package命令入口检查通过，原历史导入/优化脚本已删除，其副本图片也已清理。

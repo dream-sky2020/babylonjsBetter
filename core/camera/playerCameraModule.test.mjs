@@ -25,6 +25,10 @@ test('player camera module applies/saves orthographic overhead without changing 
     const { LabKeyboardRouter } = await server.ssrLoadModule('/tools/lab-kit/keyboard/LabKeyboardRouter.ts');
     const { LabViewportManager } = await server.ssrLoadModule('/tools/lab-kit/labViewportManager.ts');
     const { dungeonPlayerCameraLabModule } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-first-person-camera/dungeonFirstPersonCamera.labModule.ts');
+    const { LabMemoryRegistry } = await server.ssrLoadModule('/tools/lab-kit/shared-memory/LabMemory.ts');
+    const { DUNGEON_PLAYER_STATE_MEMORY, createDungeonPlayerStateData } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts');
+    const { DUNGEON_PLAYER_SPAWN_MEMORY } = await server.ssrLoadModule('/tools/lab-modules/dungeon/player-spawn/playerSpawn.memory.ts');
+    const { DUNGEON_SESSION_INFO_MEMORY } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-map-loader/dungeonSession.memory.ts');
     engine = new NullEngine(); scene = new Scene(engine); keyboard = new LabKeyboardRouter(null); labState = new LabState();
     const camera = new ArcRotateCamera('player', 1, 1, 42, Vector3.Zero(), scene);
     c = createCameraLabController(camera);
@@ -34,20 +38,31 @@ test('player camera module applies/saves orthographic overhead without changing 
     canvas.setPointerCapture = id => { captured = id; };
     canvas.releasePointerCapture = () => { captured = null; };
     const runtime = { map: { id: 'map-a', width: 4, height: 4 }, playerPosition: { tileX: 1, tileY: 2 },
-      playerWorldPosition: [3, 0, 8], playerWorldRotationY: .7, playerFacing: 'north' };
-    const refs = { current: { loadId: 1, runtime, spawn: { sceneEnvironmentComponent: {
-      tileSize: [2, 2, 2], tileSpacing: [2, 2], mapOffset: [0, 0, 0], mapAnchorMode: 'first-tile',
-    } } } };
-    const services = new Map([['dungeon:map-loader-references', refs]]);
+      playerWorldPosition: [3, 0, 8], playerWorldRotationY: .7, playerFacing: 'north', playerMovement: null };
+    const memory = new LabMemoryRegistry(), publisher = memory.scope('dungeon-map-loader');
+    const player = publisher.acquire(DUNGEON_PLAYER_STATE_MEMORY), spawn = publisher.acquire(DUNGEON_PLAYER_SPAWN_MEMORY);
+    const session = publisher.acquire(DUNGEON_SESSION_INFO_MEMORY);
+    player.replace(createDungeonPlayerStateData(1, 'a', runtime));
+    spawn.replace({ loadId: 1, presetKey: 'a', spawnPointId: 'spawn', actorSpawnId: 'actor',
+      tilePosition: { x: 1, y: 2 }, worldPosition: [3, 0, 8], tileSize: [2, 2, 2] });
+    session.replace({ loadId: 1, presetKey: 'a', mapId: 'map-a', status: 'ready', pendingLoadId: null, pendingPresetKey: null, error: null });
+    const services = new Map();
     const handlers = new Map();
     viewport = new LabViewportManager(document.body, canvas, c, () => {});
     const overlay = viewport.openHtmlLayer({ id: 'pause', title: 'Pause', mode: 'overlay' });
     disposeModule = dungeonPlayerCameraLabModule.setup({ engine, scene, canvas, camera, cameraController: c, keyboard, labState,
       viewport,
+      memory: memory.scope('dungeon-player-camera'),
+      scheduler: { register: ({ run }) => {
+        const observer = scene.onBeforeRenderObservable.add(() => run(0.016));
+        return () => scene.onBeforeRenderObservable.remove(observer);
+      } },
       ui: new LabUi(document.querySelector('aside'), document.getElementById('status')), services,
       communication: { on: (event, fn) => { handlers.set(event, fn); return () => handlers.delete(event); }, publish: async () => {} },
     });
     const service = services.get('dungeon:player-camera');
+    assert.deepEqual(memory.inspect().filter(entry => entry.modules.includes('dungeon-player-camera')).map(entry => entry.key).sort(),
+      ['dungeon.player-spawn', 'dungeon.player-state', 'dungeon.session']);
     const projection = document.querySelector('[data-player-camera="projection"]');
     const size = document.querySelector('[data-player-camera="orthographicSize"]');
     const changeProjection = value => { projection.value = value; projection.dispatchEvent(new dom.window.Event('change')); };
@@ -79,9 +94,15 @@ test('player camera module applies/saves orthographic overhead without changing 
     assert.equal(service.mode, 'first-person');
     canvas.dispatchEvent(Object.assign(new dom.window.Event('pointerdown'), { button: 0, pointerId: 1 })); assert.equal(captured, null);
     service.setMode('overhead'); assert.equal(c.inputEnabled, false); assert.equal(camera.mode, ArcRotateCamera.ORTHOGRAPHIC_CAMERA);
-    refs.current = { ...refs.current, loadId: 2, runtime: { ...runtime, playerWorldPosition: [20, 0, 30] } };
+    const secondRuntime = { ...runtime, playerWorldPosition: [20, 0, 30] };
+    player.replace(createDungeonPlayerStateData(2, 'b', secondRuntime));
+    spawn.replace({ ...spawn.current, loadId: 2, presetKey: 'b', tileSize: [2, 4, 2] });
+    session.replace({ ...session.current, loadId: 2, presetKey: 'b', mapId: 'map-b' });
     for (const handler of handlers.values()) handler({ loadId: 2 });
     near(camera.getTarget().x, 20); near(camera.getTarget().z, 30); near(camera.orthoTop, 12);
+    near(camera.getTarget().y, 2.8);
+    for (const handler of handlers.values()) handler({ loadId: 1 });
+    near(camera.getTarget().x, 20);
     overlay.hide(); assert.equal(viewport.isBabylonInputPaused, false); assert.equal(c.inputEnabled, true);
     c.setInputEnabled(false);
     // Mouse disabled alone must not disable the independent V-key consumer.

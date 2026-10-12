@@ -1,13 +1,10 @@
+import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
+import { DUNGEON_PLAYER_STATE_MEMORY, DUNGEON_OBSTACLE_STATE_MEMORY } from './dungeonRuntime.memory';
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
 import {
   dungeonMapChangedEvent,
   dungeonRuntimeChangedEvent,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
-import {
-  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-  type DungeonMapLoaderReferences,
-  type LoadedDungeonReferences,
-} from '../dungeon-map-loader/dungeonMapLoader.references';
 
 const readonlyInput = () => {
   const input = document.createElement('input');
@@ -19,9 +16,9 @@ export const dungeonRuntimeLabModule: LabModule = {
   id: 'dungeon-runtime',
   dependencies: ['dungeon-map-loader'],
   setup(context) {
-    const references = context.services.get<DungeonMapLoaderReferences>(
-      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-    );
+    const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
+    const playerMemory = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
+    const obstacleMemory = context.memory.acquire(DUNGEON_OBSTACLE_STATE_MEMORY);
     const panel = context.ui.addPanel('dungeon-runtime', '当前地牢运行时');
     const mapId = readonlyInput();
     const position = readonlyInput();
@@ -37,37 +34,38 @@ export const dungeonRuntimeLabModule: LabModule = {
       json,
       status,
     );
-    let current: LoadedDungeonReferences | null = null;
+    let currentLoadId: number | null = null;
     const refresh = () => {
-      if (!current) return;
-      const { runtime } = current;
-      mapId.value = runtime.map.id;
+      const grid = gridMemory.current, runtime = playerMemory.current, obstacleState = obstacleMemory.current;
+      if (!grid || !runtime || !obstacleState || currentLoadId !== grid.loadId
+        || currentLoadId !== runtime.loadId || currentLoadId !== obstacleState.loadId) return;
+      mapId.value = grid.mapId;
       position.value = `(${runtime.playerPosition.tileX}, ${runtime.playerPosition.tileY})`;
       facing.value = runtime.playerFacing;
-      obstacles.value = `${[...runtime.obstacleStates.values()].filter(Boolean).length} / ${runtime.obstacleStates.size} 启用`;
+      obstacles.value = `${[...obstacleState.states.values()].filter(Boolean).length} / ${obstacleState.states.size} 启用`;
       json.textContent = JSON.stringify({
-        loadId: current.loadId,
-        dungeonPresetKey: current.presetKey,
-        mapSize: [runtime.map.width, runtime.map.height],
+        loadId: runtime.loadId,
+        dungeonPresetKey: runtime.presetKey,
+        mapSize: [grid.width, grid.height],
         playerPosition: runtime.playerPosition,
         playerFacing: runtime.playerFacing,
         playerWorldPosition: runtime.playerWorldPosition,
         playerMovement: runtime.playerMovement,
-        obstacleStates: Object.fromEntries(runtime.obstacleStates),
+        obstacleStates: Object.fromEntries(obstacleState.states),
       }, null, 2);
     };
     const offMap = context.communication.on(dungeonMapChangedEvent, (next) => {
-      const loaded = references.current;
+      const loaded = playerMemory.current;
       if (!loaded || loaded.loadId !== next.loadId) return;
-      current = loaded;
+      currentLoadId = loaded.loadId;
       status.textContent = `正在显示地图加载 #${next.loadId} 的 Runtime。`;
       refresh();
     });
     const offChanged = context.communication.on(dungeonRuntimeChangedEvent, (changed) => {
-      if (!current || changed.loadId !== current.loadId) return;
+      if (currentLoadId === null || changed.loadId !== currentLoadId) return;
       status.textContent = `Runtime revision ${changed.revision} · ${changed.reason}`;
       refresh();
     });
-    return () => { offMap(); offChanged(); };
+    return () => { offMap(); offChanged(); panel.root.remove(); };
   },
 };

@@ -12,6 +12,8 @@ export type LabViewportLayerOptions = {
   initiallyVisible?: boolean;
   pauseBabylonRendering?: boolean;
   closable?: boolean;
+  /** System workspaces may cover the complete Lab instead of only its 3D stage. */
+  fullWindow?: boolean;
 };
 
 export type LabCanvasRenderContext = {

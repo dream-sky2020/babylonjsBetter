@@ -1,11 +1,9 @@
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
-import {
-  dungeonMapCatalogRequest,
-} from '../dungeon-libraries/dungeonLibraries.protocol';
+import { DUNGEON_LIBRARIES_MEMORY } from '../dungeon-libraries/dungeonLibraries.memory';
+import { DUNGEON_RUNTIME_SAVES_MEMORY } from '../dungeon-map-loader/dungeonRuntimeSaves.memory';
 import {
   dungeonMapChangedEvent,
   dungeonRuntimeChangedEvent,
-  dungeonRuntimeSaveStatesRequest,
   dungeonMapSwitchRequest,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 
@@ -13,6 +11,8 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
   id: 'dungeon-runtime-save-switch',
   dependencies: ['dungeon-obstacle', 'player-movement'],
   setup(context) {
+    const libraries = context.memory.acquire(DUNGEON_LIBRARIES_MEMORY);
+    const saves = context.memory.acquire(DUNGEON_RUNTIME_SAVES_MEMORY);
     const panel = context.ui.addPanel('dungeon-runtime-save-switch', '地牢运行时存档切换');
     const select = document.createElement('select');
     const load = document.createElement('button');
@@ -22,12 +22,12 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
     const status = createLabStatus('等待地图加载器……');
     panel.content.append(createLabField('目标地牢', select), load, createLabField('已保存 dungeonSaveStates', json), status);
     const refresh = async () => {
-      const saveStates = await context.communication.request(dungeonRuntimeSaveStatesRequest, undefined);
+      const saveStates = saves.current;
       json.textContent = JSON.stringify(saveStates, null, 2);
     };
     let catalog: readonly { presetKey: string; name: string }[] = [];
     const start = async () => {
-      catalog = await context.communication.request(dungeonMapCatalogRequest, undefined);
+      catalog = Object.values(libraries.require().maps).map(({ identity }) => ({ presetKey: identity.presetKey, name: identity.name }));
       select.replaceChildren(...catalog.map((preset) => {
         const option = document.createElement('option');
         option.value = preset.presetKey;

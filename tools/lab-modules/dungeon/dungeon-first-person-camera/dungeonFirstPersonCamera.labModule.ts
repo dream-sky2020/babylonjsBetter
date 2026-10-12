@@ -1,7 +1,9 @@
+import { DUNGEON_SESSION_INFO_MEMORY } from '../dungeon-map-loader/dungeonSession.memory';
+import { DUNGEON_PLAYER_STATE_MEMORY, type DungeonPlayerStateData } from '../dungeon-runtime/dungeonRuntime.memory';
+import { DUNGEON_PLAYER_SPAWN_MEMORY } from '../player-spawn/playerSpawn.memory';
 import { Vector3 } from '@babylonjs/core';
 import { createDungeonViewConsumer, mapDungeonDisplayPosition, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
 import { DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY } from '../dungeon-player-camera/dungeonPlayerCamera.view';
-import { resolveDungeonMapTileWorldLayout } from '@/core/scene/dungeonMapSceneLayout.ts';
 import type { CameraProjection } from '@/core/camera/cameraLabController.ts';
 import { validatePlayerCameraProjection, type DungeonPlayerCameraProjectionSettings } from '../dungeon-player-camera/dungeonPlayerCamera.projection';
 import {
@@ -12,11 +14,6 @@ import {
   type LabModule,
 } from '@/tools/lab-kit';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
-import {
-  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-  type DungeonMapLoaderReferences,
-  type LoadedDungeonReferences,
-} from '../dungeon-map-loader/dungeonMapLoader.references';
 import {
   dungeonPlayerCameraModeChangedEvent,
   type DungeonPlayerCameraMode,
@@ -59,9 +56,9 @@ export const dungeonPlayerCameraLabModule: LabModule = {
   id: 'dungeon-player-camera',
   dependencies: ['player-movement', 'dungeon-map-loader'],
   setup(context) {
-    const references = context.services.get<DungeonMapLoaderReferences>(
-      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-    );
+    const playerMemory = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
+    const spawnMemory = context.memory.acquire(DUNGEON_PLAYER_SPAWN_MEMORY);
+    const sessionMemory = context.memory.acquire(DUNGEON_SESSION_INFO_MEMORY);
     const panel = context.ui.addPanel('dungeon-player-camera', 'Dungeon 玩家相机');
     const enabledToggle = createLabSwitch('绑定相机到玩家', true, {
       preference: { ui: context.ui, key: 'dungeon-player-camera/enabled' },
@@ -149,7 +146,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const previousMode = context.cameraController.state.mode;
     const previousProjection = context.cameraController.state.projection;
     const previousOrthographicSize = context.cameraController.state.orthographicSize;
-    let current: LoadedDungeonReferences | null = references.current;
+    let current: DungeonPlayerStateData | null = playerMemory.current;
     let activeMode = modeSelect.value as DungeonPlayerCameraMode;
     const modeListeners = new Set<() => void>();
     let externalView: ResolvedDungeonView | null = null;
@@ -192,27 +189,20 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     };
 
     const updateTileTopOffset = (): void => {
-      if (!current) {
+      const spawn = spawnMemory.current;
+      if (!current || !spawn || spawn.loadId !== current.loadId) {
         tileTopOffset = 0;
         return;
       }
-      const runtime = current.runtime;
-      const layout = resolveDungeonMapTileWorldLayout(
-        current.spawn.sceneEnvironmentComponent,
-        runtime.map.width,
-        runtime.map.height,
-        runtime.playerPosition.tileX,
-        runtime.playerPosition.tileY,
-      );
-      tileTopOffset = layout.size[1] / 2;
+      tileTopOffset = spawn.tileSize[1] / 2;
     };
 
     const binding = {
       readPose: () => {
         if (!enabledToggle.input.checked || activeMode !== 'first-person' || !current) return null;
-        const [x, y, z] = mapDungeonDisplayPosition(externalView, current.runtime.playerWorldPosition);
+        const [x, y, z] = mapDungeonDisplayPosition(externalView, current.playerWorldPosition);
         eyePosition.set(x, y + tileTopOffset + readClampedNumber(eyeHeightInput, 1.65), z);
-        pose.yaw = current.runtime.playerWorldRotationY + currentYawOffset;
+        pose.yaw = current.playerWorldRotationY + currentYawOffset;
         pose.pitch = degToRad(readClampedNumber(pitchInput, 0)) + currentPitchOffset;
         return pose;
       },
@@ -286,7 +276,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       if (!current || (!enabledToggle.input.checked && !restoreUnbound)) return;
       readSharedProjection();
       context.cameraController.setMode('orbit');
-      const [x, y, z] = mapDungeonDisplayPosition(externalView, current.runtime.playerWorldPosition);
+      const [x, y, z] = mapDungeonDisplayPosition(externalView, current.playerWorldPosition);
       desiredOverheadTarget.set(
         x,
         y + tileTopOffset + readClampedNumber(overheadTargetHeightInput, 0.8),
@@ -404,11 +394,11 @@ export const dungeonPlayerCameraLabModule: LabModule = {
         projection: context.cameraController.state.projection,
         overheadProjection: projectionSettings.projection,
         orthographicSize: projectionSettings.orthographicSize,
-        mapId: current?.runtime.map.id ?? null,
-        playerTile: current?.runtime.playerPosition ?? null,
-        playerFacing: current?.runtime.playerFacing ?? null,
-        playerWorldPosition: current?.runtime.playerWorldPosition ?? null,
-        playerYawDeg: current ? radToDeg(current.runtime.playerWorldRotationY) : null,
+        mapId: current && sessionMemory.current.loadId === current.loadId ? sessionMemory.current.mapId : null,
+        playerTile: current?.playerPosition ?? null,
+        playerFacing: current?.playerFacing ?? null,
+        playerWorldPosition: current?.playerWorldPosition ?? null,
+        playerYawDeg: current ? radToDeg(current.playerWorldRotationY) : null,
         tileTopOffset,
         eyeHeight: readClampedNumber(eyeHeightInput, 1.65),
         freeLookEnabled: freeLookToggle.input.checked,
@@ -593,7 +583,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       },
     });
     const offMapChanged = context.communication.on(dungeonMapChangedEvent, (changed) => {
-      const loaded = references.current;
+      const loaded = playerMemory.current;
       if (!loaded || loaded.loadId !== changed.loadId) return;
       current = loaded;
       updateTileTopOffset();

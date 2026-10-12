@@ -121,6 +121,21 @@ export class LabUi {
     this.status.dataset.error = String(error);
   }
 
+  /** Public navigation for the system graph; modules never inspect another module's DOM. */
+  hasModulePanels(moduleId: string): boolean {
+    return [...this.panels.values()].some(entry => entry.root.dataset.systemOwner === moduleId);
+  }
+
+  showModulePanels(moduleId: string): void {
+    let first: HTMLElement | undefined;
+    for (const entry of this.panels.values()) {
+      if (entry.root.dataset.systemOwner !== moduleId) continue;
+      this.setPanelCollapsed(entry, false, true);
+      first ??= entry.root;
+    }
+    first?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   createBooleanPreference(key: string, defaultValue: boolean): LabBooleanPreference {
     const normalizedKey = key.trim();
     if (!normalizedKey) throw new Error('Lab Boolean 偏好 Key 不能为空。');

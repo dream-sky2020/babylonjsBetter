@@ -26,7 +26,6 @@ import {
   type DungeonMapSceneEnvironmentInstance,
 } from '@/core/scene';
 import { createSceneEnvironmentViewController } from '@/core/dungeon-view/sceneEnvironmentDisplay.ts';
-import { createDungeonMapCanvasView } from '@/core/ui';
 import {
   createLabField,
   createLabJson,
@@ -35,10 +34,8 @@ import {
   type LabStateJsonValue,
   type LabStateRegistration,
 } from '@/tools/lab-kit';
-import {
-  DUNGEON_LIBRARIES_SERVICE_KEY,
-} from '../dungeon-libraries/dungeonLibraries.protocol';
-import type { DungeonLabLibrariesReference } from '../dungeon-libraries/dungeonLibraries.references';
+import { DUNGEON_LIBRARIES_MEMORY } from '../dungeon-libraries/dungeonLibraries.memory';
+import { DUNGEON_RUNTIME_SAVES_MEMORY } from './dungeonRuntimeSaves.memory';
 import {
   dungeonMapChangedEvent,
   dungeonMapDeltaCommitRequest,
@@ -49,10 +46,25 @@ import {
   dungeonMapSwitchRequest,
   type DungeonLabMapLoader,
 } from './dungeonMapLoader.protocol';
-import {
-  createDungeonMapLoaderReferences,
-  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-} from './dungeonMapLoader.references';
+import { DUNGEON_SESSION_INFO_MEMORY, createDungeonSessionInfoController } from './dungeonSession.memory';
+import { DUNGEON_PLAYER_SPAWN_MEMORY, createDungeonPlayerSpawnData } from '../player-spawn/playerSpawn.memory';
+import { DUNGEON_GRID_MEMORY, createDungeonGridData } from '../dungeon-grid/dungeonGrid.memory';
+import { DUNGEON_TRAVERSAL_STATE_MEMORY, createDungeonTraversalStateData } from '../dungeon-traversal/dungeonTraversal.memory';
+import { DUNGEON_MOVEMENT_STATE_MEMORY, createDungeonMovementStateData } from '../dungeon-movement/dungeonMovement.memory';
+import { DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY, createDungeonMovementControl } from '@/core/dungeon-movement/dungeonMovementControl';
+import { DUNGEON_PLAYER_CONTROL_SERVICE_KEY, createDungeonPlayerControl } from '@/core/dungeon-player-movement/dungeonPlayerControl';
+import { DUNGEON_DEFORMATION_SETTINGS_MEMORY, createDungeonDeformationData } from '../dungeon-visual-deformation/dungeonDeformation.memory';
+import { DUNGEON_OVERHEAD_SETTINGS_MEMORY, createDungeonOverheadSettingsData } from '../dungeon-overhead-view/dungeonOverhead.memory';
+import { DUNGEON_TRANSITION_DATA_MEMORY, createDungeonTransitionData } from '../dungeon-transition/dungeonTransition.memory';
+import { DUNGEON_TRANSITION_CONTROL_SERVICE_KEY, createDungeonTransitionControl } from '@/core/dungeon-transition/dungeonTransitionControl';
+import type { DungeonPlayerSystem } from '@/core/dungeon-player-movement/dungeonPlayerSystem';
+import { DUNGEON_AGENT_CONTROL_SERVICE_KEY, createDungeonAgentControl } from '@/core/dungeon-agent/dungeonAgentControl';
+import type { DungeonAgentSystem } from '@/core/dungeon-agent/dungeonAgentSystem';
+import { DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY, createDungeonTraversalControl } from '@/core/dungeon-traversal/dungeonTraversalControl';
+import { DUNGEON_OBSTACLES_MEMORY, createDungeonObstaclesData } from '../dungeon-obstacle/dungeonObstacles.memory';
+import { DUNGEON_OBSTACLE_CONTROL_SERVICE_KEY } from '@/core/dungeon-obstacle/dungeonObstacleControl';
+import { setDungeonObstacleActive } from '@/core/dungeon-obstacle';
+import { DUNGEON_PLAYER_STATE_MEMORY, DUNGEON_OBSTACLE_STATE_MEMORY, createDungeonPlayerStateData, createDungeonObstacleStateData } from '../dungeon-runtime/dungeonRuntime.memory';
 import { DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY } from './dungeonMapLoader.view';
 import {
   createDungeonMapDeltaStore,
@@ -101,13 +113,24 @@ const validateSavedDungeonRuntimeStates = (value: unknown): SavedDungeonRuntimeS
 
 export const dungeonMapLoaderLabModule: LabModule = {
   id: 'dungeon-map-loader',
+  events: [{ definition: dungeonMapChangedEvent, publishes: true }],
   dependencies: ['dungeon-libraries'],
   setup(context) {
-    const librariesReference = context.services.get<DungeonLabLibrariesReference>(DUNGEON_LIBRARIES_SERVICE_KEY);
+    const librariesReference = context.memory.acquire(DUNGEON_LIBRARIES_MEMORY);
     const assembly = new DungeonRuntimeAssembly();
     context.services.set(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, assembly);
-    const referenceController = createDungeonMapLoaderReferences();
-    context.services.set(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY, referenceController.references);
+    const deformationMemory = context.memory.acquire(DUNGEON_DEFORMATION_SETTINGS_MEMORY);
+    const overheadMemory = context.memory.acquire(DUNGEON_OVERHEAD_SETTINGS_MEMORY);
+    const transitionMemory = context.memory.acquire(DUNGEON_TRANSITION_DATA_MEMORY);
+    const sessionMemory = context.memory.acquire(DUNGEON_SESSION_INFO_MEMORY);
+    const sessionInfo = createDungeonSessionInfoController(sessionMemory);
+    const playerSpawn = context.memory.acquire(DUNGEON_PLAYER_SPAWN_MEMORY);
+    const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
+    const traversalMemory = context.memory.acquire(DUNGEON_TRAVERSAL_STATE_MEMORY);
+    const movementMemory = context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY);
+    const obstaclesMemory = context.memory.acquire(DUNGEON_OBSTACLES_MEMORY);
+    const playerState = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
+    const obstacleState = context.memory.acquire(DUNGEON_OBSTACLE_STATE_MEMORY);
     const panel = context.ui.addPanel('dungeon-map-loader', '当前地图');
     const sessionStatus = createLabJson('');
     const refreshSessionStatus = () => { sessionStatus.textContent = JSON.stringify(assembly.inspect(), null, 2); };
@@ -143,18 +166,56 @@ export const dungeonMapLoaderLabModule: LabModule = {
     let activeBaseDocument: DungeonMapDocumentV2 | null = null;
     let activeLiveDocument: DungeonMapDocumentV2 | null = null;
     let restoringLabState = false;
-    const dungeonSaveStates: Record<string, DungeonRuntimeSaveState> = {};
+    const runtimeSaves = context.memory.acquire(DUNGEON_RUNTIME_SAVES_MEMORY);
     const dungeonMapDeltaStore = createDungeonMapDeltaStore();
     let deltaStateRegistration: LabStateRegistration<DungeonMapDeltaStore> | null = null;
-    let runtimeStatesRegistration: LabStateRegistration<Record<string, DungeonRuntimeSaveState>> | null = null;
+    let runtimeStatesRegistration: LabStateRegistration<typeof runtimeSaves> | null = null;
     let activeInstance: DungeonMapSceneEnvironmentInstance | null = null;
+    let agentCommandSession: { loadId: number; map: DungeonRuntime['map']; system: DungeonAgentSystem } | null = null;
+    context.services.set(DUNGEON_AGENT_CONTROL_SERVICE_KEY, createDungeonAgentControl(() => {
+      if (!activeRuntime) return null;
+      if (agentCommandSession?.map === activeRuntime.map && agentCommandSession.loadId === activeLoadId) return agentCommandSession;
+      const system = assembly.readPreparation<DungeonAgentSystem>(activeRuntime, 'dungeon-agent');
+      agentCommandSession = { loadId: activeLoadId, map: activeRuntime.map, system };
+      return agentCommandSession;
+    }));
+    context.services.set(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY, createDungeonTransitionControl(() =>
+      activeRuntime ? { loadId: activeLoadId, map: activeRuntime.map } : null));
+    let playerCommandSession: { loadId: number; runtime: DungeonRuntime; system: DungeonPlayerSystem } | null = null;
+    context.services.set(DUNGEON_PLAYER_CONTROL_SERVICE_KEY, createDungeonPlayerControl(() => {
+      if (!activeRuntime) return null;
+      if (playerCommandSession?.runtime === activeRuntime) return playerCommandSession;
+      const system = assembly.readPreparation<DungeonPlayerSystem>(activeRuntime, 'player-movement');
+      playerCommandSession = { loadId: activeLoadId, runtime: activeRuntime, system };
+      return playerCommandSession;
+    }));
+    context.services.set(DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY, createDungeonMovementControl(() =>
+      activeRuntime && activeRuntime.installedSystems?.movement !== false
+        ? { loadId: activeLoadId, resolver: activeRuntime.movementResolver } : null));
+    context.services.set(DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY, createDungeonTraversalControl(() =>
+      activeRuntime && activeRuntime.installedSystems?.traversal !== false
+        ? { loadId: activeLoadId, traversal: activeRuntime.traversal } : null));
+    context.services.set(DUNGEON_OBSTACLE_CONTROL_SERVICE_KEY, {
+      setActive(loadId, entityId, active) {
+        if (!activeRuntime || activeLoadId !== loadId || assembly.isPaused || context.scheduler.isPaused) return false;
+        setDungeonObstacleActive(activeRuntime, entityId, active);
+        return true;
+      },
+      subscribe(loadId, listener) {
+        if (!activeRuntime || activeLoadId !== loadId || activeRuntime.installedSystems?.traversal === false) return () => {};
+        return activeRuntime.traversal.subscribe(change => {
+          if (activeLoadId === loadId && change.kind === 'obstacle-state-changed') listener();
+        });
+      },
+    });
     const sceneView = createSceneEnvironmentViewController();
     context.services.set(DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY, sceneView.consumer);
     const saveActiveRuntime = () => {
       if (!activePresetKey || !activeRuntime || !activeSpawn) return;
       const saveState = createDungeonRuntimeSaveState(activePresetKey, activeRuntime, activeSpawn);
-      if (saveState) dungeonSaveStates[activePresetKey] = saveState;
-      else delete dungeonSaveStates[activePresetKey];
+      if (saveState) runtimeSaves.current[activePresetKey] = saveState;
+      else delete runtimeSaves.current[activePresetKey];
+      runtimeSaves.markChanged();
       runtimeStatesRegistration?.markChanged();
     };
     const readMapDeltaSnapshot = () => ({
@@ -185,17 +246,17 @@ export const dungeonMapLoaderLabModule: LabModule = {
       moduleId: 'dungeon-map-loader',
       key: 'loaded-dungeon',
       version: 1,
-      value: referenceController.references,
-      inspect: (references) => {
-        const loaded = references.current;
-        return loaded ? {
+      value: sessionMemory,
+      inspect: (memory) => {
+        const loaded = memory.current, grid = gridMemory.current, player = playerState.current, obstacles = obstacleState.current;
+        return loaded.loadId !== null && grid?.loadId === loaded.loadId && player?.loadId === loaded.loadId && obstacles?.loadId === loaded.loadId ? {
           loadId: loaded.loadId,
           presetKey: loaded.presetKey,
-          mapId: loaded.document.identity.id,
-          mapSize: [loaded.map.width, loaded.map.height],
-          playerPosition: { ...loaded.runtime.playerPosition },
-          playerFacing: loaded.runtime.playerFacing,
-          activeObstacleIds: [...loaded.runtime.obstacleStates]
+          mapId: loaded.mapId,
+          mapSize: [grid.width, grid.height],
+          playerPosition: { ...player.playerPosition },
+          playerFacing: player.playerFacing,
+          activeObstacleIds: [...obstacles.states]
             .filter(([, active]) => active)
             .map(([id]) => id),
         } : null;
@@ -231,20 +292,21 @@ export const dungeonMapLoaderLabModule: LabModule = {
       moduleId: 'dungeon-map-loader',
       key: 'runtime-save-states',
       version: 1,
-      value: dungeonSaveStates,
-      inspect: (states) => structuredClone(states) as SavedDungeonRuntimeStates,
+      value: runtimeSaves,
+      inspect: (states) => structuredClone(states.current) as SavedDungeonRuntimeStates,
       save: {
         serialize: (states) => {
           saveActiveRuntime();
-          return structuredClone(states) as SavedDungeonRuntimeStates;
+          return structuredClone(states.current) as SavedDungeonRuntimeStates;
         },
         validate: (saved, savedVersion) => {
           if (savedVersion !== 1) throw new Error(`地牢 Runtime 存档版本 ${savedVersion} 不受支持。`);
           return validateSavedDungeonRuntimeStates(saved);
         },
         restore: (states, saved) => {
-          Object.keys(states).forEach((key) => delete states[key]);
-          Object.entries(saved).forEach(([key, state]) => { states[key] = structuredClone(state as DungeonRuntimeSaveState); });
+          Object.keys(states.current).forEach((key) => delete states.current[key]);
+          Object.entries(saved).forEach(([key, state]) => { states.current[key] = structuredClone(state as DungeonRuntimeSaveState); });
+          runtimeSaves.markChanged();
         },
       },
     });
@@ -258,6 +320,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         assembly.beginSession(loadId);
         const releasePause = assembly.acquirePause();
         try {
+          sessionInfo.begin(loadId, presetKey);
           if (!restoringLabState) {
             saveActiveRuntime();
             captureActiveMapDelta();
@@ -289,7 +352,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
           try {
             const spawn = resolveDungeonDocumentPlayerSpawn(liveDocument, libraries.environments);
             const runtime = assembly.create(liveDocument, spawn);
-            const saved = dungeonSaveStates[presetKey];
+            const saved = runtimeSaves.current[presetKey];
             const warnings = saved
               ? applyDungeonRuntimeSaveState(runtime, saved, (position) => resolveDungeonMapTileWorldLayout(
                 spawn.sceneEnvironmentComponent, liveDocument.grid.width, liveDocument.grid.height,
@@ -301,7 +364,6 @@ export const dungeonMapLoaderLabModule: LabModule = {
               applyDungeonEntranceToRuntime(runtime, entrance, spawn.sceneEnvironmentComponent);
             }
             assembly.prepare(runtime, loadId);
-            const mapView = createDungeonMapCanvasView(liveDocument);
             const obstacles = runtime.obstacles;
             const previousPresetKey = activePresetKey;
             const previousInstance = activeInstance;
@@ -314,18 +376,21 @@ export const dungeonMapLoaderLabModule: LabModule = {
             activeLiveDocument = liveDocument;
             activeLoadId = loadId;
             runtimeRevision = 0;
-            referenceController.commit({
-              loadId,
-              presetKey,
-              document: liveDocument,
-              map: mapView,
-              sceneBinding: binding,
-              spawn,
-              runtime,
-              obstacles,
-            });
             committed = true;
             assembly.commitSession(loadId);
+            deformationMemory.replace(createDungeonDeformationData(loadId, presetKey, liveDocument));
+            overheadMemory.replace(createDungeonOverheadSettingsData(loadId, presetKey, liveDocument));
+            transitionMemory.replace(createDungeonTransitionData(loadId, presetKey, liveDocument));
+            gridMemory.replace(createDungeonGridData(loadId, presetKey, runtime.map, binding.component));
+            movementMemory.replace(runtime.installedSystems?.movement === false ? null
+              : createDungeonMovementStateData(loadId, presetKey, runtime.movementResolver));
+            traversalMemory.replace(runtime.installedSystems?.traversal === false ? null
+              : createDungeonTraversalStateData(loadId, presetKey, runtime.traversal));
+            obstaclesMemory.replace(createDungeonObstaclesData(loadId, presetKey, obstacles));
+            playerState.replace(createDungeonPlayerStateData(loadId, presetKey, runtime));
+            obstacleState.replace(createDungeonObstacleStateData(loadId, presetKey, runtime));
+            playerSpawn.replace(createDungeonPlayerSpawnData(loadId, presetKey, spawn));
+            sessionInfo.commit(loadId, presetKey, liveDocument.identity.id);
             try {
               loadedStateRegistration.markChanged();
               mapKey.value = presetKey;
@@ -353,7 +418,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
             }
             return loadId === generation;
           } catch (error) { if (!committed) instance.dispose(); throw error; }
-        } catch (error) { assembly.failSession(loadId, error); throw error; }
+        } catch (error) { sessionInfo.fail(loadId, error); assembly.failSession(loadId, error); throw error; }
         finally { releasePause(); }
       },
       dispose() {
@@ -367,10 +432,22 @@ export const dungeonMapLoaderLabModule: LabModule = {
         activeInstance = null;
         activePresetKey = null;
         activeRuntime = null;
+        agentCommandSession = null;
+        playerCommandSession = null;
         activeSpawn = null;
         activeBaseDocument = null;
         activeLiveDocument = null;
-        referenceController.clear();
+        deformationMemory.replace(null);
+        overheadMemory.replace(null);
+        transitionMemory.replace(null);
+        gridMemory.replace(null);
+        movementMemory.replace(null);
+        traversalMemory.replace(null);
+        obstaclesMemory.replace(null);
+        playerState.replace(null);
+        obstacleState.replace(null);
+        playerSpawn.replace(null);
+        sessionInfo.clear();
         loadedStateRegistration.markChanged();
       },
     };
@@ -384,12 +461,15 @@ export const dungeonMapLoaderLabModule: LabModule = {
         return { committed: false, loadId: activeLoadId, revision: runtimeRevision, presetKey };
       }
       const revision = ++runtimeRevision;
+      loadedStateRegistration.markChanged();
+      playerState.markChanged();
+      obstacleState.markChanged();
       await context.communication.publish(dungeonRuntimeChangedEvent, {
         reason, loadId: activeLoadId, revision, presetKey,
       });
       return { committed: true, loadId: activeLoadId, revision, presetKey };
     });
-    context.communication.handle(dungeonRuntimeSaveStatesRequest, () => structuredClone(dungeonSaveStates));
+    context.communication.handle(dungeonRuntimeSaveStatesRequest, () => structuredClone(runtimeSaves.current));
     context.communication.handle(dungeonMapDeltaCommitRequest, () => {
       if (!activePresetKey || !activeBaseDocument || !activeLiveDocument) {
         return { committed: false, presetKey: activePresetKey, delta: null };
@@ -420,7 +500,12 @@ export const dungeonMapLoaderLabModule: LabModule = {
         deltaStateRegistration?.unregister();
         loadedStateRegistration.unregister();
         context.services.delete(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
-        context.services.delete(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY);
+        context.services.delete(DUNGEON_AGENT_CONTROL_SERVICE_KEY);
+        context.services.delete(DUNGEON_TRANSITION_CONTROL_SERVICE_KEY);
+        context.services.delete(DUNGEON_PLAYER_CONTROL_SERVICE_KEY);
+        context.services.delete(DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY);
+        context.services.delete(DUNGEON_TRAVERSAL_CONTROL_SERVICE_KEY);
+        context.services.delete(DUNGEON_OBSTACLE_CONTROL_SERVICE_KEY);
         context.services.delete(DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY);
       },
     };

@@ -1,8 +1,8 @@
+import { DUNGEON_OVERHEAD_SETTINGS_MEMORY, readDungeonOverheadSettingsData } from './dungeonOverhead.memory';
+import { DUNGEON_GRID_MEMORY } from '../dungeon-grid/dungeonGrid.memory';
 import { DEFAULT_OVERHEAD_VIEW, parseOverheadView, resolveOverheadView, selectDungeonDisplayView, type DungeonOverheadViewConfig, type DungeonViewConsumer, type DungeonViewLease, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
-import { readDungeonOverheadView } from '@/core/dungeon-view/dungeonOverheadView.document.ts';
 import { createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
-import { DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY, type DungeonMapLoaderReferences } from '../dungeon-map-loader/dungeonMapLoader.references';
 import { DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY } from '../dungeon-map-loader/dungeonMapLoader.view';
 import { DUNGEON_PLAYER_CAMERA_SERVICE_KEY, type DungeonPlayerCameraService } from '../dungeon-player-camera/dungeonPlayerCamera.references';
 import { DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY } from '../dungeon-player-camera/dungeonPlayerCamera.view';
@@ -26,7 +26,8 @@ export const dungeonOverheadViewLabModule: LabModule = {
   id: 'dungeon-overhead-view',
   dependencies: ['dungeon-map-loader', 'dungeon-player-camera', 'player-movement', 'dungeon-grid', 'dungeon-traversal', 'dungeon-movement', 'dungeon-obstacle'],
   setup(context) {
-    const references = context.services.get<DungeonMapLoaderReferences>(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY);
+    const mapSettingsMemory = context.memory.acquire(DUNGEON_OVERHEAD_SETTINGS_MEMORY);
+    const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
     const camera = context.services.get<DungeonPlayerCameraService>(DUNGEON_PLAYER_CAMERA_SERVICE_KEY);
     const consumers = [PLAYER_MOVEMENT_VIEW_SERVICE_KEY, DUNGEON_GRID_VIEW_SERVICE_KEY, DUNGEON_TRAVERSAL_VIEW_SERVICE_KEY, DUNGEON_MOVEMENT_VIEW_SERVICE_KEY, DUNGEON_OBSTACLE_VIEW_SERVICE_KEY, DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY, DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY]
       .map(key => context.services.get<DungeonViewConsumer>(key));
@@ -106,9 +107,12 @@ export const dungeonOverheadViewLabModule: LabModule = {
     const reconcile = () => {
       updating = true;
       try {
-        const loaded = references.current;
-        const config = settings.enabled && loaded ? settings.draft ?? readDungeonOverheadView(loaded.document) : null;
-        const next = config && loaded ? resolveOverheadView(config, loaded.sceneBinding.component.mapOffset, loaded.sceneBinding.component.tileSize) : null;
+        const loaded = mapSettingsMemory.current, grid = gridMemory.current;
+        const ready = loaded && grid && loaded.loadId === grid.loadId;
+        if (settings.enabled && ready && !settings.draft && loaded.error) throw new Error(loaded.error);
+        const config = settings.enabled && ready ? settings.draft
+          ?? (loaded.hasMapSettings ? readDungeonOverheadSettingsData(loaded) : null) : null;
+        const next = config && grid ? resolveOverheadView(config, grid.mapOffset, grid.tileSize) : null;
         if (!next) release();
         else {
           if (!leases.length) {
@@ -159,7 +163,9 @@ export const dungeonOverheadViewLabModule: LabModule = {
     fields.get('projection')!.addEventListener('change', syncApplicableFields);
     fields.get('proportion')!.addEventListener('change', syncApplicableFields);
     const offCamera = camera.subscribe(syncEffective);
-    const offMap = context.communication.on(dungeonMapChangedEvent, safelyReconcile);
+    const offMap = context.communication.on(dungeonMapChangedEvent, event => {
+      if (mapSettingsMemory.current?.loadId === event.loadId) safelyReconcile();
+    });
     safelyReconcile();
     return () => {
       offCamera(); offMap(); updating = true; release(); viewListeners.forEach(listener => listener()); viewListeners.clear(); registration.unregister();

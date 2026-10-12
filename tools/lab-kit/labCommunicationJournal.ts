@@ -40,6 +40,9 @@ export type LabCommunicationLogEntry = Readonly<{
   listenerCount?: number;
   deliveredCount?: number;
   failedCount?: number;
+  /** Dispatch-time identities, unaffected by later unsubscribe or module disposal. */
+  recipients?: readonly Readonly<{ listenerId: string; moduleId: string }>[];
+  listenerResults?: readonly Readonly<{ listenerId: string; moduleId: string; status: 'success' | 'failed'; error?: LabCommunicationLogError }>[];
 }>;
 
 export type LabCommunicationLogInput = Omit<LabCommunicationLogEntry, 'sequence' | 'timestamp'> & {

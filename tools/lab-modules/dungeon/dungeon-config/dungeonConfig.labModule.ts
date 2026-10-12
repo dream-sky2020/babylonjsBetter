@@ -1,7 +1,5 @@
 import { createLabField, createLabStatus, type LabModule } from '@/tools/lab-kit';
-import {
-  dungeonMapCatalogRequest,
-} from '../dungeon-libraries/dungeonLibraries.protocol';
+import { DUNGEON_LIBRARIES_MEMORY } from '../dungeon-libraries/dungeonLibraries.memory';
 import {
   dungeonMapSwitchRequest,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
@@ -10,6 +8,10 @@ export const dungeonConfigLabModule: LabModule = {
   id: 'dungeon-config',
   dependencies: ['dungeon-map-loader'],
   setup(context) {
+    const libraries = context.memory.acquire(DUNGEON_LIBRARIES_MEMORY);
+    const readCatalog = () => Object.values(libraries.require().maps).map(({ identity }) => ({
+      presetKey: identity.presetKey, name: identity.name,
+    }));
     const panel = context.ui.addPanel('dungeon-config', '地图与场景');
     const select = document.createElement('select');
     const loadButton = document.createElement('button');
@@ -19,7 +21,7 @@ export const dungeonConfigLabModule: LabModule = {
     panel.content.append(createLabField('地图预设', select), loadButton, status);
 
     const loadSelected = async (required = false) => {
-      const catalog = await context.communication.request(dungeonMapCatalogRequest, undefined);
+      const catalog = readCatalog();
       const preset = catalog.find(({ presetKey }) => presetKey === select.value);
       if (!preset) return;
       loadButton.disabled = true;
@@ -44,7 +46,7 @@ export const dungeonConfigLabModule: LabModule = {
     select.addEventListener('change', () => { void loadSelected(); });
     return {
       async start() {
-        const catalog = await context.communication.request(dungeonMapCatalogRequest, undefined);
+        const catalog = readCatalog();
         select.replaceChildren(...catalog.map((preset) => {
           const option = document.createElement('option');
           option.value = preset.presetKey;

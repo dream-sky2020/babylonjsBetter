@@ -32,6 +32,7 @@ import {
   type DialogueNodeDisplay,
 } from '@/core/dialogue-map';
 import './dialogue-map-canvas-lab.css';
+import { fitGraphView, graphWorldPoint, graphScreenPoint } from '@/core/ui/node-graph/graphViewport';
 
 const GRID = DIALOGUE_MAP_GRID_SIZE;
 const WORKSPACE_KEY = 'dialogue-map-canvas-lab:preview-entries';
@@ -148,7 +149,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
     nodeId?: string;
     portId?: string;
     nodeOrigin?: Point;
-  }>();
+  } | undefined>(undefined);
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
@@ -165,41 +166,13 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
   useEffect(() => {
     const nodes = [...document.graph.nodes.values()];
     if (!nodes.length) return;
-    const minX = Math.min(...nodes.map((n) => n.position.x));
-    const minY = Math.min(...nodes.map((n) => n.position.y));
-    const maxX = Math.max(
-      ...nodes.map((n) => n.position.x + nodeSize(n).width),
-    );
-    const maxY = Math.max(
-      ...nodes.map((n) => n.position.y + nodeSize(n).height),
-    );
-    const scale = Math.min(
-      1.1,
-      Math.max(
-        0.3,
-        Math.min(
-          (size.width - 96) / Math.max(1, maxX - minX),
-          (size.height - 96) / Math.max(1, maxY - minY),
-        ),
-      ),
-    );
     // 预设切换和“适配全部”需要重置视图，而不是派生持久状态。
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setView({
-      x: (size.width - (maxX - minX) * scale) / 2 - minX * scale,
-      y: (size.height - (maxY - minY) * scale) / 2 - minY * scale,
-      scale,
-    });
+    setView(fitGraphView(nodes.map(n => ({ ...n.position, ...nodeSize(n) })), size));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document.presetKey, resetViewToken, size.width, size.height]);
-  const world = (point: Point) => ({
-    x: (point.x - view.x) / view.scale,
-    y: (point.y - view.y) / view.scale,
-  });
-  const screen = (point: Point) => ({
-    x: view.x + point.x * view.scale,
-    y: view.y + point.y * view.scale,
-  });
+  const world = (point: Point) => graphWorldPoint(point, view);
+  const screen = (point: Point) => graphScreenPoint(point, view);
   const hitTest = (point: Point): DialogueEditorSelection | undefined => {
     const p = world(point);
     for (const node of [...document.graph.nodes.values()].reverse()) {
@@ -464,7 +437,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document, previewEntry, selection, size, view]);
-  const point = (event: React.PointerEvent<HTMLCanvasElement>) => {
+  const point = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     return { x: event.clientX - rect.left, y: event.clientY - rect.top };
   };

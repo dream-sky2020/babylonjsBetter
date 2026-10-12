@@ -283,11 +283,9 @@ export type DungeonTransitionAdapter = Readonly<{
 
 export const createDungeonTransitionController = (adapter: DungeonTransitionAdapter) => {
   let transitioning = false;
-  return {
-    get transitioning() { return transitioning; },
-    async transition(exit: DungeonExitBinding): Promise<DungeonTransitionResult> {
+  const transitionTo = async (target: Pick<DungeonExitBinding['component'], 'targetMapPresetKey' | 'targetEntranceId'>): Promise<DungeonTransitionResult> => {
       const sourcePresetKey = adapter.getCurrentPresetKey();
-      const { targetMapPresetKey, targetEntranceId } = exit.component;
+      const { targetMapPresetKey, targetEntranceId } = target;
       if (transitioning) return {
         transitioned: false, sourcePresetKey, targetPresetKey: targetMapPresetKey,
         targetEntranceId, reason: 'busy' as const,
@@ -303,6 +301,10 @@ export const createDungeonTransitionController = (adapter: DungeonTransitionAdap
       } finally {
         transitioning = false;
       }
-    },
+    };
+  return {
+    get transitioning() { return transitioning; },
+    transitionTo,
+    transition: (exit: DungeonExitBinding) => transitionTo(exit.component),
   };
 };

@@ -1,28 +1,22 @@
+import { DUNGEON_PLAYER_SPAWN_MEMORY, type DungeonPlayerSpawnData } from './playerSpawn.memory';
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import { createLabJson, createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import {
   dungeonMapChangedEvent,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
-import {
-  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-  type DungeonMapLoaderReferences,
-  type LoadedDungeonReferences,
-} from '../dungeon-map-loader/dungeonMapLoader.references';
 
 export const playerSpawnLabModule: LabModule = {
   id: 'player-spawn',
   dependencies: ['dungeon-map-loader'],
   setup(context) {
-    const references = context.services.get<DungeonMapLoaderReferences>(
-      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
-    );
+    const spawnMemory = context.memory.acquire(DUNGEON_PLAYER_SPAWN_MEMORY);
     const panel = context.ui.addPanel('player-spawn', '玩家出生点');
     const toggle = createLabSwitch('显示玩家出生格 Debug 盒', false, {
       preference: { ui: context.ui, key: 'player-spawn/debug-box' },
     });
     const json = createLabJson();
     panel.content.append(toggle.row, json);
-    let current: LoadedDungeonReferences | null = null;
+    let current: DungeonPlayerSpawnData | null = null;
     let root: TransformNode | null = null;
     const dispose = () => {
       root?.dispose(false, true);
@@ -37,11 +31,10 @@ export const playerSpawnLabModule: LabModule = {
       material.emissiveColor = Color3.FromHexString('#8b5f00');
       material.alpha = 0.36;
       material.wireframe = true;
-      const layout = current.spawn.tileWorldLayout;
       const box = MeshBuilder.CreateBox(`player_spawn_debug_box_${current.loadId}`, {
-        width: layout.size[0], height: layout.size[1], depth: layout.size[2],
+        width: current.tileSize[0], height: current.tileSize[1], depth: current.tileSize[2],
       }, context.scene);
-      box.position.set(...current.spawn.worldPosition);
+      box.position.set(...current.worldPosition);
       box.material = material;
       box.parent = root;
       box.isPickable = false;
@@ -51,19 +44,20 @@ export const playerSpawnLabModule: LabModule = {
     };
     toggle.input.addEventListener('change', render);
     const off = context.communication.on(dungeonMapChangedEvent, (next) => {
-      const loaded = references.current;
+      const loaded = spawnMemory.current;
       if (!loaded || loaded.loadId !== next.loadId) return;
       current = loaded;
-      const { spawn } = loaded;
       json.textContent = JSON.stringify({
-        dungeonPresetKey: next.presetKey,
-        spawnPointEntity: spawn.spawnPointEntity,
-        actorSpawnComponent: spawn.actorSpawnComponent,
-        tilePosition: spawn.tilePosition,
-        worldPosition: spawn.worldPosition,
+        loadId: loaded.loadId,
+        dungeonPresetKey: loaded.presetKey,
+        spawnPointId: loaded.spawnPointId,
+        actorSpawnId: loaded.actorSpawnId,
+        tilePosition: loaded.tilePosition,
+        worldPosition: loaded.worldPosition,
+        tileSize: loaded.tileSize,
       }, null, 2);
       render();
     });
-    return () => { off(); dispose(); };
+    return () => { off(); toggle.input.removeEventListener('change', render); dispose(); };
   },
 };
