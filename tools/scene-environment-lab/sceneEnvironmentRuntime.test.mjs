@@ -4,6 +4,8 @@ import path from 'node:path';
 import { createServer } from 'vite';
 import { NullEngine, Scene, Vector3 } from '@babylonjs/core';
 import { DEFAULT_OVERHEAD_VIEW, resolveOverheadView } from '../../core/dungeon-view/dungeonOverheadView.ts';
+import { DocumentHistory } from '../../core/scene-editor/DocumentHistory.ts';
+import { isEnvironmentTransformOnlyChange } from './sceneEnvironmentTransformPreview.ts';
 
 const near = (actual, expected) => actual.forEach((value, i) => assert.ok(Math.abs(value - expected[i]) < 1e-4, `${value} != ${expected[i]}`));
 test('real factory builds forward references, parent transforms and isolated nested ground display; disposal is complete', async () => {
@@ -22,10 +24,35 @@ test('real factory builds forward references, parent transforms and isolated nes
       ], lights: [{ id: 'lamp', name: 'Lamp', parentId: 'transform:socket', intensity: 1, color: '#ffffff', light: { primitive: 'point', position: [0, 1, 0] } }],
     };
     const instance = createSceneEnvironment(scene, preset, { shadowQualityPresets: {} });
+    const { createEnvironmentAdapter } = await server.ssrLoadModule('/tools/scene-environment-lab/sceneEnvironmentAdapter.ts');
+    let preview = preset;
+    let binding;
+    const history = new DocumentHistory(preset, next => {
+      assert.equal(isEnvironmentTransformOnlyChange(preview, next), true);
+      binding.adapter.sync('scene'); preview = next;
+    });
+    binding = createEnvironmentAdapter(instance, { read: () => history.value, write: next => history.set(next), undo: () => history.undo(), redo: () => history.redo() });
     const rig = instance.nodes.get('transform:rig'), socket = instance.nodes.get('transform:socket');
     const box = instance.nodes.get('object:box'), ground = instance.nodes.get('object:ground');
     assert.equal(socket.parent, rig); assert.equal(box.parent, ground); assert.equal(instance.nodes.get('light:lamp').parent, socket);
     const world = node => { node.computeWorldMatrix(true); return node.getAbsolutePosition().asArray(); };
+    const identities = [scene.meshes.slice(), scene.transformNodes.slice(), scene.materials.slice(), scene.lights.slice()];
+    const originalWorld = world(box);
+    const changed = structuredClone(preset);
+    changed.transformNodes[1].position = [15, 0, 20];
+    changed.objects[0].rotation = [.2, .3, .4]; changed.objects[0].scaling = [2, 3, 4];
+    changed.lights[0].light.position = [2, 4, 6];
+    history.set(changed);
+    near(rig.position.asArray(), [15, 0, 20]); near(box.rotation.asArray(), [.2, .3, .4]); near(box.scaling.asArray(), [2, 3, 4]);
+    near(instance.nodes.get('light:lamp').position.asArray(), [2, 4, 6]);
+    history.undo();
+    near(world(box), originalWorld); near(box.rotation.asArray(), [0, 0, 0]); near(box.scaling.asArray(), [1, 1, 1]);
+    near(instance.nodes.get('light:lamp').position.asArray(), [0, 1, 0]);
+    history.redo(); near(rig.position.asArray(), [15, 0, 20]); history.undo();
+    [scene.meshes, scene.transformNodes, scene.materials, scene.lights].forEach((items, i) => {
+      assert.equal(items.length, identities[i].length); items.forEach((item, index) => assert.equal(item, identities[i][index]));
+    });
+    binding.dispose();
     const original = world(box); const beforeScale = box.getWorldMatrix().getRow(0).length();
     rig.position.x += 5;
     near(world(box), [original[0] + 5, original[1], original[2]]);

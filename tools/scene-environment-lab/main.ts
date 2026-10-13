@@ -20,6 +20,7 @@ import { editSceneEnvironmentDeclaration, type SceneEnvironmentDeclarations } fr
 import { loadConfig, downloadConfigJson } from '@/core/config';
 import { SceneEditor, DocumentHistory } from '@/core/scene-editor';
 import { createEnvironmentAdapter } from './sceneEnvironmentAdapter';
+import { isEnvironmentTransformOnlyChange } from './sceneEnvironmentTransformPreview';
 import { moveEnvironmentNode, reparentEnvironmentNode } from './sceneEnvironmentHierarchy';
 import type { EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { mountEnvironmentEditor, openEnvironmentCreateMenu } from './sceneEnvironmentEditorView';
@@ -140,7 +141,7 @@ const history = new DocumentHistory<SceneEnvironmentDeclarations>({}, value => {
   setStatus('场景预设草稿已更新；点击保存预设写入配置');
   if (!previewQueued) {
     previewQueued = true;
-    queueMicrotask(() => { previewQueued = false; void loadByComponentPresetKey(activeKey); });
+    queueMicrotask(() => { previewQueued = false; void loadByComponentPresetKey(activeKey, true); });
   }
 });
 const editor = new SceneEditor(scene, {
@@ -275,8 +276,21 @@ const fetchPresetLibraries = async (): Promise<{
   };
 };
 
-const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
+const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previewChanges = false) => {
   if (disposed) return;
+  const nextPreset = library[requestedKey];
+  if (previewChanges && currentInstance && binding && previewPreset && nextPreset
+    && currentInstance.presetKey === requestedKey && isEnvironmentTransformOnlyChange(previewPreset, nextPreset)) {
+    // History, inspector and gizmo commits all use the same live nodes. Invalidate
+    // pending async work so an older candidate cannot replace this preview later.
+    loadAbort?.abort(); ++loadGeneration;
+    editor.cancel();
+    binding.adapter.sync?.(editor.selectedId ?? 'scene');
+    previewPreset = nextPreset;
+    loadButton.disabled = false; editor.enabled = true; editor.refresh();
+    setStatus('已通过变换增量预览；复用现有模型、材质和阴影。草稿尚未保存。');
+    return;
+  }
   const selectedId = pendingSelectionId ?? (requestedKey === activeKey ? editor.selectedId : null);
   const selectedIds = pendingSelectionId ? [pendingSelectionId] : requestedKey === activeKey ? editorView.selection.ids : [];
   pendingSelectionId = null;
