@@ -14,6 +14,8 @@ import type { EnvironmentModelAssetProperties } from './sceneEnvironmentAdapter'
 import { environmentNodeEntries, environmentParentCandidates } from '@/core/scene/sceneEnvironment.hierarchy';
 import { EnvironmentSelection } from './sceneEnvironmentSelection';
 import { MODEL_TEXTURE_SLOTS, parseModelMaterialBindings, type ModelMaterialBindings } from '@/core/model/material/modelMaterialBindings';
+import { formatTextureBytes, type EnvironmentTextureStats } from './sceneEnvironmentTextureStats';
+import type { UvCoverage } from './sceneEnvironmentUvCoverage';
 export type EnvironmentEditorHost = {
   read(): SceneEnvironmentPreset | undefined; write(preset: SceneEnvironmentPreset): void;
   create(kind: EnvironmentObjectKind, modelPath?: string, parentId?: string | null): void;
@@ -21,12 +23,18 @@ export type EnvironmentEditorHost = {
   canMove(intent: EditorHierarchyDropIntent): boolean; move(intent: EditorHierarchyDropIntent): void;
   markersVisible(): boolean; setMarkersVisible(visible: boolean): void;
   modelAssetProperties(id: string): EnvironmentModelAssetProperties | undefined;
+  faceCount?(id: string): number | undefined;
+  modelTextureStats?(id: string): EnvironmentTextureStats | undefined;
+  modelUvCoverage?(id: string): UvCoverage | undefined;
+  setUvCoverageVisible?(visible: boolean): void;
   modelMaterials?(id: string): { gltfMaterialIndex: number; name: string; textures: Record<string, string | null> }[];
 };
 
 export async function openEnvironmentCreateMenu(x: number, y: number, host: EnvironmentEditorHost, selectedId: string | null = null) {
   const preset = host.read();
-  if (!preset || (selectedId && selectedId !== 'scene' && !environmentNodeEntries(preset).some(entry => entry.id === selectedId))) return;
+  if (!preset || (selectedId && selectedId !== 'scene' && !environmentNodeEntries(preset).some(entry => entry.id === selectedId))) {
+    return;
+  }
   const models = await loadModelAssetManifestByExtension(/\.(glb|gltf)$/i);
   if (host.read() !== preset) return;
   const parentId = selectedId && selectedId !== 'scene' && !selectedId.startsWith('light:') ? selectedId : null;
@@ -125,6 +133,7 @@ function DeclarationForm({ editor, host, preset }: { editor: SceneEditor; host: 
   const dirty = JSON.stringify(values) !== JSON.stringify(initial);
   const type = target.geometry as { primitive: string } | undefined ?? target.light as { primitive: string } | undefined;
   const asset = id?.startsWith('model:') ? host.modelAssetProperties(id) : undefined;
+  const textureStats = id?.startsWith('model:') ? host.modelTextureStats?.(id) : undefined;
   return <InspectorPanel title={String(target.name)} status={dirty ? '未应用' : '草稿预览'}>
     {id && id !== 'scene' && <ParentField editor={editor} host={host} preset={preset} id={id} />}
     <InspectorSection title={id && id !== 'scene' ? `声明 · ${type?.primitive ?? (id.startsWith('transform:') ? target.role ?? 'empty' : 'model')}` : '场景配置'} subtitle={String(target.id ?? preset.presetKey)}>
@@ -144,6 +153,15 @@ function DeclarationForm({ editor, host, preset }: { editor: SceneEditor; host: 
       {error && <p role="alert" style={{ color: '#ff9d9d' }}>{error}</p>}
       <p>应用后可撤销 / 重做；“保存预设”只保存当前场景。未应用输入不写入文件。</p>
     </InspectorSection>
+    {textureStats && <InspectorSection title="纹理统计" subtitle={`${textureStats.textures.length} 张 · ${formatTextureBytes(textureStats.bytes)}${textureStats.unknown ? ` + ${textureStats.unknown} 张无法估算` : ''}`}>
+      <p>按此模型引用的 GPU 纹理去重，估算包含 mipmap；共享纹理在场景汇总中只计一次。</p>
+      <div className="environment-texture-details">
+        {textureStats.textures.length ? textureStats.textures.map((texture, index) => <div className="environment-texture-entry" key={index}>
+          <span title={texture.name}>{texture.name}</span>
+          <small>{texture.resolution} · {texture.bytes === null ? '无法估算' : formatTextureBytes(texture.bytes)} · {texture.mipmaps ? '含 mipmap' : '无 mipmap'}</small>
+        </div>) : <span>此模型未引用纹理。</span>}
+      </div>
+    </InspectorSection>}
     {id?.startsWith('model:') && <MaterialForm key={JSON.stringify(preset.models)} editor={editor} host={host} preset={preset} id={id} />}
     {asset && <InspectorSection title="模型资产校正" subtitle="共享资产属性 · 只读" defaultOpen={false}>
       <p>模型资源的原点、旋转和缩放校正；实例变换在上方编辑。</p>
@@ -215,10 +233,15 @@ function EnvironmentInspector({ editor, host, selection }: { editor: SceneEditor
   // Preserve unsubmitted text across runtime refreshes; reset only on selection/document changes.
   return <DeclarationForm key={`${preset.presetKey}:${editor.selectedId}:${JSON.stringify(preset)}`} editor={editor} host={host} preset={preset} />;
 }
-function EnvironmentToolbar({ editor, host }: { editor: SceneEditor; host: EnvironmentEditorHost }) {
+type HierarchyDisplay = { faces: boolean; types: boolean; textureSizes: boolean; uvCoverage: boolean };
+function EnvironmentToolbar({ editor, host, display, changeDisplay }: { editor: SceneEditor; host: EnvironmentEditorHost; display: HierarchyDisplay; changeDisplay(key: keyof HierarchyDisplay): void }) {
   useSceneEditor(editor);
   return <div className="environment-toolbar"><SceneEditorToolbar editor={editor} />
     <button aria-pressed={host.markersVisible()} onClick={() => host.setMarkersVisible(!host.markersVisible())}>挂点标记</button>
+    <button aria-pressed={display.faces} title="显示所有对象自身的三角面数" onClick={() => changeDisplay('faces')}>面数</button>
+    <button aria-pressed={display.textureSizes} title="显示模型纹理分辨率" onClick={() => changeDisplay('textureSizes')}>纹理尺寸</button>
+    <button aria-pressed={display.uvCoverage} title="按需分析并显示模型 UV 覆盖率估算" onClick={() => changeDisplay('uvCoverage')}>UV 覆盖率</button>
+    <button aria-pressed={display.types} title="显示列表中的对象种类" onClick={() => changeDisplay('types')}>对象种类</button>
   </div>;
 }
 export function mountEnvironmentEditor(editor: SceneEditor, host: EnvironmentEditorHost) {
@@ -226,14 +249,51 @@ export function mountEnvironmentEditor(editor: SceneEditor, host: EnvironmentEdi
   const hierarchy = createRoot(document.getElementById('scene-hierarchy')!);
   const inspector = createRoot(document.getElementById('scene-inspector')!);
   const toolbar = createRoot(document.getElementById('scene-toolbar')!);
+  let display: HierarchyDisplay;
+  try {
+    const saved = JSON.parse(localStorage.getItem('scene-environment-lab:hierarchy-display:v1') ?? '{}');
+    display = { faces: saved?.faces === true, types: saved?.types !== false, textureSizes: saved?.textureSizes === true, uvCoverage: saved?.uvCoverage === true };
+  } catch { display = { faces: false, types: true, textureSizes: false, uvCoverage: false }; }
+  const displayListeners = new Set<() => void>();
+  const subscribeDisplay = (listener: () => void) => { displayListeners.add(listener); return () => { displayListeners.delete(listener); }; };
+  const getDisplay = () => display;
+  const changeDisplay = (key: keyof HierarchyDisplay) => {
+    display = { ...display, [key]: !display[key] };
+    if (key === 'uvCoverage') host.setUvCoverageVisible?.(display.uvCoverage);
+    try { localStorage.setItem('scene-environment-lab:hierarchy-display:v1', JSON.stringify(display)); } catch { /* Session preferences still work when storage is unavailable. */ }
+    displayListeners.forEach(listener => listener());
+  };
+  function Toolbar() {
+    const currentDisplay = useSyncExternalStore(subscribeDisplay, getDisplay);
+    return <EnvironmentToolbar editor={editor} host={host} display={currentDisplay} changeDisplay={changeDisplay} />;
+  }
   function Hierarchy() {
     const ids = useSyncExternalStore(selection.subscribe, selection.getSnapshot);
+    const display = useSyncExternalStore(subscribeDisplay, getDisplay);
     return <div className="environment-hierarchy-menu-area" onContextMenu={event => { event.preventDefault(); void openEnvironmentCreateMenu(event.clientX, event.clientY, host); }}>
-      <SceneEditorHierarchy editor={editor} selectedIds={ids} enableRangeSelection onSelectionChange={(next, mode) => selection.change(next, mode)} canDrop={host.canMove} onMove={host.move} onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); selection.replace([id]); void openEnvironmentCreateMenu(event.clientX, event.clientY, host, id); }} />
+      <SceneEditorHierarchy editor={editor} selectedIds={ids} enableRangeSelection showTypeLabels={display.types}
+        renderRowMetadata={id => {
+          const count = display.faces ? host.faceCount?.(id) : undefined;
+          const textures = display.textureSizes ? host.modelTextureStats?.(id)?.textures : undefined;
+          const sizes = textures ? [...new Set(textures.map(texture => texture.resolution.replaceAll(' ', '')))] : [];
+          const uv = display.uvCoverage && id.startsWith('model:') ? host.modelUvCoverage?.(id) : undefined;
+          return <>
+            {display.uvCoverage && id.startsWith('model:') && <small className="environment-hierarchy-uv-coverage" title={uv?.detail ?? '正在后台分析 UV 覆盖率'}>
+              {uv ? uv.percent === null ? 'UV —' : `UV ${uv.percent.toFixed(1)}%` : 'UV …'}
+            </small>}
+            {textures && <small className="environment-hierarchy-texture-size" title={textures.length ? textures.map(texture => `${texture.name}: ${texture.resolution}`).join('\n') : '此模型未引用纹理'}>
+              {sizes.length ? `${sizes[0]}${sizes.length > 1 ? ` +${sizes.length - 1}种` : ''}` : '无纹理'}
+            </small>}
+            {count !== undefined && <small className="environment-hierarchy-face-count" title="当前对象自身的三角面数，不含挂载的其他对象">{count.toLocaleString()} 面</small>}
+          </>;
+        }}
+        onSelectionChange={(next, mode) => selection.change(next, mode)} canDrop={host.canMove} onMove={host.move}
+        onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); selection.replace([id]); void openEnvironmentCreateMenu(event.clientX, event.clientY, host, id); }} />
     </div>;
   }
   hierarchy.render(<Hierarchy />);
   inspector.render(<EnvironmentInspector editor={editor} host={host} selection={selection} />);
-  toolbar.render(<EnvironmentToolbar editor={editor} host={host} />);
+  toolbar.render(<Toolbar />);
+  host.setUvCoverageVisible?.(display.uvCoverage);
   return { selection, dispose: () => { hierarchy.unmount(); inspector.unmount(); toolbar.unmount(); selection.dispose(); } };
 }

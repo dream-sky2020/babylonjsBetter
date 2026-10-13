@@ -114,7 +114,8 @@ test('authoring tree contains declarations only, preserves authored children, an
       const nested = new TransformNode('GLTF internal wrapper', scene); nested.parent = imported;
       const leaf = MeshBuilder.CreateBox('nested render mesh', {}, scene); leaf.parent = nested;
       const helper = new TransformNode('editor:helper', scene); helper.parent = model;
-      const instance: SceneEnvironmentInstance = { presetKey: 'p', root, models: [{ definition: p.models[0], entity: { root: model, normalizationRoot } as ModelEntity }], nodes: new Map([['model:m', model], ['transform:rig', rig]]), dispose: () => root.dispose() };
+      const authoredChild = MeshBuilder.CreateBox('attached object', {}, scene); authoredChild.parent = rig;
+      const instance: SceneEnvironmentInstance = { presetKey: 'p', root, models: [{ definition: p.models[0], entity: { root: model, normalizationRoot, meshes: [imported, duplicate, namedLikeProperty, leaf] } as unknown as ModelEntity }], nodes: new Map([['model:m', model], ['transform:rig', rig]]), dispose: () => root.dispose() };
       const binding = createEnvironmentAdapter(instance, { read: () => p, write() { assert.fail('read-only selection must not commit'); }, undo() {}, redo() {} });
       return { instance, binding, imported };
     };
@@ -122,6 +123,8 @@ test('authoring tree contains declarations only, preserves authored children, an
     assert.deepEqual(objects.map(o => o.id).sort(), ['model:m', 'scene', 'transform:rig']);
     assert.equal(objects.find(o => o.id === 'transform:rig')!.parentId, 'model:m');
     assert.deepEqual(first.binding.modelAssetProperties('model:m'), { position: [1, 2, 3], rotation: [0, 0, 0], scaling: [2, 2, 2] });
+    assert.equal(first.binding.faceCount('model:m'), 48, 'count only the model-owned meshes, excluding attached objects and editor helpers');
+    assert.equal(first.binding.faceCount('transform:rig'), undefined);
     const editor = new SceneEditor(scene, first.binding.adapter);
     // Canvas picking still resolves an imported mesh to its editable model owner.
     scene.onPointerObservable.notifyObservers(new PointerInfo(PointerEventTypes.POINTERTAP, { button: 0 } as PointerEvent, { pickedMesh: first.imported } as never));

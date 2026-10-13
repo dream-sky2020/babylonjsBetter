@@ -1,4 +1,4 @@
-import { DirectionalLight, PointLight, Quaternion, TransformNode } from '@babylonjs/core';
+import { AbstractMesh, DirectionalLight, PointLight, Quaternion, TransformNode } from '@babylonjs/core';
 import type { EditorTransform, SceneEditorAdapter, SceneEditorObject } from '../../core/scene-editor/types.ts';
 import type { SceneEnvironmentInstance, SceneEnvironmentPreset, SceneEnvironmentVector3, SceneEnvironmentLight } from '@/core/scene/sceneEnvironment.types';
 import { environmentNodeEntries, orderedEnvironmentEntries } from '../../core/scene/sceneEnvironment.hierarchy.ts';
@@ -21,6 +21,16 @@ export function updateEnvironmentTransform(preset: SceneEnvironmentPreset, id: s
 export function createEnvironmentAdapter(instance: SceneEnvironmentInstance, host: { read(): SceneEnvironmentPreset; write(value: SceneEnvironmentPreset): void; undo(): void; redo(): void }) {
   const markers = createEnvironmentMarkers(instance, host.read());
   const assetProperties = new Map((instance.models ?? []).map(({ definition, entity }) => [`model:${definition.id}`, entity.normalizationRoot]));
+  const faceCounts = new Map<string, number>();
+  const faces = (mesh: AbstractMesh) => Math.floor((mesh.getTotalIndices() || mesh.getTotalVertices()) / 3);
+  // Read each model's OWN meshes once; authored children and editor markers are separate objects.
+  for (const { definition, entity } of instance.models ?? []) {
+    faceCounts.set(`model:${definition.id}`, entity.meshes.reduce((total, mesh) => total + faces(mesh), 0));
+  }
+  for (const definition of host.read().objects) {
+    const id = `object:${definition.id}`, mesh = instance.groundMeshes?.get(id) ?? instance.nodes.get(id);
+    if (mesh instanceof AbstractMesh) faceCounts.set(id, faces(mesh));
+  }
   const proxies = new Map<string, TransformNode>();
   for (const [id, node] of instance.nodes) if (node instanceof PointLight || node instanceof DirectionalLight) {
     const proxy = new TransformNode(`editor:${id}`, node.getScene()); proxy.parent = node.parent; proxy.position.copyFrom(node.position); proxies.set(id, proxy);
@@ -81,6 +91,7 @@ export function createEnvironmentAdapter(instance: SceneEnvironmentInstance, hos
   };
   return {
     adapter, setMarkersVisible: markers.setVisible,
+    faceCount: (id: string): number | undefined => faceCounts.get(id),
     modelAssetProperties(id: string): EnvironmentModelAssetProperties | undefined {
       const node = assetProperties.get(id);
       if (!node || node.isDisposed()) return undefined;

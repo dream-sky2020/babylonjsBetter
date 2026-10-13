@@ -37,6 +37,8 @@ export type ObjectHierarchyProps = {
   emptyLabel?: string;
   searchPlaceholder?: string;
   className?: string;
+  showTypeLabels?: boolean;
+  renderRowMetadata?(id: string): ReactNode;
   expandedIds?: ReadonlySet<string>;
   enableRangeSelection?: boolean;
   defaultExpandedIds?: Iterable<string>;
@@ -56,6 +58,7 @@ export function ObjectHierarchy({
   items, rootIds, selectedIds, eyebrow = 'OBJECTS', title = '层级', status, action, footer,
   emptyLabel = '没有匹配对象', searchPlaceholder = '搜索对象', className = '', expandedIds,
   defaultExpandedIds, onExpandedChange, onSelectionChange, onFocus, onContextMenu, canDrop, onMove, onClearSelection, enableRangeSelection = false,
+  showTypeLabels = true, renderRowMetadata,
 }: ObjectHierarchyProps) {
   const [query, setQuery] = useState('');
   const [localExpanded, setLocalExpanded] = useState<Set<string>>(() => new Set(defaultExpandedIds));
@@ -181,6 +184,8 @@ export function ObjectHierarchy({
     const childIds = normalizedQuery ? item.childIds.filter(matches) : item.childIds.filter((childId) => Boolean(items[childId]));
     const open = Boolean(normalizedQuery) || expanded.has(id) || selectedAncestors.has(id);
     const activeDrop = dropIntent?.targetId === id ? dropIntent : null; const dropValid = activeDrop ? validIntent(activeDrop) : false;
+    const badges = item.badges?.length ? <span className="editor-hierarchy-badges">{item.badges.map(badge => <i key={badge} className={badge} title={badge} />)}</span> : null;
+    const type = showTypeLabels && item.typeLabel ? <small className="editor-hierarchy-type">{item.typeLabel}</small> : null;
     return <div className="editor-hierarchy-branch" key={id}>
       <div className={`editor-hierarchy-row${selected.has(id) ? ' selected' : ''}${item.disabled ? ' disabled' : ''}${activeDrop ? ` drop-${activeDrop.placement}${dropValid ? '' : ' drop-invalid'}` : ''}`}
         data-object-id={id}
@@ -190,8 +195,8 @@ export function ObjectHierarchy({
         onDragEnd={clearDrag} onDragOver={event => previewRowDrop(event, id)} onDrop={event => commitRowDrop(event, id)}
         onClick={event => select(event, id)} onDoubleClick={() => onFocus?.(id)} onContextMenu={event => onContextMenu?.(event, id)}>
         <button className={`editor-hierarchy-chevron${childIds.length ? '' : ' empty'}${open ? ' open' : ''}`} aria-label={open ? '收起' : '展开'} onClick={event => { event.stopPropagation(); toggle(id); }}><Chevron /></button>
-        <span className="editor-hierarchy-icon">{item.icon ?? <i />}</span><span className="editor-hierarchy-label">{item.label}</span>
-        {item.badges?.length ? <span className="editor-hierarchy-badges">{item.badges.map(badge => <i key={badge} className={badge} title={badge} />)}</span> : null}{item.typeLabel && <small>{item.typeLabel}</small>}
+        <span className="editor-hierarchy-icon">{item.icon ?? <i />}</span><span className="editor-hierarchy-label" title={item.label}>{item.label}</span>
+        {renderRowMetadata ? <span className="editor-hierarchy-details">{badges}{renderRowMetadata(id)}{type}</span> : <>{badges}{type}</>}
         {activeDrop && <span className="editor-hierarchy-drop-hint">{dropValid ? describeIntent(activeDrop) : '不能放置在这里'}</span>}
       </div>
       {open && childIds.map(childId => renderItem(childId, depth + 1))}

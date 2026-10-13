@@ -26,6 +26,8 @@ import { moveEnvironmentNode, reparentEnvironmentNode } from './sceneEnvironment
 import type { EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { mountEnvironmentEditor, openEnvironmentCreateMenu } from './sceneEnvironmentEditorView';
 import { addEnvironmentObject, type EnvironmentObjectKind } from './sceneEnvironmentObjects';
+import { collectModelTextureStats, formatTextureBytes } from './sceneEnvironmentTextureStats';
+import { modelUvTextures, type UvCoverage } from './sceneEnvironmentUvCoverage';
 import './scene-environment-editor.css';
 
 const requireElement = <T extends Element>(selector: string, constructor: { new(): T }): T => {
@@ -43,6 +45,12 @@ const copySceneKeyButton = requireElement('#copy-scene-key', HTMLButtonElement);
 const csmDebugToggle = requireElement('#csm-debug', HTMLInputElement);
 const csmDebugHint = requireElement('#csm-debug-hint', HTMLDivElement);
 const statusElement = requireElement('#status', HTMLDivElement);
+const modelCountElement = requireElement('#model-count', HTMLElement);
+const modelAverageFacesElement = requireElement('#model-average-faces', HTMLElement);
+const modelTotalFacesElement = requireElement('#model-total-faces', HTMLElement);
+const textureCountElement = requireElement('#texture-count', HTMLElement);
+const textureAverageElement = requireElement('#texture-average-memory', HTMLElement);
+const textureTotalElement = requireElement('#texture-total-memory', HTMLElement);
 const componentJson = requireElement('#component-json', HTMLPreElement);
 const presetJson = requireElement('#preset-json', HTMLPreElement);
 
@@ -129,6 +137,46 @@ let loadGeneration = 0;
 let loadAbort: AbortController | null = null;
 let warmupInProgress = false;
 let binding: ReturnType<typeof createEnvironmentAdapter> | null = null;
+let textureStats: ReturnType<typeof collectModelTextureStats> | undefined;
+const uvCoverage = new Map<string, UvCoverage>();
+let uvEnabled = false;
+let uvWorker: Worker | undefined;
+function analyzeUvCoverage() {
+  uvWorker?.terminate(); uvWorker = undefined;
+  if (!uvEnabled || !currentInstance) return;
+  const pending = currentInstance.models.filter(model => !uvCoverage.has(`model:${model.definition.id}`));
+  if (!pending.length) return;
+  const worker = new Worker(new URL('./sceneEnvironmentUvCoverage.worker.ts', import.meta.url), { type: 'module' });
+  uvWorker = worker;
+  const next = () => {
+    if (uvWorker !== worker || !uvEnabled) return;
+    const model = pending.shift();
+    if (!model) { worker.terminate(); uvWorker = undefined; return; }
+    const id = `model:${model.definition.id}`;
+    try { worker.postMessage({ id, textures: modelUvTextures(model.entity) }); }
+    catch { uvCoverage.set(id, { percent: null, detail: 'UV 数据无法分析' }); editor.refresh(); setTimeout(next, 0); }
+  };
+  worker.onmessage = (event: MessageEvent<{ id: string; coverage: UvCoverage }>) => {
+    if (uvWorker !== worker) return;
+    uvCoverage.set(event.data.id, event.data.coverage); editor.refresh(); setTimeout(next, 0);
+  };
+  worker.onerror = () => {
+    if (uvWorker !== worker) return;
+    for (const model of currentInstance?.models ?? []) if (!uvCoverage.has(`model:${model.definition.id}`)) uvCoverage.set(`model:${model.definition.id}`, { percent: null, detail: 'UV 分析线程启动失败' });
+    worker.terminate(); uvWorker = undefined; editor.refresh();
+  };
+  setTimeout(next, 0);
+}
+function refreshTextureStats() {
+  if (!currentInstance) return;
+  textureStats = collectModelTextureStats(currentInstance);
+  uvCoverage.clear(); analyzeUvCoverage();
+  const { summary } = textureStats, known = summary.textures.length - summary.unknown;
+  textureCountElement.textContent = summary.textures.length.toLocaleString();
+  textureAverageElement.textContent = known ? formatTextureBytes(summary.bytes / known) : summary.unknown ? '无法估算' : '0 KiB';
+  textureTotalElement.textContent = `${formatTextureBytes(summary.bytes)}${summary.unknown ? ` + ${summary.unknown} 张无法估算` : ''}`;
+  textureAverageElement.title = summary.unknown ? `仅按 ${known} 张可估算纹理计算平均值` : '按去重后的全部模型纹理计算平均值';
+}
 let savedSnapshot = '';
 let rawLibrary: SceneEnvironmentDeclarations = {};
 let savedDeclarations: SceneEnvironmentDeclarations = {};
@@ -172,7 +220,7 @@ const writePreset = (preset: SceneEnvironmentPreset) => {
     editor.cancel(); editor.enabled = false; editor.refresh(); setStatus('正在准备材质资源……');
     void updateSceneModelMaterials(currentInstance,previewPreset,candidate,abort.signal).then(() => {
       if (generation !== loadGeneration || disposed) return;
-      previewPreset = candidate; history.set(next);
+      previewPreset = candidate; refreshTextureStats(); history.set(next);
     }).catch(error => { if (generation === loadGeneration) setStatus(`材质更新失败，保留旧效果与声明：${String(error)}`,true); })
       .finally(() => { if (generation === loadGeneration) { editor.enabled = true; editor.refresh(); } });
     return;
@@ -196,6 +244,10 @@ const editorHost = {
   shadowKeys: () => Object.keys(shadowQualityLibrary),
   markersVisible: () => markersVisible,
   modelAssetProperties: (id: string) => binding?.modelAssetProperties(id),
+  faceCount: (id: string) => binding?.faceCount(id),
+  modelTextureStats: (id: string) => textureStats?.models.get(id),
+  modelUvCoverage: (id: string) => id.startsWith('model:') ? uvCoverage.get(id) : undefined,
+  setUvCoverageVisible: (visible: boolean) => { uvEnabled = visible; analyzeUvCoverage(); },
   modelMaterials: (id: string) => currentInstance?.models.find(m => `model:${m.definition.id}` === id)?.entity.materialSlots() ?? [],
   setMarkersVisible: (visible: boolean) => { markersVisible = visible; binding?.setMarkersVisible(visible); editor.refresh(); },
   canMove: (intent: EditorHierarchyDropIntent) => {
@@ -318,7 +370,7 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
     try {
       if (await updateSceneModelMaterials(currentInstance, previewPreset, preset, loadAbort.signal)) {
         if (generation !== loadGeneration) return;
-        previewPreset = preset; loadButton.disabled = false; editor.enabled = true; editor.refresh();
+        previewPreset = preset; refreshTextureStats(); loadButton.disabled = false; editor.enabled = true; editor.refresh();
         setStatus('已通过材质增量预览；模型、动画与场景保持原实例'); return;
       }
     } catch (error) {
@@ -359,6 +411,12 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
     undo: () => history.undo(), redo: () => history.redo(),
   });
   binding.setMarkersVisible(markersVisible);
+  refreshTextureStats();
+  const modelCount = nextInstance.models.length;
+  const modelTotalFaces = nextInstance.models.reduce((total, model) => total + (binding!.faceCount(`model:${model.definition.id}`) ?? 0), 0);
+  modelCountElement.textContent = modelCount.toLocaleString();
+  modelAverageFacesElement.textContent = (modelCount ? modelTotalFaces / modelCount : 0).toLocaleString(undefined, { maximumFractionDigits: 1 });
+  modelTotalFacesElement.textContent = modelTotalFaces.toLocaleString();
   editor.refresh();
   editor.select(selectedId);
   editorView.selection.replace(selectedIds);
@@ -494,6 +552,7 @@ let disposed = false;
 const dispose = () => {
   if (disposed) return;
   disposed = true; loadGeneration++; loadAbort?.abort();
+  uvWorker?.terminate(); uvWorker = undefined;
   editor.dispose(); binding?.dispose(); editorView.dispose();
   canvas.removeEventListener('pointerdown', pointerDown);
   canvas.removeEventListener('pointermove', pointerMove);
