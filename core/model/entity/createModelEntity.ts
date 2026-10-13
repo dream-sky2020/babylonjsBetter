@@ -47,7 +47,13 @@ export const createModelEntity = async (
   let releaseMaterials = () => {};
   try {
     options.signal?.throwIfAborted();
-    const prefabInstance = await instantiateModelPrefab(scene, sourcePath, root.name);
+    const profile = options.applyAssetProfile === false
+      ? null : options.assetProfile ?? (await loadModelAssetProfileLibrary())[normalizeModelAssetProfilePath(sourcePath)] ?? null;
+    const policy = options.transparencyPolicy ?? profile?.transparencyPolicy;
+    const prefabInstance = await instantiateModelPrefab(scene, sourcePath, root.name, {
+      hardwareInstances: options.hardwareInstances && !options.materialOverrides?.length,
+      policy, receiveShadows: options.instanceShadows?.receive, castShadows: options.instanceShadows?.cast,
+    });
     releasePrefab = prefabInstance.release;
     options.signal?.throwIfAborted();
 
@@ -55,20 +61,17 @@ export const createModelEntity = async (
       if (!node.parent) node.parent = normalizationRoot;
     }
 
-    const profile = options.applyAssetProfile === false
-      ? null
-      : options.assetProfile ?? (await loadModelAssetProfileLibrary())[normalizeModelAssetProfilePath(sourcePath)] ?? null;
     let registered = false;
     const registerDeformation = () => {
       if (options.deformation !== false) unregisterDeformation = registry.register({
         root, meshes: prefabInstance.meshes.filter(mesh => mesh.getTotalVertices() > 0), kind: 'model', groupId: 'models', tags: [sourcePath], ...options.deformation,
       });
     };
-    const materials = createModelMaterialController(scene, prefabInstance.meshes, options.transparencyPolicy ?? profile?.transparencyPolicy, apply => {
+    const materials = createModelMaterialController(scene, prefabInstance.meshes, policy, apply => {
       if (registered) unregisterDeformation();
       apply();
       if (registered) registerDeformation();
-    });
+    }, prefabInstance.hardwareInstanced ? { makeUnique: prefabInstance.makeUnique } : undefined);
     releaseMaterials = materials.dispose;
     await materials.update(options.materialOverrides, options.signal);
 

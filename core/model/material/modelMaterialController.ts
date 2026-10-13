@@ -5,7 +5,7 @@ import { acquireModelTexture } from './modelTextureCache.ts';
 import { resolvePublicResourceUrl } from '../../resources/appAssetUrl.ts';
 const slots = { baseColor: 'albedoTexture', normal: 'bumpTexture', metallicRoughness: 'metallicTexture', occlusion: 'ambientTexture', emissive: 'emissiveTexture' } as const;
 export type PreparedModelMaterials = { validate(): void; commit(): void; rollback(): void; finalize(): void; dispose(): void };
-export function createModelMaterialController(scene: Scene, meshes: readonly AbstractMesh[], policy: ModelTransparencyPolicy | undefined, changed: (apply: () => void) => void) {
+export function createModelMaterialController(scene: Scene, meshes: readonly AbstractMesh[], policy: ModelTransparencyPolicy | undefined, changed: (apply: () => void) => void, shared?: { makeUnique(): void }) {
   const sources = meshes.map(m => m.material);
   const indices = new Map<Material, number>();
   const visit = (m: Material | null) => {
@@ -25,6 +25,11 @@ export function createModelMaterialController(scene: Scene, meshes: readonly Abs
     const token = ++generation; const bindings = parseModelMaterialBindings(raw) ?? [];
     const check = () => { signal?.throwIfAborted(); if (disposed || token !== generation) throw new Error('材质更新已过期'); };
     check(); const state = { materials: new Set<Material>(), textures: new Set<BaseTexture>() }; const map = new Map<Material,Material>();
+    if (shared && !bindings.length) {
+      let phase: 'prepared' | 'committed' | 'finished' = 'prepared';
+      const validate = () => { if (phase !== 'prepared') throw new Error('材质事务已结束'); check(); };
+      return { validate, commit() { validate(); phase = 'committed'; }, rollback() { phase = 'finished'; }, finalize() { if (phase === 'committed') phase = 'finished'; }, dispose() { phase = 'finished'; } };
+    }
     const clone = (source: Material | null): Material | null => {
       if (!source) return null; if (map.has(source)) return map.get(source)!;
       const material = source instanceof MultiMaterial ? new MultiMaterial(`${source.name}:instance`,scene) : source.clone(`${source.name}:instance`);
@@ -76,7 +81,7 @@ export function createModelMaterialController(scene: Scene, meshes: readonly Abs
       const finalize = () => { if (phase !== 'committed') return; phase = 'finished'; destroy(previousState); previousState = undefined; };
       return { validate() { if (phase !== 'prepared') throw new Error('材质事务已结束'); check(); }, commit() { if (phase !== 'prepared') throw new Error('材质事务已结束'); check();
         const previous = meshes.map(m => m.material);
-        try { changed(() => { meshes.forEach((m,i) => { m.material = roots[i]; }); }); }
+        try { changed(() => { if (shared) { shared.makeUnique(); shared = undefined; } meshes.forEach((m,i) => { m.material = roots[i]; }); }); }
         catch (error) { changed(() => { meshes.forEach((m,i) => { m.material = previous[i]; }); }); throw error; }
         previousMaterials = previous; previousState = active; active = state; phase = 'committed'; },
         rollback() {

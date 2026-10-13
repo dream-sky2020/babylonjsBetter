@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { environmentFields, applyEnvironmentFields, applyEnvironmentBatchFields, commonEnvironmentFields, fieldValue, formatField, environmentTarget } from './sceneEnvironmentFields.ts';
 import { parseSceneEnvironmentPresetLibrary } from '../../core/scene/sceneEnvironment.parser.ts';
-import { editSceneEnvironmentDeclaration } from '../../core/scene/sceneEnvironment.catalog.ts';
+import { editSceneEnvironmentDeclaration, prepareSceneEnvironmentDeclaration } from '../../core/scene/sceneEnvironment.catalog.ts';
 import { DocumentHistory } from '../../core/scene-editor/DocumentHistory.ts';
 import { addEnvironmentObject, type EnvironmentObjectKind } from './sceneEnvironmentObjects.ts';
 import { modelAssetMenuEntries } from './modelAssetMenu.ts';
@@ -11,6 +11,17 @@ const raw = { base: { presetKey: 'base', name: 'Base', clearColor: '#000000', ob
   { id: 'd', name: 'Sun', intensity: 1, color: '#ffffff', light: { primitive: 'directional', direction: [0, -1, 0] } },
   { id: 'p', name: 'Point', intensity: 1, color: '#ffffff', light: { primitive: 'point', position: [0, 2, 0] } },
 ] }, child: { presetKey: 'child', name: 'Child', extendsPresetKey: 'base' } };
+test('prepared scene edits reuse the current resolution and validate inherited candidates before commit', () => {
+  const current = parseSceneEnvironmentPresetLibrary(raw);
+  const edited = structuredClone(current.base); edited.objects[0].position = [5, 6, 7];
+  const prepared = prepareSceneEnvironmentDeclaration(raw, 'base', edited, current);
+  assert.equal(prepared.declarations.child, raw.child);
+  assert.deepEqual(prepared.library.child.objects[0].position, [5, 6, 7]);
+  assert.deepEqual(current.child.objects[0].position, [0, 0, 0]);
+  edited.objects[0].parentId = 'object:missing';
+  assert.throws(() => prepareSceneEnvironmentDeclaration(raw, 'base', edited, current));
+  assert.deepEqual(raw.base.objects[0].position, [0, 0, 0]);
+});
 test('right-click object templates create valid, unique scene declarations', () => {
   let preset = parseSceneEnvironmentPresetLibrary(raw).child;
   const kinds: EnvironmentObjectKind[] = ['ground', 'box', 'cylinder', 'model', 'hemispheric', 'directional', 'point', 'box'];
@@ -46,12 +57,30 @@ test('model menu keeps distinct files and collapses shared public directories', 
 test('applicable fields come from explicit declaration variants including scene and all light types', () => {
   const p = parseSceneEnvironmentPresetLibrary(raw).base;
   const paths = (id: string | null) => environmentFields(p, id, []).map(f => f.path);
-  assert.deepEqual(paths(null), ['name', 'clearColor']);
+  assert.deepEqual(paths(null), ['name', 'clearColor', 'renderWarmup.enabled']);
   assert.ok(paths('object:o').includes('geometry.depth')); assert.ok(!paths('object:o').includes('geometry.diameterTop'));
   assert.ok(paths('model:m').includes('animation.autoplay')); assert.ok(paths('model:m').includes('transparencyPolicy'));
   assert.ok(paths('light:h').includes('light.groundColor')); assert.ok(!paths('light:h').some(p => p.startsWith('shadow')));
   assert.ok(paths('light:d').includes('light.direction')); assert.ok(!paths('light:d').includes('light.range'));
   assert.ok(paths('light:p').includes('light.range')); assert.ok(!paths('light:p').includes('light.direction'));
+});
+test('render warmup defaults off, inherits and persists explicit overrides through the editor', () => {
+  const initial = parseSceneEnvironmentPresetLibrary(raw);
+  assert.equal(initial.base.renderWarmup, undefined);
+  const enabled = { ...raw, base: { ...raw.base, renderWarmup: { enabled: true } } };
+  const resolved = parseSceneEnvironmentPresetLibrary(enabled);
+  assert.equal(resolved.child.renderWarmup?.enabled, true);
+  const fields = environmentFields(resolved.child, null, []).filter(field => field.path === 'renderWarmup.enabled');
+  const edited = applyEnvironmentFields(resolved.child, null, fields, { 'renderWarmup.enabled': 'false' });
+  const prepared = prepareSceneEnvironmentDeclaration(enabled, 'child', edited, resolved);
+  assert.equal(prepared.library.child.renderWarmup?.enabled, false);
+  assert.equal(prepared.library.base.renderWarmup?.enabled, true);
+  assert.deepEqual(prepared.declarations.child.renderWarmup, { enabled: false });
+  const cleared = applyEnvironmentFields(edited, null, fields, { 'renderWarmup.enabled': '' });
+  assert.equal(cleared.renderWarmup, undefined);
+  for (const value of [null, {}, { enabled: 'true' }, { enabled: 1 }]) {
+    assert.throws(() => parseSceneEnvironmentPresetLibrary({ ...raw, base: { ...raw.base, renderWarmup: value } }), /renderWarmup/);
+  }
 });
 test('geometry field edits validate, preserve IDs, retain inheritance and participate in undo/redo', () => {
   const preset = parseSceneEnvironmentPresetLibrary(raw).child;

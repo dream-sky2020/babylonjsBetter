@@ -1,3 +1,4 @@
+import { Color4 } from '@babylonjs/core';
 import {
   applyDungeonEntranceToRuntime,
   findDungeonDocumentEntrance,
@@ -23,6 +24,7 @@ import {
   createDungeonDocumentSceneEnvironmentAsync,
   resolveDungeonDocumentSceneEnvironment,
   resolveDungeonMapTileWorldLayout,
+  warmupSceneRendering,
   type DungeonMapSceneEnvironmentInstance,
 } from '@/core/scene';
 import { createSceneEnvironmentViewController } from '@/core/dungeon-view/sceneEnvironmentDisplay.ts';
@@ -158,6 +160,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
 
     let generation = 0;
     let pendingLoad: AbortController | null = null;
+    let failedWarmupLayer: ReturnType<typeof context.viewport.openHtmlLayer> | null = null;
+    let failedWarmupPause: (() => void) | null = null;
     let activeLoadId = 0;
     let runtimeRevision = 0;
     let activePresetKey: string | null = null;
@@ -319,6 +323,11 @@ export const dungeonMapLoaderLabModule: LabModule = {
         const loadId = ++generation;
         assembly.beginSession(loadId);
         const releasePause = assembly.acquirePause();
+        failedWarmupLayer?.dispose(); failedWarmupLayer = null;
+        failedWarmupPause?.(); failedWarmupPause = null;
+        let loadingLayer: ReturnType<typeof context.viewport.openHtmlLayer> | null = null;
+        let abort: AbortController | null = null;
+        let warming = false;
         try {
           sessionInfo.begin(loadId, presetKey);
           if (!restoringLabState) {
@@ -326,7 +335,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
             captureActiveMapDelta();
           }
           pendingLoad?.abort();
-          const abort = new AbortController();
+          abort = new AbortController();
           pendingLoad = abort;
           const baseDocument = preset;
           const liveDocument = dungeonMapDeltaStore.restore(presetKey, baseDocument);
@@ -335,17 +344,22 @@ export const dungeonMapLoaderLabModule: LabModule = {
             throw new Error(`地图“${presetKey}”的入口/出口配置无效：${transitionIssues.map(({ message }) => message).join(' ')}`);
           }
           const binding = resolveDungeonDocumentSceneEnvironment(liveDocument, libraries.environments);
+          if (binding.preset.renderWarmup?.enabled) {
+            loadingLayer = context.viewport.openHtmlLayer({ id: `dungeon:loading:${loadId}`, title: '场景准备',
+              mode: 'overlay', interactive: true, initiallyVisible: true, closable: false, pauseBabylonRendering: true });
+            Object.assign(loadingLayer.root.style, { background: '#091118', zIndex: '10000' });
+            Object.assign(loadingLayer.content.style, { display: 'grid', placeItems: 'center', height: '100%', color: '#d6e9e0' });
+            loadingLayer.content.textContent = '正在加载场景……';
+          }
           let instance: DungeonMapSceneEnvironmentInstance;
           try {
             instance = await createDungeonDocumentSceneEnvironmentAsync(
               context.scene, liveDocument, libraries.environments,
-              { shadowQualityPresets: libraries.shadows, signal: abort.signal },
+              { shadowQualityPresets: libraries.shadows, signal: abort.signal, staged: true },
             );
           } catch (error) {
             if (abort.signal.aborted || loadId !== generation) return false;
             throw error;
-          } finally {
-            if (pendingLoad === abort) pendingLoad = null;
           }
           if (loadId !== generation) { instance.dispose(); return false; }
           let committed = false;
@@ -387,7 +401,9 @@ export const dungeonMapLoaderLabModule: LabModule = {
             activeLoadId = loadId;
             runtimeRevision = 0;
             committed = true;
-            assembly.commitSession(loadId);
+            previousInstance?.root.setEnabled(false);
+            instance.root.setEnabled(true);
+            context.scene.clearColor = Color4.FromHexString(binding.preset.clearColor);
             deformationMemory.replace(createDungeonDeformationData(loadId, presetKey, liveDocument));
             overheadMemory.replace(createDungeonOverheadSettingsData(loadId, presetKey, liveDocument));
             transitionMemory.replace(createDungeonTransitionData(loadId, presetKey, liveDocument));
@@ -398,7 +414,6 @@ export const dungeonMapLoaderLabModule: LabModule = {
             playerState.replace(candidatePlayer);
             obstacleState.replace(candidateObstacles);
             playerSpawn.replace(createDungeonPlayerSpawnData(loadId, presetKey, spawn));
-            sessionInfo.commit(loadId, presetKey, liveDocument.identity.id);
             try {
               loadedStateRegistration.markChanged();
               mapKey.value = presetKey;
@@ -407,7 +422,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
                 mapSize: [liveDocument.grid.width, liveDocument.grid.height],
                 obstacleIds: obstacles.map(({ entity }) => entity.id), runtimeSaveWarnings: warnings }, null, 2);
               refreshDeltaPanel();
-              status.textContent = warnings.length ? warnings.join(' ') : `地图已切换到“${preset.identity.name}”。`;
+              status.textContent = '正在完成场景准备……';
             } catch (error) {
               console.error('Session 已提交，但 Loader 面板更新失败。', error);
             }
@@ -421,18 +436,49 @@ export const dungeonMapLoaderLabModule: LabModule = {
               );
             } catch (error) {
               console.error('Session 已提交，但 Lab 观察界面更新失败。', error);
+            }
+            try {
+              if (abort.signal.aborted || loadId !== generation) return false;
+              warming = Boolean(binding.preset.renderWarmup?.enabled);
+              await warmupSceneRendering(context.scene, binding.preset.renderWarmup, {
+                signal: abort.signal,
+                onProgress: message => { if (loadingLayer) loadingLayer.content.textContent = message; status.textContent = message; },
+              });
+              if (abort.signal.aborted || loadId !== generation) return false;
+              assembly.commitSession(loadId);
+              sessionInfo.commit(loadId, presetKey, liveDocument.identity.id);
+              loadedStateRegistration.markChanged();
+              status.textContent = warnings.length ? warnings.join(' ') : `地图已切换到“${preset.identity.name}”。`;
             } finally {
               previousInstance?.dispose();
             }
             return loadId === generation;
           } catch (error) { if (!committed) instance.dispose(); throw error; }
-        } catch (error) { sessionInfo.fail(loadId, error); assembly.failSession(loadId, error); throw error; }
-        finally { releasePause(); }
+        } catch (error) {
+          if (abort?.signal.aborted || loadId !== generation) return false;
+          sessionInfo.fail(loadId, error); assembly.failSession(loadId, error);
+          status.textContent = `场景准备失败：${String(error)}`;
+          if (warming && loadingLayer) {
+            activeInstance?.root.setEnabled(false);
+            failedWarmupPause = assembly.acquirePause();
+            loadingLayer.content.textContent = status.textContent;
+            const retry = document.createElement('button'); retry.textContent = '重新加载';
+            retry.addEventListener('click', () => { void loader.switchDungeon(presetKey).catch(console.error); });
+            loadingLayer.content.append(retry);
+            failedWarmupLayer = loadingLayer; loadingLayer = null;
+          }
+          throw error;
+        } finally {
+          if (pendingLoad === abort) pendingLoad = null;
+          loadingLayer?.dispose(); releasePause();
+        }
       },
       dispose() {
         generation += 1;
         pendingLoad?.abort();
         pendingLoad = null;
+        failedWarmupLayer?.dispose(); failedWarmupLayer = null;
+        failedWarmupPause?.(); failedWarmupPause = null;
         saveActiveRuntime();
         try { captureActiveMapDelta(); } catch (error) { console.error('无法保存当前地图 Delta。', error); }
         sceneView.setCurrent(null, null);

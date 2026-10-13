@@ -11,7 +11,6 @@ import { createDungeonViewConsumer, applyDungeonViewToNode } from '@/core/dungeo
 import { PLAYER_MOVEMENT_VIEW_SERVICE_KEY } from './playerMovement.view';
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import {
-  resolveDungeonPlayerRelativeMovementDirection,
   type DungeonPlayerMovementOptions,
   type DungeonPlayerRelativeMovement,
   type DungeonPlayerMovementTimingMode,
@@ -270,7 +269,7 @@ export const playerMovementLabModule: LabModule = {
     const viewConsumer = createDungeonViewConsumer(view => applyDungeonViewToNode(displayRoot, view));
     context.services.set(PLAYER_MOVEMENT_VIEW_SERVICE_KEY, viewConsumer);
     let markerVerticalOffset = 0;
-    let lastJsonUpdateTime = 0;
+    let runtimeJsonDirty = true;
     const directionalInput = new DungeonPlayerDirectionalInput();
     let continuousHoldMovementDurationSeconds: number | null = null;
     let pendingEightWayInitialMove = false;
@@ -367,11 +366,24 @@ export const playerMovementLabModule: LabModule = {
       facingPyramid.edgesWidth = 2;
     };
 
-    const refreshRuntimeJson = (force = false) => {
+    const renderRuntimeJson = () => {
       if (!current || panel.content.hidden) return;
-      const now = performance.now();
-      if (!force && now - lastJsonUpdateTime < 250) return;
-      lastJsonUpdateTime = now;
+      runtimeJsonDirty = false;
+      const movement = movementMemory.current?.loadId === current.loadId ? movementMemory.current : null;
+      const activeMoves = movement ? movementControl.debugActiveMoves(current.loadId, 20) : [];
+      const targetIndices = new Set(activeMoves.map(move => move.toTileIndex));
+      const pointIndices = new Set<number>();
+      for (const move of activeMoves) {
+        const point = movement?.activeRequests.get(move.requestId)?.crossingPointIndex;
+        if (point !== undefined) pointIndices.add(point);
+      }
+      const obstaclePreview: Record<string, boolean> = {};
+      let obstaclePreviewCount = 0;
+      const obstacles = obstacleMemory.current?.loadId === current.loadId ? obstacleMemory.current.states : null;
+      if (obstacles) for (const [id, active] of obstacles) {
+        if (obstaclePreviewCount++ === 20) break;
+        obstaclePreview[id] = active;
+      }
       runtimeJson.textContent = JSON.stringify({
         mapId: current.grid.mapId,
         playerPosition: current.player.playerPosition,
@@ -379,19 +391,25 @@ export const playerMovementLabModule: LabModule = {
         playerWorldPosition: current.player.playerWorldPosition,
         playerWorldRotationY: current.player.playerWorldRotationY,
         playerMovement: current.player.playerMovement,
-        movementResolver: movementMemory.current?.loadId === current.loadId ? {
-          config: movementMemory.current.config,
-          activeMoves: movementControl.debugActiveMoves(current.loadId),
-          targetReservations: movementMemory.current.movementReservationsByTile.flatMap((owners, tileIndex) =>
-            owners.size ? [{ tileIndex, actors: Object.fromEntries(owners) }] : []),
-          crossingPointReservations: movementMemory.current.movementReservationsByPoint.flatMap((owners, pointIndex) =>
-            owners.size ? [{ pointIndex, actors: Object.fromEntries(owners) }] : []),
+        movementResolver: movement ? {
+          config: movement.config, activeMovementCount: movement.activeRequests.size,
+          activeMoves,
+          targetReservations: [...targetIndices].flatMap(tileIndex => {
+            const owners = movement.movementReservationsByTile[tileIndex];
+            return owners?.size ? [{ tileIndex, actors: Object.fromEntries(owners) }] : [];
+          }),
+          crossingPointReservations: [...pointIndices].flatMap(pointIndex => {
+            const owners = movement.movementReservationsByPoint[pointIndex];
+            return owners?.size ? [{ pointIndex, actors: Object.fromEntries(owners) }] : [];
+          }),
         } : null,
-        obstacleStates: obstacleMemory.current?.loadId === current.loadId ? Object.fromEntries(obstacleMemory.current.states) : {},
+        obstacleCount: obstacles?.size ?? 0, obstacleStatesPreview: obstaclePreview,
+        inspection: '摘要最多显示 20 项；完整预约和障碍状态请在共享内存面板查看。',
       }, null, 2);
     };
+    const refreshRuntimeJson = () => { runtimeJsonDirty = true; };
     const panelVisibilityObserver = new MutationObserver(() => {
-      if (!panel.content.hidden) refreshRuntimeJson(true);
+      if (!panel.content.hidden) renderRuntimeJson();
     });
     panelVisibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
 
@@ -424,13 +442,7 @@ export const playerMovementLabModule: LabModule = {
       position.tileY,
     ).center;
 
-    const interceptBlockedAttempt = (
-      direction: DungeonMovementDirection,
-    ): boolean => {
-      const inspection = playerSystem!.inspect(direction, {
-        restrictToMapBounds: boundsToggle.input.checked,
-        restrictMovementObstacles: obstacleToggle.input.checked,
-      });
+    const interceptBlockedAttempt = (inspection: import('@/core/dungeon-player-movement').DungeonPlayerMovementResult): boolean => {
       if (inspection.blockedReason !== 'map-boundary'
         && inspection.blockedReason !== 'movement-obstacle') return false;
       return blockedAttemptService.tryHandle(inspection as DungeonPlayerBlockedAttempt);
@@ -439,17 +451,18 @@ export const playerMovementLabModule: LabModule = {
     const move = (direction: DungeonMovementDirection): boolean => {
       if (!current || !playerSystem || assembly.isPaused || context.scheduler.isPaused) return false;
       const event = current;
-      if (interceptBlockedAttempt(direction)) {
-        status.textContent = `向 ${direction} 的受阻移动已由其他模块接管。`;
-        return true;
-      }
       const result = playerSystem.move(direction, {
+        onBlockedAttempt: interceptBlockedAttempt,
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
         ...readTimingOptions(),
         teleport: teleportToggle.input.checked,
         resolveWorldPosition: resolveWorldPosition(event),
       });
+      if (result.handled) {
+        status.textContent = `向 ${direction} 的受阻移动已由其他模块接管。`;
+        return true;
+      }
       if (!result.started) {
         status.textContent = result.blockedReason === 'movement-obstacle'
           ? `移动被阻碍挡住：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
@@ -459,7 +472,7 @@ export const playerMovementLabModule: LabModule = {
         return true;
       }
       syncMarker();
-      if (result.completed) refreshRuntimeJson(true);
+      if (result.completed) refreshRuntimeJson();
       status.textContent = result.blockedReason === 'movement-obstacle'
         ? `玩家尝试向 ${direction} 移动，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
         : result.blockedReason === 'map-boundary'
@@ -486,7 +499,7 @@ export const playerMovementLabModule: LabModule = {
         return;
       }
       syncMarker();
-      if (result.completed) refreshRuntimeJson(true);
+      if (result.completed) refreshRuntimeJson();
       status.textContent = result.completed
         ? `玩家原地转向完成：${result.fromFacing} → ${result.toFacing}。`
         : `开始原地转向：${result.fromFacing} → ${result.toFacing}。`;
@@ -500,18 +513,15 @@ export const playerMovementLabModule: LabModule = {
       if (!current) return;
       const event = current;
       const facingBeforeMove = event.player.playerFacing;
-      const direction = resolveDungeonPlayerRelativeMovementDirection(facingBeforeMove, movement);
-      if (interceptBlockedAttempt(direction)) {
-        status.textContent = `${movement} 的受阻移动已由其他模块接管。`;
-        return;
-      }
       const result = playerSystem!.moveRelative(movement, {
+        onBlockedAttempt: interceptBlockedAttempt,
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
         ...readTimingOptions(),
         teleport: teleportToggle.input.checked,
         resolveWorldPosition: resolveWorldPosition(event),
       });
+      if (result.handled) { status.textContent = `${movement} 的受阻移动已由其他模块接管。`; return; }
       if (!result.started) {
         status.textContent = result.blockedReason === 'movement-obstacle'
           ? `相对移动被阻碍挡住：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
@@ -521,7 +531,7 @@ export const playerMovementLabModule: LabModule = {
         return;
       }
       syncMarker();
-      if (result.completed) refreshRuntimeJson(true);
+      if (result.completed) refreshRuntimeJson();
       status.textContent = result.blockedReason === 'movement-obstacle'
         ? `玩家尝试 ${movement}，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
         : result.blockedReason === 'map-boundary'
@@ -558,7 +568,7 @@ export const playerMovementLabModule: LabModule = {
         return;
       }
       syncMarker();
-      refreshRuntimeJson(true);
+      refreshRuntimeJson();
       status.textContent = `玩家已瞬移到 (${tileX}, ${tileY})，保持朝向 ${event.player.playerFacing}。`;
       void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-position-teleported' });
     };
@@ -717,6 +727,14 @@ export const playerMovementLabModule: LabModule = {
         }
       },
     });
+    const stopDebugTask = context.scheduler.register({
+      id: 'debug-summary', phase: 'debug', order: 110, intervalSeconds: .25,
+      description: '按需更新可见玩家摘要',
+      run: () => {
+        if (!panel.content.hidden && (runtimeJsonDirty || movementMemory.current?.activeRequests.size)) renderRuntimeJson();
+      },
+    });
+    let offMovementChanges = () => {};
     const offReady = context.communication.on(dungeonMapChangedEvent, (changed) => {
       const loaded = playerMemory.current, grid = gridMemory.current;
       if (!loaded || !grid || loaded.loadId !== changed.loadId || grid.loadId !== changed.loadId) return;
@@ -727,6 +745,8 @@ export const playerMovementLabModule: LabModule = {
       };
       clearDirectionalInput();
       current = event;
+      offMovementChanges();
+      offMovementChanges = movementControl.subscribe(event.loadId, () => refreshRuntimeJson());
       playerSystem = playerControl.acquire(loaded.loadId);
       syncMovementProfile();
       teleportXInput.max = String(event.grid.width - 1);
@@ -735,7 +755,7 @@ export const playerMovementLabModule: LabModule = {
       teleportYInput.value = String(event.player.playerPosition.tileY);
       createMarker(event);
       syncMarker();
-      refreshRuntimeJson(true);
+      refreshRuntimeJson();
       status.textContent = `玩家已在出生格 (${event.player.playerPosition.tileX}, ${event.player.playerPosition.tileY}) 创建，朝向 ${event.player.playerFacing}。`;
     });
     const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => refreshRuntimeJson());
@@ -746,6 +766,8 @@ export const playerMovementLabModule: LabModule = {
       offReady();
       offChanged();
       stopFrameTask();
+      stopDebugTask();
+      offMovementChanges();
       keyboardRegistration.dispose();
       offKeyboardChanged();
       panelVisibilityObserver.disconnect();

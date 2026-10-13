@@ -29,6 +29,7 @@ export function createEnvironmentMarkers(instance: SceneEnvironmentInstance, pre
     markers.set(id, marker);
   }
   const update = () => {
+    if (!root.isEnabled()) return;
     const camera = scene.activeCamera;
     for (const [id, marker] of markers) {
       const node = instance.nodes.get(id);

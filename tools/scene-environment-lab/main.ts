@@ -9,6 +9,7 @@ import type { ISceneEnvironmentComponent } from '@/core/entity/components/scene-
 import { createCameraLabController } from '@/core/camera/cameraLabController';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel';
 import { createSceneEnvironmentAsync } from '@/core/scene/createSceneEnvironment';
+import { warmupSceneRendering } from '@/core/scene/sceneRenderWarmup';
 import { updateSceneModelMaterials, isModelMaterialOnlyChange } from '@/core/scene/updateSceneModelMaterials';
 import { parseSceneEnvironmentPresetLibrary } from '@/core/scene/sceneEnvironment.parser';
 import { parseShadowQualityPresetLibrary } from '@/core/scene/shadowQualityPreset.parser';
@@ -16,7 +17,7 @@ import { resolveShadowQuality } from '@/core/scene/resolveShadowQuality';
 import type { SceneEnvironmentInstance, SceneEnvironmentPresetLibrary, SceneEnvironmentPreset } from '@/core/scene/sceneEnvironment.types';
 import type { ShadowQualityPresetLibrary } from '@/core/scene/shadowQualityPreset.types';
 import { loadSceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.loader';
-import { editSceneEnvironmentDeclaration, type SceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.catalog';
+import { prepareSceneEnvironmentDeclaration, type SceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.catalog';
 import { loadConfig, downloadConfigJson } from '@/core/config';
 import { SceneEditor, DocumentHistory } from '@/core/scene-editor';
 import { createEnvironmentAdapter } from './sceneEnvironmentAdapter';
@@ -126,6 +127,7 @@ let currentInstance: SceneEnvironmentInstance | null = null;
 let previewPreset: SceneEnvironmentPreset | null = null;
 let loadGeneration = 0;
 let loadAbort: AbortController | null = null;
+let warmupInProgress = false;
 let binding: ReturnType<typeof createEnvironmentAdapter> | null = null;
 let savedSnapshot = '';
 let rawLibrary: SceneEnvironmentDeclarations = {};
@@ -134,16 +136,19 @@ let activeKey = '';
 let previewQueued = false;
 let pendingSelectionId: string | null = null;
 let markersVisible = true;
+const resolvedHistory = new WeakMap<SceneEnvironmentDeclarations, SceneEnvironmentPresetLibrary>();
 const history = new DocumentHistory<SceneEnvironmentDeclarations>({}, value => {
   rawLibrary = value;
-  library = parseSceneEnvironmentPresetLibrary(value);
+  library = resolvedHistory.get(value) ?? parseSceneEnvironmentPresetLibrary(value);
+  resolvedHistory.set(value, library);
   presetJson.textContent = JSON.stringify(library[currentInstance?.presetKey ?? ''], null, 2);
   setStatus('场景预设草稿已更新；点击保存预设写入配置');
   if (!previewQueued) {
     previewQueued = true;
     queueMicrotask(() => { previewQueued = false; void loadByComponentPresetKey(activeKey, true); });
   }
-});
+}, (a, b) => a === b || Object.keys(a).length === Object.keys(b).length
+  && Object.keys(a).every(key => a[key] === b[key] || JSON.stringify(a[key]) === JSON.stringify(b[key])));
 const editor = new SceneEditor(scene, {
   objects: () => currentInstance?.presetKey === activeKey ? binding?.adapter.objects() ?? [] : [],
   preview: (edit, value) => binding?.adapter.preview?.(edit, value),
@@ -153,14 +158,15 @@ const editor = new SceneEditor(scene, {
   undo: () => history.undo(), redo: () => history.redo(),
 }, { cameraInput: suspended => { drag.active = false; cameraController.keys.clear(); cameraController.setInputEnabled(!suspended); }, resetView: () => cameraController.resetInitialPose() });
 const writePreset = (preset: SceneEnvironmentPreset) => {
-  const next = editSceneEnvironmentDeclaration(rawLibrary, preset.presetKey, preset);
-  const resolved = parseSceneEnvironmentPresetLibrary(next);
+  const prepared = prepareSceneEnvironmentDeclaration(rawLibrary, preset.presetKey, preset, library);
+  const next = prepared.declarations, resolved = prepared.library;
   for (const scenePreset of Object.values(resolved)) for (const light of scenePreset.lights) {
     if (!('shadow' in light) || !light.shadow) continue;
     const settings = resolveShadowQuality(light.shadow, shadowQualityLibrary);
     if (settings.enabled && settings.generator.type === 'cascaded' && light.light.primitive !== 'directional') throw new Error('CSM 仅支持方向光');
   }
   const candidate = resolved[activeKey];
+  resolvedHistory.set(next, resolved);
   if (currentInstance && previewPreset && currentInstance.presetKey === activeKey && isModelMaterialOnlyChange(previewPreset,candidate)) {
     loadAbort?.abort(); const abort = new AbortController(); loadAbort = abort; const generation = ++loadGeneration;
     editor.cancel(); editor.enabled = false; editor.refresh(); setStatus('正在准备材质资源……');
@@ -285,7 +291,7 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
     // pending async work so an older candidate cannot replace this preview later.
     loadAbort?.abort(); ++loadGeneration;
     editor.cancel();
-    binding.adapter.sync?.(editor.selectedId ?? 'scene');
+    binding.adapter.sync?.('scene');
     previewPreset = nextPreset;
     loadButton.disabled = false; editor.enabled = true; editor.refresh();
     setStatus('已通过变换增量预览；复用现有模型、材质和阴影。草稿尚未保存。');
@@ -323,6 +329,7 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
   setStatus(`正在加载场景“${component.presetKey}”及 ${preset.models.length} 个本地模型……`);
   if (generation !== loadGeneration) return;
   let nextInstance: SceneEnvironmentInstance;
+  const loadSignal = loadAbort.signal;
   try {
     nextInstance = await createSceneEnvironmentAsync(scene, preset, {
       staged: true,
@@ -376,6 +383,28 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value, previ
   csmDebugHint.textContent = hasCascadedShadow
     ? `当前场景包含 CSM；级联着色调试${csmDebugToggle.checked ? '已开启' : '未开启'}。`
     : '当前场景使用标准阴影，级联 Debug 不会产生效果。';
+  if (preset.renderWarmup?.enabled) {
+    const mask = document.createElement('div');
+    Object.assign(mask.style, { position: 'fixed', inset: '0', zIndex: '10000', background: '#091118',
+      display: 'grid', placeItems: 'center', color: '#d6e9e0' });
+    mask.textContent = '正在准备完整场景……'; document.body.append(mask);
+    const inputEnabled = cameraController.inputEnabled;
+    warmupInProgress = true; editor.enabled = false; loadButton.disabled = true;
+    cameraController.setInputEnabled(false); drag.active = false;
+    try {
+      await warmupSceneRendering(scene, preset.renderWarmup, { signal: loadSignal,
+        onProgress: message => { mask.textContent = message; setStatus(message); } });
+    } catch (error) {
+      if (!disposed && generation === loadGeneration) setStatus(`场景预热失败：${String(error)}`, true);
+      return;
+    } finally {
+      mask.remove(); warmupInProgress = false;
+      if (!disposed && generation === loadGeneration) {
+        cameraController.setInputEnabled(inputEnabled); editor.enabled = true; loadButton.disabled = false; editor.refresh();
+      }
+    }
+    if (disposed || generation !== loadGeneration) return;
+  }
   setStatus(`已通过 presetKey “${component.presetKey}” 创建 ${preset.objects.length} 个几何体、${currentInstance.models.length} 个本地模型和 ${preset.lights.length} 个光源，其中 ${enabledShadowSettings.length} 个启用阴影（${generatorLabels.join('、')}）${hasCascadedShadow && csmDebugToggle.checked ? '；级联 Debug 已开启' : ''}。`);
 };
 
@@ -435,6 +464,7 @@ presetSelect.addEventListener('change', () => {
 void fetchPresetLibraries().then((result) => {
   if (disposed) return;
   library = result.library; rawLibrary = result.rawLibrary; history.value = rawLibrary; savedDeclarations = structuredClone(rawLibrary); savedSnapshot = JSON.stringify(rawLibrary);
+  resolvedHistory.set(rawLibrary, library);
   shadowQualityLibrary = result.shadowQualityLibrary;
   presetSelect.replaceChildren(...Object.values(library).map((preset) => {
     const option = document.createElement('option');
@@ -454,6 +484,7 @@ void fetchPresetLibraries().then((result) => {
 }).catch((error: unknown) => setStatus(`加载失败：${error instanceof Error ? error.message : String(error)}`, true));
 
 engine.runRenderLoop(() => {
+  if (warmupInProgress) return;
   if (!editor.editing) cameraController.update(engine.getDeltaTime() / 1000);
   cameraPanel.updateStatus();
   scene.render();

@@ -30,7 +30,7 @@ controller.release();
 unregister();
 ```
 
-每个 Scene 只允许一个控制者；旧句柄释放后不能继续应用。晚创建对象自动继承设置。对象根销毁自动注销，Scene 销毁释放全部订阅。只在启用变形时订阅渲染前更新；节点动画完成后、活动 Mesh/阴影/深度评估前更新矩阵。
+每个 Scene 只允许一个控制者；旧句柄释放后不能继续应用。晚创建对象自动继承设置。对象根销毁自动注销，Scene 销毁释放全部订阅。只在启用变形时订阅渲染前更新；节点动画完成后、活动 Mesh/阴影/深度评估前检查变化。静态对象复用变形矩阵及显示包围盒，仅在姿态、材质或配置变化时重算；骨骼、Morph、可更新顶点和粒子适配器仍逐帧更新。禁用的候选场景跳过更新。GPU 仍在绘制顶点时应用缓存矩阵。
 
 控制“全部”指全部已注册且支持的显示对象，不遍历并改写任意 Shader。规则可选 `id / tag / group / kind`，按此顺序决定优先级，同级最后一条生效；规则强度覆盖默认强度，不连乘。`selection: rules` 时未匹配对象保持原形；强度 0 可作为排除规则。共享材质按每次绘制绑定各自矩阵，不需要克隆材质。
 
@@ -50,17 +50,17 @@ unregister();
 | `createSpriteDeathParticles` | `sprite-death-particles` | 死亡粒子 Shader 适配 |
 | `createMonsterStatusParticle` | `status-particles` | CPU SolidParticleSystem Mesh 接材质插件 |
 
-模型、Atlas Plane、多层怪物与组合精灵的创建参数可传 `deformation` 元数据，或 `false` 排除。`createModelEntity` 保留现有 `instantiateModelsToScene` 调用；Babylon 9.11 默认 `doNotInstantiate: true`，得到独立 Mesh 并共享几何/材质，不需要为变形改变旧 Lab 的模型创建策略。其他入口显式创建的硬件实例需由所属创建方改为独立 Mesh 后才能变形。
+模型、Atlas Plane、多层怪物与组合精灵的创建参数可传 `deformation` 元数据，或 `false` 排除。场景预设中重复路径的静态模型通过 `core/model/prefab/modelInstanceBatch.ts` 创建硬件实例；批次按透明策略及阴影投射/接收标志分组，共享材质，并上传四个逐实例矩阵列保存独立锚点变形。骨骼、动画、Morph、可更新顶点及已有材质覆盖继续使用独立 Mesh。单独编辑实例材质时，该对象转为独立 Mesh，同时重绑变形和阴影投射列表。
 
 ## 渲染路径与边界
 
-- 当前适配并验证 Babylon **9.11.0 / WebGL2 / GLSL**。Standard/PBR 在骨骼和 Morph 后、世界位置和法线计算前接入仿射矩阵，使用逆转置法线并校正 TBN。
+- 当前验证 Babylon **9.28.0 / WebGL2 / GLSL**。Standard/PBR 在骨骼和 Morph 后、世界位置和法线计算前接入仿射矩阵，使用逆转置法线并校正 TBN。
 - Sprite Recipe 在自身顶点效果之后应用同一变形，新增 `afterOutput` 插槽复用 alpha 与深度输出。原来的噪声/消散参数不承担俯视配置。
 - CPU/GPU 粒子使用独立 Shader 名称复制 Babylon 完整渲染变体，只改变最终显示顶点，原发射、模拟、碰撞及存活期保持不变。启用与卸载保存/恢复已有 Effect；已有自定义粒子 Shader 会被明确排除。
 - 阴影通过 `ShadowDepthWrapper` 复用同一源材质。DepthRenderer 使用源材质覆盖对应 render pass，支持线性、非线性、camera-z、浮点/packed 编码；普通及 CSM/DepthReducer 创建的深度渲染器由桥接器自动发现。释放时恢复此前 pass 材质。
 - 深度桥接器在一个文件中读取 Babylon 9.11 的 `_depthRenderer`、`_storeNonLinearDepth`、`_storeCameraSpaceZ`；粒子模板和材质注入位置同样与版本相关。升级 Babylon 后必须运行 WebGL 验证，并复核这些适配点。
 - 显示包围盒覆盖原形和变形后的范围；普通三角形拾取用逆矩阵转换射线，并返回变形后的世界命中点。骨骼动画和其他非线性 Shader 效果的 CPU 精确拾取仍受 Babylon 原有 CPU 几何能力限制，不等同于完整 GPU 轮廓。
-- 未支持：WebGPU/WGSL、硬件/Thin Instances、未知自定义材质和全朝向 Billboard。PrePass/G-buffer/MRT/速度通道尚未适配，开启时对象保持原形并报告原因；关闭后重新应用设置。Outline/Highlight/Gizmo 等独立渲染器未接变形，不能承诺轮廓吻合。屏幕 GUI、SVG/Canvas 和 Three.js 视图不在此 Babylon 世界对象系统内。
+- 未支持：WebGPU/WGSL、未接入逐实例矩阵的硬件实例、Thin Instances、未知自定义材质和全朝向 Billboard。PrePass/G-buffer/MRT/速度通道尚未适配，开启时对象保持原形并报告原因；关闭后重新应用设置。Outline/Highlight/Gizmo 等独立渲染器未接变形，不能承诺轮廓吻合。屏幕 GUI、SVG/Canvas 和 Three.js 视图不在此 Babylon 世界对象系统内。
 
 ## 验证
 
@@ -71,3 +71,9 @@ unregister();
 启动开发服务后执行 `npm run test:deformation-webgl`：隐藏 Electron 窗口使用 SwiftShader WebGL2，验证真实 PBR/Standard/骨骼/精灵编译、画面变形和还原、共享材质隔离、阴影、浮点深度、CPU/GPU 粒子四种 blend Shader 及实际绘制，最后启动完整俯视 Lab 并截图。它不是实体显卡/WebGPU 的覆盖证明。可通过 `DEFORMATION_TEST_URL` 指定验证页面 URL。
 
 测试 Lab 使用方法见 `tools/dungeon-overhead-view-lab/README.md`。
+
+开发服务的 `/codex-tools/instanceDeformationVerification.html` 对比克隆与实例的 Standard/PBR 画面（含阴影）、浮点深度和单帧绘制次数，另使用 crossroads 的真实 GLB 验证共享材质及独立覆盖。页面以 `#result` 输出 JSON，适合无窗口浏览器自动验证。
+
+静态缓存先同步父链，再使用非强制世界矩阵更新处理同帧编辑，避免重算父链使兄弟对象持续失效。世界矩阵版本变化但数值相同也复用原变形/逆矩阵/包围盒；每个对象保留小型矩阵快照，动态骨骼、可更新顶点和 Adapter 继续更新。`/codex-tools/dungeonRenderVerification.html` 在真实 crossroads 上检查连续渲染和父节点编辑，另对比格子分块实例化的正交/透视像素及绘制数。
+
+实例源网格保持在 Scene 中但不可见、不可拾取，不能移出 Scene：Babylon 的 InstancedMesh 复用源网格的光照列表，源网格须持续接收 staged 地图激活、光源替换和销毁的同步。回归测试覆盖先禁用、后启用光源的顺序，及 crossroads 的实际树 GLB。

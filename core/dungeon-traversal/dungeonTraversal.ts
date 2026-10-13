@@ -1,5 +1,5 @@
 import type { DungeonObstacleBinding } from '../dungeon-obstacle/dungeonObstacle.ts';
-import { findDungeonMovementObstaclesFromBindings } from '../dungeon-obstacle/dungeonObstacle.ts';
+import { DungeonObstacleIndex } from '../dungeon-obstacle/dungeonObstacleIndex.ts';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import { getDungeonMapTerrainProperties, DUNGEON_MAP_DIRECTION_ORDER } from '../map-document/index.ts';
 import type { DungeonMapDirection } from '../map/index.ts';
@@ -88,6 +88,7 @@ export class DungeonTraversalWorld {
   readonly map: DungeonRuntimeMap;
   readonly obstacles: readonly DungeonObstacleBinding[];
   readonly obstacleStates: ReadonlyMap<string, boolean>;
+  readonly obstacleIndex: DungeonObstacleIndex;
   readonly storage: DungeonTraversalStorage;
   get actors() { return this.storage.actors; }
   get occupantIdsByTile() { return this.storage.occupantIdsByTile; }
@@ -131,6 +132,7 @@ export class DungeonTraversalWorld {
     this.map = map;
     this.obstacles = obstacles;
     this.obstacleStates = obstacleStates;
+    this.obstacleIndex = new DungeonObstacleIndex(obstacles, obstacleStates);
     this.storage = storage ?? {
       actors: new Map(), pathReservationTileIndicesByActor: new Map(),
       occupantIdsByTile: Array.from({ length: map.topology.tileIds.length }, () => new Set()),
@@ -206,13 +208,7 @@ export class DungeonTraversalWorld {
     if (options.checkStaticObstacles ?? true) {
       const from = { tileX: fromTileIndex % this.map.width, tileY: Math.floor(fromTileIndex / this.map.width) };
       const to = { tileX: toTileIndex % this.map.width, tileY: Math.floor(toTileIndex / this.map.width) };
-      const foundObstacles = findDungeonMovementObstaclesFromBindings(
-        this.obstacles,
-        this.obstacleStates,
-        from,
-        to,
-        direction,
-      );
+      const foundObstacles = this.obstacleIndex.findStep(from, to, direction);
       const checkingSideTile = options.diagonalTargetTileIndex !== undefined
         && toTileIndex !== options.diagonalTargetTileIndex;
       const obstacles = checkingSideTile
@@ -296,12 +292,7 @@ export class DungeonTraversalWorld {
       if (options.checkStaticObstacles ?? true) {
         const targetX = diagonalTargetTileIndex % this.map.width;
         const targetY = Math.floor(diagonalTargetTileIndex / this.map.width);
-        const targetObstacles = this.obstacles.filter(({ entity, placement }) => (
-          this.obstacleStates.get(entity.id) === true
-          && placement.kind === 'tile'
-          && placement.tileX === targetX
-          && placement.tileY === targetY
-        ));
+        const targetObstacles = this.obstacleIndex.findTile(targetX, targetY);
         if (targetObstacles.length) {
           return {
             toTileIndex: diagonalTargetTileIndex,

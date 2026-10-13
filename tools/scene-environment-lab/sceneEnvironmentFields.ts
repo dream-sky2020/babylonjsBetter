@@ -15,7 +15,7 @@ export function environmentTarget(preset: SceneEnvironmentPreset, id: string | n
 export function environmentFields(preset: SceneEnvironmentPreset, id: string | null, shadowKeys: readonly string[]): EnvironmentField[] {
   const target = environmentTarget(preset, id);
   const common = [field('name', '名称', 'text')];
-  if (!id || id === 'scene') return [...common, field('clearColor', '背景颜色', 'color')];
+  if (!id || id === 'scene') return [...common, field('clearColor', '背景颜色', 'color'), field('renderWarmup.enabled', '加载时预热全部场景', 'boolean', true)];
   if (id.startsWith('transform:')) return [...common, field('role', '用途', 'select', true, ['empty', 'rig', 'socket']), field('position', '位置', 'vector'), field('rotation', '旋转（弧度）', 'vector', true), field('scaling', '缩放', 'vector', true)];
   if (id.startsWith('object:')) {
     const geometry = target.geometry as { primitive: string };

@@ -1,9 +1,9 @@
 import { AbstractMesh, BoundingInfo, InstancedMesh, Matrix, Mesh, MultiMaterial, Ray, Scene, TransformNode, Vector3,
   type Material, type Observer, type Node } from '@babylonjs/core';
 import { DEFAULT_DEFORMATION_SETTINGS, isIdentityDeformation, parseDeformationSettings, resolveDeformation, resolveTargetStrength,
-  type DeformationSettings, type DeformationTargetInfo, type DeformationView } from './deformation.ts';
+  type DeformationSettings, type DeformationTargetInfo, type DeformationView, type DeformationCoefficients } from './deformation.ts';
 import { deformationMatrix } from './deformationMatrix.ts';
-import { ensureDeformationMaterial, meshDeformationMatrices, supportsDeformationMaterial } from './deformationMaterial.ts';
+import { ensureDeformationMaterial, meshDeformationMatrices, supportsDeformationMaterial, supportsInstanceDeformation, setInstanceDeformation } from './deformationMaterial.ts';
 import { createSceneDeformationDepthBridge, deformationDepthMeshes } from './deformationDepth.ts';
 
 export type VisualDeformationMetadata = { id?: string; label?: string; groupId?: string; tags?: readonly string[]; anchor?: readonly [number, number, number] };
@@ -11,11 +11,21 @@ export type VisualDeformationTarget = VisualDeformationMetadata & { root: Transf
   adapter?: { apply(matrix: Matrix | null): void; readAnchor(): Vector3; unsupported?(): string | undefined };
 };
 type MeshState = { mesh: AbstractMesh; bounds: BoundingInfo; intersects: AbstractMesh['intersects']; world: Matrix; local: Matrix };
-type Entry = { target: VisualDeformationTarget; info: DeformationTargetInfo; active: MeshState[]; adapterActive: boolean; disposeObserver: Observer<Node> | null; status: string };
+type Entry = { target: VisualDeformationTarget; info: DeformationTargetInfo; active: MeshState[]; adapterActive: boolean; disposeObserver: Observer<Node> | null; status: string;
+  stamp?: { rootFlag: number; rootMatrix: Matrix; coefficients: DeformationCoefficients; meshFlags: number[]; meshMatrices: Matrix[]; materials: (Material | null)[] } };
 const registries = new WeakMap<Scene, VisualDeformationRegistry>();
 const owners = new WeakMap<AbstractMesh, Entry>();
 const materialsOf = (mesh: AbstractMesh): Material[] => mesh.material instanceof MultiMaterial
   ? mesh.material.subMaterials.filter((m): m is Material => m !== null) : mesh.material ? [mesh.material] : [];
+
+/** Synchronize ancestors first. force=true also recomputes them and invalidates sibling stamps.
+ * markAsDirty bypasses Babylon's same-render-ID shortcut without forcing the parent chain.
+ */
+function syncWorldMatrix(node: TransformNode): Matrix {
+  if (node.parent instanceof TransformNode) syncWorldMatrix(node.parent);
+  if (!node.isSynchronized()) node.markAsDirty('transform');
+  return node.computeWorldMatrix();
+}
 
 export class VisualDeformationRegistry {
   private readonly entries = new Map<string, Entry>();
@@ -27,6 +37,7 @@ export class VisualDeformationRegistry {
   private observer: Observer<Scene> | null = null;
   private depthBridge: ReturnType<typeof createSceneDeformationDepthBridge> | null = null;
   private readonly scene: Scene;
+  private coefficients = new Map<number, DeformationCoefficients>();
   constructor(scene: Scene) { this.scene = scene; scene.onDisposeObservable.addOnce(() => this.dispose()); }
   get controlled(): boolean { return this.owner !== null; }
   list(): (DeformationTargetInfo & { status: string })[] { return [...this.entries.values()].map(e => ({ ...e.info, status: e.status })); }
@@ -64,7 +75,7 @@ export class VisualDeformationRegistry {
     if (target.adapter) return target.adapter.unsupported?.();
     if (!target.meshes.length) return '没有可变形 Mesh';
     for (const mesh of target.meshes) {
-      if (mesh instanceof InstancedMesh || (mesh instanceof Mesh && (mesh.hasThinInstances || mesh.instances.length))) return '硬件实例需在创建时选择独立 Mesh；暂不混用实例批次参数';
+      if ((mesh instanceof InstancedMesh && !supportsInstanceDeformation(mesh)) || (mesh instanceof Mesh && (mesh.hasThinInstances || mesh.instances.length))) return '硬件实例需接入逐实例变形参数；暂不混用未接入的实例批次';
       if (mesh.infiniteDistance) return '天空或无限远对象不参与';
       if (!materialsOf(mesh).length || materialsOf(mesh).some(m => !supportsDeformationMaterial(m))) return '材质未接入变形，或使用非 GLSL 后端';
       for (let node: TransformNode | null = mesh; node; node = node.parent instanceof TransformNode ? node.parent : null) {
@@ -82,6 +93,7 @@ export class VisualDeformationRegistry {
         const validated = parseDeformationSettings(settings);
         resolveDeformation(validated.config, view);
         this.settings = validated; this.view = view ? { ...view } : null;
+        this.coefficients.clear();
         this.update(); this.notify();
         if (!this.observer && [...this.entries.values()].some(e => e.active.length)) {
           this.observer = this.scene.onBeforeActiveMeshesEvaluationObservable.add(() => this.update());
@@ -103,15 +115,34 @@ export class VisualDeformationRegistry {
     }
   }
   private updateEntry(entry: Entry): void {
+    if (!entry.target.root.isEnabled()) return;
     const reason = this.unsupported(entry.target);
-    entry.info = { ...entry.info, supported: !reason, reason };
+    if (entry.info.reason !== reason) entry.info = { ...entry.info, supported: !reason, reason };
     const strength = this.owner ? resolveTargetStrength(entry.info, this.settings) : 0;
-    const coefficients = resolveDeformation({ ...this.settings.config, strength }, this.view);
+    let coefficients = this.coefficients.get(strength);
+    if (!coefficients) { coefficients = resolveDeformation({ ...this.settings.config, strength }, this.view); this.coefficients.set(strength, coefficients); }
     if (reason || isIdentityDeformation(coefficients)) {
       this.restore(entry); entry.status = reason ?? '未启用 / 已恢复'; return;
     }
     const root = entry.target.root;
-    const anchor = entry.target.adapter?.readAnchor() ?? Vector3.TransformCoordinates(Vector3.FromArray(entry.target.anchor ?? [0, 0, 0]), root.computeWorldMatrix(true));
+    const rootMatrix = syncWorldMatrix(root);
+    const meshes = entry.target.meshes;
+    const stamp = entry.stamp;
+    const dynamic = !!entry.target.adapter || meshes.some(mesh => mesh.skeleton || mesh.morphTargetManager || mesh.getVertexBuffer('position')?.isUpdatable());
+    if (!dynamic && stamp?.coefficients === coefficients
+      && (stamp.rootFlag === rootMatrix.updateFlag || stamp.rootMatrix.equals(rootMatrix))
+      && meshes.every((mesh, i) => {
+        if (mesh.isDisposed() || mesh.material !== stamp.materials[i]) return false;
+        const world = syncWorldMatrix(mesh);
+        return world.updateFlag === stamp.meshFlags[i] || stamp.meshMatrices[i].equals(world);
+      })) {
+      // A version can change without a pose change (e.g. external force updates).
+      // Remember the latest versions but keep the deformation/bounds snapshots.
+      stamp.rootFlag = rootMatrix.updateFlag;
+      meshes.forEach((mesh, i) => { stamp.meshFlags[i] = mesh.getWorldMatrix().updateFlag; });
+      return;
+    }
+    const anchor = entry.target.adapter?.readAnchor() ?? Vector3.TransformCoordinates(Vector3.FromArray(entry.target.anchor ?? [0, 0, 0]), rootMatrix);
     const world = deformationMatrix(anchor, coefficients);
     if (entry.target.adapter) {
       entry.target.adapter.apply(world); entry.adapterActive = true; entry.status = `生效 · ${Math.round(strength * 100)}%`;
@@ -135,8 +166,9 @@ export class VisualDeformationRegistry {
       if (mesh.isDisposed()) continue;
       materialsOf(mesh).forEach(material => ensureDeformationMaterial(material));
       deformationDepthMeshes.add(mesh);
-      const meshWorld = mesh.computeWorldMatrix(true);
+      const meshWorld = syncWorldMatrix(mesh);
       state.world = world;
+      setInstanceDeformation(mesh, world);
       state.local = meshWorld.multiply(world).multiply(Matrix.Invert(meshWorld));
       meshDeformationMatrices.set(mesh, state);
       // Union original and deformed local bounds: conservative culling, including shared geometry.
@@ -149,14 +181,18 @@ export class VisualDeformationRegistry {
       }
       mesh.setBoundingInfo(new BoundingInfo(min, max, meshWorld));
     }
+    entry.stamp = { rootFlag: rootMatrix.updateFlag, rootMatrix: rootMatrix.clone(), coefficients,
+      meshFlags: meshes.map(mesh => syncWorldMatrix(mesh).updateFlag), meshMatrices: meshes.map(mesh => mesh.getWorldMatrix().clone()), materials: meshes.map(mesh => mesh.material) };
     entry.status = `生效 · ${Math.round(strength * 100)}%`;
     if (!this.observer) this.observer = this.scene.onBeforeActiveMeshesEvaluationObservable.add(() => this.update());
   }
   private restore(entry: Entry): void {
+    entry.stamp = undefined;
     entry.target.adapter?.apply(null);
     entry.adapterActive = false;
     for (const state of entry.active) {
       meshDeformationMatrices.delete(state.mesh);
+      setInstanceDeformation(state.mesh, Matrix.Identity());
       if (!state.mesh.isDisposed()) { state.mesh.intersects = state.intersects; state.mesh.setBoundingInfo(state.bounds); state.mesh.computeWorldMatrix(true); }
     }
     entry.active = []; entry.status = entry.info.reason ?? '未启用 / 已恢复';

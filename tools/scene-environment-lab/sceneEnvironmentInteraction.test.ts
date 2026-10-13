@@ -80,7 +80,13 @@ test('editor markers are scale-independent, pick their declaration, toggle local
     assert.equal(marker.scaling.x, scale); near(marker.position.asArray(), [8, 3, 4]);
     camera.orthoTop = 20; camera.orthoBottom = -20; markers.update(); assert.equal(marker.scaling.x, scale * 2);
     markers.setVisible(false); assert.equal(marker.isEnabled(), false);
+    let hiddenComputations = 0;
+    const originalCompute = rig.computeWorldMatrix.bind(rig);
+    rig.computeWorldMatrix = force => { hiddenComputations++; return originalCompute(force); };
+    markers.update(); scene.onBeforeRenderObservable.notifyObservers(scene);
+    assert.equal(hiddenComputations, 0, 'hidden markers must skip matrix calculations');
     markers.setVisible(true); markers.update(); assert.equal(marker.isEnabled(), true);
+    assert.ok(hiddenComputations > 0);
     rig.setEnabled(false); markers.update(); assert.equal(marker.isEnabled(), false); rig.setEnabled(true); markers.update();
     const editor = new SceneEditor(scene, { objects: () => [{ id: 'transform:rig', name: 'Rig', node: rig, target: rig, parentId: null, channels: ['position'], pickNodes: [marker] }], commit() {} });
     const pick = scene.pickWithRay(new Ray(marker.position.add(new Vector3(0, 0, -10)), new Vector3(0, 0, 1)), mesh => mesh === marker)!;

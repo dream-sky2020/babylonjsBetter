@@ -21,6 +21,7 @@ test('Lab module follows view publication, UI groups, snapshots, late objects an
     const { meshDeformationMatrices } = await server.ssrLoadModule('/core/render-deformation/deformationMaterial.ts');
     const { DEFAULT_DEFORMATION_SETTINGS } = await server.ssrLoadModule('/core/render-deformation/deformation.ts');
     const { LabMemoryRegistry } = await server.ssrLoadModule('/tools/lab-kit/shared-memory/LabMemory.ts');
+    const { createModelMaterialController } = await server.ssrLoadModule('/core/model/material/modelMaterialController.ts');
     const { DUNGEON_DEFORMATION_SETTINGS_MEMORY } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-visual-deformation/dungeonDeformation.memory.ts');
     const { componentDefinitions } = await server.ssrLoadModule('/tools/entity-container-editor/entityDefinitionCatalog.ts');
     assert.ok(componentDefinitions.some(c => c.type === 'visual-deformation'));
@@ -46,6 +47,9 @@ test('Lab module follows view publication, UI groups, snapshots, late objects an
     assert.equal(service.settings.enabled, true);
     service.setDraft({ ...structuredClone(DEFAULT_DEFORMATION_SETTINGS), enabled: true, selection: 'rules', rules: [{ selector: 'group', value: 'trees', strength: .6 }] });
     const mesh = MeshBuilder.CreateBox('tree', {}, scene); mesh.material = new StandardMaterial('tree-material', scene);
+    const originalMaterial = mesh.material, materialCount = scene.materials.length;
+    const sharedController = createModelMaterialController(scene, [mesh], undefined, () => assert.fail('empty shared bindings must not replace materials'), { makeUnique() { assert.fail('empty bindings must keep instances'); } });
+    await sharedController.update([]); assert.equal(mesh.material, originalMaterial); assert.equal(scene.materials.length, materialCount); sharedController.dispose();
     registry.register({ id: 'tree:1', kind: 'model', groupId: 'trees', root: mesh, meshes: [mesh] });
     assert.ok(meshDeformationMatrices.has(mesh));
     assert.match(document.querySelector('.lab-deformation-rule-list').textContent, /强度 0\.6/);

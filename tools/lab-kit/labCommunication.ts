@@ -52,6 +52,7 @@ const failureStatus = (error: unknown): 'failed' | 'cancelled' | 'timeout' => {
 
 export type LabCommunicationOptions = Readonly<{
   journalCapacity?: number;
+  measure?: <T>(moduleId: string, kind: 'event' | 'request', callback: () => T) => T;
 }>;
 
 /** Lab 内部通信路由；业务模块通过 scope() 获得带来源身份的端点。 */
@@ -66,9 +67,11 @@ export class LabCommunication {
   private nextListenerId = 1;
   private readonly activeRequests = new Set<AbortController>();
   private disposed = false;
+  private readonly measure?: LabCommunicationOptions['measure'];
 
   constructor(options: LabCommunicationOptions = {}) {
     this.journal = new LabCommunicationJournal(options.journalCapacity);
+    this.measure = options.measure;
   }
 
   /** Installed routing, independent of traffic frequency and journal retention. */
@@ -282,7 +285,8 @@ export class LabCommunication {
       )), { once: true });
     });
     try {
-      const handled = Promise.resolve(registered.handler(input, { message, signal: controller.signal })) as Promise<TOutput>;
+      const invoke = () => registered.handler(input, { message, signal: controller.signal });
+      const handled = Promise.resolve(this.measure ? this.measure(registered.moduleId, 'request', invoke) : invoke()) as Promise<TOutput>;
       const result = await Promise.race([handled, aborted]);
       this.journal.append({
         messageId: requestId,
@@ -345,8 +349,8 @@ export class LabCommunication {
       recipients,
       payloadPreview: createLabCommunicationLogPreview(payload),
     });
-    const results = await Promise.allSettled(listeners.map(({ listener }) => (
-      Promise.resolve().then(() => listener(payload, message))
+    const results = await Promise.allSettled(listeners.map(({ listener, moduleId }) => (
+      Promise.resolve().then(() => this.measure ? this.measure(moduleId, 'event', () => listener(payload, message)) : listener(payload, message))
     )));
     const report = {
       delivered: results.filter(({ status }) => status === 'fulfilled').length,

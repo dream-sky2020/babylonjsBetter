@@ -1,5 +1,6 @@
 import { DUNGEON_GRID_MEMORY, type DungeonGridData } from './dungeonGrid.memory';
-import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
+import { Color3, StandardMaterial, TransformNode } from '@babylonjs/core';
+import { createDungeonGridDebugMeshes } from './dungeonGridDebugMesh.ts';
 import { applyDungeonViewToNode, createDungeonViewConsumer, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene/dungeonMapSceneLayout';
 import { createLabField, createLabStatus, createLabSwitch, type LabModule } from '@/tools/lab-kit';
@@ -65,23 +66,7 @@ export const dungeonGridLabModule: LabModule = {
       material.emissiveColor = Color3.FromHexString('#17698a');
       material.alpha = 0.2;
       material.wireframe = true;
-      for (let tileY = 0; tileY < map.height; tileY += 1) {
-        for (let tileX = 0; tileX < map.width; tileX += 1) {
-          const layout = resolveDungeonMapTileWorldLayout(
-            loaded, map.width, map.height, tileX, tileY,
-          );
-          const box = MeshBuilder.CreateBox(`dungeon_grid_debug_${loaded.loadId}_${tileX}_${tileY}`, {
-            width: layout.size[0], height: layout.size[1], depth: layout.size[2],
-          }, context.scene);
-          box.position.set(...layout.center);
-          box.material = material;
-          box.parent = root;
-          box.isPickable = false;
-          box.enableEdgesRendering();
-          box.edgesColor.set(0.25, 0.82, 1, 1);
-          box.edgesWidth = 2;
-        }
-      }
+      createDungeonGridDebugMeshes(context.scene, root, map, material);
     };
     toggle.input.addEventListener('change', renderBoxes);
     x.addEventListener('change', describe);

@@ -38,6 +38,19 @@ test('panel projection/preset, dirty draft, apply/reset and free-camera controls
     assert.ok(Math.abs(c.state.yaw - Math.PI / 3) < 1e-6);
     input('fovDeg', '65'); click('apply'); assert.ok(Math.abs(c.activeCamera.fov - 65 * Math.PI / 180) < 1e-6);
     select('mode', 'orbit'); assert.equal(field('projection').value, 'perspective');
+    let updates = 0;
+    const refresh = c.refreshStateFromActiveCamera, status = c.getStatusText;
+    c.refreshStateFromActiveCamera = () => { updates++; return refresh(); };
+    c.getStatusText = () => { updates++; return status(); };
+    panel.setVisible(false); updates = 0;
+    for (let i = 0; i < 20; i++) panel.updateStatus();
+    assert.equal(updates, 0, 'hidden camera panels should do no background work');
+    panel.setVisible(true); click('toggle'); updates = 0;
+    for (let i = 0; i < 20; i++) panel.updateStatus();
+    assert.equal(updates, 0, 'collapsed camera panels should do no background work');
+    camera.fov = 70 * Math.PI / 180; click('toggle');
+    assert.ok(updates > 0); assert.equal(field('fovDeg').value, '70');
+    input('fovDeg', '75'); click('toggle'); click('toggle'); assert.equal(field('fovDeg').value, '75', 'opening must preserve an unapplied draft');
     panel.dispose(); assert.equal(document.getElementById('host').children.length, 0);
   } finally {
     panel.dispose(); scene.dispose(); engine.dispose(); dom.window.close();

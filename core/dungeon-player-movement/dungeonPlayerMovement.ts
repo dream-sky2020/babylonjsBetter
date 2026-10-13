@@ -5,7 +5,6 @@ import type {
   DungeonRuntimeWorldPosition,
 } from '../dungeon-runtime';
 import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
-import { findDungeonMovementObstaclesFromBindings } from '../dungeon-obstacle/dungeonObstacle.ts';
 import { getDungeonMapTerrainProperties } from '../map-document/dungeonMapDocument.terrain.ts';
 import {
   getDungeonMovementDirectionCost,
@@ -32,6 +31,8 @@ export const DUNGEON_PLAYER_TURN_TIMING_MODES = ['radians-per-second', 'seconds-
 export type DungeonPlayerTurnTimingMode = typeof DUNGEON_PLAYER_TURN_TIMING_MODES[number];
 
 export type DungeonPlayerMovementOptions = {
+  /** Synchronous rule hook using the existing inspection; true consumes the blocked attempt. */
+  onBlockedAttempt?: (inspection: DungeonPlayerMovementResult) => boolean;
   /** 默认开启；开启后目标格超出地图尺寸时拒绝移动。 */
   restrictToMapBounds?: boolean;
   /** 默认开启；关闭后忽略地形、静态阻碍、动态占位和移动预约。 */
@@ -57,6 +58,7 @@ export type DungeonPlayerMovementOptions = {
 };
 
 export type DungeonPlayerMovementResult = {
+  handled?: boolean;
   started: boolean;
   completed: boolean;
   direction: DungeonMovementDirection;
@@ -89,7 +91,7 @@ const inspectBoundaryStep = (runtime: DungeonRuntime, direction: DungeonMovement
   if (options.restrictMovementObstacles === false) return result;
   const inspectLeg = (start: DungeonRuntimePlayerPosition, end: DungeonRuntimePlayerPosition, leg: DungeonMapDirection): string[] => {
     const index = positionIndex(runtime, end);
-    const ids = findDungeonMovementObstaclesFromBindings(runtime.obstacles, runtime.obstacleStates, start, end, leg).map(binding => binding.entity.id);
+    const ids = runtime.traversal.obstacleIndex.findStep(start, end, leg).map(binding => binding.entity.id);
     if (index >= 0) {
       if (getDungeonMapTerrainProperties(runtime.map.document.terrain, runtime.map.topology.tileIds[index])?.walkable === false) ids.push('$terrain');
       ids.push(...runtime.traversal.blockingOccupants(index, DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID));
@@ -238,6 +240,8 @@ export const startDungeonPlayerMovement = (
   const inspection = inspectDungeonPlayerMovement(runtime, direction, options);
   const { from, to } = inspection;
   if (inspection.blockedReason === 'movement-in-progress') return inspection;
+  if ((inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle')
+    && options.onBlockedAttempt?.(inspection)) return { ...inspection, handled: true };
   const startBlockedAttempt = (
     blockedReason: 'map-boundary' | 'movement-obstacle' | 'direction-not-supported',
     blockedObstacleIds?: readonly string[],

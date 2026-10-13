@@ -9,6 +9,7 @@ import type { LabExecutionPlan } from './execution-plan';
 import type { LabUi } from './labUi';
 import type { SystemTask } from '@/core/system-runtime/SystemRunner';
 import type { LabSystemManifest } from './systemManifest';
+import type { LabPerformance } from './performance/LabPerformance';
 import type { LabViewportManager } from './labViewportManager';
 import type { LabKeyboardRouter } from './keyboard';
 import type { CameraLabController, CameraLabControllerState, CameraViewPreset } from '@/core/camera/cameraLabController.ts';
@@ -72,6 +73,8 @@ export type CreateLabOptions = {
 };
 
 export type LabHost = {
+  /** Optional for older/custom hosts. Final inspection remains available after dispose. */
+  performance?: Pick<LabPerformance, 'start' | 'stop' | 'clear' | 'inspect'>;
   context: LabContext;
   executionPlan: LabExecutionPlan;
   moduleIds: readonly string[];

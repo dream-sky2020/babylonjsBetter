@@ -5,6 +5,8 @@ import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocumen
 import { createDungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import { createDungeonTraversalWorld } from './dungeonTraversal.ts';
 import type { DungeonObstacleBinding } from '../dungeon-obstacle/dungeonObstacle.ts';
+import { DungeonObstacleIndex } from '../dungeon-obstacle/dungeonObstacleIndex.ts';
+import { findDungeonMovementObstaclesFromBindings } from '../dungeon-obstacle/dungeonObstacle.ts';
 
 const createWorld = () => {
   const document = migrateDungeonMapToDocumentV2({
@@ -14,6 +16,47 @@ const createWorld = () => {
   }).document;
   return createDungeonTraversalWorld(createDungeonRuntimeMap(document));
 };
+
+test('indexed tile, side and shared-edge queries preserve scan order and live obstacle toggles', () => {
+  const binding = (id: string, placement: DungeonObstacleBinding['placement']): DungeonObstacleBinding => ({
+    entity: { id, entityType: 'obstacle', components: [] },
+    component: { id: `${id}:component`, type: 'movement-obstacle', version: 1, activeByDefault: true }, placement,
+  });
+  const obstacles = [
+    binding('shared', { kind: 'shared-edge', sharedEdgeId: 'edge', side: { x: 0, y: 0, direction: 'east' } }),
+    binding('tile', { kind: 'tile', tileX: 1, tileY: 0 }),
+    binding('entering', { kind: 'tile-edge', tileX: 1, tileY: 0, direction: 'west' }),
+    binding('leaving', { kind: 'tile-edge', tileX: 0, tileY: 0, direction: 'east' }),
+    binding('unrelated', { kind: 'tile', tileX: 50, tileY: 50 }),
+  ];
+  const states = new Map(obstacles.map(row => [row.entity.id, true]));
+  const index = new DungeonObstacleIndex(obstacles, states);
+  for (const direction of ['north', 'east', 'south', 'west'] as const) for (const from of [{ tileX: 0, tileY: 0 }, { tileX: 1, tileY: 0 }]) {
+    const to = { tileX: from.tileX + (direction === 'east' ? 1 : direction === 'west' ? -1 : 0), tileY: from.tileY + (direction === 'south' ? 1 : direction === 'north' ? -1 : 0) };
+    assert.deepEqual(index.findStep(from, to, direction), findDungeonMovementObstaclesFromBindings(obstacles, states, from, to, direction));
+  }
+  states.set('tile', false); states.set('shared', false);
+  assert.deepEqual(index.findStep({ tileX: 0, tileY: 0 }, { tileX: 1, tileY: 0 }, 'east').map(row => row.entity.id), ['entering', 'leaving']);
+  assert.equal(index.findTile(1, 0).length, 0); states.set('tile', true); assert.equal(index.findTile(1, 0).length, 1);
+});
+
+test('one cardinal or diagonal query ignores thousands of obstacles outside its neighborhood', () => {
+  const world = createWorld();
+  let stateReads = 0;
+  const states = new Map<string, boolean>(); const read = states.get.bind(states);
+  states.get = id => { stateReads++; return read(id); };
+  const obstacles: DungeonObstacleBinding[] = Array.from({ length: 10000 }, (_, i) => ({
+    entity: { id: `far:${i}`, entityType: 'obstacle', components: [] },
+    component: { id: `component:${i}`, type: 'movement-obstacle', version: 1, activeByDefault: true },
+    placement: { kind: 'tile', tileX: 100 + i, tileY: 100 },
+  }));
+  obstacles.forEach(row => states.set(row.entity.id, true));
+  const indexed = createDungeonTraversalWorld(world.map, obstacles, states);
+  indexed.registerActor({ id: 'mover', kind: 'player', tileIndex: 0, enabled: true, blocksMovement: true, movementProfileId: 'ground-eight-way' });
+  assert.equal(indexed.inspectStep('mover', 0, 'east').blockedReason, undefined);
+  assert.equal(indexed.inspectStep('mover', 0, 'south-east').blockedReason, undefined);
+  assert.equal(stateReads, 0, 'queries must not examine unrelated obstacle states');
+});
 
 test('通行变化只在占位、能力和路径预约实际改变时通知', () => {
   const world = createWorld();

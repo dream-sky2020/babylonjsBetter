@@ -1,5 +1,4 @@
-import { DirectionalLight, PointLight, TransformNode } from '@babylonjs/core';
-import { writeTransform } from '../../core/scene-editor/transform.ts';
+import { DirectionalLight, PointLight, Quaternion, TransformNode } from '@babylonjs/core';
 import type { EditorTransform, SceneEditorAdapter, SceneEditorObject } from '../../core/scene-editor/types.ts';
 import type { SceneEnvironmentInstance, SceneEnvironmentPreset, SceneEnvironmentVector3, SceneEnvironmentLight } from '@/core/scene/sceneEnvironment.types';
 import { environmentNodeEntries, orderedEnvironmentEntries } from '../../core/scene/sceneEnvironment.hierarchy.ts';
@@ -48,23 +47,31 @@ export function createEnvironmentAdapter(instance: SceneEnvironmentInstance, hos
     // The authoring tree contains declarations only, never the imported render graph.
     return declared;
   };
-  const sync = () => {
+  const sync = (id = 'scene') => {
     const p = host.read();
-    const definitions = new Map(environmentNodeEntries(p).map(entry => [entry.id, entry.definition]));
-    for (const object of objects()) {
-      const definition = definitions.get(object.id);
-      if (definition && !('light' in definition) && object.target) {
+    const same = (v: { x: number; y: number; z: number }, tuple: readonly number[]) => v.x === tuple[0] && v.y === tuple[1] && v.z === tuple[2];
+    for (const entry of environmentNodeEntries(p)) {
+      if (id !== 'scene' && entry.id !== id) continue;
+      const definition = entry.definition, node = instance.nodes.get(entry.id);
+      const target = proxies.get(entry.id) ?? (node instanceof TransformNode ? node : undefined);
+      if (!target) continue;
+      if (!('light' in definition)) {
         const rotation = definition.rotation ?? [0, 0, 0]; const scale = 'scaling' in definition ? definition.scaling ?? [1, 1, 1] : [1, 1, 1];
-        writeTransform(object.target, { position: { x: definition.position[0], y: definition.position[1], z: definition.position[2] }, rotation: { x: rotation[0] * 180 / Math.PI, y: rotation[1] * 180 / Math.PI, z: rotation[2] * 180 / Math.PI }, scaling: { x: scale[0], y: scale[1], z: scale[2] } });
+        const quaternion = target.rotationQuaternion ? Quaternion.FromEulerAngles(rotation[0], rotation[1], rotation[2]) : undefined;
+        const rotationMatches = quaternion ? target.rotationQuaternion!.equals(quaternion) : same(target.rotation, rotation);
+        if (!same(target.position, definition.position) || !same(target.scaling, scale) || !rotationMatches) {
+          target.position.set(...definition.position); target.rotation.set(rotation[0], rotation[1], rotation[2]); target.scaling.set(scale[0], scale[1], scale[2]);
+          if (quaternion) target.rotationQuaternion!.copyFrom(quaternion);
+          target.computeWorldMatrix(true);
+        }
       }
-      const light = definition && 'light' in definition ? definition : undefined;
-      if (light && light.light.primitive !== 'hemispheric' && object.target) {
+      const light = 'light' in definition ? definition : undefined;
+      if (light && light.light.primitive !== 'hemispheric') {
         const position = light.light.position ?? (light.light.primitive === 'directional' ? light.light.direction.map(v => -v) as unknown as SceneEnvironmentVector3 : [0, 0, 0] as const);
-        object.target.position.set(...position);
-        (object.node as PointLight | DirectionalLight).position.copyFrom(object.target.position);
+        if (!same(target.position, position)) target.position.set(...position);
+        if (node instanceof PointLight || node instanceof DirectionalLight) if (!same(node.position, position)) node.position.copyFrom(target.position);
       }
     }
-    markers.update();
   };
   const adapter: SceneEditorAdapter = {
     objects, sync,

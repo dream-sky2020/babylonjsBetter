@@ -19,6 +19,7 @@
 .lab-memory-graph svg { width: 100%; height: 100%; display: block; touch-action: none; user-select: none; cursor: grab; }
 .lab-memory-graph path { stroke: #5d7796; stroke-width: 1.5; }
 .lab-memory-graph path.is-dimmed { opacity: .15; }
+.lab-memory-graph:has(.lab-memory-node.is-selected) path.is-active { stroke: #38bdf8; stroke-width: 2; }
 .lab-memory-node { cursor: pointer; }
 .lab-memory-node rect { fill: #17243a; stroke: #385675; stroke-width: 1.2; }
 .lab-memory-node rect.lab-memory-node-header { fill: #385675; }

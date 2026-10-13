@@ -1,10 +1,25 @@
-import { MaterialPluginBase, Matrix, PBRBaseMaterial, ShaderMaterial, ShadowDepthWrapper, StandardMaterial,
+import { InstancedMesh, MaterialPluginBase, Matrix, MultiMaterial, PBRBaseMaterial, ShaderMaterial, ShadowDepthWrapper, StandardMaterial, Vector4,
   type AbstractEngine, type AbstractMesh, type Material, type MaterialDefines, type Scene, type SubMesh, type UniformBuffer } from '@babylonjs/core';
 import { bindDeformationDepth, depthDeclaration, depthUniforms } from './deformationDepth.ts';
 
 export const meshDeformationMatrices = new WeakMap<AbstractMesh, { world: Matrix; local: Matrix }>();
 const identity = Matrix.Identity();
 const installed = new WeakSet<Material>();
+const instanceAttributes = ['vdDeform0', 'vdDeform1', 'vdDeform2', 'vdDeform3'] as const;
+const supportsInstanceMaterial = (material: Material | null): boolean => material instanceof MultiMaterial
+  ? material.subMaterials.every(sub => sub === null || supportsInstanceMaterial(sub)) : material instanceof StandardMaterial || material instanceof PBRBaseMaterial;
+export const supportsInstanceDeformation = (mesh: AbstractMesh) => mesh instanceof InstancedMesh && instanceAttributes.every(name => name in mesh.sourceMesh.instancedBuffers)
+  && supportsInstanceMaterial(mesh.material);
+export function setInstanceDeformation(mesh: AbstractMesh, matrix: Matrix) {
+  if (!supportsInstanceDeformation(mesh)) return;
+  const instance = mesh as InstancedMesh;
+  instanceAttributes.forEach((name, i) => {
+    const value = instance.instancedBuffers[name] as Vector4 | undefined;
+    const m = matrix.m, offset = i * 4;
+    if (value && value !== instance.sourceMesh.instancedBuffers[name]) value.set(m[offset], m[offset + 1], m[offset + 2], m[offset + 3]);
+    else instance.instancedBuffers[name] = new Vector4(m[offset], m[offset + 1], m[offset + 2], m[offset + 3]);
+  });
+}
 export const supportsDeformationMaterial = (material: Material): boolean =>
   material.shaderLanguage === 0 && (material instanceof StandardMaterial || material instanceof PBRBaseMaterial
     || (material instanceof ShaderMaterial && material.options.uniforms.includes('uVisualDeformationLocal')));
@@ -24,6 +39,7 @@ export class VisualDeformationPlugin extends MaterialPluginBase {
   override getUniforms() {
     return { ubo: [{ name: 'uVisualDeformationWorld', size: 16, type: 'mat4' }], vertex: 'uniform mat4 uVisualDeformationWorld;', externalUniforms: depthUniforms };
   }
+  override getAttributes(attributes: string[]): void { attributes.push(...instanceAttributes); }
   override hardBindForSubMesh(ubo: UniformBuffer, _scene: Scene, _engine: AbstractEngine, subMesh: SubMesh): void {
     ubo.updateMatrix('uVisualDeformationWorld', meshDeformationMatrices.get(subMesh.getRenderingMesh())?.world ?? identity);
     bindDeformationDepth(this._material.getEffect(), _scene);
@@ -33,7 +49,8 @@ export class VisualDeformationPlugin extends MaterialPluginBase {
       CUSTOM_FRAGMENT_MAIN_END: 'if (uVisualDepthOptions.x > 0.5) { if (gl_FragColor.a < 0.4) discard; gl_FragColor = vdDepthColor(vPositionW); }' };
     if (stage !== 'vertex') return null;
     return {
-      '!vec4 worldPos=finalWorld\\*vec4\\(positionUpdated,1\\.0\\);': 'finalWorld = uVisualDeformationWorld * finalWorld;\n$0',
+      CUSTOM_VERTEX_DEFINITIONS: '#ifdef INSTANCES\nattribute vec4 vdDeform0;\nattribute vec4 vdDeform1;\nattribute vec4 vdDeform2;\nattribute vec4 vdDeform3;\n#endif',
+      '!vec4 worldPos=finalWorld\\*vec4\\(positionUpdated,1\\.0\\);': '#ifdef INSTANCES\nfinalWorld = mat4(vdDeform0, vdDeform1, vdDeform2, vdDeform3) * finalWorld;\n#else\nfinalWorld = uVisualDeformationWorld * finalWorld;\n#endif\n$0',
       CUSTOM_VERTEX_MAIN_END: `
         #if (defined(BUMP) || defined(PARALLAX) || defined(CLEARCOAT_BUMP) || defined(ANISOTROPIC)) && defined(TANGENT) && defined(NORMAL)
           vec3 vdNormal = normalize(vNormalW);

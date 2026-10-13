@@ -101,6 +101,8 @@ export type SceneEnvironmentLight =
     });
 
 export type SceneEnvironmentPreset = {
+  /** Missing means disabled. Applied once after final scene settings, before releasing loading gates. */
+  renderWarmup?: { enabled: boolean };
   presetKey: string;
   name: string;
   clearColor: string;

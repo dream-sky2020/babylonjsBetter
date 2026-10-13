@@ -40,6 +40,29 @@ const runtimeForLine = (): DungeonRuntime => {
   };
 };
 
+test('blocked interception uses the existing Core inspection and consumes no animation or reservation', () => {
+  const runtime = runtimeForLine(); let checks = 0, intercepted = 0;
+  const inspect = runtime.traversal.inspectStep.bind(runtime.traversal);
+  runtime.traversal.inspectStep = (...args) => { checks++; return inspect(...args); };
+  const options = { resolveWorldPosition: (position: { tileX: number; tileY: number }) => [position.tileX, 0, position.tileY] as const,
+    onBlockedAttempt: () => { intercepted++; return true; } };
+  const result = startDungeonPlayerMovement(runtime, 'west', options);
+  assert.equal(result.handled, true); assert.equal(intercepted, 1); assert.equal(checks, 1);
+  assert.equal(runtime.playerMovement, null); assert.equal(runtime.movementResolver.debugActiveMoves().length, 0);
+  checks = 0;
+  assert.equal(startDungeonPlayerMovement(runtime, 'east', options).started, true);
+  assert.equal(intercepted, 1); assert.equal(checks, 2, 'Core precheck plus authoritative arbitration; no extra Lab precheck');
+});
+
+test('an interceptor declining a blocked move retains the blocked animation', () => {
+  const runtime = runtimeForLine();
+  const result = startDungeonPlayerMovement(runtime, 'west', {
+    resolveWorldPosition: position => [position.tileX, 0, position.tileY], onBlockedAttempt: () => false,
+  });
+  assert.equal(result.handled, undefined); assert.equal(result.started, true);
+  assert.equal(runtime.playerMovement?.kind, 'blocked');
+});
+
 const runtimeForSquare = (): DungeonRuntime => {
   const document = migrateDungeonMapToDocumentV2({
     presetKey: 'movement-square',

@@ -330,8 +330,11 @@ export class DungeonMovementResolver {
     };
   }
 
-  debugActiveMoves(): DungeonMovementDebugSnapshot['activeMoves'] {
-    return [...this.requests.values()].map((request) => ({
+  debugActiveMoves(limit = Number.POSITIVE_INFINITY): DungeonMovementDebugSnapshot['activeMoves'] {
+    const moves: Array<DungeonMovementDebugSnapshot['activeMoves'][number]> = [];
+    for (const request of this.requests.values()) {
+      if (moves.length >= limit) break;
+      moves.push({
         requestId: request.id,
         actorId: request.actorId,
         fromTileIndex: request.fromTileIndex,
@@ -344,7 +347,9 @@ export class DungeonMovementResolver {
           : request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds),
         commitProgress: request.commitProgress,
         priority: this.priorityOf(request),
-      }));
+      });
+    }
+    return moves;
   }
 }
 

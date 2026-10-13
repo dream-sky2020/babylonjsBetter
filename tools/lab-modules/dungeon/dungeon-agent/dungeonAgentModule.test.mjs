@@ -40,14 +40,17 @@ test('Agent module publishes shallow live memories, moves through Core and repla
       createTileData: ({ x }) => x === 0 ? createEntityContainer(entity) : undefined }) }).document;
     const layout = { mapAnchorMode: 'first-tile', mapOffset: [10, 0, 20], tileSize: [2, 1, 2], tileSpacing: [2, 2] };
     engine = new NullEngine(); scene = new Scene(engine); assembly = new assemblyApi.DungeonRuntimeAssembly(); steps = new stepApi.DungeonPlayerStepEvents();
-    const services = new Map(), memory = new LabMemoryRegistry(), handlers = new Map(), events = []; let task, active = null;
+    const services = new Map(), memory = new LabMemoryRegistry(), handlers = new Map(), events = []; let task, debugTask, active = null;
     services.set(assemblyApi.DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, assembly); services.set(stepApi.DUNGEON_PLAYER_STEP_SERVICE_KEY, steps);
     services.set('dungeon:overhead-view', { displayedView: null, subscribe: () => () => {} });
     services.set(controlApi.DUNGEON_AGENT_CONTROL_SERVICE_KEY, controlApi.createDungeonAgentControl(() => active));
     cleanup = dungeonAgentLabModule.setup({ scene, services, memory: memory.scope('dungeon-agent'),
       ui: new LabUi(document.querySelector('aside'), document.getElementById('status')),
       communication: { on(event, fn) { handlers.set(event, fn); return () => handlers.delete(event); }, async publish(event, payload) { events.push(payload); } },
-      scheduler: { isPaused: false, register(value) { task = value; return () => { task = null; }; } },
+      scheduler: { isPaused: false, register(value) {
+        if (value.phase === 'simulation') { task = value; return () => { task = null; }; }
+        debugTask = value; return () => { debugTask = null; };
+      } },
     });
     const load = loadId => {
       const runtime = createDungeonRuntime(doc, { sceneEnvironmentComponent: layout, tilePosition: { x: 2, y: 0 }, worldPosition: [14, 0, 20] });
@@ -81,7 +84,11 @@ test('Agent module publishes shallow live memories, moves through Core and repla
     assert.equal(memory.inspect().some(entry => entry.key === 'dungeon.loaded-references'), false);
     document.querySelector('[data-agent-move="east"]').click(); assert.ok(first.agents[0].movement);
     assert.equal(firstRow.movementKind, 'move');
+    const json = document.querySelector('pre'); const beforeSimulation = json.textContent;
     task.run(1); assert.equal(first.agents[0].tileIndex, 1); assert.equal(first.agents[0].movement, null);
+    assert.equal(json.textContent, beforeSimulation, 'simulation must not serialize the Debug panel');
+    assert.equal(debugTask.phase, 'debug'); assert.equal(debugTask.intervalSeconds, .25);
+    debugTask.run(.25); assert.notEqual(json.textContent, beforeSimulation);
     assert.equal(firstRow.tileIndex, 1); assert.equal(firstRow.movementKind, null);
     first.agents[0].navigationPlan = { targetTileIndex: 2, tileIndices: [1, 2], directions: ['east'], nextStepIndex: 0, totalCost: 1, visitedCount: 2, planSequence: 1 };
     const profileSelect = [...document.querySelectorAll('select')].find(select => [...select.options].some(option => option.value === 'ground-eight-way'));
@@ -89,7 +96,11 @@ test('Agent module publishes shallow live memories, moves through Core and repla
     assert.equal(first.traversal.actors.get('guard').movementProfileId, 'ground-eight-way');
     assert.equal(first.agents[0].navigationPlan, undefined); assert.equal(navigation.current.agents.get('guard').hasPlan, false);
     document.querySelector('[data-agent-turn="right"]').click(); assert.equal(first.agents[0].movement.kind, 'turn');
+    const panelContent = json.parentElement; const beforeHidden = json.textContent;
+    panelContent.hidden = true;
     task.run(1); assert.equal(firstRow.movementKind, null);
+    debugTask.run(.25); assert.equal(json.textContent, beforeHidden, 'hidden Agent panel must skip rendering');
+    panelContent.hidden = false; await Promise.resolve(); debugTask.run(.25); assert.notEqual(json.textContent, beforeHidden);
     const second = load(2); assert.notEqual(second, first); assert.equal(second.agents[0].tileIndex, 0);
     handlers.get(dungeonMapChangedEvent)({ loadId: 1 }); assert.equal(services.has('dungeon:agent-runtime'), false);
     assert.equal(states.current.loadId, 2); assert.notEqual(states.current.agents.get('guard'), firstRow);
@@ -102,6 +113,7 @@ test('Agent module publishes shallow live memories, moves through Core and repla
     assert.equal(settings.current, null); assert.equal(controllers.current, null);
     assert.equal(navigation.current, null);
     assert.equal(scene.getTransformNodeByName('dungeon_agent_display_mapping'), null);
+    assert.equal(debugTask, null);
   } finally {
     cleanup?.(); steps?.dispose(); assembly?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();
     for (const [key, value] of previous) { if (value === undefined) delete globalThis[key]; else globalThis[key] = value; }

@@ -63,11 +63,15 @@ export const createLabMemoryPanel = (
   let selection: Selection | undefined;
   let detailsViewKey = '';
   let applicantsKey = '';
+  let moduleDetailsKey = '';
+  const moduleCards = new Map<string, { meta: HTMLElement; summary: HTMLElement }>();
   const info = element('div', 'lab-memory-applicants');
   let view: GraphView = { x: 30, y: 30, scale: 1 };
   let entries: readonly LabMemoryInspection[] = [];
   let nodes: GraphNode[] = [];
   const positions = new Map<string, GraphPoint>();
+  const nodeElements = new Map<string, SVGGElement>();
+  let links: { element: SVGPathElement; source: GraphNode; target: GraphNode }[] = [];
   let frame = 0;
   let disposed = false;
   let timer: ReturnType<typeof setInterval> | undefined;
@@ -79,9 +83,10 @@ export const createLabMemoryPanel = (
     try { return flattenSharedData(memory.inspectValue(key), 4).filter(field => field.path !== '…').map(field => `${field.path}: ${shorten(field.value, 35)}`).join(' · '); }
     catch (error) { return `观察失败：${error instanceof Error ? error.message : String(error)}`; }
   };
-  const select = (next: Selection) => {
-    if (!selection || nodeId(selection) !== nodeId(next)) { valueInspector.reset(); inspector.scrollTop = 0; }
-    selection = next; fieldSearch.value = ''; render();
+  const select = (next?: Selection) => {
+    if (selection?.kind === next?.kind && selection?.id === next?.id) return;
+    if (!selection || !next || nodeId(selection) !== nodeId(next)) { valueInspector.reset(); inspector.scrollTop = 0; }
+    selection = next; fieldSearch.value = ''; syncSelection(); renderDetails();
   };
 
   const renderDetails = () => {
@@ -90,18 +95,28 @@ export const createLabMemoryPanel = (
     fieldSearch.hidden = selection.kind !== 'memory';
     heading.textContent = selection.id;
     if (selection.kind === 'module') {
-      details.replaceChildren(); detailsViewKey = '';
       const module = modules.find(module => module.id === selection!.id);
       const acquired = entries.filter(entry => entry.modules.includes(selection!.id));
+      const key = JSON.stringify([selection.id, acquired.map(entry => [entry.key, entry.label, entry.typeId, entry.version]), ui.hasModulePanels(selection.id)]);
       meta.textContent = `${module?.manifest?.responsibility ?? 'Lab 模块'} · 已申请 ${acquired.length} 块共享内存`;
+      if (moduleDetailsKey !== key || detailsViewKey !== `module:${selection.id}`) {
+      moduleDetailsKey = key; detailsViewKey = `module:${selection.id}`; moduleCards.clear(); details.replaceChildren();
       if (ui.hasModulePanels(selection.id)) details.append(button('打开模块功能面板', () => { layer.hide(); ui.showModulePanels(selection!.id); }));
       if (!acquired.length) details.append(element('p', 'lab-memory-empty', '该模块尚未申请共享内存。'));
       for (const entry of acquired) {
         const card = element('section', 'lab-memory-data-card');
+        const cardMeta = element('small'), cardSummary = element('p');
         card.append(button(entry.label, () => select({ kind: 'memory', id: entry.key })),
-          element('code', '', entry.key), element('small', '', `${entry.typeId}@${entry.version} · revision ${entry.revision}`),
-          element('p', '', summary(entry.key)));
+          element('code', '', entry.key), cardMeta, cardSummary);
+        moduleCards.set(entry.key, { meta: cardMeta, summary: cardSummary });
         details.append(card);
+      }
+      }
+      for (const entry of acquired) {
+        const card = moduleCards.get(entry.key)!;
+        const text = `${entry.typeId}@${entry.version} · revision ${entry.revision}`, value = summary(entry.key);
+        if (card.meta.textContent !== text) card.meta.textContent = text;
+        if (card.summary.textContent !== value) card.summary.textContent = value;
       }
       return;
     }
@@ -144,6 +159,7 @@ export const createLabMemoryPanel = (
   };
 
   const draw = () => {
+    nodeElements.clear(); links = [];
     graph.replaceChildren(); graph.setAttribute('transform', `translate(${view.x} ${view.y}) scale(${view.scale})`);
     for (const entry of entries) {
       const target = nodes.find(node => node.kind === 'memory' && node.id === entry.key);
@@ -159,6 +175,7 @@ export const createLabMemoryPanel = (
           class: active ? 'is-active' : 'is-dimmed', fill: 'none', 'data-module': moduleId, 'data-memory': entry.key,
         });
         const title = svgElement('title'); title.textContent = `${moduleId} 申请 ${entry.key}`; line.append(title); graph.append(line);
+        links.push({ element: line, source, target });
       }
     }
     for (const node of nodes) {
@@ -176,26 +193,47 @@ export const createLabMemoryPanel = (
       group.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(node); } });
       group.addEventListener('dblclick', () => { if (node.kind === 'module' && ui.hasModulePanels(node.id)) { layer.hide(); ui.showModulePanels(node.id); } });
       graph.append(group);
+      nodeElements.set(nodeId(node), group);
     }
+  };
+  const syncGeometry = (node?: GraphNode) => {
+    graph.setAttribute('transform', `translate(${view.x} ${view.y}) scale(${view.scale})`);
+    if (!node) return;
+    nodeElements.get(nodeId(node))?.setAttribute('transform', `translate(${node.x} ${node.y})`);
+    for (const link of links) if (nodeId(link.source) === nodeId(node) || nodeId(link.target) === nodeId(node)) {
+      const x = link.source.x + link.source.width, y = link.source.y + link.source.height / 2, tx = link.target.x, ty = link.target.y + link.target.height / 2;
+      link.element.setAttribute('d', `M${x},${y} C${x + 70},${y} ${tx - 70},${ty} ${tx},${ty}`);
+    }
+  };
+  const syncSelection = () => {
+    const selectedId = selection ? nodeId(selection) : undefined;
+    for (const [id, group] of nodeElements) group.classList.toggle('is-selected', id === selectedId);
+    for (const link of links) {
+      const active = !selection || nodeId(link.source) === selectedId || nodeId(link.target) === selectedId;
+      link.element.classList.toggle('is-active', active); link.element.classList.toggle('is-dimmed', !active);
+    }
+    for (const item of list.querySelectorAll<HTMLButtonElement>('button')) item.classList.toggle('is-active', item.dataset.node === selectedId);
   };
 
   const render = () => {
     entries = memory.inspect(); count.textContent = `${modules.length} 个模块 · ${entries.length} 块共享内存`;
     if (!layer.visible) return;
     buildNodes();
+    if (gesture?.node) gesture.node = nodes.find(node => nodeId(node) === nodeId(gesture!.node!));
     list.replaceChildren();
     for (const kind of ['module', 'memory'] as const) {
       list.append(element('h4', '', kind === 'module' ? '模块' : '共享内存'));
       for (const node of nodes.filter(node => node.kind === kind)) {
         const item = button(node.title, () => select(node));
         item.className = selection && nodeId(selection) === nodeId(node) ? 'is-active' : '';
+        item.dataset.node = nodeId(node);
         item.title = node.id; list.append(item);
       }
     }
     if (!nodes.length) list.append(element('p', 'lab-memory-empty', '没有匹配的模块或内存。'));
     draw(); renderDetails();
   };
-  const fit = () => { view = fitGraphView(nodes, { width: graphHost.clientWidth, height: graphHost.clientHeight }, 0.12); draw(); };
+  const fit = () => { view = fitGraphView(nodes, { width: graphHost.clientWidth, height: graphHost.clientHeight }, 0.12); syncGeometry(); };
   const schedule = () => {
     if (disposed || frame) return;
     frame = requestAnimationFrame(() => { frame = 0; render(); });
@@ -232,19 +270,19 @@ export const createLabMemoryPanel = (
       gesture.node.x = gesture.origin.x + dx / view.scale; gesture.node.y = gesture.origin.y + dy / view.scale;
       positions.set(nodeId(gesture.node), { x: gesture.node.x, y: gesture.node.y });
     } else { view.x = gesture.origin.x + dx; view.y = gesture.origin.y + dy; }
-    draw();
+    syncGeometry(gesture.node);
   });
   svg.addEventListener('pointerup', event => {
     if (!gesture || gesture.pointerId !== event.pointerId) return;
     const previous = gesture; gesture = undefined;
     if (svg.hasPointerCapture(event.pointerId)) svg.releasePointerCapture(event.pointerId);
-    if (!previous.moved && previous.node) select(previous.node);
+    if (!previous.moved) select(previous.node);
   });
   svg.addEventListener('pointercancel', () => { gesture = undefined; });
   svg.addEventListener('wheel', event => {
     event.preventDefault(); const anchor = point(event); const world = graphWorldPoint(anchor, view);
     const scale = Math.max(0.08, Math.min(2.5, view.scale * Math.exp(-event.deltaY * 0.001)));
-    view = { x: anchor.x - world.x * scale, y: anchor.y - world.y * scale, scale }; draw();
+    view = { x: anchor.x - world.x * scale, y: anchor.y - world.y * scale, scale }; syncGeometry();
   }, { passive: false });
   const offMemory = memory.subscribe(schedule);
   render();

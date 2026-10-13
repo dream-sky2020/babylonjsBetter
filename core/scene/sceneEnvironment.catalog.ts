@@ -1,5 +1,5 @@
 import { parseSceneEnvironmentPresetLibrary } from './sceneEnvironment.parser.ts';
-import type { SceneEnvironmentPreset } from './sceneEnvironment.types.ts';
+import type { SceneEnvironmentPreset, SceneEnvironmentPresetLibrary } from './sceneEnvironment.types.ts';
 
 export type SceneEnvironmentDeclarations = Record<string, Record<string, unknown>>;
 export type SceneEnvironmentCatalog = { version: 1; presets: Record<string, string> };
@@ -26,13 +26,16 @@ export async function readSceneEnvironmentCatalog(read: (file: string) => Promis
 }
 /** Write only changed top-level declarations, retaining the base link and inherited fields. */
 export function editSceneEnvironmentDeclaration(raw: SceneEnvironmentDeclarations, key: string, edited: SceneEnvironmentPreset): SceneEnvironmentDeclarations {
-  const previous = parseSceneEnvironmentPresetLibrary(raw)[key];
+  return prepareSceneEnvironmentDeclaration(raw, key, edited).declarations;
+}
+/** A caller holding the resolved current library can reuse it; the candidate is still fully validated. */
+export function prepareSceneEnvironmentDeclaration(raw: SceneEnvironmentDeclarations, key: string, edited: SceneEnvironmentPreset, current = parseSceneEnvironmentPresetLibrary(raw)): { declarations: SceneEnvironmentDeclarations; library: SceneEnvironmentPresetLibrary } {
+  const previous = current[key];
   const next = { ...raw[key] };
-  for (const field of ['name', 'clearColor', 'objects', 'models', 'lights', 'transformNodes'] as const) {
+  for (const field of ['name', 'clearColor', 'objects', 'models', 'lights', 'transformNodes', 'renderWarmup'] as const) {
     if (JSON.stringify(previous[field]) !== JSON.stringify(edited[field])) next[field] = edited[field];
   }
   if (JSON.stringify(previous.lights) !== JSON.stringify(edited.lights)) delete next.lightShadowOverrides;
   const result = { ...raw, [key]: next };
-  parseSceneEnvironmentPresetLibrary(result);
-  return result;
+  return { declarations: result, library: parseSceneEnvironmentPresetLibrary(result) };
 }

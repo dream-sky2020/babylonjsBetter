@@ -14,7 +14,7 @@ export type DungeonMapChangedEvent = {
 };
 
 export const dungeonMapChangedEvent = createLabEvent<DungeonMapChangedEvent>('dungeon.map.changed', 1, {
-  label: '地图切换完成', description: '当前地图及领域内存已提交，消费者按 loadId 绑定新会话。', trigger: '地图成功加载并提交后',
+  label: '地图切换完成', description: '当前地图及领域内存已提交，消费者按 loadId 绑定新会话；加载暂停持续到最终画面准备完成。', trigger: '地图资源及领域内存提交后，最终渲染预热前',
   fields: [{ name: 'loadId', type: 'number' }, { name: 'revision', type: 'number' }, { name: 'previousPresetKey', type: 'string | null' },
     { name: 'presetKey', type: 'string' }, { name: 'mapId', type: 'string' }, { name: 'width', type: 'number' }, { name: 'height', type: 'number' }],
 });

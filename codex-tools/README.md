@@ -5,6 +5,9 @@
 - 根目录：仍由 package.json 或项目代码使用的构建、迁移与验证工具。
 - shared-textures/：共享贴图加载验证页面和测试入口。
 - model-assets/：按作者归档的来源、许可、导入清单、处理报告与验证页面。
+- `instanceDeformationVerification.html`：开发服务中的模型硬件实例图形回归入口，验证变形、阴影、深度、绘制次数和 crossroads 实例材质编辑；结果输出到页面 `#result`。
+- `sceneWarmupVerification.html`：启动开发服务后访问 `/codex-tools/sceneWarmupVerification.html`，用真实 crossroads 模型验证视野外完整预热、阴影/变形/深度及预热后浏览无新增着色器；结果输出到 `#result`。逻辑与 Loader 生命周期回归使用 `npm run test:scene-warmup`。
+- `dungeonRenderVerification.html`：启动开发服务后访问 `/codex-tools/dungeonRenderVerification.html`，验证真实 dungeon-agent-lab 的静态变形缓存、同帧父变换、Debug 分块绘制数及正交/透视格子像素一致性；结果输出到 `#result`。格子逻辑回归使用 `npm run test:dungeon-grid-rendering`。
 
 这里同时包含可执行工具与历史档案；归档不代表所有文件都已停用。修改或删除工具前，检查 package.json、Vite 配置和代码引用。
 

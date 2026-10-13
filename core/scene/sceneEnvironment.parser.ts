@@ -190,7 +190,12 @@ export const parseSceneEnvironmentPreset = (value: unknown, key: string): SceneE
   const models = (value.models ?? []).map((item, index) => parseModel(item, `${path}.models[${index}]`));
   if (value.transformNodes !== undefined && !Array.isArray(value.transformNodes)) throw new Error(`${path}.transformNodes 必须是数组`);
   const transformNodes = (value.transformNodes ?? []).map((item, index) => parseTransformNode(item, `${path}.transformNodes[${index}]`));
-  const preset = { presetKey, name: readString(value.name, `${path}.name`), clearColor: readColor(value.clearColor, `${path}.clearColor`, true), lights, objects, models, transformNodes };
+  if (value.renderWarmup !== undefined && (!isRecord(value.renderWarmup) || typeof value.renderWarmup.enabled !== 'boolean')) {
+    throw new Error(`${path}.renderWarmup.enabled 必须是布尔值`);
+  }
+  const renderWarmup = value.renderWarmup === undefined ? undefined : { enabled: (value.renderWarmup as { enabled: boolean }).enabled };
+  const preset = { presetKey, name: readString(value.name, `${path}.name`), clearColor: readColor(value.clearColor, `${path}.clearColor`, true), lights, objects, models, transformNodes,
+    ...(renderWarmup ? { renderWarmup } : {}) };
   validateEnvironmentHierarchy(preset);
   return preset;
 };
@@ -237,6 +242,7 @@ export const parseSceneEnvironmentPresetLibrary = (value: unknown): SceneEnviron
       presetKey,
       name: readString(raw.name, `预设 ${key}.name`),
       clearColor: raw.clearColor === undefined ? base.clearColor : readString(raw.clearColor, `预设 ${key}.clearColor`),
+      renderWarmup: raw.renderWarmup === undefined ? base.renderWarmup : raw.renderWarmup,
       objects: raw.objects === undefined ? base.objects : raw.objects,
       models: raw.models === undefined ? base.models : raw.models,
       transformNodes: raw.transformNodes === undefined ? base.transformNodes : raw.transformNodes,

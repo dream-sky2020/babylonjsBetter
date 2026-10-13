@@ -250,6 +250,8 @@ export const createSceneEnvironmentAsync = async (
   options.signal?.throwIfAborted();
   const runtime = createSceneEnvironmentRuntime(scene, preset, options);
   const loadedModels: { definition: SceneEnvironmentPreset['models'][number]; entity: ModelEntity }[] = [];
+  const modelCounts = new Map<string, number>();
+  preset.models.forEach(model => modelCounts.set(model.modelPath, (modelCounts.get(model.modelPath) ?? 0) + 1));
   try {
     for (const definition of preset.models) {
       options.signal?.throwIfAborted();
@@ -258,6 +260,8 @@ export const createSceneEnvironmentAsync = async (
         name: `${preset.presetKey}:${definition.id}`,
         transparencyPolicy: definition.transparencyPolicy,
         materialOverrides: definition.materialOverrides,
+        hardwareInstances: modelCounts.get(definition.modelPath)! > 1,
+        instanceShadows: { receive: !!definition.shadow?.receive, cast: !!definition.shadow?.cast },
         signal: options.signal,
         deformation: { id: `scene:${preset.presetKey}:model:${definition.id}`, groupId: 'scene-models', label: definition.id, tags: [preset.presetKey] },
       });

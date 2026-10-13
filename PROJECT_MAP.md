@@ -1,5 +1,49 @@
 # Babylon.js Better 项目地图
 
+## 2026-10-13：真实 Dungeon 场景的静态变形缓存与格子绘制
+
+变形注册表在读取世界矩阵前先同步父链，用公共 markAsDirty/computeWorldMatrix 的非强制路径处理同一 Render ID 的编辑，避免强制重算父链导致兄弟对象互相失效。缓存保留实际世界矩阵快照：版本号改变时比较矩阵值，姿态未变就复用变形矩阵、逆矩阵和包围盒；真实姿态、设置、材质变化和动态骨骼/顶点/Adapter 保持更新。回归覆盖嵌套兄弟对象、连续帧、外部强制矩阵更新及同帧父节点/单个模型编辑。
+
+`tools/lab-modules/dungeon/dungeon-grid/dungeonGridDebugMesh.ts` 将全部格子 Debug 盒按 8×8 空间块构建静态 Thin Instance 缓冲，每块保留原盒子材质线框和实例化粗边线，父节点继续承接俯视比例，隐藏/切图/卸载沿原根节点释放资源。19×19 地图由 361 个 Mesh 改为 9 个空间块，仍由块包围盒进行视锥裁剪；不改变格子数据、选择、颜色、透明度、线宽或阴影档位。
+
+`test:dungeon-grid-rendering` 验证格子位置、分块数、实例总数、样式、父变换及资源释放。`codex-tools/dungeonRenderVerification.html` 验证真实 dungeon-agent-lab 的静态缓存、父节点编辑及 Debug 绘制数，并在正交/透视下对比分块格子与原独立盒子的像素。当前 crossroads 在同一测试视角下，227 个静态网格连续 50 帧无变形重算；全部格子开启时主画面 277 次绘制降为 51 次，原 40 次阴影绘制保持，两种投影的像素对比一致。此验证使用软件 WebGL，不证明用户实体 GPU 的 60fps。
+
+## 2026-10-13：场景预设控制完整渲染预热
+
+场景预设新增可选 `renderWarmup: { enabled: boolean }`，缺省关闭，沿场景继承并支持显式 false 覆盖；Scene Environment Lab 的场景属性提供「加载时预热全部场景」，声明保存沿现有目录 API。crossroads 开启，其他预设保持原行为。
+
+`core/scene/sceneRenderWarmup.ts` 在最终光照、阴影、视角及视觉变形就位后，对全部当前可绘制网格（含视野外硬件实例）启动完整材质/阴影就绪检查，暂时跳过视锥裁剪，执行两次真正的主画面/阴影/深度渲染并等待图形提交；调用方用不透明加载层遮住画布并暂停正常渲染/输入。结束、异常、取消均恢复裁剪，按 Scene 串行，超时不作为成功。隐藏源网格和禁用旧地图不参加绘制。
+
+Dungeon Loader 保持运行时暂停，先发布新领域内存并等待地图监听者应用最终视角/变形及角色，然后预热，最后提交 Session ready、完成切图请求并释放加载层。取消信号覆盖整个加载和预热阶段。预热失败保留失败提示与暂停，可重新加载或从侧栏切换地图；卸载释放失败层。场景编辑器完整加载也预热，原变换/材质增量路径保持即时编辑，不触发整场景预热。
+
+`test:scene-warmup` 覆盖关闭、视野外对象、取消/超时、并发恢复，以及真实 Loader 通知顺序、准备期间暂停、失败重试和关闭开关。`codex-tools/sceneWarmupVerification.html` 使用真实 crossroads 模型与阴影/变形/深度，先在场景外预热，再浏览检查是否新增着色器编译。
+
+## 2026-10-13：移动查询与 Debug 摘要优化
+
+`core/dungeon-obstacle/dungeonObstacleIndex.ts` 在每个 Traversal Session 构建按格子/侧边归类的静态放置索引；通行、斜向切角及玩家地图外移动仅查询相关桶，原障碍启用 Map 仍为权威状态，开关无需重建索引，候选地图拥有独立索引。保持原扫描结果顺序，地图结构重新装载时重建。
+
+`DungeonPlayerMovementOptions.onBlockedAttempt` 在 Core 已有预检后同步执行受阻接管，返回 true 时不创建动作或预约。Lab 不再先调用独立 inspect，同一次正常移动由三次检查减为 Core 预检加 Resolver 最终仲裁检查，保留回调/世界坐标解析之后的权威验证。玩家和 Agent 的 JSON/控件刷新改为独立 Debug 任务，4Hz 合并刷新且隐藏时跳过；模拟仍按帧更新 3D 姿态，格步规则顺序和仲裁/提交/回退不变。
+
+玩家摘要至多读取 20 个活动请求，只查询这些请求涉及的格子和交叉点预约，障碍仅输出前 20 项及总数；不再遍历完整预约表。Resolver/MovementControl 的 debugActiveMoves 支持可选上限，默认保持完整输出。完整数据沿原共享内存分页检查，地图切换时释放旧 Debug 订阅，卸载注销两个调度任务。回归覆盖索引顺序/开关/局部查询、受阻接管和检查次数、模拟阶段不序列化、隐藏跳过和有界摘要。
+
+## 2026-10-13：模块级 Lab 性能统计工作台
+
+`tools/lab-kit/performance/` 提供 LabPerformance 和全窗口统计面板，createLab 自动安装，运行采集默认关闭。Host 在 scoped scheduler 注册时包装任务和启用判断，不修改 Core SystemRunner 调度规则；LabCommunication 可选计时钩子按接收模块统计监听/处理入口，原请求、Promise、异常隔离和发布行为保持。setup/start/dispose 独立记录，Host 调度、相机、scene.render 单独归属。
+
+调度计时按模块/阶段/任务 ID 同时保存任务明细；玩家与 Agent 的 simulation/update、debug/debug-summary 可在「模拟与 Debug 任务」视图分别比较。实际运行与启用判断分列计数/耗时，每个任务有含零帧的平均/P95/峰值；晚出现任务补齐有界零帧样本。沿原计时区间汇总，不引入重复计时，模块总计及 categories 保持原口径。导出 version 1 新增 modules[].tasks；旧报告需重新采集。未改变调度、移动或同步格步规则，玩家入口直接调用的未计时 Agent 规则仍包含在玩家模拟中。
+
+界面按模块显示次数、同步累计、平均/P95/最大每帧及每次入口耗时，运行/生命周期/异步完成分开，支持搜索、排序、开始/停止、清空、JSON 导出。同步栈扣除已测子调用，不跨 await 保留栈；Promise 完成仅记录经过时间。停止、清空和卸载后丢弃旧异步结果；样本每统计项最多 1024，UI 可见时 1Hz 刷新并复用行。直接 DOM、定时器、独立 Observable、await 后续和 GPU 不自动归属，帧间通信仅计入累计/每次指标。新增 test:lab-performance 与说明文档。
+
+## 2026-10-13：编辑与调试界面的重复工作优化
+
+Scene Environment Lab 通过 prepareSceneEnvironmentDeclaration 复用当前解析结果，候选仍完整校验一次，WeakMap 按不可变历史版本缓存解析库；普通提交由四次整库解析减为一次，撤销/重做复用缓存，历史相等比较跳过未变化的声明引用。Adapter 按目标 ID 同步，并只给实际变化的变换赋值和强制计算矩阵；场景级批量同步仍检查全部声明。隐藏挂点标记、隐藏/折叠相机面板停止后台更新，面板展开同步当前相机并保留未应用草稿。
+
+通信和共享内存图平移/缩放仅更新画布变换，选中仅更新原节点/连线样式，内存节点拖动复用节点及相邻连线。通信规范/关系/历史按内容变化更新，历史按 messageId 一次建立索引；共享内存模块卡片保留 DOM，仅更新摘要和 revision。可见内存值仍保持原 4Hz 采样。回归验证对象身份、隐藏更新计数、矩阵计算次数、继承校验以及原选择/搜索/历史行为。
+
+## 2026-10-13：通信系统选中与搜索分离
+
+模块通信系统沿用共享内存面板的单一 `kind + id` 选中状态：选中模块仅高亮其直接发布/监听连线，选中事件高亮其入线/出线，仅选中对象显示选中边框。点击模块、事件或详情中的事件链接保留当前搜索、筛选、图中节点及画布视角；重复选中同一对象保留历史记录选择、参数展开状态和详情滚动，切换对象才重置。模块详情列出声明发布、实际发布与当前监听事件；搜索仅由手动输入改变。通信和共享内存图点击空白取消选中，平移不取消选中。通信面板回归覆盖直接连线范围、重复选择、鼠标/键盘选择、详情跳转、搜索和视角保留以及空白取消。
+
 ## 2026-10-13：场景环境编辑器变换增量预览
 
 `tools/scene-environment-lab` 的历史提交先比较已预览配置：仅改变模型、几何体、空节点的位置/旋转/缩放或点光/方向光位置时，通过现有 Adapter 同步原节点，不再重新导入模型或创建材质、动画与阴影。Inspector、Gizmo、批量变换及撤销/重做共用此路径；资源、几何体、层级和其他声明变更保留原重建流程。手动加载与 CSM Debug 切换不使用变换快捷路径。浏览器回归检查变换前后模型、材质、光源、动画和阴影对象身份及实际节点值。
@@ -642,6 +686,10 @@ Agent 活动动作使用活动集合；连续 Controller 决策默认 100ms 一�
 Core 的 `DungeonTraversalWorld` 与 `DungeonMovementResolver` 在离散状态变化时发同步订阅通知，Lab 模块将其转换成带 `loadId` 的类型化 Communication 事件；同一次移动的请求与实占位提交用 `requestId` 关联。逐帧动画仍直接推进 Core，不逐帧广播或扫描全图 Debug。模块 Session 读取 Loader 的原子引用，切图时释放旧 Core 订阅。通信与状态边界见 `tools/lab-kit/README.md`。
 
 ## 2026-09-27：可选世界对象俯视顶点变形
+
+实例批次的隐藏源网格必须留在 `scene.meshes`，以接收 Babylon 的光源启用、替换与销毁更新；源网格使用 `isVisible = false` 和 `isPickable = false` 隐藏，而不能从 Scene 移除。InstancedMesh 从源网格共享光照列表，移除源网格会在 staged 地图激活后留下空光照列表（crossroads 重复树变黑）。实例回归页包含先禁用、后启用灯光的图形对比及实际树模型检查。
+
+2026-10-13 渲染优化：`VisualDeformationRegistry` 对静态对象缓存矩阵及显示包围盒，姿态/材质/配置改变时才重算，骨骼/Morph/可更新顶点和粒子适配器保留动态更新。`core/model/prefab/modelInstanceBatch.ts` 为场景重复静态模型创建隐藏源批次，按透明策略与投射/接收阴影标志共享材质；四列逐实例矩阵接入 Standard/PBR 的变形、阴影及深度路径。动画、动态几何和材质覆盖保持独立 Mesh；编辑共享实例的材质时转为独立 Mesh 并重绑变形和阴影投射列表。Dungeon Loader 使用 `staged: true` 隐藏新场景（包含光源），提交时同步禁用旧根并启用新根，再等待通信与释放；候选场景不提前改变背景色。阴影预设及质量参数保持原样。`codex-tools/instanceDeformationVerification.html` 使用真实 WebGL 对比实例与克隆的画面/阴影/深度/绘制次数，并验证 crossroads GLB 的独立材质编辑。
 
 `core/render-deformation/` 新增 Scene 级显示对象注册表与可释放的独占控制句柄，统一拥有自动俯角补偿/手动倾斜公式、分组/标签/类型/对象规则、材质绑定、显示包围盒、仿射拾取和深度适配。当前俯角继续从 `dungeon-overhead-view` 的有效配置订阅，不另存相机角度；地面格距仍由 `core/dungeon-view` 管理，物体变形不修改 Runtime、节点姿态、原始顶点或粒子模拟。
 

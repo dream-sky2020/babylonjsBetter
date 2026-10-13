@@ -1,4 +1,5 @@
 export * from './sceneEnvironment.types';
+export * from './sceneRenderWarmup';
 export * from './sceneEnvironment.parser';
 export * from './createSceneEnvironment';
 export * from './createDungeonMapSceneEnvironment';

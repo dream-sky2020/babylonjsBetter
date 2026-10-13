@@ -14,6 +14,8 @@ import type { ModelAssetProfile } from '@/core/model/types/model-asset-profile.t
 export type ModelFileFormat = 'glb' | 'gltf';
 
 export type CreateModelEntityOptions = {
+  hardwareInstances?: boolean;
+  instanceShadows?: { receive: boolean; cast: boolean };
   materialOverrides?: ModelMaterialBindings;
   signal?: AbortSignal;
   /** Attach before asynchronous preparation so staged scenes can keep models hidden. */

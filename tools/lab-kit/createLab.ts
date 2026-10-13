@@ -25,6 +25,9 @@ import {
   labKeyboardGlobalEnabledChangedEvent,
 } from './keyboard';
 import { createLabCameraSystem } from './camera';
+import { LabPerformance, profileSystemTask } from './performance/LabPerformance';
+import { createLabPerformancePanel } from './performance/labPerformancePanel';
+import type { SystemTask } from '@/core/system-runtime/SystemRunner';
 
 type ActiveModule = {
   readonly entry: LabExecutionPlanEntry;
@@ -139,7 +142,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   camera.lowerRadiusLimit = 3;
   camera.upperRadiusLimit = 500;
   camera.wheelPrecision = 8;
-  const communication = new LabCommunication();
+  const performanceStats = new LabPerformance(executionPlan.entries.map(entry => entry.moduleId));
+  const communication = new LabCommunication({ measure: (id, kind, callback) => performanceStats.measure(id, kind, callback) });
   const hostCommunication = communication.scope('lab:host');
   const keyboardSettings: KeyboardSettingsState = { globalEnabled: true, consumers: {} };
   let markKeyboardSettingsChanged = (): void => {};
@@ -164,6 +168,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     },
   });
   const runner = new SystemRunner();
+  const registerTask = (owner: string, task: SystemTask) => runner.register(owner, profileSystemTask(performanceStats, owner, task));
   const services = new LabServiceRegistry();
   const memory = new LabMemoryRegistry();
   const ui = new LabUi(panels, status);
@@ -214,11 +219,12 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const viewport = new LabViewportManager(stage, canvas, cameraSystem, () => engine.resize());
   const disposeMemoryPanel = createLabMemoryPanel(ui, viewport, memory, executionPlan.entries.map(entry => entry.module));
   const disposeCommunicationPanel = createLabCommunicationPanel(ui, viewport, communication);
+  const disposePerformancePanel = createLabPerformancePanel(ui, viewport, performanceStats);
   stage.append(badge);
   const allModuleIds = new Set(executionPlan.entries.map(({ moduleId }) => moduleId));
   const context: LabContext = {
     memory: memory.scope('lab:host'),
-    scheduler: { get isPaused() { return runner.isPaused; }, register: task => runner.register('lab:host', task) },
+    scheduler: { get isPaused() { return runner.isPaused; }, register: task => registerTask('lab:host', task) },
     labState,
     engine,
     scene,
@@ -241,7 +247,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       executionMonitor.beginDispose(entry.moduleId);
       let failed = false;
       try {
-        lifecycle.dispose?.();
+        performanceStats.measure(entry.moduleId, 'dispose', () => lifecycle.dispose?.());
       } catch (error) {
         failed = true;
         errors.push(error);
@@ -265,15 +271,15 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       executionMonitor.beginSetup(entry.moduleId);
       try {
         for (const event of entry.module.events ?? []) moduleCommunication.declareEvent(event.definition, { publishes: event.publishes });
-        const result = await entry.module.setup({
+        const result = await performanceStats.measure(entry.moduleId, 'setup', () => entry.module.setup({
           ...context,
           memory: memory.scope(entry.moduleId),
           ui: ui.scope(entry.module),
-          scheduler: { get isPaused() { return runner.isPaused; }, register: task => runner.register(entry.moduleId, task) },
+          scheduler: { get isPaused() { return runner.isPaused; }, register: task => registerTask(entry.moduleId, task) },
           communication: moduleCommunication,
           services: services.scope(entry.moduleId, entry.module.manifest
             ? new Set(entry.dependencies) : collectDependencyIds(entry.moduleId, executionPlan)),
-        });
+        }));
         activeModules.push({ entry, communication: moduleCommunication, lifecycle: normalizeLifecycle(result) });
         executionMonitor.completeSetup(entry.moduleId);
       } catch (error) {
@@ -293,7 +299,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     for (const active of activeModules) {
       executionMonitor.beginStart(active.entry.moduleId);
       try {
-        await active.lifecycle.start?.();
+        if (active.lifecycle.start) await performanceStats.measure(active.entry.moduleId, 'start', () => active.lifecycle.start!());
         executionMonitor.completeStart(active.entry.moduleId);
       } catch (error) {
         executionMonitor.fail(active.entry.moduleId, error);
@@ -304,14 +310,15 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     services.setPhase('ready');
     engine.runRenderLoop(() => {
       const deltaSeconds = engine.getDeltaTime() / 1000;
+      performanceStats.beginFrame();
       try {
-        runner.update('simulation', deltaSeconds);
-        cameraSystem.update(deltaSeconds);
+        performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('simulation', deltaSeconds));
+        performanceStats.measure('lab:host/camera', 'host', () => cameraSystem.update(deltaSeconds));
         if (!viewport.isBabylonRenderingPaused) {
-          runner.update('presentation', deltaSeconds);
-          scene.render();
+          performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('presentation', deltaSeconds));
+          performanceStats.measure('lab:host/render', 'host', () => scene.render());
         }
-        runner.update('debug', deltaSeconds);
+        performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('debug', deltaSeconds));
       } catch (error) {
         // Fail closed: never continue a partially executed simulation frame.
         runner.setPaused(true);
@@ -319,6 +326,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
         context.ui.setStatus(error instanceof Error ? error.message : String(error), true);
         engine.stopRenderLoop();
         console.error(error);
+      } finally {
+        performanceStats.endFrame();
       }
     });
     context.ui.setStatus(`已组合 ${executionPlan.entries.length} 个 Lab 模块。`);
@@ -328,6 +337,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     disposeKeyboardPanel();
     disposeMemoryPanel();
     disposeCommunicationPanel();
+    disposePerformancePanel(); performanceStats.dispose();
     memory.dispose();
     viewport.dispose();
     cameraSystem.dispose();
@@ -347,7 +357,14 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   }
 
   let disposed = false;
+  let finalPerformance: ReturnType<LabPerformance['inspect']> | undefined;
   return {
+    performance: {
+      start() { if (!disposed) performanceStats.start(); },
+      stop() { if (!disposed) performanceStats.stop(); },
+      clear() { if (!disposed) performanceStats.clear(); },
+      inspect() { return finalPerformance ? structuredClone(finalPerformance) : performanceStats.inspect(); },
+    },
     context,
     executionPlan,
     moduleIds: executionPlan.entries.map(({ moduleId }) => moduleId),
@@ -355,10 +372,12 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       if (disposed) return;
       disposed = true;
       const cleanupErrors = disposeModules();
+      performanceStats.stop(); finalPerformance = performanceStats.inspect();
       disposeLabStatePanel();
       disposeKeyboardPanel();
       disposeMemoryPanel();
       disposeCommunicationPanel();
+      disposePerformancePanel(); performanceStats.dispose();
       memory.dispose();
       viewport.dispose();
       cameraSystem.dispose();

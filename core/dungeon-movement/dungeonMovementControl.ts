@@ -4,7 +4,7 @@ import type { DungeonMovementResolver } from './dungeonMovementResolver.ts';
 type Capability = Pick<DungeonMovementResolver, 'updateConfig' | 'subscribe' | 'debugActiveMoves'>;
 export type DungeonMovementControl = {
   updateConfig(loadId: number, next: Parameters<Capability['updateConfig']>[0]): boolean;
-  debugActiveMoves(loadId: number): ReturnType<Capability['debugActiveMoves']>;
+  debugActiveMoves(loadId: number, limit?: number): ReturnType<Capability['debugActiveMoves']>;
   subscribe(loadId: number, listener: Parameters<Capability['subscribe']>[0]): () => void;
 };
 export const DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY = createServiceToken<DungeonMovementControl>('dungeon:movement-control');
@@ -14,9 +14,9 @@ export const createDungeonMovementControl = (read: () => { loadId: number; resol
     if (!current || current.loadId !== loadId) return false;
     current.resolver.updateConfig(next); return true;
   },
-  debugActiveMoves(loadId) {
+  debugActiveMoves(loadId, limit) {
     const current = read();
-    return current?.loadId === loadId ? current.resolver.debugActiveMoves() : [];
+    return current?.loadId === loadId ? current.resolver.debugActiveMoves(limit) : [];
   },
   subscribe(loadId, listener) {
     const current = read();

@@ -499,10 +499,17 @@ export const dungeonAgentLabModule: LabModule = {
       });
     };
 
-    const refreshPanel = () => {
+    let panelDirty = true;
+    let pendingStatus: string | null = null;
+    const notifyMemories = () => {
       if (agentStateMemory.current) agentStateMemory.markChanged();
       if (controllersMemory.current) controllersMemory.markChanged();
       if (navigationMemory.current) navigationMemory.markChanged();
+    };
+    const queuePanelRefresh = () => { notifyMemories(); panelDirty = true; };
+    const renderPanel = () => {
+      if (panel.content.hidden) { panelDirty = true; return; }
+      panelDirty = false;
       const agent = selectedAgent();
       const data = agentStateMemory.current;
       const descriptionData = descriptionsMemory.current;
@@ -572,8 +579,9 @@ export const dungeonAgentLabModule: LabModule = {
         } : { loaded: false }, null, 2);
       }
     };
+    const refreshPanel = () => { pendingStatus = null; notifyMemories(); renderPanel(); };
     const panelVisibilityObserver = new MutationObserver(() => {
-      if (!panel.content.hidden) refreshPanel();
+      if (!panel.content.hidden) renderPanel();
     });
     panelVisibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
 
@@ -725,16 +733,25 @@ export const dungeonAgentLabModule: LabModule = {
         const { completed, actions, changed } = agentSystem.update(deltaSeconds);
         changed.forEach(agent => syncMarker(agent.binding.entity.id));
         if (!completed.length && !actions.length) return;
-        status.textContent = actions.length
+        pendingStatus = actions.length
           ? describeControllerActions(actions)
           : `${completed.length} 个 Agent 完成移动或转向。`;
-        refreshPanel();
+        queuePanelRefresh();
         publishControllerActions(actions);
         if (completed.length) void context.communication.publish(dungeonAgentsChangedEvent, {
           loadId: loaded.loadId,
           entityIds: completed,
           reason: 'movement-completed',
         });
+      },
+    });
+    const stopDebugTask = context.scheduler.register({
+      id: 'debug-summary', phase: 'debug', order: 210, intervalSeconds: .25,
+      description: '合并更新可见 Agent 面板',
+      run: () => {
+        if (panel.content.hidden) return;
+        if (pendingStatus !== null) { status.textContent = pendingStatus; pendingStatus = null; }
+        if (panelDirty || agentStateMemory.current?.activeAgentIds?.size) renderPanel();
       },
     });
 
@@ -781,8 +798,8 @@ export const dungeonAgentLabModule: LabModule = {
 
       const actions = agentSystem?.afterPlayerStep(changed) ?? [];
       actions.forEach(action => syncMarker(action.entityId));
-      status.textContent = `玩家格步触发第 ${controllersMemory.current?.turnNumber} 回合；${describeControllerActions(actions)}`;
-      refreshPanel();
+      pendingStatus = `玩家格步触发第 ${controllersMemory.current?.turnNumber} 回合；${describeControllerActions(actions)}`;
+      queuePanelRefresh();
       publishControllerActions(actions);
     });
 
@@ -793,6 +810,7 @@ export const dungeonAgentLabModule: LabModule = {
       offRuntimeChanged();
       offView();
       stopFrameTask();
+      stopDebugTask();
       panelVisibilityObserver.disconnect();
       disposeMarkers();
       displayRoot.dispose();

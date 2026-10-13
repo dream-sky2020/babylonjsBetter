@@ -140,6 +140,7 @@ export const createFloatingCameraControlPanel = (
   const renderStatus = (): void => { if (status) status.value = controller.getStatusText(); };
   let lastSyncTime = 0;
   const updateStatus = (): void => {
+    if (!visible || collapsed) return;
     if (!dirty && performance.now() - lastSyncTime > 100) {
       lastSyncTime = performance.now();
       controller.refreshStateFromActiveCamera();
@@ -199,6 +200,7 @@ export const createFloatingCameraControlPanel = (
     collapsed = nextCollapsed;
     if (body) body.style.display = collapsed ? 'none' : '';
     if (toggle) toggle.textContent = collapsed ? '展开' : '折叠';
+    if (!collapsed && visible) { if (!dirty) controller.refreshStateFromActiveCamera(); populate(false); }
     if (notify) options.onCollapsedChanged?.(collapsed);
   };
   toggle?.addEventListener('pointerdown', (event) => event.stopPropagation()); toggle?.addEventListener('click', (event) => { event.stopPropagation(); setCollapsed(!collapsed, true); });
