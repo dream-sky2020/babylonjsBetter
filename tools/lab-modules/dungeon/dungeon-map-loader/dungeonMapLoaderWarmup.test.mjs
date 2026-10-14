@@ -9,7 +9,7 @@ import { createEntityContainer } from '../../../../core/entity/entity.utils.ts';
 import { migrateDungeonMapToDocumentV2 } from '../../../../core/map-document/dungeonMapDocument.migrate.ts';
 
 test('loader warms after view publication, keeps loading paused and fails closed until retry', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false },
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/dungeon-warmup-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<aside></aside><div id="status"></div>');
   const previous = new Map();

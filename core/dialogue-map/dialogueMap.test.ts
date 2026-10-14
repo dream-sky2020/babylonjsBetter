@@ -16,9 +16,9 @@ const legacy: LegacyDialogueMapPreset = {
   },
 };
 
-test('V1 migrates directly to unified V3 nodes and output ports', () => {
+test('V1 migrates directly to unified V4 nodes and output ports', () => {
   const document = migrateLegacyDialogueMapPreset(legacy); const greeting = document.graph.nodes.get('greeting')!; const outputId = dialogueOutputPortId('greeting', 'go');
-  assert.equal(document.schemaVersion, 3); assert.equal('startNodeId' in document.graph, false); assert.equal('kind' in greeting, false); assert.equal(greeting.outputs.get(outputId)?.label, '继续'); assert.deepEqual(greeting.outputs.get(outputId)?.effects, ['quest:start']); assert.equal(document.graph.edges.get(dialogueEdgeId('greeting', 'go'))?.from.portId, outputId);
+  assert.equal(document.schemaVersion, 4); assert.equal('startNodeId' in document.graph, false); assert.equal('kind' in greeting, false); assert.equal(greeting.outputs.get(outputId)?.label, '继续'); assert.deepEqual(greeting.outputs.get(outputId)?.effects, [{ type: 'legacy', event: 'quest:start' }]); assert.equal(document.graph.edges.get(dialogueEdgeId('greeting', 'go'))?.from.portId, outputId);
 });
 
 test('V2 migrates options, removes kinds and preserves edges', () => {
@@ -26,13 +26,13 @@ test('V2 migrates options, removes kinds and preserves edges', () => {
   const document = parseDialogueEditorDocument(v2); assert.equal(document.graph.nodes.get('a')?.outputs.size, 1); assert.equal(document.graph.edges.get('edge')?.from.portId, dialogueOutputPortId('a', 'next')); assert.deepEqual(validateDialogueEditorDocument(document), []);
 });
 
-test('V3 round trip preserves first-class inputs and outputs', () => {
-  const document = createDialogueEditorDocument('test', 'Test'); const node = document.graph.nodes.get('start')!; const outputId = dialogueOutputPortId(node.id, 'auto'); node.outputs.set(outputId, { id: outputId, label: 'Go', activation: { type: 'auto', priority: 2 }, effects: ['opened'] }); node.outputOrder.push(outputId); const target = createDialogueEditorNode('target', { x: 240, y: 96 }); document.graph.nodes.set(target.id, target); document.graph.edges.set('edge', { id: 'edge', from: { nodeId: node.id, portId: outputId }, to: { nodeId: target.id, portId: dialogueNodeInputPortId(target.id) } });
-  const encoded = encodeDialogueEditorDocument(document); const parsed = parseDialogueEditorDocument(encoded); assert.equal(encoded.schemaVersion, 3); assert.equal(parsed.graph.nodes.get('start')?.outputs.get(outputId)?.activation.type, 'auto'); assert.deepEqual(validateDialogueEditorDocument(parsed), []);
+test('V4 round trip preserves first-class inputs and outputs', () => {
+  const document = createDialogueEditorDocument('test', 'Test'); const node = document.graph.nodes.get('start')!; const outputId = dialogueOutputPortId(node.id, 'auto'); node.outputs.set(outputId, { id: outputId, label: 'Go', activation: { type: 'auto', priority: 2 }, effects: [{ type: 'legacy', event: 'opened' }] }); node.outputOrder.push(outputId); const target = createDialogueEditorNode('target', { x: 240, y: 96 }); document.graph.nodes.set(target.id, target); document.graph.edges.set('edge', { id: 'edge', from: { nodeId: node.id, portId: outputId }, to: { nodeId: target.id, portId: dialogueNodeInputPortId(target.id) } });
+  const encoded = encodeDialogueEditorDocument(document); const parsed = parseDialogueEditorDocument(encoded); assert.equal(encoded.schemaVersion, 4); assert.equal(parsed.graph.nodes.get('start')?.outputs.get(outputId)?.activation.type, 'auto'); assert.deepEqual(validateDialogueEditorDocument(parsed), []);
 });
 
 test('structural validation and quality diagnostics are separated', () => {
-  const document = createDialogueEditorDocument('test', 'Test'); const node = document.graph.nodes.get('start')!; const outputId = dialogueOutputPortId(node.id, 'conditional'); node.outputs.set(outputId, { id: outputId, activation: { type: 'choice' }, condition: 'flag' }); node.outputOrder.push(outputId);
+  const document = createDialogueEditorDocument('test', 'Test'); const node = document.graph.nodes.get('start')!; const outputId = dialogueOutputPortId(node.id, 'conditional'); node.outputs.set(outputId, { id: outputId, activation: { type: 'choice' }, condition: { type: 'legacy', expression: 'flag' } }); node.outputOrder.push(outputId);
   assert.deepEqual(validateDialogueEditorDocument(document), []); const codes = diagnoseDialogueEditorDocument(document).map((item) => item.code); assert.ok(codes.includes('dangling-output')); assert.ok(codes.includes('missing-fallback-output'));
 });
 
@@ -41,5 +41,5 @@ test('reachability is diagnosed relative to an explicit entry', () => {
 });
 
 test('runtime chooses automatic outputs and ends at nodes without outputs', () => {
-  const document = createDialogueEditorDocument('runtime', 'Runtime'); const start = document.graph.nodes.get('start')!; const end = createDialogueEditorNode('end', { x: 240, y: 96 }); document.graph.nodes.set(end.id, end); const outputId = dialogueOutputPortId('start', 'next'); start.outputs.set(outputId, { id: outputId, activation: { type: 'auto', priority: 1 }, effects: ['arrived'] }); start.outputOrder.push(outputId); document.graph.edges.set('edge', { id: 'edge', from: { nodeId: 'start', portId: outputId }, to: { nodeId: 'end', portId: dialogueNodeInputPortId('end') } }); const session = startDialogue(document, 'start'); const transition = stepDialogue(session); assert.deepEqual(transition, { type: 'transition', nodeId: 'start', outputId, targetNodeId: 'end', effects: ['arrived'] }); assert.deepEqual(stepDialogue(session), { type: 'ended', nodeId: 'end', reason: 'no-outputs' });
+  const document = createDialogueEditorDocument('runtime', 'Runtime'); const start = document.graph.nodes.get('start')!; const end = createDialogueEditorNode('end', { x: 240, y: 96 }); document.graph.nodes.set(end.id, end); const outputId = dialogueOutputPortId('start', 'next'); start.outputs.set(outputId, { id: outputId, activation: { type: 'auto', priority: 1 }, effects: [{ type: 'legacy', event: 'arrived' }] }); start.outputOrder.push(outputId); document.graph.edges.set('edge', { id: 'edge', from: { nodeId: 'start', portId: outputId }, to: { nodeId: 'end', portId: dialogueNodeInputPortId('end') } }); const session = startDialogue(document, 'start'); const transition = stepDialogue(session); assert.deepEqual(transition, { type: 'transition', nodeId: 'start', outputId, targetNodeId: 'end', effects: [{ type: 'legacy', event: 'arrived' }] }); assert.deepEqual(stepDialogue(session), { type: 'ended', nodeId: 'end', reason: 'no-outputs' });
 });

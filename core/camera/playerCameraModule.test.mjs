@@ -9,7 +9,7 @@ import { createCameraLabController } from './cameraLabController.ts';
 const near = (a, b) => assert.ok(Math.abs(a - b) < 1e-6, `${a} != ${b}`);
 
 test('player camera module applies/saves orthographic overhead without changing first-person runtime control', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false },
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/player-camera-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<!doctype html><canvas></canvas><aside></aside><div id="status"></div>', { url: 'http://localhost/player-camera-test' });
   const previous = new Map();

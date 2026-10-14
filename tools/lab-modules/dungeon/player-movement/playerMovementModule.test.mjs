@@ -9,7 +9,7 @@ import { migrateDungeonMapToDocumentV2 } from '../../../../core/map-document/dun
 import { createDungeonRuntime } from '../../../../core/dungeon-runtime/dungeonRuntime.ts';
 
 test('player simulation reuses blocked inspection and defers bounded Debug summaries, including hidden panels', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false },
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/player-movement-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<aside></aside><div id="status"></div>', { url: 'http://localhost/player-test' });
   const previous = new Map();

@@ -5,7 +5,7 @@ import { createServer } from 'vite';
 import { JSDOM } from 'jsdom';
 
 test('module workspace controls capture, separates lifecycle/wait time, searches without changing capture and reuses rows', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false }, optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/lab-performance-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false }, optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<body></body>'), originals = new Map(), timers = new Map();
   let cleanup, timerId = 0;
   for (const [key, value] of Object.entries({ document: dom.window.document, MutationObserver: dom.window.MutationObserver,

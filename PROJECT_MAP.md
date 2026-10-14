@@ -1,5 +1,39 @@
 # Babylon.js Better 项目地图
 
+## 2026-10-14：Dialogue Canvas 鼠标锚点滚轮缩放
+
+`core/ui/node-graph/graphViewport.ts` 增加 zoomGraphViewAtPoint、normalizeGraphWheelDelta 和 zoomGraphViewWithWheel：先记录鼠标所在的世界点，变更 scale 后同步反算 x/y，保持该点的屏幕位置。滚轮 pixel/line/page 单位统一为像素，单次增量限制 ±200，使用指数缩放；比例继续限制为 0.3–2.2，达到边界或增量为零时保留原 view 引用和位移。Dialogue Canvas 用 passive:false 原生 wheel 监听接入，使用画布局部 CSS 坐标，不乘 DPR；卸载清理监听，拖动/连线期间忽略缩放。
+
+本批只接入 Dialogue Map 编辑器，其他 Lab 的缩放行为保持原样。`graphViewport.test.ts` 验证平移后及不同锚点的不漂移、反向滚动恢复、滚轮单位、触控板小增量和缩放边界；纳入 test:dialogue-map。实际页面确认 50%→110% 放大后原鼠标坐标仍命中同一输出端口。
+
+## 2026-10-14：Dialogue Canvas 字体笔画安全区与像素对齐
+
+`dialogueCanvasText.ts` 使用 alphabetic 基线和实际 glyph ascent/descent/左右边界，将字形放在原裁剪区内部的安全位置；字体大小、绘制坐标按 DPR 对齐，屏幕字号至少 10px。排版字体提高到正文 12px/标题 14px，行高 18px；世界排版预留笔画与取整空间，渲染时按当前字号重新检查单行宽度。90% 以下使用简略文字，45% 以下隐藏正文，仅保留节点概览；节点几何仍不随缩放改变。标题与 PREVIEW 按屏幕字体宽度及安全区分配空间。文字在本节点的背景、高亮、分隔线和端口之后绘制，保持其他节点原有叠放关系。
+
+`codex-tools/dialogueTextVerification.html` 对比旧版顶部基线裁剪与新绘制方法，在 8 种缩放、DPR 1/1.25/2 下比较裁剪/未裁剪的字形像素，并确认两行均有绘制；24 组检查中新绘制没有丢失笔画像素。回归测试覆盖实际字形边界、像素对齐和阅读模式。原有换行、末行省略、共享命中布局及 Vite 测试缓存隔离继续保留。
+
+## 2026-10-14：Vite 开发与验证服务依赖缓存隔离
+
+`vite.config.ts` 将正常开发服务的 cacheDir 固定到 `node_modules/.cache/vite-dev`。使用 Vite createServer 的模块/UI 回归测试和 Scene Environment 浏览器验证各自使用 `node_modules/.cache/vite-tests/<测试名>-<进程 ID>`，不再与开发服务或其他测试共用依赖元数据。修复临时测试服务覆盖默认 `.vite/deps` 后，正在运行的 Dungeon Map Canvas 继续请求旧 Three.js/OrbitControls 预构建版本并返回 504 Outdated Optimize Dep 的问题。配置更新后由 Vite 自动重启并重建开发缓存，不修改预设、模型资源或 Python 数据服务。
+
+## 2026-10-14：Dialogue Canvas 文字测量、换行与区域裁剪
+
+`core/ui/canvas-text/canvasTextLayout.ts` 提供可注入测量函数的纯文字排版：按实际宽度省略、显式换行、英文单词优先换行、长单词拆分、grapheme 完整性和最大行数。Dialogue 编辑器使用 `dialogueCanvasLayout.ts` 的独立 Canvas 按世界坐标字体测量，通过 WeakMap 缓存不可变节点的排版结果；缩放和 DPR 不改变节点几何。
+
+`core/dialogue-map/dialogueNodeLayout.ts` 可接收测量函数，保存行内文字块并按实际行数向上对齐网格：说话者/输出标签单行，正文最多 3 行，输出摘要最多 2 行，末行省略。绘制、命中、连线端口、适配视图、Inspector 高度及诊断共用同一份测量布局。标题为 PREVIEW 预留空间；`dialogueCanvasText.ts` 每个文字区域独立裁剪并恢复绘图状态，不压缩字形。简略视图保持单行宽度省略，关闭说话者/正文显示时不绘制对应块。保持节点保存的位置和设定高度，文字增长只增加派生的最小/实际高度，不修改 schema。
+
+`npm run test:dialogue-map` 增加文字宽度、中文/英文/手动换行、emoji、窄节点、行高/端口及裁剪状态回归；通过生产构建页面验证实际换行、省略及放大后的命中位置。
+
+## 2026-10-14：Dialogue Map V4 规则与可视化编辑
+
+`core/dialogue-map/` 写出 schemaVersion 4，保留统一节点、输入/输出端口与连线。condition 使用 compare/all/any/not；值引用支持 literal 或 memory 的 key + path。effects 使用带 eventType/version/payload 的事件对象；接收事件也保存协议版本。V1–V3 读取后统一为 V4，旧条件和效果字符串保留为显式 legacy 对象，不猜测表达式含义。dialogueRules.ts 负责解析、结构/目录校验及摘要；草稿通过 structuredClone 复制，保存时校验，未完成规则不妨碍继续编辑。
+
+`tools/dialogue-map-canvas-lab/DialogueRuleEditor.tsx` 提供递归条件组、共享内存字段和常量编辑、接收/触发事件、参数添加/删除/重命名、事件排序与显式旧规则转换。dialogueRuleCatalog.ts 是独立编辑器的静态字段/事件目录，首批覆盖玩家状态、地图尺寸、会话状态和三种 Dungeon 事件；未登记引用可手填，显示警告，目录不分配运行内存。Canvas 显示出口规则摘要。dialogueHistory.ts 保留最多 100 次文档库编辑，支持撤销/重做；输入框内保留原生文本撤销，画布范围支持 Ctrl+Z、Ctrl+Shift+Z/Ctrl+Y。
+
+`python/dialogue_rules.py` 校验 V4 规则，`/api/dialogue-map-presets` 接受 V1–V4。编辑器按目录额外检查字段类型与必需参数，结构错误阻止保存，未登记引用和 legacy 给出警告。现有 Core runtime 的条件调用扩展 evaluateRule，保留 legacy evaluator，返回结构化 effects；本批不连接 Lab 内存或执行事件。运行规则与游戏 UI 文档继续分离。
+
+验证：`npm run test:dialogue-map`、`npm run typecheck:dialogue-map`、`python -m unittest discover -s python -p test_dialogue_map_v4.py -v`。`codex-tools/buildDialogueMapLab.mjs` 独立构建编辑器；使用生产构建预览验证真实编辑操作、撤销/重做和面板宽度，不写入用户的预设保存服务。
+
 ## 2026-10-14：三面板拖动分区与场景纹理资源分析
 
 左侧工作区升级为对象、材质、纹理三个独立面板，默认对象在左、材质与纹理在右上下排列。sceneEnvironmentDockLayout.ts 管理受校验的二叉分区树：拖动标题栏到其他面板的上下左右边缘可重新分区，落点预览、分区尺寸拖动／键盘调整／双击重置、独立显隐折叠、上下／左右快捷排列和恢复默认布局均沿 sceneEnvironmentWorkspace.tsx 实现。面板 DOM 保持挂载以保留搜索与滚动；隐藏后剩余面板占满区域，布局通过 workspace:v2 保存并读取 v1 显隐、边框与宽度偏好，损坏布局回退默认。第一版不合并标签页。

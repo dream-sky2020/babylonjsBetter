@@ -5,7 +5,7 @@ import { createServer } from 'vite';
 import { JSDOM } from 'jsdom';
 
 test('communication workspace shows dormant protocols, actual routing and dispatch payload history', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false },
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/lab-communication-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<body></body>'), previous = new Map(), frames = new Map();
   let nextFrame = 0, cleanup, communication;

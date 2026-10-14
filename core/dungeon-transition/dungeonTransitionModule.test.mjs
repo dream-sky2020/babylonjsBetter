@@ -10,7 +10,7 @@ import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocumen
 import { createDungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 
 test('transition module preserves synchronous step precedence, interaction/PUSH, input locks and cleanup with domain memory', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false },
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/dungeon-transition-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<aside></aside><div id="status"></div>', { url: 'http://localhost/transition-test' });
   const previous = new Map();

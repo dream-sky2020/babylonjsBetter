@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>Dialogue text verification</title>
+<style>body{background:#101827;color:#ddd;font:14px sans-serif}section{display:flex;gap:12px;flex-wrap:wrap}figure{margin:8px}canvas{background:#19263b}pre{white-space:pre-wrap}</style></head>
+<body><h1>对话文字缩放验证</h1><pre id="result">正在检查</pre><section id="samples"></section>
+<script type="module">
+import { drawDialogueCanvasText } from '../tools/dialogue-map-canvas-lab/dialogueCanvasText.ts';
+import { DIALOGUE_NODE_TEXT_STYLE } from '../core/dialogue-map/dialogueNodeLayout.ts';
+const lines = ['北边树林里出现了魔物。若你愿意帮忙，', '村长会感谢你的。请留意树林深处的动静。'];
+const family = '"Segoe UI", "Microsoft YaHei", sans-serif';
+const dpr = devicePixelRatio;
+function render(mode, scale, clipped, ratio) {
+  const canvas = document.createElement('canvas'); canvas.width = 420 * ratio; canvas.height = 96 * ratio;
+  canvas.style.width = '420px'; canvas.style.height = '96px';
+  const ctx = canvas.getContext('2d'); ctx.scale(ratio, ratio);
+  const originalFillText = ctx.fillText.bind(ctx); canvas.paintedLines = 0;
+  ctx.fillText = (...args) => { canvas.paintedLines++; originalFillText(...args); };
+  const box = { x: 18.37, y: 18.63, width: 370 * scale, height: 28 * scale, scale, color: '#d3dae3' };
+  if (mode === 'old') {
+    if (clipped) { ctx.beginPath(); ctx.rect(box.x, box.y, box.width, box.height); ctx.clip(); }
+    ctx.font = `400 ${10 * scale}px ${family}`; ctx.fillStyle = box.color; ctx.textBaseline = 'top';
+    lines.forEach((line, index) => ctx.fillText(line, box.x, box.y + index * 14 * scale));
+  } else {
+    if (!clipped) ctx.clip = () => {};
+    drawDialogueCanvasText(ctx, { lines, truncated: false }, { ...box, height: lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight * scale });
+  }
+  return canvas;
+}
+const report = { dpr, checks: [] };
+for (const ratio of [1, 1.25, 2]) for (const scale of [.75, .8, .9, .97, 1, 1.1, 1.25, 1.5]) {
+  const entry = { ratio, scale };
+  for (const mode of ['old', 'new']) {
+    const clipped = render(mode, scale, true, ratio), plain = render(mode, scale, false, ratio);
+    const a = clipped.getContext('2d').getImageData(0, 0, clipped.width, clipped.height).data;
+    const b = plain.getContext('2d').getImageData(0, 0, plain.width, plain.height).data;
+    let lost = 0, visible = 0; for (let i=3; i<a.length; i+=4) { if (b[i] > a[i]) lost++; if (a[i]) visible++; }
+    entry[`${mode}ClippedPixels`] = lost;
+    entry[`${mode}InkPixels`] = visible;
+    entry[`${mode}PaintedLines`] = clipped.paintedLines;
+    const figure = document.createElement('figure'), caption = document.createElement('figcaption');
+    caption.textContent = `${mode} / DPR ${ratio} / ${scale} / 裁掉 ${lost} 像素`; figure.append(caption, clipped);
+    if (ratio === dpr) document.querySelector('#samples').append(figure);
+  }
+  report.checks.push(entry);
+}
+report.passed = report.checks.every(item => item.newClippedPixels === 0 && item.newInkPixels > 0 && item.newPaintedLines === lines.length);
+document.querySelector('#result').textContent = JSON.stringify(report, null, 2);
+</script></body></html>

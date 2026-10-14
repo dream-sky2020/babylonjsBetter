@@ -9,6 +9,32 @@ export const graphScreenPoint = (point: GraphPoint, view: GraphView): GraphPoint
   x: view.x + point.x * view.scale, y: view.y + point.y * view.scale,
 });
 
+/** Keep the world point underneath a CSS-pixel canvas position stationary. */
+export const zoomGraphViewAtPoint = (
+  view: GraphView, anchor: GraphPoint, scale: number, minScale = .3, maxScale = 2.2,
+): GraphView => {
+  if (!Number.isFinite(scale) || !Number.isFinite(anchor.x) || !Number.isFinite(anchor.y) || !(view.scale > 0)) return view;
+  const nextScale = Math.min(maxScale, Math.max(minScale, scale));
+  if (nextScale === view.scale) return view;
+  const world = graphWorldPoint(anchor, view);
+  return { scale: nextScale, x: anchor.x - world.x * nextScale, y: anchor.y - world.y * nextScale };
+};
+
+export const normalizeGraphWheelDelta = (wheel: { deltaY: number; deltaMode: number }, viewportHeight: number): number => {
+  if (!Number.isFinite(wheel.deltaY)) return 0;
+  const unit = wheel.deltaMode === 1 ? 16 : wheel.deltaMode === 2 ? Math.max(1, viewportHeight) : 1;
+  return Math.min(200, Math.max(-200, wheel.deltaY * unit));
+};
+
+/** Exponential zoom is continuous for touchpads and symmetric for opposite wheel steps. */
+export const zoomGraphViewWithWheel = (
+  view: GraphView, anchor: GraphPoint, wheel: { deltaY: number; deltaMode: number }, viewportHeight: number,
+): GraphView => {
+  const delta = normalizeGraphWheelDelta(wheel, viewportHeight);
+  if (!delta) return view;
+  return zoomGraphViewAtPoint(view, anchor, view.scale * Math.exp(-delta * .001));
+};
+
 /** Shared by the dialogue canvas and Lab system graph. */
 export const fitGraphView = (
   nodes: readonly GraphRect[], size: { width: number; height: number }, minScale = 0.3,

@@ -9,7 +9,7 @@ import { isEnvironmentTransformOnlyChange } from './sceneEnvironmentTransformPre
 
 const near = (actual, expected) => actual.forEach((value, i) => assert.ok(Math.abs(value - expected[i]) < 1e-4, `${value} != ${expected[i]}`));
 test('real factory builds forward references, parent transforms and isolated nested ground display; disposal is complete', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false }, optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/scene-environment-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false }, optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const engine = new NullEngine(); const scene = new Scene(engine);
   try {
     const { createSceneEnvironment, createSceneEnvironmentAsync } = await server.ssrLoadModule('/core/scene/createSceneEnvironment.ts');

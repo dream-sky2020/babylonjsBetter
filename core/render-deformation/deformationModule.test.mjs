@@ -6,7 +6,7 @@ import { JSDOM } from 'jsdom';
 import { MeshBuilder, NullEngine, Scene, StandardMaterial } from '@babylonjs/core';
 
 test('Lab module follows view publication, UI groups, snapshots, late objects and disposal without input ownership', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false },
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/deformation-module-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<aside></aside><div id="status"></div>', { url: 'http://localhost/deformation-test' });
   const globals = new Map(); for (const key of ['window', 'document', 'HTMLElement', 'HTMLInputElement', 'HTMLSelectElement', 'Option', 'location', 'localStorage']) {

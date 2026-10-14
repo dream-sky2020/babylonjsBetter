@@ -2,6 +2,7 @@
 from weapon_presets import validate_weapon_presets
 from scene_environment_presets import read_scene_environment_presets
 from animation_scene_presets import validate_animation_scene_presets
+from dialogue_rules import validate_output_rules
 import argparse
 import mimetypes
 import os
@@ -632,8 +633,10 @@ def _validate_dialogue_editor_document_v3(preset_key, preset):
             activation = output.get("activation")
             if not isinstance(activation, dict) or activation.get("type") not in ("choice", "auto", "event"):
                 errors.append(f'{preset_key}/{node_id}: output {output_id} activation is invalid')
-            elif activation.get("type") == "event" and not isinstance(activation.get("eventId"), str):
+            elif preset.get("schemaVersion") == 3 and activation.get("type") == "event" and not isinstance(activation.get("eventId"), str):
                 errors.append(f'{preset_key}/{node_id}: output {output_id} eventId is invalid')
+            if preset.get("schemaVersion") == 4:
+                errors.extend(f'{preset_key}/{node_id}/{output_id}: {error}' for error in validate_output_rules(output))
     for edge_id, edge in edges.items():
         if not isinstance(edge, dict) or edge.get("id") != edge_id:
             errors.append(f'{preset_key}: edge {edge_id} is invalid')
@@ -669,11 +672,11 @@ def _validate_dialogue_map_library(payload):
         if not isinstance(preset, dict):
             errors.append(f'{preset_key}: preset must be an object')
             continue
-        if preset.get("schemaVersion") not in (1, 2, 3) or preset.get("presetKey") != preset_key:
+        if preset.get("schemaVersion") not in (1, 2, 3, 4) or preset.get("presetKey") != preset_key:
             errors.append(f'{preset_key}: schemaVersion or presetKey is invalid')
         if not isinstance(preset.get("name"), str) or not preset["name"].strip():
             errors.append(f'{preset_key}: name is required')
-        if preset.get("schemaVersion") == 3:
+        if preset.get("schemaVersion") in (3, 4):
             errors.extend(_validate_dialogue_editor_document_v3(preset_key, preset))
             continue
         if preset.get("schemaVersion") == 2:

@@ -24,7 +24,7 @@ await writeFile(path.join(dir, 'base.json'), JSON.stringify(base));
 await writeFile(path.join(dir, 'child.json'), JSON.stringify(child));
 await writeFile(path.join(temporary, 'shadowQualityPresets.json'), await readFile('config/shadowQualityPresets.json'));
 const originalBase = await readFile(path.join(dir, 'base.json'), 'utf8');
-const server = await createServer({ server: { host: '127.0.0.1', port: 5191, strictPort: false, open: false }, plugins: [{
+const server = await createServer({ cacheDir: `node_modules/.cache/vite-tests/scene-environment-browser-${process.pid}`, server: { host: '127.0.0.1', port: 5191, strictPort: false, open: false }, plugins: [{
   name: 'scene-environment-browser-verification',
   resolveId(id) { if (id === 'virtual:scene-environment-verification') return id; },
   load(id) { if (id === 'virtual:scene-environment-verification') return `import { EngineStore } from '@babylonjs/core'; export const scene = () => EngineStore.Instances[0].scenes.find(s => s.getMeshByName('box'));`; },

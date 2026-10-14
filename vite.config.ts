@@ -238,6 +238,8 @@ const sharedConfigPlugin = (): Plugin => ({
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Development and test servers must never overwrite each other's dependency metadata.
+  cacheDir: 'node_modules/.cache/vite-dev',
   // 正式构建由 Electron/file:// 直接打开；所有入口必须使用相对资源路径。
   base: './',
   plugins: [react(), sharedConfigPlugin()],

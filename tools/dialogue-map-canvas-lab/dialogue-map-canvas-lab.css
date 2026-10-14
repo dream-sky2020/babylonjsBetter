@@ -46,3 +46,15 @@ input:focus, select:focus, textarea:focus { border-color: #7891a8; } textarea { 
 .choice-editor { margin-top: 11px; padding: 10px; border: 1px solid #2c3a50; border-radius: 8px; background: #0c1423; }.choice-editor > div:first-child strong { font-size: 11px; color: #c6d1df; }.choice-editor > div:first-child button { border: 0; background: transparent; color: #fda4af; font-size: 18px; padding: 0 4px; }.choice-editor .field { margin-top: 8px; }.empty-note, .issue-card p { color: #7f8da3; font-size: 11px; line-height: 1.5; }.issue-card { border-color: #714b20; }.issue-card > strong { color: #fbbf24; font-size: 12px; }.issue-card p { color: #fcd89a; margin: 8px 0 0; }
 .dialogue-empty { min-height: 100vh; display: grid; place-content: center; justify-items: center; gap: 12px; }.dialogue-empty h1, .dialogue-empty p { margin: 0; }.dialogue-empty p { color: #94a3b8; }.dialogue-empty p.is-error { color: #fca5a5; }
 @media (max-width: 1280px) { .dialogue-lab { grid-template-columns: 250px minmax(460px, 1fr) 315px; } }
+.dialogue-rule-editor section { border-top: 1px solid #334158; margin-top: 16px; padding-top: 10px; }
+.dialogue-rule-editor h3 { font-size: 13px; margin: 4px 0 10px; }
+.dialogue-rule-editor p, .dialogue-rule-editor small { color: #94a3b8; font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+.dialogue-rule-editor pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; color: #fcd89a; }
+.dialogue-rule-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; font-size: 12px; }
+.dialogue-rule-actions { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0; }
+.dialogue-rule-editor button { font-size: 11px; padding: 5px 7px; }
+.dialogue-rule-value { min-width: 0; margin: 10px 0; padding: 8px; border: 1px solid #334158; border-radius: 6px; display: grid; gap: 6px; }
+.dialogue-rule-value legend { font-size: 11px; color: #9aa8bd; }
+.dialogue-rule-child, .dialogue-rule-effect { min-width: 0; margin: 10px 0; padding: 8px; border-left: 2px solid #526988; background: #0c1423; }
+.dialogue-rule-condition { min-width: 0; }
+.dialogue-rule-condition .dialogue-rule-child { padding-right: 0; }

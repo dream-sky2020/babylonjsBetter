@@ -6,7 +6,7 @@ import { JSDOM } from 'jsdom';
 import { ArcRotateCamera, NullEngine, Scene, Vector3 } from '@babylonjs/core';
 
 test('LabKit routes owned keys, preserves preferences and pauses input across projection changes', async () => {
-  const server = await createServer({ configFile: false, server: { middlewareMode: true, hmr: false, ws: false },
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/lab-camera-${process.pid}`, server: { middlewareMode: true, hmr: false, ws: false },
     optimizeDeps: { noDiscovery: true, include: [] },
     resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
   const dom = new JSDOM('<!doctype html><div id="stage"></div><aside></aside><div id="status"></div>', { url: 'http://localhost/camera-test' });

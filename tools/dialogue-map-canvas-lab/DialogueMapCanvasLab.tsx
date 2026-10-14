@@ -10,7 +10,6 @@ import {
   cloneDialogueEditorDocument,
   createDialogueEditorDocument,
   createDialogueEditorNode,
-  computeDialogueNodeLayout,
   DIALOGUE_NODE_LAYOUT_METRICS,
   dialogueGridRectContains,
   dialogueLayoutPointToWorld,
@@ -24,15 +23,24 @@ import {
   resolveDialogueEditorSelection,
   saveDialogueEditorDocumentLibrary,
   validateDialogueEditorDocument,
+  validateDialogueOutputRules,
   type DialogueEditorDocument,
   type DialogueEditorDocumentLibrary,
   type DialogueEditorEdge,
   type DialogueEditorNode,
   type DialogueEditorSelection,
   type DialogueNodeDisplay,
+  type DialogueMapValidationIssue,
 } from '@/core/dialogue-map';
 import './dialogue-map-canvas-lab.css';
-import { fitGraphView, graphWorldPoint, graphScreenPoint } from '@/core/ui/node-graph/graphViewport';
+import { DialogueRuleEditor } from './DialogueRuleEditor';
+import { dialogueRuleCatalog } from './dialogueRuleCatalog';
+import { createDialogueHistory, commitDialogueHistory, undoDialogueHistory, redoDialogueHistory } from './dialogueHistory';
+import { fitGraphView, graphWorldPoint, graphScreenPoint, zoomGraphViewWithWheel } from '@/core/ui/node-graph/graphViewport';
+import { getDialogueCanvasLayout as computeDialogueNodeLayout, measureDialogueCanvasText } from './dialogueCanvasLayout';
+import { DIALOGUE_NODE_TEXT_STYLE, dialogueNodeTextFont } from '@/core/dialogue-map/dialogueNodeLayout';
+import { layoutCanvasText, type CanvasTextLayout } from '@/core/ui/canvas-text/canvasTextLayout';
+import { drawDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail, getDialogueCanvasTextWidthInset } from './dialogueCanvasText';
 
 const GRID = DIALOGUE_MAP_GRID_SIZE;
 const WORKSPACE_KEY = 'dialogue-map-canvas-lab:preview-entries';
@@ -58,8 +66,6 @@ const makeId = (prefix: string, ids: ReadonlySet<string>) => {
   return id;
 };
 const snap = (value: number) => Math.round(value / GRID) * GRID;
-const short = (value: string, length: number) =>
-  value.length > length ? `${value.slice(0, length - 1)}…` : value;
 const nodeSize = (node: DialogueEditorNode) => {
   const layout = computeDialogueNodeLayout(node);
   return {
@@ -162,6 +168,20 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
     const observer = new ResizeObserver(update);
     observer.observe(host);
     return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const onWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      if (gesture.current) return;
+      const rect = canvas.getBoundingClientRect();
+      const anchor = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+      setView(current => zoomGraphViewWithWheel(current, anchor, event, rect.height));
+    };
+    // React wheel handlers may be passive; this listener reliably keeps scrolling on the canvas.
+    canvas.addEventListener('wheel', onWheel, { passive: false });
+    return () => canvas.removeEventListener('wheel', onWheel);
   }, []);
   useEffect(() => {
     const nodes = [...document.graph.nodes.values()];
@@ -276,9 +296,19 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       const width = layout.widthUnits * unit;
       const height = layout.actualHeightUnits * unit;
       const color = COLORS[node.display.colorToken] ?? COLORS['gray-muted'];
-      const fullDetail = view.scale >= 0.75;
-      const compactDetail = view.scale >= 0.45;
+      const detail = getDialogueCanvasTextDetail(view.scale);
+      const fullDetail = detail === 'full';
+      const compactDetail = detail !== 'overview';
       const contentX = p.x + layout.contentInsetUnits * unit;
+      const contentWidth = layout.content.width * unit;
+      const singleLine = (text: string, screenWidth: number, fontSize: number = DIALOGUE_NODE_TEXT_STYLE.bodySize, weight = 400): CanvasTextLayout => layoutCanvasText(text, {
+        maxWidth: Math.max(0, screenWidth - getDialogueCanvasTextWidthInset(view.scale, ratio)), maxLines: 1, wrap: false,
+        measure: value => measureDialogueCanvasText(value, dialogueNodeTextFont(getDialogueCanvasFontSize(fontSize, view.scale, ratio), weight)),
+      });
+      const textPaints: Array<() => void> = [];
+      const paintText = (text: CanvasTextLayout, box: Parameters<typeof drawDialogueCanvasText>[2]) => {
+        textPaints.push(() => drawDialogueCanvasText(ctx, text, { ...box, pixelRatio: ratio }));
+      };
       ctx.fillStyle = color.body;
       ctx.strokeStyle = selected(selection, 'node', node.id)
         ? '#cbd5e1'
@@ -296,24 +326,17 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       ctx.stroke();
       ctx.fillStyle = color.header;
       ctx.fillRect(p.x, p.y, width, layout.header.height * unit);
-      ctx.fillStyle = '#e5eaf1';
-      ctx.font = `600 ${12 * view.scale}px Segoe UI`;
-      ctx.textBaseline = 'alphabetic';
-      ctx.fillText(
-        short(node.title || node.id, 24),
-        contentX,
-        p.y + (layout.header.height / 2 + 0.18) * unit,
-      );
-      if (previewEntry === node.id && compactDetail) {
-        ctx.fillStyle = '#93c5a5';
-        ctx.textAlign = 'right';
-        ctx.fillText(
-          'PREVIEW',
-          p.x + width - layout.contentInsetUnits * unit,
-          p.y + (layout.header.height / 2 + 0.18) * unit,
-        );
-        ctx.textAlign = 'left';
-      }
+      const previewWidth = previewEntry === node.id && compactDetail
+        ? Math.min(contentWidth, measureDialogueCanvasText('PREVIEW', dialogueNodeTextFont(getDialogueCanvasFontSize(DIALOGUE_NODE_TEXT_STYLE.titleSize, view.scale, ratio), 600)) + getDialogueCanvasTextWidthInset(view.scale, ratio)) : 0;
+      const titleWidth = Math.max(0, contentWidth - previewWidth - (previewWidth ? 8 * view.scale : 0));
+      paintText(singleLine(node.title || node.id, titleWidth, DIALOGUE_NODE_TEXT_STYLE.titleSize, 600), {
+        x: contentX, y: p.y, width: titleWidth, height: layout.header.height * unit, scale: view.scale,
+        color: '#e5eaf1', fontSize: DIALOGUE_NODE_TEXT_STYLE.titleSize, weight: 600, center: true,
+      });
+      if (previewWidth) paintText(singleLine('PREVIEW', previewWidth, DIALOGUE_NODE_TEXT_STYLE.titleSize, 600), {
+        x: contentX + contentWidth - previewWidth, y: p.y, width: previewWidth, height: layout.header.height * unit,
+        scale: view.scale, color: '#93c5a5', fontSize: DIALOGUE_NODE_TEXT_STYLE.titleSize, weight: 600, center: true,
+      });
       layout.separators.forEach((gridY) => {
         const y = p.y + gridY * unit;
         ctx.strokeStyle = 'rgba(148,163,184,.15)';
@@ -334,27 +357,17 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
             ctx.fillStyle = 'rgba(168,184,200,.14)';
             ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit);
           }
-          ctx.font = `${10 * view.scale}px Segoe UI`;
           if (fullDetail) {
-            ctx.fillStyle = '#aeb9c7';
-            ctx.fillText(
-              short(line.speaker || '无说话者', 20),
-              x,
-              y + 0.75 * unit,
-            );
-            ctx.fillStyle = '#d3dae3';
-            ctx.fillText(
-              short(line.text || '（空对白）', 30),
-              x,
-              y + 1.55 * unit,
-            );
+            rowLayout.textBlocks?.forEach(block => paintText(block, {
+              x, y: y + block.offsetY * view.scale, width: rowWidth,
+              height: block.lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight * view.scale,
+              scale: view.scale, color: block.role === 'speaker' ? '#aeb9c7' : '#d3dae3',
+            }));
           } else {
-            ctx.fillStyle = '#d3dae3';
-            ctx.fillText(
-              short(line.speaker || line.text || '空对白', 24),
-              x,
-              y + (rowLayout.rect.height / 2 + 0.18) * unit,
-            );
+            const text = (node.display.showSpeakerList !== false ? line.speaker : '') || (node.display.showPreviewText !== false ? line.text || '空对白' : '');
+            paintText(singleLine(text, rowWidth), {
+              x, y, width: rowWidth, height: rowLayout.rect.height * unit, scale: view.scale, color: '#d3dae3', center: true,
+            });
           }
         });
         layout.outputRows.forEach((rowLayout, id) => {
@@ -373,32 +386,15 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
               : output.activation.type === 'event'
                 ? '⚡'
                 : '›';
-          ctx.font = `${10 * view.scale}px Segoe UI`;
-          ctx.fillStyle = '#d8d0ef';
           if (fullDetail) {
-            ctx.fillText(
-              `${icon} ${short(output.label || output.id, 26)}`,
-              x,
-              y + 0.75 * unit,
-            );
-            const detail =
-              output.activation.type === 'auto'
-                ? `自动 · 优先级 ${output.activation.priority ?? 0}`
-                : output.activation.type === 'event'
-                  ? `事件 · ${output.activation.eventId || '未设置'}`
-                  : '玩家选择';
-            ctx.fillStyle = '#8f9db1';
-            ctx.fillText(
-              `${detail}${output.condition ? ' · 有条件' : ''}`,
-              x,
-              y + 1.55 * unit,
-            );
-          } else
-            ctx.fillText(
-              `${icon} ${short(output.label || output.id, 22)}`,
-              x,
-              y + (rowLayout.rect.height / 2 + 0.18) * unit,
-            );
+            rowLayout.textBlocks?.forEach(block => paintText(block, {
+              x, y: y + block.offsetY * view.scale, width: rowWidth,
+              height: block.lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight * view.scale,
+              scale: view.scale, color: block.role === 'label' ? '#d8d0ef' : '#8f9db1',
+            }));
+          } else paintText(singleLine(`${icon} ${output.label || output.id}`, rowWidth), {
+            x, y, width: rowWidth, height: rowLayout.rect.height * unit, scale: view.scale, color: '#d8d0ef', center: true,
+          });
         });
       }
       const baseRadius = DIALOGUE_NODE_LAYOUT_METRICS.portRadiusUnits * unit;
@@ -434,6 +430,8 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         ctx.lineWidth = 1;
         ctx.stroke();
       });
+      // Text is the final paint within this node; decorations cannot cover its ink.
+      textPaints.forEach(paint => paint());
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document, previewEntry, selection, size, view]);
@@ -513,19 +511,9 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         onPointerCancel={() => {
           gesture.current = undefined;
         }}
-        onWheel={(event) => {
-          event.preventDefault();
-          setView((v) => ({
-            ...v,
-            scale: Math.min(
-              2.2,
-              Math.max(0.3, v.scale * (event.deltaY > 0 ? 0.9 : 1.1)),
-            ),
-          }));
-        }}
       />
       <div className="dialogue-canvas__hint">
-        拖拽紫色输出端口到输入端口连线 · 右键节点从此处预览
+        滚轮以鼠标位置缩放 · 拖拽紫色输出端口连线 · 右键节点预览
       </div>
       <div className="dialogue-canvas__zoom">
         {Math.round(view.scale * 100)}%
@@ -545,8 +533,13 @@ const loadPreviewEntries = (): Record<string, string | undefined> => {
   }
 };
 export const DialogueMapCanvasLab: React.FC = () => {
-  const [library, setLibrary] = useState<DialogueEditorDocumentLibrary>({});
-  const [activeKey, setActiveKey] = useState('');
+  const [history, setHistory] = useState(createDialogueHistory);
+  const library = history.present;
+  const setLibrary = useCallback((update: (current: DialogueEditorDocumentLibrary) => DialogueEditorDocumentLibrary) => {
+    setHistory(current => commitDialogueHistory(current, update(current.present)));
+  }, []);
+  const [selectedKey, setActiveKey] = useState('');
+  const activeKey = library[selectedKey] ? selectedKey : Object.keys(library)[0] ?? '';
   const [selection, setSelection] = useState<DialogueEditorSelection>({
     kind: 'node',
     nodeId: '',
@@ -582,16 +575,17 @@ export const DialogueMapCanvasLab: React.FC = () => {
     () => (document ? validateDialogueEditorDocument(document) : []),
     [document],
   );
-  const issues = useMemo(
+  const issues = useMemo<DialogueMapValidationIssue[]>(
     () =>
       document
         ? [
             ...structuralIssues,
-            ...diagnoseDialogueEditorDocument(document),
+            ...[...document.graph.nodes.values()].flatMap(node => [...node.outputs.values()].flatMap(port => validateDialogueOutputRules(port, dialogueRuleCatalog).map(item => ({ ...item, code: 'output-rule', nodeId: node.id, portId: port.id })))),
+            ...diagnoseDialogueEditorDocument(document, computeDialogueNodeLayout),
             ...(previewEntry
               ? diagnoseDialogueEntry(document, previewEntry)
               : []),
-          ]
+          ].filter((item, index, all) => all.findIndex(other => other.message === item.message && other.severity === item.severity && other.nodeId === item.nodeId && other.portId === item.portId && ('edgeId' in other ? other.edgeId : undefined) === ('edgeId' in item ? item.edgeId : undefined)) === index)
         : [],
     [document, previewEntry, structuralIssues],
   );
@@ -600,13 +594,13 @@ export const DialogueMapCanvasLab: React.FC = () => {
       const next = await loadDialogueEditorDocumentLibrary();
       const key = Object.keys(next)[0] ?? '';
       const first = next[key]?.graph.nodes.keys().next().value ?? '';
-      setLibrary(next);
+      setHistory(createDialogueHistory(next));
       setSavedFingerprint(
         JSON.stringify(encodeDialogueEditorDocumentLibrary(next)),
       );
       setActiveKey(key);
       setSelection({ kind: 'node', nodeId: first });
-      setMessage(`已载入 ${Object.keys(next).length} 个 V3 对话预设。`);
+      setMessage(`已载入 ${Object.keys(next).length} 个 V4 对话预设。`);
       setIsError(false);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : String(error));
@@ -618,6 +612,19 @@ export const DialogueMapCanvasLab: React.FC = () => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void load();
   }, [load]);
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (!(event.ctrlKey || event.metaKey) || event.altKey) return;
+      if (event.target instanceof HTMLElement && event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      if (event.key.toLowerCase() === 'z') {
+        event.preventDefault(); setHistory(event.shiftKey ? redoDialogueHistory : undoDialogueHistory);
+      } else if (event.key.toLowerCase() === 'y') {
+        event.preventDefault(); setHistory(redoDialogueHistory);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
   const updateDocument = useCallback(
     (mutate: (draft: DialogueEditorDocument) => void) =>
       setLibrary((current) => {
@@ -627,7 +634,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
         mutate(draft);
         return { ...current, [activeKey]: draft };
       }),
-    [activeKey],
+    [activeKey, setLibrary],
   );
   const updateNode = (
     nodeId: string,
@@ -643,6 +650,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
         <h1>Dialogue Map Canvas Lab</h1>
         <p className={isError ? 'is-error' : ''}>{message}</p>
         <button onClick={() => void load()}>重新加载</button>
+        <button disabled={!history.future.length} onClick={() => setHistory(redoDialogueHistory)}>重做</button>
       </main>
     );
   const selectPreset = (key: string) => {
@@ -767,7 +775,10 @@ export const DialogueMapCanvasLab: React.FC = () => {
     )?.to.nodeId ?? '';
   const save = async () => {
     const errors = Object.values(library)
-      .flatMap(validateDialogueEditorDocument)
+      .flatMap(doc => [
+        ...validateDialogueEditorDocument(doc),
+        ...[...doc.graph.nodes.values()].flatMap(node => [...node.outputs.values()].flatMap(port => validateDialogueOutputRules(port, dialogueRuleCatalog))),
+      ])
       .filter((item) => item.severity === 'error');
     if (errors.length) {
       setMessage(`保存前请修复：${errors[0].message}`);
@@ -780,7 +791,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       setSavedFingerprint(
         JSON.stringify(encodeDialogueEditorDocumentLibrary(library)),
       );
-      setMessage(`已保存 ${Object.keys(library).length} 个 V3 对话预设。`);
+      setMessage(`已保存 ${Object.keys(library).length} 个 V4 对话预设。`);
       setIsError(false);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : String(error));
@@ -805,7 +816,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
     <div className="dialogue-lab">
       <header className="dialogue-lab__header">
         <div>
-          <span className="eyebrow">DIALOGUE DATA WORKBENCH · V3</span>
+          <span className="eyebrow">DIALOGUE DATA WORKBENCH · V4</span>
           <h1>Dialogue Map Canvas Lab</h1>
         </div>
         <div className={`server-status${isError ? ' is-error' : ''}`}>
@@ -908,6 +919,8 @@ export const DialogueMapCanvasLab: React.FC = () => {
             {dirty ? <em>● 未保存</em> : <em className="is-saved">✓ 已保存</em>}
           </div>
           <div className="stage-toolbar__actions">
+            <button disabled={!history.past.length} onClick={() => setHistory(undoDialogueHistory)} title="撤销 Ctrl+Z">撤销</button>
+            <button disabled={!history.future.length} onClick={() => setHistory(redoDialogueHistory)} title="重做 Ctrl+Shift+Z">重做</button>
             <span
               className={
                 issues.some((i) => i.severity !== 'info') ? 'has-issues' : ''
@@ -1262,7 +1275,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
                         type === 'auto'
                           ? { type: 'auto', priority: 0 }
                           : type === 'event'
-                            ? { type: 'event', eventId: '' }
+                            ? { type: 'event', eventType: '', version: 1 }
                             : { type: 'choice' };
                     })
                   }
@@ -1288,49 +1301,8 @@ export const DialogueMapCanvasLab: React.FC = () => {
                   />
                 </label>
               ) : null}
-              {target.port.activation.type === 'event' ? (
-                <label className="field">
-                  <span>事件 ID</span>
-                  <input
-                    value={target.port.activation.eventId}
-                    onChange={(e) =>
-                      updateNode(target.node.id, (node) => {
-                        const port = node.outputs.get(target.port.id);
-                        if (port?.activation.type === 'event')
-                          port.activation.eventId = e.target.value;
-                      })
-                    }
-                  />
-                </label>
-              ) : null}
-              <label className="field">
-                <span>条件</span>
-                <input
-                  value={target.port.condition ?? ''}
-                  onChange={(e) =>
-                    updateNode(target.node.id, (node) => {
-                      const port = node.outputs.get(target.port.id);
-                      if (port) port.condition = e.target.value || undefined;
-                    })
-                  }
-                />
-              </label>
-              <label className="field">
-                <span>效果事件（逗号分隔）</span>
-                <input
-                  value={(target.port.effects ?? []).join(', ')}
-                  onChange={(e) =>
-                    updateNode(target.node.id, (node) => {
-                      const port = node.outputs.get(target.port.id);
-                      if (port)
-                        port.effects = e.target.value
-                          .split(',')
-                          .map((v) => v.trim())
-                          .filter(Boolean);
-                    })
-                  }
-                />
-              </label>
+              <DialogueRuleEditor key={`${target.node.id}:${target.port.id}`} port={target.port}
+                onChange={port => updateNode(target.node.id, node => { node.outputs.set(port.id, port); })} />
               <label className="field">
                 <span>目标节点</span>
                 <select
