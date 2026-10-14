@@ -41,37 +41,31 @@ function ValueEditor({ label, value, onChange }: { label: string; value: Dialogu
   </fieldset>;
 }
 
-export function ConditionEditor({ value, onChange, depth = 0 }: { value: DialogueCondition; onChange(value: DialogueCondition): void; depth?: number }) {
-  const numericComparison = value.type !== 'compare' || [value.left, value.right].every(item => !valueType(item) || valueType(item) === 'number');
+function ComparisonEditor({ value, onChange }: { value: Extract<DialogueCondition, { type: 'compare' }>; onChange(value: Extract<DialogueCondition, { type: 'compare' }>): void }) {
+  const numericComparison = [value.left, value.right].every(item => !valueType(item) || valueType(item) === 'number');
+  return <>
+    <ValueEditor label="左侧" value={value.left} onChange={left => onChange({ ...value, left })} />
+    <label className="field"><span>比较方式</span><select value={value.operator} onChange={e => onChange({ ...value, operator: e.target.value as typeof value.operator })}>
+      <option value="eq">等于 =</option><option value="ne">不等于 ≠</option>
+      <option value="gt" disabled={!numericComparison}>大于 &gt;</option><option value="gte" disabled={!numericComparison}>大于等于 ≥</option><option value="lt" disabled={!numericComparison}>小于 &lt;</option><option value="lte" disabled={!numericComparison}>小于等于 ≤</option>
+    </select></label>
+    <ValueEditor label="右侧" value={value.right} onChange={right => onChange({ ...value, right })} />
+  </>;
+}
+
+export function ConditionEditor({ value, onChange }: { value: DialogueCondition; onChange(value: DialogueCondition): void }) {
+  const conditions = value.type === 'compare' ? [value] : value.conditions;
+  const mode = value.type === 'compare' ? 'all' : value.type;
   return <div className="dialogue-rule-condition">
-      <select aria-label="条件种类" value={value.type} onChange={e => {
-        const type = e.target.value;
-        if (type === 'compare') onChange(newDialogueComparison());
-        else if (type === 'not') onChange({ type: 'not', condition: value });
-        else if (type === 'all' || type === 'any') onChange({ type, conditions: value.type === 'all' || value.type === 'any' ? value.conditions : [value] });
-      }}>
-        <option value="compare">字段比较</option><option value="all">满足全部条件</option><option value="any">满足任一条件</option><option value="not">条件取反</option>
-      </select>
-      {value.type === 'compare' ? <>
-        <ValueEditor label="左侧" value={value.left} onChange={left => onChange({ ...value, left })} />
-        <label className="field"><span>比较方式</span><select value={value.operator} onChange={e => onChange({ ...value, operator: e.target.value as typeof value.operator })}>
-          <option value="eq">等于 =</option><option value="ne">不等于 ≠</option>
-          <option value="gt" disabled={!numericComparison}>大于 &gt;</option><option value="gte" disabled={!numericComparison}>大于等于 ≥</option><option value="lt" disabled={!numericComparison}>小于 &lt;</option><option value="lte" disabled={!numericComparison}>小于等于 ≤</option>
-        </select></label>
-        <ValueEditor label="右侧" value={value.right} onChange={right => onChange({ ...value, right })} />
-      </> : value.type === 'not' ? <>
-        <ConditionEditor value={value.condition} depth={depth + 1} onChange={condition => onChange({ ...value, condition })} />
-        <button onClick={() => onChange(value.condition)}>取消取反</button>
-      </> : value.type === 'all' || value.type === 'any' ? <>
-        {value.conditions.map((child, index) => <div className="dialogue-rule-child" key={index}>
-          <div className="dialogue-rule-heading"><strong>条件 {index + 1}</strong><button onClick={() => onChange({ ...value, conditions: value.conditions.filter((_, i) => i !== index) })}>删除</button></div>
-          <ConditionEditor value={child} depth={depth + 1} onChange={next => onChange({ ...value, conditions: value.conditions.map((item, i) => i === index ? next : item) })} />
-        </div>)}
-        <div className="dialogue-rule-actions">
-          <button disabled={depth >= 30} onClick={() => onChange({ ...value, conditions: [...value.conditions, newDialogueComparison()] })}>添加条件</button>
-          <button disabled={depth >= 30} onClick={() => onChange({ ...value, conditions: [...value.conditions, { type: 'all', conditions: [newDialogueComparison()] }] })}>添加条件组</button>
-        </div>
-      </> : null}
+    <label className="field"><span>满足方式</span><select aria-label="满足方式" value={mode} onChange={e => onChange({ type: e.target.value as 'all' | 'any', conditions })}>
+      <option value="all">全部满足</option><option value="any">任一满足</option>
+    </select></label>
+    {conditions.map((child, index) => <div className="dialogue-rule-child" key={index}>
+      <div className="dialogue-rule-heading"><strong>条件 {index + 1}</strong><button onClick={() => onChange({ type: mode, conditions: conditions.filter((_, i) => i !== index) })}>删除</button></div>
+      <ComparisonEditor value={child} onChange={next => onChange({ type: mode, conditions: conditions.map((item, i) => i === index ? next : item) })} />
+    </div>)}
+    <button onClick={() => onChange({ type: mode, conditions: [...conditions, newDialogueComparison() as Extract<DialogueCondition, { type: 'compare' }>] })}>添加条件</button>
+    <p>复杂组合可通过成立／不成立出口连接其他判断卡片。</p>
   </div>;
 }
 

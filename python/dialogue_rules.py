@@ -22,9 +22,9 @@ def validate_condition(value, depth=0):
         return ['condition shape or depth is invalid']
     kind = value.get('type')
     if kind in ('all', 'any') and isinstance(value.get('conditions'), list):
+        if depth or any(not isinstance(child, dict) or child.get('type') != 'compare' for child in value['conditions']):
+            return ['conditions must be flat comparisons']
         return [error for child in value['conditions'] for error in validate_condition(child, depth + 1)]
-    if kind == 'not':
-        return validate_condition(value.get('condition'), depth + 1)
     if kind == 'compare' and value.get('operator') in ('eq', 'ne', 'gt', 'gte', 'lt', 'lte'):
         return validate_value(value.get('left')) + validate_value(value.get('right'))
     return ['unsupported condition shape']
@@ -49,7 +49,7 @@ def validate_document(preset_key, preset):
     if not isinstance(graph, dict) or not isinstance(graph.get('nodes'), dict) or not isinstance(graph.get('edges'), dict):
         return errors + ['graph.nodes and graph.edges must be objects']
     for node_id, node in graph['nodes'].items():
-        if not isinstance(node, dict) or node.get('id') != node_id or not node_id.strip() or node.get('kind') not in ('dialogue', 'condition', 'choice', 'event') or not isinstance(node.get('title'), str):
+        if not isinstance(node, dict) or node.get('id') != node_id or not node_id.strip() or node.get('kind') not in ('condition', 'choice', 'event') or not isinstance(node.get('title'), str):
             errors.append(f'{node_id}: node identity is invalid')
             continue
         position, display = node.get('position'), node.get('display')
@@ -76,12 +76,25 @@ def validate_document(preset_key, preset):
                     errors.append(f'{node_id}: branch shape is invalid')
                 if name != 'lines' and 'label' in item and not isinstance(item['label'], str):
                     errors.append(f'{node_id}: port label is invalid')
+        if not isinstance(node.get('inputs'), dict) or len(node['inputs']) != 1 or not isinstance(node.get('inputOrder'), list) or len(node['inputOrder']) != 1:
+            errors.append(f'{node_id}: node requires exactly one input')
         if node['kind'] == 'condition' and 'condition' in node:
             errors.extend(validate_condition(node['condition']))
+        if node['kind'] == 'condition':
+            outputs = node.get('outputs', {})
+            def fixed_output(branch, label):
+                item = outputs.get(f'port:{node_id}:output:{branch}')
+                return isinstance(item, dict) and item.get('branch') == branch and item.get('label') == label
+            if not isinstance(outputs, dict) or len(outputs) != 2 or any(
+                not fixed_output(branch, label)
+                for branch, label in (('true', '成立'), ('false', '不成立'))
+            ):
+                errors.append(f'{node_id}: condition requires fixed true/false outputs')
         if node['kind'] == 'event':
             if node.get('mode') not in ('send', 'wait'):
                 errors.append(f'{node_id}: event mode is invalid')
             errors.extend(validate_event(node.get('event')))
+    occupied_outputs = set()
     for edge_id, edge in graph['edges'].items():
         if not isinstance(edge, dict) or edge.get('id') != edge_id or not edge_id.strip():
             errors.append(f'{edge_id}: edge identity is invalid')
@@ -90,4 +103,12 @@ def validate_document(preset_key, preset):
             item = edge.get(endpoint)
             if not isinstance(item, dict) or not all(isinstance(item.get(field), str) for field in ('nodeId', 'portId')):
                 errors.append(f'{edge_id}: endpoint shape is invalid')
+        start, end = edge.get('from'), edge.get('to')
+        if isinstance(start, dict) and isinstance(end, dict) and isinstance(start.get('nodeId'), str) and start['nodeId'] == end.get('nodeId'):
+            errors.append(f'{edge_id}: node output cannot connect to its own input')
+        if isinstance(start, dict) and all(isinstance(start.get(field), str) for field in ('nodeId', 'portId')):
+            output = (start['nodeId'], start['portId'])
+            if output in occupied_outputs:
+                errors.append(f'{edge_id}: output port may have only one connection')
+            occupied_outputs.add(output)
     return errors

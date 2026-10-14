@@ -126,3 +126,20 @@ test('condition and event cards expose their own measured summaries without save
     assert.ok(layout.lineRows.get('summary:rule')!.textBlocks!.some(block => block.role === 'body'));
   }
 });
+
+test('flat conditions each get a visible measured row and move branch anchors below them', () => {
+  const node = createNode('visible', { x: 0, y: 0 }, 'condition'); if (node.kind !== 'condition') return;
+  const comparison = { type: 'compare' as const, operator: 'gte' as const, left: { type: 'memory' as const, key: 'player', path: ['level'] }, right: { type: 'literal' as const, value: 10 } };
+  for (const type of ['all', 'any'] as const) {
+    node.condition = { type, conditions: [comparison, { ...comparison, operator: 'lt', right: { type: 'literal', value: 20 } }] };
+    const layout = computeDialogueNodeLayout(node, undefined, measure);
+    assert.equal(layout.lineRows.size, 3);
+    assert.equal(layout.lineRows.get('summary:visible')!.textBlocks!.find(block => block.role === 'body')!.lines.join(''), type === 'all' ? '全部满足' : '任一满足');
+    for (let index = 0; index < 2; index++) {
+      const row = layout.lineRows.get(`condition:visible:${index}`)!;
+      assert.match(row.textBlocks!.find(block => block.role === 'body')!.lines.join(''), /player.level/);
+      assert.ok(layout.outputAnchors.get(node.outputOrder[0])!.y > row.rect.y + row.rect.height);
+    }
+    assert.equal(node.lines.size, 0);
+  }
+});

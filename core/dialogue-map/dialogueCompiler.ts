@@ -4,9 +4,8 @@ import { validateDialogueNodeRules } from './dialogueRules.ts';
 
 type InstructionBase = { id: string; routes: Record<string, string>; labels: Record<string, string> };
 export type DialogueInstruction = InstructionBase & (
-  | { kind: 'dialogue'; lines: DialogueEditorLine[] }
   | { kind: 'condition'; condition: DialogueCondition; branches: Record<string, 'true' | 'false'> }
-  | { kind: 'choice'; choices: Array<{ id: string; text: string }> }
+  | { kind: 'choice'; lines: DialogueEditorLine[]; choices: Array<{ id: string; text: string }> }
   | { kind: 'event'; mode: 'send' | 'wait'; event: DialogueEffect }
 );
 export type CompiledDialogue = { version: 1; presetKey: string; entryNodeId: string; instructions: Record<string, DialogueInstruction> };
@@ -27,10 +26,8 @@ export const compileDialogueEditorDocument = (document: DialogueEditorDocument, 
   });
   document.graph.nodes.forEach(node => {
     validateDialogueNodeRules(node, catalog).forEach(item => issues.push({ ...item, code: 'node-rule', nodeId: node.id }));
-    if (node.kind !== 'dialogue' && node.lines.size) report('unexpected-lines', '此类型节点不能包含对白，请使用对话卡片。', 'error', node.id);
-    if (node.kind === 'dialogue' && !node.lines.size) report('empty-dialogue', '对话节点尚无对白。', 'warning', node.id);
-    if (node.kind === 'choice' && !node.outputs.size) report('empty-choice', '选项节点至少需要一个选项。', 'error', node.id);
-    if ((node.kind === 'dialogue' || node.kind === 'event') && node.outputs.size > 1) report('ambiguous-continuation', '此节点有多个继续出口，请通过判断或选项节点分支。', 'error', node.id);
+    if (node.kind !== 'choice' && node.lines.size) report('unexpected-lines', '此类型节点不能包含对白，请使用对话卡片。', 'error', node.id);
+    if (node.kind === 'event' && node.outputs.size > 1) report('ambiguous-continuation', '此节点有多个继续出口，请通过判断或选项节点分支。', 'error', node.id);
     if (node.kind === 'condition') {
       for (const branch of ['true', 'false'] as const) {
         const ports = [...node.outputs.values()].filter(port => port.branch === branch);
@@ -53,9 +50,8 @@ export const compileDialogueEditorDocument = (document: DialogueEditorDocument, 
   if (issues.some(item => item.severity === 'error')) return { issues };
   const instruction = (node: DialogueEditorNode): DialogueInstruction => {
     const base = { id: node.id, routes: Object.fromEntries(outgoing.get(node.id) ?? []), labels: Object.fromEntries([...node.outputs].map(([id, port]) => [id, port.label ?? ''])) };
-    if (node.kind === 'dialogue') return { ...base, kind: node.kind, lines: node.lineOrder.map(id => structuredClone(node.lines.get(id)!)) };
     if (node.kind === 'condition') return { ...base, kind: node.kind, condition: structuredClone(node.condition!), branches: Object.fromEntries([...node.outputs].map(([id, port]) => [id, port.branch])) as Record<string, 'true' | 'false'> };
-    if (node.kind === 'choice') return { ...base, kind: node.kind, choices: node.outputOrder.map(id => ({ id, text: node.outputs.get(id)!.label! })) };
+    if (node.kind === 'choice') return { ...base, kind: node.kind, lines: node.lineOrder.map(id => structuredClone(node.lines.get(id)!)), choices: node.outputOrder.map(id => ({ id, text: node.outputs.get(id)!.label! })) };
     return { ...base, kind: node.kind, mode: node.mode, event: structuredClone(node.event) };
   };
   return { issues, program: { version: 1, presetKey: document.presetKey, entryNodeId, instructions: Object.fromEntries([...document.graph.nodes].map(([id, node]) => [id, instruction(node)])) } };

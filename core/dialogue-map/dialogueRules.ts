@@ -22,8 +22,7 @@ export const parseDialogueCondition = (value: unknown, depth = 0): DialogueCondi
   if (raw.type === 'compare' && ['eq', 'ne', 'gt', 'gte', 'lt', 'lte'].includes(raw.operator as string)) return {
     type: 'compare', left: parseDialogueValue(raw.left), operator: raw.operator as Extract<DialogueCondition, { type: 'compare' }>['operator'], right: parseDialogueValue(raw.right),
   };
-  if ((raw.type === 'all' || raw.type === 'any') && Array.isArray(raw.conditions)) return { type: raw.type, conditions: raw.conditions.map(item => parseDialogueCondition(item, depth + 1)) };
-  if (raw.type === 'not') return { type: 'not', condition: parseDialogueCondition(raw.condition, depth + 1) };
+  if ((raw.type === 'all' || raw.type === 'any') && Array.isArray(raw.conditions)) return { type: raw.type, conditions: raw.conditions.map(item => { const child = parseDialogueCondition(item, depth + 1); if (child.type !== 'compare') throw new Error('判断只支持平铺比较条件，不支持嵌套条件组。'); return child; }) };
   throw new Error('不支持的对话条件。');
 };
 export const parseDialogueEffect = (value: unknown): DialogueEffect => {
@@ -46,12 +45,11 @@ export const validateDialogueNodeRules = (node: DialogueEditorNode, catalog?: Di
     }
     if (!value.key.trim() || !value.path.length || value.path.some(item => !item.trim())) { report('共享内存 Key 和字段路径不能为空。'); return undefined; }
     const field = catalog?.memories.find(item => item.key === value.key)?.fields.find(item => JSON.stringify(item.path) === JSON.stringify(value.path));
-    if (catalog && !field) report(`共享内存字段未登记：${value.key}.${value.path.join('.')}`, 'warning');
+    if (catalog && !field) report(`共享内存字段未登记：${value.key}.${`${value.key}.${value.path.join('.')}`}`, 'warning');
     return field?.valueType;
   };
   const condition = (item: DialogueCondition, depth = 0): void => {
-    if (depth > 32) { report('条件嵌套不能超过 32 层。'); return; }
-    if (item.type === 'not') { condition(item.condition, depth + 1); return; }
+    if (depth > 0 && item.type !== 'compare') { report('判断只支持平铺比较条件。'); return; }
     if (item.type === 'all' || item.type === 'any') {
       if (!item.conditions.length) report('条件组至少需要一个条件。');
       item.conditions.forEach(child => condition(child, depth + 1)); return;
@@ -89,9 +87,8 @@ export const validateDialogueNodeRules = (node: DialogueEditorNode, catalog?: Di
 const symbols = { eq: '=', ne: '≠', gt: '>', gte: '≥', lt: '<', lte: '≤' };
 export const summarizeDialogueCondition = (condition?: DialogueCondition): string => {
   if (!condition) return '始终可用';
-  if (condition.type === 'not') return '条件取反';
   if (condition.type === 'all' || condition.type === 'any') return `满足${condition.type === 'all' ? '全部' : '任一'} ${condition.conditions.length} 个条件`;
   if (condition.type !== 'compare') return '';
-  const label = (value: DialogueValue) => value.type === 'literal' ? JSON.stringify(value.value) : value.path.join('.');
+  const label = (value: DialogueValue) => value.type === 'literal' ? JSON.stringify(value.value) : `${value.key}.${value.path.join('.')}`;
   return `${label(condition.left)} ${symbols[condition.operator]} ${label(condition.right)}`;
 };

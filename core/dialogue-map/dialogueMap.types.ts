@@ -1,6 +1,6 @@
 export const DIALOGUE_MAP_GRID_SIZE = 24;
 export type DialogueNodeShape = 'rectangle' | 'rounded' | 'diamond' | 'hexagon' | 'pill' | 'document';
-export type DialogueNodeKind = 'dialogue' | 'condition' | 'choice' | 'event';
+export type DialogueNodeKind = 'condition' | 'choice' | 'event';
 
 export type DialogueNodeDisplay = {
   shape: DialogueNodeShape;
@@ -20,10 +20,8 @@ export type DialogueScalar = string | number | boolean | null;
 export type DialogueValue =
   | { type: 'literal'; value: DialogueScalar }
   | { type: 'memory'; key: string; path: string[] };
-export type DialogueCondition =
-  | { type: 'compare'; left: DialogueValue; operator: 'eq' | 'ne' | 'gt' | 'gte' | 'lt' | 'lte'; right: DialogueValue }
-  | { type: 'all' | 'any'; conditions: DialogueCondition[] }
-  | { type: 'not'; condition: DialogueCondition };
+export type DialogueComparison = { type: 'compare'; left: DialogueValue; operator: 'eq' | 'ne' | 'gt' | 'gte' | 'lt' | 'lte'; right: DialogueValue };
+export type DialogueCondition = DialogueComparison | { type: 'all' | 'any'; conditions: DialogueComparison[] };
 export type DialogueEffect = { type: 'event'; eventType: string; version: number; payload?: Record<string, DialogueValue> };
 export type DialogueMemoryCatalogEntry = {
   key: string; label: string;
@@ -54,7 +52,6 @@ type DialogueNodeBase = {
   tags?: string[];
 };
 export type DialogueEditorNode = DialogueNodeBase & (
-  | { kind: 'dialogue' }
   | { kind: 'condition'; condition?: DialogueCondition }
   | { kind: 'choice' }
   | { kind: 'event'; mode: 'send' | 'wait'; event: DialogueEffect }

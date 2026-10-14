@@ -4,7 +4,7 @@ import { createServer } from 'vite';
 import react from '@vitejs/plugin-react';
 import { JSDOM } from 'jsdom';
 
-test('visual editor configures independent condition and event cards with nested rules and payloads', async () => {
+test('visual editor configures independent condition and event cards with flat conditions and payloads', async () => {
   const dom = new JSDOM('<div id="root"></div>'), previous = new Map();
   for (const [key, value] of Object.entries({ window: dom.window, document: dom.window.document, HTMLElement: dom.window.HTMLElement, IS_REACT_ACT_ENVIRONMENT: true })) {
     previous.set(key, globalThis[key]); globalThis[key] = value;
@@ -31,9 +31,12 @@ test('visual editor configures independent condition and event cards with nested
     assert.equal(output.condition.type, 'compare');
     const inputs = document.querySelectorAll('input[list]');
     await set(inputs[0], 'dungeon.player-state'); await set(document.querySelectorAll('input[list]')[1], 'playerPosition.tileX');
-    assert.deepEqual(output.condition.left, { type: 'memory', key: 'dungeon.player-state', path: ['playerPosition', 'tileX'] });
-    await set(document.querySelector('[aria-label="右侧常量值"]'), '5'); assert.equal(output.condition.right.value, 5);
-    await set(document.querySelector('[aria-label="条件种类"]'), 'all'); await click(button('添加条件组'));
+    assert.deepEqual(output.condition.conditions[0].left, { type: 'memory', key: 'dungeon.player-state', path: ['playerPosition', 'tileX'] });
+    await set(document.querySelector('[aria-label="右侧常量值"]'), '5'); assert.equal(output.condition.conditions[0].right.value, 5);
+    await set(document.querySelector('[aria-label="满足方式"]'), 'any'); await click(button('添加条件'));
+    assert.equal(output.condition.type, 'any');
+    assert.equal(button('添加条件组'), undefined);
+    assert.equal(document.querySelector('[aria-label="条件种类"]'), null);
     assert.equal(output.condition.conditions.length, 2);
     output = { id: 'event', kind: 'event', mode: 'send', event: { type: 'event', eventType: 'dungeon.agents.loaded', version: 1 } };
     await render();

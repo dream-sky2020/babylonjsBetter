@@ -17,13 +17,18 @@ test('catalog validates numeric comparisons, event parameters and unknown refere
   assert.ok(validateDialogueNodeRules(event, dialogueRuleCatalog).some(issue => issue.message.includes('agentCount')));
   event.mode = 'wait'; assert.deepEqual(validateDialogueNodeRules(event, dialogueRuleCatalog), []);
 });
-test('nested groups validate recursively and do not accept legacy expressions', () => {
+test('flat all/any comparisons validate while nested groups and negation are rejected', () => {
+  const comparison = { type: 'compare' as const, operator: 'eq' as const, left: { type: 'literal' as const, value: true }, right: { type: 'literal' as const, value: false } };
   const node = createDialogueEditorNode('test', { x: 0, y: 0 }, 'condition'); if (node.kind !== 'condition') return;
-  node.condition = { type: 'all', conditions: [{ type: 'not', condition: { type: 'compare', operator: 'eq', left: { type: 'literal', value: true }, right: { type: 'literal', value: false } } }] };
-  assert.deepEqual(validateDialogueNodeRules(node), []);
-  node.condition.conditions = []; assert.ok(validateDialogueNodeRules(node).length);
-  assert.throws(() => parseDialogueCondition('allowed')); assert.throws(() => parseDialogueCondition({ type: 'legacy', expression: 'allowed' }));
-  assert.throws(() => parseDialogueCondition({ type: 'compare', operator: 'javascript' }));
+  for (const type of ['all', 'any'] as const) {
+    node.condition = { type, conditions: [comparison, comparison] };
+    assert.deepEqual(validateDialogueNodeRules(node), []);
+    assert.deepEqual(parseDialogueCondition(node.condition), node.condition);
+    assert.throws(() => parseDialogueCondition({ type, conditions: [{ type: 'all', conditions: [comparison] }] }));
+  }
+  node.condition = { type: 'all', conditions: [] }; assert.ok(validateDialogueNodeRules(node).length);
+  assert.throws(() => parseDialogueCondition({ type: 'not', condition: comparison }));
+  assert.throws(() => parseDialogueCondition({ type: 'legacy', expression: 'allowed' }));
 });
 test('history restores typed nodes, clears redo on branching and bounds retained edits', () => {
   const first = createDialogueEditorDocument('rules', 'Rules'); let history = createDialogueHistory({ rules: first });

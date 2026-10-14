@@ -2,23 +2,22 @@ import { type DialogueEditorDocument, type DialogueEditorDocumentLibrary, type D
 import { computeDialogueNodeLayout } from './dialogueNodeLayout.ts';
 import { parseDialogueCondition, parseDialogueEffect } from './dialogueRules.ts';
 
-export const DIALOGUE_NODE_KIND_LABEL: Record<DialogueNodeKind, string> = { dialogue: '对话', condition: '判断', choice: '选项', event: '事件' };
+export const DIALOGUE_NODE_KIND_LABEL: Record<DialogueNodeKind, string> = { condition: '判断', choice: '选项', event: '事件' };
 export const createDefaultDialogueNodeDisplay = (): DialogueNodeDisplay => ({ shape: 'rectangle', colorToken: 'blue-muted', widthUnits: 10, heightUnits: 6, showSpeakerList: true, showPreviewText: true });
 export const dialogueNodeInputPortId = (id: string) => `port:${id}:in`;
 export const dialogueOutputPortId = (id: string, suffix: string) => `port:${id}:output:${suffix}`;
 export const dialogueLineId = (id: string, suffix = 'main') => `line:${id}:${suffix}`;
 export const dialogueEdgeId = (id: string, suffix: string) => `edge:${id}:${suffix}`;
-export const createDialogueEditorNode = (id: string, position: { x: number; y: number }, kind: DialogueNodeKind = 'dialogue'): DialogueEditorNode => {
+export const createDialogueEditorNode = (id: string, position: { x: number; y: number }, kind: DialogueNodeKind = 'choice'): DialogueEditorNode => {
   const inputId = dialogueNodeInputPortId(id), lineId = dialogueLineId(id);
   const base = { id, title: `新${DIALOGUE_NODE_KIND_LABEL[kind]}节点`, position, display: createDefaultDialogueNodeDisplay(), lines: new Map<string, { id: string; speaker: string; text: string }>(), lineOrder: [] as string[], inputs: new Map([[inputId, { id: inputId }]]), inputOrder: [inputId], outputs: new Map<string, DialogueOutputPort>(), outputOrder: [] as string[] };
-  base.display.colorToken = { dialogue: 'blue-muted', condition: 'violet-muted', choice: 'green-muted', event: 'red-muted' }[kind];
+  base.display.colorToken = { condition: 'violet-muted', choice: 'green-muted', event: 'red-muted' }[kind];
   const add = (branch: DialogueOutputPort['branch'], label: string, suffix: string = branch) => {
     const portId = dialogueOutputPortId(id, suffix); base.outputs.set(portId, { id: portId, label, branch }); base.outputOrder.push(portId);
   };
   if (kind === 'condition') { add('true', '成立'); add('false', '不成立'); return { ...base, kind, condition: { type: 'compare', left: { type: 'memory', key: '', path: [] }, operator: 'eq', right: { type: 'literal', value: 0 } } }; }
   if (kind === 'event') { add('next', '完成后继续'); return { ...base, kind, mode: 'send', event: { type: 'event', eventType: '', version: 1 } }; }
-  if (kind === 'choice') { add('choice', '选项一', 'first'); add('choice', '选项二', 'second'); return { ...base, kind }; }
-  base.lines.set(lineId, { id: lineId, speaker: '', text: '' }); base.lineOrder.push(lineId); add('next', '继续'); return { ...base, kind };
+  base.lines.set(lineId, { id: lineId, speaker: '', text: '' }); base.lineOrder.push(lineId); add('choice', '继续', 'next'); return { ...base, kind };
 };
 export const createDialogueEditorDocument = (presetKey: string, name: string): DialogueEditorDocument => {
   const node = createDialogueEditorNode('start', { x: 96, y: 96 }); node.title = '开场'; node.lines.get(node.lineOrder[0])!.text = '在这里写下第一句对话。';
@@ -40,13 +39,13 @@ const parseNode = (value: unknown): DialogueEditorNode => {
   const base = { id: string(raw.id), title: string(raw.title), position: { x: Number(pos.x), y: Number(pos.y) }, display: structuredClone(display) as DialogueNodeDisplay,
     lines: new Map(Object.entries(object(raw.lines, '对白')).map(([key, value]) => { const line = object(value, '对白'); return [key, { id: string(line.id), speaker: string(line.speaker), text: string(line.text) }]; })), lineOrder: list(raw.lineOrder),
     inputs: ports('inputs'), inputOrder: list(raw.inputOrder), outputs: ports('outputs') as Map<string, DialogueOutputPort>, outputOrder: list(raw.outputOrder), ...(raw.tags === undefined ? {} : { tags: list(raw.tags) }) };
-  if (raw.kind === 'dialogue' || raw.kind === 'choice') return { ...base, kind: raw.kind };
+  if (raw.kind === 'choice') return { ...base, kind: raw.kind };
   if (raw.kind === 'condition') return { ...base, kind: raw.kind, ...(raw.condition === undefined ? {} : { condition: parseDialogueCondition(raw.condition) }) };
   if (raw.kind === 'event' && (raw.mode === 'send' || raw.mode === 'wait')) return { ...base, kind: raw.kind, mode: raw.mode, event: parseDialogueEffect(raw.event) };
   throw new Error('不支持的节点类型或事件模式。');
 };
 export const parseDialogueEditorDocument = (value: unknown, expectedKey?: string): DialogueEditorDocument => {
-  const raw = object(value, '对话图'); if (raw.schemaVersion !== 5) throw new Error('只支持 V5 四类节点数据，请使用新预设。');
+  const raw = object(value, '对话图'); if (raw.schemaVersion !== 5) throw new Error('只支持 V5 三类节点数据，请使用新预设。');
   const presetKey = string(raw.presetKey); if (expectedKey && expectedKey !== presetKey) throw new Error('预设 Key 不一致。'); const graph = object(raw.graph, '图');
   const document: DialogueEditorDocument = { schemaVersion: 5, presetKey, name: string(raw.name), graph: {
     nodes: new Map(Object.entries(object(graph.nodes, '节点')).map(([key, node]) => [key, parseNode(node)])),
@@ -69,7 +68,7 @@ export const resolveDialogueEditorSelection = (document: DialogueEditorDocument,
   return port ? { kind: selection.kind, node, port } as DialogueEditorSelectionTarget : undefined;
 };
 const issue = (code: string, message: string, severity: DialogueMapValidationIssue['severity'], extra: Partial<DialogueMapValidationIssue> = {}): DialogueMapValidationIssue => ({ code, message, severity, ...extra });
-/** Storage validation ignores graph topology and unfinished rule values. */
+/** Storage validation permits dangling references and unfinished rules, but enforces edge invariants. */
 export const validateDialogueEditorDocument = (document: DialogueEditorDocument): DialogueMapValidationIssue[] => {
   const issues: DialogueMapValidationIssue[] = [];
   if (document.schemaVersion !== 5 || !/^[A-Za-z0-9_-]+$/.test(document.presetKey) || !document.name.trim()) issues.push(issue('invalid-document', '文档版本、名称或 Key 无效。', 'error'));
@@ -79,8 +78,24 @@ export const validateDialogueEditorDocument = (document: DialogueEditorDocument)
     for (const [items, order] of [[node.lines, node.lineOrder], [node.inputs, node.inputOrder], [node.outputs, node.outputOrder]] as const) {
       if (order.length !== items.size || new Set(order).size !== order.length || order.some(id => !items.has(id)) || [...items].some(([id, item]) => item.id !== id)) issues.push(issue('invalid-order', '节点内容顺序或 ID 无效。', 'error', { nodeId: key }));
     }
+    if (node.inputs.size !== 1 || node.inputOrder.length !== 1) issues.push(issue('single-input', '每个节点必须保留一个输入端口。', 'error', { nodeId: key }));
+    if (node.kind === 'condition') {
+      const valid = node.outputs.size === 2 && (['true', 'false'] as const).every(branch => {
+        const output = node.outputs.get(dialogueOutputPortId(node.id, branch));
+        return output?.branch === branch && output.label === (branch === 'true' ? '成立' : '不成立');
+      });
+      if (!valid) issues.push(issue('condition-fixed-outputs', '判断节点必须保留固定的“成立”和“不成立”两个出口。', 'error', { nodeId: key }));
+    }
   });
-  document.graph.edges.forEach((edge, key) => { if (key !== edge.id || !key.trim()) issues.push(issue('edge-key-mismatch', '连线 ID 与索引不一致。', 'error', { edgeId: key })); }); return issues;
+  const occupiedOutputs = new Set<string>();
+  document.graph.edges.forEach((edge, key) => {
+    if (key !== edge.id || !key.trim()) issues.push(issue('edge-key-mismatch', '连线 ID 与索引不一致。', 'error', { edgeId: key }));
+    if (edge.from.nodeId === edge.to.nodeId) issues.push(issue('self-connection', '节点出口不能连接到自身入口。', 'error', { edgeId: key, nodeId: edge.from.nodeId }));
+    const output = JSON.stringify([edge.from.nodeId, edge.from.portId]);
+    if (occupiedOutputs.has(output)) issues.push(issue('occupied-output', '同一出口只能连接一条线。', 'error', { edgeId: key, nodeId: edge.from.nodeId, portId: edge.from.portId }));
+    occupiedOutputs.add(output);
+  });
+  return issues;
 };
 export const diagnoseDialogueEditorDocument = (document: DialogueEditorDocument, layoutForNode = computeDialogueNodeLayout): DialogueMapValidationIssue[] => {
   const issues: DialogueMapValidationIssue[] = [];
@@ -92,8 +107,12 @@ export const diagnoseDialogueEntry = (document: DialogueEditorDocument, entryNod
   while (queue.length) { const id = queue.pop()!; if (reached.has(id)) continue; reached.add(id); document.graph.edges.forEach(edge => { if (edge.from.nodeId === id && document.graph.nodes.has(edge.to.nodeId)) queue.push(edge.to.nodeId); }); }
   return [...document.graph.nodes.values()].filter(node => !reached.has(node.id)).map(node => issue('entry-unreachable-node', `“${node.title}”无法从入口到达。`, 'warning', { nodeId: node.id }));
 };
-/** Add without replacing existing targets. */
+/** Each output has one destination; inputs may receive multiple edges. */
 export const connectDialogueNodes = (document: DialogueEditorDocument, from: DialogueEditorEdge['from'], to: DialogueEditorEdge['to']): string => {
+  if (from.nodeId === to.nodeId) throw new Error('节点出口不能连接到自身入口。');
+  for (const edge of document.graph.edges.values()) {
+    if (edge.from.nodeId === from.nodeId && edge.from.portId === from.portId) throw new Error('同一出口只能连接一条线。');
+  }
   let id = dialogueEdgeId(from.nodeId, from.portId.split(':').at(-1) ?? 'next'); const base = id;
   for (let index = 1; document.graph.edges.has(id); index++) id = `${base}_${index}`;
   document.graph.edges.set(id, { id, from: { ...from }, to: { ...to } }); return id;

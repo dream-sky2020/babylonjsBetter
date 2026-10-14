@@ -1,12 +1,12 @@
 {
   "schemaVersion": 5,
   "presetKey": "village_gate",
-  "name": "村口守卫 · 四类节点示例",
+  "name": "村口守卫 · 三类节点示例",
   "graph": {
     "nodes": {
       "greeting": {
         "id": "greeting",
-        "kind": "dialogue",
+        "kind": "choice",
         "title": "村口问候",
         "position": {
           "x": 48,
@@ -41,7 +41,7 @@
         "outputs": {
           "port:greeting:output:next": {
             "id": "port:greeting:output:next",
-            "branch": "next",
+            "branch": "choice",
             "label": "继续"
           }
         },
@@ -79,12 +79,12 @@
           "port:gate_check:output:true": {
             "id": "port:gate_check:output:true",
             "branch": "true",
-            "label": "成立：到达城门"
+            "label": "成立"
           },
           "port:gate_check:output:false": {
             "id": "port:gate_check:output:false",
             "branch": "false",
-            "label": "不成立：选择行动"
+            "label": "不成立"
           }
         },
         "outputOrder": [
@@ -92,20 +92,40 @@
           "port:gate_check:output:false"
         ],
         "condition": {
-          "type": "compare",
-          "left": {
-            "type": "memory",
-            "key": "dungeon.player-state",
-            "path": [
-              "playerPosition",
-              "tileX"
-            ]
-          },
-          "operator": "gte",
-          "right": {
-            "type": "literal",
-            "value": 5
-          }
+          "type": "all",
+          "conditions": [
+            {
+              "type": "compare",
+              "left": {
+                "type": "memory",
+                "key": "dungeon.player-state",
+                "path": [
+                  "playerPosition",
+                  "tileX"
+                ]
+              },
+              "operator": "gte",
+              "right": {
+                "type": "literal",
+                "value": 5
+              }
+            },
+            {
+              "type": "compare",
+              "left": {
+                "type": "memory",
+                "key": "dungeon.session",
+                "path": [
+                  "status"
+                ]
+              },
+              "operator": "eq",
+              "right": {
+                "type": "literal",
+                "value": "ready"
+              }
+            }
+          ]
         }
       },
       "open_gate": {
@@ -208,7 +228,7 @@
       },
       "welcome": {
         "id": "welcome",
-        "kind": "dialogue",
+        "kind": "choice",
         "title": "欢迎进村",
         "position": {
           "x": 1512,
@@ -259,8 +279,16 @@
           "showSpeakerList": true,
           "showPreviewText": true
         },
-        "lines": {},
-        "lineOrder": [],
+        "lines": {
+          "line:choices:main": {
+            "id": "line:choices:main",
+            "speaker": "村口守卫",
+            "text": "你打算怎么做？"
+          }
+        },
+        "lineOrder": [
+          "line:choices:main"
+        ],
         "inputs": {
           "port:choices:in": {
             "id": "port:choices:in"
@@ -337,7 +365,7 @@
       },
       "quest_info": {
         "id": "quest_info",
-        "kind": "dialogue",
+        "kind": "choice",
         "title": "任务说明",
         "position": {
           "x": 1512,
@@ -374,7 +402,7 @@
       },
       "goodbye": {
         "id": "goodbye",
-        "kind": "dialogue",
+        "kind": "choice",
         "title": "告别",
         "position": {
           "x": 1152,

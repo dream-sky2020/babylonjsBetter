@@ -148,6 +148,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [size, setSize] = useState({ width: 1, height: 1 });
   const [view, setView] = useState({ x: 48, y: 48, scale: 1 });
+  const [connectPointer, setConnectPointer] = useState<Point>();
   const gesture = useRef<{
     mode: 'pan' | 'node' | 'connect';
     start: Point;
@@ -193,6 +194,12 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
   }, [document.presetKey, resetViewToken, size.width, size.height]);
   const world = (point: Point) => graphWorldPoint(point, view);
   const screen = (point: Point) => graphScreenPoint(point, view);
+  const isPortAnchor = (point: Point, nodeId: string, portId: string) => {
+    const node = document.graph.nodes.get(nodeId);
+    if (!node) return false;
+    const anchor = screen(portPosition(node, portId));
+    return Math.hypot(point.x - anchor.x, point.y - anchor.y) <= 12;
+  };
   const hitTest = (point: Point): DialogueEditorSelection | undefined => {
     const p = world(point);
     for (const node of [...document.graph.nodes.values()].reverse()) {
@@ -230,7 +237,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           return { kind: 'output', nodeId: node.id, portId: id };
       for (const [id, value] of layout.lineRows)
         if (dialogueGridRectContains(value.rect, local))
-          return node.kind === 'dialogue' ? { kind: 'line', nodeId: node.id, lineId: id } : { kind: 'node', nodeId: node.id };
+          return node.kind === 'choice' ? { kind: 'line', nodeId: node.id, lineId: id } : { kind: 'node', nodeId: node.id };
       return { kind: 'node', nodeId: node.id };
     }
     for (const edge of document.graph.edges.values()) {
@@ -428,12 +435,34 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       // Text is the final paint within this node; decorations cannot cover its ink.
       textPaints.forEach(paint => paint());
     });
+    const active = gesture.current;
+    if (active?.mode === 'connect' && active.nodeId && active.portId && connectPointer) {
+      const source = document.graph.nodes.get(active.nodeId);
+      if (source) {
+        const start = screen(portPosition(source, active.portId));
+        ctx.save();
+        ctx.strokeStyle = '#c4b5fd';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(connectPointer.x, connectPointer.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [document, previewEntry, selection, size, view]);
+  }, [document, previewEntry, selection, size, view, connectPointer]);
   const point = (event: React.MouseEvent<HTMLCanvasElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     return { x: event.clientX - rect.left, y: event.clientY - rect.top };
   };
+  const hoveredInput = connectPointer ? hitTest(connectPointer) : undefined;
+  const selfConnection = gesture.current?.mode === 'connect' && hoveredInput?.kind === 'input'
+    && hoveredInput.nodeId === gesture.current.nodeId;
+  const occupiedOutput = (nodeId: string, portId: string) => [...document.graph.edges.values()]
+    .some(edge => edge.from.nodeId === nodeId && edge.from.portId === portId);
+  const selectedOutputOccupied = selection.kind === 'output' && occupiedOutput(selection.nodeId, selection.portId);
   return (
     <div className="dialogue-canvas" ref={hostRef}>
       <canvas
@@ -449,7 +478,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           event.currentTarget.setPointerCapture(event.pointerId);
           if (hit) {
             onSelection(hit);
-            if (hit.kind === 'output')
+            if (hit.kind === 'output' && isPortAnchor(p, hit.nodeId, hit.portId) && !occupiedOutput(hit.nodeId, hit.portId)) {
               gesture.current = {
                 mode: 'connect',
                 start: p,
@@ -457,7 +486,8 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
                 nodeId: hit.nodeId,
                 portId: hit.portId,
               };
-            else if (hit.kind === 'node') {
+              setConnectPointer(p);
+            } else if (hit.kind === 'node') {
               const node = document.graph.nodes.get(hit.nodeId)!;
               gesture.current = {
                 mode: 'node',
@@ -478,6 +508,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           const active = gesture.current;
           if (!active) return;
           const p = point(event);
+          if (active.mode === 'connect') setConnectPointer(p);
           if (active.mode === 'pan')
             setView((v) => ({
               ...v,
@@ -497,20 +528,25 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         onPointerUp={(event) => {
           const active = gesture.current;
           if (active?.mode === 'connect' && active.nodeId && active.portId) {
-            const hit = hitTest(point(event));
-            if (hit && hit.kind !== 'edge') {
-              const inputId = hit.kind === 'input' ? hit.portId : document.graph.nodes.get(hit.nodeId)?.inputOrder[0];
-              if (inputId) onConnect(active.nodeId, active.portId, hit.nodeId, inputId);
-            }
+            const releasedAt = point(event);
+            const hit = hitTest(releasedAt);
+            if (hit?.kind === 'input' && hit.nodeId !== active.nodeId && isPortAnchor(releasedAt, hit.nodeId, hit.portId))
+              onConnect(active.nodeId, active.portId, hit.nodeId, hit.portId);
           }
           gesture.current = undefined;
+          setConnectPointer(undefined);
         }}
         onPointerCancel={() => {
           gesture.current = undefined;
+          setConnectPointer(undefined);
         }}
       />
       <div className="dialogue-canvas__hint">
-        滚轮以鼠标位置缩放 · 拖拽紫色输出端口连线 · 右键设置检查入口
+        {selfConnection
+          ? '不能连接到当前节点的入口'
+          : selectedOutputOccupied
+            ? '此出口已有连线，请先删除旧连线'
+            : '滚轮以鼠标位置缩放 · 从紫色出口圆点拖到其他节点的灰色入口圆点连线 · 右键设置检查入口'}
       </div>
       <div className="dialogue-canvas__zoom">
         {Math.round(view.scale * 100)}%
@@ -528,6 +564,23 @@ const loadPreviewEntries = (): Record<string, string | undefined> => {
   } catch {
     return {};
   }
+};
+const InspectorGroup: React.FC<{
+  title: string;
+  count?: number;
+  defaultOpen?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}> = ({ title, count, defaultOpen = true, className = '', children }) => {
+  const [open, setOpen] = useState(defaultOpen);
+  return <section className={`inspector-group ${className}`}>
+    <button type="button" className="inspector-group__heading" aria-expanded={open} onClick={() => setOpen(value => !value)}>
+      <span className="inspector-group__chevron" aria-hidden="true">{open ? '▾' : '▸'}</span>
+      <strong>{title}</strong>
+      {count !== undefined ? <small>{count}</small> : null}
+    </button>
+    {open ? <div className="inspector-group__body">{children}</div> : null}
+  </section>;
 };
 export const DialogueMapCanvasLab: React.FC = () => {
   const [history, setHistory] = useState(createDialogueHistory);
@@ -701,14 +754,6 @@ export const DialogueMapCanvasLab: React.FC = () => {
     });
     setSelection({ kind: 'line', nodeId: node.id, lineId: id });
   };
-  const addInput = (node: DialogueEditorNode) => {
-    const id = makeId(`port:${node.id}:in`, new Set(node.inputs.keys()));
-    updateNode(node.id, (draft) => {
-      draft.inputs.set(id, { id });
-      draft.inputOrder.push(id);
-    });
-    setSelection({ kind: 'input', nodeId: node.id, portId: id });
-  };
   const addOutput = (node: DialogueEditorNode) => {
     const suffix = makeId(
       'choice',
@@ -719,7 +764,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       draft.outputs.set(id, {
         id,
         label: '新选择',
-        branch: draft.kind === 'choice' ? 'choice' : draft.kind === 'condition' ? 'true' : 'next',
+        branch: 'choice',
       });
       draft.outputOrder.push(id);
     });
@@ -727,8 +772,12 @@ export const DialogueMapCanvasLab: React.FC = () => {
   };
   const setTarget = (nodeId: string, outputId: string, targetNodeId: string, inputId?: string) =>
     updateDocument(draft => {
+      if (nodeId === targetNodeId) return;
       const toPort = inputId ?? draft.graph.nodes.get(targetNodeId)?.inputOrder[0];
-      if (toPort) connectDialogueNodes(draft, { nodeId, portId: outputId }, { nodeId: targetNodeId, portId: toPort });
+      if (!toPort) return;
+      if ([...draft.graph.edges.values()].some(edge =>
+        edge.from.nodeId === nodeId && edge.from.portId === outputId)) return;
+      connectDialogueNodes(draft, { nodeId, portId: outputId }, { nodeId: targetNodeId, portId: toPort });
     });
   const runCheck = () => {
     const result = compileDialogueEditorDocument(document, previewEntry ?? '', dialogueRuleCatalog);
@@ -775,7 +824,6 @@ export const DialogueMapCanvasLab: React.FC = () => {
         ? item.nodeId === selectedNode.id
         : false,
   );
-  const outputTargetOptions = [...document.graph.nodes.values()];
   return (
     <div className="dialogue-lab">
       <header className="dialogue-lab__header">
@@ -823,15 +871,19 @@ export const DialogueMapCanvasLab: React.FC = () => {
               ))}
             </select>
           </label>
-          <div className="create-preset">
-            <strong>新建预设</strong>
-            <input value={newKey} onChange={(e) => setNewKey(e.target.value)} />
-            <input
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-            />
-            <button onClick={createPreset}>＋ 创建</button>
-          </div>
+          <details className="create-preset">
+            <summary>新建预设</summary>
+            <div className="create-preset__body">
+              <input aria-label="预设 Key" placeholder="预设 Key" value={newKey} onChange={(e) => setNewKey(e.target.value)} />
+              <input
+                aria-label="预设名称"
+                placeholder="预设名称"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
+              <button onClick={createPreset}>＋ 创建</button>
+            </div>
+          </details>
         </section>
         <section className="panel-card node-list-card">
           <div className="panel-card__heading">
@@ -839,7 +891,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
               <span>流程卡片</span>
               <strong>{document.graph.nodes.size}</strong>
             </div>
-            <span>四种节点</span>
+            <span>三种节点</span>
           </div>
           <div className="node-create-actions">{(Object.keys(DIALOGUE_NODE_KIND_LABEL) as DialogueNodeKind[]).map(kind => <button key={kind} onClick={() => addNode(kind)}>＋{DIALOGUE_NODE_KIND_LABEL[kind]}</button>)}</div>
           <div className="node-list">
@@ -870,7 +922,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
                     {DIALOGUE_NODE_KIND_LABEL[node.kind]} · {node.outputs.size} 输出
                   </small>
                 </span>
-                {previewEntry === node.id ? <em>预览</em> : null}
+                {previewEntry === node.id ? <em>入口</em> : null}
               </button>
             ))}
           </div>
@@ -878,32 +930,36 @@ export const DialogueMapCanvasLab: React.FC = () => {
       </aside>
       <main className="dialogue-lab__stage">
         <div className="stage-toolbar">
-          <div>
+          <div className="stage-toolbar__meta">
             <strong>{document.name}</strong>
             <span>{document.presetKey}</span>
-            {dirty ? <em>● 未保存</em> : <em className="is-saved">✓ 已保存</em>}
+            {dirty ? <em>未保存</em> : <em className="is-saved">已保存</em>}
           </div>
           <div className="stage-toolbar__actions">
-            <button disabled={!history.past.length} onClick={() => setHistory(undoDialogueHistory)} title="撤销 Ctrl+Z">撤销</button>
-            <button disabled={!history.future.length} onClick={() => setHistory(redoDialogueHistory)} title="重做 Ctrl+Shift+Z">重做</button>
+            <div className="stage-toolbar__group">
+              <button disabled={!history.past.length} onClick={() => setHistory(undoDialogueHistory)} title="撤销 Ctrl+Z">撤销</button>
+              <button disabled={!history.future.length} onClick={() => setHistory(redoDialogueHistory)} title="重做 Ctrl+Shift+Z">重做</button>
+            </div>
             <span
-              className={
-                issues.some((i) => i.severity !== 'info') ? 'has-issues' : ''
-              }
+              className={`stage-toolbar__check-status${currentCheck ? (issues.length ? ' has-issues' : ' is-passed') : ''}`}
+              title={currentCheck ? (issues.length ? `${issues.length} 项诊断` : '编译通过') : '尚未检查当前草稿'}
             >
-              {currentCheck ? (issues.length ? `${issues.length} 项诊断` : '✓ 编译通过') : '尚未检查当前草稿'}
+              {currentCheck ? (issues.length ? `${issues.length} 项诊断` : '已通过') : '待检查'}
             </span>
-            <button onClick={runCheck}>检查／编译</button>
-            <button disabled={!currentCheck?.program} onClick={exportCompiled}>导出编译数据</button>
-            <button onClick={() => setResetViewToken((v) => v + 1)}>
-              适配全部
-            </button>
+            <div className="stage-toolbar__group">
+              <button onClick={runCheck} title="检查并编译当前草稿">检查／编译</button>
+              <button disabled={!currentCheck?.program} onClick={exportCompiled} title="导出编译数据">导出数据</button>
+            </div>
+            <div className="stage-toolbar__group">
+              <button onClick={() => setResetViewToken((v) => v + 1)} title="适配全部节点到画布">适配画布</button>
+            </div>
             <button
               className="save-button"
               disabled={saving}
               onClick={() => void save()}
+              title="保存全部草稿"
             >
-              {saving ? '保存中…' : '保存全部草稿'}
+              {saving ? '保存中…' : '保存草稿'}
             </button>
           </div>
         </div>
@@ -965,16 +1021,16 @@ export const DialogueMapCanvasLab: React.FC = () => {
           ) : null}
         </div>
         <div className="inspector-scroll">
-          <section className="panel-card compile-results"><strong>检查／编译结果</strong>
+          <InspectorGroup title="检查／编译结果" count={issues.length} className="compile-results">
             <p>{currentCheck ? (currentCheck.program ? '编译成功，可导出独立流程数据。' : '有错误需要处理；草稿仍可保存。') : '当前草稿尚未检查，或检查后已有修改。'}</p>
             {issues.map((item, index) => <button className={`diagnostic diagnostic--${item.severity}`} key={index} onClick={() => {
               if (item.edgeId) setSelection({ kind: 'edge', edgeId: item.edgeId });
               else if (item.nodeId) setSelection(item.portId && document.graph.nodes.get(item.nodeId)?.outputs.has(item.portId) ? { kind: 'output', nodeId: item.nodeId, portId: item.portId } : { kind: 'node', nodeId: item.nodeId });
             }}>{item.severity === 'error' ? '错误' : item.severity === 'warning' ? '警告' : '提示'} · {item.message}</button>)}
-          </section>
+          </InspectorGroup>
           {target?.kind === 'node' ? (
             <>
-              <section className="panel-card">
+              <InspectorGroup title="节点属性">
                 <label className="field">
                   <span>节点 ID</span>
                   <input value={target.node.id} disabled />
@@ -1001,8 +1057,8 @@ export const DialogueMapCanvasLab: React.FC = () => {
                     ? '✓ 当前检查入口'
                     : '设为检查入口'}
                 </button>
-              </section>
-              <section className="panel-card">
+              </InspectorGroup>
+              <InspectorGroup title="外观与尺寸" defaultOpen={false}>
                 <label className="field">
                   <span>形状</span>
                   <select
@@ -1098,26 +1154,11 @@ export const DialogueMapCanvasLab: React.FC = () => {
                   />
                   折叠内容布局
                 </label>
-              </section>
-              <section className="panel-card">
-                <div className="panel-card__heading">
-                  <div>
-                    <span>内容与端口</span>
-                    <strong>
-                      {target.node.lines.size +
-                        target.node.inputs.size +
-                        target.node.outputs.size}
-                    </strong>
-                  </div>
-                  <div className="inline-actions">
-                    {target.node.kind === 'dialogue' ? <button onClick={() => addLine(target.node)}>＋对白</button> : null}
-                    <button onClick={() => addInput(target.node)}>
-                      ＋输入
-                    </button>
-                    <button onClick={() => addOutput(target.node)}>
-                      ＋输出
-                    </button>
-                  </div>
+              </InspectorGroup>
+              <InspectorGroup title="内容与端口" count={target.node.lines.size + target.node.inputs.size + target.node.outputs.size}>
+                <div className="inline-actions content-actions">
+                    {target.node.kind === 'choice' ? <button onClick={() => addLine(target.node)}>＋对白</button> : null}
+                    {target.node.kind === 'choice' ? <button onClick={() => addOutput(target.node)}>＋选项</button> : null}
                 </div>
                 {target.node.lineOrder.map((id) => (
                   <button
@@ -1167,11 +1208,11 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 {!target.node.outputs.size ? (
                   <p>运行到此将正常结束对话。</p>
                 ) : null}
-              </section>
+              </InspectorGroup>
             </>
           ) : null}
           {target?.kind === 'line' ? (
-            <section className="panel-card">
+            <InspectorGroup title="对白内容">
               <label className="field">
                 <span>对白 ID</span>
                 <input value={target.line.id} disabled />
@@ -1201,37 +1242,26 @@ export const DialogueMapCanvasLab: React.FC = () => {
                   }
                 />
               </label>
-            </section>
+            </InspectorGroup>
           ) : null}
           {target?.kind === 'output' ? (
-            <section className="panel-card">
+            <InspectorGroup title="输出端口">
               <label className="field">
                 <span>输出端口 ID</span>
                 <input value={target.port.id} disabled />
               </label>
-              <label className="field">
-                <span>标签</span>
-                <input
+              {target.node.kind === 'condition' ? <p>固定出口：{target.port.branch === 'true' ? '成立' : '不成立'}</p> :
+                <label className="field"><span>{target.node.kind === 'choice' ? '选项文本' : '出口标签'}</span><input
                   value={target.port.label ?? ''}
-                  onChange={(e) =>
-                    updateNode(target.node.id, (node) => {
-                      const port = node.outputs.get(target.port.id);
-                      if (port) port.label = e.target.value || undefined;
-                    })
-                  }
-                />
-              </label>
-              <label className="field"><span>出口分支</span><select aria-label="出口分支" value={target.port.branch} onChange={e => updateNode(target.node.id, node => {
-                const port = node.outputs.get(target.port.id); if (port) port.branch = e.target.value as typeof port.branch;
-              })}><option value="next">继续</option><option value="true">成立</option><option value="false">不成立</option><option value="choice">玩家选项</option></select></label>
-              <label className="field"><span>添加目标连线</span><select value="" onChange={e => setTarget(target.node.id, target.port.id, e.target.value)}>
-                <option value="">选择目标（保留已有连线）</option>
-                {outputTargetOptions.map(node => <option key={node.id} value={node.id}>{node.title} · {node.id}</option>)}
-              </select></label>
+                  onChange={e => updateNode(target.node.id, node => {
+                    const port = node.outputs.get(target.port.id); if (port) port.label = e.target.value || undefined;
+                  })}
+                /></label>}
+              <p>从画布上的紫色出口圆点拖到目标节点的灰色入口圆点，即可添加连线。</p>
               <div className="connection-list">{[...document.graph.edges.values()].filter(edge => edge.from.nodeId === target.node.id && edge.from.portId === target.port.id).map(edge =>
                 <div key={edge.id}><button onClick={() => setSelection({ kind: 'edge', edgeId: edge.id })}>→ {document.graph.nodes.get(edge.to.nodeId)?.title ?? edge.to.nodeId}</button>
                   <button aria-label={`删除连线 ${edge.id}`} onClick={() => updateDocument(draft => { draft.graph.edges.delete(edge.id); })}>删除</button></div>)}</div>
-              <button
+              {target.node.kind === 'choice' ? <button
                 className="danger-wide"
                 onClick={() => {
                   updateNode(target.node.id, (node, draft) => {
@@ -1251,11 +1281,11 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 }}
               >
                 删除输出及连线
-              </button>
-            </section>
+              </button> : null}
+            </InspectorGroup>
           ) : null}
           {target?.kind === 'input' ? (
-            <section className="panel-card">
+            <InspectorGroup title="输入端口">
               <label className="field">
                 <span>输入端口 ID</span>
                 <input value={target.port.id} disabled />
@@ -1272,31 +1302,11 @@ export const DialogueMapCanvasLab: React.FC = () => {
                   }
                 />
               </label>
-              <button
-                className="danger-wide"
-                onClick={() => {
-                  updateNode(target.node.id, (node, draft) => {
-                    node.inputs.delete(target.port.id);
-                    node.inputOrder = node.inputOrder.filter(
-                      (id) => id !== target.port.id,
-                    );
-                    [...draft.graph.edges].forEach(([id, edge]) => {
-                      if (
-                        edge.to.nodeId === node.id &&
-                        edge.to.portId === target.port.id
-                      )
-                        draft.graph.edges.delete(id);
-                    });
-                  });
-                  setSelection({ kind: 'node', nodeId: target.node.id });
-                }}
-              >
-                删除输入及连线
-              </button>
-            </section>
+              <p>每张卡片固定一个输入，可接收多条连线。</p>
+            </InspectorGroup>
           ) : null}
           {target?.kind === 'edge' ? (
-            <section className="panel-card">
+            <InspectorGroup title="连线">
               <label className="field">
                 <span>连线 ID</span>
                 <input value={target.edge.id} disabled />
@@ -1307,15 +1317,14 @@ export const DialogueMapCanvasLab: React.FC = () => {
               <p>
                 → {target.edge.to.nodeId} / {target.edge.to.portId}
               </p>
-            </section>
+            </InspectorGroup>
           ) : null}
           {selectedIssues.length ? (
-            <section className="panel-card issue-card">
-              <strong>选择项诊断</strong>
+            <InspectorGroup title="选中项诊断" className="issue-card">
               {selectedIssues.map((item, index) => (
                 <p key={`${item.code}:${index}`}>{item.message}</p>
               ))}
-            </section>
+            </InspectorGroup>
           ) : null}
         </div>
       </aside>

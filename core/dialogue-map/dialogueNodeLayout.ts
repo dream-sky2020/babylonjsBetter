@@ -55,11 +55,19 @@ const row = (id: string, x: number, y: number, width: number, height: number): D
 
 /** Synthetic summaries are display-only and never saved as dialogue lines. */
 export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
-  if (node.kind === 'dialogue') return node.lines;
-  const text = node.kind === 'condition' ? (node.condition ? summarizeDialogueCondition(node.condition) : '未设置判断条件')
-    : node.kind === 'event' ? `${node.event.eventType || '未设置事件'} @${node.event.version}\n${Object.entries(node.event.payload ?? {}).map(([key, value]) => `${key}: ${value.type === 'memory' ? value.key + '.' + value.path.join('.') : JSON.stringify(value.value)}`).join(' · ')}`
-    : `${node.outputs.size} 个玩家选项`;
-  return new Map([[`summary:${node.id}`, { id: `summary:${node.id}`, speaker: node.kind === 'condition' ? '共享内存判断' : node.kind === 'event' ? (node.mode === 'wait' ? '等待接收事件' : '发送事件') : '玩家选择', text }]]);
+  if (node.kind === 'choice') return node.lines;
+  if (node.kind === 'condition') {
+    const condition = node.condition;
+    if (!condition) return new Map([[`summary:${node.id}`, { id: `summary:${node.id}`, speaker: '判断条件', text: '未设置判断条件' }]]);
+    const comparisons = condition.type === 'compare' ? [condition] : condition.conditions;
+    const mode = condition.type === 'any' ? '任一满足' : '全部满足';
+    return new Map([
+      [`summary:${node.id}`, { id: `summary:${node.id}`, speaker: '判断条件', text: mode }],
+      ...comparisons.map((item, index) => { const id = `condition:${node.id}:${index}`; return [id, { id, speaker: `条件 ${index + 1}`, text: summarizeDialogueCondition(item) }] as const; }),
+    ]);
+  }
+  const text = `${node.event.eventType || '未设置事件'} @${node.event.version}\n${Object.entries(node.event.payload ?? {}).map(([key, value]) => `${key}: ${value.type === 'memory' ? value.key + '.' + value.path.join('.') : JSON.stringify(value.value)}`).join(' · ')}`;
+  return new Map([[`summary:${node.id}`, { id: `summary:${node.id}`, speaker: node.mode === 'wait' ? '等待接收事件' : '发送事件', text }]]);
 };
 
 export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Readonly<DialogueNodeLayoutMetrics> = DIALOGUE_NODE_LAYOUT_METRICS, measureText?: DialogueNodeTextMeasure): DialogueNodeLayout => {
