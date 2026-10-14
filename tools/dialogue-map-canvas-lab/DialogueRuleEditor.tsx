@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import type { DialogueCondition, DialogueEffect, DialogueOutputPort, DialogueScalar, DialogueValue } from '../../core/dialogue-map/dialogueMap.types';
+import type { DialogueCondition, DialogueEffect, DialogueEditorNode, DialogueScalar, DialogueValue } from '../../core/dialogue-map/dialogueMap.types';
 import { dialogueRuleCatalog as catalog } from './dialogueRuleCatalog';
 
 const scalarDefault = (type: string): DialogueScalar => type === 'number' ? 0 : type === 'boolean' ? false : type === 'null' ? null : '';
@@ -41,14 +41,9 @@ function ValueEditor({ label, value, onChange }: { label: string; value: Dialogu
   </fieldset>;
 }
 
-function ConditionEditor({ value, onChange, depth = 0 }: { value: DialogueCondition; onChange(value: DialogueCondition): void; depth?: number }) {
+export function ConditionEditor({ value, onChange, depth = 0 }: { value: DialogueCondition; onChange(value: DialogueCondition): void; depth?: number }) {
   const numericComparison = value.type !== 'compare' || [value.left, value.right].every(item => !valueType(item) || valueType(item) === 'number');
   return <div className="dialogue-rule-condition">
-    {value.type === 'legacy' ? <>
-      <strong>旧版条件</strong><pre>{value.expression}</pre>
-      <p>原字符串保留。替换为结构化条件后请重新配置字段和值。</p>
-      <button onClick={() => onChange(newDialogueComparison())}>替换为比较条件</button>
-    </> : <>
       <select aria-label="条件种类" value={value.type} onChange={e => {
         const type = e.target.value;
         if (type === 'compare') onChange(newDialogueComparison());
@@ -77,7 +72,6 @@ function ConditionEditor({ value, onChange, depth = 0 }: { value: DialogueCondit
           <button disabled={depth >= 30} onClick={() => onChange({ ...value, conditions: [...value.conditions, { type: 'all', conditions: [newDialogueComparison()] }] })}>添加条件组</button>
         </div>
       </> : null}
-    </>}
   </div>;
 }
 
@@ -106,12 +100,7 @@ function ParameterEditor({ name, value, names, onRename, onChange, onDelete }: {
   </div>;
 }
 
-function EffectEditor({ effect, onChange }: { effect: DialogueEffect; onChange(effect: DialogueEffect): void }) {
-  if (effect.type === 'legacy') return <>
-    <strong>旧版效果</strong><pre>{effect.event}</pre>
-    <p>转换时将此字符串作为事件名称，协议版本设为 1。</p>
-    <button onClick={() => onChange({ type: 'event', eventType: effect.event, version: 1 })}>转换为事件</button>
-  </>;
+export function EffectEditor({ effect, onChange }: { effect: DialogueEffect; onChange(effect: DialogueEffect): void }) {
   const payload = effect.payload ?? {};
   const entry = catalog.events.find(item => item.eventType === effect.eventType && item.version === effect.version);
   const addParameter = () => {
@@ -131,33 +120,20 @@ function EffectEditor({ effect, onChange }: { effect: DialogueEffect; onChange(e
   </>;
 }
 
-export function DialogueRuleEditor({ port, onChange }: { port: DialogueOutputPort; onChange(port: DialogueOutputPort): void }) {
-  const effects = port.effects ?? [];
-  const reorder = (index: number, delta: number) => {
-    const next = [...effects]; [next[index], next[index + delta]] = [next[index + delta], next[index]];
-    onChange({ ...port, effects: next });
-  };
-  return <div className="dialogue-rule-editor">
-    {port.activation.type === 'event' ? <section aria-label="接收事件">
-      <h3>接收事件</h3><EventReference eventType={port.activation.eventType} version={port.activation.version}
-        onChange={(eventType, version) => onChange({ ...port, activation: { type: 'event', eventType, version } })} />
-    </section> : null}
-    <section aria-label="出口条件"><div className="dialogue-rule-heading"><h3>出口条件</h3>
-      {port.condition ? <button onClick={() => onChange({ ...port, condition: undefined })}>清除条件</button> : null}</div>
-      {port.condition ? <ConditionEditor value={port.condition} onChange={condition => onChange({ ...port, condition })} /> : <>
-        <p>始终可用</p><button onClick={() => onChange({ ...port, condition: newDialogueComparison() })}>添加条件</button>
-      </>}
-    </section>
-    <section aria-label="触发事件"><h3>触发事件 · {effects.length}</h3><p>通过此出口时触发，按列表顺序保存。</p>
-      {effects.map((effect, index) => <div className="dialogue-rule-effect" key={index}>
-        <div className="dialogue-rule-heading"><strong>事件 {index + 1}</strong><div className="dialogue-rule-actions">
-          <button aria-label={`上移事件 ${index + 1}`} disabled={!index} onClick={() => reorder(index, -1)}>↑</button>
-          <button aria-label={`下移事件 ${index + 1}`} disabled={index === effects.length - 1} onClick={() => reorder(index, 1)}>↓</button>
-          <button onClick={() => onChange({ ...port, effects: effects.filter((_, i) => i !== index) })}>删除</button>
-        </div></div>
-        <EffectEditor effect={effect} onChange={next => onChange({ ...port, effects: effects.map((item, i) => i === index ? next : item) })} />
-      </div>)}
-      <button onClick={() => onChange({ ...port, effects: [...effects, { type: 'event', eventType: '', version: 1 }] })}>添加事件</button>
-    </section>
-  </div>;
+export function DialogueRuleEditor({ node, onChange }: { node: DialogueEditorNode; onChange(node: DialogueEditorNode): void }) {
+  if (node.kind === 'condition') return <section className="dialogue-rule-editor" aria-label="判断条件">
+    <h3>判断条件</h3>
+    {node.condition ? <><ConditionEditor value={node.condition} onChange={condition => onChange({ ...node, condition })} />
+      <button onClick={() => onChange({ ...node, condition: undefined })}>清除条件</button></>
+      : <button onClick={() => onChange({ ...node, condition: newDialogueComparison() })}>添加条件</button>}
+  </section>;
+  if (node.kind === 'event') return <section className="dialogue-rule-editor" aria-label="事件配置">
+    <label className="field"><span>事件模式</span><select aria-label="事件模式" value={node.mode} onChange={e => onChange({ ...node, mode: e.target.value as 'send' | 'wait' })}>
+      <option value="send">发送事件</option><option value="wait">等待接收事件</option>
+    </select></label>
+    <p>{node.mode === 'send' ? '声明要发送的事件及参数；完成后继续。' : '等待指定名称和版本的事件；参数作为匹配条件。'}</p>
+    <EffectEditor effect={node.event} onChange={event => onChange({ ...node, event })} />
+  </section>;
+  return null;
 }
+

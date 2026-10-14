@@ -1,6 +1,6 @@
 export const DIALOGUE_MAP_GRID_SIZE = 24;
 export type DialogueNodeShape = 'rectangle' | 'rounded' | 'diamond' | 'hexagon' | 'pill' | 'document';
-export type DialogueNoAvailableOutputPolicy = 'end' | 'show-unavailable' | 'runtime-error';
+export type DialogueNodeKind = 'dialogue' | 'condition' | 'choice' | 'event';
 
 export type DialogueNodeDisplay = {
   shape: DialogueNodeShape;
@@ -23,11 +23,8 @@ export type DialogueValue =
 export type DialogueCondition =
   | { type: 'compare'; left: DialogueValue; operator: 'eq' | 'ne' | 'gt' | 'gte' | 'lt' | 'lte'; right: DialogueValue }
   | { type: 'all' | 'any'; conditions: DialogueCondition[] }
-  | { type: 'not'; condition: DialogueCondition }
-  | { type: 'legacy'; expression: string };
-export type DialogueEffect =
-  | { type: 'event'; eventType: string; version: number; payload?: Record<string, DialogueValue> }
-  | { type: 'legacy'; event: string };
+  | { type: 'not'; condition: DialogueCondition };
+export type DialogueEffect = { type: 'event'; eventType: string; version: number; payload?: Record<string, DialogueValue> };
 export type DialogueMemoryCatalogEntry = {
   key: string; label: string;
   fields: Array<{ path: string[]; label: string; valueType: 'number' | 'string' | 'boolean' | 'null'; nullable?: boolean }>;
@@ -37,19 +34,13 @@ export type DialogueEventCatalogEntry = {
   fields: Array<{ name: string; valueType: 'number' | 'string' | 'boolean' | 'null'; nullable?: boolean; required?: boolean }>;
 };
 export type DialogueRuleCatalog = { memories: readonly DialogueMemoryCatalogEntry[]; events: readonly DialogueEventCatalogEntry[] };
-export type DialogueOutputActivation =
-  | { type: 'choice' }
-  | { type: 'auto'; priority?: number }
-  | { type: 'event'; eventType: string; version: number };
 export type DialogueOutputPort = {
   id: string;
   label?: string;
-  activation: DialogueOutputActivation;
-  condition?: DialogueCondition;
-  effects?: DialogueEffect[];
+  branch: 'next' | 'true' | 'false' | 'choice';
 };
 
-export type DialogueEditorNode = {
+type DialogueNodeBase = {
   id: string;
   title: string;
   position: { x: number; y: number };
@@ -60,14 +51,19 @@ export type DialogueEditorNode = {
   inputOrder: string[];
   outputs: Map<string, DialogueOutputPort>;
   outputOrder: string[];
-  noAvailableOutput?: DialogueNoAvailableOutputPolicy;
   tags?: string[];
 };
+export type DialogueEditorNode = DialogueNodeBase & (
+  | { kind: 'dialogue' }
+  | { kind: 'condition'; condition?: DialogueCondition }
+  | { kind: 'choice' }
+  | { kind: 'event'; mode: 'send' | 'wait'; event: DialogueEffect }
+);
 
 export type DialogueEditorEndpoint = { nodeId: string; portId: string };
 export type DialogueEditorEdge = { id: string; from: DialogueEditorEndpoint; to: DialogueEditorEndpoint; label?: string };
 export type DialogueEditorGraph = { nodes: Map<string, DialogueEditorNode>; edges: Map<string, DialogueEditorEdge> };
-export type DialogueEditorDocument = { schemaVersion: 4; presetKey: string; name: string; graph: DialogueEditorGraph };
+export type DialogueEditorDocument = { schemaVersion: 5; presetKey: string; name: string; graph: DialogueEditorGraph };
 export type DialogueEditorDocumentLibrary = Record<string, DialogueEditorDocument>;
 export type DialogueEditorWorkspaceState = { previewEntryByPreset: Record<string, string | undefined> };
 
@@ -98,30 +94,14 @@ export type DialogueMapValidationIssue = {
 export type DialogueMapPresetCatalogEntry = { presetKey: string; name: string; file: string };
 export type DialogueMapPresetCatalog = { version: 1; presets: Record<string, DialogueMapPresetCatalogEntry> };
 
-export type StoredDialogueEditorNode = Omit<DialogueEditorNode, 'lines' | 'inputs' | 'outputs'> & {
+type StoredNode<T> = T extends DialogueEditorNode ? Omit<T, 'lines' | 'inputs' | 'outputs'> & {
   lines: Record<string, DialogueEditorLine>;
   inputs: Record<string, DialogueInputPort>;
   outputs: Record<string, DialogueOutputPort>;
-};
+} : never;
+export type StoredDialogueEditorNode = StoredNode<DialogueEditorNode>;
 export type StoredDialogueEditorDocument = Omit<DialogueEditorDocument, 'graph'> & {
   graph: { nodes: Record<string, StoredDialogueEditorNode>; edges: Record<string, DialogueEditorEdge> };
 };
 export type StoredDialogueEditorDocumentLibrary = Record<string, StoredDialogueEditorDocument>;
 
-/** V1 只用于兼容读取，编辑器不会再生成该结构。 */
-export type LegacyDialogueMapPreset = {
-  schemaVersion: 1;
-  presetKey: string;
-  name: string;
-  startNodeId: string;
-  nodes: Record<string, {
-    id: string;
-    kind: 'dialogue' | 'choice' | 'end';
-    title: string;
-    speaker: string;
-    text: string;
-    position: { x: number; y: number };
-    choices: Array<{ id: string; text: string; targetNodeId?: string; condition?: string; event?: string }>;
-    tags?: string[];
-  }>;
-};

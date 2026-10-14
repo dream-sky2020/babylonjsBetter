@@ -13,9 +13,9 @@ import {
   DIALOGUE_NODE_LAYOUT_METRICS,
   dialogueGridRectContains,
   dialogueLayoutPointToWorld,
-  diagnoseDialogueEditorDocument,
-  diagnoseDialogueEntry,
-  dialogueEdgeId,
+  compileDialogueEditorDocument,
+  connectDialogueNodes,
+  DIALOGUE_NODE_KIND_LABEL,
   dialogueLineId,
   dialogueOutputPortId,
   encodeDialogueEditorDocumentLibrary,
@@ -23,14 +23,14 @@ import {
   resolveDialogueEditorSelection,
   saveDialogueEditorDocumentLibrary,
   validateDialogueEditorDocument,
-  validateDialogueOutputRules,
+  type DialogueCompileResult,
+  type DialogueNodeKind,
   type DialogueEditorDocument,
   type DialogueEditorDocumentLibrary,
   type DialogueEditorEdge,
   type DialogueEditorNode,
   type DialogueEditorSelection,
   type DialogueNodeDisplay,
-  type DialogueMapValidationIssue,
 } from '@/core/dialogue-map';
 import './dialogue-map-canvas-lab.css';
 import { DialogueRuleEditor } from './DialogueRuleEditor';
@@ -38,12 +38,12 @@ import { dialogueRuleCatalog } from './dialogueRuleCatalog';
 import { createDialogueHistory, commitDialogueHistory, undoDialogueHistory, redoDialogueHistory } from './dialogueHistory';
 import { fitGraphView, graphWorldPoint, graphScreenPoint, zoomGraphViewWithWheel } from '@/core/ui/node-graph/graphViewport';
 import { getDialogueCanvasLayout as computeDialogueNodeLayout, measureDialogueCanvasText } from './dialogueCanvasLayout';
-import { DIALOGUE_NODE_TEXT_STYLE, dialogueNodeTextFont } from '@/core/dialogue-map/dialogueNodeLayout';
+import { getDialogueNodeDisplayLines, DIALOGUE_NODE_TEXT_STYLE, dialogueNodeTextFont } from '@/core/dialogue-map/dialogueNodeLayout';
 import { layoutCanvasText, type CanvasTextLayout } from '@/core/ui/canvas-text/canvasTextLayout';
 import { drawDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail, getDialogueCanvasTextWidthInset } from './dialogueCanvasText';
 
 const GRID = DIALOGUE_MAP_GRID_SIZE;
-const WORKSPACE_KEY = 'dialogue-map-canvas-lab:preview-entries';
+const WORKSPACE_KEY = 'dialogue-map-canvas-lab:v5:preview-entries';
 const SHAPE_LABEL: Record<DialogueNodeDisplay['shape'], string> = {
   rectangle: '长方形',
   rounded: '圆角长方形',
@@ -230,7 +230,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           return { kind: 'output', nodeId: node.id, portId: id };
       for (const [id, value] of layout.lineRows)
         if (dialogueGridRectContains(value.rect, local))
-          return { kind: 'line', nodeId: node.id, lineId: id };
+          return node.kind === 'dialogue' ? { kind: 'line', nodeId: node.id, lineId: id } : { kind: 'node', nodeId: node.id };
       return { kind: 'node', nodeId: node.id };
     }
     for (const edge of document.graph.edges.values()) {
@@ -329,7 +329,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       const previewWidth = previewEntry === node.id && compactDetail
         ? Math.min(contentWidth, measureDialogueCanvasText('PREVIEW', dialogueNodeTextFont(getDialogueCanvasFontSize(DIALOGUE_NODE_TEXT_STYLE.titleSize, view.scale, ratio), 600)) + getDialogueCanvasTextWidthInset(view.scale, ratio)) : 0;
       const titleWidth = Math.max(0, contentWidth - previewWidth - (previewWidth ? 8 * view.scale : 0));
-      paintText(singleLine(node.title || node.id, titleWidth, DIALOGUE_NODE_TEXT_STYLE.titleSize, 600), {
+      paintText(singleLine(`${DIALOGUE_NODE_KIND_LABEL[node.kind]} · ${node.title || node.id}`, titleWidth, DIALOGUE_NODE_TEXT_STYLE.titleSize, 600), {
         x: contentX, y: p.y, width: titleWidth, height: layout.header.height * unit, scale: view.scale,
         color: '#e5eaf1', fontSize: DIALOGUE_NODE_TEXT_STYLE.titleSize, weight: 600, center: true,
       });
@@ -348,7 +348,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
       });
       if (compactDetail && !node.display.collapsed) {
         layout.lineRows.forEach((rowLayout, id) => {
-          const line = node.lines.get(id);
+          const line = getDialogueNodeDisplayLines(node).get(id);
           if (!line) return;
           const x = p.x + rowLayout.rect.x * unit;
           const y = p.y + rowLayout.rect.y * unit;
@@ -380,12 +380,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
             ctx.fillStyle = 'rgba(167,139,250,.14)';
             ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit);
           }
-          const icon =
-            output.activation.type === 'auto'
-              ? '↪'
-              : output.activation.type === 'event'
-                ? '⚡'
-                : '›';
+          const icon = output.branch === 'true' ? '✓' : output.branch === 'false' ? '✕' : '›';
           if (fullDetail) {
             rowLayout.textBlocks?.forEach(block => paintText(block, {
               x, y: y + block.offsetY * view.scale, width: rowWidth,
@@ -503,8 +498,10 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           const active = gesture.current;
           if (active?.mode === 'connect' && active.nodeId && active.portId) {
             const hit = hitTest(point(event));
-            if (hit?.kind === 'input')
-              onConnect(active.nodeId, active.portId, hit.nodeId, hit.portId);
+            if (hit && hit.kind !== 'edge') {
+              const inputId = hit.kind === 'input' ? hit.portId : document.graph.nodes.get(hit.nodeId)?.inputOrder[0];
+              if (inputId) onConnect(active.nodeId, active.portId, hit.nodeId, inputId);
+            }
           }
           gesture.current = undefined;
         }}
@@ -513,7 +510,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         }}
       />
       <div className="dialogue-canvas__hint">
-        滚轮以鼠标位置缩放 · 拖拽紫色输出端口连线 · 右键节点预览
+        滚轮以鼠标位置缩放 · 拖拽紫色输出端口连线 · 右键设置检查入口
       </div>
       <div className="dialogue-canvas__zoom">
         {Math.round(view.scale * 100)}%
@@ -552,6 +549,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
   const [newKey, setNewKey] = useState('dialogue_map');
   const [newName, setNewName] = useState('新对话预设');
   const [resetViewToken, setResetViewToken] = useState(0);
+  const [checked, setChecked] = useState<{ fingerprint: string; entry?: string; result: DialogueCompileResult }>();
   const document = library[activeKey];
   const target = document
     ? resolveDialogueEditorSelection(document, selection)
@@ -571,24 +569,8 @@ export const DialogueMapCanvasLab: React.FC = () => {
     [library],
   );
   const dirty = Boolean(savedFingerprint && fingerprint !== savedFingerprint);
-  const structuralIssues = useMemo(
-    () => (document ? validateDialogueEditorDocument(document) : []),
-    [document],
-  );
-  const issues = useMemo<DialogueMapValidationIssue[]>(
-    () =>
-      document
-        ? [
-            ...structuralIssues,
-            ...[...document.graph.nodes.values()].flatMap(node => [...node.outputs.values()].flatMap(port => validateDialogueOutputRules(port, dialogueRuleCatalog).map(item => ({ ...item, code: 'output-rule', nodeId: node.id, portId: port.id })))),
-            ...diagnoseDialogueEditorDocument(document, computeDialogueNodeLayout),
-            ...(previewEntry
-              ? diagnoseDialogueEntry(document, previewEntry)
-              : []),
-          ].filter((item, index, all) => all.findIndex(other => other.message === item.message && other.severity === item.severity && other.nodeId === item.nodeId && other.portId === item.portId && ('edgeId' in other ? other.edgeId : undefined) === ('edgeId' in item ? item.edgeId : undefined)) === index)
-        : [],
-    [document, previewEntry, structuralIssues],
-  );
+  const currentCheck = checked?.fingerprint === fingerprint && checked.entry === previewEntry ? checked.result : undefined;
+  const issues = currentCheck?.issues ?? [];
   const load = useCallback(async () => {
     try {
       const next = await loadDialogueEditorDocumentLibrary();
@@ -600,7 +582,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       );
       setActiveKey(key);
       setSelection({ kind: 'node', nodeId: first });
-      setMessage(`已载入 ${Object.keys(next).length} 个 V4 对话预设。`);
+      setMessage(`已载入 ${Object.keys(next).length} 个 V5 对话预设。`);
       setIsError(false);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : String(error));
@@ -680,15 +662,15 @@ export const DialogueMapCanvasLab: React.FC = () => {
       return entries;
     });
   };
-  const addNode = () => {
-    const id = makeId('node', new Set(document.graph.nodes.keys()));
+  const addNode = (kind: DialogueNodeKind) => {
+    const id = makeId(kind, new Set(document.graph.nodes.keys()));
     updateDocument((draft) =>
       draft.graph.nodes.set(
         id,
         createDialogueEditorNode(id, {
           x: GRID * (4 + draft.graph.nodes.size * 2),
           y: GRID * (4 + draft.graph.nodes.size),
-        }),
+        }, kind),
       ),
     );
     setSelection({ kind: 'node', nodeId: id });
@@ -737,51 +719,33 @@ export const DialogueMapCanvasLab: React.FC = () => {
       draft.outputs.set(id, {
         id,
         label: '新选择',
-        activation: { type: 'choice' },
+        branch: draft.kind === 'choice' ? 'choice' : draft.kind === 'condition' ? 'true' : 'next',
       });
       draft.outputOrder.push(id);
     });
     setSelection({ kind: 'output', nodeId: node.id, portId: id });
   };
-  const setTarget = (
-    nodeId: string,
-    outputId: string,
-    targetNodeId: string,
-    inputId?: string,
-  ) =>
-    updateDocument((draft) => {
-      [...draft.graph.edges].forEach(([id, edge]) => {
-        if (edge.from.nodeId === nodeId && edge.from.portId === outputId)
-          draft.graph.edges.delete(id);
-      });
-      if (targetNodeId) {
-        const edgeId = dialogueEdgeId(
-          nodeId,
-          outputId.split(':').at(-1) ?? outputId,
-        );
-        const target = draft.graph.nodes.get(targetNodeId);
-        const toPort = inputId ?? target?.inputOrder[0];
-        if (toPort)
-          draft.graph.edges.set(edgeId, {
-            id: edgeId,
-            from: { nodeId, portId: outputId },
-            to: { nodeId: targetNodeId, portId: toPort },
-          });
-      }
+  const setTarget = (nodeId: string, outputId: string, targetNodeId: string, inputId?: string) =>
+    updateDocument(draft => {
+      const toPort = inputId ?? draft.graph.nodes.get(targetNodeId)?.inputOrder[0];
+      if (toPort) connectDialogueNodes(draft, { nodeId, portId: outputId }, { nodeId: targetNodeId, portId: toPort });
     });
-  const targetFor = (nodeId: string, outputId: string) =>
-    [...document.graph.edges.values()].find(
-      (edge) => edge.from.nodeId === nodeId && edge.from.portId === outputId,
-    )?.to.nodeId ?? '';
+  const runCheck = () => {
+    const result = compileDialogueEditorDocument(document, previewEntry ?? '', dialogueRuleCatalog);
+    setChecked({ fingerprint, entry: previewEntry, result });
+    setMessage(result.program ? `编译成功，${result.issues.filter(item => item.severity === 'warning').length} 项警告。` : '编译未通过，请查看检查结果。');
+    setIsError(!result.program);
+  };
+  const exportCompiled = () => {
+    if (!currentCheck?.program) return;
+    const url = URL.createObjectURL(new Blob([JSON.stringify(currentCheck.program, null, 2)], { type: 'application/json' }));
+    const link = window.document.createElement('a'); link.href = url; link.download = `${document.presetKey}.compiled.json`; link.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
   const save = async () => {
-    const errors = Object.values(library)
-      .flatMap(doc => [
-        ...validateDialogueEditorDocument(doc),
-        ...[...doc.graph.nodes.values()].flatMap(node => [...node.outputs.values()].flatMap(port => validateDialogueOutputRules(port, dialogueRuleCatalog))),
-      ])
-      .filter((item) => item.severity === 'error');
+    const errors = Object.values(library).flatMap(validateDialogueEditorDocument).filter(item => item.severity === 'error');
     if (errors.length) {
-      setMessage(`保存前请修复：${errors[0].message}`);
+      setMessage(`数据无法保存：${errors[0].message}`);
       setIsError(true);
       return;
     }
@@ -791,7 +755,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
       setSavedFingerprint(
         JSON.stringify(encodeDialogueEditorDocumentLibrary(library)),
       );
-      setMessage(`已保存 ${Object.keys(library).length} 个 V4 对话预设。`);
+      setMessage(`已保存 ${Object.keys(library).length} 个 V5 对话预设。`);
       setIsError(false);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : String(error));
@@ -816,7 +780,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
     <div className="dialogue-lab">
       <header className="dialogue-lab__header">
         <div>
-          <span className="eyebrow">DIALOGUE DATA WORKBENCH · V4</span>
+          <span className="eyebrow">DIALOGUE DATA WORKBENCH · V5</span>
           <h1>Dialogue Map Canvas Lab</h1>
         </div>
         <div className={`server-status${isError ? ' is-error' : ''}`}>
@@ -847,7 +811,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
             </select>
           </label>
           <label className="field">
-            <span>当前预览入口</span>
+            <span>当前检查入口</span>
             <select
               value={previewEntry ?? ''}
               onChange={(event) => setPreviewEntry(event.target.value)}
@@ -872,11 +836,12 @@ export const DialogueMapCanvasLab: React.FC = () => {
         <section className="panel-card node-list-card">
           <div className="panel-card__heading">
             <div>
-              <span>统一节点</span>
+              <span>流程卡片</span>
               <strong>{document.graph.nodes.size}</strong>
             </div>
-            <button onClick={addNode}>＋ 节点</button>
+            <span>四种节点</span>
           </div>
+          <div className="node-create-actions">{(Object.keys(DIALOGUE_NODE_KIND_LABEL) as DialogueNodeKind[]).map(kind => <button key={kind} onClick={() => addNode(kind)}>＋{DIALOGUE_NODE_KIND_LABEL[kind]}</button>)}</div>
           <div className="node-list">
             {[...document.graph.nodes.values()].map((node) => (
               <button
@@ -902,7 +867,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 <span>
                   <strong>{node.title || node.id}</strong>
                   <small>
-                    {node.lines.size} 对白 · {node.outputs.size} 输出
+                    {DIALOGUE_NODE_KIND_LABEL[node.kind]} · {node.outputs.size} 输出
                   </small>
                 </span>
                 {previewEntry === node.id ? <em>预览</em> : null}
@@ -926,8 +891,10 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 issues.some((i) => i.severity !== 'info') ? 'has-issues' : ''
               }
             >
-              {issues.length ? `${issues.length} 项诊断` : '✓ 校验通过'}
+              {currentCheck ? (issues.length ? `${issues.length} 项诊断` : '✓ 编译通过') : '尚未检查当前草稿'}
             </span>
+            <button onClick={runCheck}>检查／编译</button>
+            <button disabled={!currentCheck?.program} onClick={exportCompiled}>导出编译数据</button>
             <button onClick={() => setResetViewToken((v) => v + 1)}>
               适配全部
             </button>
@@ -936,7 +903,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
               disabled={saving}
               onClick={() => void save()}
             >
-              {saving ? '保存中…' : '保存全部'}
+              {saving ? '保存中…' : '保存全部草稿'}
             </button>
           </div>
         </div>
@@ -957,7 +924,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
         <div className="stage-status">
           <span>{document.graph.nodes.size} 个节点</span>
           <span>{document.graph.edges.size} 条连线</span>
-          <span>{issues[0]?.message ?? '所有引用有效'}</span>
+          <span>{currentCheck ? (currentCheck.program ? '编译成功' : '编译未通过') : '草稿可自由编辑，点击检查／编译验证流程'}</span>
         </div>
       </main>
       <aside className="dialogue-lab__inspector">
@@ -998,6 +965,13 @@ export const DialogueMapCanvasLab: React.FC = () => {
           ) : null}
         </div>
         <div className="inspector-scroll">
+          <section className="panel-card compile-results"><strong>检查／编译结果</strong>
+            <p>{currentCheck ? (currentCheck.program ? '编译成功，可导出独立流程数据。' : '有错误需要处理；草稿仍可保存。') : '当前草稿尚未检查，或检查后已有修改。'}</p>
+            {issues.map((item, index) => <button className={`diagnostic diagnostic--${item.severity}`} key={index} onClick={() => {
+              if (item.edgeId) setSelection({ kind: 'edge', edgeId: item.edgeId });
+              else if (item.nodeId) setSelection(item.portId && document.graph.nodes.get(item.nodeId)?.outputs.has(item.portId) ? { kind: 'output', nodeId: item.nodeId, portId: item.portId } : { kind: 'node', nodeId: item.nodeId });
+            }}>{item.severity === 'error' ? '错误' : item.severity === 'warning' ? '警告' : '提示'} · {item.message}</button>)}
+          </section>
           {target?.kind === 'node' ? (
             <>
               <section className="panel-card">
@@ -1016,31 +990,16 @@ export const DialogueMapCanvasLab: React.FC = () => {
                     }
                   />
                 </label>
-                <label className="field">
-                  <span>无可用出口策略</span>
-                  <select
-                    value={target.node.noAvailableOutput ?? ''}
-                    onChange={(e) =>
-                      updateNode(target.node.id, (node) => {
-                        node.noAvailableOutput = (e.target.value ||
-                          undefined) as DialogueEditorNode['noAvailableOutput'];
-                      })
-                    }
-                  >
-                    <option value="">继承会话</option>
-                    <option value="end">正常结束</option>
-                    <option value="show-unavailable">显示无可用选项</option>
-                    <option value="runtime-error">运行时报错</option>
-                  </select>
-                </label>
+                <label className="field"><span>节点类型</span><input value={DIALOGUE_NODE_KIND_LABEL[target.node.kind]} disabled /></label>
+                <DialogueRuleEditor key={target.node.id} node={target.node} onChange={next => updateDocument(draft => { draft.graph.nodes.set(next.id, next); })} />
                 <button
                   className="start-button"
                   disabled={previewEntry === target.node.id}
                   onClick={() => setPreviewEntry(target.node.id)}
                 >
                   {previewEntry === target.node.id
-                    ? '✓ 当前预览入口'
-                    : '从此处预览'}
+                    ? '✓ 当前检查入口'
+                    : '设为检查入口'}
                 </button>
               </section>
               <section className="panel-card">
@@ -1151,7 +1110,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
                     </strong>
                   </div>
                   <div className="inline-actions">
-                    <button onClick={() => addLine(target.node)}>＋对白</button>
+                    {target.node.kind === 'dialogue' ? <button onClick={() => addLine(target.node)}>＋对白</button> : null}
                     <button onClick={() => addInput(target.node)}>
                       ＋输入
                     </button>
@@ -1262,63 +1221,16 @@ export const DialogueMapCanvasLab: React.FC = () => {
                   }
                 />
               </label>
-              <label className="field">
-                <span>激活方式</span>
-                <select
-                  value={target.port.activation.type}
-                  onChange={(e) =>
-                    updateNode(target.node.id, (node) => {
-                      const port = node.outputs.get(target.port.id);
-                      if (!port) return;
-                      const type = e.target.value;
-                      port.activation =
-                        type === 'auto'
-                          ? { type: 'auto', priority: 0 }
-                          : type === 'event'
-                            ? { type: 'event', eventType: '', version: 1 }
-                            : { type: 'choice' };
-                    })
-                  }
-                >
-                  <option value="choice">玩家选择</option>
-                  <option value="auto">自动跳转</option>
-                  <option value="event">事件触发</option>
-                </select>
-              </label>
-              {target.port.activation.type === 'auto' ? (
-                <label className="field">
-                  <span>优先级</span>
-                  <input
-                    type="number"
-                    value={target.port.activation.priority ?? 0}
-                    onChange={(e) =>
-                      updateNode(target.node.id, (node) => {
-                        const port = node.outputs.get(target.port.id);
-                        if (port?.activation.type === 'auto')
-                          port.activation.priority = Number(e.target.value);
-                      })
-                    }
-                  />
-                </label>
-              ) : null}
-              <DialogueRuleEditor key={`${target.node.id}:${target.port.id}`} port={target.port}
-                onChange={port => updateNode(target.node.id, node => { node.outputs.set(port.id, port); })} />
-              <label className="field">
-                <span>目标节点</span>
-                <select
-                  value={targetFor(target.node.id, target.port.id)}
-                  onChange={(e) =>
-                    setTarget(target.node.id, target.port.id, e.target.value)
-                  }
-                >
-                  <option value="">未连接</option>
-                  {outputTargetOptions.map((node) => (
-                    <option key={node.id} value={node.id}>
-                      {node.title} · {node.id}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <label className="field"><span>出口分支</span><select aria-label="出口分支" value={target.port.branch} onChange={e => updateNode(target.node.id, node => {
+                const port = node.outputs.get(target.port.id); if (port) port.branch = e.target.value as typeof port.branch;
+              })}><option value="next">继续</option><option value="true">成立</option><option value="false">不成立</option><option value="choice">玩家选项</option></select></label>
+              <label className="field"><span>添加目标连线</span><select value="" onChange={e => setTarget(target.node.id, target.port.id, e.target.value)}>
+                <option value="">选择目标（保留已有连线）</option>
+                {outputTargetOptions.map(node => <option key={node.id} value={node.id}>{node.title} · {node.id}</option>)}
+              </select></label>
+              <div className="connection-list">{[...document.graph.edges.values()].filter(edge => edge.from.nodeId === target.node.id && edge.from.portId === target.port.id).map(edge =>
+                <div key={edge.id}><button onClick={() => setSelection({ kind: 'edge', edgeId: edge.id })}>→ {document.graph.nodes.get(edge.to.nodeId)?.title ?? edge.to.nodeId}</button>
+                  <button aria-label={`删除连线 ${edge.id}`} onClick={() => updateDocument(draft => { draft.graph.edges.delete(edge.id); })}>删除</button></div>)}</div>
               <button
                 className="danger-wide"
                 onClick={() => {

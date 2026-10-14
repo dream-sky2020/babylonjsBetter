@@ -24,6 +24,10 @@ export const dialogueRuleCatalog: DialogueRuleCatalog = {
     ],
   }],
   events: [
+    // Example-only protocols; the editor does not register handlers or execute them.
+    ...['dialogue.demo.gate.open', 'dialogue.demo.gate.opened', 'dialogue.demo.quest.accepted'].map(eventType => ({
+      eventType, version: 1, label: '示例协议 · ' + eventType, fields: [{ name: 'gateId', valueType: 'string' as const, required: true }],
+    })),
     { eventType: 'dungeon.map.changed', version: 1, label: '地图切换完成', fields: [
       { name: 'loadId', valueType: 'number', required: true },
       { name: 'revision', valueType: 'number', required: true },

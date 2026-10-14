@@ -1,4 +1,4 @@
-import type { DialogueCondition, DialogueEffect, DialogueOutputPort, DialogueRuleCatalog, DialogueScalar, DialogueValue } from './dialogueMap.types.ts';
+import type { DialogueCondition, DialogueEffect, DialogueEditorNode, DialogueRuleCatalog, DialogueScalar, DialogueValue } from './dialogueMap.types.ts';
 
 const object = (value: unknown): Record<string, unknown> => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('对话规则必须是对象。');
@@ -18,9 +18,7 @@ export const parseDialogueValue = (value: unknown): DialogueValue => {
 };
 export const parseDialogueCondition = (value: unknown, depth = 0): DialogueCondition => {
   if (depth > 32) throw new Error('条件嵌套不能超过 32 层。');
-  if (typeof value === 'string') return { type: 'legacy', expression: value };
   const raw = object(value);
-  if (raw.type === 'legacy') return { type: 'legacy', expression: string(raw.expression) };
   if (raw.type === 'compare' && ['eq', 'ne', 'gt', 'gte', 'lt', 'lte'].includes(raw.operator as string)) return {
     type: 'compare', left: parseDialogueValue(raw.left), operator: raw.operator as Extract<DialogueCondition, { type: 'compare' }>['operator'], right: parseDialogueValue(raw.right),
   };
@@ -29,9 +27,7 @@ export const parseDialogueCondition = (value: unknown, depth = 0): DialogueCondi
   throw new Error('不支持的对话条件。');
 };
 export const parseDialogueEffect = (value: unknown): DialogueEffect => {
-  if (typeof value === 'string') return { type: 'legacy', event: value };
   const raw = object(value);
-  if (raw.type === 'legacy') return { type: 'legacy', event: string(raw.event) };
   if (raw.type === 'event' && typeof raw.version === 'number') return {
     type: 'event', eventType: string(raw.eventType), version: raw.version,
     ...(raw.payload === undefined ? {} : { payload: Object.fromEntries(Object.entries(object(raw.payload)).map(([key, item]) => [key, parseDialogueValue(item)])) }),
@@ -40,7 +36,7 @@ export const parseDialogueEffect = (value: unknown): DialogueEffect => {
 };
 
 export type DialogueRuleIssue = { severity: 'error' | 'warning'; message: string };
-export const validateDialogueOutputRules = (port: DialogueOutputPort, catalog?: DialogueRuleCatalog): DialogueRuleIssue[] => {
+export const validateDialogueNodeRules = (node: DialogueEditorNode, catalog?: DialogueRuleCatalog): DialogueRuleIssue[] => {
   const issues: DialogueRuleIssue[] = [];
   const report = (message: string, severity: 'error' | 'warning' = 'error') => issues.push({ message, severity });
   const valueType = (value: DialogueValue): string | undefined => {
@@ -55,7 +51,6 @@ export const validateDialogueOutputRules = (port: DialogueOutputPort, catalog?: 
   };
   const condition = (item: DialogueCondition, depth = 0): void => {
     if (depth > 32) { report('条件嵌套不能超过 32 层。'); return; }
-    if (item.type === 'legacy') { report('旧版条件尚未转换，将原样保存。', 'warning'); return; }
     if (item.type === 'not') { condition(item.condition, depth + 1); return; }
     if (item.type === 'all' || item.type === 'any') {
       if (!item.conditions.length) report('条件组至少需要一个条件。');
@@ -75,26 +70,25 @@ export const validateDialogueOutputRules = (port: DialogueOutputPort, catalog?: 
     if (catalog && !entry) report(`事件未登记：${eventType}@${version}`, 'warning');
     return entry;
   };
-  if (port.activation.type === 'event') event(port.activation.eventType, port.activation.version);
-  if (port.activation.type === 'auto' && port.activation.priority !== undefined && !Number.isFinite(port.activation.priority)) report('优先级必须为有限数值。');
-  if (port.condition) condition(port.condition);
-  port.effects?.forEach(effect => {
-    if (effect.type === 'legacy') { report('旧版效果尚未转换，将原样保存。', 'warning'); return; }
+  if (node.kind === 'condition') {
+    if (node.condition) condition(node.condition); else report('判断节点缺少条件。');
+  }
+  if (node.kind === 'event') {
+    const effect = node.event;
     const entry = event(effect.eventType, effect.version);
     Object.entries(effect.payload ?? {}).forEach(([key, value]) => {
       if (!key.trim()) report('事件参数名不能为空。');
       const actual = valueType(value), field = entry?.fields.find(field => field.name === key), expected = field?.valueType;
       if (actual && expected && actual !== expected && !(actual === 'null' && field?.nullable)) report(`参数 ${key} 的类型应为 ${expected}。`);
     });
-    entry?.fields.forEach(field => { if (field.required && !Object.hasOwn(effect.payload ?? {}, field.name)) report(`缺少必需参数：${field.name}`); });
-  });
+    entry?.fields.forEach(field => { if (node.mode === 'send' && field.required && !Object.hasOwn(effect.payload ?? {}, field.name)) report(`缺少必需参数：${field.name}`); });
+  }
   return issues;
 };
 
 const symbols = { eq: '=', ne: '≠', gt: '>', gte: '≥', lt: '<', lte: '≤' };
 export const summarizeDialogueCondition = (condition?: DialogueCondition): string => {
   if (!condition) return '始终可用';
-  if (condition.type === 'legacy') return '旧版条件';
   if (condition.type === 'not') return '条件取反';
   if (condition.type === 'all' || condition.type === 'any') return `满足${condition.type === 'all' ? '全部' : '任一'} ${condition.conditions.length} 个条件`;
   if (condition.type !== 'compare') return '';

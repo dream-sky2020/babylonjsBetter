@@ -1,14 +1,16 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createDialogueEditorNode } from './dialogueMap.ts';
+import { createDialogueEditorNode as createNode } from './dialogueMap.ts';
 import { computeDialogueNodeLayout, dialogueLayoutPointToWorld } from './dialogueNodeLayout.ts';
 import { drawDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail } from '../../tools/dialogue-map-canvas-lab/dialogueCanvasText.ts';
+
+const createDialogueEditorNode = (id: string, position: { x: number; y: number }) => { const node = createNode(id, position); node.outputs.clear(); node.outputOrder = []; return node; };
 
 test('node rows use one shared discrete grid', () => {
   const node = createDialogueEditorNode('node', { x: 48, y: 72 });
   const secondLine = 'line:node:second'; node.lines.set(secondLine, { id: secondLine, speaker: '', text: '' }); node.lineOrder.push(secondLine);
   const firstOutput = 'port:node:output:first'; const secondOutput = 'port:node:output:second';
-  node.outputs.set(firstOutput, { id: firstOutput, activation: { type: 'choice' } }); node.outputs.set(secondOutput, { id: secondOutput, activation: { type: 'auto' } }); node.outputOrder.push(firstOutput, secondOutput);
+  node.outputs.set(firstOutput, { id: firstOutput, branch: 'choice' }); node.outputs.set(secondOutput, { id: secondOutput, branch: 'next' }); node.outputOrder.push(firstOutput, secondOutput);
   const layout = computeDialogueNodeLayout(node);
   assert.equal(layout.header.height, 2);
   assert.deepEqual([...layout.lineRows.values()].map((row) => [row.rect.y, row.rect.height]), [[3, 2], [5, 2]]);
@@ -45,7 +47,7 @@ const measure = (text: string) => [...text].length * 10;
 test('measured dialogue rows grow on the grid and move the following output anchors', () => {
   const node = createDialogueEditorNode('long', { x: 0, y: 0 });
   node.lines.get(node.lineOrder[0])!.text = '长对白需要自动换行而不能溢出边框。'.repeat(8);
-  node.outputs.set('next', { id: 'next', activation: { type: 'choice' }, label: '继续' }); node.outputOrder.push('next');
+  node.outputs.set('next', { id: 'next', branch: 'choice', label: '继续' }); node.outputOrder.push('next');
   const layout = computeDialogueNodeLayout(node, undefined, measure);
   const line = layout.lineRows.get(node.lineOrder[0])!, output = layout.outputRows.get('next')!;
   assert.equal(line.textBlocks?.find(block => block.role === 'body')?.lines.length, 3);
@@ -71,12 +73,12 @@ test('measured layout respects hidden speaker and preview text and grows narrowe
   assert.deepEqual(computeDialogueNodeLayout(node, undefined, measure).lineRows.get(node.lineOrder[0])!.textBlocks, []);
 });
 
-test('output summaries have at most two measured lines and collapsed slots stay discrete', () => {
+test('output labels stay within measured rows and collapsed slots stay discrete', () => {
   const node = createDialogueEditorNode('node', { x: 0, y: 0 }); node.display.widthUnits = 4;
-  node.outputs.set('event', { id: 'event', label: '很长的输出标签'.repeat(8), activation: { type: 'event', eventType: 'very.long.event.name'.repeat(10), version: 1 } }); node.outputOrder.push('event');
+  node.outputs.set('event', { id: 'event', label: '很长的输出标签'.repeat(8), branch: 'next' }); node.outputOrder.push('event');
   const output = computeDialogueNodeLayout(node, undefined, measure).outputRows.get('event')!;
   assert.equal(output.textBlocks![0].lines.length, 1);
-  assert.equal(output.textBlocks![1].lines.length, 2);
+  assert.equal(output.textBlocks!.length, 1);
   assert.ok(output.textBlocks!.every(block => block.lines.every(line => measure(line) <= output.rect.width * 24)));
   node.display.collapsed = true;
   const collapsed = computeDialogueNodeLayout(node, undefined, measure);
@@ -115,4 +117,12 @@ test('readability modes and font sizes remain bounded at fractional zoom and DPR
   assert.equal(getDialogueCanvasTextDetail(.3), 'overview');
   assert.equal(getDialogueCanvasTextDetail(.75), 'compact');
   assert.equal(getDialogueCanvasTextDetail(.9), 'full');
+});
+
+test('condition and event cards expose their own measured summaries without saved dialogue lines', () => {
+  for (const kind of ['condition', 'event'] as const) {
+    const node = createNode('rule', { x: 0, y: 0 }, kind); const layout = computeDialogueNodeLayout(node, undefined, measure);
+    assert.equal(node.lines.size, 0); assert.ok(layout.lineRows.has('summary:rule'));
+    assert.ok(layout.lineRows.get('summary:rule')!.textBlocks!.some(block => block.role === 'body'));
+  }
 });

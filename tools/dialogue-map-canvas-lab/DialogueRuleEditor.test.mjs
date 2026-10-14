@@ -4,7 +4,7 @@ import { createServer } from 'vite';
 import react from '@vitejs/plugin-react';
 import { JSDOM } from 'jsdom';
 
-test('visual editor configures nested conditions, event payloads, ordering and explicit legacy conversion', async () => {
+test('visual editor configures independent condition and event cards with nested rules and payloads', async () => {
   const dom = new JSDOM('<div id="root"></div>'), previous = new Map();
   for (const [key, value] of Object.entries({ window: dom.window, document: dom.window.document, HTMLElement: dom.window.HTMLElement, IS_REACT_ACT_ENVIRONMENT: true })) {
     previous.set(key, globalThis[key]); globalThis[key] = value;
@@ -15,9 +15,9 @@ test('visual editor configures nested conditions, event payloads, ordering and e
   try {
     const React = await import('react'); const { createRoot } = await import('react-dom/client');
     const { DialogueRuleEditor } = await server.ssrLoadModule('/tools/dialogue-map-canvas-lab/DialogueRuleEditor.tsx');
-    let output = { id: 'next', activation: { type: 'choice' } };
-    const render = async () => { await React.act(async () => root.render(React.createElement(DialogueRuleEditor, { port: output, onChange(next) { output = next; root.render(React.createElement(DialogueRuleEditor, { port: output, onChange: change })); } }))); };
-    function change(next) { output = next; root.render(React.createElement(DialogueRuleEditor, { port: output, onChange: change })); }
+    let output = { id: 'check', kind: 'condition' };
+    const render = async () => { await React.act(async () => root.render(React.createElement(DialogueRuleEditor, { node: output, onChange(next) { output = next; root.render(React.createElement(DialogueRuleEditor, { node: output, onChange: change })); } }))); };
+    function change(next) { output = next; root.render(React.createElement(DialogueRuleEditor, { node: output, onChange: change })); }
     root = createRoot(document.querySelector('#root')); await render();
     const button = text => [...document.querySelectorAll('button')].find(item => item.textContent === text);
     const click = async element => { assert.ok(element); await React.act(async () => element.click()); };
@@ -35,17 +35,14 @@ test('visual editor configures nested conditions, event payloads, ordering and e
     await set(document.querySelector('[aria-label="右侧常量值"]'), '5'); assert.equal(output.condition.right.value, 5);
     await set(document.querySelector('[aria-label="条件种类"]'), 'all'); await click(button('添加条件组'));
     assert.equal(output.condition.conditions.length, 2);
-    await click(button('添加事件'));
-    const eventInput = document.querySelector('[aria-label="触发事件"] input[list]'); await set(eventInput, 'dungeon.agents.loaded');
+    output = { id: 'event', kind: 'event', mode: 'send', event: { type: 'event', eventType: 'dungeon.agents.loaded', version: 1 } };
+    await render();
+    assert.equal(document.querySelector('[aria-label="判断条件"]'), null);
     await click(button('添加参数')); await click(button('添加参数'));
-    assert.deepEqual(Object.keys(output.effects[0].payload), ['loadId', 'agentCount']);
-    await click(button('添加事件')); await click(document.querySelector('[aria-label="上移事件 2"]'));
-    assert.equal(output.effects[1].eventType, 'dungeon.agents.loaded');
-    output = { id: 'old', activation: { type: 'event', eventType: 'custom.incoming', version: 2 }, condition: { type: 'legacy', expression: 'allowed' }, effects: [{ type: 'legacy', event: 'quest:start' }] };
-    await render(); assert.match(document.body.textContent, /旧版条件/);
-    await click(button('转换为事件')); assert.deepEqual(output.effects[0], { type: 'event', eventType: 'quest:start', version: 1 });
-    await click(button('替换为比较条件')); assert.equal(output.condition.type, 'compare');
-    assert.ok(document.querySelector('[aria-label="接收事件"]'));
+    assert.deepEqual(Object.keys(output.event.payload), ['loadId', 'agentCount']);
+    await set(document.querySelector('[aria-label="事件模式"]'), 'wait'); assert.equal(output.mode, 'wait');
+    assert.match(document.body.textContent, /等待指定名称/);
+    assert.equal(document.body.textContent.includes('legacy'), false);
   } finally {
     if (root) { const React = await import('react'); await React.act(async () => root.unmount()); }
     await server.close(); dom.window.close();

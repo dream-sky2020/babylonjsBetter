@@ -1,45 +1,62 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {
-  createDialogueEditorDocument, createDialogueEditorNode, diagnoseDialogueEditorDocument,
-  diagnoseDialogueEntry, dialogueEdgeId, dialogueNodeInputPortId, dialogueOutputPortId,
-  encodeDialogueEditorDocument, migrateLegacyDialogueMapPreset, parseDialogueEditorDocument,
-  validateDialogueEditorDocument,
-} from './dialogueMap.ts';
-import { startDialogue, stepDialogue } from './dialogueRuntime.ts';
-import type { LegacyDialogueMapPreset } from './dialogueMap.types.ts';
+import { readFileSync } from 'node:fs';
+import { createDialogueEditorDocument, createDialogueEditorNode, connectDialogueNodes, dialogueNodeInputPortId, encodeDialogueEditorDocument, parseDialogueEditorDocument, validateDialogueEditorDocument, cloneDialogueEditorDocument } from './dialogueMap.ts';
+import { compileDialogueEditorDocument } from './dialogueCompiler.ts';
+import { dialogueRuleCatalog } from '../../tools/dialogue-map-canvas-lab/dialogueRuleCatalog.ts';
 
-const legacy: LegacyDialogueMapPreset = {
-  schemaVersion: 1, presetKey: 'village', name: '村口', startNodeId: 'greeting', nodes: {
-    greeting: { id: 'greeting', kind: 'choice', title: '招呼', speaker: '守卫', text: '站住。', position: { x: 72, y: 168 }, choices: [{ id: 'go', text: '继续', targetNodeId: 'end', condition: 'allowed', event: 'quest:start' }] },
-    end: { id: 'end', kind: 'end', title: '结束', speaker: '守卫', text: '一路小心。', position: { x: 384, y: 168 }, choices: [] },
-  },
-};
-
-test('V1 migrates directly to unified V4 nodes and output ports', () => {
-  const document = migrateLegacyDialogueMapPreset(legacy); const greeting = document.graph.nodes.get('greeting')!; const outputId = dialogueOutputPortId('greeting', 'go');
-  assert.equal(document.schemaVersion, 4); assert.equal('startNodeId' in document.graph, false); assert.equal('kind' in greeting, false); assert.equal(greeting.outputs.get(outputId)?.label, '继续'); assert.deepEqual(greeting.outputs.get(outputId)?.effects, [{ type: 'legacy', event: 'quest:start' }]); assert.equal(document.graph.edges.get(dialogueEdgeId('greeting', 'go'))?.from.portId, outputId);
+const preset = () => parseDialogueEditorDocument(JSON.parse(readFileSync(new URL('../../config/dialogueMapPresets/village_gate.json', import.meta.url), 'utf8')));
+test('new preset contains four node kinds and send/wait events, compiles with no issues', () => {
+  const document = preset();
+  assert.deepEqual(new Set([...document.graph.nodes.values()].map(node => node.kind)), new Set(['dialogue', 'condition', 'choice', 'event']));
+  const result = compileDialogueEditorDocument(document, 'greeting', dialogueRuleCatalog);
+  assert.deepEqual(result.issues, []); assert.ok(result.program);
+  assert.equal(result.program.instructions.gate_check.kind, 'condition');
+  const event = result.program.instructions.wait_gate; assert.equal(event.kind, 'event'); if (event.kind === 'event') assert.equal(event.mode, 'wait');
+  assert.equal('display' in result.program.instructions.greeting, false);
 });
-
-test('V2 migrates options, removes kinds and preserves edges', () => {
-  const v2 = { schemaVersion: 2, presetKey: 'old', name: 'Old', graph: { startNodeId: 'a', nodes: { a: { id: 'a', kind: 'dialogue', title: 'A', position: { x: 0, y: 0 }, display: { shape: 'rectangle', colorToken: 'blue-muted', widthUnits: 10, heightUnits: 6 }, lines: {}, lineOrder: [], options: { next: { id: 'next', text: 'Next', outputPortId: 'old-output' } }, optionOrder: ['next'], ports: { input: { id: 'input', direction: 'input', role: 'flow' }, 'old-output': { id: 'old-output', direction: 'output', role: 'option', optionId: 'next' } } }, b: { id: 'b', kind: 'end', title: 'B', position: { x: 240, y: 0 }, display: { shape: 'rectangle', colorToken: 'red-muted', widthUnits: 9, heightUnits: 5 }, lines: {}, lineOrder: [], options: {}, optionOrder: [], ports: { 'port:b:in': { id: 'port:b:in', direction: 'input', role: 'flow' } } } }, edges: { edge: { id: 'edge', from: { nodeId: 'a', portId: 'old-output' }, to: { nodeId: 'b', portId: 'port:b:in' } } } } };
-  const document = parseDialogueEditorDocument(v2); assert.equal(document.graph.nodes.get('a')?.outputs.size, 1); assert.equal(document.graph.edges.get('edge')?.from.portId, dialogueOutputPortId('a', 'next')); assert.deepEqual(validateDialogueEditorDocument(document), []);
+test('V5 round trip preserves typed nodes, rules, ports and edges without aliasing', () => {
+  const document = preset(), encoded = encodeDialogueEditorDocument(document);
+  assert.deepEqual(encodeDialogueEditorDocument(parseDialogueEditorDocument(encoded)), encoded);
+  encoded.graph.nodes.greeting.lines['line:greeting:main'].text = 'changed';
+  assert.notEqual(document.graph.nodes.get('greeting')!.lines.get('line:greeting:main')!.text, 'changed');
+  const cloned = cloneDialogueEditorDocument(document), node = cloned.graph.nodes.get('open_gate')!;
+  if (node.kind === 'event') node.event.payload!.gateId = { type: 'literal', value: 'changed' };
+  assert.notDeepEqual(encodeDialogueEditorDocument(cloned), encodeDialogueEditorDocument(document));
 });
-
-test('V4 round trip preserves first-class inputs and outputs', () => {
-  const document = createDialogueEditorDocument('test', 'Test'); const node = document.graph.nodes.get('start')!; const outputId = dialogueOutputPortId(node.id, 'auto'); node.outputs.set(outputId, { id: outputId, label: 'Go', activation: { type: 'auto', priority: 2 }, effects: [{ type: 'legacy', event: 'opened' }] }); node.outputOrder.push(outputId); const target = createDialogueEditorNode('target', { x: 240, y: 96 }); document.graph.nodes.set(target.id, target); document.graph.edges.set('edge', { id: 'edge', from: { nodeId: node.id, portId: outputId }, to: { nodeId: target.id, portId: dialogueNodeInputPortId(target.id) } });
-  const encoded = encodeDialogueEditorDocument(document); const parsed = parseDialogueEditorDocument(encoded); assert.equal(encoded.schemaVersion, 4); assert.equal(parsed.graph.nodes.get('start')?.outputs.get(outputId)?.activation.type, 'auto'); assert.deepEqual(validateDialogueEditorDocument(parsed), []);
+test('old schemas and legacy rules are rejected explicitly', () => {
+  for (const version of [1, 2, 3, 4]) assert.throws(() => parseDialogueEditorDocument({ ...encodeDialogueEditorDocument(preset()), schemaVersion: version }), /V5/);
+  const saved = encodeDialogueEditorDocument(preset());
+  Object.assign(saved.graph.nodes.gate_check, { condition: { type: 'legacy', expression: 'allowed' } });
+  assert.throws(() => parseDialogueEditorDocument(saved));
 });
-
-test('structural validation and quality diagnostics are separated', () => {
-  const document = createDialogueEditorDocument('test', 'Test'); const node = document.graph.nodes.get('start')!; const outputId = dialogueOutputPortId(node.id, 'conditional'); node.outputs.set(outputId, { id: outputId, activation: { type: 'choice' }, condition: { type: 'legacy', expression: 'flag' } }); node.outputOrder.push(outputId);
-  assert.deepEqual(validateDialogueEditorDocument(document), []); const codes = diagnoseDialogueEditorDocument(document).map((item) => item.code); assert.ok(codes.includes('dangling-output')); assert.ok(codes.includes('missing-fallback-output'));
+test('unfinished rules and multiple/dangling connections remain saveable drafts, compilation reports errors', () => {
+  const document = createDialogueEditorDocument('draft', 'Draft'), condition = createDialogueEditorNode('check', { x: 400, y: 80 }, 'condition');
+  document.graph.nodes.set(condition.id, condition);
+  const start = document.graph.nodes.get('start')!, from = { nodeId: start.id, portId: start.outputOrder[0] }, to = { nodeId: condition.id, portId: condition.inputOrder[0] };
+  const a = connectDialogueNodes(document, from, to), b = connectDialogueNodes(document, from, to);
+  assert.notEqual(a, b); assert.equal(document.graph.edges.size, 2);
+  connectDialogueNodes(document, { nodeId: 'absent', portId: 'missing' }, to);
+  assert.deepEqual(validateDialogueEditorDocument(document), []);
+  assert.deepEqual(encodeDialogueEditorDocument(parseDialogueEditorDocument(encodeDialogueEditorDocument(document))), encodeDialogueEditorDocument(document));
+  const result = compileDialogueEditorDocument(document, 'start'); assert.equal(result.program, undefined);
+  for (const code of ['ambiguous-route', 'invalid-source', 'node-rule']) assert.ok(result.issues.some(issue => issue.code === code), code);
 });
-
-test('reachability is diagnosed relative to an explicit entry', () => {
-  const document = createDialogueEditorDocument('test', 'Test'); document.graph.nodes.set('island', createDialogueEditorNode('island', { x: 240, y: 96 })); const issues = diagnoseDialogueEntry(document, 'start'); assert.ok(issues.some((item) => item.code === 'entry-unreachable-node' && item.nodeId === 'island')); assert.ok(diagnoseDialogueEntry(document, 'island').some((item) => item.nodeId === 'start'));
+test('valid loops stay allowed; closed flows and unreachable nodes only warn', () => {
+  const document = createDialogueEditorDocument('loop', 'Loop'), start = document.graph.nodes.get('start')!;
+  connectDialogueNodes(document, { nodeId: 'start', portId: start.outputOrder[0] }, { nodeId: 'start', portId: dialogueNodeInputPortId('start') });
+  const island = createDialogueEditorNode('island', { x: 240, y: 96 }); island.outputs.clear(); island.outputOrder = []; document.graph.nodes.set(island.id, island);
+  const result = compileDialogueEditorDocument(document, 'start'); assert.ok(result.program);
+  assert.ok(result.issues.some(issue => issue.code === 'closed-flow' && issue.severity === 'warning'));
+  assert.ok(result.issues.some(issue => issue.code === 'entry-unreachable-node'));
 });
-
-test('runtime chooses automatic outputs and ends at nodes without outputs', () => {
-  const document = createDialogueEditorDocument('runtime', 'Runtime'); const start = document.graph.nodes.get('start')!; const end = createDialogueEditorNode('end', { x: 240, y: 96 }); document.graph.nodes.set(end.id, end); const outputId = dialogueOutputPortId('start', 'next'); start.outputs.set(outputId, { id: outputId, activation: { type: 'auto', priority: 1 }, effects: [{ type: 'legacy', event: 'arrived' }] }); start.outputOrder.push(outputId); document.graph.edges.set('edge', { id: 'edge', from: { nodeId: 'start', portId: outputId }, to: { nodeId: 'end', portId: dialogueNodeInputPortId('end') } }); const session = startDialogue(document, 'start'); const transition = stepDialogue(session); assert.deepEqual(transition, { type: 'transition', nodeId: 'start', outputId, targetNodeId: 'end', effects: [{ type: 'legacy', event: 'arrived' }] }); assert.deepEqual(stepDialogue(session), { type: 'ended', nodeId: 'end', reason: 'no-outputs' });
+test('compilation catches node/branch mismatches, missing choices and absent entry', () => {
+  const document = preset(), choices = document.graph.nodes.get('choices')!; choices.outputs.get(choices.outputOrder[0])!.branch = 'true';
+  const result = compileDialogueEditorDocument(document, 'missing'); assert.equal(result.program, undefined);
+  assert.ok(result.issues.some(issue => issue.code === 'missing-entry')); assert.ok(result.issues.some(issue => issue.code === 'invalid-branch'));
+});
+test('compiled instructions are independent snapshots of authoring data', () => {
+  const document = preset(), result = compileDialogueEditorDocument(document, 'greeting'); assert.ok(result.program);
+  const node = result.program.instructions.open_gate; if (node.kind === 'event') node.event.eventType = 'changed';
+  const original = document.graph.nodes.get('open_gate')!; assert.equal(original.kind, 'event'); if (original.kind === 'event') assert.equal(original.event.eventType, 'dialogue.demo.gate.open');
 });

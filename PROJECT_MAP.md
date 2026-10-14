@@ -1,5 +1,14 @@
 # Babylon.js Better 项目地图
 
+## 2026-10-14：Dialogue Map V5 四类卡片与显式编译
+
+对话图直接采用 V5，删除 V1–V4 迁移及 legacy 规则读取。DialogueEditorNode 按 dialogue/condition/choice/event 区分：对白属于对话节点，判断表达式属于判断节点，选项文本属于 choice 出口，事件节点声明 send/wait 模式及协议参数。连线仍独立存储 from/to 节点与端口，connectDialogueNodes 追加连线，不替换已有目标；草稿允许重复、多目标、悬空连线及未完成规则。
+
+Dialogue Map Canvas Lab 提供四种卡片创建按钮、节点类型与规则摘要、独立判断/事件 Inspector、追加目标和逐条删除连线。保留文字测量、鼠标锚点缩放和撤销重做。保存接口只校验可读写的数据形状，流程语义由显式“检查／编译”处理；诊断可定位节点、端口或连线，草稿修改或入口切换后旧编译结果失效。dialogueCompiler.ts 输出独立 instructions 数据，错误阻止编译，未接出口、不可达节点及无结束出口流程只警告；未接分支编译为结束。旧端口运行器移除，本批不执行 Lab 事件或读取运行内存。
+
+python/dialogue_rules.py 与 server.py 仅接受 V5 草稿；village_gate 已替换为包含四类卡片、共享内存判断、发送/等待示例事件的新流程。示例协议目录仅是编辑元数据。验证用例更新为 V5，并覆盖草稿保存、编译、节点规则、排版和缩放。
+
+
 ## 2026-10-14：Dialogue Canvas 鼠标锚点滚轮缩放
 
 `core/ui/node-graph/graphViewport.ts` 增加 zoomGraphViewAtPoint、normalizeGraphWheelDelta 和 zoomGraphViewWithWheel：先记录鼠标所在的世界点，变更 scale 后同步反算 x/y，保持该点的屏幕位置。滚轮 pixel/line/page 单位统一为像素，单次增量限制 ±200，使用指数缩放；比例继续限制为 0.3–2.2，达到边界或增量为零时保留原 view 引用和位移。Dialogue Canvas 用 passive:false 原生 wheel 监听接入，使用画布局部 CSS 坐标，不乘 DPR；卸载清理监听，拖动/连线期间忽略缩放。

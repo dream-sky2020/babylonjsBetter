@@ -53,6 +53,15 @@ export const DIALOGUE_NODE_LAYOUT_METRICS: Readonly<DialogueNodeLayoutMetrics> =
 const contentInsetForShape = (node: DialogueEditorNode): number => node.display.shape === 'diamond' || node.display.shape === 'hexagon' || node.display.shape === 'pill' ? 2 : 1;
 const row = (id: string, x: number, y: number, width: number, height: number): DialogueNodeRowLayout => ({ id, rect: { x, y, width, height }, centerY: y + height / 2 });
 
+/** Synthetic summaries are display-only and never saved as dialogue lines. */
+export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
+  if (node.kind === 'dialogue') return node.lines;
+  const text = node.kind === 'condition' ? (node.condition ? summarizeDialogueCondition(node.condition) : '未设置判断条件')
+    : node.kind === 'event' ? `${node.event.eventType || '未设置事件'} @${node.event.version}\n${Object.entries(node.event.payload ?? {}).map(([key, value]) => `${key}: ${value.type === 'memory' ? value.key + '.' + value.path.join('.') : JSON.stringify(value.value)}`).join(' · ')}`
+    : `${node.outputs.size} 个玩家选项`;
+  return new Map([[`summary:${node.id}`, { id: `summary:${node.id}`, speaker: node.kind === 'condition' ? '共享内存判断' : node.kind === 'event' ? (node.mode === 'wait' ? '等待接收事件' : '发送事件') : '玩家选择', text }]]);
+};
+
 export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Readonly<DialogueNodeLayoutMetrics> = DIALOGUE_NODE_LAYOUT_METRICS, measureText?: DialogueNodeTextMeasure): DialogueNodeLayout => {
   const widthUnits = Math.max(4, Math.floor(node.display.widthUnits));
   const requestedHeightUnits = Math.max(3, Math.floor(node.display.heightUnits));
@@ -77,24 +86,21 @@ export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Rea
   };
 
   if (!node.display.collapsed) {
-    node.lineOrder.forEach((id) => {
-      const line = node.lines.get(id);
+    const displayLines = getDialogueNodeDisplayLines(node);
+    [...displayLines.keys()].forEach((id) => {
+      const line = displayLines.get(id);
       const value = measuredRow(id, metrics.lineUnits, [
         ...(node.display.showSpeakerList === false ? [] : [{ role: 'speaker' as const, text: line?.speaker || '无说话者', maxLines: 1, wrap: false }]),
         ...(node.display.showPreviewText === false ? [] : [{ role: 'body' as const, text: line?.text || '（空对白）', maxLines: DIALOGUE_NODE_TEXT_STYLE.dialogueMaxLines }]),
       ]);
       lineRows.set(id, value); cursor += value.rect.height; separators.push(cursor);
     });
-    if (node.lineOrder.length && node.outputOrder.length) { cursor += metrics.sectionGapUnits; separators.push(cursor); }
+    if (displayLines.size && node.outputOrder.length) { cursor += metrics.sectionGapUnits; separators.push(cursor); }
     node.outputOrder.forEach((id) => {
       const output = node.outputs.get(id);
-      const icon = output?.activation.type === 'auto' ? '↪' : output?.activation.type === 'event' ? '⚡' : '›';
-      const activation = output?.activation.type === 'auto' ? `自动 · 优先级 ${output.activation.priority ?? 0}`
-        : output?.activation.type === 'event' ? `事件 · ${output.activation.eventType || '未设置'} @${output.activation.version}` : '玩家选择';
-      const detail = `${activation} · ${summarizeDialogueCondition(output?.condition)}${output?.effects?.length ? ` · ${output.effects.length} 个事件` : ''}`;
+      const icon = output?.branch === 'true' ? '✓' : output?.branch === 'false' ? '✕' : '›';
       const value = measuredRow(id, metrics.outputUnits, [
         { role: 'label', text: `${icon} ${output?.label || id}`, maxLines: 1, wrap: false },
-        { role: 'detail', text: detail, maxLines: DIALOGUE_NODE_TEXT_STYLE.detailMaxLines },
       ]);
       outputRows.set(id, value); outputAnchors.set(id, { x: widthUnits, y: value.centerY }); cursor += value.rect.height; separators.push(cursor);
     });
