@@ -1,5 +1,6 @@
 import { useId, useState } from 'react';
-import type { DialogueCondition, DialogueEffect, DialogueEditorNode, DialogueScalar, DialogueValue } from '../../core/dialogue-map/dialogueMap.types';
+import type { DialogueCondition, DialogueEffect, DialogueEditorNode, DialogueScalar, DialogueValue, DialogueEditorSelection } from '../../core/dialogue-map/dialogueMap.types';
+import { InspectorGroup } from './InspectorGroup';
 import { dialogueRuleCatalog as catalog } from './dialogueRuleCatalog';
 
 const scalarDefault = (type: string): DialogueScalar => type === 'number' ? 0 : type === 'boolean' ? false : type === 'null' ? null : '';
@@ -41,7 +42,7 @@ function ValueEditor({ label, value, onChange }: { label: string; value: Dialogu
   </fieldset>;
 }
 
-function ComparisonEditor({ value, onChange }: { value: Extract<DialogueCondition, { type: 'compare' }>; onChange(value: Extract<DialogueCondition, { type: 'compare' }>): void }) {
+export function ComparisonEditor({ value, onChange }: { value: Extract<DialogueCondition, { type: 'compare' }>; onChange(value: Extract<DialogueCondition, { type: 'compare' }>): void }) {
   const numericComparison = [value.left, value.right].every(item => !valueType(item) || valueType(item) === 'number');
   return <>
     <ValueEditor label="左侧" value={value.left} onChange={left => onChange({ ...value, left })} />
@@ -121,13 +122,50 @@ export function DialogueRuleEditor({ node, onChange }: { node: DialogueEditorNod
       <button onClick={() => onChange({ ...node, condition: undefined })}>清除条件</button></>
       : <button onClick={() => onChange({ ...node, condition: newDialogueComparison() })}>添加条件</button>}
   </section>;
-  if (node.kind === 'event') return <section className="dialogue-rule-editor" aria-label="事件配置">
-    <label className="field"><span>事件模式</span><select aria-label="事件模式" value={node.mode} onChange={e => onChange({ ...node, mode: e.target.value as 'send' | 'wait' })}>
-      <option value="send">发送事件</option><option value="wait">等待接收事件</option>
-    </select></label>
-    <p>{node.mode === 'send' ? '声明要发送的事件及参数；完成后继续。' : '等待指定名称和版本的事件；参数作为匹配条件。'}</p>
-    <EffectEditor effect={node.event} onChange={event => onChange({ ...node, event })} />
-  </section>;
+  if (node.kind === 'event') return <EventNodeEditor node={node} onChange={onChange} />;
   return null;
 }
 
+export function EventNodeEditor({ node, onChange, selection, onSelection }: {
+  node: Extract<DialogueEditorNode, { kind: 'event' }>;
+  onChange(node: DialogueEditorNode): void;
+  selection?: DialogueEditorSelection;
+  onSelection?(selection: DialogueEditorSelection): void;
+}) {
+  const [localSelection, setLocalSelection] = useState<DialogueEditorSelection>({ kind: 'event', nodeId: node.id, eventIndex: 0 });
+  const active = selection ?? localSelection;
+  const select = (next: DialogueEditorSelection) => { setLocalSelection(next); onSelection?.(next); };
+  const index = active.kind === 'event' ? active.eventIndex ?? 0 : undefined;
+  const focused = active.kind === 'event' || active.kind === 'event-mode';
+  return <InspectorGroup title="事件" count={node.events.length} focused={focused} focusToken={active}>
+    <label className="field"><span>事件模式</span><select aria-label="事件模式" value={node.mode} onChange={e => {
+      const mode = e.target.value as 'send' | 'wait';
+      if (mode === 'wait' && node.events.length !== 1) return;
+      onChange({ ...node, mode }); select({ kind: 'event-mode', nodeId: node.id });
+    }}>
+      <option value="send">触发事件</option><option value="wait" disabled={node.events.length !== 1}>等待事件</option>
+    </select></label>
+    <p>{node.mode === 'send' ? '按列表顺序触发事件，全部触发后继续。' : '等待指定名称和版本的事件；参数作为匹配条件。'}</p>
+    {node.events.length > 1 ? <p>切换为等待模式前，请保留一个事件。</p> : null}
+    <div className="collection-actions">
+      {node.mode === 'send' ? <button onClick={() => {
+        onChange({ ...node, events: [...node.events, { type: 'event', eventType: '', version: 1 }] });
+        select({ kind: 'event', nodeId: node.id, eventIndex: node.events.length });
+      }}>添加事件</button> : null}
+      <select aria-label="选择事件" value={index === undefined ? '' : String(index)} onChange={e => { if (e.target.value !== '') select({ kind: 'event', nodeId: node.id, eventIndex: Number(e.target.value) }); }}>
+        <option value="">选择事件</option>
+        {node.events.map((event, i) => <option key={i} value={i}>事件 {i + 1} · {event.eventType || '未设置事件'}</option>)}
+      </select>
+      {node.mode === 'send' ? <button disabled={index === undefined || node.events.length <= 1} onClick={() => {
+        if (index === undefined || node.events.length <= 1) return;
+        onChange({ ...node, events: node.events.filter((_, i) => i !== index) });
+        select({ kind: 'event-mode', nodeId: node.id });
+      }}>删除选中事件</button> : null}
+    </div>
+    <div className="inspector-collection">
+      {node.events.map((effect, i) => <InspectorGroup key={`${node.id}:event:${i}`} title={`事件 ${i + 1}`} focused={index === i} focusToken={active}>
+        <EffectEditor effect={effect} onChange={next => onChange({ ...node, events: node.events.map((event, j) => i === j ? next : event) })} />
+      </InspectorGroup>)}
+    </div>
+  </InspectorGroup>;
+}

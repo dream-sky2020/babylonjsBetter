@@ -54,7 +54,7 @@ type DialogueNodeBase = {
 export type DialogueEditorNode = DialogueNodeBase & (
   | { kind: 'condition'; condition?: DialogueCondition }
   | { kind: 'choice' }
-  | { kind: 'event'; mode: 'send' | 'wait'; event: DialogueEffect }
+  | { kind: 'event'; mode: 'send' | 'wait'; events: DialogueEffect[] }
 );
 
 export type DialogueEditorEndpoint = { nodeId: string; portId: string };
@@ -66,6 +66,10 @@ export type DialogueEditorWorkspaceState = { previewEntryByPreset: Record<string
 
 export type DialogueEditorSelection =
   | { kind: 'node'; nodeId: string }
+  | { kind: 'event'; nodeId: string; eventIndex?: number }
+  | { kind: 'event-mode'; nodeId: string }
+  | { kind: 'condition-mode'; nodeId: string }
+  | { kind: 'condition'; nodeId: string; conditionIndex: number }
   | { kind: 'line'; nodeId: string; lineId: string }
   | { kind: 'input'; nodeId: string; portId: string }
   | { kind: 'output'; nodeId: string; portId: string }
@@ -73,6 +77,10 @@ export type DialogueEditorSelection =
 
 export type DialogueEditorSelectionTarget =
   | { kind: 'node'; node: DialogueEditorNode }
+  | { kind: 'event'; node: DialogueEditorNode; eventIndex: number }
+  | { kind: 'event-mode'; node: DialogueEditorNode }
+  | { kind: 'condition-mode'; node: DialogueEditorNode }
+  | { kind: 'condition'; node: DialogueEditorNode; conditionIndex: number }
   | { kind: 'line'; node: DialogueEditorNode; line: DialogueEditorLine }
   | { kind: 'input'; node: DialogueEditorNode; port: DialogueInputPort }
   | { kind: 'output'; node: DialogueEditorNode; port: DialogueOutputPort }

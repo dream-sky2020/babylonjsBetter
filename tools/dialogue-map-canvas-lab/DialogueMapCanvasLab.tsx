@@ -33,7 +33,8 @@ import {
   type DialogueNodeDisplay,
 } from '@/core/dialogue-map';
 import './dialogue-map-canvas-lab.css';
-import { DialogueRuleEditor } from './DialogueRuleEditor';
+import { InspectorGroup } from './InspectorGroup';
+import { ComparisonEditor, EventNodeEditor } from './DialogueRuleEditor';
 import { dialogueRuleCatalog } from './dialogueRuleCatalog';
 import { createDialogueHistory, commitDialogueHistory, undoDialogueHistory, redoDialogueHistory } from './dialogueHistory';
 import { fitGraphView, graphWorldPoint, graphScreenPoint, zoomGraphViewWithWheel } from '@/core/ui/node-graph/graphViewport';
@@ -126,6 +127,7 @@ type CanvasProps = {
   resetViewToken: number;
   onSelection: (value: DialogueEditorSelection) => void;
   onMove: (nodeId: string, position: Point) => void;
+  onDisconnectOutput: (nodeId: string, portId: string) => void;
   onConnect: (
     fromNodeId: string,
     outputId: string,
@@ -142,6 +144,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
   onSelection,
   onMove,
   onConnect,
+  onDisconnectOutput,
   onPreview,
 }) => {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -237,7 +240,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           return { kind: 'output', nodeId: node.id, portId: id };
       for (const [id, value] of layout.lineRows)
         if (dialogueGridRectContains(value.rect, local))
-          return node.kind === 'choice' ? { kind: 'line', nodeId: node.id, lineId: id } : { kind: 'node', nodeId: node.id };
+          return node.kind === 'choice' ? { kind: 'line', nodeId: node.id, lineId: id } : node.kind === 'condition' ? (id.startsWith('condition:') ? { kind: 'condition', nodeId: node.id, conditionIndex: Number(id.split(':').at(-1)) } : { kind: 'condition-mode', nodeId: node.id }) : id.startsWith('event:') ? { kind: 'event', nodeId: node.id, eventIndex: Number(id.split(':').at(-1)) } : { kind: 'event-mode', nodeId: node.id };
       return { kind: 'node', nodeId: node.id };
     }
     for (const edge of document.graph.edges.values()) {
@@ -360,7 +363,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           const x = p.x + rowLayout.rect.x * unit;
           const y = p.y + rowLayout.rect.y * unit;
           const rowWidth = rowLayout.rect.width * unit;
-          if (selected(selection, 'line', id)) {
+          if ((selection.kind === 'event-mode' && selection.nodeId === node.id && id === `summary:${node.id}`) || (selection.kind === 'event' && selection.nodeId === node.id && id === `event:${node.id}:${selection.eventIndex ?? 0}`) || selected(selection, 'line', id) || (selection.kind === 'condition-mode' && selection.nodeId === node.id && id === `summary:${node.id}`) || (selection.kind === 'condition' && selection.nodeId === node.id && id === `condition:${node.id}:${selection.conditionIndex}`)) {
             ctx.fillStyle = 'rgba(168,184,200,.14)';
             ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit);
           }
@@ -478,7 +481,8 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
           event.currentTarget.setPointerCapture(event.pointerId);
           if (hit) {
             onSelection(hit);
-            if (hit.kind === 'output' && isPortAnchor(p, hit.nodeId, hit.portId) && !occupiedOutput(hit.nodeId, hit.portId)) {
+            if (hit.kind === 'output' && isPortAnchor(p, hit.nodeId, hit.portId)) {
+              if (occupiedOutput(hit.nodeId, hit.portId)) onDisconnectOutput(hit.nodeId, hit.portId);
               gesture.current = {
                 mode: 'connect',
                 start: p,
@@ -545,7 +549,7 @@ const DialogueCanvas: React.FC<CanvasProps> = ({
         {selfConnection
           ? '不能连接到当前节点的入口'
           : selectedOutputOccupied
-            ? '此出口已有连线，请先删除旧连线'
+            ? '从此出口拖线会立即取消原连线'
             : '滚轮以鼠标位置缩放 · 从紫色出口圆点拖到其他节点的灰色入口圆点连线 · 右键设置检查入口'}
       </div>
       <div className="dialogue-canvas__zoom">
@@ -565,23 +569,6 @@ const loadPreviewEntries = (): Record<string, string | undefined> => {
     return {};
   }
 };
-const InspectorGroup: React.FC<{
-  title: string;
-  count?: number;
-  defaultOpen?: boolean;
-  className?: string;
-  children: React.ReactNode;
-}> = ({ title, count, defaultOpen = true, className = '', children }) => {
-  const [open, setOpen] = useState(defaultOpen);
-  return <section className={`inspector-group ${className}`}>
-    <button type="button" className="inspector-group__heading" aria-expanded={open} onClick={() => setOpen(value => !value)}>
-      <span className="inspector-group__chevron" aria-hidden="true">{open ? '▾' : '▸'}</span>
-      <strong>{title}</strong>
-      {count !== undefined ? <small>{count}</small> : null}
-    </button>
-    {open ? <div className="inspector-group__body">{children}</div> : null}
-  </section>;
-};
 export const DialogueMapCanvasLab: React.FC = () => {
   const [history, setHistory] = useState(createDialogueHistory);
   const library = history.present;
@@ -594,6 +581,8 @@ export const DialogueMapCanvasLab: React.FC = () => {
     kind: 'node',
     nodeId: '',
   });
+  const inspectorRef = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (inspectorRef.current) inspectorRef.current.scrollTop = 0; }, [selection]);
   const [previewEntries, setPreviewEntries] = useState(loadPreviewEntries);
   const [savedFingerprint, setSavedFingerprint] = useState('');
   const [message, setMessage] = useState('正在连接数据源…');
@@ -974,6 +963,11 @@ export const DialogueMapCanvasLab: React.FC = () => {
               node.position = position;
             })
           }
+          onDisconnectOutput={(nodeId, portId) => updateDocument(draft => {
+            for (const [id, edge] of draft.graph.edges) {
+              if (edge.from.nodeId === nodeId && edge.from.portId === portId) draft.graph.edges.delete(id);
+            }
+          })}
           onConnect={setTarget}
           onPreview={setPreviewEntry}
         />
@@ -988,8 +982,8 @@ export const DialogueMapCanvasLab: React.FC = () => {
           <div>
             <span>{target?.kind.toUpperCase() ?? 'INSPECTOR'}</span>
             <strong>
-              {target?.kind === 'node'
-                ? target.node.title
+              {selectedNode
+                ? selectedNode.title
                 : target?.kind === 'line'
                   ? '对白'
                   : target?.kind === 'output'
@@ -999,11 +993,11 @@ export const DialogueMapCanvasLab: React.FC = () => {
                       : '连线'}
             </strong>
           </div>
-          {target?.kind === 'node' ? (
+          {selectedNode ? (
             <button
               className="danger-button"
               disabled={document.graph.nodes.size <= 1}
-              onClick={() => deleteNode(target.node.id)}
+              onClick={() => deleteNode(selectedNode.id)}
             >
               删除节点
             </button>
@@ -1020,7 +1014,7 @@ export const DialogueMapCanvasLab: React.FC = () => {
             </button>
           ) : null}
         </div>
-        <div className="inspector-scroll">
+        <div ref={inspectorRef} className="inspector-scroll" key={selectedNode?.id ?? 'edge'}>
           <InspectorGroup title="检查／编译结果" count={issues.length} className="compile-results">
             <p>{currentCheck ? (currentCheck.program ? '编译成功，可导出独立流程数据。' : '有错误需要处理；草稿仍可保存。') : '当前草稿尚未检查，或检查后已有修改。'}</p>
             {issues.map((item, index) => <button className={`diagnostic diagnostic--${item.severity}`} key={index} onClick={() => {
@@ -1028,43 +1022,44 @@ export const DialogueMapCanvasLab: React.FC = () => {
               else if (item.nodeId) setSelection(item.portId && document.graph.nodes.get(item.nodeId)?.outputs.has(item.portId) ? { kind: 'output', nodeId: item.nodeId, portId: item.portId } : { kind: 'node', nodeId: item.nodeId });
             }}>{item.severity === 'error' ? '错误' : item.severity === 'warning' ? '警告' : '提示'} · {item.message}</button>)}
           </InspectorGroup>
-          {target?.kind === 'node' ? (
+          {selectedNode ? (
             <>
-              <InspectorGroup title="节点属性">
+              <InspectorGroup title="节点属性" focused={selection.kind === 'node'} focusToken={selection}>
                 <label className="field">
                   <span>节点 ID</span>
-                  <input value={target.node.id} disabled />
+                  <input value={selectedNode.id} disabled />
                 </label>
                 <label className="field">
                   <span>标题</span>
                   <input
-                    value={target.node.title}
+                    value={selectedNode.title}
                     onChange={(e) =>
-                      updateNode(target.node.id, (node) => {
+                      updateNode(selectedNode.id, (node) => {
                         node.title = e.target.value;
                       })
                     }
                   />
                 </label>
-                <label className="field"><span>节点类型</span><input value={DIALOGUE_NODE_KIND_LABEL[target.node.kind]} disabled /></label>
-                <DialogueRuleEditor key={target.node.id} node={target.node} onChange={next => updateDocument(draft => { draft.graph.nodes.set(next.id, next); })} />
+                <label className="field"><span>节点类型</span><input value={DIALOGUE_NODE_KIND_LABEL[selectedNode.kind]} disabled /></label>
+
                 <button
                   className="start-button"
-                  disabled={previewEntry === target.node.id}
-                  onClick={() => setPreviewEntry(target.node.id)}
+                  disabled={previewEntry === selectedNode.id}
+                  onClick={() => setPreviewEntry(selectedNode.id)}
                 >
-                  {previewEntry === target.node.id
+                  {previewEntry === selectedNode.id
                     ? '✓ 当前检查入口'
                     : '设为检查入口'}
                 </button>
               </InspectorGroup>
+              {selectedNode.kind === 'event' ? <EventNodeEditor node={selectedNode} selection={selection} onSelection={setSelection} onChange={next => updateDocument(draft => { draft.graph.nodes.set(next.id, next); })} /> : null}
               <InspectorGroup title="外观与尺寸" defaultOpen={false}>
                 <label className="field">
                   <span>形状</span>
                   <select
-                    value={target.node.display.shape}
+                    value={selectedNode.display.shape}
                     onChange={(e) =>
-                      updateNode(target.node.id, (node) => {
+                      updateNode(selectedNode.id, (node) => {
                         node.display.shape = e.target
                           .value as DialogueNodeDisplay['shape'];
                       })
@@ -1080,9 +1075,9 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 <label className="field">
                   <span>颜色 Token</span>
                   <select
-                    value={target.node.display.colorToken}
+                    value={selectedNode.display.colorToken}
                     onChange={(e) =>
-                      updateNode(target.node.id, (node) => {
+                      updateNode(selectedNode.id, (node) => {
                         node.display.colorToken = e.target.value;
                       })
                     }
@@ -1099,9 +1094,9 @@ export const DialogueMapCanvasLab: React.FC = () => {
                       type="number"
                       min="4"
                       max="40"
-                      value={target.node.display.widthUnits}
+                      value={selectedNode.display.widthUnits}
                       onChange={(e) =>
-                        updateNode(target.node.id, (node) => {
+                        updateNode(selectedNode.id, (node) => {
                           node.display.widthUnits = Number(e.target.value);
                         })
                       }
@@ -1113,9 +1108,9 @@ export const DialogueMapCanvasLab: React.FC = () => {
                       type="number"
                       min="3"
                       max="40"
-                      value={target.node.display.heightUnits}
+                      value={selectedNode.display.heightUnits}
                       onChange={(e) =>
-                        updateNode(target.node.id, (node) => {
+                        updateNode(selectedNode.id, (node) => {
                           node.display.heightUnits = Number(e.target.value);
                         })
                       }
@@ -1131,11 +1126,11 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 <button
                   className="fit-content-button"
                   disabled={
-                    target.node.display.heightUnits ===
+                    selectedNode.display.heightUnits ===
                     selectedLayout?.minimumHeightUnits
                   }
                   onClick={() =>
-                    updateNode(target.node.id, (node) => {
+                    updateNode(selectedNode.id, (node) => {
                       node.display.heightUnits = requiredHeight(node);
                     })
                   }
@@ -1145,9 +1140,9 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 <label className="checkbox-field">
                   <input
                     type="checkbox"
-                    checked={target.node.display.collapsed ?? false}
+                    checked={selectedNode.display.collapsed ?? false}
                     onChange={(e) =>
-                      updateNode(target.node.id, (node) => {
+                      updateNode(selectedNode.id, (node) => {
                         node.display.collapsed = e.target.checked;
                       })
                     }
@@ -1155,64 +1150,27 @@ export const DialogueMapCanvasLab: React.FC = () => {
                   折叠内容布局
                 </label>
               </InspectorGroup>
-              <InspectorGroup title="内容与端口" count={target.node.lines.size + target.node.inputs.size + target.node.outputs.size}>
-                <div className="inline-actions content-actions">
-                    {target.node.kind === 'choice' ? <button onClick={() => addLine(target.node)}>＋对白</button> : null}
-                    {target.node.kind === 'choice' ? <button onClick={() => addOutput(target.node)}>＋选项</button> : null}
-                </div>
-                {target.node.lineOrder.map((id) => (
-                  <button
-                    className="content-row"
-                    key={id}
-                    onClick={() =>
-                      setSelection({
-                        kind: 'line',
-                        nodeId: target.node.id,
-                        lineId: id,
-                      })
-                    }
-                  >
-                    对白 · {target.node.lines.get(id)?.speaker || id}
-                  </button>
-                ))}
-                {target.node.inputOrder.map((id) => (
-                  <button
-                    className="content-row"
-                    key={id}
-                    onClick={() =>
-                      setSelection({
-                        kind: 'input',
-                        nodeId: target.node.id,
-                        portId: id,
-                      })
-                    }
-                  >
-                    输入 · {target.node.inputs.get(id)?.label || id}
-                  </button>
-                ))}
-                {target.node.outputOrder.map((id) => (
-                  <button
-                    className="content-row"
-                    key={id}
-                    onClick={() =>
-                      setSelection({
-                        kind: 'output',
-                        nodeId: target.node.id,
-                        portId: id,
-                      })
-                    }
-                  >
-                    输出 · {target.node.outputs.get(id)?.label || id}
-                  </button>
-                ))}
-                {!target.node.outputs.size ? (
-                  <p>运行到此将正常结束对话。</p>
-                ) : null}
-              </InspectorGroup>
+
             </>
           ) : null}
-          {target?.kind === 'line' ? (
-            <InspectorGroup title="对白内容">
+          {selectedNode?.kind === 'choice' ? <InspectorGroup title="对白" count={selectedNode.lines.size} focused={selection.kind === 'line'} focusToken={selection}>
+            <div className="collection-actions">
+              <button onClick={() => addLine(selectedNode)}>＋对白</button>
+              <select aria-label="选择对白" value={selection.kind === 'line' ? selection.lineId : ''} onChange={e => { if (e.target.value) setSelection({ kind: 'line', nodeId: selectedNode.id, lineId: e.target.value }); }}>
+                <option value="">选择对白</option>
+                {selectedNode.lineOrder.map((id, index) => <option key={id} value={id}>对白 {index + 1} · {selectedNode.lines.get(id)?.speaker || '无说话者'}</option>)}
+              </select>
+              <button disabled={selection.kind !== 'line'} onClick={() => {
+                if (selection.kind !== 'line') return;
+                updateNode(selectedNode.id, node => { node.lines.delete(selection.lineId); node.lineOrder = node.lineOrder.filter(id => id !== selection.lineId); });
+                setSelection({ kind: 'node', nodeId: selectedNode.id });
+              }}>删除选中对白</button>
+            </div>
+            <div className="inspector-collection">
+          {selectedNode.lineOrder.map((id, index) => {
+            const target = { node: selectedNode, line: selectedNode.lines.get(id)! };
+            return (
+            <InspectorGroup key={id} title={`对白 ${index + 1}`} focused={selection.kind === 'line' && selection.lineId === id} focusToken={selection}>
               <label className="field">
                 <span>对白 ID</span>
                 <input value={target.line.id} disabled />
@@ -1243,9 +1201,32 @@ export const DialogueMapCanvasLab: React.FC = () => {
                 />
               </label>
             </InspectorGroup>
-          ) : null}
-          {target?.kind === 'output' ? (
-            <InspectorGroup title="输出端口">
+            );
+          })}
+            </div>
+            {!selectedNode.lines.size ? <p>暂无对白，点击“＋对白”添加。</p> : null}
+          </InspectorGroup> : null}
+          {selectedNode ? <InspectorGroup title={selectedNode.kind === 'choice' ? '选项' : '输出端口'} count={selectedNode.outputs.size} focused={selection.kind === 'output'} focusToken={selection}>
+            {selectedNode.kind === 'choice' ? <div className="collection-actions">
+              <button onClick={() => addOutput(selectedNode)}>＋选项</button>
+              <select aria-label="选择选项" value={selection.kind === 'output' ? selection.portId : ''} onChange={e => { if (e.target.value) setSelection({ kind: 'output', nodeId: selectedNode.id, portId: e.target.value }); }}>
+                <option value="">选择选项</option>
+                {selectedNode.outputOrder.map((id, index) => <option key={id} value={id}>选项 {index + 1} · {selectedNode.outputs.get(id)?.label}</option>)}
+              </select>
+              <button disabled={selection.kind !== 'output'} onClick={() => {
+                if (selection.kind !== 'output') return;
+                updateNode(selectedNode.id, (node, draft) => {
+                  node.outputs.delete(selection.portId); node.outputOrder = node.outputOrder.filter(id => id !== selection.portId);
+                  for (const [id, edge] of draft.graph.edges) if (edge.from.nodeId === node.id && edge.from.portId === selection.portId) draft.graph.edges.delete(id);
+                });
+                setSelection({ kind: 'node', nodeId: selectedNode.id });
+              }}>删除选中选项及连线</button>
+            </div> : null}
+            <div className="inspector-collection">
+          {selectedNode?.outputOrder.map((id, index) => {
+            const target = { node: selectedNode, port: selectedNode.outputs.get(id)! };
+            return (
+            <InspectorGroup key={id} title={selectedNode.kind === 'choice' ? `选项 ${index + 1}` : `输出端口 ${index + 1}`} focused={selection.kind === 'output' && selection.portId === id} focusToken={selection}>
               <label className="field">
                 <span>输出端口 ID</span>
                 <input value={target.port.id} disabled />
@@ -1261,31 +1242,17 @@ export const DialogueMapCanvasLab: React.FC = () => {
               <div className="connection-list">{[...document.graph.edges.values()].filter(edge => edge.from.nodeId === target.node.id && edge.from.portId === target.port.id).map(edge =>
                 <div key={edge.id}><button onClick={() => setSelection({ kind: 'edge', edgeId: edge.id })}>→ {document.graph.nodes.get(edge.to.nodeId)?.title ?? edge.to.nodeId}</button>
                   <button aria-label={`删除连线 ${edge.id}`} onClick={() => updateDocument(draft => { draft.graph.edges.delete(edge.id); })}>删除</button></div>)}</div>
-              {target.node.kind === 'choice' ? <button
-                className="danger-wide"
-                onClick={() => {
-                  updateNode(target.node.id, (node, draft) => {
-                    node.outputs.delete(target.port.id);
-                    node.outputOrder = node.outputOrder.filter(
-                      (id) => id !== target.port.id,
-                    );
-                    [...draft.graph.edges].forEach(([id, edge]) => {
-                      if (
-                        edge.from.nodeId === node.id &&
-                        edge.from.portId === target.port.id
-                      )
-                        draft.graph.edges.delete(id);
-                    });
-                  });
-                  setSelection({ kind: 'node', nodeId: target.node.id });
-                }}
-              >
-                删除输出及连线
-              </button> : null}
+
             </InspectorGroup>
-          ) : null}
-          {target?.kind === 'input' ? (
-            <InspectorGroup title="输入端口">
+            );
+          })}
+            </div>
+            {!selectedNode.outputs.size ? <p>运行到此将正常结束对话。</p> : null}
+          </InspectorGroup> : null}
+          {selectedNode?.inputOrder.map((id, index) => {
+            const target = { node: selectedNode, port: selectedNode.inputs.get(id)! };
+            return (
+            <InspectorGroup key={id} title={`输入端口 ${index + 1}`} focused={selection.kind === 'input' && selection.portId === id} focusToken={selection}>
               <label className="field">
                 <span>输入端口 ID</span>
                 <input value={target.port.id} disabled />
@@ -1304,7 +1271,40 @@ export const DialogueMapCanvasLab: React.FC = () => {
               </label>
               <p>每张卡片固定一个输入，可接收多条连线。</p>
             </InspectorGroup>
-          ) : null}
+            );
+          })}
+          {selectedNode?.kind === 'condition' ? (() => {
+            const rule = selectedNode.condition;
+            const conditions = rule ? rule.type === 'compare' ? [rule] : rule.conditions : [];
+            const mode = rule?.type === 'any' ? 'any' : 'all';
+            const change = (next: typeof conditions) => updateNode(selectedNode.id, node => { if (node.kind === 'condition') node.condition = { type: mode, conditions: next }; });
+            return <InspectorGroup title="判断条件" count={conditions.length} focused={selection.kind === 'condition-mode' || selection.kind === 'condition'} focusToken={selection}>
+              <label className="field"><span>满足方式</span>
+                <select aria-label="满足方式" value={mode} onChange={e => updateNode(selectedNode.id, node => { if (node.kind === 'condition') node.condition = { type: e.target.value as 'all' | 'any', conditions }; })}>
+                  <option value="all">全部满足</option><option value="any">任一满足</option>
+                </select>
+              </label>
+              <div className="collection-actions">
+                <button onClick={() => { change([...conditions, { type: 'compare', left: { type: 'memory', key: '', path: [] }, operator: 'eq', right: { type: 'literal', value: 0 } }]); setSelection({ kind: 'condition', nodeId: selectedNode.id, conditionIndex: conditions.length }); }}>添加条件</button>
+                <select aria-label="选择条件" value={selection.kind === 'condition' ? String(selection.conditionIndex) : ''} onChange={e => { if (e.target.value !== '') setSelection({ kind: 'condition', nodeId: selectedNode.id, conditionIndex: Number(e.target.value) }); }}>
+                  <option value="">选择条件</option>
+                  {conditions.map((_, index) => <option key={index} value={index}>条件 {index + 1}</option>)}
+                </select>
+                <button disabled={selection.kind !== 'condition'} onClick={() => {
+                  if (selection.kind !== 'condition') return;
+                  change(conditions.filter((_, index) => index !== selection.conditionIndex));
+                  setSelection({ kind: 'condition-mode', nodeId: selectedNode.id });
+                }}>删除选中条件</button>
+              </div>
+              <div className="inspector-collection">
+                {conditions.map((condition, index) => <InspectorGroup key={`condition:${selectedNode.id}:${index}`} title={`条件 ${index + 1}`} focused={selection.kind === 'condition' && selection.conditionIndex === index} focusToken={selection}>
+                  <ComparisonEditor value={condition} onChange={next => change(conditions.map((item, i) => i === index ? next : item))} />
+                </InspectorGroup>)}
+              </div>
+              {!conditions.length ? <p>暂无条件，点击“添加条件”添加。</p> : null}
+              <p>复杂组合通过成立／不成立出口连接其他判断卡片。</p>
+            </InspectorGroup>;
+          })() : null}
           {target?.kind === 'edge' ? (
             <InspectorGroup title="连线">
               <label className="field">

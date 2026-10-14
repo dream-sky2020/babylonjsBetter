@@ -66,8 +66,14 @@ export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
       ...comparisons.map((item, index) => { const id = `condition:${node.id}:${index}`; return [id, { id, speaker: `条件 ${index + 1}`, text: summarizeDialogueCondition(item) }] as const; }),
     ]);
   }
-  const text = `${node.event.eventType || '未设置事件'} @${node.event.version}\n${Object.entries(node.event.payload ?? {}).map(([key, value]) => `${key}: ${value.type === 'memory' ? value.key + '.' + value.path.join('.') : JSON.stringify(value.value)}`).join(' · ')}`;
-  return new Map([[`summary:${node.id}`, { id: `summary:${node.id}`, speaker: node.mode === 'wait' ? '等待接收事件' : '发送事件', text }]]);
+  return new Map([
+    [`summary:${node.id}`, { id: `summary:${node.id}`, speaker: '事件模式', text: node.mode === 'wait' ? '等待一个事件' : `依次触发 ${node.events.length} 个事件` }],
+    ...node.events.map((event, index) => {
+      const id = `event:${node.id}:${index}`;
+      const text = `${event.eventType || '未设置事件'} @${event.version}\n${Object.entries(event.payload ?? {}).map(([key, value]) => `${key}: ${value.type === 'memory' ? value.key + '.' + value.path.join('.') : JSON.stringify(value.value)}`).join(' · ')}`;
+      return [id, { id, speaker: `事件 ${index + 1}`, text }] as const;
+    }),
+  ]);
 };
 
 export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Readonly<DialogueNodeLayoutMetrics> = DIALOGUE_NODE_LAYOUT_METRICS, measureText?: DialogueNodeTextMeasure): DialogueNodeLayout => {

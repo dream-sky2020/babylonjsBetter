@@ -72,7 +72,7 @@ export const validateDialogueNodeRules = (node: DialogueEditorNode, catalog?: Di
     if (node.condition) condition(node.condition); else report('判断节点缺少条件。');
   }
   if (node.kind === 'event') {
-    const effect = node.event;
+    node.events.forEach(effect => {
     const entry = event(effect.eventType, effect.version);
     Object.entries(effect.payload ?? {}).forEach(([key, value]) => {
       if (!key.trim()) report('事件参数名不能为空。');
@@ -80,6 +80,7 @@ export const validateDialogueNodeRules = (node: DialogueEditorNode, catalog?: Di
       if (actual && expected && actual !== expected && !(actual === 'null' && field?.nullable)) report(`参数 ${key} 的类型应为 ${expected}。`);
     });
     entry?.fields.forEach(field => { if (node.mode === 'send' && field.required && !Object.hasOwn(effect.payload ?? {}, field.name)) report(`缺少必需参数：${field.name}`); });
+    });
   }
   return issues;
 };

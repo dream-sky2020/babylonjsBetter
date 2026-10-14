@@ -16,7 +16,7 @@ export const createDialogueEditorNode = (id: string, position: { x: number; y: n
     const portId = dialogueOutputPortId(id, suffix); base.outputs.set(portId, { id: portId, label, branch }); base.outputOrder.push(portId);
   };
   if (kind === 'condition') { add('true', '成立'); add('false', '不成立'); return { ...base, kind, condition: { type: 'compare', left: { type: 'memory', key: '', path: [] }, operator: 'eq', right: { type: 'literal', value: 0 } } }; }
-  if (kind === 'event') { add('next', '完成后继续'); return { ...base, kind, mode: 'send', event: { type: 'event', eventType: '', version: 1 } }; }
+  if (kind === 'event') { add('next', '完成后继续'); return { ...base, kind, mode: 'send', events: [{ type: 'event', eventType: '', version: 1 }] }; }
   base.lines.set(lineId, { id: lineId, speaker: '', text: '' }); base.lineOrder.push(lineId); add('choice', '继续', 'next'); return { ...base, kind };
 };
 export const createDialogueEditorDocument = (presetKey: string, name: string): DialogueEditorDocument => {
@@ -41,7 +41,7 @@ const parseNode = (value: unknown): DialogueEditorNode => {
     inputs: ports('inputs'), inputOrder: list(raw.inputOrder), outputs: ports('outputs') as Map<string, DialogueOutputPort>, outputOrder: list(raw.outputOrder), ...(raw.tags === undefined ? {} : { tags: list(raw.tags) }) };
   if (raw.kind === 'choice') return { ...base, kind: raw.kind };
   if (raw.kind === 'condition') return { ...base, kind: raw.kind, ...(raw.condition === undefined ? {} : { condition: parseDialogueCondition(raw.condition) }) };
-  if (raw.kind === 'event' && (raw.mode === 'send' || raw.mode === 'wait')) return { ...base, kind: raw.kind, mode: raw.mode, event: parseDialogueEffect(raw.event) };
+  if (raw.kind === 'event' && (raw.mode === 'send' || raw.mode === 'wait')) return { ...base, kind: raw.kind, mode: raw.mode, events: (() => { if (!Array.isArray(raw.events)) throw new Error('事件列表必须是数组。'); return raw.events.map(parseDialogueEffect); })() };
   throw new Error('不支持的节点类型或事件模式。');
 };
 export const parseDialogueEditorDocument = (value: unknown, expectedKey?: string): DialogueEditorDocument => {
@@ -63,6 +63,14 @@ export const resolveDialogueEditorSelection = (document: DialogueEditorDocument,
   if (selection.kind === 'edge') { const edge = document.graph.edges.get(selection.edgeId); return edge ? { kind: 'edge', edge } : undefined; }
   const node = document.graph.nodes.get(selection.nodeId); if (!node) return;
   if (selection.kind === 'node') return { kind: 'node', node };
+  if (selection.kind === 'event-mode') return node.kind === 'event' ? { kind: selection.kind, node } : undefined;
+  if (selection.kind === 'event') { const eventIndex = selection.eventIndex ?? 0; return node.kind === 'event' && node.events[eventIndex] ? { kind: selection.kind, node, eventIndex } : undefined; }
+  if (selection.kind === 'condition-mode') return node.kind === 'condition' ? { kind: selection.kind, node } : undefined;
+  if (selection.kind === 'condition') {
+    if (node.kind !== 'condition' || !node.condition) return;
+    const conditions = node.condition.type === 'compare' ? [node.condition] : node.condition.conditions;
+    return conditions[selection.conditionIndex] ? { kind: selection.kind, node, conditionIndex: selection.conditionIndex } : undefined;
+  }
   if (selection.kind === 'line') { const line = node.lines.get(selection.lineId); return line ? { kind: 'line', node, line } : undefined; }
   const port = selection.kind === 'input' ? node.inputs.get(selection.portId) : node.outputs.get(selection.portId);
   return port ? { kind: selection.kind, node, port } as DialogueEditorSelectionTarget : undefined;
@@ -78,6 +86,7 @@ export const validateDialogueEditorDocument = (document: DialogueEditorDocument)
     for (const [items, order] of [[node.lines, node.lineOrder], [node.inputs, node.inputOrder], [node.outputs, node.outputOrder]] as const) {
       if (order.length !== items.size || new Set(order).size !== order.length || order.some(id => !items.has(id)) || [...items].some(([id, item]) => item.id !== id)) issues.push(issue('invalid-order', '节点内容顺序或 ID 无效。', 'error', { nodeId: key }));
     }
+    if (node.kind === 'event' && (!node.events.length || (node.mode === 'wait' && node.events.length !== 1))) issues.push(issue('event-count', '等待节点必须有一个事件，触发节点至少需要一个事件。', 'error', { nodeId: key }));
     if (node.inputs.size !== 1 || node.inputOrder.length !== 1) issues.push(issue('single-input', '每个节点必须保留一个输入端口。', 'error', { nodeId: key }));
     if (node.kind === 'condition') {
       const valid = node.outputs.size === 2 && (['true', 'false'] as const).every(branch => {

@@ -13,7 +13,7 @@ test('catalog validates numeric comparisons, event parameters and unknown refere
   node.condition.left = { type: 'memory', key: 'custom', path: ['coins'] };
   assert.ok(validateDialogueNodeRules(node, dialogueRuleCatalog).some(issue => issue.severity === 'warning'));
   const event = createDialogueEditorNode('event', { x: 0, y: 0 }, 'event'); if (event.kind !== 'event') return;
-  event.event = { type: 'event', eventType: 'dungeon.agents.loaded', version: 1, payload: { loadId: { type: 'literal', value: 1 } } };
+  event.events = [{ type: 'event', eventType: 'dungeon.agents.loaded', version: 1, payload: { loadId: { type: 'literal', value: 1 } } }];
   assert.ok(validateDialogueNodeRules(event, dialogueRuleCatalog).some(issue => issue.message.includes('agentCount')));
   event.mode = 'wait'; assert.deepEqual(validateDialogueNodeRules(event, dialogueRuleCatalog), []);
 });

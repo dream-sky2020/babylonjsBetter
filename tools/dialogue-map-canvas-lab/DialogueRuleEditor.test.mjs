@@ -38,14 +38,44 @@ test('visual editor configures independent condition and event cards with flat c
     assert.equal(button('添加条件组'), undefined);
     assert.equal(document.querySelector('[aria-label="条件种类"]'), null);
     assert.equal(output.condition.conditions.length, 2);
-    output = { id: 'event', kind: 'event', mode: 'send', event: { type: 'event', eventType: 'dungeon.agents.loaded', version: 1 } };
+    output = { id: 'event', kind: 'event', mode: 'send', events: [{ type: 'event', eventType: 'dungeon.agents.loaded', version: 1 }] };
     await render();
     assert.equal(document.querySelector('[aria-label="判断条件"]'), null);
     await click(button('添加参数')); await click(button('添加参数'));
-    assert.deepEqual(Object.keys(output.event.payload), ['loadId', 'agentCount']);
+    assert.deepEqual(Object.keys(output.events[0].payload), ['loadId', 'agentCount']);
+
+    await click(button('添加事件'));
+    assert.equal(output.events.length, 2);
+    assert.equal(document.querySelector('[aria-label="事件模式"] option[value="wait"]').disabled, true);
+    assert.ok(document.querySelector('.inspector-collection > .inspector-group--focused').textContent.includes('事件 2'));
+    await click(button('删除选中事件'));
+    assert.equal(output.events.length, 1);
     await set(document.querySelector('[aria-label="事件模式"]'), 'wait'); assert.equal(output.mode, 'wait');
+    assert.equal(button('添加事件'), undefined);
+    assert.equal(button('删除选中事件'), undefined);
+
     assert.match(document.body.textContent, /等待指定名称/);
     assert.equal(document.body.textContent.includes('legacy'), false);
+    const { InspectorGroup } = await server.ssrLoadModule('/tools/dialogue-map-canvas-lab/InspectorGroup.tsx');
+    let focus = 'first';
+    const renderGroups = async () => React.act(async () => root.render(React.createElement('div', null,
+      ...['first', 'second'].map(id => React.createElement(InspectorGroup, { key: id, title: id, defaultOpen: false, focused: focus === id, focusToken: focus }, id + ' editor')))));
+    await renderGroups();
+    const groups = () => [...document.querySelectorAll('.inspector-group')];
+    assert.equal(groups()[0].querySelector('button').getAttribute('aria-expanded'), 'true');
+    assert.equal(groups()[0].style.order, '-10');
+    assert.equal(groups()[1].querySelector('button').getAttribute('aria-expanded'), 'false');
+    focus = 'second'; await renderGroups();
+    assert.equal(groups()[0].querySelector('button').getAttribute('aria-expanded'), 'true');
+    assert.equal(groups()[0].style.order, '0');
+    assert.equal(groups()[1].querySelector('button').getAttribute('aria-expanded'), 'true');
+    assert.equal(groups()[1].style.order, '-10');
+    await click(groups()[1].querySelector('button'));
+    focus = 'first'; await renderGroups();
+    assert.equal(groups()[1].querySelector('button').getAttribute('aria-expanded'), 'false');
+    focus = 'second'; await renderGroups();
+    assert.equal(groups()[1].querySelector('button').getAttribute('aria-expanded'), 'true');
+
   } finally {
     if (root) { const React = await import('react'); await React.act(async () => root.unmount()); }
     await server.close(); dom.window.close();

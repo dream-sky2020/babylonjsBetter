@@ -4,66 +4,122 @@
   "name": "村口守卫 · 三类节点示例",
   "graph": {
     "nodes": {
-      "greeting": {
-        "id": "greeting",
-        "kind": "choice",
-        "title": "村口问候",
+      "accept_quest": {
+        "id": "accept_quest",
+        "title": "登记接受任务",
         "position": {
-          "x": 48,
-          "y": 312
+          "x": 1152,
+          "y": 456
         },
         "display": {
-          "shape": "rounded",
-          "colorToken": "blue-muted",
-          "widthUnits": 12,
+          "colorToken": "red-muted",
           "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
           "showSpeakerList": true,
-          "showPreviewText": true
+          "widthUnits": 12
         },
-        "lines": {
-          "line:greeting:main": {
-            "id": "line:greeting:main",
-            "speaker": "村口守卫",
-            "text": "北边树林里出现了魔物。到达城门后，我会帮你打开门。"
-          }
-        },
-        "lineOrder": [
-          "line:greeting:main"
-        ],
+        "lines": {},
+        "lineOrder": [],
         "inputs": {
-          "port:greeting:in": {
-            "id": "port:greeting:in"
+          "port:accept_quest:in": {
+            "id": "port:accept_quest:in"
           }
         },
         "inputOrder": [
-          "port:greeting:in"
+          "port:accept_quest:in"
         ],
         "outputs": {
-          "port:greeting:output:next": {
-            "id": "port:greeting:output:next",
-            "branch": "choice",
-            "label": "继续"
+          "port:accept_quest:output:next": {
+            "id": "port:accept_quest:output:next",
+            "label": "完成后继续",
+            "branch": "next"
           }
         },
         "outputOrder": [
-          "port:greeting:output:next"
+          "port:accept_quest:output:next"
+        ],
+        "kind": "event",
+        "mode": "send",
+        "events": [
+          {
+            "type": "event",
+            "eventType": "dialogue.demo.quest.accepted",
+            "version": 1,
+            "payload": {
+              "gateId": {
+                "type": "literal",
+                "value": "village-north"
+              }
+            }
+          }
         ]
+      },
+      "choices": {
+        "id": "choices",
+        "title": "你准备怎么办？",
+        "position": {
+          "x": 792,
+          "y": 552
+        },
+        "display": {
+          "colorToken": "green-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:choices:main": {
+            "id": "line:choices:main",
+            "speaker": "村口守卫",
+            "text": "你打算怎么做？"
+          }
+        },
+        "lineOrder": [
+          "line:choices:main"
+        ],
+        "inputs": {
+          "port:choices:in": {
+            "id": "port:choices:in"
+          }
+        },
+        "inputOrder": [
+          "port:choices:in"
+        ],
+        "outputs": {
+          "port:choices:output:accept": {
+            "id": "port:choices:output:accept",
+            "label": "接受清理魔物的任务",
+            "branch": "choice"
+          },
+          "port:choices:output:leave": {
+            "id": "port:choices:output:leave",
+            "label": "暂时离开",
+            "branch": "choice"
+          }
+        },
+        "outputOrder": [
+          "port:choices:output:accept",
+          "port:choices:output:leave"
+        ],
+        "kind": "choice"
       },
       "gate_check": {
         "id": "gate_check",
-        "kind": "condition",
         "title": "到达城门了吗？",
         "position": {
           "x": 408,
           "y": 312
         },
         "display": {
-          "shape": "rounded",
           "colorToken": "violet-muted",
-          "widthUnits": 12,
           "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
           "showSpeakerList": true,
-          "showPreviewText": true
+          "widthUnits": 12
         },
         "lines": {},
         "lineOrder": [],
@@ -76,21 +132,22 @@
           "port:gate_check:in"
         ],
         "outputs": {
-          "port:gate_check:output:true": {
-            "id": "port:gate_check:output:true",
-            "branch": "true",
-            "label": "成立"
-          },
           "port:gate_check:output:false": {
             "id": "port:gate_check:output:false",
-            "branch": "false",
-            "label": "不成立"
+            "label": "不成立",
+            "branch": "false"
+          },
+          "port:gate_check:output:true": {
+            "id": "port:gate_check:output:true",
+            "label": "成立",
+            "branch": "true"
           }
         },
         "outputOrder": [
           "port:gate_check:output:true",
           "port:gate_check:output:false"
         ],
+        "kind": "condition",
         "condition": {
           "type": "all",
           "conditions": [
@@ -128,293 +185,20 @@
           ]
         }
       },
-      "open_gate": {
-        "id": "open_gate",
-        "kind": "event",
-        "title": "请求开门",
-        "position": {
-          "x": 792,
-          "y": 48
-        },
-        "display": {
-          "shape": "rounded",
-          "colorToken": "red-muted",
-          "widthUnits": 12,
-          "heightUnits": 6,
-          "showSpeakerList": true,
-          "showPreviewText": true
-        },
-        "lines": {},
-        "lineOrder": [],
-        "inputs": {
-          "port:open_gate:in": {
-            "id": "port:open_gate:in"
-          }
-        },
-        "inputOrder": [
-          "port:open_gate:in"
-        ],
-        "outputs": {
-          "port:open_gate:output:next": {
-            "id": "port:open_gate:output:next",
-            "branch": "next",
-            "label": "完成后继续"
-          }
-        },
-        "outputOrder": [
-          "port:open_gate:output:next"
-        ],
-        "mode": "send",
-        "event": {
-          "type": "event",
-          "eventType": "dialogue.demo.gate.open",
-          "version": 1,
-          "payload": {
-            "gateId": {
-              "type": "literal",
-              "value": "village-north"
-            }
-          }
-        }
-      },
-      "wait_gate": {
-        "id": "wait_gate",
-        "kind": "event",
-        "title": "等待城门打开",
-        "position": {
-          "x": 1152,
-          "y": 48
-        },
-        "display": {
-          "shape": "rounded",
-          "colorToken": "red-muted",
-          "widthUnits": 12,
-          "heightUnits": 6,
-          "showSpeakerList": true,
-          "showPreviewText": true
-        },
-        "lines": {},
-        "lineOrder": [],
-        "inputs": {
-          "port:wait_gate:in": {
-            "id": "port:wait_gate:in"
-          }
-        },
-        "inputOrder": [
-          "port:wait_gate:in"
-        ],
-        "outputs": {
-          "port:wait_gate:output:next": {
-            "id": "port:wait_gate:output:next",
-            "branch": "next",
-            "label": "接收后继续"
-          }
-        },
-        "outputOrder": [
-          "port:wait_gate:output:next"
-        ],
-        "mode": "wait",
-        "event": {
-          "type": "event",
-          "eventType": "dialogue.demo.gate.opened",
-          "version": 1,
-          "payload": {
-            "gateId": {
-              "type": "literal",
-              "value": "village-north"
-            }
-          }
-        }
-      },
-      "welcome": {
-        "id": "welcome",
-        "kind": "choice",
-        "title": "欢迎进村",
-        "position": {
-          "x": 1512,
-          "y": 48
-        },
-        "display": {
-          "shape": "rounded",
-          "colorToken": "blue-muted",
-          "widthUnits": 12,
-          "heightUnits": 6,
-          "showSpeakerList": true,
-          "showPreviewText": true
-        },
-        "lines": {
-          "line:welcome:main": {
-            "id": "line:welcome:main",
-            "speaker": "村口守卫",
-            "text": "城门已经打开，请进。"
-          }
-        },
-        "lineOrder": [
-          "line:welcome:main"
-        ],
-        "inputs": {
-          "port:welcome:in": {
-            "id": "port:welcome:in"
-          }
-        },
-        "inputOrder": [
-          "port:welcome:in"
-        ],
-        "outputs": {},
-        "outputOrder": []
-      },
-      "choices": {
-        "id": "choices",
-        "kind": "choice",
-        "title": "你准备怎么办？",
-        "position": {
-          "x": 792,
-          "y": 552
-        },
-        "display": {
-          "shape": "rounded",
-          "colorToken": "green-muted",
-          "widthUnits": 12,
-          "heightUnits": 6,
-          "showSpeakerList": true,
-          "showPreviewText": true
-        },
-        "lines": {
-          "line:choices:main": {
-            "id": "line:choices:main",
-            "speaker": "村口守卫",
-            "text": "你打算怎么做？"
-          }
-        },
-        "lineOrder": [
-          "line:choices:main"
-        ],
-        "inputs": {
-          "port:choices:in": {
-            "id": "port:choices:in"
-          }
-        },
-        "inputOrder": [
-          "port:choices:in"
-        ],
-        "outputs": {
-          "port:choices:output:accept": {
-            "id": "port:choices:output:accept",
-            "branch": "choice",
-            "label": "接受清理魔物的任务"
-          },
-          "port:choices:output:leave": {
-            "id": "port:choices:output:leave",
-            "branch": "choice",
-            "label": "暂时离开"
-          }
-        },
-        "outputOrder": [
-          "port:choices:output:accept",
-          "port:choices:output:leave"
-        ]
-      },
-      "accept_quest": {
-        "id": "accept_quest",
-        "kind": "event",
-        "title": "登记接受任务",
-        "position": {
-          "x": 1152,
-          "y": 456
-        },
-        "display": {
-          "shape": "rounded",
-          "colorToken": "red-muted",
-          "widthUnits": 12,
-          "heightUnits": 6,
-          "showSpeakerList": true,
-          "showPreviewText": true
-        },
-        "lines": {},
-        "lineOrder": [],
-        "inputs": {
-          "port:accept_quest:in": {
-            "id": "port:accept_quest:in"
-          }
-        },
-        "inputOrder": [
-          "port:accept_quest:in"
-        ],
-        "outputs": {
-          "port:accept_quest:output:next": {
-            "id": "port:accept_quest:output:next",
-            "branch": "next",
-            "label": "完成后继续"
-          }
-        },
-        "outputOrder": [
-          "port:accept_quest:output:next"
-        ],
-        "mode": "send",
-        "event": {
-          "type": "event",
-          "eventType": "dialogue.demo.quest.accepted",
-          "version": 1,
-          "payload": {
-            "gateId": {
-              "type": "literal",
-              "value": "village-north"
-            }
-          }
-        }
-      },
-      "quest_info": {
-        "id": "quest_info",
-        "kind": "choice",
-        "title": "任务说明",
-        "position": {
-          "x": 1512,
-          "y": 456
-        },
-        "display": {
-          "shape": "rounded",
-          "colorToken": "blue-muted",
-          "widthUnits": 12,
-          "heightUnits": 6,
-          "showSpeakerList": true,
-          "showPreviewText": true
-        },
-        "lines": {
-          "line:quest_info:main": {
-            "id": "line:quest_info:main",
-            "speaker": "村口守卫",
-            "text": "沿着北边的小路走，小心魔物。"
-          }
-        },
-        "lineOrder": [
-          "line:quest_info:main"
-        ],
-        "inputs": {
-          "port:quest_info:in": {
-            "id": "port:quest_info:in"
-          }
-        },
-        "inputOrder": [
-          "port:quest_info:in"
-        ],
-        "outputs": {},
-        "outputOrder": []
-      },
       "goodbye": {
         "id": "goodbye",
-        "kind": "choice",
         "title": "告别",
         "position": {
           "x": 1152,
           "y": 912
         },
         "display": {
-          "shape": "rounded",
           "colorToken": "blue-muted",
-          "widthUnits": 12,
           "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
           "showSpeakerList": true,
-          "showPreviewText": true
+          "widthUnits": 12
         },
         "lines": {
           "line:goodbye:main": {
@@ -435,19 +219,263 @@
           "port:goodbye:in"
         ],
         "outputs": {},
-        "outputOrder": []
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "greeting": {
+        "id": "greeting",
+        "title": "村口问候",
+        "position": {
+          "x": 48,
+          "y": 312
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:greeting:main": {
+            "id": "line:greeting:main",
+            "speaker": "村口守卫",
+            "text": "北边树林里出现了魔物。到达城门后，我会帮你打开门。"
+          }
+        },
+        "lineOrder": [
+          "line:greeting:main"
+        ],
+        "inputs": {
+          "port:greeting:in": {
+            "id": "port:greeting:in"
+          }
+        },
+        "inputOrder": [
+          "port:greeting:in"
+        ],
+        "outputs": {
+          "port:greeting:output:next": {
+            "id": "port:greeting:output:next",
+            "label": "继续",
+            "branch": "choice"
+          }
+        },
+        "outputOrder": [
+          "port:greeting:output:next"
+        ],
+        "kind": "choice"
+      },
+      "open_gate": {
+        "id": "open_gate",
+        "title": "请求开门",
+        "position": {
+          "x": 792,
+          "y": 48
+        },
+        "display": {
+          "colorToken": "red-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:open_gate:in": {
+            "id": "port:open_gate:in"
+          }
+        },
+        "inputOrder": [
+          "port:open_gate:in"
+        ],
+        "outputs": {
+          "port:open_gate:output:next": {
+            "id": "port:open_gate:output:next",
+            "label": "完成后继续",
+            "branch": "next"
+          }
+        },
+        "outputOrder": [
+          "port:open_gate:output:next"
+        ],
+        "kind": "event",
+        "mode": "send",
+        "events": [
+          {
+            "type": "event",
+            "eventType": "dialogue.demo.gate.open",
+            "version": 1,
+            "payload": {
+              "gateId": {
+                "type": "literal",
+                "value": "village-north"
+              }
+            }
+          }
+        ]
+      },
+      "quest_info": {
+        "id": "quest_info",
+        "title": "任务说明",
+        "position": {
+          "x": 1512,
+          "y": 456
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:quest_info:main": {
+            "id": "line:quest_info:main",
+            "speaker": "村口守卫",
+            "text": "沿着北边的小路走，小心魔物。"
+          }
+        },
+        "lineOrder": [
+          "line:quest_info:main"
+        ],
+        "inputs": {
+          "port:quest_info:in": {
+            "id": "port:quest_info:in"
+          }
+        },
+        "inputOrder": [
+          "port:quest_info:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
+      },
+      "wait_gate": {
+        "id": "wait_gate",
+        "title": "等待城门打开",
+        "position": {
+          "x": 1152,
+          "y": 48
+        },
+        "display": {
+          "colorToken": "red-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {},
+        "lineOrder": [],
+        "inputs": {
+          "port:wait_gate:in": {
+            "id": "port:wait_gate:in"
+          }
+        },
+        "inputOrder": [
+          "port:wait_gate:in"
+        ],
+        "outputs": {
+          "port:wait_gate:output:next": {
+            "id": "port:wait_gate:output:next",
+            "label": "接收后继续",
+            "branch": "next"
+          }
+        },
+        "outputOrder": [
+          "port:wait_gate:output:next"
+        ],
+        "kind": "event",
+        "mode": "wait",
+        "events": [
+          {
+            "type": "event",
+            "eventType": "dialogue.demo.gate.opened",
+            "version": 1,
+            "payload": {
+              "gateId": {
+                "type": "literal",
+                "value": "village-north"
+              }
+            }
+          }
+        ]
+      },
+      "welcome": {
+        "id": "welcome",
+        "title": "欢迎进村",
+        "position": {
+          "x": 1512,
+          "y": 48
+        },
+        "display": {
+          "colorToken": "blue-muted",
+          "heightUnits": 6,
+          "shape": "rounded",
+          "showPreviewText": true,
+          "showSpeakerList": true,
+          "widthUnits": 12
+        },
+        "lines": {
+          "line:welcome:main": {
+            "id": "line:welcome:main",
+            "speaker": "村口守卫",
+            "text": "城门已经打开，请进。"
+          }
+        },
+        "lineOrder": [
+          "line:welcome:main"
+        ],
+        "inputs": {
+          "port:welcome:in": {
+            "id": "port:welcome:in"
+          }
+        },
+        "inputOrder": [
+          "port:welcome:in"
+        ],
+        "outputs": {},
+        "outputOrder": [],
+        "kind": "choice"
       }
     },
     "edges": {
-      "edge:greeting:next": {
-        "id": "edge:greeting:next",
+      "edge:accept_quest:next": {
+        "id": "edge:accept_quest:next",
         "from": {
-          "nodeId": "greeting",
-          "portId": "port:greeting:output:next"
+          "nodeId": "accept_quest",
+          "portId": "port:accept_quest:output:next"
         },
         "to": {
+          "nodeId": "quest_info",
+          "portId": "port:quest_info:in"
+        }
+      },
+      "edge:choices:leave": {
+        "id": "edge:choices:leave",
+        "from": {
+          "nodeId": "choices",
+          "portId": "port:choices:output:leave"
+        },
+        "to": {
+          "nodeId": "goodbye",
+          "portId": "port:goodbye:in"
+        }
+      },
+      "edge:gate_check:false": {
+        "id": "edge:gate_check:false",
+        "from": {
           "nodeId": "gate_check",
-          "portId": "port:gate_check:in"
+          "portId": "port:gate_check:output:false"
+        },
+        "to": {
+          "nodeId": "choices",
+          "portId": "port:choices:in"
         }
       },
       "edge:gate_check:true": {
@@ -459,6 +487,17 @@
         "to": {
           "nodeId": "open_gate",
           "portId": "port:open_gate:in"
+        }
+      },
+      "edge:greeting:next": {
+        "id": "edge:greeting:next",
+        "from": {
+          "nodeId": "greeting",
+          "portId": "port:greeting:output:next"
+        },
+        "to": {
+          "nodeId": "gate_check",
+          "portId": "port:gate_check:in"
         }
       },
       "edge:open_gate:next": {
@@ -483,17 +522,6 @@
           "portId": "port:welcome:in"
         }
       },
-      "edge:gate_check:false": {
-        "id": "edge:gate_check:false",
-        "from": {
-          "nodeId": "gate_check",
-          "portId": "port:gate_check:output:false"
-        },
-        "to": {
-          "nodeId": "choices",
-          "portId": "port:choices:in"
-        }
-      },
       "edge:choices:accept": {
         "id": "edge:choices:accept",
         "from": {
@@ -503,28 +531,6 @@
         "to": {
           "nodeId": "accept_quest",
           "portId": "port:accept_quest:in"
-        }
-      },
-      "edge:accept_quest:next": {
-        "id": "edge:accept_quest:next",
-        "from": {
-          "nodeId": "accept_quest",
-          "portId": "port:accept_quest:output:next"
-        },
-        "to": {
-          "nodeId": "quest_info",
-          "portId": "port:quest_info:in"
-        }
-      },
-      "edge:choices:leave": {
-        "id": "edge:choices:leave",
-        "from": {
-          "nodeId": "choices",
-          "portId": "port:choices:output:leave"
-        },
-        "to": {
-          "nodeId": "goodbye",
-          "portId": "port:goodbye:in"
         }
       }
     }

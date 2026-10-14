@@ -26,7 +26,7 @@ class DialogueV5Tests(unittest.TestCase):
 
     def test_incomplete_rules_and_dangling_connections_save_as_drafts(self):
         self.preset['graph']['nodes']['gate_check']['condition'] = {'type': 'all', 'conditions': []}
-        self.preset['graph']['nodes']['open_gate']['event'].update({'eventType': '', 'version': 0})
+        self.preset['graph']['nodes']['open_gate']['events'][0].update({'eventType': '', 'version': 0})
         edge = copy.deepcopy(next(iter(self.preset['graph']['edges'].values())))
         edge['id'] = 'dangling'; edge['from'] = {'nodeId': 'absent', 'portId': 'missing'}
         edge['to'] = {'nodeId': 'absent2', 'portId': 'missing2'}
@@ -70,6 +70,17 @@ class DialogueV5Tests(unittest.TestCase):
             preset = copy.deepcopy(self.preset)
             preset['graph']['nodes']['gate_check']['condition'] = condition
             self.assertTrue(server._validate_dialogue_map_library({'village_gate': preset}))
+
+    def test_send_event_lists_and_wait_cardinality(self):
+        node = self.preset['graph']['nodes']['open_gate']
+        node['events'].append(copy.deepcopy(node['events'][0]))
+        self.round_trip(self.preset)
+        node['mode'] = 'wait'
+        self.assertTrue(server._validate_dialogue_map_library({'village_gate': self.preset}))
+        node['events'] = [node['events'][0]]
+        self.assertFalse(server._validate_dialogue_map_library({'village_gate': self.preset}))
+        node['events'] = []
+        self.assertTrue(server._validate_dialogue_map_library({'village_gate': self.preset}))
 
     def test_empty_graph_remains_a_saveable_draft(self):
         self.preset['graph'] = {'nodes': {}, 'edges': {}}; self.round_trip(self.preset)

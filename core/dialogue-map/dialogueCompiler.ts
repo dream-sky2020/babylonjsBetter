@@ -6,7 +6,7 @@ type InstructionBase = { id: string; routes: Record<string, string>; labels: Rec
 export type DialogueInstruction = InstructionBase & (
   | { kind: 'condition'; condition: DialogueCondition; branches: Record<string, 'true' | 'false'> }
   | { kind: 'choice'; lines: DialogueEditorLine[]; choices: Array<{ id: string; text: string }> }
-  | { kind: 'event'; mode: 'send' | 'wait'; event: DialogueEffect }
+  | { kind: 'event'; mode: 'send' | 'wait'; events: DialogueEffect[] }
 );
 export type CompiledDialogue = { version: 1; presetKey: string; entryNodeId: string; instructions: Record<string, DialogueInstruction> };
 export type DialogueCompileResult = { issues: DialogueMapValidationIssue[]; program?: CompiledDialogue };
@@ -52,7 +52,7 @@ export const compileDialogueEditorDocument = (document: DialogueEditorDocument, 
     const base = { id: node.id, routes: Object.fromEntries(outgoing.get(node.id) ?? []), labels: Object.fromEntries([...node.outputs].map(([id, port]) => [id, port.label ?? ''])) };
     if (node.kind === 'condition') return { ...base, kind: node.kind, condition: structuredClone(node.condition!), branches: Object.fromEntries([...node.outputs].map(([id, port]) => [id, port.branch])) as Record<string, 'true' | 'false'> };
     if (node.kind === 'choice') return { ...base, kind: node.kind, lines: node.lineOrder.map(id => structuredClone(node.lines.get(id)!)), choices: node.outputOrder.map(id => ({ id, text: node.outputs.get(id)!.label! })) };
-    return { ...base, kind: node.kind, mode: node.mode, event: structuredClone(node.event) };
+    return { ...base, kind: node.kind, mode: node.mode, events: structuredClone(node.events) };
   };
   return { issues, program: { version: 1, presetKey: document.presetKey, entryNodeId, instructions: Object.fromEntries([...document.graph.nodes].map(([id, node]) => [id, instruction(node)])) } };
 };

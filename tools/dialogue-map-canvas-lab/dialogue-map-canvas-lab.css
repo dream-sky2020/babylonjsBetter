@@ -300,3 +300,10 @@ input:focus, select:focus, textarea:focus { border-color: #7891a8; } textarea { 
 @media (max-width: 1280px) {
   .dialogue-lab .stage-toolbar__meta > span { display: none; }
 }
+
+.inspector-scroll { display: flex; flex-direction: column; }
+.inspector-group--focused { border-color: #a78bfa; box-shadow: 0 0 0 1px #a78bfa; }
+
+.inspector-collection { display: flex; flex-direction: column; gap: 8px; }
+.collection-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.collection-actions select { min-width: 0; flex: 1 1 140px; }

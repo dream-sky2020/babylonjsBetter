@@ -93,7 +93,12 @@ def validate_document(preset_key, preset):
         if node['kind'] == 'event':
             if node.get('mode') not in ('send', 'wait'):
                 errors.append(f'{node_id}: event mode is invalid')
-            errors.extend(validate_event(node.get('event')))
+            events = node.get('events')
+            if not isinstance(events, list) or not events or (node.get('mode') == 'wait' and len(events) != 1):
+                errors.append(f'{node_id}: wait requires one event; send requires at least one event')
+            else:
+                for event in events:
+                    errors.extend(validate_event(event))
     occupied_outputs = set()
     for edge_id, edge in graph['edges'].items():
         if not isinstance(edge, dict) or edge.get('id') != edge_id or not edge_id.strip():
