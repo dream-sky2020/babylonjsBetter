@@ -1,16 +1,26 @@
 import type { ModelEntity } from '@/core/model';
+import type { AbstractMesh } from '@babylonjs/core';
+import { environmentTextureId } from './sceneEnvironmentTextureStats.ts';
 
 export type UvRegion = { uv: ArrayLike<number>; indices: ArrayLike<number> | null; start: number; count: number; matrix: number[]; wrapU: number; wrapV: number };
 export type UvTexture = { name: string; pixels: number; regions: UvRegion[]; reason?: string };
 export type UvCoverage = { percent: number | null; detail: string };
 
 export function modelUvTextures(entity: ModelEntity): UvTexture[] {
+  return meshesUvTextures(entity.meshes);
+}
+export function meshesUvTextures(meshes: readonly AbstractMesh[], materialId?: string, textureId?: string): UvTexture[] {
   const textures = new Map<object, UvTexture>();
-  for (const mesh of entity.meshes) {
+  const seen = new Map<object, Map<object, Set<string>>>();
+  const indexIds = new Map<object, number>();
+  for (const mesh of meshes) {
     const indices = mesh.getIndices();
     const parts = mesh.subMeshes?.length ? mesh.subMeshes.map(part => ({ material: part.getMaterial(), start: indices ? part.indexStart : part.verticesStart, count: indices ? part.indexCount : part.verticesCount }))
       : [{ material: mesh.material, start: 0, count: indices?.length ?? mesh.getTotalVertices() }];
-    for (const part of parts) for (const texture of part.material?.getActiveTextures() ?? []) {
+    for (const part of parts) {
+      if (materialId && `material:${part.material?.uniqueId}` !== materialId) continue;
+      for (const texture of part.material?.getActiveTextures() ?? []) {
+      if (textureId && environmentTextureId(texture) !== textureId) continue;
       const internal = texture.getInternalTexture(), key = internal ?? texture, size = texture.getSize();
       let entry = textures.get(key);
       if (!entry) { entry = { name: texture.name || '未命名纹理', pixels: size.width * size.height, regions: [] }; textures.set(key, entry); }
@@ -19,7 +29,14 @@ export function modelUvTextures(entity: ModelEntity): UvTexture[] {
       }
       const uv = mesh.getVerticesData(texture.coordinatesIndex ? `uv${texture.coordinatesIndex + 1}` : 'uv');
       if (!uv || !part.count) { entry.reason = '缺少 UV 或三角形数据'; continue; }
-      entry.regions.push({ uv, indices, start: part.start, count: part.count, matrix: Array.from(texture.getTextureMatrix().m), wrapU: texture.wrapU, wrapV: texture.wrapV });
+      const matrix = Array.from(texture.getTextureMatrix().m);
+      // Repeated instances share UV buffers: their identical regions only need to be rasterized once.
+      let buffers = seen.get(key); if (!buffers) { buffers = new Map(); seen.set(key, buffers); }
+      let signatures = buffers.get(uv); if (!signatures) { signatures = new Set(); buffers.set(uv, signatures); }
+      if (indices && !indexIds.has(indices)) indexIds.set(indices, indexIds.size);
+      const signature = `${part.start}:${part.count}:${texture.wrapU}:${texture.wrapV}:${matrix.join(',')}:${indices ? indexIds.get(indices) : 'unindexed'}`;
+      if (!signatures.has(signature)) { signatures.add(signature); entry.regions.push({ uv, indices, start: part.start, count: part.count, matrix, wrapU: texture.wrapU, wrapV: texture.wrapV }); }
+      }
     }
   }
   return [...textures.values()];

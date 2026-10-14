@@ -4,6 +4,7 @@ import type { SceneEnvironmentInstance } from '@/core/scene/sceneEnvironment.typ
 
 export type EnvironmentTextureInfo = { name: string; resolution: string; bytes: number | null; mipmaps: boolean };
 export type EnvironmentTextureStats = { textures: EnvironmentTextureInfo[]; bytes: number; unknown: number };
+export const environmentTextureId = (texture: BaseTexture) => texture.getInternalTexture() ? `texture:gpu:${texture.getInternalTexture()!.uniqueId}` : `texture:wrapper:${texture.uniqueId}`;
 
 // Block sizes refer to the GPU format after transcoding, not the source file format.
 function storageLayout(format: number, type: number): [number, number, number] | null {

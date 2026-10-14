@@ -27,7 +27,10 @@ import type { EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { mountEnvironmentEditor, openEnvironmentCreateMenu } from './sceneEnvironmentEditorView';
 import { addEnvironmentObject, type EnvironmentObjectKind } from './sceneEnvironmentObjects';
 import { collectModelTextureStats, formatTextureBytes } from './sceneEnvironmentTextureStats';
-import { modelUvTextures, type UvCoverage } from './sceneEnvironmentUvCoverage';
+import { modelUvTextures, meshesUvTextures, type UvCoverage, type UvTexture } from './sceneEnvironmentUvCoverage';
+import { collectEnvironmentTextures, releaseTexturePreviews } from './sceneEnvironmentTextures';
+import { collectEnvironmentMaterials } from './sceneEnvironmentMaterials';
+import { createEnvironmentSelectionEdges } from './sceneEnvironmentSelectionEdges';
 import './scene-environment-editor.css';
 
 const requireElement = <T extends Element>(selector: string, constructor: { new(): T }): T => {
@@ -62,6 +65,14 @@ const cameraPanel = createFloatingCameraControlPanel(stage, cameraController, { 
 cameraPanel.element.style.top = "72px";
 cameraPanel.element.style.borderRadius = "2px";
 cameraPanel.element.style.background = "var(--panel)";
+cameraPanel.element.style.maxWidth = 'calc(100% - 32px)';
+const toolbarResizeObserver = new ResizeObserver(() => {
+  const top = Math.max(72, document.getElementById('scene-toolbar')!.offsetHeight + 8);
+  cameraPanel.element.style.top = `${top}px`;
+  cameraPanel.element.style.maxHeight = `calc(100% - ${top + 16}px)`;
+  engine.resize();
+});
+toolbarResizeObserver.observe(document.getElementById('scene-toolbar')!);
 
 const drag = { active: false, pointerId: -1, x: 0, y: 0 };
 const pointerDown = (event: PointerEvent) => {
@@ -138,22 +149,36 @@ let loadAbort: AbortController | null = null;
 let warmupInProgress = false;
 let binding: ReturnType<typeof createEnvironmentAdapter> | null = null;
 let textureStats: ReturnType<typeof collectModelTextureStats> | undefined;
+let materialEntries: ReturnType<typeof collectEnvironmentMaterials> = [];
+let textureEntries: ReturnType<typeof collectEnvironmentTextures> = [];
+const selectionEdges = createEnvironmentSelectionEdges(scene, id => {
+  if (!currentInstance) return [];
+  if (id.startsWith('model:')) return currentInstance.models.find(model => `model:${model.definition.id}` === id)?.entity.meshes ?? [];
+  const mesh = currentInstance.groundMeshes?.get(id);
+  return mesh ? [mesh] : [];
+});
 const uvCoverage = new Map<string, UvCoverage>();
 let uvEnabled = false;
 let uvWorker: Worker | undefined;
 function analyzeUvCoverage() {
   uvWorker?.terminate(); uvWorker = undefined;
   if (!uvEnabled || !currentInstance) return;
-  const pending = currentInstance.models.filter(model => !uvCoverage.has(`model:${model.definition.id}`));
+  const meshes = [...currentInstance.models.flatMap(model => model.entity.meshes), ...[...(currentInstance.groundMeshes?.values() ?? [])]];
+  const tasks: { id: string; make(): UvTexture[] }[] = [
+    ...currentInstance.models.map(model => ({ id: `model:${model.definition.id}`, make: () => modelUvTextures(model.entity) })),
+    ...materialEntries.map(material => ({ id: material.id, make: () => meshesUvTextures(meshes, material.id) })),
+    ...textureEntries.map(texture => ({ id: texture.id, make: () => meshesUvTextures(meshes, undefined, texture.id) })),
+  ];
+  const pending = tasks.filter(task => !uvCoverage.has(task.id));
   if (!pending.length) return;
   const worker = new Worker(new URL('./sceneEnvironmentUvCoverage.worker.ts', import.meta.url), { type: 'module' });
   uvWorker = worker;
   const next = () => {
     if (uvWorker !== worker || !uvEnabled) return;
-    const model = pending.shift();
-    if (!model) { worker.terminate(); uvWorker = undefined; return; }
-    const id = `model:${model.definition.id}`;
-    try { worker.postMessage({ id, textures: modelUvTextures(model.entity) }); }
+    const task = pending.shift();
+    if (!task) { worker.terminate(); uvWorker = undefined; return; }
+    const id = task.id;
+    try { worker.postMessage({ id, textures: task.make() }); }
     catch { uvCoverage.set(id, { percent: null, detail: 'UV 数据无法分析' }); editor.refresh(); setTimeout(next, 0); }
   };
   worker.onmessage = (event: MessageEvent<{ id: string; coverage: UvCoverage }>) => {
@@ -162,7 +187,7 @@ function analyzeUvCoverage() {
   };
   worker.onerror = () => {
     if (uvWorker !== worker) return;
-    for (const model of currentInstance?.models ?? []) if (!uvCoverage.has(`model:${model.definition.id}`)) uvCoverage.set(`model:${model.definition.id}`, { percent: null, detail: 'UV 分析线程启动失败' });
+    for (const task of tasks) if (!uvCoverage.has(task.id)) uvCoverage.set(task.id, { percent: null, detail: 'UV 分析线程启动失败' });
     worker.terminate(); uvWorker = undefined; editor.refresh();
   };
   setTimeout(next, 0);
@@ -170,6 +195,9 @@ function analyzeUvCoverage() {
 function refreshTextureStats() {
   if (!currentInstance) return;
   textureStats = collectModelTextureStats(currentInstance);
+  materialEntries = collectEnvironmentMaterials(currentInstance);
+  releaseTexturePreviews(textureEntries);
+  textureEntries = collectEnvironmentTextures(currentInstance);
   uvCoverage.clear(); analyzeUvCoverage();
   const { summary } = textureStats, known = summary.textures.length - summary.unknown;
   textureCountElement.textContent = summary.textures.length.toLocaleString();
@@ -246,6 +274,10 @@ const editorHost = {
   modelAssetProperties: (id: string) => binding?.modelAssetProperties(id),
   faceCount: (id: string) => binding?.faceCount(id),
   modelTextureStats: (id: string) => textureStats?.models.get(id),
+  materials: () => materialEntries,
+  textures: () => textureEntries,
+  resourceUvCoverage: (id: string) => uvCoverage.get(id),
+  setSelectionEdges: (ids: readonly string[], visible: boolean) => selectionEdges.set(ids, visible),
   modelUvCoverage: (id: string) => id.startsWith('model:') ? uvCoverage.get(id) : undefined,
   setUvCoverageVisible: (visible: boolean) => { uvEnabled = visible; analyzeUvCoverage(); },
   modelMaterials: (id: string) => currentInstance?.models.find(m => `model:${m.definition.id}` === id)?.entity.materialSlots() ?? [],
@@ -552,6 +584,8 @@ let disposed = false;
 const dispose = () => {
   if (disposed) return;
   disposed = true; loadGeneration++; loadAbort?.abort();
+  selectionEdges.dispose();
+  releaseTexturePreviews(textureEntries);
   uvWorker?.terminate(); uvWorker = undefined;
   editor.dispose(); binding?.dispose(); editorView.dispose();
   canvas.removeEventListener('pointerdown', pointerDown);
@@ -569,6 +603,7 @@ const dispose = () => {
   window.removeEventListener('resize', resize);
   currentInstance?.dispose();
   cameraPanel.dispose();
+  toolbarResizeObserver.disconnect();
   cameraController.dispose();
   scene.dispose();
   engine.dispose();

@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
-import { useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import type { SceneEditor } from '@/core/scene-editor';
 import { SceneEditorHierarchy, SceneEditorToolbar, useSceneEditor } from '@/core/scene-editor/SceneEditorPanels';
-import { InspectorPanel, InspectorSection, type EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
+import { ObjectHierarchy, InspectorPanel, InspectorSection, type EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { openCommandMenuAtPoint, type CommandMenuEntry } from '@/core/ui/menu';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
 import { readBundledResourceAssetPaths } from '@/core/resources/resourceManifest';
@@ -16,6 +16,9 @@ import { EnvironmentSelection } from './sceneEnvironmentSelection';
 import { MODEL_TEXTURE_SLOTS, parseModelMaterialBindings, type ModelMaterialBindings } from '@/core/model/material/modelMaterialBindings';
 import { formatTextureBytes, type EnvironmentTextureStats } from './sceneEnvironmentTextureStats';
 import type { UvCoverage } from './sceneEnvironmentUvCoverage';
+import type { EnvironmentMaterialEntry } from './sceneEnvironmentMaterials';
+import type { EnvironmentTextureEntry } from './sceneEnvironmentTextures';
+import { EnvironmentWorkspace, WorkspaceButtons, createWorkspacePreferences } from './sceneEnvironmentWorkspace';
 export type EnvironmentEditorHost = {
   read(): SceneEnvironmentPreset | undefined; write(preset: SceneEnvironmentPreset): void;
   create(kind: EnvironmentObjectKind, modelPath?: string, parentId?: string | null): void;
@@ -27,6 +30,10 @@ export type EnvironmentEditorHost = {
   modelTextureStats?(id: string): EnvironmentTextureStats | undefined;
   modelUvCoverage?(id: string): UvCoverage | undefined;
   setUvCoverageVisible?(visible: boolean): void;
+  materials?(): EnvironmentMaterialEntry[];
+  textures?(): EnvironmentTextureEntry[];
+  resourceUvCoverage?(id: string): UvCoverage | undefined;
+  setSelectionEdges?(ids: readonly string[], visible: boolean): void;
   modelMaterials?(id: string): { gltfMaterialIndex: number; name: string; textures: Record<string, string | null> }[];
 };
 
@@ -233,27 +240,61 @@ function EnvironmentInspector({ editor, host, selection }: { editor: SceneEditor
   // Preserve unsubmitted text across runtime refreshes; reset only on selection/document changes.
   return <DeclarationForm key={`${preset.presetKey}:${editor.selectedId}:${JSON.stringify(preset)}`} editor={editor} host={host} preset={preset} />;
 }
-type HierarchyDisplay = { faces: boolean; types: boolean; textureSizes: boolean; uvCoverage: boolean };
+type HierarchyDisplay = { faces: boolean; types: boolean; textureSizes: boolean; uvCoverage: boolean; textureMemory: boolean };
 function EnvironmentToolbar({ editor, host, display, changeDisplay }: { editor: SceneEditor; host: EnvironmentEditorHost; display: HierarchyDisplay; changeDisplay(key: keyof HierarchyDisplay): void }) {
   useSceneEditor(editor);
   return <div className="environment-toolbar"><SceneEditorToolbar editor={editor} />
     <button aria-pressed={host.markersVisible()} onClick={() => host.setMarkersVisible(!host.markersVisible())}>挂点标记</button>
     <button aria-pressed={display.faces} title="显示所有对象自身的三角面数" onClick={() => changeDisplay('faces')}>面数</button>
     <button aria-pressed={display.textureSizes} title="显示模型纹理分辨率" onClick={() => changeDisplay('textureSizes')}>纹理尺寸</button>
+    <button aria-pressed={display.textureMemory} title="显示材质和纹理引用资源的估算显存" onClick={() => changeDisplay('textureMemory')}>纹理显存</button>
     <button aria-pressed={display.uvCoverage} title="按需分析并显示模型 UV 覆盖率估算" onClick={() => changeDisplay('uvCoverage')}>UV 覆盖率</button>
     <button aria-pressed={display.types} title="显示列表中的对象种类" onClick={() => changeDisplay('types')}>对象种类</button>
   </div>;
+}
+function TextureVisual({ texture, large = false }: { texture: EnvironmentTextureEntry; large?: boolean }) {
+  const canvas = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    if (!texture.image || !canvas.current) return;
+    try {
+      const size = large ? 256 : 32; canvas.current.width = canvas.current.height = size;
+      const scale = Math.min(size / texture.image.width, size / texture.image.height);
+      if (scale > 0 && Number.isFinite(scale)) canvas.current.getContext('2d')?.drawImage(texture.image, (size - texture.image.width * scale) / 2, (size - texture.image.height * scale) / 2, texture.image.width * scale, texture.image.height * scale);
+    } catch { /* Closed or unavailable decoded images keep an empty preview. */ }
+  }, [texture.image, large]);
+  const className = large ? 'environment-texture-preview' : 'environment-texture-thumbnail';
+  if (texture.image) return <canvas ref={canvas} className={className} role="img" aria-label={`${texture.name} 预览`} />;
+  if (texture.preview) return <img className={className} src={texture.preview} loading="lazy" alt={large ? texture.name : ''} onError={event => { event.currentTarget.style.visibility = 'hidden'; }} />;
+  return large ? <p>此纹理没有可直接预览的图像。</p> : <>▧</>;
 }
 export function mountEnvironmentEditor(editor: SceneEditor, host: EnvironmentEditorHost) {
   const selection = new EnvironmentSelection(editor);
   const hierarchy = createRoot(document.getElementById('scene-hierarchy')!);
   const inspector = createRoot(document.getElementById('scene-inspector')!);
   const toolbar = createRoot(document.getElementById('scene-toolbar')!);
+  const preferences = createWorkspacePreferences();
+  let materialId: string | null = null;
+  const materialListeners = new Set<() => void>();
+  const subscribeMaterial = (listener: () => void) => { materialListeners.add(listener); return () => { materialListeners.delete(listener); }; };
+  const getMaterial = () => materialId;
+  const chooseMaterial = (id: string | null) => {
+    materialId = id; materialListeners.forEach(listener => listener());
+    const entry = host.materials?.().find(entry => entry.id === id) ?? host.textures?.().find(entry => entry.id === id);
+    if (entry) selection.replace(entry.objectIds);
+  };
+  const syncEdges = () => host.setSelectionEdges?.(selection.ids, preferences.getSnapshot().edges);
+  const unsubscribeEdges = preferences.subscribe(syncEdges);
+  const unsubscribeSelection = selection.subscribe(() => {
+    const entry = host.materials?.().find(entry => entry.id === materialId) ?? host.textures?.().find(entry => entry.id === materialId);
+    if (entry && (entry.objectIds.length !== selection.ids.length || entry.objectIds.some(id => !selection.ids.includes(id)))) chooseMaterial(null);
+    syncEdges();
+  });
+  const unsubscribeEditor = editor.subscribe(syncEdges);
   let display: HierarchyDisplay;
   try {
     const saved = JSON.parse(localStorage.getItem('scene-environment-lab:hierarchy-display:v1') ?? '{}');
-    display = { faces: saved?.faces === true, types: saved?.types !== false, textureSizes: saved?.textureSizes === true, uvCoverage: saved?.uvCoverage === true };
-  } catch { display = { faces: false, types: true, textureSizes: false, uvCoverage: false }; }
+    display = { faces: saved?.faces === true, types: saved?.types !== false, textureSizes: saved?.textureSizes === true, uvCoverage: saved?.uvCoverage === true, textureMemory: saved?.textureMemory !== false };
+  } catch { display = { faces: false, types: true, textureSizes: false, uvCoverage: false, textureMemory: true }; }
   const displayListeners = new Set<() => void>();
   const subscribeDisplay = (listener: () => void) => { displayListeners.add(listener); return () => { displayListeners.delete(listener); }; };
   const getDisplay = () => display;
@@ -265,7 +306,7 @@ export function mountEnvironmentEditor(editor: SceneEditor, host: EnvironmentEdi
   };
   function Toolbar() {
     const currentDisplay = useSyncExternalStore(subscribeDisplay, getDisplay);
-    return <EnvironmentToolbar editor={editor} host={host} display={currentDisplay} changeDisplay={changeDisplay} />;
+    return <div className="environment-toolbar-workspace"><EnvironmentToolbar editor={editor} host={host} display={currentDisplay} changeDisplay={changeDisplay} /><div className="environment-toolbar"><WorkspaceButtons preferences={preferences} /></div></div>;
   }
   function Hierarchy() {
     const ids = useSyncExternalStore(selection.subscribe, selection.getSnapshot);
@@ -287,13 +328,76 @@ export function mountEnvironmentEditor(editor: SceneEditor, host: EnvironmentEdi
             {count !== undefined && <small className="environment-hierarchy-face-count" title="当前对象自身的三角面数，不含挂载的其他对象">{count.toLocaleString()} 面</small>}
           </>;
         }}
-        onSelectionChange={(next, mode) => selection.change(next, mode)} canDrop={host.canMove} onMove={host.move}
-        onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); selection.replace([id]); void openEnvironmentCreateMenu(event.clientX, event.clientY, host, id); }} />
+        onSelectionChange={(next, mode) => { chooseMaterial(null); selection.change(next, mode); }} canDrop={host.canMove} onMove={host.move}
+        onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); chooseMaterial(null); selection.replace([id]); void openEnvironmentCreateMenu(event.clientX, event.clientY, host, id); }} />
     </div>;
   }
-  hierarchy.render(<Hierarchy />);
-  inspector.render(<EnvironmentInspector editor={editor} host={host} selection={selection} />);
+  function Materials() {
+    useSceneEditor(editor);
+    const chosen = useSyncExternalStore(subscribeMaterial, getMaterial);
+    const display = useSyncExternalStore(subscribeDisplay, getDisplay);
+    const ids = useSyncExternalStore(selection.subscribe, selection.getSnapshot);
+    const entries = host.materials?.() ?? [];
+    const entry = entries.find(entry => entry.id === chosen);
+    useEffect(() => {
+      if (!chosen?.startsWith('material:')) return;
+      if (!entry) chooseMaterial(null);
+      else selection.replace(entry.objectIds);
+    }, [entry, chosen]);
+    return <ObjectHierarchy className="environment-material-list" eyebrow="MATERIALS" title="材质" searchPlaceholder="搜索材质" emptyLabel="当前场景没有材质" rootIds={entries.map(entry => entry.id)}
+      items={Object.fromEntries(entries.map(entry => [entry.id, { id: entry.id, label: entry.name, icon: '◈', parentId: null, childIds: [], draggable: false }]))}
+      selectedIds={chosen?.startsWith('material:') ? [chosen] : chosen?.startsWith('texture:') ? host.textures?.().find(texture => texture.id === chosen)?.materialIds ?? [] : entries.filter(entry => entry.objectIds.some(id => ids.includes(id))).map(entry => entry.id)} renderRowMetadata={id => {
+        const entry = entries.find(entry => entry.id === id)!;
+        const uv = host.resourceUvCoverage?.(id);
+        const shared = host.textures?.().filter(texture => texture.materialIds.includes(id) && texture.materialIds.length > 1).length ?? 0;
+        return <>
+          {display.textureMemory && <small title={`去重纹理估算显存；${entry.textures.unknown} 张无法估算；${shared} 张纹理被其他材质共享`}>{formatTextureBytes(entry.textures.bytes)}{entry.textures.unknown ? ' +?' : ''}{shared ? ' 共享' : ''}</small>}
+          {display.uvCoverage && <small title={uv?.detail ?? '正在后台合并所有使用者的 UV 区域'}>{uv ? uv.percent === null ? 'UV —' : `UV ${uv.percent.toFixed(1)}%` : 'UV …'}</small>}
+          <small title={`${entry.modelCount} 个模型、${entry.geometryCount} 个几何体 · ${entry.kind} · ${entry.id}`}>{entry.modelCount} 模型{entry.geometryCount ? ` / ${entry.geometryCount} 几何` : ''}</small>
+        </>;
+      }} onSelectionChange={ids => chooseMaterial(ids[0] ?? null)} onClearSelection={() => { chooseMaterial(null); selection.replace([]); }} />;
+  }
+  function Textures() {
+    useSceneEditor(editor);
+    const chosen = useSyncExternalStore(subscribeMaterial, getMaterial), display = useSyncExternalStore(subscribeDisplay, getDisplay);
+    const ids = useSyncExternalStore(selection.subscribe, selection.getSnapshot), entries = host.textures?.() ?? [];
+    const entry = entries.find(entry => entry.id === chosen);
+    useEffect(() => { if (!chosen?.startsWith('texture:')) return; if (!entry) chooseMaterial(null); else selection.replace(entry.objectIds); }, [entry, chosen]);
+    return <ObjectHierarchy className="environment-texture-list" eyebrow="TEXTURES" title="纹理" searchPlaceholder="搜索纹理" emptyLabel="当前场景没有纹理" rootIds={entries.map(entry => entry.id)}
+      items={Object.fromEntries(entries.map(entry => [entry.id, { id: entry.id, label: entry.name, searchText: `${entry.name} ${entry.usages.join(' ')} ${entry.id}`, parentId: null, childIds: [], draggable: false,
+        icon: <TextureVisual texture={entry} /> }]))}
+      selectedIds={chosen?.startsWith('texture:') ? [chosen] : entries.filter(entry => chosen?.startsWith('material:') ? entry.materialIds.includes(chosen) : entry.objectIds.some(id => ids.includes(id))).map(entry => entry.id)}
+      renderRowMetadata={id => { const entry = entries.find(entry => entry.id === id)!, uv = host.resourceUvCoverage?.(id); return <>
+        <small title={entry.resolution}>{entry.resolution.replaceAll(' ', '')}</small>
+        {display.textureMemory && <small>{entry.bytes === null ? '未知' : formatTextureBytes(entry.bytes)}</small>}
+        {display.uvCoverage && <small title={uv?.detail ?? '正在后台合并所有使用者的 UV 区域'}>{uv ? uv.percent === null ? 'UV —' : `UV ${uv.percent.toFixed(1)}%` : 'UV …'}</small>}
+      </>; }} onSelectionChange={ids => chooseMaterial(ids[0] ?? null)} onClearSelection={() => { chooseMaterial(null); selection.replace([]); }} />;
+  }
+  function Inspector() {
+    useSceneEditor(editor);
+    const chosen = useSyncExternalStore(subscribeMaterial, getMaterial);
+    const display = useSyncExternalStore(subscribeDisplay, getDisplay);
+    const texture = host.textures?.().find(entry => entry.id === chosen);
+    if (texture) return <InspectorPanel title={texture.name} status="纹理关联选择"><InspectorSection title="纹理信息" subtitle={texture.id}>
+      <TextureVisual texture={texture} large />
+      <p>{texture.resolution} · {texture.bytes === null ? '无法估算显存' : formatTextureBytes(texture.bytes)} · {texture.mipmaps ? '含 mipmap' : '无 mipmap'}</p>
+      <p>用途：{texture.usages.join('、')}。{texture.materialIds.length} 个材质、{texture.objectIds.length} 个对象引用。</p>
+      {display.uvCoverage && <p title={host.resourceUvCoverage?.(texture.id)?.detail}>UV 覆盖率：{host.resourceUvCoverage?.(texture.id)?.percent === null ? '无法估算' : host.resourceUvCoverage?.(texture.id) ? `${host.resourceUvCoverage(texture.id)!.percent!.toFixed(1)}%` : '正在分析'}</p>}
+    </InspectorSection><InspectorSection title="引用材质"><div className="environment-material-users">{texture.materialIds.map(id => <button key={id} onClick={() => chooseMaterial(id)}>{host.materials?.().find(entry => entry.id === id)?.name ?? id}</button>)}</div></InspectorSection>
+      <InspectorSection title="引用对象"><div className="environment-material-users">{texture.objectIds.map(id => <button key={id} onClick={() => { chooseMaterial(null); selection.replace([id]); }}>{editor.objects().find(object => object.id === id)?.name ?? id}</button>)}</div></InspectorSection></InspectorPanel>;
+    const material = host.materials?.().find(entry => entry.id === chosen);
+    if (!material) return <EnvironmentInspector editor={editor} host={host} selection={selection} />;
+    return <InspectorPanel title={material.name} status="材质关联选择"><InspectorSection title="材质信息" subtitle={`${material.kind} · ${material.id}`}>
+      <p>{material.modelCount} 个模型、{material.geometryCount} 个几何体使用此材质。</p>
+      <p>{material.textures.textures.length} 张纹理 · {formatTextureBytes(material.textures.bytes)}{material.textures.unknown ? ` + ${material.textures.unknown} 张无法估算` : ''}</p>
+      {display.uvCoverage && <p title={host.resourceUvCoverage?.(material.id)?.detail}>UV 覆盖率：{host.resourceUvCoverage?.(material.id)?.percent === null ? '无法估算' : host.resourceUvCoverage?.(material.id) ? `${host.resourceUvCoverage(material.id)!.percent!.toFixed(1)}%` : '正在分析'}</p>}
+      <p>关联对象已选中；点击对象列表可切回对象属性。Gizmo 作用于最后一个选中对象。</p>
+      <div className="environment-texture-details">{material.textures.textures.map((texture, index) => <div className="environment-texture-entry" key={index}><span title={texture.name}>{texture.name}</span><small>{texture.resolution} · {texture.bytes === null ? '无法估算' : formatTextureBytes(texture.bytes)}</small></div>)}</div>
+    </InspectorSection><InspectorSection title="使用此材质的对象"><div className="environment-material-users">{material.objectIds.map(id => <button key={id} onClick={() => { chooseMaterial(null); selection.replace([id]); }}>{editor.objects().find(object => object.id === id)?.name ?? id}</button>)}</div></InspectorSection></InspectorPanel>;
+  }
+  hierarchy.render(<EnvironmentWorkspace preferences={preferences} objects={<Hierarchy />} materials={<Materials />} textures={<Textures />} />);
+  inspector.render(<Inspector />);
   toolbar.render(<Toolbar />);
   host.setUvCoverageVisible?.(display.uvCoverage);
-  return { selection, dispose: () => { hierarchy.unmount(); inspector.unmount(); toolbar.unmount(); selection.dispose(); } };
+  return { selection, dispose: () => { unsubscribeEdges(); unsubscribeSelection(); unsubscribeEditor(); host.setSelectionEdges?.([], false); hierarchy.unmount(); inspector.unmount(); toolbar.unmount(); selection.dispose(); } };
 }
