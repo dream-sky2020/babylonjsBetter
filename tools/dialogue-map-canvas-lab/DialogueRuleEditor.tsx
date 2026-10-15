@@ -137,7 +137,7 @@ export function EventNodeEditor({ node, onChange, selection, onSelection }: {
   const select = (next: DialogueEditorSelection) => { setLocalSelection(next); onSelection?.(next); };
   const index = active.kind === 'event' ? active.eventIndex ?? 0 : undefined;
   const focused = active.kind === 'event' || active.kind === 'event-mode';
-  return <InspectorGroup title="事件" count={node.events.length} focused={focused} focusToken={active}>
+  return <InspectorGroup property={{ nodeId: node.id, scope: 'events' }} title="事件" count={node.events.length} focused={focused} focusToken={active}>
     <label className="field"><span>事件模式</span><select aria-label="事件模式" value={node.mode} onChange={e => {
       const mode = e.target.value as 'send' | 'wait';
       if (mode === 'wait' && node.events.length !== 1) return;
@@ -163,7 +163,7 @@ export function EventNodeEditor({ node, onChange, selection, onSelection }: {
       }}>删除选中事件</button> : null}
     </div>
     <div className="inspector-collection">
-      {node.events.map((effect, i) => <InspectorGroup key={`${node.id}:event:${i}`} title={`事件 ${i + 1}`} focused={index === i} focusToken={active}>
+      {node.events.map((effect, i) => <InspectorGroup property={{ nodeId: node.id, scope: 'event', index: i }} key={`${node.id}:event:${i}`} title={`事件 ${i + 1}`} focused={index === i} focusToken={active}>
         <EffectEditor effect={effect} onChange={next => onChange({ ...node, events: node.events.map((event, j) => i === j ? next : event) })} />
       </InspectorGroup>)}
     </div>

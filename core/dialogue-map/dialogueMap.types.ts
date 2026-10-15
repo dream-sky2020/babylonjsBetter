@@ -2,7 +2,14 @@ export const DIALOGUE_MAP_GRID_SIZE = 24;
 export type DialogueNodeShape = 'rectangle' | 'rounded' | 'diamond' | 'hexagon' | 'pill' | 'document';
 export type DialogueNodeKind = 'condition' | 'choice' | 'event';
 
+/** Missing flags retain the original editor spacing. */
+export const DIALOGUE_NODE_WHITESPACE_DEFAULTS = Object.freeze({
+  header: true, content: true, outputs: true, top: true, sections: true, bottom: true, height: true,
+});
+export type DialogueNodeWhitespace = Record<keyof typeof DIALOGUE_NODE_WHITESPACE_DEFAULTS, boolean>;
+
 export type DialogueNodeDisplay = {
+  whitespace?: Partial<DialogueNodeWhitespace>;
   shape: DialogueNodeShape;
   colorToken: string;
   widthUnits: number;
@@ -66,6 +73,7 @@ export type DialogueEditorWorkspaceState = { previewEntryByPreset: Record<string
 
 export type DialogueEditorSelection =
   | { kind: 'node'; nodeId: string }
+  | { kind: 'spacing'; nodeId: string }
   | { kind: 'event'; nodeId: string; eventIndex?: number }
   | { kind: 'event-mode'; nodeId: string }
   | { kind: 'condition-mode'; nodeId: string }
@@ -77,6 +85,7 @@ export type DialogueEditorSelection =
 
 export type DialogueEditorSelectionTarget =
   | { kind: 'node'; node: DialogueEditorNode }
+  | { kind: 'spacing'; node: DialogueEditorNode }
   | { kind: 'event'; node: DialogueEditorNode; eventIndex: number }
   | { kind: 'event-mode'; node: DialogueEditorNode }
   | { kind: 'condition-mode'; node: DialogueEditorNode }

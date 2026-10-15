@@ -1,4 +1,4 @@
-import { DIALOGUE_MAP_GRID_SIZE, type DialogueEditorNode } from './dialogueMap.types.ts';
+import { DIALOGUE_MAP_GRID_SIZE, DIALOGUE_NODE_WHITESPACE_DEFAULTS, type DialogueEditorNode } from './dialogueMap.types.ts';
 import { layoutCanvasText, type CanvasTextLayout } from '../ui/canvas-text/canvasTextLayout.ts';
 import { summarizeDialogueCondition } from './dialogueRules.ts';
 
@@ -37,6 +37,7 @@ export type DialogueNodeLayout = {
   inputAnchors: Map<string, DialogueGridPoint>;
   outputAnchors: Map<string, DialogueGridPoint>;
   separators: number[];
+  whitespaceRegions: DialogueGridRect[];
 };
 
 export const DIALOGUE_NODE_LAYOUT_METRICS: Readonly<DialogueNodeLayoutMetrics> = Object.freeze({
@@ -77,6 +78,16 @@ export const getDialogueNodeDisplayLines = (node: DialogueEditorNode) => {
 };
 
 export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Readonly<DialogueNodeLayoutMetrics> = DIALOGUE_NODE_LAYOUT_METRICS, measureText?: DialogueNodeTextMeasure): DialogueNodeLayout => {
+  const whitespace = { ...DIALOGUE_NODE_WHITESPACE_DEFAULTS, ...node.display.whitespace };
+  metrics = { ...metrics,
+    headerUnits: whitespace.header ? metrics.headerUnits : 1,
+    topPaddingUnits: whitespace.top ? metrics.topPaddingUnits : 0,
+    lineUnits: whitespace.content ? metrics.lineUnits : 1,
+    sectionGapUnits: whitespace.sections ? metrics.sectionGapUnits : 0,
+    outputUnits: whitespace.outputs ? metrics.outputUnits : 1,
+    bottomPaddingUnits: whitespace.bottom ? metrics.bottomPaddingUnits : 0,
+  };
+  const whitespaceRegions: DialogueGridRect[] = [];
   const widthUnits = Math.max(4, Math.floor(node.display.widthUnits));
   const requestedHeightUnits = Math.max(3, Math.floor(node.display.heightUnits));
   const inset = Math.min(contentInsetForShape(node), Math.max(1, Math.floor((widthUnits - 1) / 2)));
@@ -86,16 +97,19 @@ export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Rea
   let cursor = metrics.headerUnits + metrics.topPaddingUnits;
   const measuredRow = (id: string, minimumUnits: number, specs: Array<{ role: DialogueNodeTextBlock['role']; text: string; maxLines: number; wrap?: boolean }>): DialogueNodeRowLayout => {
     if (!measureText) return row(id, inset, cursor, rowWidth, minimumUnits);
-    let offsetY = DIALOGUE_NODE_TEXT_STYLE.padding;
+    const spacious = specs.some(spec => spec.role === 'label') ? whitespace.outputs : whitespace.content;
+    const textPadding = spacious ? DIALOGUE_NODE_TEXT_STYLE.padding : 3;
+    const blockGap = spacious ? DIALOGUE_NODE_TEXT_STYLE.blockGap : 2;
+    let offsetY = textPadding;
     const textBlocks = specs.map(spec => {
       const block = { ...layoutCanvasText(spec.text, {
         maxWidth: Math.max(0, rowWidth * DIALOGUE_MAP_GRID_SIZE - DIALOGUE_NODE_TEXT_STYLE.glyphPadding * 2 - DIALOGUE_NODE_TEXT_STYLE.pixelAlignmentPadding), maxLines: spec.maxLines,
         wrap: spec.wrap, measure: text => measureText(text, dialogueNodeTextFont()),
       }), role: spec.role, offsetY };
-      offsetY += block.lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight + DIALOGUE_NODE_TEXT_STYLE.blockGap;
+      offsetY += block.lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight + blockGap;
       return block;
     });
-    const pixels = offsetY - (specs.length ? DIALOGUE_NODE_TEXT_STYLE.blockGap : 0) + DIALOGUE_NODE_TEXT_STYLE.padding;
+    const pixels = offsetY - (specs.length ? blockGap : 0) + textPadding;
     return { ...row(id, inset, cursor, rowWidth, Math.max(minimumUnits, Math.ceil(pixels / DIALOGUE_MAP_GRID_SIZE))), textBlocks };
   };
 
@@ -129,8 +143,27 @@ export const computeDialogueNodeLayout = (node: DialogueEditorNode, metrics: Rea
   const contentMinimum = cursor + metrics.bottomPaddingUnits;
   const inputMinimum = inputStart + node.inputOrder.length * metrics.inputSlotUnits + metrics.bottomPaddingUnits;
   const minimumHeightUnits = Math.max(3, contentMinimum, inputMinimum);
-  const actualHeightUnits = Math.max(requestedHeightUnits, minimumHeightUnits);
+  const actualHeightUnits = whitespace.height ? Math.max(requestedHeightUnits, minimumHeightUnits) : minimumHeightUnits;
+  const band = (y: number, height: number, x = 0, width = widthUnits) => { if (height > 0) whitespaceRegions.push({ x, y, width, height }); };
+  const headerPadding = Math.max(0, (metrics.headerUnits - DIALOGUE_NODE_TEXT_STYLE.lineHeight / DIALOGUE_MAP_GRID_SIZE) / 2);
+  band(0, headerPadding); band(metrics.headerUnits - headerPadding, headerPadding);
+  band(metrics.headerUnits, metrics.topPaddingUnits);
+  for (const value of [...lineRows.values(), ...outputRows.values()]) {
+    let end = value.rect.y;
+    for (const block of value.textBlocks ?? []) {
+      const start = value.rect.y + block.offsetY / DIALOGUE_MAP_GRID_SIZE;
+      band(end, start - end, value.rect.x, value.rect.width);
+      end = start + block.lines.length * DIALOGUE_NODE_TEXT_STYLE.lineHeight / DIALOGUE_MAP_GRID_SIZE;
+    }
+    if (value.textBlocks) band(end, value.rect.y + value.rect.height - end, value.rect.x, value.rect.width);
+  }
+  if (!node.display.collapsed && lineRows.size && outputRows.size) {
+    const last = [...lineRows.values()].at(-1)!;
+    band(last.rect.y + last.rect.height, metrics.sectionGapUnits);
+  }
+  band(cursor, actualHeightUnits - cursor);
   return {
+    whitespaceRegions,
     widthUnits, requestedHeightUnits, minimumHeightUnits, actualHeightUnits, contentInsetUnits: inset,
     header: { x: 0, y: 0, width: widthUnits, height: metrics.headerUnits },
     content: { x: inset, y: metrics.headerUnits, width: rowWidth, height: actualHeightUnits - metrics.headerUnits },

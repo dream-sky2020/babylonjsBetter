@@ -1,9 +1,10 @@
+import { DIALOGUE_NODE_WHITESPACE_DEFAULTS } from './dialogueMap.types.ts';
 import { type DialogueEditorDocument, type DialogueEditorDocumentLibrary, type DialogueEditorNode, type DialogueEditorEdge, type DialogueEditorSelection, type DialogueEditorSelectionTarget, type DialogueNodeDisplay, type DialogueNodeKind, type DialogueOutputPort, type DialogueMapValidationIssue, type StoredDialogueEditorDocument, type StoredDialogueEditorDocumentLibrary, type StoredDialogueEditorNode } from './dialogueMap.types.ts';
 import { computeDialogueNodeLayout } from './dialogueNodeLayout.ts';
 import { parseDialogueCondition, parseDialogueEffect } from './dialogueRules.ts';
 
 export const DIALOGUE_NODE_KIND_LABEL: Record<DialogueNodeKind, string> = { condition: '判断', choice: '选项', event: '事件' };
-export const createDefaultDialogueNodeDisplay = (): DialogueNodeDisplay => ({ shape: 'rectangle', colorToken: 'blue-muted', widthUnits: 10, heightUnits: 6, showSpeakerList: true, showPreviewText: true });
+export const createDefaultDialogueNodeDisplay = (): DialogueNodeDisplay => ({ whitespace: { ...DIALOGUE_NODE_WHITESPACE_DEFAULTS }, shape: 'rectangle', colorToken: 'blue-muted', widthUnits: 10, heightUnits: 6, showSpeakerList: true, showPreviewText: true });
 export const dialogueNodeInputPortId = (id: string) => `port:${id}:in`;
 export const dialogueOutputPortId = (id: string, suffix: string) => `port:${id}:output:${suffix}`;
 export const dialogueLineId = (id: string, suffix = 'main') => `line:${id}:${suffix}`;
@@ -62,7 +63,7 @@ export const cloneDialogueEditorDocument = (document: DialogueEditorDocument) =>
 export const resolveDialogueEditorSelection = (document: DialogueEditorDocument, selection: DialogueEditorSelection): DialogueEditorSelectionTarget | undefined => {
   if (selection.kind === 'edge') { const edge = document.graph.edges.get(selection.edgeId); return edge ? { kind: 'edge', edge } : undefined; }
   const node = document.graph.nodes.get(selection.nodeId); if (!node) return;
-  if (selection.kind === 'node') return { kind: 'node', node };
+  if (selection.kind === 'node' || selection.kind === 'spacing') return { kind: selection.kind, node };
   if (selection.kind === 'event-mode') return node.kind === 'event' ? { kind: selection.kind, node } : undefined;
   if (selection.kind === 'event') { const eventIndex = selection.eventIndex ?? 0; return node.kind === 'event' && node.events[eventIndex] ? { kind: selection.kind, node, eventIndex } : undefined; }
   if (selection.kind === 'condition-mode') return node.kind === 'condition' ? { kind: selection.kind, node } : undefined;
@@ -81,6 +82,8 @@ export const validateDialogueEditorDocument = (document: DialogueEditorDocument)
   const issues: DialogueMapValidationIssue[] = [];
   if (document.schemaVersion !== 5 || !/^[A-Za-z0-9_-]+$/.test(document.presetKey) || !document.name.trim()) issues.push(issue('invalid-document', '文档版本、名称或 Key 无效。', 'error'));
   document.graph.nodes.forEach((node, key) => {
+    const whitespace = node.display.whitespace;
+    if (whitespace !== undefined && (!whitespace || typeof whitespace !== 'object' || Array.isArray(whitespace) || Object.entries(whitespace).some(([name, value]) => !Object.hasOwn(DIALOGUE_NODE_WHITESPACE_DEFAULTS, name) || typeof value !== 'boolean'))) issues.push(issue('invalid-whitespace', '节点留白设置必须包含有效区域和布尔开关。', 'error', { nodeId: key }));
     if (key !== node.id || !key.trim()) issues.push(issue('node-key-mismatch', '节点 ID 与索引不一致。', 'error', { nodeId: key }));
     if (!Number.isFinite(node.position.x) || !Number.isFinite(node.position.y) || !Number.isInteger(node.display.widthUnits) || !Number.isInteger(node.display.heightUnits) || node.display.widthUnits < 4 || node.display.widthUnits > 40 || node.display.heightUnits < 3 || node.display.heightUnits > 40) issues.push(issue('invalid-geometry', '节点位置或尺寸无效。', 'error', { nodeId: key }));
     for (const [items, order] of [[node.lines, node.lineOrder], [node.inputs, node.inputOrder], [node.outputs, node.outputOrder]] as const) {

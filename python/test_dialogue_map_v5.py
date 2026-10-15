@@ -82,6 +82,15 @@ class DialogueV5Tests(unittest.TestCase):
         node['events'] = []
         self.assertTrue(server._validate_dialogue_map_library({'village_gate': self.preset}))
 
+    def test_node_whitespace_save_read_and_validation(self):
+        display = self.preset['graph']['nodes']['open_gate']['display']
+        display['whitespace'] = dict(header=True, content=False, outputs=False, top=False, sections=False, bottom=False, height=False)
+        self.round_trip(self.preset)
+        for invalid in (None, [], True, {'header': 'true'}, {'unknown': True}):
+            display['whitespace'] = invalid
+            errors = server._validate_dialogue_map_library({'village_gate': self.preset})
+            self.assertTrue(any('whitespace' in error for error in errors))
+
     def test_empty_graph_remains_a_saveable_draft(self):
         self.preset['graph'] = {'nodes': {}, 'edges': {}}; self.round_trip(self.preset)
 

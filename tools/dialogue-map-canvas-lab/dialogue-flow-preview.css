@@ -1,0 +1,22 @@
+.dialogue-flow-backdrop { position: fixed; inset: 0; z-index: 1000; background: #020617cc; backdrop-filter: blur(7px); display: grid; place-items: center; padding: 24px; }
+.dialogue-flow-modal { width: min(820px, 100%); max-height: calc(100dvh - 48px); overflow: auto; border: 1px solid #51627d; border-radius: 20px; background: #101a2a; color: #e2e8f0; box-shadow: 0 30px 100px #0009; }
+.dialogue-flow-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; gap: 16px; }
+.dialogue-flow-header small, .dialogue-flow-judgment small { color: #a5b4fc; letter-spacing: .12em; }
+.dialogue-flow-header h2 { margin: 6px 0 0; font-size: 20px; }
+.dialogue-flow-close { font-size: 26px; min-width: 40px; min-height: 40px; }
+.dialogue-flow-scene { height: 120px; background: radial-gradient(ellipse at 70% 0, #536c9570, transparent 65%), linear-gradient(140deg, #152a38, #1d1931); display: flex; align-items: end; padding: 20px 24px; color: #b5c2d3; font-size: 13px; }
+.dialogue-flow-content { padding: 24px; }
+.dialogue-flow-speech strong { display: inline-block; padding: 6px 14px; background: #b7c9ed; color: #14233a; border-radius: 6px; }
+.dialogue-flow-speech p { font-size: 18px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; min-height: 64px; }
+.dialogue-flow-options { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.dialogue-flow-modal button { border: 1px solid #4b5d7c; border-radius: 8px; background: #22324b; color: #e2e8f0; cursor: pointer; padding: 10px 14px; }
+.dialogue-flow-modal button:hover { background: #344d73; border-color: #a5b4fc; }
+.dialogue-flow-modal button:focus-visible, .dialogue-flow-modal summary:focus-visible { outline: 2px solid #c4b5fd; outline-offset: 3px; }
+.dialogue-flow-options button { display: flex; gap: 14px; align-items: center; text-align: left; min-height: 48px; font-size: 15px; }
+.dialogue-flow-options button span { color: #a5b4fc; font-size: 12px; }
+.dialogue-flow-options button b { margin-left: auto; }
+.dialogue-flow-judgment li { padding: 8px 0; overflow-wrap: anywhere; }
+.dialogue-flow-footer { padding: 16px 24px; border-top: 1px solid #334155; font-size: 12px; color: #aebcd0; }
+.dialogue-flow-footer details { margin-top: 10px; } .dialogue-flow-footer summary { cursor: pointer; }
+.dialogue-flow-ending { text-align: center; padding: 16px 0; }
+@media (max-width: 600px) { .dialogue-flow-backdrop { padding: 10px; } .dialogue-flow-modal { max-height: calc(100dvh - 20px); } .dialogue-flow-scene { height: 70px; } }

@@ -59,6 +59,10 @@ def validate_document(preset_key, preset):
             errors.append(f'{node_id}: display is invalid')
         elif type(display.get('widthUnits')) is not int or type(display.get('heightUnits')) is not int or not 4 <= display['widthUnits'] <= 40 or not 3 <= display['heightUnits'] <= 40:
             errors.append(f'{node_id}: display size is invalid')
+        if isinstance(display, dict) and 'whitespace' in display:
+            whitespace = display['whitespace']
+            if not isinstance(whitespace, dict) or any(key not in ('header', 'content', 'outputs', 'top', 'sections', 'bottom', 'height') or type(value) is not bool for key, value in whitespace.items()):
+                errors.append(f'{node_id}: whitespace settings are invalid')
         for name, order_name in (('lines', 'lineOrder'), ('inputs', 'inputOrder'), ('outputs', 'outputOrder')):
             items, order = node.get(name), node.get(order_name)
             if not isinstance(items, dict) or not isinstance(order, list) or not all(isinstance(item, str) for item in order):

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createDialogueEditorNode as createNode } from './dialogueMap.ts';
+import { DIALOGUE_NODE_WHITESPACE_DEFAULTS } from './dialogueMap.types.ts';
 import { computeDialogueNodeLayout, dialogueLayoutPointToWorld } from './dialogueNodeLayout.ts';
 import { drawDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail } from '../../tools/dialogue-map-canvas-lab/dialogueCanvasText.ts';
 
@@ -141,5 +142,53 @@ test('flat conditions each get a visible measured row and move branch anchors be
       assert.ok(layout.outputAnchors.get(node.outputOrder[0])!.y > row.rect.y + row.rect.height);
     }
     assert.equal(node.lines.size, 0);
+  }
+});
+
+
+test('compact cards fit measured content and keep output anchors inside their rows', () => {
+  const node = createNode('event', { x: 0, y: 0 }, 'event');
+  node.display.heightUnits = 40;
+  const spacious = computeDialogueNodeLayout(node, undefined, measure);
+  node.display.whitespace = Object.fromEntries(Object.keys(DIALOGUE_NODE_WHITESPACE_DEFAULTS).map(key => [key, false]));
+  const originalDisplay = structuredClone(node.display);
+  const compact = computeDialogueNodeLayout(node, undefined, measure);
+  assert.ok(compact.actualHeightUnits < spacious.minimumHeightUnits);
+  assert.equal(compact.actualHeightUnits, compact.minimumHeightUnits);
+  assert.equal(compact.header.height, 1);
+  for (const row of [...compact.lineRows.values(), ...compact.outputRows.values()]) {
+    for (const block of row.textBlocks ?? []) {
+      assert.ok(block.offsetY + block.lines.length * 18 <= row.rect.height * 24);
+    }
+    assert.ok(row.rect.y + row.rect.height <= compact.actualHeightUnits);
+  }
+  for (const [id, anchor] of compact.outputAnchors) assert.equal(anchor.y, compact.outputRows.get(id)?.centerY);
+  assert.deepEqual(node.display, originalDisplay);
+  node.display.whitespace = { ...DIALOGUE_NODE_WHITESPACE_DEFAULTS };
+  assert.equal(computeDialogueNodeLayout(node, undefined, measure).actualHeightUnits, 40);
+});
+
+
+test('title spacing can remain spacious while each other node region is compact', () => {
+  const node = createNode('mixed', { x: 48, y: 72 }, 'event');
+  node.display.heightUnits = 40;
+  node.display.whitespace = Object.fromEntries(Object.keys(DIALOGUE_NODE_WHITESPACE_DEFAULTS).map(key => [key, false]));
+  const compact = computeDialogueNodeLayout(node, undefined, measure);
+  node.display.whitespace.header = true;
+  const mixed = computeDialogueNodeLayout(node, undefined, measure);
+  assert.equal(mixed.header.height, 2);
+  assert.equal(mixed.actualHeightUnits, compact.actualHeightUnits + 1);
+  assert.equal([...mixed.lineRows.values()][0].rect.y, mixed.header.height);
+  for (const [id, anchor] of mixed.outputAnchors) assert.equal(anchor.y, compact.outputAnchors.get(id)!.y + 1);
+  const expected = mixed;
+  for (const key of ['content', 'outputs', 'top', 'sections', 'bottom', 'height'] as const) {
+    node.display.whitespace[key] = true;
+    const layout = computeDialogueNodeLayout(node, undefined, measure);
+    assert.ok(layout.actualHeightUnits > expected.actualHeightUnits, key);
+    assert.equal(layout.header.height, 2);
+    node.display.whitespace[key] = false;
+  }
+  for (const rect of expected.whitespaceRegions) {
+    assert.ok(rect.height > 0 && rect.y >= 0 && rect.y + rect.height <= expected.actualHeightUnits);
   }
 });
