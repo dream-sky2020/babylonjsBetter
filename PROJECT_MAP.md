@@ -1602,6 +1602,11 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 
 流程预览由“预览选中节点”启动，以当前草稿快照运行，选择对白／选项／条件／事件内容时从所属节点开始。DialogueFlowPreview 提供弹窗对白、逐句继续、选项、手动判断通过／不通过、结束与重启、叉号与 Esc 退出。事件仅记录模拟触发，等待自动放行，不读取共享内存或分派真实事件。连续事件最多自动执行 100 步，循环与悬空目标停止并提示。
 
+## 2026-10-14：70 年代终端 JRPG 对话界面
+
+tools/jrpg-terminal-dialogue-lab/index.html 是独立交互界面示例，由根 index 与 Vite 多页构建收录。原生 HTML/CSS/TypeScript 实现橄榄色终端机壳、磷光绿／琥珀色 CRT、字符画场景、逐字对白、分支选项、自动阅读、对话记录、浏览器存读档与键盘操作。内置雾港序章展示两种结局；存档仅使用 jrpg-terminal-dialogue:save:v1，不连接地图编辑器或真实游戏事件。
+
+
 ## 2026-10-15：对话卡片分区域留白
 
 DialogueNodeDisplay.whitespace 为每个节点保存 header/content/outputs/top/sections/bottom/height 七个独立布尔开关；缺省为 true，新建节点写出默认值。TypeScript 与 Python 保存接口校验区域名和布尔类型，编码、读取及撤销重做保留设置，不进入编译后的运行数据。关闭 height 时按内容最小高度渲染，保留 heightUnits 设定。布局计算由节点配置驱动，测量缓存仍以不可变节点为键；渲染、连线、命中、适配及 Inspector 共用布局。全局留白开关移除；spacing 选择可由画布留白区域、属性面板标题或节点属性按钮触发，留白区域高亮，专属面板展开并置顶。

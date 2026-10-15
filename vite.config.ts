@@ -301,6 +301,7 @@ export default defineConfig({
         dungeonMapCanvasLab: path.resolve(__dirname, 'tools/dungeon-map-canvas-lab/index.html'),
         dialogueMapCanvasLab: path.resolve(__dirname, 'tools/dialogue-map-canvas-lab/index.html'),
         dialoguePreviewCanvasLab: path.resolve(__dirname, 'tools/dialogue-preview-canvas-lab/index.html'),
+        jrpgTerminalDialogueLab: path.resolve(__dirname, 'tools/jrpg-terminal-dialogue-lab/index.html'),
         dungeonSceneLoaderLab: path.resolve(__dirname, 'tools/dungeon-scene-loader-lab/index.html'),
         dungeonRuntimeSaveSwitchingLab: path.resolve(__dirname, 'tools/dungeon-runtime-save-switching-lab/index.html'),
         dungeonObstacleLab: path.resolve(__dirname, 'tools/dungeon-obstacle-lab/index.html'),
