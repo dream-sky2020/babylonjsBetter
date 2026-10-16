@@ -3,7 +3,7 @@ import test from 'node:test';
 import { createDialogueEditorNode as createNode } from './dialogueMap.ts';
 import { DIALOGUE_NODE_WHITESPACE_DEFAULTS } from './dialogueMap.types.ts';
 import { computeDialogueNodeLayout, dialogueLayoutPointToWorld } from './dialogueNodeLayout.ts';
-import { drawDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail } from '../../tools/dialogue-map-canvas-lab/dialogueCanvasText.ts';
+import { drawDialogueCanvasText, getDialogueCanvasFontSize, getDialogueCanvasTextDetail } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueCanvasText.ts';
 
 const createDialogueEditorNode = (id: string, position: { x: number; y: number }) => { const node = createNode(id, position); node.outputs.clear(); node.outputOrder = []; return node; };
 

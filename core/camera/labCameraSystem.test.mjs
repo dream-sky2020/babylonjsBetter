@@ -16,9 +16,9 @@ test('LabKit routes owned keys, preserves preferences and pauses input across pr
   }
   let engine, scene, keyboard, system;
   try {
-    const { LabUi } = await server.ssrLoadModule('/tools/lab-kit/labUi.ts');
-    const { LabKeyboardRouter } = await server.ssrLoadModule('/tools/lab-kit/keyboard/LabKeyboardRouter.ts');
-    const { createLabCameraSystem } = await server.ssrLoadModule('/tools/lab-kit/camera/labCameraSystem.ts');
+    const { LabUi } = await server.ssrLoadModule('/labs/kit/labUi.ts');
+    const { LabKeyboardRouter } = await server.ssrLoadModule('/labs/kit/keyboard/LabKeyboardRouter.ts');
+    const { createLabCameraSystem } = await server.ssrLoadModule('/labs/kit/camera/labCameraSystem.ts');
     engine = new NullEngine(); scene = new Scene(engine);
     const camera = new ArcRotateCamera('labkit', 1, 1, 30, Vector3.Zero(), scene);
     let attachmentCount = 0;

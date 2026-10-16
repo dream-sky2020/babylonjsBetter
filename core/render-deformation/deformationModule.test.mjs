@@ -14,15 +14,15 @@ test('Lab module follows view publication, UI groups, snapshots, late objects an
   }
   let engine, scene, labState, cleanup;
   try {
-    const { LabUi } = await server.ssrLoadModule('/tools/lab-kit/labUi.ts');
-    const { LabState } = await server.ssrLoadModule('/tools/lab-kit/lab-state/LabState.ts');
-    const { dungeonVisualDeformationLabModule } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-visual-deformation/index.ts');
+    const { LabUi } = await server.ssrLoadModule('/labs/kit/labUi.ts');
+    const { LabState } = await server.ssrLoadModule('/labs/kit/lab-state/LabState.ts');
+    const { dungeonVisualDeformationLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-visual-deformation/index.ts');
     const { getVisualDeformationRegistry } = await server.ssrLoadModule('/core/render-deformation/visualDeformationRegistry.ts');
     const { meshDeformationMatrices } = await server.ssrLoadModule('/core/render-deformation/deformationMaterial.ts');
     const { DEFAULT_DEFORMATION_SETTINGS } = await server.ssrLoadModule('/core/render-deformation/deformation.ts');
-    const { LabMemoryRegistry } = await server.ssrLoadModule('/tools/lab-kit/shared-memory/LabMemory.ts');
+    const { LabMemoryRegistry } = await server.ssrLoadModule('/labs/kit/shared-memory/LabMemory.ts');
     const { createModelMaterialController } = await server.ssrLoadModule('/core/model/material/modelMaterialController.ts');
-    const { DUNGEON_DEFORMATION_SETTINGS_MEMORY } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-visual-deformation/dungeonDeformation.memory.ts');
+    const { DUNGEON_DEFORMATION_SETTINGS_MEMORY } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-visual-deformation/dungeonDeformation.memory.ts');
     const { componentDefinitions } = await server.ssrLoadModule('/tools/entity-container-editor/entityDefinitionCatalog.ts');
     assert.ok(componentDefinitions.some(c => c.type === 'visual-deformation'));
     engine = new NullEngine(); scene = new Scene(engine); labState = new LabState();

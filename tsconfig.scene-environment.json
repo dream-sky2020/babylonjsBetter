@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": { "types": ["vite/client", "node"] },
-  "include": ["tools/scene-environment-lab/**/*.ts", "tools/scene-environment-lab/**/*.tsx", "core/resources/virtual-modules.d.ts", "core/scene/sceneEnvironment*.ts", "codex-tools/sceneEnvironmentPresetStore*.ts", "codex-tools/migrateSceneEnvironmentPresets.ts"],
+  "include": ["labs/standalone/scene-environment-lab/**/*.ts", "labs/standalone/scene-environment-lab/**/*.tsx", "core/resources/virtual-modules.d.ts", "core/scene/sceneEnvironment*.ts", "codex-tools/sceneEnvironmentPresetStore*.ts", "codex-tools/migrateSceneEnvironmentPresets.ts"],
   "exclude": ["node_modules"]
 }

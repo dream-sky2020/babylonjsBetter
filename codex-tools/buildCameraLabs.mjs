@@ -9,6 +9,10 @@ config.build = { ...config.build, outDir: 'node_modules/.cache/camera-labs-build
   rollupOptions: { ...config.build?.rollupOptions, input: Object.fromEntries([
     'camera-scene-lab', 'dungeon-first-person-camera-lab', 'dungeon-overhead-view-lab', 'scene-environment-lab',
     'model-shake-lab', 'model-asset-normalization-lab', 'animation-workbench-lab',
-  ].map(name => [name, path.resolve(`tools/${name}/index.html`)])) },
+  ].map(name => {
+    const entry = Object.values(config.build.rollupOptions.input).find(file => path.basename(path.dirname(file)) === name);
+    if (!entry) throw new Error(`Missing Lab entry: ${name}`);
+    return [name, path.resolve(entry)];
+  })) },
 };
 await build(config);

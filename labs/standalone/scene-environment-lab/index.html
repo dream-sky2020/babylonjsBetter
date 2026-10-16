@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene Environment Lab</title>
+
+  </head>
+  <body>
+    <div class="layout scene-workbench">
+      <div id="scene-hierarchy"></div>
+      <div id="scene-inspector"></div>
+      <aside class="scene-domain">
+        <h1>Scene Environment Lab</h1>
+        <div class="hint">验证 Map Entity 的 SceneEnvironmentComponent 通过 presetKey 加载 JSON 场景预设。</div>
+        <div class="card scene-info-card">
+          <div class="scene-info-content"><div class="scene-info-controls">
+          <label for="preset">场景预设</label>
+          <select id="preset"></select>
+          <button id="load" type="button">应用 / 重载当前草稿</button><button id="save-preset" type="button">保存预设 / 正式构建导出</button>
+          <label class="scene-key-label" for="current-scene-key">当前展示的场景 Key</label>
+          <div class="key-copy-row">
+            <input id="current-scene-key" type="text" readonly spellcheck="false" aria-label="当前展示的场景 Key" />
+            <button id="copy-scene-key" type="button">复制</button>
+          </div>
+          <div class="switch-row">
+            <label for="csm-debug">阴影级联 Debug</label>
+            <input id="csm-debug" type="checkbox" />
+          </div>
+          <div id="csm-debug-hint" class="switch-hint">用不同颜色显示 CSM 的各个 cascade。</div>
+          </div><div class="scene-resource-summary">
+          <dl class="scene-model-statistics" aria-label="当前场景模型统计" title="统计全部已加载模型实例的三角面，不含基础几何体和编辑标记">
+            <div><dt>模型数量</dt><dd id="model-count">—</dd></div>
+            <div><dt>模型平均面数</dt><dd id="model-average-faces">—</dd></div>
+            <div><dt>模型总面数</dt><dd id="model-total-faces">—</dd></div>
+          </dl>
+          <dl class="scene-model-statistics scene-texture-statistics" aria-label="当前场景模型纹理统计" title="模型引用的纹理按 GPU 资源去重；估算包含 mipmap，不含驱动开销、阴影贴图和独立场景环境纹理">
+            <div><dt>纹理数量</dt><dd id="texture-count">—</dd></div>
+            <div><dt>平均估算显存</dt><dd id="texture-average-memory">—</dd></div>
+            <div><dt>总估算显存</dt><dd id="texture-total-memory">—</dd></div>
+          </dl>
+          </div></div>
+          <div id="status" class="status" style="margin-top:10px">正在读取场景预设……</div>
+        </div>
+        <div class="card">
+          <label>测试组件数据</label>
+          <pre id="component-json"></pre>
+        </div>
+        <div class="card">
+          <label>已解析的预设数据</label>
+          <pre id="preset-json"></pre>
+        </div>
+        <p class="hint"><a href="../../../index.html">返回工具入口</a></p>
+      </aside>
+      <main id="stage"><div id="scene-toolbar"></div>
+        <canvas id="preview"></canvas>
+        <div class="badge">使用摄像机控制面板切换视角 · WASDQE 移动</div>
+      </main>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

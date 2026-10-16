@@ -1,0 +1,782 @@
+import { DUNGEON_GRID_MEMORY, type DungeonGridData } from '../dungeon-grid/dungeonGrid.memory';
+import { DUNGEON_PLAYER_STATE_MEMORY, DUNGEON_OBSTACLE_STATE_MEMORY, type DungeonPlayerStateData } from '../dungeon-runtime/dungeonRuntime.memory';
+import { DUNGEON_MOVEMENT_STATE_MEMORY } from '../dungeon-movement/dungeonMovement.memory';
+import { DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY } from '@/core/dungeon-movement/dungeonMovementControl';
+import { DUNGEON_PLAYER_CONTROL_SERVICE_KEY, type DungeonPlayerCommands } from '@/core/dungeon-player-movement/dungeonPlayerControl';
+import { DungeonPlayerSystem } from '@/core/dungeon-player-movement/dungeonPlayerSystem';
+import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
+import { DungeonPlayerStepEvents, DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
+import { dungeonPlayerStepCompletedEvent } from './playerMovement.protocol';
+import { createDungeonViewConsumer, applyDungeonViewToNode } from '@/core/dungeon-view/dungeonOverheadView.ts';
+import { PLAYER_MOVEMENT_VIEW_SERVICE_KEY } from './playerMovement.view';
+import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
+import {
+  type DungeonPlayerMovementOptions,
+  type DungeonPlayerRelativeMovement,
+  type DungeonPlayerMovementTimingMode,
+  type DungeonPlayerTurn,
+  type DungeonPlayerTurnTimingMode,
+} from '@/core/dungeon-player-movement';
+import type { DungeonMovementDirection, DungeonMovementDirectionMode } from '@/core/dungeon-movement';
+import { resolveDungeonMapTileWorldLayout } from '@/core/scene/dungeonMapSceneLayout';
+import {
+  createLabField,
+  createLabJson,
+  createLabStatus,
+  createLabSwitch,
+  type LabModule,
+} from '@/labs/kit';
+import {
+  dungeonMapChangedEvent,
+  dungeonRuntimeCommitRequest,
+  dungeonRuntimeChangedEvent,
+} from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import {
+  DUNGEON_PLAYER_ABSOLUTE_KEY_DIRECTIONS,
+  DungeonPlayerDirectionalInput,
+  resolveDungeonPlayerContinuousHoldThreshold,
+} from './playerMovement.directionalInput';
+import {
+  createDungeonPlayerBlockedAttemptService,
+  PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
+  type DungeonPlayerBlockedAttempt,
+} from './playerMovement.blockedAttempt';
+
+type MovementView = { loadId: number; player: DungeonPlayerStateData; grid: DungeonGridData };
+
+const createNumberInput = (value: number, min: number | undefined, step: number): HTMLInputElement => {
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.value = String(value);
+  if (min !== undefined) input.min = String(min);
+  input.step = String(step);
+  return input;
+};
+
+const readPositiveNumber = (input: HTMLInputElement, fallback: number): number => {
+  const value = Number(input.value);
+  return Number.isFinite(value) && value > 0 ? value : fallback;
+};
+
+const readFiniteNumber = (input: HTMLInputElement, fallback: number): number => {
+  const value = Number(input.value);
+  return Number.isFinite(value) ? value : fallback;
+};
+
+const createModeSelect = <T extends string>(options: ReadonlyArray<readonly [T, string]>): HTMLSelectElement => {
+  const select = document.createElement('select');
+  select.replaceChildren(...options.map(([value, label]) => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = label;
+    return option;
+  }));
+  return select;
+};
+
+export const playerMovementLabModule: LabModule = {
+  id: 'player-movement',
+  dependencies: ['dungeon-map-loader', 'dungeon-movement'],
+  setup(context) {
+    const playerMemory = context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY);
+    const gridMemory = context.memory.acquire(DUNGEON_GRID_MEMORY);
+    const movementMemory = context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY);
+    const obstacleMemory = context.memory.acquire(DUNGEON_OBSTACLE_STATE_MEMORY);
+    const playerControl = context.services.get(DUNGEON_PLAYER_CONTROL_SERVICE_KEY);
+    const movementControl = context.services.get(DUNGEON_MOVEMENT_CONTROL_SERVICE_KEY);
+    const steps = new DungeonPlayerStepEvents();
+    context.services.set(DUNGEON_PLAYER_STEP_SERVICE_KEY, Object.freeze({ subscribe: steps.subscribe.bind(steps) }));
+    const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
+    const offPreparation = assembly.registerPreparation('player-movement', (runtime, loadId) =>
+      new DungeonPlayerSystem(runtime, loadId, steps));
+    let playerSystem: DungeonPlayerCommands | null = null;
+    const observeStep = (result: { step?: import('@/core/dungeon-player-movement/dungeonPlayerStepEvents').DungeonPlayerStepCompleted }) => {
+      if (result.step) void context.communication.publish(dungeonPlayerStepCompletedEvent, result.step,
+        result.step.requestId ? { correlationId: result.step.requestId } : undefined);
+    };
+    const blockedAttemptService = createDungeonPlayerBlockedAttemptService();
+    context.services.set(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY, blockedAttemptService);
+    const panel = context.ui.addPanel('player-movement', '玩家移动');
+    const boundsToggle = createLabSwitch('限制玩家不能移出地图', true);
+    const obstacleToggle = createLabSwitch('限制玩家不能跨越障碍', true);
+    const teleportToggle = createLabSwitch('瞬移（跳过逐帧过渡）');
+    const debugMarkerToggle = createLabSwitch('显示玩家 Debug 模型', true, {
+      preference: { ui: context.ui, key: 'player-movement/debug-marker' },
+    });
+    const keyboardToggle = createLabSwitch('启用玩家键盘输入', true, {
+      preference: { ui: context.ui, key: 'player-movement/keyboard-enabled' },
+    });
+    const continuousMovementToggle = createLabSwitch('按住方向连续移动', true, {
+      preference: { ui: context.ui, key: 'player-movement/continuous-movement' },
+    });
+    const eightWayToggle = createLabSwitch('启用玩家八方向移动', false, {
+      preference: { ui: context.ui, key: 'player-movement/eight-way' },
+    });
+    const continuousHoldMultiplierInput = createNumberInput(0.8, 0, 0.05);
+    const continuousHoldOffsetInput = createNumberInput(0, undefined, 0.05);
+    const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
+    const keyboardPreventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
+    const keyboardPriorityInput = createNumberInput(75, undefined, 1);
+    const keyboardOwnershipStatus = createLabStatus('键盘消费者尚未注册。');
+    const movementTimingSelect = createModeSelect<DungeonPlayerMovementTimingMode>([
+      ['world-units-per-second', '每秒移动多少世界单位'],
+      ['seconds-per-tile', '移动一格需要多少秒'],
+    ]);
+    const movementTimingInput = createNumberInput(60, 0.01, 0.1);
+    const turnTimingSelect = createModeSelect<DungeonPlayerTurnTimingMode>([
+      ['radians-per-second', '每秒转动多少度'],
+      ['seconds-per-turn', '每次转向需要多少秒'],
+    ]);
+    const turnTimingInput = createNumberInput(360, 0.01, 0.1);
+    const controls = document.createElement('div');
+    controls.className = 'lab-movement-grid';
+    const directions: ReadonlyArray<readonly [DungeonMovementDirection, string]> = [
+      ['north-east', '↖ 东北'], ['north', '↑ 北'], ['north-west', '↗ 西北'],
+      ['east', '← 东'], ['west', '→ 西'],
+      ['south-east', '↙ 东南'], ['south', '↓ 南'], ['south-west', '↘ 西南'],
+    ];
+    directions.forEach(([direction, label]) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.move = direction;
+      button.textContent = label;
+      controls.append(button);
+    });
+    const relativeControls = document.createElement('div');
+    relativeControls.className = 'lab-relative-movement-grid';
+    const relativeMovements: ReadonlyArray<readonly [DungeonPlayerRelativeMovement, string]> = [
+      ['forward', '↑ 前进'], ['left', '← 向左'], ['backward', '↓ 后退'], ['right', '→ 向右'],
+    ];
+    relativeMovements.forEach(([movement, label]) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.relativeMove = movement;
+      button.textContent = label;
+      relativeControls.append(button);
+    });
+    const turnControls = document.createElement('div');
+    turnControls.className = 'lab-turn-grid';
+    const turns: ReadonlyArray<readonly [DungeonPlayerTurn, string]> = [
+      ['left', '↶ 左转'], ['back', '↺ 后转'], ['right', '↷ 右转'],
+    ];
+    turns.forEach(([turn, label]) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.turn = turn;
+      button.textContent = label;
+      turnControls.append(button);
+    });
+    const teleportPositionControls = document.createElement('div');
+    teleportPositionControls.className = 'lab-player-movement-teleport';
+    const teleportXInput = createNumberInput(0, 0, 1);
+    const teleportYInput = createNumberInput(0, 0, 1);
+    teleportXInput.placeholder = 'X';
+    teleportXInput.setAttribute('aria-label', '目标格 X');
+    teleportYInput.placeholder = 'Y';
+    teleportYInput.setAttribute('aria-label', '目标格 Y');
+    const teleportPositionButton = document.createElement('button');
+    teleportPositionButton.type = 'button';
+    teleportPositionButton.textContent = '瞬移到指定位置';
+    teleportPositionControls.append(teleportXInput, teleportYInput, teleportPositionButton);
+    const status = createLabStatus('尚未创建 DungeonRuntime。');
+    const runtimeJson = createLabJson();
+    const movementTimingField = createLabField('移动速度（世界单位/秒）', movementTimingInput);
+    const turnTimingField = createLabField('转向速度（度/秒）', turnTimingInput);
+    const movementTimingValues: Record<DungeonPlayerMovementTimingMode, string> = {
+      'world-units-per-second': '6',
+      'seconds-per-tile': '1',
+    };
+    const turnTimingValues: Record<DungeonPlayerTurnTimingMode, string> = {
+      'radians-per-second': '360',
+      'seconds-per-turn': '0.25',
+    };
+    let activeMovementTimingMode: DungeonPlayerMovementTimingMode = 'world-units-per-second';
+    let activeTurnTimingMode: DungeonPlayerTurnTimingMode = 'radians-per-second';
+    const setFieldLabel = (field: HTMLLabelElement, label: string) => {
+      const text = field.querySelector('span');
+      if (text) text.textContent = label;
+    };
+    const syncTimingInputs = () => {
+      activeMovementTimingMode = movementTimingSelect.value as DungeonPlayerMovementTimingMode;
+      const movementByTile = activeMovementTimingMode === 'seconds-per-tile';
+      movementTimingInput.value = movementTimingValues[activeMovementTimingMode];
+      movementTimingInput.step = movementByTile ? '0.05' : '0.1';
+      setFieldLabel(movementTimingField, movementByTile ? '每格移动耗时（秒）' : '移动速度（世界单位/秒）');
+      activeTurnTimingMode = turnTimingSelect.value as DungeonPlayerTurnTimingMode;
+      const turnByAction = activeTurnTimingMode === 'seconds-per-turn';
+      turnTimingInput.value = turnTimingValues[activeTurnTimingMode];
+      turnTimingInput.step = turnByAction ? '0.05' : '15';
+      setFieldLabel(turnTimingField, turnByAction ? '每次转向耗时（秒）' : '转向速度（度/秒）');
+    };
+    movementTimingInput.addEventListener('input', () => {
+      movementTimingValues[activeMovementTimingMode] = movementTimingInput.value;
+    });
+    turnTimingInput.addEventListener('input', () => {
+      turnTimingValues[activeTurnTimingMode] = turnTimingInput.value;
+    });
+    movementTimingSelect.addEventListener('change', syncTimingInputs);
+    turnTimingSelect.addEventListener('change', syncTimingInputs);
+    panel.content.append(
+      boundsToggle.row,
+      obstacleToggle.row,
+      teleportToggle.row,
+      debugMarkerToggle.row,
+      keyboardToggle.row,
+      continuousMovementToggle.row,
+      eightWayToggle.row,
+      createLabField('长按阈值倍率 X', continuousHoldMultiplierInput),
+      createLabField('长按阈值偏移（秒）', continuousHoldOffsetInput),
+      createLabField('键盘输入优先级', keyboardPriorityInput),
+      keyboardInterceptToggle.row,
+      keyboardPreventDefaultToggle.row,
+      keyboardOwnershipStatus,
+      createLabField('移动计时模式', movementTimingSelect),
+      movementTimingField,
+      createLabField('转向计时模式', turnTimingSelect),
+      turnTimingField,
+      createLabField('绝对方向移动', controls),
+      createLabField('相对当前朝向移动', relativeControls),
+      createLabField('原地转向', turnControls),
+      createLabField('指定格坐标（X / Y）', teleportPositionControls),
+      status,
+      runtimeJson,
+    );
+
+    const readTimingOptions = (): Pick<
+      DungeonPlayerMovementOptions,
+      'movementTimingMode' | 'movementSpeed' | 'movementSecondsPerTile'
+      | 'turnTimingMode' | 'turnSpeed' | 'turnSecondsPerAction'
+    > => {
+      const movementTimingMode = movementTimingSelect.value as DungeonPlayerMovementTimingMode;
+      const turnTimingMode = turnTimingSelect.value as DungeonPlayerTurnTimingMode;
+      return {
+        movementTimingMode,
+        movementSpeed: movementTimingMode === 'world-units-per-second'
+          ? readPositiveNumber(movementTimingInput, 6) : undefined,
+        movementSecondsPerTile: movementTimingMode === 'seconds-per-tile'
+          ? readPositiveNumber(movementTimingInput, 1) : undefined,
+        turnTimingMode,
+        turnSpeed: turnTimingMode === 'radians-per-second'
+          ? readPositiveNumber(turnTimingInput, 360) * Math.PI / 180 : undefined,
+        turnSecondsPerAction: turnTimingMode === 'seconds-per-turn'
+          ? readPositiveNumber(turnTimingInput, 0.25) : undefined,
+      };
+    };
+
+    let current: MovementView | null = null;
+    let markerRoot: TransformNode | null = null;
+    const displayRoot = new TransformNode('player_display_mapping', context.scene);
+    const viewConsumer = createDungeonViewConsumer(view => applyDungeonViewToNode(displayRoot, view));
+    context.services.set(PLAYER_MOVEMENT_VIEW_SERVICE_KEY, viewConsumer);
+    let markerVerticalOffset = 0;
+    let runtimeJsonDirty = true;
+    const directionalInput = new DungeonPlayerDirectionalInput();
+    let continuousHoldMovementDurationSeconds: number | null = null;
+    let pendingEightWayInitialMove = false;
+
+    const clearDirectionalInput = (): void => {
+      directionalInput.clear();
+      continuousHoldMovementDurationSeconds = null;
+      pendingEightWayInitialMove = false;
+    };
+    const directionMode = (): DungeonMovementDirectionMode => (
+      eightWayToggle.input.checked ? 'eight-way' : 'four-way'
+    );
+    const syncMovementProfile = (): void => {
+      controls.querySelectorAll<HTMLButtonElement>('[data-move*="-"]').forEach((button) => {
+        button.disabled = !eightWayToggle.input.checked;
+      });
+      if (current) {
+        playerSystem?.setMovementProfile(eightWayToggle.input.checked ? 'ground-eight-way' : 'ground-four-way');
+        status.textContent = eightWayToggle.input.checked
+          ? '玩家已切换为八方向移动；WASD / 方向键可组合斜向。'
+          : '玩家已切换为四方向移动；斜向按钮已禁用。';
+      }
+      clearDirectionalInput();
+    };
+    eightWayToggle.input.addEventListener('change', syncMovementProfile);
+
+    const disposeMarker = () => {
+      markerRoot?.dispose(false, true);
+      markerRoot = null;
+    };
+
+    const createMarker = (event: MovementView) => {
+      disposeMarker();
+      if (!debugMarkerToggle.input.checked) return;
+      const layout = resolveDungeonMapTileWorldLayout(
+        event.grid,
+        event.grid.width,
+        event.grid.height,
+        event.player.playerPosition.tileX,
+        event.player.playerPosition.tileY,
+      );
+      const tileShortSide = Math.min(layout.size[0], layout.size[2]);
+      const markerHeight = Math.max(layout.size[1] * 1.5, 1.2);
+      markerVerticalOffset = layout.size[1] / 2;
+      markerRoot = new TransformNode('composable_player_pose', context.scene);
+      markerRoot.parent = displayRoot;
+      const playerMaterial = new StandardMaterial('composable_player_debug_material', context.scene);
+      playerMaterial.diffuseColor = Color3.FromHexString('#35c76f');
+      playerMaterial.emissiveColor = Color3.FromHexString('#0b542c');
+
+      const bodyBottomDiameter = Math.min(tileShortSide * 1.78, markerHeight * 0.72);
+      const body = MeshBuilder.CreateCylinder('composable_player_body_cone', {
+        height: markerHeight,
+        diameterTop: markerHeight * 0.14,
+        diameterBottom: bodyBottomDiameter,
+        tessellation: 24,
+      }, context.scene);
+      body.position.y = markerVerticalOffset + markerHeight / 2;
+      body.material = playerMaterial;
+      body.parent = markerRoot;
+      body.isPickable = false;
+
+      const headDiameter = markerHeight * 0.72;
+      const head = MeshBuilder.CreateSphere('composable_player_head', {
+        diameter: headDiameter,
+        segments: 16,
+      }, context.scene);
+      head.position.y = markerVerticalOffset + markerHeight + headDiameter * 0.45;
+      head.material = playerMaterial;
+      head.parent = markerRoot;
+      head.isPickable = false;
+
+      const facingMaterial = new StandardMaterial('composable_player_facing_material', context.scene);
+      facingMaterial.diffuseColor = Color3.FromHexString('#8cffb7');
+      facingMaterial.emissiveColor = Color3.FromHexString('#168f49');
+      const facingLength = Math.min(tileShortSide * 0.22, markerHeight * 1.18);
+      const facingPyramid = MeshBuilder.CreateCylinder('composable_player_facing_pyramid', {
+        height: facingLength,
+        diameterTop: 0,
+        diameterBottom: Math.min(tileShortSide * 0.16, markerHeight * 0.62),
+        tessellation: 4,
+      }, context.scene);
+      facingPyramid.rotation.x = Math.PI / 2;
+      facingPyramid.position.set(
+        0,
+        markerVerticalOffset + markerHeight * 0.72,
+        bodyBottomDiameter / 2 + facingLength / 2 + tileShortSide * 0.14,
+      );
+      facingPyramid.material = facingMaterial;
+      facingPyramid.parent = markerRoot;
+      facingPyramid.isPickable = false;
+      facingPyramid.enableEdgesRendering();
+      facingPyramid.edgesColor.set(0.55, 1, 0.72, 1);
+      facingPyramid.edgesWidth = 2;
+    };
+
+    const renderRuntimeJson = () => {
+      if (!current || panel.content.hidden) return;
+      runtimeJsonDirty = false;
+      const movement = movementMemory.current?.loadId === current.loadId ? movementMemory.current : null;
+      const activeMoves = movement ? movementControl.debugActiveMoves(current.loadId, 20) : [];
+      const targetIndices = new Set(activeMoves.map(move => move.toTileIndex));
+      const pointIndices = new Set<number>();
+      for (const move of activeMoves) {
+        const point = movement?.activeRequests.get(move.requestId)?.crossingPointIndex;
+        if (point !== undefined) pointIndices.add(point);
+      }
+      const obstaclePreview: Record<string, boolean> = {};
+      let obstaclePreviewCount = 0;
+      const obstacles = obstacleMemory.current?.loadId === current.loadId ? obstacleMemory.current.states : null;
+      if (obstacles) for (const [id, active] of obstacles) {
+        if (obstaclePreviewCount++ === 20) break;
+        obstaclePreview[id] = active;
+      }
+      runtimeJson.textContent = JSON.stringify({
+        mapId: current.grid.mapId,
+        playerPosition: current.player.playerPosition,
+        playerFacing: current.player.playerFacing,
+        playerWorldPosition: current.player.playerWorldPosition,
+        playerWorldRotationY: current.player.playerWorldRotationY,
+        playerMovement: current.player.playerMovement,
+        movementResolver: movement ? {
+          config: movement.config, activeMovementCount: movement.activeRequests.size,
+          activeMoves,
+          targetReservations: [...targetIndices].flatMap(tileIndex => {
+            const owners = movement.movementReservationsByTile[tileIndex];
+            return owners?.size ? [{ tileIndex, actors: Object.fromEntries(owners) }] : [];
+          }),
+          crossingPointReservations: [...pointIndices].flatMap(pointIndex => {
+            const owners = movement.movementReservationsByPoint[pointIndex];
+            return owners?.size ? [{ pointIndex, actors: Object.fromEntries(owners) }] : [];
+          }),
+        } : null,
+        obstacleCount: obstacles?.size ?? 0, obstacleStatesPreview: obstaclePreview,
+        inspection: '摘要最多显示 20 项；完整预约和障碍状态请在共享内存面板查看。',
+      }, null, 2);
+    };
+    const refreshRuntimeJson = () => { runtimeJsonDirty = true; };
+    const panelVisibilityObserver = new MutationObserver(() => {
+      if (!panel.content.hidden) renderRuntimeJson();
+    });
+    panelVisibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
+
+    const syncMarker = () => {
+      if (!current) return;
+      if (markerRoot) {
+        markerRoot.position.set(...current.player.playerWorldPosition);
+        markerRoot.rotation.y = current.player.playerWorldRotationY;
+      }
+      refreshRuntimeJson();
+    };
+
+    const renderDebugMarker = () => {
+      if (!current) {
+        disposeMarker();
+        return;
+      }
+      createMarker(current);
+      syncMarker();
+    };
+    debugMarkerToggle.input.addEventListener('change', renderDebugMarker);
+
+    const resolveWorldPosition = (event: MovementView) => (
+      position: Readonly<{ tileX: number; tileY: number }>,
+    ): readonly [number, number, number] => resolveDungeonMapTileWorldLayout(
+      event.grid,
+      event.grid.width,
+      event.grid.height,
+      position.tileX,
+      position.tileY,
+    ).center;
+
+    const interceptBlockedAttempt = (inspection: import('@/core/dungeon-player-movement').DungeonPlayerMovementResult): boolean => {
+      if (inspection.blockedReason !== 'map-boundary'
+        && inspection.blockedReason !== 'movement-obstacle') return false;
+      return blockedAttemptService.tryHandle(inspection as DungeonPlayerBlockedAttempt);
+    };
+
+    const move = (direction: DungeonMovementDirection): boolean => {
+      if (!current || !playerSystem || assembly.isPaused || context.scheduler.isPaused) return false;
+      const event = current;
+      const result = playerSystem.move(direction, {
+        onBlockedAttempt: interceptBlockedAttempt,
+        restrictToMapBounds: boundsToggle.input.checked,
+        restrictMovementObstacles: obstacleToggle.input.checked,
+        ...readTimingOptions(),
+        teleport: teleportToggle.input.checked,
+        resolveWorldPosition: resolveWorldPosition(event),
+      });
+      if (result.handled) {
+        status.textContent = `向 ${direction} 的受阻移动已由其他模块接管。`;
+        return true;
+      }
+      if (!result.started) {
+        status.textContent = result.blockedReason === 'movement-obstacle'
+          ? `移动被阻碍挡住：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
+          : result.blockedReason === 'movement-in-progress'
+            ? '玩家仍在上一次移动过程中。'
+            : `移动被地图边界阻挡：目标格 (${result.to.tileX}, ${result.to.tileY})。`;
+        return true;
+      }
+      syncMarker();
+      if (result.completed) refreshRuntimeJson();
+      status.textContent = result.blockedReason === 'movement-obstacle'
+        ? `玩家尝试向 ${direction} 移动，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
+        : result.blockedReason === 'map-boundary'
+          ? `玩家尝试向 ${direction} 移动，即将被地图边界挡回。`
+        : result.completed
+        ? `玩家瞬移到 (${result.to.tileX}, ${result.to.tileY})，朝向 ${direction}。`
+        : `开始移动到 (${result.to.tileX}, ${result.to.tileY})，同时转向 ${direction}。`;
+      if (result.completed) {
+        observeStep(result);
+        if (result.stopContinuation) clearDirectionalInput();
+        void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-movement-completed' });
+      }
+      return true;
+    };
+
+    const turnPlayer = (turn: DungeonPlayerTurn) => {
+      if (!current || !playerSystem || assembly.isPaused || context.scheduler.isPaused) return;
+      const result = playerSystem!.turn(turn, {
+        ...readTimingOptions(),
+        teleport: teleportToggle.input.checked,
+      });
+      if (!result.started) {
+        status.textContent = '玩家仍在上一次移动或转向过程中。';
+        return;
+      }
+      syncMarker();
+      if (result.completed) refreshRuntimeJson();
+      status.textContent = result.completed
+        ? `玩家原地转向完成：${result.fromFacing} → ${result.toFacing}。`
+        : `开始原地转向：${result.fromFacing} → ${result.toFacing}。`;
+      if (result.completed) {
+        void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-turn-completed' });
+      }
+    };
+
+    const moveRelative = (movement: DungeonPlayerRelativeMovement) => {
+      if (assembly.isPaused || context.scheduler.isPaused) return;
+      if (!current) return;
+      const event = current;
+      const facingBeforeMove = event.player.playerFacing;
+      const result = playerSystem!.moveRelative(movement, {
+        onBlockedAttempt: interceptBlockedAttempt,
+        restrictToMapBounds: boundsToggle.input.checked,
+        restrictMovementObstacles: obstacleToggle.input.checked,
+        ...readTimingOptions(),
+        teleport: teleportToggle.input.checked,
+        resolveWorldPosition: resolveWorldPosition(event),
+      });
+      if (result.handled) { status.textContent = `${movement} 的受阻移动已由其他模块接管。`; return; }
+      if (!result.started) {
+        status.textContent = result.blockedReason === 'movement-obstacle'
+          ? `相对移动被阻碍挡住：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
+          : result.blockedReason === 'movement-in-progress'
+            ? '玩家仍在上一次移动或转向过程中。'
+            : `相对移动被地图边界阻挡：目标格 (${result.to.tileX}, ${result.to.tileY})。`;
+        return;
+      }
+      syncMarker();
+      if (result.completed) refreshRuntimeJson();
+      status.textContent = result.blockedReason === 'movement-obstacle'
+        ? `玩家尝试 ${movement}，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
+        : result.blockedReason === 'map-boundary'
+          ? `玩家尝试 ${movement}，即将被地图边界挡回。`
+        : result.completed
+        ? `${movement} 瞬移完成：玩家位于 (${result.to.tileX}, ${result.to.tileY})，仍朝向 ${facingBeforeMove}。`
+        : `开始 ${movement} 到 (${result.to.tileX}, ${result.to.tileY})，保持朝向 ${facingBeforeMove}。`;
+      if (result.completed) {
+        observeStep(result);
+        if (result.stopContinuation) clearDirectionalInput();
+        void context.communication.request(dungeonRuntimeCommitRequest, {
+          reason: 'player-relative-movement-completed',
+        });
+      }
+    };
+
+    const teleportToPosition = () => {
+      if (assembly.isPaused || context.scheduler.isPaused) return;
+      if (!current) {
+        status.textContent = '尚未创建 DungeonRuntime，无法瞬移。';
+        return;
+      }
+      const tileX = Number(teleportXInput.value);
+      const tileY = Number(teleportYInput.value);
+      if (!Number.isInteger(tileX) || !Number.isInteger(tileY)) {
+        status.textContent = '目标位置必须使用整数格坐标。';
+        return;
+      }
+      const event = current;
+      try {
+        playerSystem!.teleport({ tileX, tileY }, resolveWorldPosition(event)({ tileX, tileY }));
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : '目标位置无效。';
+        return;
+      }
+      syncMarker();
+      refreshRuntimeJson();
+      status.textContent = `玩家已瞬移到 (${tileX}, ${tileY})，保持朝向 ${event.player.playerFacing}。`;
+      void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-position-teleported' });
+    };
+
+    controls.querySelectorAll<HTMLButtonElement>('[data-move]').forEach((button) => {
+      button.addEventListener('click', () => move(button.dataset.move as DungeonMovementDirection));
+    });
+    turnControls.querySelectorAll<HTMLButtonElement>('[data-turn]').forEach((button) => {
+      button.addEventListener('click', () => turnPlayer(button.dataset.turn as DungeonPlayerTurn));
+    });
+    relativeControls.querySelectorAll<HTMLButtonElement>('[data-relative-move]').forEach((button) => {
+      button.addEventListener('click', () => moveRelative(button.dataset.relativeMove as DungeonPlayerRelativeMovement));
+    });
+    teleportPositionButton.addEventListener('click', teleportToPosition);
+    const keyDirections = DUNGEON_PLAYER_ABSOLUTE_KEY_DIRECTIONS;
+    const keyboardRegistration = context.keyboard.register({
+      id: 'player-movement',
+      label: 'Dungeon 玩家移动',
+      keys: Object.keys(keyDirections),
+      enabled: keyboardToggle.input.checked,
+      priority: Number(keyboardPriorityInput.value),
+      intercept: keyboardInterceptToggle.input.checked,
+      preventDefault: keyboardPreventDefaultToggle.input.checked,
+      onKeyDown: (event) => {
+        const direction = keyDirections[event.code];
+        if (!direction) return 'ignored';
+        directionalInput.keyDown(event.code, direction, performance.now(), event.repeat);
+        if (!event.repeat) {
+          if (!current?.player.playerMovement && directionMode() === 'eight-way') {
+            // 延迟到下一渲染帧，让同一帧到达的第二个轴参与当前格步合成。
+            pendingEightWayInitialMove = true;
+          } else if (!current?.player.playerMovement) {
+            const nextDirection = directionalInput.consume(performance.now(), 0, directionMode());
+            if (nextDirection) move(nextDirection);
+          }
+        }
+        return 'handled';
+      },
+      onKeyUp: (event) => {
+        if (!keyDirections[event.code]) return 'ignored';
+        directionalInput.keyUp(event.code);
+        if (!directionalInput.hasHeldDirection) continuousHoldMovementDurationSeconds = null;
+        return 'handled';
+      },
+      onOwnershipChanged: (ownedCodes) => {
+        keyboardOwnershipStatus.textContent = `当前优先拥有：${[...ownedCodes].join('、') || '无'}。`;
+      },
+    });
+    keyboardToggle.input.addEventListener('change', () => {
+      keyboardRegistration.setEnabled(keyboardToggle.input.checked);
+      if (!keyboardToggle.input.checked) clearDirectionalInput();
+    });
+    keyboardPriorityInput.addEventListener('input', () => {
+      const value = Number(keyboardPriorityInput.value);
+      if (Number.isFinite(value)) keyboardRegistration.setPriority(value);
+    });
+    keyboardInterceptToggle.input.addEventListener('change', () => keyboardRegistration.setIntercept(keyboardInterceptToggle.input.checked));
+    keyboardPreventDefaultToggle.input.addEventListener('change', () => keyboardRegistration.setPreventDefault(keyboardPreventDefaultToggle.input.checked));
+    const syncKeyboardControls = () => {
+      const settings = context.keyboard.getConsumer(keyboardRegistration.id);
+      if (!settings) return;
+      keyboardToggle.input.checked = settings.enabled;
+      keyboardPriorityInput.value = String(settings.priority);
+      keyboardInterceptToggle.input.checked = settings.intercept;
+      keyboardPreventDefaultToggle.input.checked = settings.preventDefault;
+    };
+    const offKeyboardChanged = context.keyboard.subscribe(syncKeyboardControls);
+    syncKeyboardControls();
+
+    const inputPolicy = {
+      continuous: continuousMovementToggle.input.checked,
+      multiplier: readFiniteNumber(continuousHoldMultiplierInput, 0.8),
+      offset: readFiniteNumber(continuousHoldOffsetInput, 0),
+    };
+    const syncInputPolicy = () => {
+      inputPolicy.continuous = continuousMovementToggle.input.checked;
+      inputPolicy.multiplier = readFiniteNumber(continuousHoldMultiplierInput, 0.8);
+      inputPolicy.offset = readFiniteNumber(continuousHoldOffsetInput, 0);
+    };
+    for (const input of [continuousMovementToggle.input, continuousHoldMultiplierInput, continuousHoldOffsetInput]) {
+      input.addEventListener('input', syncInputPolicy);
+      input.addEventListener('change', syncInputPolicy);
+    }
+    const resolveContinuousHoldThreshold = (movementDurationSeconds: number): number => (
+      resolveDungeonPlayerContinuousHoldThreshold(
+        movementDurationSeconds,
+        Math.max(0, inputPolicy.multiplier),
+        inputPolicy.offset,
+      )
+    );
+
+    const stopFrameTask = context.scheduler.register({
+      id: 'update', phase: 'simulation', order: 100, description: '推进玩家输入和活动动作',
+      enabled: () => !assembly.isPaused,
+      run: (deltaSeconds) => {
+        if (!current) return;
+        if (!current.player.playerMovement && pendingEightWayInitialMove) {
+          pendingEightWayInitialMove = false;
+          const nextDirection = directionalInput.consume(performance.now(), 0, 'eight-way');
+          if (nextDirection) move(nextDirection);
+        }
+        if (!current.player.playerMovement
+          && inputPolicy.continuous
+          && continuousHoldMovementDurationSeconds !== null) {
+          const nextDirection = directionalInput.consume(
+            performance.now(),
+            resolveContinuousHoldThreshold(continuousHoldMovementDurationSeconds),
+            directionMode(),
+          );
+          if (nextDirection) move(nextDirection);
+        }
+        if (!current.player.playerMovement) return;
+        let remainingSeconds = deltaSeconds;
+        let continuationCount = 0;
+        while (current.player.playerMovement && continuationCount++ < 8) {
+          const requestId = current.player.playerMovement.requestId;
+          const movementKind = requestId && movementMemory.current?.loadId === current.loadId
+            && movementMemory.current.activeRequests.get(requestId)?.state === 'rollback'
+            ? 'rollback'
+            : current.player.playerMovement.kind;
+          const completedMovementDurationSeconds = current.player.playerMovement.movementDurationSeconds;
+          const completedMovementHoldThresholdSeconds = resolveContinuousHoldThreshold(
+            completedMovementDurationSeconds,
+          );
+          if (movementKind === 'move' && directionalInput.hasHeldDirection) {
+            continuousHoldMovementDurationSeconds = completedMovementDurationSeconds;
+          }
+          const result = playerSystem!.update(remainingSeconds);
+          observeStep(result);
+          syncMarker();
+          if (!result.completed) break;
+          remainingSeconds = result.remainingSeconds;
+          status.textContent = movementKind === 'blocked' || movementKind === 'rollback'
+            ? `移动受阻：玩家退回 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})。`
+            : movementKind === 'turn'
+            ? `原地转向完成：玩家仍位于 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})，朝向 ${current.player.playerFacing}。`
+            : `移动完成：玩家位于 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})，朝向 ${current.player.playerFacing}。`;
+          void context.communication.request(dungeonRuntimeCommitRequest, {
+            reason: movementKind === 'turn' ? 'player-turn-completed'
+              : movementKind === 'blocked' || movementKind === 'rollback'
+                ? 'player-movement-blocked' : 'player-movement-completed',
+          });
+          const stopContinuation = result.stopContinuation;
+          if (stopContinuation || !inputPolicy.continuous || movementKind !== 'move') {
+            continuousHoldMovementDurationSeconds = null;
+            break;
+          }
+          const nextDirection = directionalInput.consume(
+            performance.now(),
+            completedMovementHoldThresholdSeconds,
+            directionMode(),
+          );
+          if (!nextDirection) break;
+          move(nextDirection);
+          if (!current.player.playerMovement || remainingSeconds <= 0) break;
+        }
+      },
+    });
+    const stopDebugTask = context.scheduler.register({
+      id: 'debug-summary', phase: 'debug', order: 110, intervalSeconds: .25,
+      description: '按需更新可见玩家摘要',
+      run: () => {
+        if (!panel.content.hidden && (runtimeJsonDirty || movementMemory.current?.activeRequests.size)) renderRuntimeJson();
+      },
+    });
+    let offMovementChanges = () => {};
+    const offReady = context.communication.on(dungeonMapChangedEvent, (changed) => {
+      const loaded = playerMemory.current, grid = gridMemory.current;
+      if (!loaded || !grid || loaded.loadId !== changed.loadId || grid.loadId !== changed.loadId) return;
+      const event: MovementView = {
+        loadId: changed.loadId,
+        player: loaded,
+        grid,
+      };
+      clearDirectionalInput();
+      current = event;
+      offMovementChanges();
+      offMovementChanges = movementControl.subscribe(event.loadId, () => refreshRuntimeJson());
+      playerSystem = playerControl.acquire(loaded.loadId);
+      syncMovementProfile();
+      teleportXInput.max = String(event.grid.width - 1);
+      teleportYInput.max = String(event.grid.height - 1);
+      teleportXInput.value = String(event.player.playerPosition.tileX);
+      teleportYInput.value = String(event.player.playerPosition.tileY);
+      createMarker(event);
+      syncMarker();
+      refreshRuntimeJson();
+      status.textContent = `玩家已在出生格 (${event.player.playerPosition.tileX}, ${event.player.playerPosition.tileY}) 创建，朝向 ${event.player.playerFacing}。`;
+    });
+    const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => refreshRuntimeJson());
+    return () => {
+      offPreparation();
+      steps.dispose();
+      context.services.delete(DUNGEON_PLAYER_STEP_SERVICE_KEY);
+      offReady();
+      offChanged();
+      stopFrameTask();
+      stopDebugTask();
+      offMovementChanges();
+      keyboardRegistration.dispose();
+      offKeyboardChanged();
+      panelVisibilityObserver.disconnect();
+      debugMarkerToggle.input.removeEventListener('change', renderDebugMarker);
+      context.services.delete(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY);
+      disposeMarker();
+      viewConsumer.dispose();
+      context.services.delete(PLAYER_MOVEMENT_VIEW_SERVICE_KEY);
+      displayRoot.dispose();
+    };
+  },
+};

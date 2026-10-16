@@ -9,6 +9,7 @@
 - `sceneWarmupVerification.html`：启动开发服务后访问 `/codex-tools/sceneWarmupVerification.html`，用真实 crossroads 模型验证视野外完整预热、阴影/变形/深度及预热后浏览无新增着色器；结果输出到 `#result`。逻辑与 Loader 生命周期回归使用 `npm run test:scene-warmup`。
 - `dungeonRenderVerification.html`：启动开发服务后访问 `/codex-tools/dungeonRenderVerification.html`，验证真实 dungeon-agent-lab 的静态变形缓存、同帧父变换、Debug 分块绘制数及正交/透视格子像素一致性；结果输出到 `#result`。格子逻辑回归使用 `npm run test:dungeon-grid-rendering`。
 - `buildDialogueMapLab.mjs`：只构建 Dialogue Map Canvas Lab 到 node_modules/.cache/dialogue-map-build，不复制 public 资产。
+- `labEntries.test.mjs`：通过 `npm run test:lab-entries` 检查首页分组、链接目标、组合式 Lab 构建入口和目录归属。
 - `dialogueTextVerification.html`：通过开发服务打开，比较旧版顶部基线裁剪与新字形安全区绘制，在 8 种缩放和 DPR 1/1.25/2 下统计丢失笔画像素，并确认文字实际绘制；结果保存在页面 `#result`，passed 表示所有 24 组新绘制均无裁剪损失。
 
 这里同时包含可执行工具与历史档案；归档不代表所有文件都已停用。修改或删除工具前，检查 package.json、Vite 配置和代码引用。

@@ -1,4 +1,4 @@
-const fs=require('fs');const p='tools/model-shake-lab/ModelShakeLab.tsx';let s=fs.readFileSync(p,'utf8');
+const fs=require('fs');const p='labs/standalone/model-shake-lab/ModelShakeLab.tsx';let s=fs.readFileSync(p,'utf8');
 s=s.replace('type ProxyShape }', 'type ProxyShape, type WeaponHand, type WeaponTrack, mirrorWeaponTrack }');
 s=s.replace("import { createWeaponProxyDebug } from './weaponProxyDebug.ts';\nimport { createModelEntity, type ModelEntity } from '@/core/model';",`import { useWeaponSlot, type WeaponLabRuntime as Runtime } from './useWeaponSlot.ts';
 import { createWeaponAnimationExamples } from '@/core/model/preset/firstPersonWeaponExamples.ts';`);

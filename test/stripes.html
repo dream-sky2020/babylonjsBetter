@@ -157,7 +157,7 @@
           if (!chosen) throw new Error("没有可用条纹预设");
           const key = chosen.presetKey || presetKey;
           preset = normalizePreset(key, chosen);
-          overlay.innerHTML = `preset: <b>${preset.presetKey}</b><br/>name: ${preset.name}<br/><a href="/tools/stripes-config-lab/index.html" target="_blank">打开配置 Lab</a>`;
+          overlay.innerHTML = `preset: <b>${preset.presetKey}</b><br/>name: ${preset.name}<br/><a href="/labs/standalone/stripes-config-lab/index.html" target="_blank">打开配置 Lab</a>`;
         } catch (error) {
           overlay.textContent = `加载预设失败：${String(error)}`;
         }

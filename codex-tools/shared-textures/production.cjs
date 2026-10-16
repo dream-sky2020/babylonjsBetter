@@ -10,7 +10,7 @@ app.whenReady().then(async()=>{
   const window=new BrowserWindow({show:false,width:1440,height:1000,webPreferences:{offscreen:true,backgroundThrottling:false,sandbox:false}});
   try{
     const root=resolveRepoPath(process.env.MODEL_TEXTURE_PRODUCTION_DIR || '.asset-migration/full-production-build');
-    await window.loadFile(path.join(root,'tools/scene-environment-lab/index.html'));
+    await window.loadFile(path.join(root,'labs/standalone/scene-environment-lab/index.html'));
     const result=await window.webContents.executeJavaScript(`(async()=>{
       const wait=async fn=>{for(let i=0;i<2400;i++){if(fn())return;await new Promise(r=>setTimeout(r,50));}throw new Error(document.querySelector('#status')?.textContent||'timeout');};
       await wait(()=>document.querySelector('#preset')?.options.length>0);
@@ -32,7 +32,7 @@ app.whenReady().then(async()=>{
     for(const name of ['model-scene-lab','model-display-lab','animation-workbench-lab','model-shake-lab']){
       const errors=[];const handler=event=>{if(event.message?.includes('Uncaught'))errors.push(event.message);};
       window.webContents.on('console-message',handler);
-      await window.loadFile(path.join(root,`tools/${name}/index.html`));await new Promise(r=>setTimeout(r,1500));
+      await window.loadFile(path.join(root,`labs/standalone/${name}/index.html`));await new Promise(r=>setTimeout(r,1500));
       window.webContents.removeListener('console-message',handler);
       if(errors.length)throw new Error(errors.join('\n'));console.log(`file:// consumer started: ${name}`);
     }

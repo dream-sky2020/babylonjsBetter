@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#111810" />
+  <title>雾港终端 · JRPG Dialogue</title>
+</head>
+<body>
+  <main class="workstation">
+    <header class="masthead"><a href="../../../index.html" class="back-link">← 返回实验室</a><span>INTERACTIVE FICTION / VOL. 01</span></header>
+    <section class="machine" aria-label="雾港终端游戏对话">
+      <div class="machine-top"><div class="brand"><b class="brand-mark" aria-hidden="true">▥</b><strong>FOGPORT</strong><span>远行者终端</span></div><div class="model">MODEL 77<span>TEXT ADVENTURE SYSTEM</span></div></div>
+      <div class="bezel">
+        <div class="crt">
+          <div class="screen">
+            <header class="terminal-header"><span><i class="signal" aria-hidden="true"></i> FOGPORT / 雾港</span><span>连接已建立 <span class="header-extra">· TERM-077</span></span></header>
+            <section class="scene" aria-label="字符画场景：雾港城门">
+              <div class="scene-caption"><span id="location">北城门 / NORTH GATE</span><span id="chapter">序章：最后一班渡船</span></div>
+              <pre class="landscape" aria-hidden="true">                         .                         *
+       *                        .        .
+                                  _..._
+          .                     .'     '.
+                                :       :
+                       .         '.___.'
+          |&gt;                              |&gt;
+          |       _   _   _   _           |
+      _   |   _  | |_| |_| |_| |       _   |   _
+     | |_| |_| | |             |     | |_| |_| |
+     |         |_|    _____    |_____|         |
+     |   []    |     /     \   |     |    []   |
+     |         |    |   :   |  |     |         |
+ ____|_________|____|___:___|__|_____|_________|____
+ ~  ~    ~   ~    ~    / : \    ~   ~    ~    ~  ~
+                     /  :  \
+       . . .        /   :   \          . . .
+ _________________/____:____\____________________</pre>
+              <div class="scene-footer"><span>风向 NNE · 月相 Ⅲ</span><span>▰▰▰▰▰ <span class="dim">信号稳定</span></span></div>
+            </section>
+            <div class="session-line"><span>会话 <b id="session-number">001</b></span><span id="quest-status">任务：寻找通往灯塔的路</span></div>
+            <section class="dialogue" aria-label="当前对白">
+              <div class="portrait" aria-hidden="true"><pre>    _______
+   / _____ \
+  | /     \ |
+  | | . . | |
+  | |  ^  | |
+   \| --- |/
+    /|___|\
+  _/ |   | \_
+ /___|___|___\</pre><span id="portrait-label">GATEKEEPER</span></div>
+              <div class="speech"><div class="speaker-line"><strong id="speaker">守门人 · 伊莱</strong><span id="speaker-role">北城门值守</span></div><p id="dialogue-text"></p><div class="speech-footer"><span id="read-status">接收中…</span><button id="advance" class="terminal-button">继续 <span>↵</span></button></div></div>
+            </section>
+            <section class="responses" aria-label="对话选项"><div class="responses-heading"><span>请选择回应</span><span>↑ ↓ 选择 / ENTER 确认</span></div><div id="choices"></div></section>
+            <nav class="quick-menu" aria-label="对话控制"><button id="auto" aria-pressed="false">[A] 自动阅读</button><button id="history">[L] 对话记录</button><button id="save">[S] 存档</button><button id="load">[R] 读档</button><button id="settings">显示设置</button><button id="restart">重新开始</button></nav>
+            <div class="terminal-bottom"><span>FOGPORT OS / 1.0</span><span id="notice" role="status">等待你的回应<span class="blink" aria-hidden="true"> █</span></span><span>1977</span></div>
+          </div>
+        </div>
+      </div>
+      <footer class="machine-bottom"><div class="hardware-status"><span class="power-light"></span> POWER ON <span class="divider">/</span> 48K MEMORY</div><div class="vents" aria-hidden="true">|||||||||||||||||||||||||||||||</div><button id="phosphor" aria-label="切换绿色或琥珀色显示">PHOSPHOR <b id="phosphor-label">P1 GREEN</b> ◉</button></footer>
+    </section>
+    <footer class="page-footer"><span>一段旅程，从一句回应开始。</span><span>点击文字可立即显示整句 · Space / Enter 继续</span></footer>
+  </main>
+  <dialog id="log-dialog"><header><h2>对话记录 / TRANSCRIPT</h2><button data-close aria-label="关闭对话记录">×</button></header><ol id="log-entries"></ol><button data-close class="dialog-bottom">返回对话</button></dialog>
+  <dialog id="settings-dialog"><header><h2>显示设置 / DISPLAY</h2><button data-close aria-label="关闭显示设置">×</button></header><label>文字速度<select id="speed"><option value="45">慢速</option><option value="25" selected>标准</option><option value="10">快速</option><option value="0">即时显示</option></select></label><label>磷光颜色<select id="theme"><option value="green">P1 · 磷光绿</option><option value="amber">P3 · 琥珀色</option></select></label><label class="check-label"><input type="checkbox" id="scanlines" checked /> 显示 CRT 扫描线</label><p>自动阅读会在选项处暂停。存档仅保存在当前浏览器。</p><button data-close class="dialog-bottom">返回对话</button></dialog>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

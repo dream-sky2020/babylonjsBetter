@@ -3,7 +3,7 @@ import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import { createDialogueEditorDocument, createDialogueEditorNode, connectDialogueNodes, dialogueNodeInputPortId, encodeDialogueEditorDocument, parseDialogueEditorDocument, validateDialogueEditorDocument, cloneDialogueEditorDocument, resolveDialogueEditorSelection } from './dialogueMap.ts';
 import { compileDialogueEditorDocument } from './dialogueCompiler.ts';
-import { dialogueRuleCatalog } from '../../tools/dialogue-map-canvas-lab/dialogueRuleCatalog.ts';
+import { dialogueRuleCatalog } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueRuleCatalog.ts';
 
 const preset = () => parseDialogueEditorDocument(JSON.parse(readFileSync(new URL('../../config/dialogueMapPresets/village_gate.json', import.meta.url), 'utf8')));
 test('new preset contains three node kinds and send/wait events, compiles with no issues', () => {

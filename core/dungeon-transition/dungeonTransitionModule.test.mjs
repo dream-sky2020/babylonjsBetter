@@ -19,17 +19,17 @@ test('transition module preserves synchronous step precedence, interaction/PUSH,
   }
   let engine, scene, cleanup, steps;
   try {
-    const { LabUi } = await server.ssrLoadModule('/tools/lab-kit/labUi.ts');
-    const { LabMemoryRegistry } = await server.ssrLoadModule('/tools/lab-kit/shared-memory/LabMemory.ts');
-    const { dungeonTransitionLabModule } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-transition/dungeonTransition.labModule.ts');
-    const transitionData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-transition/dungeonTransition.memory.ts');
-    const gridData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-grid/dungeonGrid.memory.ts');
-    const playerData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts');
-    const librariesData = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-libraries/dungeonLibraries.memory.ts');
+    const { LabUi } = await server.ssrLoadModule('/labs/kit/labUi.ts');
+    const { LabMemoryRegistry } = await server.ssrLoadModule('/labs/kit/shared-memory/LabMemory.ts');
+    const { dungeonTransitionLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-transition/dungeonTransition.labModule.ts');
+    const transitionData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-transition/dungeonTransition.memory.ts');
+    const gridData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-grid/dungeonGrid.memory.ts');
+    const playerData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts');
+    const librariesData = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-libraries/dungeonLibraries.memory.ts');
     const controls = await server.ssrLoadModule('/core/dungeon-transition/dungeonTransitionControl.ts');
     const stepApi = await server.ssrLoadModule('/core/dungeon-player-movement/dungeonPlayerStepEvents.ts');
-    const blockedApi = await server.ssrLoadModule('/tools/lab-modules/dungeon/player-movement/playerMovement.blockedAttempt.ts');
-    const mapApi = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.protocol.ts');
+    const blockedApi = await server.ssrLoadModule('/labs/modules/dungeon/player-movement/playerMovement.blockedAttempt.ts');
+    const mapApi = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-map-loader/dungeonMapLoader.protocol.ts');
     const exit = (id, triggers) => ({ id, entityType: 'dungeon-exit', components: [{ id: `${id}-component`, type: 'dungeon-exit', version: 2,
       triggers, targetMapPresetKey: 'next', targetEntranceId: 'main' }] });
     const entrance = { id: 'entrance', entityType: 'dungeon-entrance', components: [{ id: 'entrance-component', type: 'dungeon-entrance', version: 1, entranceId: 'main', facing: 'east' }] };

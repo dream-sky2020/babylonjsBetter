@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { cloneDialogueEditorDocument, createDialogueEditorDocument, createDialogueEditorNode } from './dialogueMap.ts';
 import { parseDialogueCondition, validateDialogueNodeRules } from './dialogueRules.ts';
-import { dialogueRuleCatalog } from '../../tools/dialogue-map-canvas-lab/dialogueRuleCatalog.ts';
-import { commitDialogueHistory, createDialogueHistory, redoDialogueHistory, undoDialogueHistory } from '../../tools/dialogue-map-canvas-lab/dialogueHistory.ts';
+import { dialogueRuleCatalog } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueRuleCatalog.ts';
+import { commitDialogueHistory, createDialogueHistory, redoDialogueHistory, undoDialogueHistory } from '../../labs/standalone/dialogue-map-canvas-lab/dialogueHistory.ts';
 
 test('catalog validates numeric comparisons, event parameters and unknown references', () => {
   const node = createDialogueEditorNode('test', { x: 0, y: 0 }, 'condition'); assert.equal(node.kind, 'condition');

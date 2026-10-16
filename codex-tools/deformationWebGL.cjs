@@ -9,10 +9,10 @@ app.whenReady().then(async () => {
   const window = new BrowserWindow({ show: false, width: 1280, height: 900, webPreferences: { backgroundThrottling: false, offscreen: true } });
   window.webContents.on('console-message', details => fs.appendFileSync(resolveRepoPath('node_modules/.cache/deformation-webgl-console.log'), `${details.message}\n`));
   try {
-    await window.loadURL(process.env.DEFORMATION_TEST_URL || 'http://localhost:1184/tools/dungeon-overhead-view-lab/verification.html');
+    await window.loadURL(process.env.DEFORMATION_TEST_URL || 'http://localhost:1184/labs/composable/dungeon-overhead-view-lab/verification.html');
     const result = await window.webContents.executeJavaScript('window.deformationVerification');
     if (!result) throw new Error('验证页面未初始化');
-    await window.loadURL(new URL('index.html', process.env.DEFORMATION_TEST_URL || 'http://localhost:1184/tools/dungeon-overhead-view-lab/verification.html').href);
+    await window.loadURL(new URL('index.html', process.env.DEFORMATION_TEST_URL || 'http://localhost:1184/labs/composable/dungeon-overhead-view-lab/verification.html').href);
     const smoke = await window.webContents.executeJavaScript(`new Promise((resolve, reject) => {
       let count = 0; const poll = () => {
         const text = document.body.textContent;

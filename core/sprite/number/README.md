@@ -25,4 +25,4 @@ number.dispose();
 `spacing` 是所有相邻字符的基础间距。启用 `groupingEnabled` 后，整数部分会从右侧每三位额外加入
 `groupingExtraSpacing`，例如 `1 | 234 | 567`；不会插入逗号，也不会影响小数部分。
 
-配置工具：`/tools/number-sprite-lab/index.html`。
+配置工具：`/labs/standalone/number-sprite-lab/index.html`。

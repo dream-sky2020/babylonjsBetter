@@ -128,7 +128,7 @@ const controller = createBurstParticleEffect(scene, {
 controller.start();
 ```
 
-参考实现：`hooks/particleEditor/useParticleController.ts`、`tools/battle-lab/battle.tsx`。
+参考实现：`hooks/particleEditor/useParticleController.ts`、`labs/standalone/battle-lab/battle.tsx`。
 
 ### 预设仓储 API
 

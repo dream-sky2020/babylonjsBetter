@@ -61,7 +61,7 @@ server.middlewares.stack.unshift({ route: '', handle: async (req, res, next) => 
 try {
   await server.listen();
   const port = server.httpServer.address().port;
-  const env = { ...process.env, SCENE_ENVIRONMENT_TEST_URL: `http://127.0.0.1:${port}/tools/scene-environment-lab/index.html`, SCENE_ENVIRONMENT_PRODUCTION_URL: `http://127.0.0.1:${port}/__scene-production/tools/scene-environment-lab/index.html` };
+  const env = { ...process.env, SCENE_ENVIRONMENT_TEST_URL: `http://127.0.0.1:${port}/labs/standalone/scene-environment-lab/index.html`, SCENE_ENVIRONMENT_PRODUCTION_URL: `http://127.0.0.1:${port}/__scene-production/labs/standalone/scene-environment-lab/index.html` };
   delete env.ELECTRON_RUN_AS_NODE;
   const code = await new Promise((resolve, reject) => {
     const child = spawnElectron(['codex-tools/sceneEnvironmentBrowser.cjs'], { env, windowsHide: true, stdio: 'inherit' });

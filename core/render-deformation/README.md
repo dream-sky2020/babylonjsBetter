@@ -70,7 +70,7 @@ unregister();
 
 启动开发服务后执行 `npm run test:deformation-webgl`：隐藏 Electron 窗口使用 SwiftShader WebGL2，验证真实 PBR/Standard/骨骼/精灵编译、画面变形和还原、共享材质隔离、阴影、浮点深度、CPU/GPU 粒子四种 blend Shader 及实际绘制，最后启动完整俯视 Lab 并截图。它不是实体显卡/WebGPU 的覆盖证明。可通过 `DEFORMATION_TEST_URL` 指定验证页面 URL。
 
-测试 Lab 使用方法见 `tools/dungeon-overhead-view-lab/README.md`。
+测试 Lab 使用方法见 `labs/composable/dungeon-overhead-view-lab/README.md`。
 
 开发服务的 `/codex-tools/instanceDeformationVerification.html` 对比克隆与实例的 Standard/PBR 画面（含阴影）、浮点深度和单帧绘制次数，另使用 crossroads 的真实 GLB 验证共享材质及独立覆盖。页面以 `#result` 输出 JSON，适合无窗口浏览器自动验证。
 

@@ -1,14 +1,14 @@
 import { ArcRotateCamera, Color3, Engine, MeshBuilder, Scene, StandardMaterial, TransformNode, Vector3 } from '@babylonjs/core';
-import { createLab } from '../tools/lab-kit';
-import { dungeonLabModuleCatalog } from '../tools/lab-modules/dungeon';
+import { createLab } from '../labs/kit';
+import { dungeonLabModuleCatalog } from '../labs/modules/dungeon';
 import { DEFAULT_OVERHEAD_VIEW } from '../core/dungeon-view/dungeonOverheadView';
 import { getVisualDeformationRegistry } from '../core/render-deformation/visualDeformationRegistry';
 import { meshDeformationMatrices } from '../core/render-deformation/deformationMaterial';
 import { resolveDungeonMapTileWorldLayout } from '../core/scene/dungeonMapSceneLayout';
-import { DUNGEON_GRID_MEMORY, type DungeonGridData } from '../tools/lab-modules/dungeon/dungeon-grid/dungeonGrid.memory';
-import { DUNGEON_GRID_VIEW_SERVICE_KEY } from '../tools/lab-modules/dungeon/dungeon-grid/dungeonGrid.view';
-import { createDungeonGridDebugMeshes } from '../tools/lab-modules/dungeon/dungeon-grid/dungeonGridDebugMesh';
-import '../tools/lab-kit/styles.css';
+import { DUNGEON_GRID_MEMORY, type DungeonGridData } from '../labs/modules/dungeon/dungeon-grid/dungeonGrid.memory';
+import { DUNGEON_GRID_VIEW_SERVICE_KEY } from '../labs/modules/dungeon/dungeon-grid/dungeonGrid.view';
+import { createDungeonGridDebugMeshes } from '../labs/modules/dungeon/dungeon-grid/dungeonGridDebugMesh';
+import '../labs/kit/styles.css';
 
 const pause = () => new Promise<void>(resolve => setTimeout(resolve, 16));
 async function verifyLab() {

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <title>边狱巴士战斗 UI - 游戏层</title>
+    <style>
+        
+        :root {
+            --bg-color: #1a1a1a;
+            --panel-bg: #2d2d2d;
+            --text-color: #eeeeee;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .dashboard {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            height: 350px;
+            background-color: var(--panel-bg);
+            border: 3px solid #444;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        #line-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        .sinner-col {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 20;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .skill-node {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 3px solid #222;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.1s, border-color 0.2s, box-shadow 0.2s;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .skill-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .skill-node.selected {
+            border-color: #fff;
+            transform: scale(1.1);
+        }
+
+        .glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 20px currentcolor;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .skill-node.selected .glow {
+            opacity: 1;
+        }
+
+        .info-text {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #aaa;
+            text-align: center;
+            min-height: 54px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard" id="dashboard">
+        <svg id="line-layer"></svg>
+        <canvas id="particle-canvas"></canvas>
+    </div>
+
+    <div class="info-text" id="info">正在等待控制台指令初始化...</div>
+
+    <script>
+        // ==========================================
+        // 粒子特效系统 (Canvas Particle System)
+        // ==========================================
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 5 + 2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.life = 1.0;
+                this.decay = Math.random() * 0.03 + 0.02;
+                this.size = Math.random() * 4 + 2;
+            }
+            update() {
+                this.vx *= 0.92; this.vy *= 0.92;
+                this.x += this.vx; this.y += this.vy;
+                this.life -= this.decay;
+            }
+            draw(ctx) {
+                ctx.globalAlpha = this.life; ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+                ctx.shadowBlur = 10; ctx.shadowColor = this.color;
+                ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                if (p.life <= 0) particles.splice(i, 1);
+                else p.draw(ctx);
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        function triggerNodeBurst(nodeElement, colorHex) {
+            const dashRect = document.getElementById('dashboard').getBoundingClientRect();
+            const nodeRect = nodeElement.getBoundingClientRect();
+            const centerX = nodeRect.left + nodeRect.width / 2 - dashRect.left;
+            const centerY = nodeRect.top + nodeRect.height / 2 - dashRect.top;
+            for (let i = 0; i < 25; i++) particles.push(new Particle(centerX, centerY, colorHex));
+        }
+
+        // ==========================================
+        // 核心战斗数据与逻辑
+        // ==========================================
+        const SIN_COLORS = [
+            { name: 'Wrath (愤怒)', hex: '#e74c3c' },
+            { name: 'Lust (色欲)', hex: '#e67e22' },
+            { name: 'Sloth (怠惰)', hex: '#f1c40f' },
+            { name: 'Gluttony (暴食)', hex: '#2ecc71' },
+            { name: 'Gloom (忧郁)', hex: '#3498db' },
+            { name: 'Pride (傲慢)', hex: '#11105e' },
+            { name: 'Envy (嫉妒)', hex: '#9b59b6' }
+        ];
+
+        let numCols = 5;
+        let colRowCounts = [2, 2, 2, 2, 2];
+        let grid = [];
+        let chain = [];
+        let isDragging = false;
+        let currentMousePos = { x: 0, y: 0 };
+        let customSkillPool = [];
+
+        function distToSegmentSquared(p, v, w) {
+            const l2 = (w.x - v.x) ** 2 + (w.y - v.y) ** 2;
+            if (l2 === 0) return (p.x - v.x) ** 2 + (p.y - v.y) ** 2;
+            let t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+            t = Math.max(0, Math.min(1, t));
+            const projX = v.x + t * (w.x - v.x);
+            const projY = v.y + t * (w.y - v.y);
+            return (p.x - projX) ** 2 + (p.y - projY) ** 2;
+        }
+
+        window.LimbusAPI = {
+            setBoardConfig: function (cols, rowCounts) { numCols = cols; colRowCounts = rowCounts; initBoard(); },
+            rerollBoard: function () { initBoard(); },
+            autoChain: function () { executeAutoChain(); },
+            setSkillPool: function (pool) { customSkillPool = Array.isArray(pool) ? pool : []; initBoard(); }
+        };
+
+        const query = new URLSearchParams(window.location.search);
+        const sessionId = query.get("session") || "demo1";
+        const channelName = `limbus-control-${sessionId}`;
+        const controlChannel = typeof BroadcastChannel !== "undefined" ? new BroadcastChannel(channelName) : null;
+
+        function emitEvent(command, payload = {}, requestId = "") {
+            const message = { type: "limbus-event", sessionId, command, payload, requestId };
+            if (window.parent && window.parent !== window) window.parent.postMessage(message, window.location.origin);
+            if (controlChannel) controlChannel.postMessage(message);
+        }
+
+        function processCommand(data) {
+            if (!data || data.type !== "limbus-command" || data.sessionId !== sessionId) return;
+            const { command, payload = {}, requestId = "" } = data;
+            try {
+                switch (command) {
+                    case "setBoardConfig": LimbusAPI.setBoardConfig(payload.numCols, payload.colRowCounts); break;
+                    case "rerollBoard": LimbusAPI.rerollBoard(); break;
+                    case "autoChain": LimbusAPI.autoChain(); break;
+                    case "setSkillPool": LimbusAPI.setSkillPool(payload); break;
+                    default: return;
+                }
+                emitEvent("ack", { ok: true, command }, requestId);
+            } catch (err) { emitEvent("ack", { ok: false, error: String(err) }, requestId); }
+        }
+
+        window.addEventListener("message", (e) => { if (e.data && e.data.command === "hello") { emitEvent("ready", { source: "postMessage" }); return; } processCommand(e.data); });
+        if (controlChannel) controlChannel.addEventListener("message", (e) => { if (e.data && e.data.command === "hello") { emitEvent("ready", { source: "broadcast" }); return; } processCommand(e.data); });
+
+        function pickSkillFromPool() {
+            if (!Array.isArray(customSkillPool) || customSkillPool.length === 0) return null;
+            const preparedPool = customSkillPool.filter(skill => skill && typeof skill === 'object');
+            if (preparedPool.length === 0) return null;
+
+            const totalWeight = preparedPool.reduce((sum, skill) => {
+                const weight = Number(skill.weight);
+                return sum + (Number.isFinite(weight) && weight > 0 ? weight : 1);
+            }, 0);
+
+            let roll = Math.random() * totalWeight;
+            for (const skill of preparedPool) {
+                const weight = Number(skill.weight);
+                const normalizedWeight = Number.isFinite(weight) && weight > 0 ? weight : 1;
+                roll -= normalizedWeight;
+                if (roll <= 0) return skill;
+            }
+            return preparedPool[preparedPool.length - 1];
+        }
+
+        function initBoard() {
+            const dashboard = document.getElementById('dashboard');
+            const infoText = document.getElementById('info');
+            dashboard.querySelectorAll('.sinner-col').forEach(e => e.remove());
+            document.getElementById('line-layer').innerHTML = '';
+
+            grid = []; chain = []; particles = []; isDragging = false;
+            infoText.innerHTML = "面板已重置。<br>提示：你可以随意拖拽拉长射线，即使从缝隙穿过也会自动吸附。";
+
+            for (let col = 0; col < numCols; col++) {
+                const colDiv = document.createElement('div');
+                colDiv.className = 'sinner-col';
+                let colData = [];
+                const rowsForThisCol = colRowCounts[col] || 1;
+
+                for (let row = 0; row < rowsForThisCol; row++) {
+                    let colorData;
+                    let bgColor;
+                    let borderColor;
+                    let iconUrl;
+
+                    const skillDef = pickSkillFromPool();
+                    if (skillDef) {
+                        colorData = {
+                            name: skillDef.colorName || 'Unknown',
+                            hex: skillDef.colorHex || '#ffffff'
+                        };
+                        bgColor = skillDef.background || skillDef.colorHex || '#333333';
+                        borderColor = skillDef.borderColor || '#222';
+                        iconUrl = skillDef.icon || null;
+                    } else {
+                        const randomColor = SIN_COLORS[Math.floor(Math.random() * SIN_COLORS.length)];
+                        colorData = randomColor;
+                        bgColor = randomColor.hex;
+                        borderColor = '#222';
+                        iconUrl = null;
+                    }
+
+                    const node = document.createElement('div');
+                    node.className = 'skill-node';
+                    node.style.background = bgColor;
+                    node.style.borderColor = borderColor;
+                    node.style.color = colorData.hex;
+
+                    if (iconUrl) {
+                        const iconImg = document.createElement('img');
+                        iconImg.className = 'skill-icon';
+                        iconImg.src = iconUrl;
+                        node.appendChild(iconImg);
+                    }
+
+                    const glow = document.createElement('div');
+                    glow.className = 'glow';
+                    node.appendChild(glow);
+
+                    node.addEventListener('mousedown', (e) => {
+                        updateMousePos(e);
+                        handleNodeMouseDown(col, row, node, colorData);
+                    });
+
+                    colDiv.appendChild(node);
+                    colData.push({ col, row, element: node, colorData: colorData });
+                }
+                grid.push(colData);
+                dashboard.appendChild(colDiv);
+            }
+            setTimeout(resizeCanvas, 50);
+        }
+
+        // ==========================================
+        // 鼠标射线交互主逻辑 (缝隙穿透 + 磁滞防抖)
+        // ==========================================
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            updateMousePos(e);
+
+            const dashRect = document.getElementById('dashboard').getBoundingClientRect();
+
+            const popRadiusSq = 32 * 32;
+            const swapRadiusSq = 45 * 45;
+            const pushRadiusSq = 65 * 65;
+
+            let popped = false;
+
+            // 1. 历史节点回退检测 
+            for (let i = chain.length - 2; i >= 0; i--) {
+                const prevNode = chain[i];
+                const prevRect = prevNode.element.getBoundingClientRect();
+                const C_prev_x = prevRect.left + prevRect.width / 2 - dashRect.left;
+                const C_prev_y = prevRect.top + prevRect.height / 2 - dashRect.top;
+
+                const distToPrevSq = (currentMousePos.x - C_prev_x) ** 2 + (currentMousePos.y - C_prev_y) ** 2;
+                const isTouchingNode = distToPrevSq < popRadiusSq;
+                const isCrossingLeftBound = currentMousePos.x < (C_prev_x + 35);
+
+                if (isTouchingNode || isCrossingLeftBound) {
+                    chain = chain.slice(0, i + 1);
+                    popped = true;
+                    break;
+                }
+            }
+
+            if (!popped) {
+                let swapped = false;
+
+                // 2. 同列智能替换检测 (引入 Hysteresis 磁滞)
+                if (chain.length > 0) {
+                    const currentColIdx = chain.length - 1;
+                    const targetNodes = grid[currentColIdx];
+                    const currentNode = chain[currentColIdx]; // 当前已被吸附的节点
+
+                    // 获取当前节点的中心点
+                    const currRect = currentNode.element.getBoundingClientRect();
+                    const C_curr = {
+                        x: currRect.left + currRect.width / 2 - dashRect.left,
+                        y: currRect.top + currRect.height / 2 - dashRect.top
+                    };
+
+                    let A;
+                    let isFirstCol = false;
+                    if (chain.length > 1) {
+                        const prevRect = chain[chain.length - 2].element.getBoundingClientRect();
+                        A = { x: prevRect.left + prevRect.width / 2 - dashRect.left, y: prevRect.top + prevRect.height / 2 - dashRect.top };
+                    } else {
+                        isFirstCol = true;
+                        A = C_curr;
+                    }
+                    const B = currentMousePos;
+
+                    // 计算【当前节点】距离鼠标射线的距离
+                    let distToCurrSq = isFirstCol
+                        ? (C_curr.x - B.x) ** 2 + (C_curr.y - B.y) ** 2
+                        : distToSegmentSquared(C_curr, A, B);
+
+                    let bestSwapNode = null;
+                    let minSwapDist = swapRadiusSq;
+
+                    for (let i = 0; i < targetNodes.length; i++) {
+                        const targetData = targetNodes[i];
+                        if (targetData.element === currentNode.element) continue;
+
+                        const targetRect = targetData.element.getBoundingClientRect();
+                        const C = {
+                            x: targetRect.left + targetRect.width / 2 - dashRect.left,
+                            y: targetRect.top + targetRect.height / 2 - dashRect.top
+                        };
+
+                        // 计算【新节点】距离鼠标射线的距离
+                        let dist = isFirstCol
+                            ? (C.x - B.x) ** 2 + (C.y - B.y) ** 2
+                            : distToSegmentSquared(C, A, B);
+
+                        // 【核心改动：磁滞防抖逻辑】
+                        // 新节点的距离不仅要符合吸附标准(dist < minSwapDist)
+                        // 且距离必须比旧节点“小很多” (dist < distToCurrSq - 600)
+                        // 这里的 600 相当于鼠标越过两个球中线 5~6 个像素的差距。这就彻底杀死了中线处的轻微抖动！
+                        if (dist < minSwapDist && dist < (distToCurrSq - 600)) {
+                            minSwapDist = dist;
+                            bestSwapNode = targetData;
+                        }
+                    }
+
+                    if (bestSwapNode) {
+                        chain[currentColIdx] = bestSwapNode;
+                        triggerNodeBurst(bestSwapNode.element, bestSwapNode.colorData.hex);
+                        swapped = true;
+                    }
+                }
+
+                // 3. 向前穿透吸附检测
+                if (!swapped && chain.length > 0 && chain.length < numCols) {
+                    const lastNode = chain[chain.length - 1];
+                    const nextCol = chain.length;
+                    const targetNodes = grid[nextCol];
+
+                    const startRect = lastNode.element.getBoundingClientRect();
+                    const A = {
+                        x: startRect.left + startRect.width / 2 - dashRect.left,
+                        y: startRect.top + startRect.height / 2 - dashRect.top
+                    };
+                    const B = currentMousePos;
+
+                    let bestPushNode = null;
+                    let minPushDist = pushRadiusSq;
+
+                    for (let i = 0; i < targetNodes.length; i++) {
+                        const targetData = targetNodes[i];
+                        const targetRect = targetData.element.getBoundingClientRect();
+                        const C = {
+                            x: targetRect.left + targetRect.width / 2 - dashRect.left,
+                            y: targetRect.top + targetRect.height / 2 - dashRect.top
+                        };
+
+                        const dist = distToSegmentSquared(C, A, B);
+                        if (dist < minPushDist) {
+                            minPushDist = dist;
+                            bestPushNode = targetData;
+                        }
+                    }
+
+                    if (bestPushNode) {
+                        chain.push(bestPushNode);
+                        triggerNodeBurst(bestPushNode.element, bestPushNode.colorData.hex);
+                    }
+                }
+            }
+
+            updateVisuals();
+        });
+
+        function updateMousePos(e) {
+            const dashboard = document.getElementById('dashboard');
+            const dashRect = dashboard.getBoundingClientRect();
+            currentMousePos.x = e.clientX - dashRect.left;
+            currentMousePos.y = e.clientY - dashRect.top;
+        }
+
+        function handleNodeMouseDown(col, row, element, colorData) {
+            const existingIdx = chain.findIndex(item => item.col === col);
+            if (existingIdx !== -1) {
+                if (chain[existingIdx].element !== element) {
+                    chain[existingIdx] = { col, row, element, colorData };
+                    chain = chain.slice(0, existingIdx + 1);
+                    triggerNodeBurst(element, colorData.hex);
+                    isDragging = true;
+                    updateVisuals();
+                } else {
+                    chain = chain.slice(0, existingIdx + 1);
+                    isDragging = true;
+                    updateVisuals();
+                }
+            } else if (col === 0 && chain.length === 0) {
+                isDragging = true;
+                chain = [{ col, row, element, colorData }];
+                triggerNodeBurst(element, colorData.hex);
+                updateVisuals();
+            } else if (col === chain.length) {
+                isDragging = true;
+                chain.push({ col, row, element, colorData });
+                triggerNodeBurst(element, colorData.hex);
+                updateVisuals();
+            }
+        }
+
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            const infoText = document.getElementById('info');
+            if (chain.length === numCols) {
+                const resonances = calculateResonance();
+                infoText.innerHTML = `行动已确认！共连线 <span style="color:#fff">${chain.length}</span> 个技能。<br>最高共鸣颜色: <b style="color:${getHexByName(resonances.colorName)}">${resonances.colorName}</b> (共 ${resonances.count} 个)`;
+                emitEvent("chainCompleted", { length: chain.length, resonance: resonances });
+            } else if (chain.length > 0) {
+                infoText.innerHTML = "<span style='color:#e74c3c'>排盘未满，可随时点击继续连接或修改当前排盘。</span>";
+            }
+            updateVisuals();
+        });
+
+        function executeAutoChain() {
+            chain = []; let prevColor = null;
+            for (let c = 0; c < numCols; c++) {
+                const currentColNodes = grid[c];
+                if (!currentColNodes || currentColNodes.length === 0) continue;
+                let selectedNode = currentColNodes[Math.floor(Math.random() * currentColNodes.length)];
+                if (prevColor) {
+                    const matchedNodes = currentColNodes.filter(node => node.colorData.name === prevColor.name);
+                    if (matchedNodes.length > 0) selectedNode = matchedNodes[Math.floor(Math.random() * matchedNodes.length)];
+                }
+                prevColor = selectedNode.colorData;
+                chain.push(selectedNode);
+                setTimeout(() => { triggerNodeBurst(selectedNode.element, selectedNode.colorData.hex); }, c * 100);
+            }
+            updateVisuals();
+            const infoText = document.getElementById('info');
+            const resonances = calculateResonance();
+            infoText.innerHTML = `已应用自动选择！<br>最高共鸣颜色: <b style="color:${getHexByName(resonances.colorName)}">${resonances.colorName}</b> (共 ${resonances.count} 个)`;
+            emitEvent("chainCompleted", { length: chain.length, resonance: resonances });
+        }
+
+        function updateVisuals() {
+            document.querySelectorAll('.skill-node').forEach(el => el.classList.remove('selected'));
+            const svg = document.getElementById('line-layer');
+            svg.innerHTML = '';
+            if (chain.length === 0) return;
+
+            chain.forEach(item => item.element.classList.add('selected'));
+            const dashRect = document.getElementById('dashboard').getBoundingClientRect();
+
+            for (let i = 0; i < chain.length - 1; i++) {
+                const startNode = chain[i].element.getBoundingClientRect();
+                const endNode = chain[i + 1].element.getBoundingClientRect();
+                const startX = startNode.left + startNode.width / 2 - dashRect.left;
+                const startY = startNode.top + startNode.height / 2 - dashRect.top;
+                const endX = endNode.left + endNode.width / 2 - dashRect.left;
+                const endY = endNode.top + endNode.height / 2 - dashRect.top;
+                drawLine(svg, startX, startY, endX, endY, chain[i].colorData.hex);
+            }
+
+            if (isDragging && chain.length > 0 && chain.length <= numCols) {
+                const lastIdx = chain.length - 1;
+                const lastNode = chain[lastIdx].element.getBoundingClientRect();
+                const startX = lastNode.left + lastNode.width / 2 - dashRect.left;
+                const startY = lastNode.top + lastNode.height / 2 - dashRect.top;
+                drawLine(svg, startX, startY, currentMousePos.x, currentMousePos.y, chain[lastIdx].colorData.hex);
+            }
+        }
+
+        function drawLine(svgElement, x1, y1, x2, y2, color) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+            line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+            line.setAttribute('stroke', color); line.setAttribute('stroke-width', '8');
+            line.setAttribute('stroke-linecap', 'round');
+            line.setAttribute('filter', 'drop-shadow(0px 0px 5px rgba(255,255,255,0.5))');
+            svgElement.appendChild(line);
+        }
+
+        function calculateResonance() {
+            let counts = {}; let maxCount = 0; let maxColor = 'None';
+            chain.forEach(item => {
+                const cName = item.colorData.name;
+                counts[cName] = (counts[cName] || 0) + 1;
+                if (counts[cName] > maxCount) { maxCount = counts[cName]; maxColor = cName; }
+            });
+            return { colorName: maxColor, count: maxCount };
+        }
+
+        function getHexByName(name) { return (SIN_COLORS.find(c => c.name === name) || { hex: '#fff' }).hex; }
+
+        emitEvent("ready", { source: "boot" });
+        initBoard();
+        requestAnimationFrame(animateParticles);
+
+    </script>
+</body>
+
+</html>

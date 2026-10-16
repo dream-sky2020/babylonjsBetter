@@ -4,7 +4,7 @@
 
 `createGameTime()` 返回 `GameTimeController`。控制器和业务模块共享同一个 `GameTimeState` 引用；业务模块在高频路径直接通过控制器或该引用工作，不需要经过中央容器中转。
 
-组合式 Lab 若使用时间模块，应由对应的 `tools/lab-modules/...` 适配器把 `controller.state` 注册到 `context.labState`。LabState 只保留同一引用，用于 Debug、存档生成和存档恢复，不接管业务访问。
+组合式 Lab 若使用时间模块，应由对应的 `labs/modules/...` 适配器把 `controller.state` 注册到 `context.labState`。LabState 只保留同一引用，用于 Debug、存档生成和存档恢复，不接管业务访问。
 
 ```ts
 const controller = createGameTime();

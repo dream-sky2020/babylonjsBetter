@@ -20,15 +20,15 @@ test('player camera module applies/saves orthographic overhead without changing 
   globalThis.ResizeObserver = class { observe() {} disconnect() {} };
   let engine, scene, keyboard, c, disposeModule, labState, viewport;
   try {
-    const { LabUi } = await server.ssrLoadModule('/tools/lab-kit/labUi.ts');
-    const { LabState } = await server.ssrLoadModule('/tools/lab-kit/lab-state/LabState.ts');
-    const { LabKeyboardRouter } = await server.ssrLoadModule('/tools/lab-kit/keyboard/LabKeyboardRouter.ts');
-    const { LabViewportManager } = await server.ssrLoadModule('/tools/lab-kit/labViewportManager.ts');
-    const { dungeonPlayerCameraLabModule } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-first-person-camera/dungeonFirstPersonCamera.labModule.ts');
-    const { LabMemoryRegistry } = await server.ssrLoadModule('/tools/lab-kit/shared-memory/LabMemory.ts');
-    const { DUNGEON_PLAYER_STATE_MEMORY, createDungeonPlayerStateData } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts');
-    const { DUNGEON_PLAYER_SPAWN_MEMORY } = await server.ssrLoadModule('/tools/lab-modules/dungeon/player-spawn/playerSpawn.memory.ts');
-    const { DUNGEON_SESSION_INFO_MEMORY } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-map-loader/dungeonSession.memory.ts');
+    const { LabUi } = await server.ssrLoadModule('/labs/kit/labUi.ts');
+    const { LabState } = await server.ssrLoadModule('/labs/kit/lab-state/LabState.ts');
+    const { LabKeyboardRouter } = await server.ssrLoadModule('/labs/kit/keyboard/LabKeyboardRouter.ts');
+    const { LabViewportManager } = await server.ssrLoadModule('/labs/kit/labViewportManager.ts');
+    const { dungeonPlayerCameraLabModule } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-first-person-camera/dungeonFirstPersonCamera.labModule.ts');
+    const { LabMemoryRegistry } = await server.ssrLoadModule('/labs/kit/shared-memory/LabMemory.ts');
+    const { DUNGEON_PLAYER_STATE_MEMORY, createDungeonPlayerStateData } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts');
+    const { DUNGEON_PLAYER_SPAWN_MEMORY } = await server.ssrLoadModule('/labs/modules/dungeon/player-spawn/playerSpawn.memory.ts');
+    const { DUNGEON_SESSION_INFO_MEMORY } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-map-loader/dungeonSession.memory.ts');
     engine = new NullEngine(); scene = new Scene(engine); keyboard = new LabKeyboardRouter(null); labState = new LabState();
     const camera = new ArcRotateCamera('player', 1, 1, 42, Vector3.Zero(), scene);
     c = createCameraLabController(camera);

@@ -1,69 +1,22 @@
-# 工具与测试页面目录
+# 工具目录
 
-本目录统一收纳项目中的工具页与测试页，避免散落在仓库根目录。
+本目录保存独立资源编辑器、编辑定义和公共工具组件。Lab 页面已经迁到 `labs/`，目录规范见 [Labs](../labs/README.md)。
 
-## 目录说明
+## 工具与支持代码
 
-- `sprite-anchor-editor/`
-  - `index.html`（原 `sprite-anchor-editor.html`）
-- `number-sprite-lab/`
-  - `index.html`（配置数字字符到单图或 TexturePacker 帧，并在 Babylon 场景预览）
-- `model-lab/`
-  - `index.html`（预览 `public/resources` 中的 GLB 与 FBX 模型）
-- `model-scene-lab/`
-  - `index.html`（布置 GLB 模型并保存 3D 场景预设）
-- `model-shake-lab/`
-  - `index.html`（选择单个 GLB 模型并调试简单抖动动画）
-- `atlas-json-editor/`
-  - `index.html`（大图切片并导出 TexturePacker 风格 JSON）
-- `particle-editor/`
-  - `index.html`（原 `particle-editor.html`）
-- `battle-lab/`
-  - `battle.html`（原 `battle.html`）
-  - `combat-test.html`（原 `combat-test.html`）
-- `skill-lab/`
-  - `skill.html`（原 `skill.html`）
-  - `skilleffect.html`（原 `skilleffect.html`）
-- `limbus-lab/`
-  - `rpg-battle.html`（原 `rpg-battle.html`）
-  - `limbusgame.html`（原 `limbusgame.html`）
-  - `limbusgame-console.html`（原 `limbusgame-console.html`）
-  - `limbusgame_v2.html`（原 `limbusgame_v2.html`）
-  - `limbusgame_v2_Canvas2D.html`（原 `limbusgame_v2_Canvas2D.html`）
-  - `limbusgame_v3_Canvas2D.html`（原 `limbusgame_v3_Canvas2D.html`）
-  - `skills.js`（原根目录 `skills.js`）
-  - `dice-config.js`（原根目录 `dice-config.js`）
-- `galgame-lab/`
-  - `galgame.html`（原 `galgame.html`）
-  - `galgame-console.html`（原 `galgame-console.html`）
-- `render-lab/`
-  - `gridpack.html`（原 `gridpack.html`）
-  - `checkerboard.html`（原 `checkerboard.html`）
-  - `checkerboard_v2.html`（原 `checkerboard_v2.html`）
-  - `energy-line.html`（原根目录 `energy-line.html`）
-  - `energy_line_dynamic_erosion.html`（原根目录 `energy_line_dynamic_erosion.html`）
-- `game-runtime/`
-  - `game-manager.js`（原根目录 `game-manager.js`）
-- `target-link-lab/`
-  - `index.html`（原 `targeindex.html`）
-  - `legacy.html`（原 `targeindex_old.html`）
-- `pop-number-lab/`
-  - `index.html`（点击位置弹出数字，可调范围/固定值/消失时间/发光）
-- `monster-2d-lab/`
-  - `index.html`（2D 网页预览效果，编辑怪物分层与条纹）
-- `monster-3d-visual-lab/`
-  - `index.html`（使用 MonsterVisualManager 编辑并预览怪物显示配置与条纹配置）
+- `sprite-anchor-editor/`：精灵锚点编辑器。
+- `sprite-animation-editor/`：精灵动画编辑器。
+- `atlas-json-editor/`：图集切片与 TexturePacker JSON 编辑器。
+- `particle-editor/`：原生粒子资源编辑器，页面名称为 L1 原生粒子特效 Lab。
+- `entity-container-editor/`：Entity 和 Component 的编辑定义。
+- `shared/`：工具与 Lab 共用的 UI 组件。
+- `game-runtime/`：历史实验页面使用的运行辅助代码。
 
-## 访问路径示例（开发模式）
+## 页面入口
 
 - `/tools/sprite-anchor-editor/index.html`
-- `/tools/number-sprite-lab/index.html`
+- `/tools/sprite-animation-editor/index.html`
 - `/tools/atlas-json-editor/index.html`
 - `/tools/particle-editor/index.html`
-- `/tools/target-link-lab/index.html`
-- `/tools/target-link-lab/legacy.html`
-- `/tools/render-lab/energy-line.html`
-- `/tools/render-lab/energy_line_dynamic_erosion.html`
-- `/tools/pop-number-lab/index.html`
-- `/tools/monster-2d-lab/index.html`
-- `/tools/monster-3d-visual-lab/index.html`
+
+普通 Lab 入口为 `/labs/standalone/<name>/…`，组合式 Lab 入口为 `/labs/composable/<name>/…`。根 `index.html` 分组提供入口；新增 Lab 不再放入 `tools/`。

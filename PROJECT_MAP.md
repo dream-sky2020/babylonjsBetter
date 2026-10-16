@@ -1,3 +1,9 @@
+## 2026-10-16：Lab 目录与入口分组
+
+Lab 页面从 `tools/` 迁移到 `labs/`：独立实现的页面归 `labs/standalone/`；使用 `createLab + modules + catalog` 的 9 个地牢页面归 `labs/composable/`。Lab 基础设施与可复用模块分别归 `labs/kit/` 和 `labs/modules/`。分类依据是页面装配方式，不代表功能数量或新旧程度。
+
+根 `index.html` 与 Vite 多页构建入口按组合式 Lab、普通 Lab、工具、应用分组。独立资源编辑器、Entity 编辑定义、现有公共工具组件和历史 game-runtime 仍在 `tools/`；游戏业务能力继续归 `core/`。路径引用、测试命令、专项构建与验证工具已同步迁移；旧 Lab URL 改用 `/labs/standalone/…` 或 `/labs/composable/…`。目录规范见 `labs/README.md`。
+
 ## 2026-10-14：对话与选项合并
 
 V5 节点统一为 choice/condition/event 三类。choice 同时保存对白和选项出口，新建时默认一条对白和一个“继续”选项；可在同一卡片增加对白或选项。编译后的 choice 指令包含 lines 与 choices，单选项和多选项使用同一结构。唯一 village_gate 示例已更新，不提供旧 dialogue 类型兼容或迁移。
@@ -47,7 +53,7 @@ python/dialogue_rules.py 与 server.py 仅接受 V5 草稿；village_gate 已替
 
 `core/dialogue-map/` 写出 schemaVersion 4，保留统一节点、输入/输出端口与连线。condition 使用 compare/all/any/not；值引用支持 literal 或 memory 的 key + path。effects 使用带 eventType/version/payload 的事件对象；接收事件也保存协议版本。V1–V3 读取后统一为 V4，旧条件和效果字符串保留为显式 legacy 对象，不猜测表达式含义。dialogueRules.ts 负责解析、结构/目录校验及摘要；草稿通过 structuredClone 复制，保存时校验，未完成规则不妨碍继续编辑。
 
-`tools/dialogue-map-canvas-lab/DialogueRuleEditor.tsx` 提供递归条件组、共享内存字段和常量编辑、接收/触发事件、参数添加/删除/重命名、事件排序与显式旧规则转换。dialogueRuleCatalog.ts 是独立编辑器的静态字段/事件目录，首批覆盖玩家状态、地图尺寸、会话状态和三种 Dungeon 事件；未登记引用可手填，显示警告，目录不分配运行内存。Canvas 显示出口规则摘要。dialogueHistory.ts 保留最多 100 次文档库编辑，支持撤销/重做；输入框内保留原生文本撤销，画布范围支持 Ctrl+Z、Ctrl+Shift+Z/Ctrl+Y。
+`labs/standalone/dialogue-map-canvas-lab/DialogueRuleEditor.tsx` 提供递归条件组、共享内存字段和常量编辑、接收/触发事件、参数添加/删除/重命名、事件排序与显式旧规则转换。dialogueRuleCatalog.ts 是独立编辑器的静态字段/事件目录，首批覆盖玩家状态、地图尺寸、会话状态和三种 Dungeon 事件；未登记引用可手填，显示警告，目录不分配运行内存。Canvas 显示出口规则摘要。dialogueHistory.ts 保留最多 100 次文档库编辑，支持撤销/重做；输入框内保留原生文本撤销，画布范围支持 Ctrl+Z、Ctrl+Shift+Z/Ctrl+Y。
 
 `python/dialogue_rules.py` 校验 V4 规则，`/api/dialogue-map-presets` 接受 V1–V4。编辑器按目录额外检查字段类型与必需参数，结构错误阻止保存，未登记引用和 legacy 给出警告。现有 Core runtime 的条件调用扩展 evaluateRule，保留 legacy evaluator，返回结构化 effects；本批不连接 Lab 内存或执行事件。运行规则与游戏 UI 文档继续分离。
 
@@ -87,7 +93,7 @@ sceneEnvironmentTextureStats.ts 在模型加载与材质增量更新成功后收
 
 变形注册表在读取世界矩阵前先同步父链，用公共 markAsDirty/computeWorldMatrix 的非强制路径处理同一 Render ID 的编辑，避免强制重算父链导致兄弟对象互相失效。缓存保留实际世界矩阵快照：版本号改变时比较矩阵值，姿态未变就复用变形矩阵、逆矩阵和包围盒；真实姿态、设置、材质变化和动态骨骼/顶点/Adapter 保持更新。回归覆盖嵌套兄弟对象、连续帧、外部强制矩阵更新及同帧父节点/单个模型编辑。
 
-`tools/lab-modules/dungeon/dungeon-grid/dungeonGridDebugMesh.ts` 将全部格子 Debug 盒按 8×8 空间块构建静态 Thin Instance 缓冲，每块保留原盒子材质线框和实例化粗边线，父节点继续承接俯视比例，隐藏/切图/卸载沿原根节点释放资源。19×19 地图由 361 个 Mesh 改为 9 个空间块，仍由块包围盒进行视锥裁剪；不改变格子数据、选择、颜色、透明度、线宽或阴影档位。
+`labs/modules/dungeon/dungeon-grid/dungeonGridDebugMesh.ts` 将全部格子 Debug 盒按 8×8 空间块构建静态 Thin Instance 缓冲，每块保留原盒子材质线框和实例化粗边线，父节点继续承接俯视比例，隐藏/切图/卸载沿原根节点释放资源。19×19 地图由 361 个 Mesh 改为 9 个空间块，仍由块包围盒进行视锥裁剪；不改变格子数据、选择、颜色、透明度、线宽或阴影档位。
 
 `test:dungeon-grid-rendering` 验证格子位置、分块数、实例总数、样式、父变换及资源释放。`codex-tools/dungeonRenderVerification.html` 验证真实 dungeon-agent-lab 的静态缓存、父节点编辑及 Debug 绘制数，并在正交/透视下对比分块格子与原独立盒子的像素。当前 crossroads 在同一测试视角下，227 个静态网格连续 50 帧无变形重算；全部格子开启时主画面 277 次绘制降为 51 次，原 40 次阴影绘制保持，两种投影的像素对比一致。此验证使用软件 WebGL，不证明用户实体 GPU 的 60fps。
 
@@ -111,7 +117,7 @@ Dungeon Loader 保持运行时暂停，先发布新领域内存并等待地图�
 
 ## 2026-10-13：模块级 Lab 性能统计工作台
 
-`tools/lab-kit/performance/` 提供 LabPerformance 和全窗口统计面板，createLab 自动安装，运行采集默认关闭。Host 在 scoped scheduler 注册时包装任务和启用判断，不修改 Core SystemRunner 调度规则；LabCommunication 可选计时钩子按接收模块统计监听/处理入口，原请求、Promise、异常隔离和发布行为保持。setup/start/dispose 独立记录，Host 调度、相机、scene.render 单独归属。
+`labs/kit/performance/` 提供 LabPerformance 和全窗口统计面板，createLab 自动安装，运行采集默认关闭。Host 在 scoped scheduler 注册时包装任务和启用判断，不修改 Core SystemRunner 调度规则；LabCommunication 可选计时钩子按接收模块统计监听/处理入口，原请求、Promise、异常隔离和发布行为保持。setup/start/dispose 独立记录，Host 调度、相机、scene.render 单独归属。
 
 调度计时按模块/阶段/任务 ID 同时保存任务明细；玩家与 Agent 的 simulation/update、debug/debug-summary 可在「模拟与 Debug 任务」视图分别比较。实际运行与启用判断分列计数/耗时，每个任务有含零帧的平均/P95/峰值；晚出现任务补齐有界零帧样本。沿原计时区间汇总，不引入重复计时，模块总计及 categories 保持原口径。导出 version 1 新增 modules[].tasks；旧报告需重新采集。未改变调度、移动或同步格步规则，玩家入口直接调用的未计时 Agent 规则仍包含在玩家模拟中。
 
@@ -129,7 +135,7 @@ Scene Environment Lab 通过 prepareSceneEnvironmentDeclaration 复用当前解�
 
 ## 2026-10-13：场景环境编辑器变换增量预览
 
-`tools/scene-environment-lab` 的历史提交先比较已预览配置：仅改变模型、几何体、空节点的位置/旋转/缩放或点光/方向光位置时，通过现有 Adapter 同步原节点，不再重新导入模型或创建材质、动画与阴影。Inspector、Gizmo、批量变换及撤销/重做共用此路径；资源、几何体、层级和其他声明变更保留原重建流程。手动加载与 CSM Debug 切换不使用变换快捷路径。浏览器回归检查变换前后模型、材质、光源、动画和阴影对象身份及实际节点值。
+`labs/standalone/scene-environment-lab` 的历史提交先比较已预览配置：仅改变模型、几何体、空节点的位置/旋转/缩放或点光/方向光位置时，通过现有 Adapter 同步原节点，不再重新导入模型或创建材质、动画与阴影。Inspector、Gizmo、批量变换及撤销/重做共用此路径；资源、几何体、层级和其他声明变更保留原重建流程。手动加载与 CSM Debug 切换不使用变换快捷路径。浏览器回归检查变换前后模型、材质、光源、动画和阴影对象身份及实际节点值。
 
 ## 2026-10-12：2D 移动权威状态归属整理（第一步）
 
@@ -221,19 +227,19 @@ Core 新增 `DungeonObstacleControl` 类型 Token，Loader 提供当前 Session 
 
 ## 2026-10-12：共享内存第三批按模块迁移——运行态观察
 
-`dungeon-runtime` 不再申请完整装载引用，改为复用 `dungeon.grid` 的地图标识/尺寸，并申请 `dungeon.player-state` 和 `dungeon.obstacle-state`。新定义位于 `tools/lab-modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts`，玩家字段与障碍 Map 分开，无地图文档、场景资源、通行系统或移动仲裁器。
+`dungeon-runtime` 不再申请完整装载引用，改为复用 `dungeon.grid` 的地图标识/尺寸，并申请 `dungeon.player-state` 和 `dungeon.obstacle-state`。新定义位于 `labs/modules/dungeon/dungeon-runtime/dungeonRuntime.memory.ts`，玩家字段与障碍 Map 分开，无地图文档、场景资源、通行系统或移动仲裁器。
 
 普通 getter/setter 作为旧 Core Runtime 的过渡活字段接口，Core 整体替换坐标/移动/Map 后立即可见，共享写入直接回到 Core，无复制同步、Proxy、权限或轮询。Loader 提交后广播前发布，释放置空，运行态 commit 通知 Debug 后广播。观察面板按通知读取当前共享句柄并核对 loadId，存档和其他业务模块维持原链路。Debug 玩家投影小型复制、阻碍 ID 限 20 项，障碍 Map 直接交给有限嵌套面板分页。
 
 ## 2026-10-12：共享内存第二批按模块迁移——格子 Debug
 
-`dungeon-grid` 改为只申请 `dungeon.grid`，不再申请完整装载引用。新内存位于 `tools/lab-modules/dungeon/dungeon-grid/dungeonGrid.memory.ts`，平铺地图标识、尺寸、格子 ID 和四项世界布局参数；ID/布局数组复用 Core 原引用，Debug 仅复制小型参数和前 20 个 ID 预览。Loader 成功提交后、通知前发布，释放时置空，失败候选保留旧值。
+`dungeon-grid` 改为只申请 `dungeon.grid`，不再申请完整装载引用。新内存位于 `labs/modules/dungeon/dungeon-grid/dungeonGrid.memory.ts`，平铺地图标识、尺寸、格子 ID 和四项世界布局参数；ID/布局数组复用 Core 原引用，Debug 仅复制小型参数和前 20 个 ID 预览。Loader 成功提交后、通知前发布，释放时置空，失败候选保留旧值。
 
 `core/scene/dungeonMapSceneLayout.ts` 将坐标函数参数缩小为 DungeonMapTileLayoutSettings（Pick 四项布局字段），函数实现与旧组件调用不变。格子模块继续按 loadId 消费地图通知，沿用原坐标计算、Debug 清理和俯视 View Consumer；其他模块和 LabState 存档维持现有链路。
 
 ## 2026-10-12：共享内存第一批按模块迁移——出生点
 
-新增 `tools/lab-modules/dungeon/player-spawn/playerSpawn.memory.ts` 定义 `dungeon.player-spawn`：仅会话 ID/预设 key、出生实体/组件 ID、格坐标、世界位置和格子尺寸。位置与尺寸直接引用 Core 出生 Binding，Debug 投影小型复制，不创建第二份工作状态。Loader 成功提交 Session 后、通知观察者前发布，失败加载保留旧值，释放置空。
+新增 `labs/modules/dungeon/player-spawn/playerSpawn.memory.ts` 定义 `dungeon.player-spawn`：仅会话 ID/预设 key、出生实体/组件 ID、格坐标、世界位置和格子尺寸。位置与尺寸直接引用 Core 出生 Binding，Debug 投影小型复制，不创建第二份工作状态。Loader 成功提交 Session 后、通知观察者前发布，失败加载保留旧值，释放置空。
 
 `player-spawn` 不再申请 dungeon.loaded-references 或读取完整 Runtime/地图/场景/Entity；收到地图变化后按 loadId 更新 Debug。原完整对象暂留供其他模块逐项迁移，其他 Core 系统和 LabState 存档不变。本批迁移以单模块为界；申请关系图能看到 Loader 与出生点模块共同连接新的小型内存。
 
@@ -245,11 +251,11 @@ Core 新增 `DungeonObstacleControl` 类型 Token，Loader 提供当前 Session 
 
 ## 2026-10-12：组合式 Lab 共享数据申请与系统图
 
-`tools/lab-kit/shared-memory/` 新增每个 Host 独立的 LabMemoryRegistry：模块按领域统一定义 acquire，同 key 不存在则创建、同 schema 则复用同一句柄、类型冲突报错；没有读写权限、所有权或依赖授权检查，日常读写不校验、不克隆、不套 Proxy。创建/替换时校验，markChanged 只通知调试界面，不发布业务事件。Host 记录并清理模块申请关系。
+`labs/kit/shared-memory/` 新增每个 Host 独立的 LabMemoryRegistry：模块按领域统一定义 acquire，同 key 不存在则创建、同 schema 则复用同一句柄、类型冲突报错；没有读写权限、所有权或依赖授权检查，日常读写不校验、不克隆、不套 Proxy。创建/替换时校验，markChanged 只通知调试界面，不发布业务事件。Host 记录并清理模块申请关系。
 
 系统面板“系统与共享内存”打开覆盖完整 Lab 窗口的节点工作台，沿用对白编辑器的列表/画布/详情布局；抽出 `core/ui/node-graph/graphViewport.ts` 供两个画布共用坐标转换及适配。支持实际模块/内存连线、选中高亮、拖动/缩放/搜索、模块面板导航和按字段路径平铺的数据表。4Hz 可选详情采样只在打开时运行。LabViewport 增加 fullWindow HTML Layer 选项，仍沿用相机输入暂停/恢复和 Host 释放机制。
 
-Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loader 提交 Session 后通知观察者，原地图 Reader 消费模块统一申请共享 Session；配置与存档切换读取共享库/存档。存档继续使用同一份 LabState 活数据，Core 工厂、同步玩家格步规则与能力 Service 未改变。其余活数据 Service 尚未全部迁移；通信图与时间线属于后续阶段。规范和入口见 tools/lab-kit/README.md。
+Dungeon 迁入 dungeon.libraries、dungeon.session、dungeon.runtime-saves；Loader 提交 Session 后通知观察者，原地图 Reader 消费模块统一申请共享 Session；配置与存档切换读取共享库/存档。存档继续使用同一份 LabState 活数据，Core 工厂、同步玩家格步规则与能力 Service 未改变。其余活数据 Service 尚未全部迁移；通信图与时间线属于后续阶段。规范和入口见 labs/kit/README.md。
 
 ## 2026-10-12：明确 Codex 工具归档目录
 
@@ -726,7 +732,7 @@ Scene Environment Lab 接入共享 `ObjectHierarchy` 的拖入、前后排序和
 
 `core/scene/sceneEnvironment.types.ts` 新增可选 `transformNodes` 和节点 `parentId/order`，几何声明补充局部缩放；`sceneEnvironment.hierarchy.ts` 提供稳定类型前缀索引、父节点候选和无环/唯一 ID 校验。旧预设继续按根层级加载，继承与保存将 transformNodes 作为整体数组覆盖，并在合并后验证引用。`createSceneEnvironment.ts` 在所有模型准备后建立实际层级；地面拆分逻辑变换节点与独立渲染网格，`ParentLocalHemisphericLight` 补足半球光父级方向继承。
 
-`tools/scene-environment-lab` 右键可创建空节点/Rig/Socket 和子对象，Inspector 父节点选择器或根层级菜单保持声明世界姿态地改父级；结构/局部变换接入现有声明历史与单场景保存，不添加独立存储。`sceneEnvironmentHierarchy.ts` 从声明计算世界矩阵，拒绝循环、零缩放父节点及无法分解的剪切。Rig/Socket 当前仅为用途标签；无拖拽结构操作、骨骼绑定或可拾取挂点标记。共享 SceneEditor Hierarchy 复用既有树组件、显示图标/类型标签并展开新节点，领域规则仍归 Lab。
+`labs/standalone/scene-environment-lab` 右键可创建空节点/Rig/Socket 和子对象，Inspector 父节点选择器或根层级菜单保持声明世界姿态地改父级；结构/局部变换接入现有声明历史与单场景保存，不添加独立存储。`sceneEnvironmentHierarchy.ts` 从声明计算世界矩阵，拒绝循环、零缩放父节点及无法分解的剪切。Rig/Socket 当前仅为用途标签；无拖拽结构操作、骨骼绑定或可拾取挂点标记。共享 SceneEditor Hierarchy 复用既有树组件、显示图标/类型标签并展开新节点，领域规则仍归 Lab。
 
 Dungeon `sceneEnvironmentDisplay.ts` 仅映射声明顶层位置，将子树作为装配保留局部布局；地面覆盖缩放仅作用于渲染网格，不影响子节点。旋转地面按自身局部 X/Z 轴扩展，不自动对齐世界格轴。验证包含 scene-environment/scene-editor/dungeon-overhead-view 测试、scene-environment 类型检查、四编辑器生产构建和临时预设浏览器往返测试；浏览器覆盖空节点→Rig→Socket→几何、父级移动、改父级姿态保持、撤销与重载，真实用户预设不回写。
 
@@ -736,17 +742,17 @@ Dungeon `sceneEnvironmentDisplay.ts` 仅映射声明顶层位置，将子树作�
 
 ## 2026-09-29：Scene Environment 声明 Inspector 与单场景持久化
 
-`tools/scene-environment-lab/sceneEnvironmentFields.ts` 定义场景、三类几何、模型和三类光源的显式字段，React Inspector 按选区生成可编辑表单，统一校验、草稿应用与 DocumentHistory 撤销/重做，不反射 Babylon 属性。几何/模型/阴影等变更通过隐藏候选实例异步重建，成功后替换旧实例，保留稳定 ID、选区、相机和 Gizmo；失败保留旧预览，过期请求按 AbortSignal 与代次释放。
+`labs/standalone/scene-environment-lab/sceneEnvironmentFields.ts` 定义场景、三类几何、模型和三类光源的显式字段，React Inspector 按选区生成可编辑表单，统一校验、草稿应用与 DocumentHistory 撤销/重做，不反射 Babylon 属性。几何/模型/阴影等变更通过隐藏候选实例异步重建，成功后替换旧实例，保留稳定 ID、选区、相机和 Gizmo；失败保留旧预览，过期请求按 AbortSignal 与代次释放。
 
 `core/model/entity/createModelEntity.ts` 在加载/应用资产配置失败时清理临时节点与 prefab 实例；可选 parent 在异步准备前挂载模型根，供场景候选隐藏加载使用。场景工厂同步创建失败也释放已分配的阴影和根节点。
 
 场景事实源现为 `config/sceneEnvironmentPresets/index.json` 与同目录每预设一个 JSON。`core/scene/sceneEnvironment.catalog.ts` 拥有目录校验、组装和继承声明编辑；`sceneEnvironment.loader.ts` 为 Lab / Dungeon 统一读取入口，开发同源 API、构建 eager glob 收录目录。Vite GET 组装库，PUT 接收 `{presetKey,declaration}`，由 `codex-tools/sceneEnvironmentPresetStore.ts` 串行验证整库及阴影引用后仅原子替换当前文件；目录 HMR 被抑制以保护草稿。Python GET 使用 `python/scene_environment_presets.py` 只读组装，完整类型校验继续由 TS 消费者承担。
 
-继承保留 `extendsPresetKey` 与 `lightShadowOverrides`，新增明确的 objects/models/lights 顶层覆盖，编辑只写派生文件。`codex-tools/migrateSceneEnvironmentPresets.ts` 可重跑，比较迁移前后解析结果后移除旧总文件，拒绝覆盖不同内容的现有文件；5 个预设已迁移。对象树与画布右键可添加几何体、光源，并从 `public` 模型清单的压缩目录树中选取 GLB/GLTF 文件；新对象进入声明历史并通过当前预设保存。Inspector 不删除对象或改 ID，阴影高级覆盖使用 JSON；模型路径资源存在性在预览时检测，保存没有跨进程冲突检测。详情与验证命令见 `tools/scene-environment-lab/README.md`。本节取代 2026-09-26 条目中的场景整库保存和继承物化说明。
+继承保留 `extendsPresetKey` 与 `lightShadowOverrides`，新增明确的 objects/models/lights 顶层覆盖，编辑只写派生文件。`codex-tools/migrateSceneEnvironmentPresets.ts` 可重跑，比较迁移前后解析结果后移除旧总文件，拒绝覆盖不同内容的现有文件；5 个预设已迁移。对象树与画布右键可添加几何体、光源，并从 `public` 模型清单的压缩目录树中选取 GLB/GLTF 文件；新对象进入声明历史并通过当前预设保存。Inspector 不删除对象或改 ID，阴影高级覆盖使用 JSON；模型路径资源存在性在预览时检测，保存没有跨进程冲突检测。详情与验证命令见 `labs/standalone/scene-environment-lab/README.md`。本节取代 2026-09-26 条目中的场景整库保存和继承物化说明。
 
 ## 2026-09-28：组合式 Dungeon 系统装配工作台（第一阶段）
 
-入口仍为 tools/dungeon-agent-lab/main.ts，仅显式选择配置、Agent、传送和视觉变形；其余能力按依赖自动安装。Agent Lab 启动时注入与俯视 Lab 相同的 45° 正交俯视测试草稿，使已安装的视觉变形模块默认生效；该草稿只属于 LabState，不写入地图。Agent Debug 模型挂在共享显示根节点下，订阅俯视服务的有效显示映射；移动姿态继续使用原地图坐标，视角切换与切图时由根节点统一调整和恢复。tools/lab-modules/dungeon/dungeonSystem.manifests.ts 提供统一职责、Core 源码、服务、协议与调度说明，区分游戏系统、Debug、配置界面及兼容入口。Host 的系统装配面板显示系统计数、安装顺序及原因、真实服务访问关系、协议处理/订阅和运行任务；各调试面板自动附带说明，所列 Core 文件按需读取源码。
+入口仍为 labs/composable/dungeon-agent-lab/main.ts，仅显式选择配置、Agent、传送和视觉变形；其余能力按依赖自动安装。Agent Lab 启动时注入与俯视 Lab 相同的 45° 正交俯视测试草稿，使已安装的视觉变形模块默认生效；该草稿只属于 LabState，不写入地图。Agent Debug 模型挂在共享显示根节点下，订阅俯视服务的有效显示映射；移动姿态继续使用原地图坐标，视角切换与切图时由根节点统一调整和恢复。labs/modules/dungeon/dungeonSystem.manifests.ts 提供统一职责、Core 源码、服务、协议与调度说明，区分游戏系统、Debug、配置界面及兼容入口。Host 的系统装配面板显示系统计数、安装顺序及原因、真实服务访问关系、协议处理/订阅和运行任务；各调试面板自动附带说明，所列 Core 文件按需读取源码。
 
 core/system-runtime/SystemRunner.ts 提供 simulation / presentation / debug 显式阶段和稳定任务顺序，不依赖 Babylon 或 DOM。模拟暂停独立于 Viewport 绘制暂停；现有玩家、Agent、玩家相机与移动 Debug 已从各自 onBeforeRender 回调迁入运行器。新增 ServiceToken 将新增服务的 Key 与类型绑定；带 manifest 的模块必须直接声明其读取服务的所有者。未迁移模块保留旧依赖闭包兼容行为。
 
@@ -763,10 +769,10 @@ Agent 活动动作使用活动集合；连续 Controller 决策默认 100ms 一�
 
 ## 2026-09-28：Dungeon 格子、通行与移动 Lab 拆分
 
-`tools/lab-modules/dungeon/dungeon-grid/` 负责格坐标、索引、世界位置查询和格子 Debug；旧 `dungeon-grid-debug` ID 作为无 UI 的兼容依赖，格子 View Service Key 与显示偏好保持原值。`dungeon-traversal/` 展示 Actor 实占位、路径软预约和单步通行结果；`dungeon-movement/` 展示目标格临时预留、交叉点预约、移动请求和共享仲裁器本次运行参数。`dungeon-obstacle/` 只绘制静态阻碍，玩家与 Agent 面板继续管理各自的输入和控制器。俯视显示分别接入三层 Debug View Consumer。
+`labs/modules/dungeon/dungeon-grid/` 负责格坐标、索引、世界位置查询和格子 Debug；旧 `dungeon-grid-debug` ID 作为无 UI 的兼容依赖，格子 View Service Key 与显示偏好保持原值。`dungeon-traversal/` 展示 Actor 实占位、路径软预约和单步通行结果；`dungeon-movement/` 展示目标格临时预留、交叉点预约、移动请求和共享仲裁器本次运行参数。`dungeon-obstacle/` 只绘制静态阻碍，玩家与 Agent 面板继续管理各自的输入和控制器。俯视显示分别接入三层 Debug View Consumer。
 
 
-Core 的 `DungeonTraversalWorld` 与 `DungeonMovementResolver` 在离散状态变化时发同步订阅通知，Lab 模块将其转换成带 `loadId` 的类型化 Communication 事件；同一次移动的请求与实占位提交用 `requestId` 关联。逐帧动画仍直接推进 Core，不逐帧广播或扫描全图 Debug。模块 Session 读取 Loader 的原子引用，切图时释放旧 Core 订阅。通信与状态边界见 `tools/lab-kit/README.md`。
+Core 的 `DungeonTraversalWorld` 与 `DungeonMovementResolver` 在离散状态变化时发同步订阅通知，Lab 模块将其转换成带 `loadId` 的类型化 Communication 事件；同一次移动的请求与实占位提交用 `requestId` 关联。逐帧动画仍直接推进 Core，不逐帧广播或扫描全图 Debug。模块 Session 读取 Loader 的原子引用，切图时释放旧 Core 订阅。通信与状态边界见 `labs/kit/README.md`。
 
 ## 2026-09-27：可选世界对象俯视顶点变形
 
@@ -780,19 +786,19 @@ Standard/PBR 使用 MaterialPlugin，Sprite 的普通/条纹/死亡 Recipe 通�
 
 阴影使用 ShadowDepthWrapper；DepthRenderer 通过 render-pass 材质覆盖复用同一变形与 alpha，销毁时恢复原覆盖。自动深度发现和粒子模板注入封装 Babylon 9.11 的版本依赖。当前覆盖 WebGL/GLSL；实例批次、全朝向 Billboard、未知材质和 WebGPU 会明确排除，PrePass/G-buffer 未适配时保持原形。详细边界见 `core/render-deformation/README.md`。
 
-可选 `tools/lab-modules/dungeon/dungeon-visual-deformation/` 依赖俯视模块与 Map Loader，提供“物体变形”面板和 `dungeon:visual-deformation` 服务。正式设置为原地图级俯视 Entity 上的 `visual-deformation` Component v1，沿现有地图 V3 保存通道持久化；测试草稿注册为 LabState `dungeon-visual-deformation/settings` v1 `{draft}`。临时对象规则不保存；无组件/草稿时使用默认变形参数，随有效俯视配置自动生效。地图组件的通用禁用状态和旧草稿的 `enabled: false` 仍生效。默认在第一人称及玩家绑定关闭时沿用已配置的俯视角保持变形；地图组件或草稿的 `restoreOutsideOverhead` 可改为离开俯视时恢复原形。Lab 中变形模块只把离开俯视时恢复原形开关挂到“俯视显示”面板，面板的应用按钮会调用变形模块原有草稿通道；强度与规则仍在“物体变形”面板，未加载变形模块时不显示该控件。无有效俯视配置或模块卸载始终释放变形控制并恢复原形，输入与 Viewport 沿用现有所有权。
+可选 `labs/modules/dungeon/dungeon-visual-deformation/` 依赖俯视模块与 Map Loader，提供“物体变形”面板和 `dungeon:visual-deformation` 服务。正式设置为原地图级俯视 Entity 上的 `visual-deformation` Component v1，沿现有地图 V3 保存通道持久化；测试草稿注册为 LabState `dungeon-visual-deformation/settings` v1 `{draft}`。临时对象规则不保存；无组件/草稿时使用默认变形参数，随有效俯视配置自动生效。地图组件的通用禁用状态和旧草稿的 `enabled: false` 仍生效。默认在第一人称及玩家绑定关闭时沿用已配置的俯视角保持变形；地图组件或草稿的 `restoreOutsideOverhead` 可改为离开俯视时恢复原形。Lab 中变形模块只把离开俯视时恢复原形开关挂到“俯视显示”面板，面板的应用按钮会调用变形模块原有草稿通道；强度与规则仍在“物体变形”面板，未加载变形模块时不显示该控件。无有效俯视配置或模块卸载始终释放变形控制并恢复原形，输入与 Viewport 沿用现有所有权。
 
-共享材质双方柱、骨骼模型和 2D Shader 示例只由 `tools/dungeon-overhead-view-lab/verification.html` 独立渲染验证页创建；俯视 Lab 入口保留变形模块与批量面板，但不创建示例，也不启用针对示例的变形草稿。地图组件配置与手动应用的草稿仍可控制场景对象变形。新增 `test:deformation`、`typecheck:deformation`、`test:deformation-webgl`；WebGL 验证覆盖真实着色、共享材质隔离、恢复、阴影/深度、CPU/GPU 粒子与俯视 Lab 启动。继续使用 `build:camera-labs` 构建入口；没有新开另一套场景或相机系统。
+共享材质双方柱、骨骼模型和 2D Shader 示例只由 `labs/composable/dungeon-overhead-view-lab/verification.html` 独立渲染验证页创建；俯视 Lab 入口保留变形模块与批量面板，但不创建示例，也不启用针对示例的变形草稿。地图组件配置与手动应用的草稿仍可控制场景对象变形。新增 `test:deformation`、`typecheck:deformation`、`test:deformation-webgl`；WebGL 验证覆盖真实着色、共享材质隔离、恢复、阴影/深度、CPU/GPU 粒子与俯视 Lab 启动。继续使用 `build:camera-labs` 构建入口；没有新开另一套场景或相机系统。
 
 ## 2026-09-27：可选 Dungeon 俯视显示协调与测试 Lab
 
 `core/dungeon-view/` 拥有俯视配置校验、地图组件解析、格子比例计算、显示坐标映射和可释放的独占控制句柄。新增地图级 `dungeon-overhead-view` Entity / Component（v1），由现有 Entity Definition Catalog 自动发现、地图编辑器编辑并沿既有地图保存路径持久化。`pitchDeg` 是观察方向与水平地面的夹角；自动补偿只支持正交与 yaw 0° / ±180°，按 tileSize 的 X/Z 比及目标屏幕高宽比计算 Z 倍率。正交大小仍为垂直可见半范围。
 
-可选 `tools/lab-modules/dungeon/dungeon-overhead-view/` 是俯视协调者：读取组件或显式测试草稿，通过消费者各自提供的 `*:view` 服务 acquire/apply/release。`player-movement` 只变换玩家标记父节点，`dungeon-grid-debug` 与 `dungeon-obstacle` 只变换 Debug 根（含边界、实占位、虚占位和预约）；`dungeon-transition` 依赖俯视模块，订阅其有效显示映射，对入口 / 出口 Debug 根应用相同的格子显示变换，包括第一人称保留比例、关闭相机绑定和清除配置时的恢复。相机通过现有玩家相机模块及公共 CameraLabController 应用投影、角度和映射后的跟随目标。Runtime 坐标、格子拓扑、碰撞和移动耗时不变；场景美术不参与本轮映射。
+可选 `labs/modules/dungeon/dungeon-overhead-view/` 是俯视协调者：读取组件或显式测试草稿，通过消费者各自提供的 `*:view` 服务 acquire/apply/release。`player-movement` 只变换玩家标记父节点，`dungeon-grid-debug` 与 `dungeon-obstacle` 只变换 Debug 根（含边界、实占位、虚占位和预约）；`dungeon-transition` 依赖俯视模块，订阅其有效显示映射，对入口 / 出口 Debug 根应用相同的格子显示变换，包括第一人称保留比例、关闭相机绑定和清除配置时的恢复。相机通过现有玩家相机模块及公共 CameraLabController 应用投影、角度和映射后的跟随目标。Runtime 坐标、格子拓扑、碰撞和移动耗时不变；场景美术不参与本轮映射。
 
 没有协调模块，或没有启用的组件且没有测试草稿时，保持原布局。进入第一人称时默认保留格子、障碍与占位 Debug、玩家标记及相机位置的显示映射，俯视相机投影和角度暂停；配置 `restoreDisplayInFirstPerson` 可改为切换时恢复原比例。关闭玩家绑定、清除配置、切换到无配置地图或卸载时释放显示映射并恢复接管前的玩家模式及独立相机参数。角度由声明驱动，不从相机交互反向推算。Viewport 与键盘所有权沿原输入路径；没有新增相机、resize 或输入监听。
 
-协调设置以 `dungeon-overhead-view/settings` v1 注册到 LabState，保存 `{enabled,draft}`；草稿通过 Snapshot 显式导入/导出，不写入地图。正式配置由地图级组件保存。新增 `/tools/dungeon-overhead-view-lab/index.html`，已接首页、Vite 和 `build:camera-labs`，默认独立 45° 正交草稿并打开两个 Debug 层。它加载既有地图，不改写地图配置。
+协调设置以 `dungeon-overhead-view/settings` v1 注册到 LabState，保存 `{enabled,draft}`；草稿通过 Snapshot 显式导入/导出，不写入地图。正式配置由地图级组件保存。新增 `/labs/composable/dungeon-overhead-view-lab/index.html`，已接首页、Vite 和 `build:camera-labs`，默认独立 45° 正交草稿并打开两个 Debug 层。它加载既有地图，不改写地图配置。
 
 验证：`test:dungeon-overhead-view` 覆盖实际四模块、组件发现、比例投影、画布比例、活动移动状态、输入暂停、模式/地图切换、快照与释放；配合 `test:camera`、`test:dungeon-player-movement`、`test:lab-keyboard`、`typecheck:camera` 和七个相机/编辑 Lab 构建。完整全仓类型检查仍有既有错误；`test:lab-core-boundary` 原有正则把地图对象的 `document.*` 访问误判为 DOM，未借本轮改动放宽守卫。
 
@@ -836,7 +842,7 @@ Vite 新增 `/api/scene-environment-presets` GET/PUT：共享 parser 校验、�
 
 ## 2026-09-25：Dungeon Map Canvas Lab 的 Activity / View 分工
 
-`tools/dungeon-map-canvas-lab/DungeonMapCanvasLab.tsx` 只连接页面 Activity 与 View。`DungeonMapCanvasLabActivity.ts` 拥有编辑状态、初始化、加载保存和地图操作；`DungeonMapCanvasLabView.tsx` 承接面板、表单、Inspector 与 Canvas 布局，通过由 Activity 返回值推导的 `DungeonMapCanvasLabViewModel` 取得数据和操作。Lab 普通概览继续使用共享的 `core/ui/DungeonMapCanvas.tsx` 绘制 2D 地图；实体展开切换到 `DungeonMapCanvas3D.tsx` 的 Three.js 场景。两种视图的地图修改仍由 `DungeonMapDocumentStore` 提交。
+`labs/standalone/dungeon-map-canvas-lab/DungeonMapCanvasLab.tsx` 只连接页面 Activity 与 View。`DungeonMapCanvasLabActivity.ts` 拥有编辑状态、初始化、加载保存和地图操作；`DungeonMapCanvasLabView.tsx` 承接面板、表单、Inspector 与 Canvas 布局，通过由 Activity 返回值推导的 `DungeonMapCanvasLabViewModel` 取得数据和操作。Lab 普通概览继续使用共享的 `core/ui/DungeonMapCanvas.tsx` 绘制 2D 地图；实体展开切换到 `DungeonMapCanvas3D.tsx` 的 Three.js 场景。两种视图的地图修改仍由 `DungeonMapDocumentStore` 提交。
 
 `DungeonMapCanvas` 的 `overview` 与 `entities` 模式共用格子、单格边、公用边、公用点的几何和 SVG 着色绘制路径。展开模式按 Entity 稳定 ID 排序，首个实体位于原结构绘制位置，其后每层向左上各偏移 6 个 Canvas 单位；`core/ui/dungeon-map-entity-stack.ts` 只生成显示与命中坐标，不改变 Entity 所属空间或文档数据。SVG 染色预热在展开模式按单个 Entity 进行。
 
@@ -870,7 +876,7 @@ Dialogue Preview Canvas 左栏最上方固定为可伸缩的 UI 对象与关系�
 
 ## 2026-09-22：Dialogue Preview Canvas Lab
 
-`tools/dialogue-preview-canvas-lab/` 是独立于剧情节点图的游戏 UI 文档编辑器入口。预览中的头像、对话框、姓名牌、文字与图标由共享 Definition Registry 分派到单一 Canvas Renderer；Lab 不再包含按组件类型分支的绘图逻辑。编辑器支持画布滚轮缩放与中键平移、单选/多选/框选、多节点整体拖动、四角尺寸调整、网格与边缘/中心智能参考线吸附、多选对齐以及 Undo/Redo；拖动、缩放和对齐均作为单个 Store 事务记录。左侧使用 `rootIds + childIds` 生成可拖拽层级树：普通节点之间拖放会在同层重排，拖到 Group 会保持世界位置并改为父级相对坐标，根层级接收区可解除父级；成组/取消 Group 同样保持节点世界位置并可撤销。Renderer 沿父链解析世界坐标，并继承父级可见性、锁定和透明度；Group 移动带动整个子树，尺寸调整按比例缩放全部后代。属性 Inspector 根据 Definition 字段 Schema 自动生成。未知 Definition 会以诊断占位框显示并原样保留参数，不阻断整个文档打开和保存。
+`labs/standalone/dialogue-preview-canvas-lab/` 是独立于剧情节点图的游戏 UI 文档编辑器入口。预览中的头像、对话框、姓名牌、文字与图标由共享 Definition Registry 分派到单一 Canvas Renderer；Lab 不再包含按组件类型分支的绘图逻辑。编辑器支持画布滚轮缩放与中键平移、单选/多选/框选、多节点整体拖动、四角尺寸调整、网格与边缘/中心智能参考线吸附、多选对齐以及 Undo/Redo；拖动、缩放和对齐均作为单个 Store 事务记录。左侧使用 `rootIds + childIds` 生成可拖拽层级树：普通节点之间拖放会在同层重排，拖到 Group 会保持世界位置并改为父级相对坐标，根层级接收区可解除父级；成组/取消 Group 同样保持节点世界位置并可撤销。Renderer 沿父链解析世界坐标，并继承父级可见性、锁定和透明度；Group 移动带动整个子树，尺寸调整按比例缩放全部后代。属性 Inspector 根据 Definition 字段 Schema 自动生成。未知 Definition 会以诊断占位框显示并原样保留参数，不阻断整个文档打开和保存。
 
 通用 V2 文档模型、层级校验、V1 迁移、Definition Registry、Canvas Renderer 与带事务历史的 `UiDocumentStore` 位于 `core/ui-document/`；对话界面的内置 Definition 和默认文档位于 `core/dialogue-preview/`。V2 使用标准化 `nodes + rootIds`，节点将通用布局、Definition props 和可选数据 bindings 分离。布局同时支持旧的父级相对 `absolute` 和响应式 `rect-transform`：后者保存 anchorMin/anchorMax、pivot、anchoredPosition、sizeDelta，并可让根节点相对全画布或 safeArea 求解；拖动、缩放、对齐、成组与改父级均通过统一世界矩形转换保持视觉位置。Lab 可编辑画布分辨率和四边安全区，画布上会显示安全区及所选节点锚点。布局按预设拆分保存于 `config/dialoguePreviewPresets/`，目录由 `index.json` 管理；开发服务的 `/api/dialogue-preview-presets` 同时接受旧 V1 和新 V2，并在 Lab 下一次显式保存时写出 V2。该 UI 文档不写入 `core/dialogue-map/` 的剧情图文档。
 
@@ -918,7 +924,7 @@ V2 Store 额外提供 `replaceSpatialContainer()`，可将旧 Inspector 或批�
 
 地图 ECS 新增 `dungeon-agent` 动态行动实体定义，只允许挂载在 Tile；编辑器创建时自动装配 `grid-agent`、`agent-controller` 与 `faction`。`grid-agent` 保存初始朝向、占位、行动周期、冲突优先级与开放移动规则 ID，`agent-controller` 以开放 controllerId 和 JSON 参数引用后续行动规划器，`faction` 只保存开放阵营 ID。当前阶段这些字段仍是地图静态初始配置，运行时位置、AI 状态和同时行动结算将在 DungeonRuntime 动态层实现，不回写地图文档。
 
-`core/dungeon-agent/` 提供不依赖 Babylon 的地图扫描、运行时 Agent 表、带朝向的格步移动和原地转向。`dungeon-agent` Lab Module 在地图加载事件后从 V2 文档创建独立 Agent Runtime，通过 Service/Event 对其他模块公开，并以可关闭的圆锥身体、球形头部和朝向四棱锥 Debug 模型显示；Agent 会注册到 DungeonRuntime 共享的通行世界，不再在 Agent Runtime 中维护第二套 Tile 占位索引。`tools/dungeon-agent-lab/` 在 Dungeon Transition Lab 的完整模块链路上追加该模块，用于同时验证地图切换、玩家移动和 Agent 生命周期。
+`core/dungeon-agent/` 提供不依赖 Babylon 的地图扫描、运行时 Agent 表、带朝向的格步移动和原地转向。`dungeon-agent` Lab Module 在地图加载事件后从 V2 文档创建独立 Agent Runtime，通过 Service/Event 对其他模块公开，并以可关闭的圆锥身体、球形头部和朝向四棱锥 Debug 模型显示；Agent 会注册到 DungeonRuntime 共享的通行世界，不再在 Agent Runtime 中维护第二套 Tile 占位索引。`labs/composable/dungeon-agent-lab/` 在 Dungeon Transition Lab 的完整模块链路上追加该模块，用于同时验证地图切换、玩家移动和 Agent 生命周期。
 
 Agent Runtime 现通过开放 Controller 注册表按 `agent-controller.controllerId` 分派独立逻辑。首批 `random-after-player-step` 在玩家成功完成格步时按 `actionPeriod` 触发，`continuous-random-walk` 则维护每个 Agent 自己的秒级等待时钟；二者均使用按 Entity 与可选 seed 初始化的可复现随机序列，并复用统一移动、地形、动态阻碍和占位检查。旧 `random-walk` 暂兼容为玩家格步触发版本。Controller 只决定行动时机和候选方向，不拥有 Babylon 表现或地图静态文档。
 
@@ -938,7 +944,7 @@ Controller 定义现同时公开名称、说明和数值参数 Schema，默认�
 
 `dungeon-obstacle` Lab 继续负责调节地图静态阻碍，而不拥有通行规则。其 Debug 视图现在从共享通行世界读取三层状态：原有红色静态 Tile/Side/Edge 阻碍、橙色动态阻挡占位和黄色路径预约；运行时 JSON 同时列出 Actor、逐格占位与预约，便于检查寻路为什么通过、绕行或等待。
 
-`tools/lab-modules/dungeon/dungeon-player-camera/` 统一拥有 Dungeon 玩家相机：第一人称读取 DungeonRuntime 的插值世界姿态，第三人称复用 Lab Orbit Camera，以固定地图朝向、可调仰角/距离和平滑目标跟随玩家；V 键和面板可在两者之间切换，地图传送时直接重置跟随目标。旧 `dungeon-first-person-camera` ID 只保留为兼容适配器，现有 Camera、Transition 与 Agent Lab 均改用新模块，避免多个模块逐帧争夺活动相机。
+`labs/modules/dungeon/dungeon-player-camera/` 统一拥有 Dungeon 玩家相机：第一人称读取 DungeonRuntime 的插值世界姿态，第三人称复用 Lab Orbit Camera，以固定地图朝向、可调仰角/距离和平滑目标跟随玩家；V 键和面板可在两者之间切换，地图传送时直接重置跟随目标。旧 `dungeon-first-person-camera` ID 只保留为兼容适配器，现有 Camera、Transition 与 Agent Lab 均改用新模块，避免多个模块逐帧争夺活动相机。
 
 `core/dungeon-runtime/dungeonRuntimeMap.ts` 将 V2 文档编译为玩家运行时持有的地图对象，包含地图身份、尺寸、原始文档和整数拓扑，不再让 `DungeonRuntime` 持有嵌套 `DungeonMapData`。格步移动通过 `neighborTileIndices` 解析目标格，因此普通外轮廓仍可阻挡，循环地图接缝则能直接到达另一侧。阻碍在装载时由 `scanDungeonDocumentObstacles()` 从 ECS 表与 `spatial-attachment` 扫描一次并缓存，移动检查不再反复遍历整张旧地图。当前 Dungeon Loader 仍为场景生成与 Delta 保留 V1 live map，但会在创建 Runtime 的边界迁移一次 V2；场景、入口/出口和 Delta 将在后续阶段分别迁移。
 
@@ -968,7 +974,7 @@ Animation Workbench 的预设开发链路已与其他 Lab 对齐：`python/serve
 
 ## 2026-09-11：Animation Workbench 独立入口
 
-`tools/animation-workbench-lab/` 是面向动态值动画系统的独立创作工作台，不复用 `model-shake-lab` 的左右手武器预设结构。页面使用固定 Babylon 预览舞台，左侧只管理具有持久 UUID 的 Animation Objects，支持空节点和基础几何体的创建、父子层级、选择、复制、显隐与递归删除；中间提供移动、旋转、缩放以及 Local / World Gizmo，右侧编辑对象身份和 Transform。工作区可显式保存到当前浏览器或导入/导出 JSON；Babylon Node 只是按开放 `factoryTypeId` 工厂创建的临时预览实例，不作为持久身份。
+`labs/standalone/animation-workbench-lab/` 是面向动态值动画系统的独立创作工作台，不复用 `model-shake-lab` 的左右手武器预设结构。页面使用固定 Babylon 预览舞台，左侧只管理具有持久 UUID 的 Animation Objects，支持空节点和基础几何体的创建、父子层级、选择、复制、显隐与递归删除；中间提供移动、旋转、缩放以及 Local / World Gizmo，右侧编辑对象身份和 Transform。工作区可显式保存到当前浏览器或导入/导出 JSON；Babylon Node 只是按开放 `factoryTypeId` 工厂创建的临时预览实例，不作为持久身份。
 
 `core/animation/signal/` 提供与 Babylon 预览层解耦的开放 Signal Node 注册表、可序列化 `SignalGraphDocument` 和纯求值器；内置 Time、Number、Parameter、Number Curve、Add、Multiply 与 Sine 只是首批可扩展节点，不是固定动作枚举。未连接的数值输入既可使用节点定义默认值，也可保存节点级动态覆盖值。
 
@@ -980,11 +986,11 @@ Animation Workbench 的预设开发链路已与其他 Lab 对齐：`python/serve
 
 `core/ui/menu/` 提供不依赖 React 的统一操作菜单，可由鼠标坐标打开右键菜单，也可锚定任意按钮打开下拉菜单。菜单模型支持 SVG 图标、分隔线、快捷键提示、禁用/危险/勾选状态和任意层级子菜单；运行时统一处理屏幕边缘夹取与子菜单左右翻转、点击外部关闭、窗口变化关闭、焦点恢复，以及方向键、Home / End、Enter 与 Esc 键盘导航。页面只声明菜单数据和动作，不再各自维护弹层 DOM、全局监听与样式。
 
-共享 `BabylonSceneHierarchy` 已移除私有右键弹层，节点聚焦、子级展开/收起和路径复制改用统一菜单，其中子级操作作为二级菜单验证树状选择。`tools/lab-kit/LabUi` 的面板布局区改为紧凑的按钮锚定菜单，保留全部展开、全部折叠和重置布局的原能力；因此所有组合式 Lab 都会获得相同菜单入口。
+共享 `BabylonSceneHierarchy` 已移除私有右键弹层，节点聚焦、子级展开/收起和路径复制改用统一菜单，其中子级操作作为二级菜单验证树状选择。`labs/kit/LabUi` 的面板布局区改为紧凑的按钮锚定菜单，保留全部展开、全部折叠和重置布局的原能力；因此所有组合式 Lab 都会获得相同菜单入口。
 
 ## 2026-09-10：LabKit 紧凑折叠面板
 
-`tools/lab-kit/LabUi.addPanel()` 的共享折叠标题栏改为 Inspector 风格的整行点击区域与 SVG 箭头，展开时旋转箭头，移除原有独立加减按钮和卡片内部的大块留白。内容仍使用原 DOM 容器，面板 ID、默认折叠、全部展开/折叠、重置布局以及按页面保存的本地折叠偏好均保持不变。该样式会统一应用到 `dungeon-player-spawn-lab` 等所有使用 LabKit 的组合式 Lab；系统面板仍保留轻微的颜色区分。
+`labs/kit/LabUi.addPanel()` 的共享折叠标题栏改为 Inspector 风格的整行点击区域与 SVG 箭头，展开时旋转箭头，移除原有独立加减按钮和卡片内部的大块留白。内容仍使用原 DOM 容器，面板 ID、默认折叠、全部展开/折叠、重置布局以及按页面保存的本地折叠偏好均保持不变。该样式会统一应用到 `dungeon-player-spawn-lab` 等所有使用 LabKit 的组合式 Lab；系统面板仍保留轻微的颜色区分。
 
 ## 2026-09-11：共享 Babylon Scene Hierarchy / Inspector
 
@@ -1010,7 +1016,7 @@ core/model/preset/firstPersonWeaponAnimation.ts 提供双轨采样；firstPerson
 
 `core/model/preset/firstPersonWeaponPreset.ts` 定义 v1/v2/v3 武器预设、旧点位到语义体的迁移与严格校验，`firstPersonWeaponPresetApi.ts` 通过统一 configLoader 读取 `config/firstPersonWeaponPresets.json`。开发态优先使用当前 Vite 服务的同源 `/api/first-person-weapon-presets` GET/PUT，独立 Python 服务作为兼容后备；两端均校验完整预设后原子替换文件。保存内容包含每手代理体、持握体、攻击体、发射端、模型路径、安装缩放、相对位置、相对旋转和关键帧。Vite 对该文件写回禁用热重载，保存后保留草稿与时间轴状态。正式构建只读并支持 JSON 导出。通用 `modelShakePresets.json` 与其 API 保持独立。
 
-`tools/model-shake-lab/` 节点链为相机/工作台根 → 动画姿态（挂载坐标系）→ 模型安装变换 → createModelEntity() 标准化实体，同时为代理体、持握体、攻击体和发射端保留稳定的 Gizmo 变换节点。代理体 Debug 是动画节点下的独立子树，不缩放模型。+Z 为前、+Y 为上；原点是动画枢轴，各语义体保留独立局部位置与旋转，不自动改变枢轴。盒体、枪械组合盒、圆柱、胶囊和椭球尺寸、中心及旋转可编辑。预设保存一个模型资源路径、安装变换、代理体及动画；不同模型可另存为不同 Key。项目规范化参数不进入该文件，不再自动包围盒居中或二次缩放。旧浏览器草稿/无持久资源路径的本地 GLB 不自动迁移。
+`labs/standalone/model-shake-lab/` 节点链为相机/工作台根 → 动画姿态（挂载坐标系）→ 模型安装变换 → createModelEntity() 标准化实体，同时为代理体、持握体、攻击体和发射端保留稳定的 Gizmo 变换节点。代理体 Debug 是动画节点下的独立子树，不缩放模型。+Z 为前、+Y 为上；原点是动画枢轴，各语义体保留独立局部位置与旋转，不自动改变枢轴。盒体、枪械组合盒、圆柱、胶囊和椭球尺寸、中心及旋转可编辑。预设保存一个模型资源路径、安装变换、代理体及动画；不同模型可另存为不同 Key。项目规范化参数不进入该文件，不再自动包围盒居中或二次缩放。旧浏览器草稿/无持久资源路径的本地 GLB 不自动迁移。
 
 ## 2026-09-08：Dungeon Map Canvas 静态底图与选择层分离
 
@@ -1020,7 +1026,7 @@ core/model/preset/firstPersonWeaponAnimation.ts 提供双轨采样；firstPerson
 
 ## 2026-09-08：Dungeon Map Canvas 大选区第一阶段止卡优化
 
-`tools/dungeon-map-canvas-lab/` 的选区派生数据现在按地图与选区缓存：公用边、公用点通过 ID 索引常数时间定位，选区计数、容器去重和批量 Entity / Component 分析不再在同一次渲染中重复扫描。Entity / Component 面板折叠时暂停其批量兼容性分析；选中对象列表只渲染前 100 项，但全部项目仍参与批量操作与导出。选中对象 JSON 在对应面板展开时或用户实际复制、下载时才序列化；超过 500 个真实数据容器时，无论面板此前是否展开，当前大选区首帧都会直接阻止序列化并强制折叠，只有用户确认后才生成完整 JSON。生成结果会为当前选区保留，折叠后再次展开直接复用、不再警告；选区目标变化后才需要重新确认。
+`labs/standalone/dungeon-map-canvas-lab/` 的选区派生数据现在按地图与选区缓存：公用边、公用点通过 ID 索引常数时间定位，选区计数、容器去重和批量 Entity / Component 分析不再在同一次渲染中重复扫描。Entity / Component 面板折叠时暂停其批量兼容性分析；选中对象列表只渲染前 100 项，但全部项目仍参与批量操作与导出。选中对象 JSON 在对应面板展开时或用户实际复制、下载时才序列化；超过 500 个真实数据容器时，无论面板此前是否展开，当前大选区首帧都会直接阻止序列化并强制折叠，只有用户确认后才生成完整 JSON。生成结果会为当前选区保留，折叠后再次展开直接复用、不再警告；选区目标变化后才需要重新确认。
 
 `DungeonMapCanvas` 使用 `React.memo` 隔离左侧面板的无关更新，并为公用边、公用点选择绘制复用索引。`core/entity/batch-edit.ts` 的 Component 编辑定义查询只计算一次兼容分组，不再对每个 Component 定义重复全量分组；5000 个 Entity 的回归用例保护批量分析结果。此阶段不改变选区数据格式、选择语义、保存协议和画布视觉结果；选区紧凑存储与 Worker 仍留给后续阶段。
 
@@ -1048,11 +1054,11 @@ core/model/preset/firstPersonWeaponAnimation.ts 提供双轨采样；firstPerson
 
 `core/ui/DungeonMapCanvas.tsx` 将拖拽框交互独立于 Canvas 绘制：指针移动只修改拖拽引用，并经 `requestAnimationFrame` 合并更新轻量 DOM 覆盖框，不再触发 React 更新或 Canvas 重绘；松开后仍按原规则计算并提交选择结果。随后加入的 Canvas 分层为已提交选择单独分配透明高亮层，详见最新渲染记录。
 
-`tools/dungeon-map-canvas-lab/` 新增“地图结构”面板，可按 Canvas 当前选中坐标在上 / 下插入或删除整行，在左 / 右插入或删除整列；没有格子选择时可手动输入目标行列。修改只进入当前页面内存，继续由既有“保存全部地图预设”统一写入 config。地图预设面板新增“重新加载当前预设”，只从 config 重新获取当前 Key；检测到未保存修改时先确认，并清理当前编辑历史。此次没有为结构操作增加撤销 / 重做，也没有扩展运行时地图 Delta，因为尺寸与拓扑编辑属于预设创作而不是游戏运行态修改。
+`labs/standalone/dungeon-map-canvas-lab/` 新增“地图结构”面板，可按 Canvas 当前选中坐标在上 / 下插入或删除整行，在左 / 右插入或删除整列；没有格子选择时可手动输入目标行列。修改只进入当前页面内存，继续由既有“保存全部地图预设”统一写入 config。地图预设面板新增“重新加载当前预设”，只从 config 重新获取当前 Key；检测到未保存修改时先确认，并清理当前编辑历史。此次没有为结构操作增加撤销 / 重做，也没有扩展运行时地图 Delta，因为尺寸与拓扑编辑属于预设创作而不是游戏运行态修改。
 
 ## 2026-09-06：Lab `createLabSwitch()` 页面偏好
 
-`tools/lab-kit/labUi.ts` 的 `createLabSwitch()` 支持可选 `preference`，统一复用按 Lab 页面路径隔离的 `LabUi` 本地偏好，而不是由各模块直接访问 `localStorage`。非 Switch 二态 UI 通过同源的 `createBooleanPreference()` 接入；稳定 Key 在同一页面内不能重复。当前持久化入口/出口、阻碍、格子和玩家 Spawn Debug 显示，Camera 浮动参数面板的显示与内部折叠，以及全局、玩家、摄像机三个键盘输入总开关。键盘优先级、处理后拦截、preventDefault、传送规则和移动规则没有纳入这一自动偏好。
+`labs/kit/labUi.ts` 的 `createLabSwitch()` 支持可选 `preference`，统一复用按 Lab 页面路径隔离的 `LabUi` 本地偏好，而不是由各模块直接访问 `localStorage`。非 Switch 二态 UI 通过同源的 `createBooleanPreference()` 接入；稳定 Key 在同一页面内不能重复。当前持久化入口/出口、阻碍、格子和玩家 Spawn Debug 显示，Camera 浮动参数面板的显示与内部折叠，以及全局、玩家、摄像机三个键盘输入总开关。键盘优先级、处理后拦截、preventDefault、传送规则和移动规则没有纳入这一自动偏好。
 
 恢复值在 Keyboard Router 消费者注册前生效，因此玩家与摄像机消费者第一次注册就使用正确的启用状态；全局键盘偏好则在 Host Keyboard Debug 面板创建时立即同步到 Router。“重置布局”只重置左侧面板折叠，不清除 Switch/Boolean 偏好。这些偏好不进入游戏存档，也不写入正式配置文件。
 
@@ -1062,29 +1068,29 @@ core/model/preset/firstPersonWeaponAnimation.ts 提供双轨采样；firstPerson
 
 地图 Canvas 编辑器自动发现以上 Entity/Component 定义，并把传送结构校验并入保存前检查；组件字段支持多选勾选控件来编辑出口触发组合。Dungeon Libraries 在加载完整目录后校验跨地图引用；Dungeon Map Loader 在应用地图 Delta 后再次校验实际 live map，并在公开新地图引用前原子应用入口格子、世界位置、正式朝向和世界旋转，目标入口失效时保留原地图。`player-movement` 提供同步的受阻移动拦截服务，先无副作用预检边界与阻碍；`dungeon-transition` 依赖它并在阻挡动画前接管命中的 `move-attempt` 出口，未命中才保留原撞墙反馈。移动完成后仍匹配 `enter` 出口，E 键/按钮仍匹配 `interact` 出口；切换期间通过 Host Keyboard Router 输入锁暂停其他消费者。
 
-`tools/dungeon-transition-lab/` 独立组合地图选择、DRPG 第一人称相机和传送模块。传送面板可显示入口和出口 Debug 盒：入口使用缩小的格子盒，格子出口、单向边出口和公用边出口复用阻碍 Debug 的三类空间布局，并以不同颜色区分；标签使用 `AUTO / E / PUSH / ALL` 或组合文本标明触发方式，`PUSH` 的边框更粗。切图时盒子随新地图重建，关闭开关或销毁模块时释放。当前模块只发布 started/completed/failed 低频事件并执行逻辑切换，不创建淡入淡出、加载遮罩、镜头动画或音效；这些表现留给后续专门的传送表现 Lab。
+`labs/composable/dungeon-transition-lab/` 独立组合地图选择、DRPG 第一人称相机和传送模块。传送面板可显示入口和出口 Debug 盒：入口使用缩小的格子盒，格子出口、单向边出口和公用边出口复用阻碍 Debug 的三类空间布局，并以不同颜色区分；标签使用 `AUTO / E / PUSH / ALL` 或组合文本标明触发方式，`PUSH` 的边框更粗。切图时盒子随新地图重建，关闭开关或销毁模块时释放。当前模块只发布 started/completed/failed 低频事件并执行逻辑切换，不创建淡入淡出、加载遮罩、镜头动画或音效；这些表现留给后续专门的传送表现 Lab。
 
 `config/dungeonMapPresets/dungeon_map.json` 与 `dungeon_map_2.json` 保留一组命名为“验证出口”的近距离回归点。长廊出生点 `(1,0)` 北侧公用边提供 `interact + move-attempt`，长廊 `(1,2)` 南侧单向边与默认启用的阻碍组合验证 `move-attempt`；广场出生点 `(0,0)` 北侧公用边验证边界 `move-attempt`，广场 `(1,1)` 格子验证当前位置 `interact`。两张地图原有的格子、单向边和公用边出口继续用于验证 `enter` 与其他组合。修改这些预设后应同时运行单图结构校验和完整 Library 跨地图入口引用校验。
 
 ## 2026-09-05：DRPG 第一人称相机组合 Lab
 
-`tools/dungeon-first-person-camera-lab/` 是独立的组合式入口，不修改原 `dungeon-player-movement-lab`。页面只声明 `dungeon-config` 与 `dungeon-first-person-camera`，Host 通过后者对 `player-movement` 的依赖自动补齐地图、Runtime、Spawn、阻碍和格步移动链。
+`labs/composable/dungeon-first-person-camera-lab/` 是独立的组合式入口，不修改原 `dungeon-player-movement-lab`。页面只声明 `dungeon-config` 与 `dungeon-first-person-camera`，Host 通过后者对 `player-movement` 的依赖自动补齐地图、Runtime、Spawn、阻碍和格步移动链。
 
-`tools/lab-modules/dungeon/dungeon-first-person-camera/` 只读取 `DungeonMapLoaderReferences` 中的玩家连续世界位置和 `playerWorldRotationY`，通过 `CameraLabController.bindFirstPersonPose()` 驱动现有 Babylon `UniversalCamera`；它不注册键盘移动、不写玩家位置或朝向。相机姿态由“玩家正式朝向 + 水平观察偏移”和“基础俯仰角 + 垂直观察偏移”组成。Canvas 左键拖拽可在配置范围内自由观察，松开可选自动平滑回正，并提供手动平滑回正和立即回正；所有回正只清理相机观察偏移，不触发玩家转向。
+`labs/modules/dungeon/dungeon-first-person-camera/` 只读取 `DungeonMapLoaderReferences` 中的玩家连续世界位置和 `playerWorldRotationY`，通过 `CameraLabController.bindFirstPersonPose()` 驱动现有 Babylon `UniversalCamera`；它不注册键盘移动、不写玩家位置或朝向。相机姿态由“玩家正式朝向 + 水平观察偏移”和“基础俯仰角 + 垂直观察偏移”组成。Canvas 左键拖拽可在配置范围内自由观察，松开可选自动平滑回正，并提供手动平滑回正和立即回正；所有回正只清理相机观察偏移，不触发玩家转向。
 
 ## 2026-09-05：组合式 Lab Host 统一键盘与默认相机
 
-`tools/lab-kit/keyboard/` 已成为每个 `createLab()` 无条件加载的 Host 基础设施，与 Communication、Lab Execution、LabState 和 Viewport 同级，不作为 Catalog 中的可选 Lab Module。模块通过 `context.keyboard` 注册消费者，声明按键集合、启用状态、优先级、处理后拦截和浏览器默认行为；Router 按“优先级 → 稳定注册顺序”分发，编辑控件默认隔离业务按键。左侧内置 `Keyboard Input` Debug 面板显示当前焦点、按键、消费者所有权和最近路由路径；用户设置登记为可持久化的 `lab:host/keyboard-settings`。
+`labs/kit/keyboard/` 已成为每个 `createLab()` 无条件加载的 Host 基础设施，与 Communication、Lab Execution、LabState 和 Viewport 同级，不作为 Catalog 中的可选 Lab Module。模块通过 `context.keyboard` 注册消费者，声明按键集合、启用状态、优先级、处理后拦截和浏览器默认行为；Router 按“优先级 → 稳定注册顺序”分发，编辑控件默认隔离业务按键。左侧内置 `Keyboard Input` Debug 面板显示当前焦点、按键、消费者所有权和最近路由路径；用户设置登记为可持久化的 `lab:host/keyboard-settings`。
 
 逐键输入留在 Router 内同步分发，不占用 Communication 日志；全局启用、消费者设置和冲突变化才通过类型化 Communication 事件广播。`player-movement` 已移除直接的 Window 键盘监听，并以默认优先级 75 接入仲裁器；面板可单独设置键盘启用、优先级、拦截和 preventDefault。
 
-`tools/lab-kit/camera/` 现在为所有组合式 Lab 创建默认 Camera System。它从 Host 初始 ArcRotateCamera 的真实参数和姿态建立 `cameraLabController`，左侧 `Camera` 系统面板可打开已有浮动相机参数面板，并控制鼠标/滚轮与相机键盘消费者。环绕、第一人称、无人机使用 Babylon 原生相机输入，锁定平面保留项目控制；相机键盘默认关闭、优先级 50。Router 在内部决定低优先级分发和 DOM 拦截，同时允许获准的原生相机输入继续到 Babylon。可交互 Viewport Layer 会临时暂停相机输入，关闭后恢复用户选择。
+`labs/kit/camera/` 现在为所有组合式 Lab 创建默认 Camera System。它从 Host 初始 ArcRotateCamera 的真实参数和姿态建立 `cameraLabController`，左侧 `Camera` 系统面板可打开已有浮动相机参数面板，并控制鼠标/滚轮与相机键盘消费者。环绕、第一人称、无人机使用 Babylon 原生相机输入，锁定平面保留项目控制；相机键盘默认关闭、优先级 50。Router 在内部决定低优先级分发和 DOM 拦截，同时允许获准的原生相机输入继续到 Babylon。可交互 Viewport Layer 会临时暂停相机输入，关闭后恢复用户选择。
 
 `LabUi` 统一持久化左侧面板的折叠状态和显式声明的 Boolean 偏好，存储作用域按 Lab 页面路径隔离，不进入 LabState 游戏/实验 Snapshot。`addPanel()` 支持声明 `defaultCollapsed`，本地已保存状态拥有更高优先级；`createLabSwitch()` 可通过稳定 Key 选择绑定同一偏好存储，非 Switch 二态 UI 使用 `createBooleanPreference()`。当前持久化入口/出口 Debug 盒、阻碍 Debug 盒、地牢格子 Debug、玩家 Spawn Debug、Camera 浮动参数面板的显示与内部折叠，以及全局、玩家和摄像机键盘输入总开关；传送、移动规则和键盘高级参数不自动保存。左侧顶部提供全部展开、全部折叠和重置布局，其中重置布局只影响左侧面板折叠。Keyboard Input 的默认收起状态已从私有 DOM 操作迁移到这一公共接口。
 
 ## 2026-09-04：组合式 Lab 两阶段启动契约
 
-`tools/lab-kit/execution-plan/` 将组合式 Lab 的依赖解析提取为纯 `LabExecutionPlan`。页面仍只声明顶层 Module ID；Host 自动补齐间接依赖、菱形去重、检查 Catalog Key、缺失依赖、重复依赖和精确循环路径，并计算 `depth`。执行顺序先按 depth、再按首次发现顺序稳定排列；`setupOrder / startOrder` 使用该顺序，`disposeOrder` 自动反转，不接受手写 order。
+`labs/kit/execution-plan/` 将组合式 Lab 的依赖解析提取为纯 `LabExecutionPlan`。页面仍只声明顶层 Module ID；Host 自动补齐间接依赖、菱形去重、检查 Catalog Key、缺失依赖、重复依赖和精确循环路径，并计算 `depth`。执行顺序先按 depth、再按首次发现顺序稳定排列；`setupOrder / startOrder` 使用该顺序，`disposeOrder` 自动反转，不接受手写 order。
 
 组合式 Lab 固定执行“生成并校验计划 → 全部 `setup()` → 恢复 LabState/afterRestore → 全部 `start()` → ready → 反向 `dispose()`”。内置 `Lab Execution` 面板显示直接声明/自动依赖、depth、依赖列表、实时生命周期状态及 setup/start 耗时。初始化错误会附带失败阶段和从页面模块到失败模块的依赖链；已经 setup 的模块仍按计划倒序回滚，单个清理错误不会阻止后续清理。
 
@@ -1096,7 +1102,7 @@ core/model/preset/firstPersonWeaponAnimation.ts 提供双轨采样；firstPerson
 
 旧 `core/runtime/` 与 `RuntimeDataStore` 已删除。组合式 Lab 现在由 `createLab()` 创建唯一的 `context.labState`；它不是业务状态的中转 Store，而是模块活数据引用的登记中心。每个 Lab Module 自己创建、持有并直接高频访问数据，同时把同一个引用注册给 LabState。原地更新可按需 `markChanged()` 刷新 Debug，整体替换引用必须通过 Registration 的 `replace()` 同步登记。
 
-`tools/lab-kit/lab-state/` 提供引用注册、统一只读 Debug 视图、带模块/数据版本的 JSON Snapshot、全量预校验和原地恢复。`createLab({ initialState })` 在所有模块完成 setup 后、执行 start 前恢复存档；异步 `afterRestore` 在全部引用恢复后重建派生资源。LabState 面板是每个组合式 Lab 的内置系统面板，支持查看、复制、导出和导入存档；运行中导入后 Loader 会重新装载当前地图，使 Delta 与动态状态立即反映到活场景。不可持久化的场景引用只能进入 Debug，不会写入 Snapshot。
+`labs/kit/lab-state/` 提供引用注册、统一只读 Debug 视图、带模块/数据版本的 JSON Snapshot、全量预校验和原地恢复。`createLab({ initialState })` 在所有模块完成 setup 后、执行 start 前恢复存档；异步 `afterRestore` 在全部引用恢复后重建派生资源。LabState 面板是每个组合式 Lab 的内置系统面板，支持查看、复制、导出和导入存档；运行中导入后 Loader 会重新装载当前地图，使 Delta 与动态状态立即反映到活场景。不可持久化的场景引用只能进入 Debug，不会写入 Snapshot。
 
 `dungeon-map-loader` 当前登记三项数据：组合后的地牢引用仅供 Debug；地图结构 Delta Store 与按地图 Key 保存的 `DungeonRuntimeSaveState` 可持久化。生成 Snapshot 前会先结算当前地图 Delta 和动态 Runtime，从而保证切换地图或保存整个 Lab 时不会漏掉当前活场景的变化。
 
@@ -1104,7 +1110,7 @@ core/model/preset/firstPersonWeaponAnimation.ts 提供双轨采样；firstPerson
 
 ## 2026-09-04：Dungeon Map Loader 管理地图 Delta
 
-`tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.deltaStore.ts` 按地图预设 Key 在 Loader 内存中保存 `DungeonMapDefinitionRefsDelta`。地图基础预设始终只读；首次进入时克隆为独立 `liveMap`，再次进入时执行“基础地图 + 已保存 Delta → liveMap”。Scene、Spawn、DungeonRuntime、Obstacle 和 `LoadedDungeonReferences.map` 全部使用该 liveMap。
+`labs/modules/dungeon/dungeon-map-loader/dungeonMapLoader.deltaStore.ts` 按地图预设 Key 在 Loader 内存中保存 `DungeonMapDefinitionRefsDelta`。地图基础预设始终只读；首次进入时克隆为独立 `liveMap`，再次进入时执行“基础地图 + 已保存 Delta → liveMap”。Scene、Spawn、DungeonRuntime、Obstacle 和 `LoadedDungeonReferences.map` 全部使用该 liveMap。
 
 切出地图时 Loader 先计算并保存地图结构 Delta，再单独保存 `DungeonRuntimeSaveState`；切回时先恢复地图 Delta，再恢复玩家位置、朝向和阻碍启停状态。两类数据不会混合。无结构变化时对应 Delta 会被删除；基础指纹不匹配或尺寸/拓扑发生不可表示的变化时继续拒绝应用或切换，不静默丢弃。
 
@@ -1112,13 +1118,13 @@ Loader 面板显示当前地图即时 Delta、已经保存 Delta 的地图 Key �
 
 ## 2026-09-04：Lab Module 独立目录
 
-`tools/lab-modules/dungeon/` 下每个可独立引用的模块均拥有与 Module ID 对应的独立目录和公开 `index.ts`；目录内部暂时保留原 `.labModule.ts` 文件名。Dungeon catalog 只从各模块目录入口导入，页面继续只引用总 catalog。共享的 `viewport-layers` 同样完成目录化。
+`labs/modules/dungeon/` 下每个可独立引用的模块均拥有与 Module ID 对应的独立目录和公开 `index.ts`；目录内部暂时保留原 `.labModule.ts` 文件名。Dungeon catalog 只从各模块目录入口导入，页面继续只引用总 catalog。共享的 `viewport-layers` 同样完成目录化。
 
 原集中式 `dungeonLab.types.ts` 已删除。地图目录协议及 Libraries 服务 Key 归 `dungeon-libraries/dungeonLibraries.protocol.ts`；地图切换、地图与 Runtime 变化、Runtime commit 和存档查询归 `dungeon-map-loader/dungeonMapLoader.protocol.ts`；Loader 的活引用与对应服务 Key 归 `dungeon-map-loader/dungeonMapLoader.references.ts`。消费者直接导入所有者文件，各模块目录的 `index.ts` 统一公开本模块 API。
 
-`dungeon-map-loader` 通过 `dungeonMapLoader.references.ts` 注册唯一、稳定、只读的 `DungeonMapLoaderReferences`。Loader 在地图完全装载成功后原子替换 `current`，一次提交 map、scene binding、spawn、runtime 和 obstacles；各消费模块只在 `setup()` 时从 Service Registry 获取一次 Reader，后续直接读取该引用。Babylon 场景实例仍是 Loader 私有生命周期资源。阻碍 Debug 盒布局已从 `core/dungeon-obstacle` 移至 `tools/lab-modules/dungeon/dungeon-obstacle/`，Core 只保留正式阻碍规则。
+`dungeon-map-loader` 通过 `dungeonMapLoader.references.ts` 注册唯一、稳定、只读的 `DungeonMapLoaderReferences`。Loader 在地图完全装载成功后原子替换 `current`，一次提交 map、scene binding、spawn、runtime 和 obstacles；各消费模块只在 `setup()` 时从 Service Registry 获取一次 Reader，后续直接读取该引用。Babylon 场景实例仍是 Loader 私有生命周期资源。阻碍 Debug 盒布局已从 `core/dungeon-obstacle` 移至 `labs/modules/dungeon/dungeon-obstacle/`，Core 只保留正式阻碍规则。
 
-`tools/lab-modules/coreLabBoundary.test.ts` 保护当前参与组合式 Dungeon Lab 的 Core 依赖，禁止其反向导入 Lab、访问 Lab 通信/服务/UI、直接操作 DOM，或自行注册 LabState；`core/dungeon-runtime` 自身的运行态数据与更新逻辑继续保留。
+`labs/modules/coreLabBoundary.test.ts` 保护当前参与组合式 Dungeon Lab 的 Core 依赖，禁止其反向导入 Lab、访问 Lab 通信/服务/UI、直接操作 DOM，或自行注册 LabState；`core/dungeon-runtime` 自身的运行态数据与更新逻辑继续保留。
 
 ## 2026-09-03：移除 World 抽象与兼容运行时
 
@@ -1160,43 +1166,43 @@ Vite 对地图目录内所有 JSON 写回禁用 HMR，并通过动态 `import.me
 
 ## 2026-09-01：通用 Lab Viewport
 
-`tools/lab-kit/` 的右侧区域已由单一 Babylon.js Canvas 升级为 `LabViewportManager` 管理的通用 Viewport。Babylon Canvas 保持为底层；Lab Module 可通过 `context.viewport.openCanvasLayer()` 或 `openHtmlLayer()` 临时创建覆盖层，并选择覆盖 Babylon 的 `exclusive` 模式或透明叠加的 `overlay` 模式。
+`labs/kit/` 的右侧区域已由单一 Babylon.js Canvas 升级为 `LabViewportManager` 管理的通用 Viewport。Babylon Canvas 保持为底层；Lab Module 可通过 `context.viewport.openCanvasLayer()` 或 `openHtmlLayer()` 临时创建覆盖层，并选择覆盖 Babylon 的 `exclusive` 模式或透明叠加的 `overlay` 模式。
 
-Viewport 统一负责 Layer 显隐、独占层切换、高清 Canvas 尺寸同步、Babylon 相机输入锁定以及可选的 Babylon 渲染暂停。Layer 生命周期仍归创建它的模块所有，必须随模块清理。`tools/dungeon-runtime-save-switching-lab/` 已加入 `viewport-layers` 演示模块，可从左侧面板切换 Canvas 数据关系图、HTML 数据详情和 Babylon 场景。
+Viewport 统一负责 Layer 显隐、独占层切换、高清 Canvas 尺寸同步、Babylon 相机输入锁定以及可选的 Babylon 渲染暂停。Layer 生命周期仍归创建它的模块所有，必须随模块清理。`labs/composable/dungeon-runtime-save-switching-lab/` 已加入 `viewport-layers` 演示模块，可从左侧面板切换 Canvas 数据关系图、HTML 数据详情和 Babylon 场景。
 ## 2026-09-01：地图预设保存不重载编辑器
 
-`tools/dungeon-map-canvas-lab/` 保存 `config/dungeonMapPresets/` 后继续使用当前 React 编辑状态，不重新读取预设。`vite.config.ts` 的 `shared-config-public-bridge.hotUpdate` post hook 对该目录内的变更返回空更新列表，避免配置写回触发 Vite HMR、重建整个地图编辑器界面。其他配置文件的热更新行为保持不变。
+`labs/standalone/dungeon-map-canvas-lab/` 保存 `config/dungeonMapPresets/` 后继续使用当前 React 编辑状态，不重新读取预设。`vite.config.ts` 的 `shared-config-public-bridge.hotUpdate` post hook 对该目录内的变更返回空更新列表，避免配置写回触发 Vite HMR、重建整个地图编辑器界面。其他配置文件的热更新行为保持不变。
 ## 2026-09-01：地图加载器
 
-`tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.labModule.ts` 组合已有 Core 能力，先从只读基础预设和 Loader Delta Store 创建独立 liveMap，再创建目标地图的场景实例、Binding、玩家出生点、`DungeonRuntime` 和阻碍 Binding，并恢复自己维护的 `DungeonRuntimeSaveState`。只有完整加载成功且仍是最新 generation 时才原子提交当前引用。
+`labs/modules/dungeon/dungeon-map-loader/dungeonMapLoader.labModule.ts` 组合已有 Core 能力，先从只读基础预设和 Loader Delta Store 创建独立 liveMap，再创建目标地图的场景实例、Binding、玩家出生点、`DungeonRuntime` 和阻碍 Binding，并恢复自己维护的 `DungeonRuntimeSaveState`。只有完整加载成功且仍是最新 generation 时才原子提交当前引用。
 
 旧的 `map-requested → scene-ready → spawn-ready → runtime-ready → obstacles-ready` 级联事件已经移除。所有地图 Debug、出生点、Runtime、阻碍和玩家移动 Lab 统一消费 `dungeon:map-changed`，再读取稳定 `DungeonMapLoaderReferences.current`。旧 Babylon 地图实例在新地图消费者完成重建后释放；过期的异步装载结果会立即释放且不会提交。
 ## 2026-09-01：地牢运行时存档
 
 `core/dungeon-runtime-save/` 只保存玩家格子位置、朝向与阻碍状态等动态存档。`createDungeonRuntime()` 直接从预设的 `activeByDefault` 建立完整阻碍状态，Lab 不再负责初始化。切换地牢时先保存旧地牢的动态运行态，再从目标预设创建全新 Runtime 并恢复已有存档；该过程不修改地图数据。
 
-旧 `tools/world-runtime-lab/` 已移除；`tools/dungeon-runtime-save-switching-lab/` 用于人工验证地牢 A → B → A 的运行态恢复。
+旧 `tools/world-runtime-lab/` 已移除；`labs/composable/dungeon-runtime-save-switching-lab/` 用于人工验证地牢 A → B → A 的运行态恢复。
 
 ## 2026-08-31：地牢 Core 与可组合 Lab
 
-地牢功能已按“正式规则在 `core/`、测试装配在 `tools/lab-modules/`、页面只声明顶层模块”拆分。`core/dungeon-player-spawn/`、`core/dungeon-obstacle/`、`core/dungeon-player-movement/` 均为可脱离 Lab 使用的正式能力；对应 Lab Module 只负责面板、事件衔接和 Babylon.js Debug 可视化。
+地牢功能已按“正式规则在 `core/`、测试装配在 `labs/modules/`、页面只声明顶层模块”拆分。`core/dungeon-player-spawn/`、`core/dungeon-obstacle/`、`core/dungeon-player-movement/` 均为可脱离 Lab 使用的正式能力；对应 Lab Module 只负责面板、事件衔接和 Babylon.js Debug 可视化。
 
-`tools/lab-kit/` 提供统一 Lab Host。Host 根据模块的 `dependencies` 做拓扑排序、自动补齐和去重，共享一个 Engine、Scene、Camera、事件总线、服务注册表和面板容器，并按逆初始化顺序释放模块。具体 Lab 不得从另一个 Lab 目录复制或导入实现。
+`labs/kit/` 提供统一 Lab Host。Host 根据模块的 `dependencies` 做拓扑排序、自动补齐和去重，共享一个 Engine、Scene、Camera、事件总线、服务注册表和面板容器，并按逆初始化顺序释放模块。具体 Lab 不得从另一个 Lab 目录复制或导入实现。
 
 当前 Dungeon Lab 与 Dungeon Runtime Save Switching Lab 使用组合式入口：页面声明顶层模块，Host 自动展开 Dungeon 依赖；普通 Dungeon Lab 通过 `dungeon-config` 决定初始地图。
 
-截至本次更新，源码中有以下六个页面使用 `tools/lab-kit` 和组合模块；其他 Monster、Sprite、Model、Scene、UI Lab 尚未接入组合式框架：
+截至本次更新，源码中有以下六个页面使用 `labs/kit` 和组合模块；其他 Monster、Sprite、Model、Scene、UI Lab 尚未接入组合式框架：
 
 | Lab 页面 | 入口声明的顶层模块 | Host 自动补齐的间接模块 |
 | --- | --- | --- |
-| `tools/dungeon-scene-loader-lab/` | `dungeon-config`、`dungeon-grid-debug` | `dungeon-libraries`、`dungeon-map-loader` |
-| `tools/dungeon-player-spawn-lab/` | `dungeon-config`、`dungeon-grid-debug`、`player-spawn`、`dungeon-runtime` | `dungeon-libraries`、`dungeon-map-loader` |
-| `tools/dungeon-obstacle-lab/` | `dungeon-config`、`dungeon-grid-debug`、`dungeon-runtime`、`dungeon-obstacle` | `dungeon-libraries`、`dungeon-map-loader`、`player-spawn` |
-| `tools/dungeon-player-movement-lab/` | `dungeon-config`、`dungeon-runtime`、`player-movement` | `dungeon-libraries`、`dungeon-map-loader`、`dungeon-grid-debug`、`player-spawn`、`dungeon-obstacle` |
-| `tools/dungeon-first-person-camera-lab/` | `dungeon-config`、`dungeon-first-person-camera` | `player-movement` 及其地牢装载、Runtime、Spawn、阻碍依赖 |
-| `tools/dungeon-runtime-save-switching-lab/` | `dungeon-runtime-save-switch` | `dungeon-runtime`、`dungeon-obstacle`、`player-movement` 及其地牢装载依赖 |
+| `labs/composable/dungeon-scene-loader-lab/` | `dungeon-config`、`dungeon-grid-debug` | `dungeon-libraries`、`dungeon-map-loader` |
+| `labs/composable/dungeon-player-spawn-lab/` | `dungeon-config`、`dungeon-grid-debug`、`player-spawn`、`dungeon-runtime` | `dungeon-libraries`、`dungeon-map-loader` |
+| `labs/composable/dungeon-obstacle-lab/` | `dungeon-config`、`dungeon-grid-debug`、`dungeon-runtime`、`dungeon-obstacle` | `dungeon-libraries`、`dungeon-map-loader`、`player-spawn` |
+| `labs/composable/dungeon-player-movement-lab/` | `dungeon-config`、`dungeon-runtime`、`player-movement` | `dungeon-libraries`、`dungeon-map-loader`、`dungeon-grid-debug`、`player-spawn`、`dungeon-obstacle` |
+| `labs/composable/dungeon-first-person-camera-lab/` | `dungeon-config`、`dungeon-first-person-camera` | `player-movement` 及其地牢装载、Runtime、Spawn、阻碍依赖 |
+| `labs/composable/dungeon-runtime-save-switching-lab/` | `dungeon-runtime-save-switch` | `dungeon-runtime`、`dungeon-obstacle`、`player-movement` 及其地牢装载依赖 |
 
-这里的“使用”分为两层：页面负责调用 `createLab()` 并选择顶层模块；`tools/lab-modules/dungeon/` 使用 `lab-kit` 提供的模块契约、UI 控件、类型化通信和服务注册表。
+这里的“使用”分为两层：页面负责调用 `createLab()` 并选择顶层模块；`labs/modules/dungeon/` 使用 `lab-kit` 提供的模块契约、UI 控件、类型化通信和服务注册表。
 
 ## 2026-08-28：离线资源路径与只读构建
 
@@ -1261,9 +1267,9 @@ spriteAshPresets.json / monsterDissolvePresets.json
 - `core/sprite/dissolve/createSpriteNoiseErodeOptions.ts`：`SpriteAshPreset` 到 `noiseErodeModule` 参数的公共转换入口。新增消散参数时应优先更新此处，避免两个 Lab 再次产生参数映射差异。
 - `core/sprite/ash/createSpriteAshEffect.ts`：精灵消散 Lab 的预览控制器；现已改用 `createSpriteEffectMaterial + noiseErodeModule`，不再创建独立的 `spriteNoiseErodeShader` 材质。
 - `core/sprite/ash/createSpriteDissolveParticles.ts`：消散边缘粒子运行时。碎片、余烬、像素块等离散动态由粒子负责，不再由网格碎裂 Shader 模拟。
-- `tools/sprite-dissolve-effect-lab/`：编辑并保存通用精灵消散预设，使用单层精灵验证效果。
-- `tools/monster-dissolve-effect-lab/`：编辑并保存怪物专属消散预设，使用怪物多图层材质验证效果。
-- `tools/monster-knockback-lab/`：只负责旋转击飞、落地和淡出等怪物死亡运动。
+- `labs/standalone/sprite-dissolve-effect-lab/`：编辑并保存通用精灵消散预设，使用单层精灵验证效果。
+- `labs/standalone/monster-dissolve-effect-lab/`：编辑并保存怪物专属消散预设，使用怪物多图层材质验证效果。
+- `labs/standalone/monster-knockback-lab/`：只负责旋转击飞、落地和淡出等怪物死亡运动。
 
 消散网格细分的项目默认值已从 `72×72` 调整为 `12×12`，并同步迁移 `spriteAshPresets.json`、`monsterDissolvePresets.json`、精灵预览网格和怪物分层网格。`vertexSubdivisions` 仍可由预设单独覆盖；只有确实需要更细腻的 3D 顶点变形时才建议提高。
 
@@ -1279,7 +1285,8 @@ spriteAshPresets.json / monsterDissolvePresets.json
 
 - `apps/`：可运行应用。
 - `core/`：应用和实验室共享的无页面核心能力。
-- `tools/`：编辑器、配置器和视觉实验室。
+- `labs/`：普通与组合式实验室、Lab 基础设施和可复用模块。
+- `tools/`：独立资源编辑器、编辑定义和公共工具组件。
 - `config/`：构建时收录进应用、开发期可由 Python 服务写回的 JSON 配置源文件。
 - `public/resources/`：图片、模型、图集等原始资源。
 - `python/server.py`：开发期配置读写 API。
@@ -1312,7 +1319,11 @@ npm run electron:dev
 | `apps/mainGame/` | 主游戏 React 入口 |
 | `apps/desktopPet/` | 桌面宠物 React 入口 |
 | `core/` | 渲染、实体、配置规范化、运动、UI 等共享能力 |
-| `tools/` | 独立 HTML/React lab 和配置编辑器 |
+| `labs/standalone/` | 独立实现的普通 Lab 页面 |
+| `labs/composable/` | 使用 createLab 和模块目录装配的组合式 Lab 页面 |
+| `labs/kit/` | Lab Host、通信、共享内存和调试基础设施 |
+| `labs/modules/` | 按领域组织的可复用 Lab 模块 |
+| `tools/` | 独立资源编辑器、编辑定义和公共工具组件 |
 | `config/` | 静态配置库，开发模式下可经 API 写回 |
 | `public/resources/` | 怪物图片、模型、贴图和其他资源 |
 | `python/` | 开发服务器和辅助脚本 |
@@ -1393,7 +1404,7 @@ config/monsterDisplayConfigs.json
 - `core/dungeon-player-spawn/`：从 V2 格子空间挂载读取唯一启用的 `spawn-point / actor-spawn`，结合 map Entity 的 `scene-environment` 布局把出生格坐标转换为大场景世界坐标；缺失、重复或越界均直接报错。
 - `core/dungeon-runtime/`：已加载地牢地图的轻量运行时容器；持有地图引用、玩家权威格子位置、离散朝向、支持小数的连续 3D 世界位置/Y 轴旋转、当前移动过渡与 `obstacleStates` 启停表。运行中的高频状态只更新小型 Runtime，不修改或复制 `DungeonMapData`。
 - `core/dungeon-player-movement/`：玩家格步移动系统；`startDungeonPlayerMovement()` 执行东南西北绝对移动，`startDungeonPlayerRelativeMovement()` 根据当前朝向执行前进、后退和左右横移且保持朝向，`startDungeonPlayerTurn()` 创建左转、右转或后转的原地旋转；统一先检查地图边界与三类阻碍，再由 `updateDungeonPlayerMovement()` 按帧推进连续世界坐标与旋转并在结束后提交格子位置和朝向。更新结果会返回当前格步未消费的帧时间，玩家输入模块可在同一帧无缝续接下一格；键盘持续记录按住方向和移动期间最后按下的单个缓存方向，格子结束时最新缓存优先，否则沿仍按住的方向继续。随格步发生的朝向变化会被限制在该格位移时长内，避免位置先到终点后等待旋转；独立原地转向仍遵循自身时长。移动支持“世界单位/秒”或“秒/格”，转向支持“弧度/秒”或“秒/次转向”，同时保留瞬移参数。
-- `core/dungeon-obstacle/`：扫描格子、独立边和公用边上的 `obstacle / movement-obstacle`，初始化 `DungeonRuntime.obstacleStates`，提供运行时启停并判断跨格移动阻碍。仅供开发观察的近似 3D Debug 盒布局归 `tools/lab-modules/dungeon/dungeon-obstacle/dungeonObstacleDebugLayout.ts`：独立边盒位于所属格子内侧，公用边盒位于格子间隔边界。
+- `core/dungeon-obstacle/`：扫描格子、独立边和公用边上的 `obstacle / movement-obstacle`，初始化 `DungeonRuntime.obstacleStates`，提供运行时启停并判断跨格移动阻碍。仅供开发观察的近似 3D Debug 盒布局归 `labs/modules/dungeon/dungeon-obstacle/dungeonObstacleDebugLayout.ts`：独立边盒位于所属格子内侧，公用边盒位于格子间隔边界。
 - `core/entity/entity-types/spawn-point.entity-type.ts`：只能创建在格子容器中的出生点 Entity；默认附带 `actor-spawn`。`actor-spawn` 只能挂载到 `spawn-point` Entity，不保存坐标；出生格由 `spatial-attachment` 的 tileId 反查。
 - `core/entity/entity-types/obstacle.entity-type.ts`：只能创建在格子、独立边或公用边数据容器中的阻碍 Entity；默认且必须附带 `movement-obstacle`，其 `activeByDefault` 决定 Runtime 初始启停状态。
 - `core/tracking/`：UI 与 3D 世界位置跟踪。
@@ -1402,10 +1413,10 @@ config/monsterDisplayConfigs.json
 
 ### 可组合 Lab 基础设施
 
-- `tools/lab-kit/`：页面级 Lab Host、模块依赖拓扑排序、共享 Babylon.js 场景上下文、事件总线、服务注册表、公共面板控件与统一 CSS。具体 Lab 页面只声明顶层模块，不再复制场景和 UI 生命周期；新增模块遵循 `tools/lab-kit/README.md`。Communication 日志的默认视图按新增/淘汰记录增量更新，不在高频 Runtime 事件到达时反复重建全部日志 DOM，避免调试界面干扰逐帧移动。
-- `tools/lab-modules/<domain>/`：可组合模块目录。游戏规则不能放在这里；模块只装配 `core/`、创建输入和状态面板、维护 Debug 对象，并在清理函数中释放订阅和 Babylon.js 资源。
+- `labs/kit/`：页面级 Lab Host、模块依赖拓扑排序、共享 Babylon.js 场景上下文、事件总线、服务注册表、公共面板控件与统一 CSS。具体 Lab 页面只声明顶层模块，不再复制场景和 UI 生命周期；新增模块遵循 `labs/kit/README.md`。Communication 日志的默认视图按新增/淘汰记录增量更新，不在高频 Runtime 事件到达时反复重建全部日志 DOM，避免调试界面干扰逐帧移动。
+- `labs/modules/<domain>/`：可组合模块目录。游戏规则不能放在这里；模块只装配 `core/`、创建输入和状态面板、维护 Debug 对象，并在清理函数中释放订阅和 Babylon.js 资源。
 
-当前 `tools/lab-modules/dungeon/` 模块：
+当前 `labs/modules/dungeon/` 模块：
 
 | 模块 ID | 直接依赖 | 装配职责 |
 | --- | --- | --- |
@@ -1456,18 +1467,18 @@ lab:ready / 用户选择地牢
 
 | Lab | 入口 | 职责 |
 | --- | --- | --- |
-| Monster 2D Lab | `tools/monster-2d-lab/index.html` | 纯 2D 网页预览；不再拥有 3D 模式 |
-| Monster 3D Visual Lab | `tools/monster-3d-visual-lab/index.html` | 编辑怪物显示配置和怪物条纹配置；通过 `MonsterVisualManager` 进行 3D 预览 |
-| Monster Hit Lab | `tools/monster-hit-feedback-lab/index.html` | 受击反馈、弹出数字和爆炸胶囊测试 |
-| 怪物击飞效果 Lab | `tools/monster-knockback-lab/index.html` | 只编辑和预览 `knockback` 旋转击飞、落地与淡出参数；保存时保留配置库中的其他死亡模式 |
-| 怪物消散效果 Lab | `tools/monster-dissolve-effect-lab/index.html` | 编辑、保存并预览 `monsterDissolvePresets.json` 中的怪物专属消散预设；空配置首次以精灵预设为模板 |
-| Monster Movement Lab | `tools/monster-movement-lab/index.html` | 编队中的移动模式和距离条纹规则测试 |
-| Monster Attack Lab | `tools/monster-attack-lab/index.html` | 怪物攻击动作配置与测试 |
-| Monster Formation Lab | `tools/monster-formation-lab/index.html` | 战场编队编辑与预览 |
-| Battlefield Stripe Rules Lab | `tools/monster-battlefield-stripe-rules-lab/index.html` | 按战场距离切换怪物条纹 |
-| Monster Status Particle Lab | `tools/monster-status-particle-lab/index.html` | 怪物状态粒子配置 |
-| Monster Exclamation Position Lab | `tools/monster-exclamation-position-lab/index.html` | 感叹号布局 |
-| Monster Special Status Position Lab | `tools/monster-special-status-position-lab/index.html` | 特殊状态布局 |
+| Monster 2D Lab | `labs/standalone/monster-2d-lab/index.html` | 纯 2D 网页预览；不再拥有 3D 模式 |
+| Monster 3D Visual Lab | `labs/standalone/monster-3d-visual-lab/index.html` | 编辑怪物显示配置和怪物条纹配置；通过 `MonsterVisualManager` 进行 3D 预览 |
+| Monster Hit Lab | `labs/standalone/monster-hit-feedback-lab/index.html` | 受击反馈、弹出数字和爆炸胶囊测试 |
+| 怪物击飞效果 Lab | `labs/standalone/monster-knockback-lab/index.html` | 只编辑和预览 `knockback` 旋转击飞、落地与淡出参数；保存时保留配置库中的其他死亡模式 |
+| 怪物消散效果 Lab | `labs/standalone/monster-dissolve-effect-lab/index.html` | 编辑、保存并预览 `monsterDissolvePresets.json` 中的怪物专属消散预设；空配置首次以精灵预设为模板 |
+| Monster Movement Lab | `labs/standalone/monster-movement-lab/index.html` | 编队中的移动模式和距离条纹规则测试 |
+| Monster Attack Lab | `labs/standalone/monster-attack-lab/index.html` | 怪物攻击动作配置与测试 |
+| Monster Formation Lab | `labs/standalone/monster-formation-lab/index.html` | 战场编队编辑与预览 |
+| Battlefield Stripe Rules Lab | `labs/standalone/monster-battlefield-stripe-rules-lab/index.html` | 按战场距离切换怪物条纹 |
+| Monster Status Particle Lab | `labs/standalone/monster-status-particle-lab/index.html` | 怪物状态粒子配置 |
+| Monster Exclamation Position Lab | `labs/standalone/monster-exclamation-position-lab/index.html` | 感叹号布局 |
+| Monster Special Status Position Lab | `labs/standalone/monster-special-status-position-lab/index.html` | 特殊状态布局 |
 
 Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和水平偏移只在 Enter 或失焦时提交。
 
@@ -1604,7 +1615,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 
 ## 2026-10-14：70 年代终端 JRPG 对话界面
 
-tools/jrpg-terminal-dialogue-lab/index.html 是独立交互界面示例，由根 index 与 Vite 多页构建收录。原生 HTML/CSS/TypeScript 实现橄榄色终端机壳、磷光绿／琥珀色 CRT、字符画场景、逐字对白、分支选项、自动阅读、对话记录、浏览器存读档与键盘操作。内置雾港序章展示两种结局；存档仅使用 jrpg-terminal-dialogue:save:v1，不连接地图编辑器或真实游戏事件。
+labs/standalone/jrpg-terminal-dialogue-lab/index.html 是独立交互界面示例，由根 index 与 Vite 多页构建收录。原生 HTML/CSS/TypeScript 实现橄榄色终端机壳、磷光绿／琥珀色 CRT、字符画场景、逐字对白、分支选项、自动阅读、对话记录、浏览器存读档与键盘操作。内置雾港序章展示两种结局；存档仅使用 jrpg-terminal-dialogue:save:v1，不连接地图编辑器或真实游戏事件。
 
 
 ## 2026-10-15：对话卡片分区域留白
