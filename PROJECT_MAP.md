@@ -1,3 +1,37 @@
+## 2026-10-16：Grid 单位与技能纵向合并
+
+`grid/UnitParameters.tsx` 按单位摘要、名称、技能标签与骰子编辑器、基础参数、特殊状态的顺序在同一窗口常驻展开。单位和技能仍保留项目标签，不增加功能切换页。Grid 默认四窗口，左右单位各占两行高度；旧六窗口布局完整校验后将各侧技能面板高度加到单位面板，并移除独立技能面板，保留其余位置、显隐和锁定。Puck 装配保持独立。
+
+## 2026-10-16：单位与技能标签页
+
+Grid、Puck 业务控件和完整参数页统一使用 `shared/EntityTabs.tsx` 与 `CombatEntityTabs.tsx` 管理单位/技能。标签切换详情、新建即选中、重命名同步更新，支持横向滚动、方向键与 Home/End；设计模式禁用业务操作。属性枚举保留下拉框。
+
+store 的新增单位动作同步选中；删除选中单位/技能时优先选右侧相邻项，再选左侧项，清空后显示空态；删除非选中项保留当前选择。技能 ID 改用 UUID，避免快速连续新建重名 ID。业务规则与布局持久化保持原样。
+
+## 2026-10-16：XP 工业控制台与紧凑战斗参数
+
+Clash Grid 使用 XP 风格标题栏、系统按钮、凹陷输入框和底部实时状态栏。`shared/xp-console.css` 同时统一 Grid、Puck 运行页及其画布控件外观；`grid/xp-grid.css` 定义工作台窗口与参数表。压缩标题、间距、控件和网格行高，默认六个窗口按三列两行展示，不通过放大内容填满剩余桌面。
+
+`grid/UnitParameters.tsx` 将原折叠单位编辑器改为常驻的紧凑参数与状态表，复用现有 store，支持新增、删除、切换单位及参数修改；删除选中单位后选中剩余第一个单位。原有 Grid/Puck 保存布局保留，恢复默认布局使用新的六窗口排列。
+
+## 2026-10-16：Grid 战斗逻辑工作台
+
+安装 `react-grid-layout` 2.3.0，在 `labs/standalone/clash-lab/grid.html` 增加独立工作台，并接入首页、Puck 运行页与 Vite 构建。使用 v2 GridLayout/useContainerWidth，支持单位、技能、战斗日志和运行数据面板的拖动、缩放、显隐与布局锁定；业务控件始终可操作，复用原有管线。
+
+`grid/` 管理工作台及布局边界，`shared/CombatWidgets.tsx` 与公共样式供 Grid/Puck 复用。几何、显隐和锁定状态校验后自动保存到当前浏览器 `clash-lab.grid-layout.v1`，与 Puck 的布局独立；支持 JSON 导入/导出，不持久化战斗数据。小于 900px 时只做单列显示转换，不覆盖桌面布局。说明见 `labs/standalone/clash-lab/GRID_GUIDE.md`。
+
+## 2026-10-16：Puck 战斗界面编辑器
+
+安装 `@puckeditor/core`，在 `labs/standalone/clash-lab/editor.html` 提供独立编辑入口，加入首页普通 Lab 导航和 Vite 构建。`puck/` 保存组件配置、布局数据边界和运行/编辑界面；默认运行页通过同一配置的 Render 展示布局，原完整参数编辑器保留在 `index.html?legacy=1`。
+
+首批组件包含标题、网格、卡片、单位状态、单位/技能控制、技能详细编辑器、战斗动作与日志。组件订阅现有 Zustand 状态，设计模式禁用业务操作，交互预览运行原管线。布局经校验后保存到当前浏览器 `clash-lab.puck-layout.v1`，支持 JSON 导出/导入；不写项目预设、不发布云端、不保存战斗状态。说明见 `labs/standalone/clash-lab/PUCK_GUIDE.md`。
+
+## 2026-10-16：Clash 独立战斗逻辑 Lab
+
+原根目录 `clash/` 迁至 `labs/standalone/clash-lab/`，入口统一为 `index.html` 与 `clashLabMain.tsx`，先初始化战斗 API、管线插件和示例阵营，再挂载 React 界面。首页普通 Lab 分组和 Vite 生产构建接入 Clash Lab；Battle Lab 的 `combat-test.html` 跳转到新地址，并纳入构建。
+
+当前管线、插件、编辑器和 Zustand 状态均为 Lab 自包含的实验战斗实现，不依赖组合式 Host，也不启动主游戏场景。保留原有拼点与回合结算语义；稳定后再按游戏复用需要抽取业务能力到 `core/`。`typecheck:clash` 更新到新目录，并显式覆盖原来将自身排除的 exclude。`test:clash` 验证初始化、固定骰子下的护盾/HP、烧伤结算和无有效技能时的拒绝行为。
+
 ## 2026-10-16：Lab 目录与入口分组
 
 Lab 页面从 `tools/` 迁移到 `labs/`：独立实现的页面归 `labs/standalone/`；使用 `createLab + modules + catalog` 的 9 个地牢页面归 `labs/composable/`。Lab 基础设施与可复用模块分别归 `labs/kit/` 和 `labs/modules/`。分类依据是页面装配方式，不代表功能数量或新旧程度。
@@ -1333,7 +1367,7 @@ npm run electron:dev
 | `test/` | 独立历史视觉测试页面 |
 | `dist/` | 构建产物，不作为源码修改入口 |
 
-`cameraController/`、`chain/`、`clash/`、`event/`、`hooks/`、`input/`、`rhythm/`、`trackers/`、`vfx/` 主要是较早期或业务侧模块。新增通用能力优先判断是否应进入 `core/`。
+`cameraController/`、`chain/`、`event/`、`hooks/`、`input/`、`rhythm/`、`trackers/`、`vfx/` 主要是较早期或业务侧模块。新增通用能力优先判断是否应进入 `core/`。原 `clash/` 已迁至 `labs/standalone/clash-lab/`，用作战斗逻辑实验页面。
 
 ## 4. Core 模块地图
 

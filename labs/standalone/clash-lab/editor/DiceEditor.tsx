@@ -34,7 +34,7 @@ export const DiceEditor: React.FC<DiceEditorProps> = ({ side, unitId, skillId, d
   };
 
   return (
-    <div style={{ 
+    <div className="clash-dice-editor" style={{ 
       display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start', margin: '4px 0', 
       fontSize: '14px', padding: '5px', border: '1px solid #ccc', borderRadius: '4px',
       position: 'relative', width: '100%', boxSizing: 'border-box'

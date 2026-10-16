@@ -29,6 +29,7 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck:clash": "tsc --noEmit -p tsconfig.clash.json",
+    "test:clash": "node --experimental-strip-types --test labs/standalone/clash-lab/*.test.mjs",
     "lint": "eslint .",
     "test:batch": "node --experimental-strip-types --test core/entity/batch-edit.test.ts",
     "test:dungeon-map-definition": "node --experimental-strip-types --test core/map/dungeonMap.definition.test.ts",
@@ -74,8 +75,10 @@
     "@babylonjs/core": "^9.11.0",
     "@babylonjs/loaders": "^9.11.0",
     "@babylonjs/materials": "^9.11.0",
+    "@puckeditor/core": "^0.23.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-grid-layout": "^2.3.0",
     "three": "^0.185.1",
     "zustand": "^5.0.14"
   },

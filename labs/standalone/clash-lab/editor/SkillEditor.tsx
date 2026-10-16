@@ -7,9 +7,10 @@ interface SkillEditorProps {
   side: 'left' | 'right';
   unitId: string;
   skillId: string;
+  hideDelete?: boolean;
 }
 
-export const SkillEditor: React.FC<SkillEditorProps> = ({ side, unitId, skillId }) => {
+export const SkillEditor: React.FC<SkillEditorProps> = ({ side, unitId, skillId, hideDelete = false }) => {
   const data = useCombatStore(state => {
     const units = side === 'left' ? state.leftUnits : state.rightUnits;
     const unit = units.find(u => u.id === unitId);
@@ -24,15 +25,15 @@ export const SkillEditor: React.FC<SkillEditorProps> = ({ side, unitId, skillId 
   if (!data) return null;
 
   return (
-    <div style={{ background: 'white', padding: '15px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', marginBottom: '15px' }}>
+    <div className="clash-skill-editor" style={{ background: 'white', padding: '15px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', marginBottom: '15px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
         <h3 style={{ margin: 0 }}>技能: {data.skillId}</h3>
-        <button 
+        {!hideDelete && <button 
           onClick={() => removeSkill(side, unitId, skillId)}
           style={{ width: 'auto', margin: 0, background: '#dc3545', color: 'white', padding: '4px 8px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
         >
           删除技能
-        </button>
+        </button>}
       </div>
       
       <div style={{ marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px' }}>

@@ -47,12 +47,18 @@ export const useCombatStore = create<CombatState>((set, get) => ({
   
   addUnit: (side, unit) => set((state) => {
     const key = side === 'left' ? 'leftUnits' : 'rightUnits';
-    return { [key]: [...state[key], unit] };
+    const selectedKey = side === 'left' ? 'selectedLeftUnitId' : 'selectedRightUnitId';
+    return { [key]: [...state[key], unit], [selectedKey]: unit.id };
   }),
   
   removeUnit: (side, unitId) => set((state) => {
     const key = side === 'left' ? 'leftUnits' : 'rightUnits';
-    return { [key]: state[key].filter(u => u.id !== unitId) };
+    const units = state[key];
+    const index = units.findIndex(unit => unit.id === unitId);
+    if (index < 0) return state;
+    const selectedKey = side === 'left' ? 'selectedLeftUnitId' : 'selectedRightUnitId';
+    const next = units[index + 1] ?? units[index - 1];
+    return { [key]: units.filter(u => u.id !== unitId), [selectedKey]: state[selectedKey] === unitId ? next?.id : state[selectedKey] };
   }),
   
   updateUnit: (side, unitId, updates) => set((state) => {
@@ -115,11 +121,11 @@ export const useCombatStore = create<CombatState>((set, get) => ({
   }),
   addSkill: (side, unitId) => set((state) => {
     const key = side === 'left' ? 'leftUnits' : 'rightUnits';
-    const skillId = `S${Date.now()}`;
+    const skillId = `S${crypto.randomUUID()}`;
     return {
       [key]: state[key].map(u => u.id === unitId ? {
         ...u,
-        skills: [...u.skills, { skillId, skillName: '新技能', tags: ['active'], dice: [], skillEffects: [] }],
+        skills: [...u.skills, { skillId, skillName: `新技能 ${u.skills.length + 1}`, tags: ['active'], dice: [], skillEffects: [] }],
         activeSkillId: skillId
       } : u)
     };
@@ -127,11 +133,13 @@ export const useCombatStore = create<CombatState>((set, get) => ({
   removeSkill: (side, unitId, skillId) => set((state) => {
     const key = side === 'left' ? 'leftUnits' : 'rightUnits';
     return {
-      [key]: state[key].map(u => u.id === unitId ? {
-        ...u,
-        skills: u.skills.filter(s => s.skillId !== skillId),
-        activeSkillId: u.activeSkillId === skillId ? undefined : u.activeSkillId
-      } : u)
+      [key]: state[key].map(u => {
+        if (u.id !== unitId) return u;
+        const index = u.skills.findIndex(skill => skill.skillId === skillId);
+        if (index < 0) return u;
+        const next = u.skills[index + 1] ?? u.skills[index - 1];
+        return { ...u, skills: u.skills.filter(skill => skill.skillId !== skillId), activeSkillId: u.activeSkillId === skillId ? next?.skillId : u.activeSkillId };
+      })
     };
   }),
 

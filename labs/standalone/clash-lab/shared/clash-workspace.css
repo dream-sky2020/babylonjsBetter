@@ -1,0 +1,42 @@
+body { margin: 0; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background: #edf1f5; }
+.clash-workspace, .clash-editor { color: #182638; }
+.clash-toolbar { min-height: 64px; padding: 12px 24px; box-sizing: border-box; display: flex; align-items: center; flex-wrap: wrap; gap: 12px; background: #142233; color: #c8d4e2; }
+.clash-toolbar > span, .clash-toolbar > strong { margin-right: auto; font-size: 12px; letter-spacing: 2px; }
+.clash-toolbar a, .clash-toolbar button { color: inherit; font: inherit; font-size: 13px; text-decoration: none; background: transparent; border: 1px solid #3d5065; border-radius: 7px; padding: 9px 13px; cursor: pointer; }
+.clash-toolbar .clash-toolbar-primary { color: #102c28; background: #96efd5; border-color: #96efd5; font-weight: 600; }
+.clash-toolbar a:hover, .clash-toolbar button:hover { border-color: #96efd5; }
+.clash-editor-help { min-height: 48px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 24px; font-size: 13px; background: #fff; border-bottom: 1px solid #d9e1e9; }
+.clash-editor-help small { color: #66798b; }
+.clash-canvas { width: 100%; max-width: 1280px; box-sizing: border-box; padding: 36px; margin: 0 auto; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; color: #182638; }
+.clash-canvas > *, .clash-panel-content > * { margin-bottom: 20px; }
+.clash-canvas *, .clash-canvas *::before, .clash-canvas *::after { box-sizing: border-box; }
+.clash-eyebrow { color: #6b8294; font-size: 10px; letter-spacing: 2px; font-weight: 700; }
+.clash-heading { padding: 12px 0 10px; }
+.clash-heading h1 { margin: 12px 0; font-size: clamp(25px, 3vw, 40px); font-weight: 650; letter-spacing: -1px; }
+.clash-heading p { color: #6a7a8a; font-size: 14px; line-height: 1.8; }
+.clash-panel { min-width: 0; border: 1px solid #dce4ed; background: #fff; border-radius: 14px; padding: 22px; box-shadow: 0 5px 20px #18263805; }
+.clash-panel > h3 { margin: 0 0 22px; font-size: 12px; font-weight: 600; color: #7a8b9c; letter-spacing: 1px; }
+.clash-unit h2 { margin: 10px 0 16px; font-size: 25px; }
+.clash-hp { display: flex; align-items: baseline; gap: 9px; margin-bottom: 10px; }
+.clash-hp strong { font-size: 34px; font-variant-numeric: tabular-nums; }
+.clash-hp span { font-size: 13px; color: #8695a4; }
+.clash-unit progress { width: 100%; height: 8px; border: 0; border-radius: 5px; overflow: hidden; accent-color: #35ae9b; }
+.clash-unit--right progress { accent-color: #6d84db; }
+.clash-unit progress::-webkit-progress-bar { background: #eaf0f5; }
+.clash-unit progress::-webkit-progress-value { background: #35ae9b; }
+.clash-unit--right progress::-webkit-progress-value { background: #6d84db; }
+.clash-unit-meta { display: flex; flex-wrap: wrap; gap: 15px; margin: 14px 0; font-size: 12px; color: #647589; }
+.clash-statuses { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.clash-statuses span { border-radius: 5px; padding: 5px 8px; background: #f1f5f8; color: #647589; font-size: 11px; }
+.clash-controls { border: 0; padding: 0; margin: 0; min-width: 0; }
+.clash-controls label { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; color: #62768a; font-size: 12px; }
+.clash-controls input, .clash-controls select { width: 100%; min-width: 0; border: 1px solid #d8e2eb; border-radius: 6px; padding: 10px; background: #f9fbfd; color: #253b50; font: inherit; font-size: 13px; }
+.clash-controls input:focus, .clash-controls select:focus { outline: 2px solid #9edccc; }
+.clash-number-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.clash-action { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 17px 20px; color: #fff; background: #20374c; border: 0; border-radius: 9px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.clash-action--clash { background: #187a6b; }.clash-action--clearLogs { color: #52677a; background: #dfe7ef; }
+.clash-action:disabled { cursor: default; }.clash-action:not(:disabled):hover { filter: brightness(1.12); }
+.clash-log { overflow: auto; border-radius: 8px; background: #142233; color: #c7d5e5; padding: 18px; font: 12px/1.9 Consolas, monospace; overflow-wrap: anywhere; }
+.clash-log > div { display: flex; gap: 15px; }.clash-log > div > span { color: #5f7b96; user-select: none; }
+.clash-notice { margin: 20px; color: #924426; }
+@media (max-width: 700px) { .clash-canvas { padding: 18px; }.clash-grid { grid-template-columns: 1fr !important; }.clash-editor-help { align-items: flex-start; flex-direction: column; }.clash-toolbar { padding: 12px; } }

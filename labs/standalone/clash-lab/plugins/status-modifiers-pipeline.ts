@@ -1,5 +1,5 @@
 import type { ClashPipelineEngine, CombatPlugin } from '../clash-pipeline-engine.ts';
-import type { ClashPayload, UnitId, DiceRollResult } from '../types.ts';
+import type { ClashPayload, DiceRollResult } from '../types.ts';
 import { applyOrUpdateStatus } from '../utils/combat-utils.ts';
 
 export const StatusModifiersPipelinePlugin: CombatPlugin = {

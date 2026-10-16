@@ -273,6 +273,10 @@ export default defineConfig({
         dungeonTransitionLab: path.resolve(__dirname, 'labs/composable/dungeon-transition-lab/index.html'),
         dungeonAgentLab: path.resolve(__dirname, 'labs/composable/dungeon-agent-lab/index.html'),
         // 普通 Lab
+        clashLab: path.resolve(__dirname, 'labs/standalone/clash-lab/index.html'),
+        clashPuckEditor: path.resolve(__dirname, 'labs/standalone/clash-lab/editor.html'),
+        clashGridWorkspace: path.resolve(__dirname, 'labs/standalone/clash-lab/grid.html'),
+        combatTestRedirect: path.resolve(__dirname, 'labs/standalone/battle-lab/combat-test.html'),
         spriteDissolveEffectLab: path.resolve(__dirname, 'labs/standalone/sprite-dissolve-effect-lab/index.html'),
         numberSpriteLab: path.resolve(__dirname, 'labs/standalone/number-sprite-lab/index.html'),
         exclamationMarkLab: path.resolve(__dirname, 'labs/standalone/exclamation-mark-lab/index.html'),
