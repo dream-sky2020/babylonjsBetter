@@ -1,0 +1,11 @@
+import { createRoot } from 'react-dom/client';
+import '@puckeditor/core/puck.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
+import './style.css';
+import { GridWorkspace } from './GridWorkspace.tsx';
+import { PuckWorkspace } from './PuckWorkspace.tsx';
+const root = document.getElementById('root');
+if (!root) throw new Error('缺少页面根节点。');
+const entry = root.dataset.entry;
+createRoot(root).render(entry === 'grid' ? <GridWorkspace /> : <PuckWorkspace editor={entry === 'editor'} />);

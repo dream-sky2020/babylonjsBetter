@@ -28,6 +28,8 @@
     "build:scene-editors": "node codex-tools/buildSceneEditors.mjs",
     "dev": "vite",
     "build": "vite build",
+    "typecheck:press-turn": "tsc --noEmit -p tsconfig.press-turn.json",
+    "test:press-turn": "node --experimental-strip-types --test labs/standalone/press-turn-lab/*.test.mjs",
     "typecheck:clash": "tsc --noEmit -p tsconfig.clash.json",
     "test:clash": "node --experimental-strip-types --test labs/standalone/clash-lab/*.test.mjs",
     "lint": "eslint .",
