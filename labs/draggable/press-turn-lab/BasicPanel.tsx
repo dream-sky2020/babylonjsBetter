@@ -1,0 +1,5 @@
+import { combatStats } from './preparation.ts';
+import { AFFINITIES, ELEMENTS, type Element, type Unit } from './types.ts';
+export function BasicPanel({ unit, title }: { unit?: Unit; title: string }) {
+  return <section className="pt-basic" aria-label={title}><h4>{title}</h4>{unit ? <><div className="pt-basic-heading"><b>{unit.name}</b><small>{unit.guarding ? '防御中' : unit.hp > 0 ? '存活' : '倒下'}</small></div><div className="pt-basic-stats"><span>HP <b>{unit.hp} / {unit.maxHp}</b></span><span>MP <b>{unit.mp} / {unit.maxMp}</b></span><span>攻击 <b>{combatStats(unit).attack}</b></span><span>防御 <b>{combatStats(unit).defense}</b></span></div><progress aria-label={`${title}生命值`} value={unit.hp} max={unit.maxHp} /><div className="pt-basic-affinities">{Object.entries(ELEMENTS).map(([id, name]) => <span key={id} data-affinity={unit.affinities[id as Element]}>{name} <b>{id === 'almighty' ? '普通' : AFFINITIES[unit.affinities[id as Element]]}</b></span>)}</div></> : <p className="pt-muted">暂无有效角色。</p>}</section>;
+}

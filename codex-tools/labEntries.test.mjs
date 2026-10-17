@@ -10,7 +10,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 test('homepage groups entries by destination and every local link exists', () => {
   const dom = new JSDOM(readFileSync(path.join(root, 'index.html'), 'utf8'));
   try {
-    const groups = { 'composable-labs': 'labs/composable/', 'standalone-labs': 'labs/standalone/', tools: 'tools/', apps: 'apps/' };
+    const groups = { 'composable-labs': 'labs/composable/', 'draggable-labs': 'labs/draggable/', 'standalone-labs': 'labs/standalone/', tools: 'tools/', apps: 'apps/' };
     const destinations = [];
     for (const [id, prefix] of Object.entries(groups)) {
       const section = dom.window.document.querySelector(`section[aria-labelledby="${id}"]`);
@@ -28,6 +28,9 @@ test('homepage groups entries by destination and every local link exists', () =>
     for (const entry of readdirSync(path.join(root, 'labs/composable'))) {
       assert.ok(destinations.includes(`labs/composable/${entry}/index.html`), `Missing composable Lab: ${entry}`);
     }
+    for (const entry of readdirSync(path.join(root, 'labs/draggable'))) for (const page of ['index', 'editor', 'grid']) {
+      assert.ok(destinations.includes(`labs/draggable/${entry}/${page}.html`), `Missing draggable entry: ${entry}/${page}`);
+    }
   } finally {
     dom.window.close();
   }
@@ -41,5 +44,25 @@ test('build entries exist and Lab directories live under labs', () => {
   for (const entry of readdirSync(path.join(root, 'labs/composable'))) {
     assert.ok(entries.includes(`labs/composable/${entry}/index.html`), `Unbuilt composable Lab: ${entry}`);
   }
+  for (const entry of readdirSync(path.join(root, 'labs/draggable'))) for (const page of ['index', 'editor', 'grid']) {
+    assert.ok(entries.includes(`labs/draggable/${entry}/${page}.html`), `Unbuilt draggable entry: ${entry}/${page}`);
+    assert.ok(entries.includes(`labs/standalone/${entry}/${page}.html`), `Unbuilt legacy redirect: ${entry}/${page}`);
+  }
   assert.deepEqual(readdirSync(path.join(root, 'tools')).filter(name => name.endsWith('-lab') || name === 'lab-kit' || name === 'lab-modules'), []);
+});
+
+test('all legacy draggable addresses preserve query parameters and hashes', () => {
+  for (const lab of ['press-turn-lab', 'equipment-lab', 'clash-lab']) {
+    assert.deepEqual(readdirSync(path.join(root, 'labs/standalone', lab)).sort(), ['editor.html', 'grid.html', 'index.html']);
+    for (const entry of ['index', 'editor', 'grid']) {
+      const dom = new JSDOM(readFileSync(path.join(root, 'labs/standalone', lab, `${entry}.html`), 'utf8'));
+      try {
+        let target;
+        const location = { href: `https://example.test/labs/standalone/${lab}/${entry}.html?legacy=1&test=a%20b#panel`, search: '?legacy=1&test=a%20b', hash: '#panel', replace: value => { target = value; } };
+        const script = dom.window.document.querySelector('script').textContent;
+        new Function('location', script)(location);
+        assert.equal(target, `https://example.test/labs/draggable/${lab}/${entry}.html?legacy=1&test=a%20b#panel`);
+      } finally { dom.window.close(); }
+    }
+  }
 });

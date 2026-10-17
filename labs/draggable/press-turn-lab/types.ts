@@ -1,0 +1,14 @@
+export type Side = 'left' | 'right';
+export const ELEMENTS = { physical: '物理', fire: '火炎', ice: '冰冻', electric: '电击', wind: '疾风', light: '光', dark: '暗', almighty: '万能' } as const;
+export type Element = keyof typeof ELEMENTS;
+export const AFFINITIES = { normal: '普通', weak: '弱点', resist: '耐性', null: '无效', repel: '反射', drain: '吸收' } as const;
+export type Affinity = keyof typeof AFFINITIES;
+export type Skill = { id: string; name: string; element: Element; power: number; mpCost: number; accuracy: number; critical: number; kind: 'attack' | 'heal' | 'passive'; target: 'single' | 'all'; passive?: { attack: number; defense: number } };
+export type Unit = { id: string; name: string; hp: number; maxHp: number; mp: number; maxMp: number; attack: number; defense: number; guarding: boolean; affinities: Record<Element, Affinity>; skills: Skill[]; skillId?: string; equipment?: Pick<import('./preparation.ts').Preparation, 'weaponId' | 'armorId'>; disabledSkillIds?: string[]; skillSlots?: (string | null)[] };
+export type Icons = { full: number; half: number };
+export type Outcome = 'normal' | 'advantage' | 'miss' | 'deny' | 'pass';
+export type ForcedRoll = 'random' | 'hit' | 'critical' | 'miss';
+export type Action = { kind: 'attack' | 'skill' | 'guard' | 'swap' | 'skip' | 'pass' | 'prepare' | 'escape' | 'talk' | 'observe'; actorId: string; targetId?: string; skillId?: string; forced?: ForcedRoll; preparation?: import('./preparation.ts').Preparation; message?: string };
+export type Battle = { teams: Record<Side, Unit[]>; side: Side; actorId?: string; icons: Icons; round: number; phase: number; winner?: Side | 'draw'; escapedBy?: Side; report?: { title: string; text: string }; logs: string[]; last?: { outcome: Outcome; before: Icons; after: Icons; details: string[] } };
+export const otherSide = (side: Side): Side => side === 'left' ? 'right' : 'left';
+export const sideName = (side: Side) => side === 'left' ? '我方' : '敌方';
