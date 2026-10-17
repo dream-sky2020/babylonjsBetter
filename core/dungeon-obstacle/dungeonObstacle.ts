@@ -1,3 +1,5 @@
+import { compileSpatialDefinitions } from '../dungeon-spatial/dungeonSpatialDefinition.ts';
+import { migrateDungeonSpatialDefinitions } from '../map-document/dungeonMapDocument.spatialMigration.ts';
 import {
   getComponents,
   isEntityContainer,
@@ -110,31 +112,20 @@ const documentObstaclePlacement = (
 export const scanDungeonDocumentObstacles = (
   document: DungeonMapDocumentV2,
 ): DungeonObstacleBinding[] => {
+  const normalized = migrateDungeonSpatialDefinitions(document);
+  if (!normalized.document) throw new Error(normalized.issues.map(issue => issue.message).join('\n'));
+  document = normalized.document;
   const query = new DungeonMapDocumentQuery(document);
-  const bindings: DungeonObstacleBinding[] = [];
-  document.entities
-    .filter((entity) => entity.entityType === 'obstacle' && entity.enabled !== false)
-    .forEach(({ id }) => {
-      const entity = query.getEntitySnapshot(id)!;
-      const components = getComponents<IMovementObstacleComponent>(entity, 'movement-obstacle')
-        .filter((component) => component.enabled !== false);
-      if (components.length !== 1) {
-        throw new Error(`阻碍实体“${id}”必须有且只能有一个启用的 movement-obstacle 组件。`);
-      }
-      query.getComponents(id, 'spatial-attachment').forEach((attachment) => {
-        const targets = (attachment as { targets?: DungeonMapSpatialTarget[] }).targets ?? [];
-        targets.forEach((target) => {
-          const placement = documentObstaclePlacement(document, query, target);
-          if (placement) bindings.push({ entity, component: components[0], placement });
-        });
-      });
-    });
-  const seen = new Set<string>();
-  bindings.forEach(({ entity }) => {
-    if (seen.has(entity.id)) throw new Error(`阻碍 Entity ID 重复：“${entity.id}”。`);
-    seen.add(entity.id);
+  const controlled = new Set((document.components['agent-controller'] ?? []).map(row => row.entityId));
+  return compileSpatialDefinitions(document).bodies.flatMap(body => {
+    if (controlled.has(body.entityId)) return [];
+    const placement = documentObstaclePlacement(document,query,body.anchor);
+    if (!placement) return [];
+    return [{ entity: query.getEntitySnapshot(body.entityId)!, placement,
+      component: { id:body.id,type:'movement-obstacle' as const,version:1,
+        activeByDefault:body.initial.enabled !== false && body.initial.activeByDefault,
+        spatialFootprint:body.colliders.some(c=>c.response==='block'&&c.footprint==='full-tile')?'full-tile' as const:'center' as const } }];
   });
-  return bindings;
 };
 
 export const createDungeonObstacleStatesFromBindings = (

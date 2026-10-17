@@ -52,7 +52,7 @@ test('host-created records own player, occupancy, requests, indexes and sequence
   scope.acquire(DUNGEON_MOVEMENT_STATE_MEMORY).replace(data.movement);
   assert.equal(data.runtime.traversal.storage, data.traversal);
   assert.equal(data.runtime.movementResolver.storage, data.movement);
-  assert.ok('value' in Object.getOwnPropertyDescriptor(data.player, 'playerPosition')!);
+  assert.equal(data.player.playerPosition, data.runtime.traversal.body(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)!.logicalPosition);
   assert.ok('value' in Object.getOwnPropertyDescriptor(data.movement, 'config')!);
   assert.equal(startDungeonPlayerMovement(data.runtime, 'east', options).started, true);
   const id = data.player.playerMovement!.requestId!;
@@ -152,7 +152,7 @@ test('failed candidates and old systems cannot overwrite the active shared sessi
   handle.replace(null); assert.equal(handle.current, null);
 });
 
-test('save restoration writes the owned candidate before publication and retains the original save format', () => {
+test('save restoration writes the owned candidate before publication and emits safe v2 snapshots', () => {
   const data = candidate();
   const saved = { version: 1 as const, dungeonPresetKey: 'test', playerPosition: { tileX: 2, tileY: 0 }, playerFacing: 'north' as const };
   const result = applyDungeonRuntimeSaveState(data.runtime, saved, options.resolveWorldPosition);
@@ -162,7 +162,7 @@ test('save restoration writes the owned candidate before publication and retains
   assert.equal(data.player.playerFacing, 'north'); assert.equal(data.player.playerWorldRotationY, Math.PI);
   assert.equal(data.traversal.occupantIdsByTile[2].has(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID), true);
   const spawn = { tilePosition: { x: 0, y: 0 }, worldPosition: [0, 0, 0] } as unknown as DungeonPlayerSpawnBinding;
-  assert.deepEqual(createDungeonRuntimeSaveState('test', data.runtime, spawn), saved);
+  assert.deepEqual(createDungeonRuntimeSaveState('test', data.runtime, spawn), { ...saved, version: 2, bodies: [] });
   assert.deepEqual(applyDungeonRuntimeSaveState(data.runtime, { ...saved, playerPosition: { tileX: 99, tileY: 0 } },
     options.resolveWorldPosition).warnings.length, 1);
   assert.equal(data.player.playerPosition.tileX, 2);

@@ -85,7 +85,8 @@ test('V2 ECS 阻碍扫描与旧嵌套地图产生相同绑定', () => {
   const legacy = scanDungeonObstacles(map);
   const document = documentFrom(map);
   const native = scanDungeonDocumentObstacles(document);
-  assert.deepEqual(native, legacy);
+  const physical = (rows: readonly DungeonObstacleBinding[]) => rows.map(({entity,component,placement})=>({id:entity.id,placement,active:component.activeByDefault,footprint:component.spatialFootprint??'full-tile'}));
+  assert.deepEqual(physical(native), physical(legacy));
 
   const obstacleStates = new Map(native.map(({ entity, component }) => [entity.id, component.activeByDefault]));
   const runtime = runtimeFor(createDungeonRuntimeMap(document), native, obstacleStates);

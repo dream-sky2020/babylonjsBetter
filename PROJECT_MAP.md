@@ -1,3 +1,35 @@
+## 2026-10-18：地图的三个停靠浏览面板
+
+Dungeon Map Canvas Lab 左侧提供“地图内容 / 实体 / 组件”三个独立搜索视图：空间树保留原挂载浏览与空间多选，实体表按 ID 去重，组件按类型分组并列出实际实例、所属实体、Slot 与位置。多处挂载显示数量与位置提示；无效挂载/缺失所属实体保留警示行，不伪造地图位置。选择实体或组件复用 Activity 的选区，组件选择在 React 提交后展开并定位 Inspector 字段。索引来自同一 DungeonMapDocument，不复制权威状态。
+
+core/ui/editor-kit/dockLayout.ts、DockWorkspace.tsx 与 CSS 从场景环境 Lab 提取通用停靠树、边缘投放预览、指针拖动、分隔调宽、折叠和显隐；两个 Lab 共用。场景环境原布局键、面板 ID 和默认树保持兼容。地图在左侧区域内布局，中央画布和右侧 Inspector 固定，提供上下/左右排列、重置、独立滚动及窄屏覆盖式浏览区；隐藏面板仍挂载以保留搜索与折叠状态。
+
+地图布局升至 dungeon-map-canvas-lab:workspace:v2，首次读取兼容 v1 宽度与显隐，保存树、比例、折叠及面板显隐，不写地图/存档/撤销历史。检查命令与浏览器报告见 docs/dungeon-map-browsers-validation-2026-10-18.md。
+
+## 2026-10-18：Lab 导航路径保护
+
+组合式 Lab 的 createLab 返回入口改为 ../../../index.html，匹配 labs/composable/<name>/ 的三层目录。Vite 明确使用 appType: mpa，缺失页面不再回退为根首页，避免首页相对链接基于错误地址不断叠加。base: './' 与首页相对链接继续兼容 Electron/file://。
+
+codex-tools/labNavigation.ts 同时挂入开发和预览服务：按实际构建入口白名单恢复重复 labs/tools/apps 前缀及旧 /labs/index.html，302 跳转保留查询参数；真实入口优先，未知页面显示带根首页链接的 404，不重写资源或 API。生产静态服务器需自行提供同等跳转规则；file:// 使用已修正的相对导航，不运行 HTTP 中间件。回归为 npm run test:lab-entries（含真实临时开发/预览服务）和 npm run test:lab-navigation-browser，记录见 docs/lab-navigation-validation-2026-10-18.md。
+
+## 2026-10-18：地图画布编辑工作台
+
+Dungeon Map Canvas Lab 改为中性深灰三栏：左侧按空间挂载分组的可搜索内容树、中央 2D/3D 视口、右侧独立滚动 Inspector。列表、Inspector 与组件折叠分组复用 core/ui/editor-kit；组件可同时展开，索引可定位字段，单实例组件不重复出现在添加列表中。内容树支持 Ctrl/⌘ 多选及 Shift 连选，复用原批量编辑和预览确认流程；共享边与周期公用点按真实 ID 去重。
+
+DungeonMapWorkbench.tsx 管理面板显隐、指针/键盘调宽、窄屏抽屉、地图/结构/外观设置窗口和问题面板；布局仅存于 dungeon-map-canvas-lab:workspace:v1，不修改地图内容或存档。dungeonMapOutline.ts 生成可重建目录索引；编辑状态和保存/历史仍归 Activity / DungeonMapDocumentStore。原侧栏滚动目录和大标题已移除。专项构建和界面回归工具在 codex-tools/，验证记录见 docs/dungeon-map-workbench-validation-2026-10-18.md。
+
+## 2026-10-18：空间物体的玩家推动响应
+
+新增可选 spatial-interaction 组件，onPlayerPush 为 block/push/swap，未添加或禁用时默认阻挡。地图画布 Lab 与实体编辑器沿用组件 glob 注册，支持中文选择、批量字段编辑和文档历史/Delta/v3 往返；定义编译检查唯一组件、所属 Body、可移动及允许推动能力。运行时响应随 Body 存入 dungeon.spatial-world；玩家受阻接管之后读取目标配置，调用同一动作执行器推动或换位，空间失败回到受阻反馈，不改 Agent AI。Player Control 提供忙碌状态和组格步观察，Lab 跟随连续姿态并在同步规则之后发布完成通知、保存和处理长按续步。
+
+## 2026-10-17：Dungeon 统一空间世界与动作执行
+
+地图使用 spatial-body、多 spatial-collider、agent-timing；旧文档在 Runtime/编辑器入口一次规范化，不覆盖原预设。core/dungeon-spatial/ 编译定义并提供唯一 Body 世界、局部几何索引与扫掠查询；core/dungeon-actions/ 提供唯一动作执行器，推进普通移动、接触推动、绕行换位和连续恢复。旧 traversal/resolver 文件只导出兼容别名。
+
+组合式 Lab 的领域 .memory.ts 分配 dungeon.spatial-world 与 dungeon.spatial-actions，Loader 将同一候选引用注入 Core，在同 loadId 的暂停期发布并预热。player/agent/obstacle 原字段为 Body/动作的门面。Loader 只注册一次 simulation；玩家与 Agent 注册有序投影，同步格步规则在续步之前执行。存档 v2 仅保存整组已提交锚点，接受 v1 读取，不保存半个动作。
+
+新增 labs/composable/dungeon-spatial-actions-lab/，业务装配在 labs/modules/dungeon/dungeon-spatial-actions/，首页/Vite 已登记。包含推动、换位、窄道拒绝、打断和安全存档；验证工具及限制见 docs/dungeon-spatial-world-upgrade-validation-2026-10-17.md。该实现是格子玩法的连续运动基础，未实现质量/摩擦/连锁推动或触发器事件求解。
+
 ## 2026-10-17：面板自定义选项与右键菜单
 
 公共 GridDefinition 增加 panelSettings 字段注册接口及 renderPanel 的 PanelOptions 参数，支持枚举、开关和带范围数值。panelSettings.ts 负责默认值解析、导入校验、单项更新和按面板重置；可选 panelSettings 值随各 Lab 原 Grid 布局键保存并进入撤销历史。标题/标签右键打开公共菜单，可直接切换选项或进入布局设置；点击窗口或标签同步设置中的面板选择，组内成员独立持有选项。无选项面板仍可进入布局设置，锁定时不可修改选项。菜单支持键盘导航和关闭，避免干扰面板内容原有右键操作。

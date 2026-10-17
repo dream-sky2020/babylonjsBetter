@@ -38,6 +38,7 @@ test('homepage groups entries by destination and every local link exists', () =>
 
 test('build entries exist and Lab directories live under labs', () => {
   const config = readFileSync(path.join(root, 'vite.config.ts'), 'utf8');
+  assert.match(config, /appType:\s*'mpa'/, 'Missing pages must not fall back to the homepage');
   const entries = [...config.matchAll(/path\.resolve\(__dirname, '([^']+\.html)'\)/g)].map(match => match[1]);
   assert.ok(entries.length > 0);
   for (const entry of entries) assert.ok(existsSync(path.join(root, entry)), `Missing build entry: ${entry}`);
@@ -49,6 +50,25 @@ test('build entries exist and Lab directories live under labs', () => {
     assert.ok(entries.includes(`labs/standalone/${entry}/${page}.html`), `Unbuilt legacy redirect: ${entry}/${page}`);
   }
   assert.deepEqual(readdirSync(path.join(root, 'tools')).filter(name => name.endsWith('-lab') || name === 'lab-kit' || name === 'lab-modules'), []);
+});
+
+test('composable Lab home link reaches the real homepage over HTTP and file protocols', () => {
+  const source = readFileSync(path.join(root, 'labs/kit/createLab.ts'), 'utf8');
+  const href = source.match(/home\.href\s*=\s*'([^']+)'/)[1];
+  const homepage = new JSDOM(readFileSync(path.join(root, 'index.html'), 'utf8'));
+  try {
+    for (const lab of readdirSync(path.join(root, 'labs/composable'))) {
+      for (const base of ['http://localhost:1184/', 'file:///D:/built-app/']) {
+        const home = new URL(href, `${base}labs/composable/${lab}/index.html`);
+        assert.equal(home.href, `${base}index.html`);
+        for (const link of homepage.window.document.querySelectorAll('a[href]')) {
+          const target = new URL(link.getAttribute('href'), home);
+          assert.ok(target.href.startsWith(base));
+          assert.ok(existsSync(path.join(root, decodeURI(target.href.slice(base.length)))));
+        }
+      }
+    }
+  } finally { homepage.window.close(); }
 });
 
 test('all legacy draggable addresses preserve query parameters and hashes', () => {

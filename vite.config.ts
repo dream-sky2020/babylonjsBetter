@@ -1,5 +1,6 @@
 import { writeSceneEnvironmentPreset, readSceneEnvironmentPresets } from './codex-tools/sceneEnvironmentPresetStore.ts'
 import { defineConfig, type Plugin } from 'vite'
+import { labNavigationPlugin } from './codex-tools/labNavigation.ts'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import fs from 'fs'
@@ -242,7 +243,9 @@ export default defineConfig({
   cacheDir: 'node_modules/.cache/vite-dev',
   // 正式构建由 Electron/file:// 直接打开；所有入口必须使用相对资源路径。
   base: './',
-  plugins: [react(), sharedConfigPlugin()],
+  // Each Lab is a real HTML entry. Missing pages must not silently serve the homepage.
+  appType: 'mpa',
+  plugins: [react(), labNavigationPlugin(), sharedConfigPlugin()],
   server: {
     port: 1184, // 将端口设置为你想要的数字
     strictPort: true, // 如果端口被占用，直接报错退出，而不是自动切换到下一个端口
@@ -271,6 +274,7 @@ export default defineConfig({
         dungeonFirstPersonCameraLab: path.resolve(__dirname, 'labs/composable/dungeon-first-person-camera-lab/index.html'),
         dungeonOverheadViewLab: path.resolve(__dirname, 'labs/composable/dungeon-overhead-view-lab/index.html'),
         dungeonTransitionLab: path.resolve(__dirname, 'labs/composable/dungeon-transition-lab/index.html'),
+        dungeonSpatialActionsLab: path.resolve(__dirname, 'labs/composable/dungeon-spatial-actions-lab/index.html'),
         dungeonAgentLab: path.resolve(__dirname, 'labs/composable/dungeon-agent-lab/index.html'),
         // 普通 Lab
         clashLab: path.resolve(__dirname, 'labs/draggable/clash-lab/index.html'),

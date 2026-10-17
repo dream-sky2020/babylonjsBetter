@@ -23,6 +23,20 @@ export class DungeonRuntimeAssembly {
   private phase: 'idle' | 'preparing' | 'ready' | 'failed' = 'idle';
   private failure: string | null = null;
   private readonly listeners = new Set<() => void>();
+  private readonly simulationParticipants = new Map<string, { order: number; run(delta: number): void }>();
+  registerSimulation(id: string, order: number, run: (delta: number) => void): () => void {
+    if (this.simulationParticipants.has(id)) throw new Error('重复模拟消费者：' + id);
+    this.simulationParticipants.set(id, { order, run });
+    return () => { this.simulationParticipants.delete(id); };
+  }
+  inspectSimulationCount() { return this.simulationParticipants.size; }
+  projectSimulation(delta: number): void {
+    if (this.isPaused) return;
+    for (const [, participant] of [...this.simulationParticipants].sort((a, b) => a[1].order - b[1].order || a[0].localeCompare(b[0]))) {
+      participant.run(delta);
+      if (this.isPaused) break;
+    }
+  }
 
   inspect() {
     return {
@@ -65,7 +79,7 @@ export class DungeonRuntimeAssembly {
 
   dispose(): void {
     this.factories = {}; this.preparers.clear(); this.preparations = new WeakMap();
-    this.listeners.clear(); this.activeLoadId = null; this.candidateLoadId = null;
+    this.listeners.clear(); this.simulationParticipants.clear(); this.activeLoadId = null; this.candidateLoadId = null;
   }
   get isPaused(): boolean { return this.pauseCount > 0; }
 
@@ -111,5 +125,5 @@ export class DungeonRuntimeAssembly {
 }
 
 export type DungeonRuntimeSystemInstaller = Pick<DungeonRuntimeAssembly,
-  'install' | 'registerPreparation' | 'readPreparation' | 'isPaused'>;
+  'install' | 'registerPreparation' | 'readPreparation' | 'registerSimulation' | 'projectSimulation' | 'isPaused'>;
 export const DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY = createServiceToken<DungeonRuntimeSystemInstaller>('dungeon:runtime-assembly');

@@ -4,7 +4,7 @@ import type { DungeonRuntime, DungeonRuntimePlayerPosition } from '../dungeon-ru
 import { setDungeonRuntimePlayerMovementProfile, setDungeonRuntimePlayerPosition } from '../dungeon-runtime/dungeonRuntime.ts';
 import { inspectDungeonPlayerMovement } from './dungeonPlayerMovement.ts';
 
-type Commands = Pick<DungeonPlayerSystem, 'move' | 'moveRelative' | 'turn' | 'update'>;
+type Commands = Pick<DungeonPlayerSystem, 'move' | 'moveRelative' | 'turn' | 'update' | 'isBusy' | 'subscribeGroupStep'>;
 export type DungeonPlayerCommands = Commands & {
   inspect(...args: Parameters<typeof inspectDungeonPlayerMovement> extends [unknown, ...infer Rest] ? Rest : never): ReturnType<typeof inspectDungeonPlayerMovement>;
   setMovementProfile(profileId: string): void;
@@ -25,6 +25,8 @@ export const createDungeonPlayerControl = (read: () => { loadId: number; system:
       return session;
     };
     return {
+      get isBusy() { return requireCurrent().system.isBusy; },
+      subscribeGroupStep: listener => requireCurrent().system.subscribeGroupStep(listener),
       move: (...args) => requireCurrent().system.move(...args),
       moveRelative: (...args) => requireCurrent().system.moveRelative(...args),
       turn: (...args) => requireCurrent().system.turn(...args),

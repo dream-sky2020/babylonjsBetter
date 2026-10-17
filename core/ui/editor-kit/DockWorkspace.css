@@ -1,0 +1,15 @@
+.editor-dock-area { height:100%; min-height:0; min-width:0; position:relative; overflow:hidden; }
+.editor-dock-panel { position:absolute; display:flex; flex-direction:column; min-height:0; min-width:0; overflow:hidden; padding:0 3px 3px; background:var(--panel, #25262a); }
+.editor-dock-panel[hidden], .editor-dock-body[hidden] { display:none; }
+.editor-dock-panel > header { display:grid; grid-template-columns:16px minmax(0,1fr) 24px; gap:4px; align-items:center; height:30px; flex:none; border-bottom:1px solid var(--line, #41444a); cursor:grab; user-select:none; touch-action:none; }
+.editor-dock-panel > header button { height:100%; min-width:0; border:0; border-radius:0; background:transparent; color:inherit; white-space:nowrap; }
+.editor-dock-panel > header button:first-of-type { text-align:left; padding:0; overflow:hidden; text-overflow:ellipsis; }
+.editor-dock-grip { display:grid; place-items:center; height:100%; font-size:14px; }
+.editor-dock-body { flex:1; min-height:0; min-width:0; overflow:hidden; }
+.editor-dock-body > .editor-hierarchy { height:100%; }
+.editor-dock-splitter { position:absolute; z-index:4; background:var(--line, #41444a); touch-action:none; }
+.editor-dock-splitter.x { cursor:col-resize; } .editor-dock-splitter.y { cursor:row-resize; }
+.editor-dock-splitter:hover, .editor-dock-splitter:focus-visible { background:var(--accent, #4aa3b8); outline:0; }
+.editor-dock-drop { position:absolute; background:#4aa3b855; border:2px solid var(--accent, #4aa3b8); pointer-events:none; z-index:8; display:grid; place-items:center; font-size:12px; }
+.editor-dock-drop.left { inset:0 50% 0 0; } .editor-dock-drop.right { inset:0 0 0 50%; }
+.editor-dock-drop.top { inset:0 0 50% 0; } .editor-dock-drop.bottom { inset:50% 0 0 0; }

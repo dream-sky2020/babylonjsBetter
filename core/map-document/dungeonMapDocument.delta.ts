@@ -35,7 +35,7 @@ export const createDungeonMapDocumentDelta = (
   base: DungeonMapDocumentV2,
   current: DungeonMapDocumentV2,
 ): DungeonMapDocumentDeltaV1 | null => {
-  const changes: DungeonMapDocumentDeltaV1['changes'] & Record<string, unknown> = {};
+  const changes: { -readonly [K in keyof DungeonMapDocumentDeltaV1['changes']]: DungeonMapDocumentDeltaV1['changes'][K] } = {};
   if (!same(base.identity, current.identity)) changes.identity = structuredClone(current.identity);
   if (!same(base.grid, current.grid)) changes.grid = structuredClone(current.grid);
   if (!same(base.entities, current.entities)) changes.entities = structuredClone(current.entities);

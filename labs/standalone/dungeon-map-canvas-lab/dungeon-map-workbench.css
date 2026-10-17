@@ -1,0 +1,139 @@
+@import '../../../core/scene-editor/scene-editor.css';
+
+html, body, #root { height: 100%; overflow: hidden; }
+.dungeon-map-workbench {
+  --editor-panel: var(--panel); --editor-heading: #2b2d30; --editor-accent: var(--accent);
+  --editor-text: #dfe1e5; --editor-muted: #969ba3;
+  --map-left-track: min(var(--map-left-width), 45vw, calc(100vw - var(--map-right-track) - 330px)); --map-right-track: min(var(--map-right-width), 32vw);
+  height: 100dvh; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto auto; align-items: stretch; overflow: hidden; background: var(--panel-deep); color: var(--editor-text);
+  font: 12px 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+.map-workbench-document-bar { z-index: 15; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 5px 8px; border-bottom: 1px solid var(--line); background: #2b2d30; }
+.map-workbench-brand { color: #eceff3; font-weight: 600; margin-right: 7px; white-space: nowrap; }
+.map-workbench-preset { max-width: 200px; min-width: 110px; }
+.map-workbench-panel-buttons { display: flex; flex-wrap: wrap; gap: 3px; margin-left: auto; }
+.dungeon-map-workbench button[aria-pressed=true] { background: var(--selected); border-color: var(--accent); color: #eef8ff; }
+.map-workbench-document-bar .editor-command-bar__document { min-width: 90px; max-width: 180px; }
+.map-workbench-document-bar .editor-command-bar__document strong { color: #dfe1e5; font-size: 11px; }
+.map-workbench-document-bar .editor-command-bar__document span { display: none; }
+.map-workbench-document-bar .editor-command-bar__actions { gap: 3px; }
+.map-workbench-document-bar .editor-command-bar__actions > button { min-height: 25px; height: 25px; border-radius: 2px; }
+.map-workbench-document-bar .validation-command { min-height: 25px; height: 25px; background: transparent; border-color: var(--line); border-radius: 2px; color: #aebac4; }
+.map-workbench-document-bar .save-command { background: var(--selected); border-color: #496578; color: #e2edf4; }
+.map-workbench-document-bar .map-zoom { grid-template-columns: 24px 42px 24px; }
+.map-workbench-document-bar .map-zoom button { min-height: 25px; height: 25px; border-radius: 2px; color: inherit; background: var(--panel-deep); }
+.dungeon-map-workbench .viewport-menu > summary { width: 26px; height: 25px; border-radius: 2px; border-color: #494c51; color: #bbc3cc; background: var(--panel-deep); }
+.dungeon-map-workbench .viewport-menu > div { border: 1px solid var(--line); border-radius: 2px; background: var(--panel); color: #bbc3cc; }
+.dungeon-map-workbench .viewport-menu > div > strong { color: #dfe1e5; }
+.map-workbench-body { position: relative; height: 100%; min-width: 0; min-height: 0; overflow: hidden; display: grid; grid-template-rows: minmax(0, 1fr); grid-template-columns: var(--map-left-track) 5px minmax(240px, 1fr) 5px var(--map-right-track); }
+.map-workbench-outline, .map-workbench-inspector { min-width: 0; min-height: 0; overflow: hidden; background: var(--panel); }
+.map-workbench-outline { grid-column: 1; grid-row: 1; }
+.map-workbench-splitter.left { grid-column: 2; grid-row: 1; }
+.dungeon-map-workbench .dungeon-lab__stage { grid-column: 3; grid-row: 1; }
+.map-workbench-splitter.right { grid-column: 4; grid-row: 1; }
+.map-workbench-inspector { grid-column: 5; grid-row: 1; }
+.map-workbench-outline > .editor-hierarchy, .map-workbench-inspector > .editor-inspector { height: 100%; }
+.map-workbench-outline .editor-hierarchy { grid-template-rows: 39px auto minmax(0, 1fr) auto auto; border-right: 0; }
+.map-workbench-outline .editor-hierarchy-row { min-width: 0; height: 27px; font-size: 11px; }
+.map-workbench-outline .editor-hierarchy-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.map-workbench-outline .editor-hierarchy-search input { font-size: 11px; }
+.map-workbench-outline .editor-hierarchy-heading { display:none; }
+.map-workbench-outline .editor-hierarchy { grid-template-rows: auto minmax(0, 1fr) auto; }
+.map-workbench-outline .editor-hierarchy-search { margin:4px; }
+.map-workbench-outline .editor-hierarchy footer { padding:4px 6px; gap:2px; }
+.map-workbench-outline .editor-dock-panel > header { color:#c7cdd5; font-size:11px; }
+.map-workbench-outline .editor-dock-panel > header button { min-height:0; }
+.map-browser-metadata { display:flex; flex-direction:column; align-items:flex-end; max-width:130px; font-size:9px; color:var(--editor-muted); }
+.map-browser-metadata span { max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.map-workbench-outline .editor-hierarchy-row:has(.map-browser-metadata) { height:33px; }
+.map-workbench-outline footer { display: grid; gap: 5px; padding: 7px; border-top: 1px solid var(--line); color: #969ba3; font-size: 10px; }
+.map-workbench-outline footer button { justify-self: start; }
+.map-workbench-splitter { background: var(--line); cursor: col-resize; touch-action: none; }
+.map-workbench-splitter:hover, .map-workbench-splitter:focus { background: var(--accent); outline: 0; }
+.dungeon-map-workbench[data-left-open=false] .map-workbench-body { grid-template-columns: 0 0 minmax(240px, 1fr) 5px var(--map-right-track); }
+.dungeon-map-workbench[data-right-open=false] .map-workbench-body { grid-template-columns: var(--map-left-track) 5px minmax(240px, 1fr) 0 0; }
+.dungeon-map-workbench[data-left-open=false][data-right-open=false] .map-workbench-body { grid-template-columns: 0 0 minmax(240px, 1fr) 0 0; }
+.dungeon-map-workbench[data-left-open=false] .map-workbench-outline, .dungeon-map-workbench[data-left-open=false] .map-workbench-splitter.left,
+.dungeon-map-workbench[data-right-open=false] .map-workbench-inspector, .dungeon-map-workbench[data-right-open=false] .map-workbench-splitter.right { visibility: hidden; }
+.dungeon-map-workbench .dungeon-lab__stage { width: auto; height: 100%; min-height: 0; overflow: hidden; background: #191b1e; }
+.dungeon-map-workbench .map-frame { grid-template-rows: auto minmax(0, 1fr); background: #191b1e; }
+.map-workbench-viewport-toolbar { min-width: 0; display: flex; align-items: center; padding: 4px 6px; border-bottom: 1px solid var(--line); background: var(--panel); }
+.map-workbench-viewport-toolbar .editor-command-bar__selection { flex-wrap: wrap; gap: 4px; color: #969ba3; font-size: 11px; }
+.dungeon-map-workbench .selection-mode-toolbar { padding: 0; gap: 2px; background: transparent; border-radius: 2px; }
+.dungeon-map-workbench .selection-mode-toolbar button { height: 25px; min-height: 25px; padding: 3px 6px; border: 1px solid transparent; border-radius: 2px; color: #b1b7bf; font-size: 11px; }
+.dungeon-map-workbench .selection-mode-toolbar button.is-active { background: var(--selected); border-color: #496578; color: #eef8ff; box-shadow: none; }
+.dungeon-map-workbench .map-scroll canvas:focus { outline-color: var(--accent) !important; }
+.map-workbench-inspector .editor-inspector-heading { min-height: 39px; }
+.map-workbench-inspector .editor-inspector-heading span { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.map-workbench-inspector .editor-inspector-scroll { padding: 0; overflow-x: hidden; }
+.dungeon-map-workbench :is(.control-card, .entity-inspector, .component-outline, .entity-outline, .physics-fields, .selection-data-panel, .selection-overview, .batch-identity-fields, .batch-field-grid, .pattern-controls, .edge-patterns) {
+  min-width: 0; border-color: var(--line); border-radius: 2px; background: transparent; box-shadow: none;
+}
+.dungeon-map-workbench .control-card { margin: 0; padding: 9px; gap: 8px; border: 0; border-bottom: 1px solid var(--line); }
+.dungeon-map-workbench :is(.map-editor__header, .pattern-controls__header) { min-height: 28px; gap: 6px; }
+.dungeon-map-workbench :is(.panel-collapse-button, .panel-collapse-button__text, .inspector-heading, .selection-summary) { color: #dfe1e5; }
+.dungeon-map-workbench :is(.panel-collapse-button__text strong, .inspector-heading strong, .entity-outline__header strong, .component-outline__header strong, .component-card__header strong, .selection-data-panel__header strong) { color: #dfe1e5; font-size: 11px; }
+.dungeon-map-workbench :is(.panel-collapse-button__text small, .inspector-heading small, .selection-summary, .selection-multi-hint, .map-structure-note, .map-structure-target, .pattern-controls__header p) { color: #969ba3; font-size: 10px; }
+.dungeon-map-workbench .panel-collapse-button { padding: 0; border: 0; background: transparent; }
+.dungeon-map-workbench .collapsible-panel-body { gap: 8px; }
+.dungeon-map-workbench .physics-fields { padding: 6px 0; border: 0; gap: 7px; }
+.dungeon-map-workbench :is(.physics-fields, .controls, .map-editor, .pattern-controls) label { color: #b6bbc3; font-size: 11px; }
+.dungeon-map-workbench .physics-fields > label:not(.physics-check) { display: grid; grid-template-columns: minmax(90px, .9fr) minmax(0, 1.3fr); align-items: center; gap: 8px; }
+.dungeon-map-workbench :is(.physics-fields, .controls, .map-editor, .pattern-select, .batch-field, .component-instance-meta) :is(input:not([type=checkbox]):not([type=range]), select, textarea) {
+  height: 27px; min-height: 27px; border: 1px solid #494c51; border-radius: 2px; padding: 3px 6px; color: #dfe1e5; background: #202124; font: 12px 'Segoe UI', 'Microsoft YaHei', sans-serif; -webkit-text-fill-color: #dfe1e5;
+}
+.dungeon-map-workbench textarea { height: auto !important; min-height: 70px !important; }
+.dungeon-map-workbench select option { color: #dfe1e5; background: #25262a; }
+.dungeon-map-workbench input[type=range] { accent-color: var(--accent); }
+.dungeon-map-workbench .component-outline { padding: 7px; gap: 5px; }
+.dungeon-map-workbench :is(.component-outline__item, .entity-outline__item) { padding: 4px 6px; border-radius: 2px; color: #b6bbc3; }
+.dungeon-map-workbench :is(.component-outline__item, .entity-outline__item).is-active { border-color: #496578; background: var(--selected); color: #eef8ff; box-shadow: inset 2px 0 var(--accent); }
+.dungeon-map-workbench :is(.component-outline__item, .entity-outline__item) strong { font-size: 11px; }
+.dungeon-map-workbench :is(.component-outline__item, .entity-outline__item) small { color: #969ba3; font-size: 9px; }
+.dungeon-map-workbench .component-card { margin: 0 -9px; border-radius: 0; }
+.dungeon-map-workbench .map-component-anchor[data-selected=true] > .component-card { box-shadow:inset 2px 0 var(--accent); }
+.dungeon-map-workbench .component-card .editor-inspector-section-heading { min-height: 30px; background: #2b2d30; }
+.dungeon-map-workbench .component-card .editor-inspector-section-body { padding: 5px 9px 9px; }
+.dungeon-map-workbench .component-card__header { justify-content: flex-end; padding: 0; border: 0; min-height: 22px; }
+.dungeon-map-workbench .component-card__header .inspector-heading { display: none; }
+.dungeon-map-workbench .component-enabled { color: #aeb5bd; font-size: 11px; }
+.dungeon-map-workbench .inspector-advanced { margin-top: 5px; border-color: var(--line); color: #969ba3; }
+.dungeon-map-workbench .inspector-advanced > summary { padding: 5px 0; font-size: 10px; }
+.dungeon-map-workbench :is(.selection-data-panel__header, .selection-json-actions, .selection-data) { border-color: var(--line); color: #b6bbc3; background: #202124; }
+.dungeon-map-workbench .selection-object-list { background: #202124; border-color: var(--line); }
+.dungeon-map-workbench .selection-object-list__item { border-color: var(--line); background: transparent; color: #b6bbc3; border-radius: 2px; }
+.dungeon-map-workbench .danger-button { color: #eaa3a3; border-color: #66464a; background: #332529; }
+.map-workbench-status { z-index: 9; display: flex; align-items: center; min-width: 0; gap: 8px; padding: 0 6px; border-top: 1px solid var(--line); background: #25262a; }
+.map-workbench-status .editor-status-bar { flex: 1; min-width: 0; min-height: 28px; padding: 4px 0; border: 0; color: #969ba3; background: transparent; }
+.map-workbench-status .editor-status-bar > span { color: #969ba3; font-size: 10px; }
+.map-workbench-status .editor-status-bar strong { color: #c7cdd5; }
+.map-workbench-status > button { min-height: 22px; font-size: 10px; white-space: nowrap; }
+.map-workbench-status .entity-legend-menu > div { background: var(--panel); border-color: var(--line); border-radius: 2px; }
+.map-workbench-issues { max-height: 180px; overflow: auto; padding: 7px 10px; border-top: 1px solid var(--line); background: var(--panel-deep); }
+.map-workbench-issues header { display: flex; align-items: center; justify-content: space-between; }
+.map-workbench-issues li { padding: 5px 0; color: #e2b78b; }
+.map-workbench-settings { width: min(720px, calc(100vw - 32px)); max-height: 85dvh; padding: 0; color: #dfe1e5; border: 1px solid #555a62; border-radius: 3px; background: var(--panel); box-shadow: 0 20px 70px #0008; }
+.map-workbench-settings::backdrop { background: #0007; }
+.map-workbench-settings[open] { display: flex; flex-direction: column; }
+.map-workbench-settings > header { display: flex; align-items: center; gap: 12px; flex: none; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.map-workbench-settings > header nav { display: flex; gap: 4px; margin-left: auto; }
+.map-workbench-settings-body { min-height: 0; overflow: auto; }
+.map-workbench-settings-body .control-card { padding: 12px 16px; }
+.map-workbench-settings-body :is(.controls, .pattern-controls, .map-structure-group) { gap: 9px; }
+.map-workbench-settings-body .controls input[type=range] { width: 100%; }
+.map-workbench-settings-body :is(.preset-status, .preset-dirty-state, .selection-overview, .map-structure-target, .map-structure-note) { color: #aeb5bd; background: #202124; border-radius: 2px; }
+.map-workbench-settings-body :is(.status-row strong, .map-structure-group > span, .edge-patterns__title strong, .pattern-controls__header strong, .controls strong) { color: #c7cdd5; }
+.map-workbench-settings-body .pattern-select { border-color: var(--line); background: #202124; }
+@media (max-width: 1500px) { .map-workbench-document-bar .editor-command-bar__document { display: none; } }
+@media (max-width: 1050px) {
+  .map-workbench-panel-buttons { margin-left: 0; }
+  .map-workbench-document-bar .map-zoom { display: none; }
+}
+@media (max-width: 900px) {
+  .map-workbench-body, .dungeon-map-workbench[data-left-open=false] .map-workbench-body, .dungeon-map-workbench[data-right-open=false] .map-workbench-body, .dungeon-map-workbench[data-left-open=false][data-right-open=false] .map-workbench-body { grid-template-columns: 0 0 minmax(0,1fr) 0 0; }
+  .map-workbench-outline { position: absolute; z-index: 11; inset: 0 auto 0 0; width: min(var(--map-left-width), 80vw); border-right: 1px solid var(--line); box-shadow: 8px 0 24px #0006; }
+  .map-workbench-inspector { position: absolute; z-index: 10; inset: 0 0 0 auto; width: min(var(--map-right-width), 85vw); border-left: 1px solid var(--line); box-shadow: -8px 0 24px #0006; }
+  .map-workbench-splitter { display: none; }
+  .map-workbench-document-bar .validation-command { display: none; }
+}

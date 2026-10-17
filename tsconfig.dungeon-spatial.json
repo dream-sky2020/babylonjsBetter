@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "types": ["node", "vite/client"], "strict": true },
+  "include": ["core/dungeon-spatial/**/*.ts", "core/dungeon-actions/**/*.ts", "core/map-document/dungeonMapDocument.spatialMigration.ts", "core/entity/components/spatial-*.component.ts", "core/entity/components/agent-timing.component.ts", "codex-tools/migrateDungeonSpatial.ts"],
+  "exclude": ["node_modules"]
+}

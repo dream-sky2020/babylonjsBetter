@@ -2,6 +2,22 @@
 
 本文面向需要维护 `labs/standalone/dungeon-map-canvas-lab` 的开发者。这个 Lab 按 Activity / View 分工：Activity 管编辑状态和操作，View 管界面；普通概览使用共享 2D Canvas，实体展开使用 Three.js 场景。
 
+## 编辑工作台（2026-10-18）
+
+界面沿用 Scene Environment Lab 的深灰工作台规范：左侧三个独立浏览面板，中央保留地图和选择工具，右侧常驻属性面板。地图内容按挂载空间浏览；实体列表按真实 ID 去重并显示位置和组件数量；组件列表按类型分组，显示实际组件实例及所属实体，空间挂载项用于定位实体。三个面板独立搜索，实体/组件的中文名称、类型、ID、Slot 均可检索；点击组件会选中所属实体，在 Inspector 展开并定位对应字段。多处挂载显示数量，悬停实体可查看全部位置；优先沿用当前有效挂载位置。无有效挂载条目保留警示，不伪造位置。
+
+多个组件以可折叠分组同时显示，组件索引可跳到对应字段。地图内容树 Ctrl/⌘ 点击或 Shift 连选空间可进入原批量编辑流程；实体和组件浏览器用于单项定位。地图框选、预览确认、撤销重做、保存与 2D/3D 切换保持原数据链路。
+
+拖动面板标题栏左侧把手到另一面板上下左右边缘，看到投放预览后松手即可重新排列。标题按钮折叠面板，× 隐藏面板；顶部“地图内容 / 实体 / 组件”恢复显示或隐藏，提供“上下排列 / 左右排列 / 重置布局”。隐藏、折叠和移动保留各面板搜索及树的展开状态；分隔线可拖动、使用方向键调节或双击均分。
+
+顶部“地图设置”打开预设、新建及行列结构操作；“视图设置”打开图案和外观参数。底部校验按钮展开问题列表。两侧分隔条可拖动或用左右方向键调宽；“属性”可收起 Inspector。窄屏使用覆盖式面板，可全部收起以查看完整地图。布局保存到 dungeon-map-canvas-lab:workspace:v2，兼容旧 v1 宽度和显隐设置，不进入地图编辑历史。
+
+DungeonMapWorkbench.tsx 管工作台外壳和设置窗口；dungeonMapOutline.ts 管三个只读浏览索引；dungeonMapWorkspace.ts 管布局校验与迁移；dungeon-map-workbench.css 在现有领域表单样式上复用公共 scene-editor 主题。停靠机制与场景环境 Lab 共同使用 core/ui/editor-kit/DockWorkspace.tsx 和 dockLayout.ts。Activity 不通过面板 DOM ID 和滚动监听判断工作区；地图视口继续使用 ref 测量尺寸。
+
+验证：`npm run test:dungeon-map-workbench`、`npm run build:dungeon-map-lab`。Vite 在 127.0.0.1:1184 启动后执行 `npm run test:dungeon-map-workbench-webgl` 和 `npm run test:dungeon-map-browsers-webgl`；界面测试阻止对正式预设的写请求。
+
+空间物体可在检查器的“新增 Component”选择“空间交互”，配置“玩家推动响应”：阻挡、推动、换位。先在“空间物体”组件将运动能力设为“可移动”；选择推动时还须开启“允许推动”，换位不需要。没有空间交互组件或组件禁用时默认阻挡。只有运行时空间检查通过才执行动作；窄道、墙和被占据落点仍会阻挡。配置随地图保存并支持撤销/重做，不改变 Agent AI。
+
 ## 1. 文件入口
 
 ```text

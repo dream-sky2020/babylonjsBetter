@@ -37,5 +37,9 @@ export const createEntityFromDefinition = (definition: EntityTypeDefinition): IE
       ? [componentDefinition.createDefault()]
       : [];
   });
+  if(entity.entityType==='dungeon-agent') {
+    const body=entity.components.find(c=>c.type==='spatial-body');
+    if(body) (body as unknown as {mobility:string}).mobility='movable';
+  }
   return entity;
 };

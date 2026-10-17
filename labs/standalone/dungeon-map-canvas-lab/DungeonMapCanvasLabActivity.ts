@@ -1,3 +1,4 @@
+import { migrateDungeonSpatialDefinitions } from '@/core/map-document/dungeonMapDocument.spatialMigration.ts';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { validateDungeonTransitionMap } from '@/core/dungeon-transition';
 import { deleteDungeonMapDocumentColumn, deleteDungeonMapDocumentRow, insertDungeonMapDocumentColumn, insertDungeonMapDocumentRow } from '@/core/map';
@@ -323,7 +324,7 @@ const [savedPresetFingerprints, setSavedPresetFingerprints] = useState<Record<st
 const [mapScale, setMapScale] = useState(1);
 
 const mapViewportRef = useRef<HTMLDivElement>(null);
-const panelScrollRef = useRef<HTMLDivElement>(null);
+
 
 const [mapViewportSize, setMapViewportSize] = useState({ width: 0, height: 0 });
 
@@ -411,13 +412,9 @@ const [batchComponentTypeToEdit, setBatchComponentTypeToEdit] = useState('');
 
 const [pendingMutationPlan, setPendingMutationPlan] = useState<LabMutationPlan>();
 
-const [collapsedPanelIds, setCollapsedPanelIds] = useState<Set<string>>(() => new Set());
+const [collapsedPanelIds, setCollapsedPanelIds] = useState<Set<string>>(() => new Set(['selection-json', 'selection']));
 
-const [panelWorkspace, setPanelWorkspace] = useState<LabPanelWorkspace>('project');
-
-const [navigatingWorkspace, setNavigatingWorkspace] = useState<LabPanelWorkspace | undefined>(undefined);
-
-const navigatingWorkspaceRef = useRef<LabPanelWorkspace | undefined>(undefined);
+const [panelWorkspace, setPanelWorkspace] = useState<LabPanelWorkspace>('inspector');
 
 useEffect(() => {
     const viewport = mapViewportRef.current;
@@ -430,53 +427,6 @@ useEffect(() => {
     const observer = new ResizeObserver(updateSize);
     observer.observe(viewport);
     return () => observer.disconnect();
-  }, []);
-
-useEffect(() => {
-    const scroller = panelScrollRef.current;
-    if (!scroller) {
-      console.warn('[DungeonMapCanvasLab] View 缺少面板滚动区 ref。');
-      return;
-    }
-    const sections: Array<[LabPanelWorkspace, string]> = [
-      ['project', 'lab-project-section'],
-      ['inspector', 'lab-inspector-section'],
-      ['appearance', 'lab-appearance-section'],
-    ];
-    const updateActiveSection = () => {
-      const activationLine = scroller.getBoundingClientRect().top + 76;
-      let active: LabPanelWorkspace = 'project';
-      sections.forEach(([workspace, id]) => {
-        const section = document.getElementById(id);
-        if (section && section.getBoundingClientRect().top <= activationLine) active = workspace;
-      });
-      setPanelWorkspace(active);
-      const navigationTarget = navigatingWorkspaceRef.current;
-      if (navigationTarget) {
-        const target = document.getElementById(`lab-${navigationTarget}-section`);
-        const reachedTarget = target && Math.abs(target.getBoundingClientRect().top - activationLine) <= 12;
-        const reachedBottomTarget = navigationTarget === 'appearance'
-          && scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2;
-        if (reachedTarget || reachedBottomTarget) {
-          navigatingWorkspaceRef.current = undefined;
-          setNavigatingWorkspace(undefined);
-        }
-      }
-    };
-    const cancelNavigation = () => {
-      if (!navigatingWorkspaceRef.current) return;
-      navigatingWorkspaceRef.current = undefined;
-      setNavigatingWorkspace(undefined);
-    };
-    scroller.addEventListener('scroll', updateActiveSection, { passive: true });
-    scroller.addEventListener('wheel', cancelNavigation, { passive: true });
-    scroller.addEventListener('touchstart', cancelNavigation, { passive: true });
-    updateActiveSection();
-    return () => {
-      scroller.removeEventListener('scroll', updateActiveSection);
-      scroller.removeEventListener('wheel', cancelNavigation);
-      scroller.removeEventListener('touchstart', cancelNavigation);
-    };
   }, []);
 
 const fittedMapScale = useMemo(() => {
@@ -695,6 +645,9 @@ const clearMapEdits = () => {
   };
 
 const installDocumentStore = (document: DungeonMapDocumentV2) => {
+    const normalized = migrateDungeonSpatialDefinitions(document);
+    if (!normalized.document) throw new Error(normalized.issues.map(issue=>issue.message).join('\n'));
+    document = normalized.document;
     const store = new DungeonMapDocumentStore(document);
     setMapStore(store);
     setMapDocument(store.getDocument());
@@ -1782,26 +1735,7 @@ const toggleSelectionJson = () => {
   };
 
 // 面板导航和 Activity 暴露给 View 的数据与操作
-const jumpToPanelSection = (workspace: LabPanelWorkspace) => {
-    const scroller = panelScrollRef.current;
-    const target = document.getElementById(`lab-${workspace}-section`);
-    if (!scroller || !target) {
-      console.warn(`[DungeonMapCanvasLab] View 缺少 ${workspace} 面板或滚动区。`);
-      return;
-    }
-    if (scroller && target && Math.abs(target.getBoundingClientRect().top - (scroller.getBoundingClientRect().top + 76)) <= 12) {
-      setPanelWorkspace(workspace);
-      navigatingWorkspaceRef.current = undefined;
-      setNavigatingWorkspace(undefined);
-      return;
-    }
-    navigatingWorkspaceRef.current = workspace;
-    setNavigatingWorkspace(workspace);
-    target?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
+const jumpToPanelSection = (workspace: LabPanelWorkspace) => setPanelWorkspace(workspace);
 
 return {
   activeBatchComponentDefinition,
@@ -1874,12 +1808,10 @@ return {
   mapWidth,
   minCanvasHeight,
   minCanvasWidth,
-  navigatingWorkspace,
   newPresetKey,
   newPresetName,
   options,
   panelWorkspace,
-  panelScrollRef,
   patternRendering,
   patterns,
   pendingMutationPlan,

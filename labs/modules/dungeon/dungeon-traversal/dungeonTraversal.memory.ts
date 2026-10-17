@@ -7,7 +7,7 @@ export type DungeonTraversalStateData = { loadId: number; presetKey: string } & 
   & Partial<Pick<DungeonTraversalStorage, 'pathReservationTileIndicesByActor'>>;
 export type DungeonTraversalOwnedData = DungeonTraversalStateData & DungeonTraversalStorage;
 export const allocateDungeonTraversalStateData = (loadId: number, presetKey: string, tileCount: number): DungeonTraversalOwnedData => ({
-  loadId, presetKey, actors: new Map(), pathReservationTileIndicesByActor: new Map(),
+  loadId, presetKey, bodies: new Map(), colliders: new Map(), bodyIdByEntity: new Map(), bodyIdsBySide: new Map(), bodyIdsByCell: new Map(), cellsByBody: new Map(), actors: new Map(), pathReservationTileIndicesByActor: new Map(),
   occupantIdsByTile: Array.from({ length: tileCount }, () => new Set()),
   pathReservationsByTile: Array.from({ length: tileCount }, () => new Map()),
 });
@@ -15,6 +15,13 @@ const record = (v: unknown): v is Record<string, unknown> => v !== null && typeo
 const stateType = defineLabMemoryType<DungeonTraversalStateData | null>('DungeonTraversalStateData',
   (v): v is DungeonTraversalStateData | null => {
     if (v === null) return true;
+    if(record(v)&&'bodies' in v){
+      if(!(v.bodies instanceof Map)||!(v.colliders instanceof Map))return false;
+      for(const [id,body] of v.bodies)if(!record(body)||body.bodyId!==id||typeof body.entityId!=='string'
+        ||!record(body.pose)||!Number.isFinite(body.pose.x)||!Number.isFinite(body.pose.y))return false;
+      for(const [id,collider] of v.colliders)if(!record(collider)||collider.id!==id||!v.bodies.has(collider.bodyId)
+        ||!['disc','box','boundary','point'].includes(collider.shape as string))return false;
+    }
     if (!record(v) || !Number.isSafeInteger(v.loadId) || (v.loadId as number) <= 0 || typeof v.presetKey !== 'string'
       || !(v.actors instanceof Map) || !Array.isArray(v.occupantIdsByTile) || !Array.isArray(v.pathReservationsByTile)
       || v.occupantIdsByTile.length !== v.pathReservationsByTile.length) return false;
@@ -41,10 +48,11 @@ const stateType = defineLabMemoryType<DungeonTraversalStateData | null>('Dungeon
     return true;
   });
 export const DUNGEON_TRAVERSAL_STATE_MEMORY = defineLabSharedData({
-  key: 'dungeon.traversal-state', label: '通行占位与寻路预约', type: stateType, create: () => null,
+  key: 'dungeon.spatial-world', label: '统一空间世界与导航索引', type: stateType, create: () => null,
   // Live collections are paginated by the inspector; sampling never clones/scans all tiles.
   inspect: (v: DungeonTraversalStateData | null) => v ? {
     loadId: v.loadId, presetKey: v.presetKey, actorCount: v.actors.size, tileCount: v.occupantIdsByTile.length,
+    bodies: 'bodies' in v ? v.bodies : undefined, colliders: 'colliders' in v ? v.colliders : undefined,
     actors: v.actors, occupantIdsByTile: v.occupantIdsByTile, pathReservationsByTile: v.pathReservationsByTile,
     pathReservationTileIndicesByActor: 'pathReservationTileIndicesByActor' in v ? v.pathReservationTileIndicesByActor : undefined,
   } : { loaded: false },

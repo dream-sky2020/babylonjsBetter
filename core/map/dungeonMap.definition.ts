@@ -62,7 +62,7 @@ const encodeComponent = (
   const normalized = generatedLabel
     ? mapJsonStrings(content, (value) => value === generatedLabel ? GENERATED_LABEL_TOKEN : value)
     : content;
-  return { ...(normalized as Omit<IComponent, 'id'>), ...identity };
+  return { ...(normalized as Pick<IComponent, 'type' | 'version'> & Record<string, unknown>), ...identity };
 };
 
 const encodeEntity = (entity: IEntity, context: DefinitionContext): DungeonMapDataDefinitionEntity => {
@@ -105,7 +105,7 @@ const decodeComponent = (
   const restored = generatedLabel
     ? mapJsonStrings(content, (value) => value === GENERATED_LABEL_TOKEN ? generatedLabel : value)
     : content;
-  return { ...(restored as Omit<IComponent, 'id'>), id: instantiateId(localId, absoluteId, entityId) };
+  return { ...(restored as Pick<IComponent, 'type' | 'version'> & Record<string, unknown>), id: instantiateId(localId, absoluteId, entityId) };
 };
 
 const decodeDefinition = (

@@ -45,6 +45,8 @@ test('player simulation reuses blocked inspection and defers bounded Debug summa
     const layout = { mapAnchorMode: 'first-tile', mapOffset: [0, 0, 0], tileSize: [1, 1, 1], tileSpacing: [1, 1] };
     const doc = migrateDungeonMapToDocumentV2({ presetKey: 'test', name: 'Test', map: createDungeonMapData({ id: 'test', width: 1000, height: 1 }) }).document;
     const runtime = createDungeonRuntime(doc, { sceneEnvironmentComponent: layout, tilePosition: { x: 0, y: 0 }, worldPosition: [0, 0, 0] });
+    runtime.movementResolver.externallyDriven=true;
+    const simulation={run:delta=>runtime.movementResolver.tick(delta,slice=>assembly.projectSimulation(slice))};
     assembly.prepare(runtime, 1); active = { loadId: 1, runtime, system: assembly.readPreparation(runtime, 'player-movement') };
     const publisher = memory.scope('dungeon-map-loader');
     publisher.acquire(gridApi.DUNGEON_GRID_MEMORY).replace(gridApi.createDungeonGridData(1, 'test', runtime.map, layout));
@@ -65,16 +67,24 @@ test('player simulation reuses blocked inspection and defers bounded Debug summa
     assert.equal(summary.movementResolver.activeMovementCount, 25); assert.equal(summary.movementResolver.activeMoves.length, 20);
     assert.ok(summary.movementResolver.targetReservations.length <= 20);
     assert.equal(summary.obstacleCount, 5000); assert.equal(Object.keys(summary.obstacleStatesPreview).length, 20);
-    const before = json.textContent; document.querySelector('[data-move="east"]').click(); tasks.get('simulation').run(.02);
+    const before = json.textContent; document.querySelector('[data-move="east"]').click(); simulation.run(.02);
     assert.equal(json.textContent, before, 'movement must not render JSON');
     content.hidden = true; tasks.get('debug').run(.25); assert.equal(json.textContent, before);
     content.hidden = false; await Promise.resolve(); tasks.get('debug').run(.25); assert.notEqual(json.textContent, before);
     // Free moves must not call the separate facade inspect; blocked interception runs once.
     const blocked = services.get('dungeon:player-movement-blocked-attempt'); let intercepted = 0;
     runtime.playerMovement = null; runtime.movementResolver.cancelActor('$dungeon-player');
-    runtime.playerPosition = { tileX: 0, tileY: 0 }; runtime.traversal.moveActor('$dungeon-player', 0);
+    runtime.traversal.moveActor('$dungeon-player', 0); runtime.playerPosition = { tileX: 0, tileY: 0 };
     const off = blocked.register(() => { intercepted++; return true; });
     document.querySelector('[data-move="west"]').click(); assert.equal(intercepted, 1); assert.equal(runtime.playerMovement, null); off();
+    // The same button can start a group action; simulation projects its live pose
+    // without starting another move or leaving a stale blocked-attempt track.
+    runtime.traversal.registerActor({ id: 'box', kind: 'dynamic', tileIndex: 1, enabled: true, blocksMovement: true, movementProfileId: 'ground' });
+    const box = runtime.traversal.body('box');box.pushable = true;box.onPlayerPush = 'push';
+    document.querySelector('[data-move="east"]').click();
+    assert.equal(runtime.playerMovement, null);assert.equal(runtime.movementResolver.storage.groups.size, 1);
+    simulation.run(.02);assert.equal(runtime.movementResolver.getActiveRequest('$dungeon-player'), undefined);
+    simulation.run(2);assert.equal(runtime.playerPosition.tileX, 1);assert.equal(box.logicalPosition.tileX, 2);
     cleanup(); cleanup = null; assert.equal(tasks.size, 0); assert.equal(handlers.size, 0);
   } finally {
     cleanup?.(); assembly?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();

@@ -54,6 +54,8 @@ test('Agent module publishes shallow live memories, moves through Core and repla
     });
     const load = loadId => {
       const runtime = createDungeonRuntime(doc, { sceneEnvironmentComponent: layout, tilePosition: { x: 2, y: 0 }, worldPosition: [14, 0, 20] });
+      runtime.movementResolver.externallyDriven=true;
+      task={run:delta=>runtime.movementResolver.tick(delta,slice=>assembly.projectSimulation(slice))};
       assembly.prepare(runtime, loadId);
       active = { loadId, map: runtime.map, system: assembly.readPreparation(runtime, 'dungeon-agent') };
       memory.scope('dungeon-map-loader').acquire(gridData.DUNGEON_GRID_MEMORY).replace(gridData.createDungeonGridData(loadId, 'test', runtime.map, layout));
@@ -62,7 +64,7 @@ test('Agent module publishes shallow live memories, moves through Core and repla
       handlers.get(dungeonMapChangedEvent)({ loadId }); return active.system.state;
     };
     const first = load(1);
-    assert.deepEqual(memory.inspect().filter(entry => entry.modules.includes('dungeon-agent')).map(entry => entry.key).sort(), ['dungeon.agent-controller-state', 'dungeon.agent-navigation', 'dungeon.agent-settings', 'dungeon.agent-state', 'dungeon.agents', 'dungeon.grid', 'dungeon.movement-state', 'dungeon.traversal-state']);
+    assert.deepEqual(memory.inspect().filter(entry => entry.modules.includes('dungeon-agent')).map(entry => entry.key).sort(), ['dungeon.agent-controller-state', 'dungeon.agent-navigation', 'dungeon.agent-settings', 'dungeon.agent-state', 'dungeon.agents', 'dungeon.grid', 'dungeon.spatial-actions', 'dungeon.spatial-world']);
     assert.equal(services.has('dungeon:agent-runtime'), false);
     const observer = memory.scope('agent-observer');
     const descriptions = observer.acquire(agentData.DUNGEON_AGENTS_MEMORY);
@@ -108,7 +110,7 @@ test('Agent module publishes shallow live memories, moves through Core and repla
     assert.equal(navigation.current.loadId, 2);
     assert.equal(states.current.agents.get('guard').tileIndex, 0);
     assert.ok(events.some(event => event.reason === 'manual-move-started'));
-    cleanup(); cleanup = null; assert.equal(handlers.size, 0); assert.equal(task, null); assert.equal(services.has('dungeon:agent-runtime'), false);
+    cleanup(); cleanup = null; assert.equal(handlers.size, 0); assert.equal(assembly.inspectSimulationCount(), 0); assert.equal(services.has('dungeon:agent-runtime'), false);
     assert.equal(descriptions.current, null); assert.equal(states.current, null);
     assert.equal(settings.current, null); assert.equal(controllers.current, null);
     assert.equal(navigation.current, null);

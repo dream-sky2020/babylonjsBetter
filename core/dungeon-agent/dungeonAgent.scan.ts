@@ -10,6 +10,7 @@ import {
   type DungeonMapSpatialAttachmentComponent,
 } from '../map-document/index.ts';
 import type { DungeonAgentBinding } from './dungeonAgent.types.ts';
+import { migrateDungeonSpatialDefinitions } from '../map-document/dungeonMapDocument.spatialMigration.ts';
 
 const enabled = <T extends { enabled?: boolean }>(items: readonly T[]): T[] => (
   items.filter((item) => item.enabled !== false)
@@ -33,15 +34,22 @@ const requireNonEmpty = (value: unknown, entityId: string, field: string): strin
 export const scanDungeonDocumentAgents = (
   document: DungeonMapDocumentV2,
 ): DungeonAgentBinding[] => {
+  const normalized = migrateDungeonSpatialDefinitions(document);
+  if (!normalized.document) throw new Error(normalized.issues.map(issue => issue.message).join('\n'));
+  document = normalized.document;
   const query = new DungeonMapDocumentQuery(document);
   return document.entities
     .filter((entity) => entity.entityType === 'dungeon-agent' && entity.enabled !== false)
     .map((entity) => {
-      const gridAgent = requireSingle(
-        enabled(query.getComponents<IGridAgentComponent & DungeonMapDocumentComponent>(entity.id, 'grid-agent')),
-        entity.id,
-        'grid-agent',
-      );
+      const body = requireSingle(enabled(query.getComponents(entity.id, 'spatial-body')), entity.id, 'spatial-body');
+      const timing = requireSingle(enabled(query.getComponents(entity.id, 'agent-timing')), entity.id, 'agent-timing');
+      const shapes = enabled(query.getComponents(entity.id, 'spatial-collider'));
+      // Read-only controller description; all live position and collision data belongs to Body.
+      const gridAgent: IGridAgentComponent = { id: body.id, type: 'grid-agent', version: 1,
+        initialFacing: body.initialFacing as IGridAgentComponent['initialFacing'],
+        blocksMovement: shapes.some(shape => shape.response === 'block'),
+        spatialFootprint: shapes.some(shape => shape.response === 'block' && shape.footprint === 'full-tile') ? 'full-tile' : 'center',
+        actionPeriod: timing.actionPeriod as number, priority: timing.priority as number, movementProfileId: body.movementProfileId as string };
       const controller = requireSingle(
         enabled(query.getComponents<IAgentControllerComponent & DungeonMapDocumentComponent>(entity.id, 'agent-controller')),
         entity.id,

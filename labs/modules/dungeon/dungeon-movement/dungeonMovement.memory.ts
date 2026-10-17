@@ -10,6 +10,7 @@ export const allocateDungeonMovementStateData = (loadId: number, presetKey: stri
   tileCount: number, pointCount: number): DungeonMovementOwnedData => ({
   loadId, presetKey, config: { progressWeight: 1, commitProgress: 0.5, playerBasePriority: 1000 },
   activeRequests: new Map(), activeRequestIdByActor: new Map(), nextRequestSequence: 1,
+  samples: new Map(), groups: new Map(), tracks: new Map(), simulationSeconds: 0,
   movementReservationsByTile: Array.from({ length: tileCount }, () => new Map()),
   movementReservationsByPoint: Array.from({ length: pointCount }, () => new Map()),
 });
@@ -22,6 +23,8 @@ const reservations = (v: unknown) => Array.isArray(v) && v.every(ids => {
 const type = defineLabMemoryType<DungeonMovementStateData | null>('DungeonMovementStateData',
   (v): v is DungeonMovementStateData | null => {
     if (v === null) return true;
+    if(record(v)&&'groups' in v&&(!(v.groups instanceof Map)||!(v.tracks instanceof Map)||!(v.samples instanceof Map)
+      ||!Number.isFinite(v.simulationSeconds)||(v.simulationSeconds as number)<0))return false;
     if (!record(v) || !Number.isSafeInteger(v.loadId) || (v.loadId as number) <= 0 || typeof v.presetKey !== 'string'
       || !record(v.config) || !Number.isFinite(v.config.progressWeight) || (v.config.progressWeight as number) < 0
       || !Number.isFinite(v.config.commitProgress) || (v.config.commitProgress as number) < 0 || (v.config.commitProgress as number) > 1
@@ -39,10 +42,11 @@ const type = defineLabMemoryType<DungeonMovementStateData | null>('DungeonMoveme
     return true;
   });
 export const DUNGEON_MOVEMENT_STATE_MEMORY = defineLabSharedData({
-  key: 'dungeon.movement-state', label: '移动请求与临时预留', type, create: () => null,
+  key: 'dungeon.spatial-actions', label: '统一动作、时间轴与预留', type, create: () => null,
   inspect: (v: DungeonMovementStateData | null) => v ? {
     loadId: v.loadId, presetKey: v.presetKey, config: { ...v.config }, activeRequestCount: v.activeRequests.size,
-    activeRequests: v.activeRequests, movementReservationsByTile: v.movementReservationsByTile,
+    groups: 'groups' in v ? v.groups : undefined, tracks: 'tracks' in v ? v.tracks : undefined,
+    simulationSeconds: 'simulationSeconds' in v ? v.simulationSeconds : undefined, activeRequests: v.activeRequests, movementReservationsByTile: v.movementReservationsByTile,
     movementReservationsByPoint: v.movementReservationsByPoint,
     activeRequestIdByActor: 'activeRequestIdByActor' in v ? v.activeRequestIdByActor : undefined,
     nextRequestSequence: 'nextRequestSequence' in v ? v.nextRequestSequence : undefined,

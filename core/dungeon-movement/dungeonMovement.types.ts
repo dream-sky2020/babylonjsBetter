@@ -8,6 +8,10 @@ export type DungeonMovementStorage = {
   movementReservationsByTile: ReadonlyArray<Map<string, string>>;
   movementReservationsByPoint: ReadonlyArray<Map<string, string>>;
   nextRequestSequence: number;
+  samples?: Map<string, DungeonMoveAdvanceResult>;
+  groups?: Map<string, import('../dungeon-actions/dungeonActionGroup.ts').SpatialActionGroup>;
+  tracks?: Map<string, unknown>;
+  simulationSeconds?: number;
 };
 
 export type DungeonMoveRequestState =
@@ -29,6 +33,7 @@ export type DungeonMoveRequest = {
   readonly progressWeight: number;
   readonly ignoreDynamicOccupancy?: boolean;
   readonly allowOutsideMap?: boolean;
+  waitForActorIds?: string[];
   state: DungeonMoveRequestState;
   elapsedSeconds: number;
   rollbackStartProgress?: number;
@@ -107,7 +112,7 @@ export type DungeonMovementDebugSnapshot = Readonly<{
 /** 实际移动仲裁的离散变化，不包含逐帧的进度更新。 */
 export type DungeonMovementChange = Readonly<{
   kind: 'config-changed' | 'request-rejected' | 'request-accepted'
-    | 'rollback-started' | 'committed' | 'completed' | 'rolled-back' | 'cancelled';
+    | 'rollback-started' | 'contact' | 'committed' | 'completed' | 'rolled-back' | 'cancelled';
   actorId?: string;
   requestId?: string;
   fromTileIndex?: number;

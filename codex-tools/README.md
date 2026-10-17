@@ -1,5 +1,18 @@
 # Codex 工具与资源处理档案
 
+- `buildDungeonMapLab.mjs`：`npm run build:dungeon-map-lab`，只构建地图数据编辑工作台到 node_modules/.cache/dungeon-map-workbench-build，不复制 public。
+- `verifyDungeonMapWorkbench.cjs`：Vite 127.0.0.1:1184 启动后执行 `npm run test:dungeon-map-workbench-webgl`，验证三栏、搜索、历史、组件、批量编辑、3D、设置、调宽及布局恢复和窄屏；阻止写入正式预设，报告与截图位于 node_modules/.cache/dungeon-map-workbench-*。
+- `verifyDungeonMapBrowsers.cjs`：Vite 127.0.0.1:1184 启动后 `npm run test:dungeon-map-browsers-webgl`，验证三个浏览器的独立搜索、中文组件检索、实体/组件选中联动、折叠和隐藏、真实鼠标拖拽及边缘预览、键盘分隔调节、刷新恢复、窄屏，以及场景环境 Lab 的共享拖拽回归；不提交写请求。JSON 与默认/调整后截图位于 node_modules/.cache/dungeon-map-browsers-*。
+
+- `buildSpatialActionsLab.mjs`：`npm run build:spatial-actions`，只构建统一空间动作页，不复制 public。
+- `verifySpatialActions.cjs`：构建后 `npm run test:spatial-actions-webgl`，Electron 实测推动、原子换位、窄道拒绝并截图。
+- `verifySpatialInteractionEditor.cjs`：Vite 127.0.0.1:1184 启动后，用 `node codex-tools/runElectronVerification.mjs codex-tools/verifySpatialInteractionEditor.cjs` 验证地图画布 Lab 新增空间交互组件、默认阻挡及编辑换位；不保存到正式预设，JSON/PNG 位于 node_modules/.cache/。
+- `verifySpatialIntegration.cjs`：Vite 127.0.0.1:1184 启动后 `npm run test:spatial-integration-webgl`，复用真实 crossroads/Agent/俯视变形与格子像素回归页。
+- `benchmarkSpatialActions.mjs`：`npm run benchmark:spatial-actions`，比较 1200 物体的旧静态索引和新统一索引局部查询；这是微基准，不代表整帧性能。以上 JSON/PNG 输出在 node_modules/.cache/。
+
+- `migrateDungeonSpatial.ts`：`npm run migrate:dungeon-spatial -- INPUT --dry-run` 审查 v2/v3 地图的空间组件转换；显式 `--output=NEW_FILE --report=NEW_FILE` 生成候选和报告，拒绝覆盖。Runtime 已支持规范化后的新组件；不批量改写正式预设或运行存档。
+- `coreBoundaryAudit.ts`：边界测试的 TypeScript 语法与作用域检查，区分地图局部变量 `document` 与真实 DOM，检查相对/别名/动态 Lab 导入。
+
 本目录集中保存 Codex 编写或维护的项目辅助工具，以及模型导入、贴图迁移的清单与验证记录。原目录名为 scripts。
 
 - 根目录：仍由 package.json 或项目代码使用的构建、迁移与验证工具。
@@ -9,7 +22,9 @@
 - `sceneWarmupVerification.html`：启动开发服务后访问 `/codex-tools/sceneWarmupVerification.html`，用真实 crossroads 模型验证视野外完整预热、阴影/变形/深度及预热后浏览无新增着色器；结果输出到 `#result`。逻辑与 Loader 生命周期回归使用 `npm run test:scene-warmup`。
 - `dungeonRenderVerification.html`：启动开发服务后访问 `/codex-tools/dungeonRenderVerification.html`，验证真实 dungeon-agent-lab 的静态变形缓存、同帧父变换、Debug 分块绘制数及正交/透视格子像素一致性；结果输出到 `#result`。格子逻辑回归使用 `npm run test:dungeon-grid-rendering`。
 - `buildDialogueMapLab.mjs`：只构建 Dialogue Map Canvas Lab 到 node_modules/.cache/dialogue-map-build，不复制 public 资产。
-- `labEntries.test.mjs`：通过 `npm run test:lab-entries` 检查首页分组、链接目标、组合式 Lab 构建入口和目录归属。
+- `labEntries.test.mjs` / `labNavigation.test.mjs`：通过 `npm run test:lab-entries` 检查首页分组、链接目标、组合式 Lab 构建入口和目录归属，以及 HTTP/file 首页往返、重复路径恢复、开发与预览真实服务的 404、资源和请求方法边界。
+- `labNavigation.ts`：Vite 开发/预览导航中间件，只对构建入口白名单恢复重复目录，未知页面显示可返回首页的 404；配合 appType: mpa 禁止错误首页回退。
+- `verifyLabNavigation.cjs`：Vite 127.0.0.1:1184 启动后 `npm run test:lab-navigation-browser`，Electron 实际点击场景环境 Lab、地图编辑器、组合式 Lab 首页往返，并验证错误地址恢复与查询参数/锚点保留。拒绝预设写入，报告在 node_modules/.cache/lab-navigation-verification.json。
 - `buildDraggableLabs.mjs`：通过 `npm run build:draggable` 构建三个可拖拽 Lab 的九个入口与九个旧地址跳转页到 node_modules/.cache/draggable-labs-build，不复制 public。
 - `dialogueTextVerification.html`：通过开发服务打开，比较旧版顶部基线裁剪与新字形安全区绘制，在 8 种缩放和 DPR 1/1.25/2 下统计丢失笔画像素，并确认文字实际绘制；结果保存在页面 `#result`，passed 表示所有 24 组新绘制均无裁剪损失。
 

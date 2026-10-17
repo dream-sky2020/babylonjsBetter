@@ -19,8 +19,6 @@ import { normalizeDungeonMapTerrain } from './dungeonMapDocument.terrain.ts';
 import {
   DUNGEON_MAP_CORNER_ORDER,
   DUNGEON_MAP_DIRECTION_ORDER,
-  type DungeonMapCornerTuple,
-  type DungeonMapDirectionTuple,
   type DungeonMapDocumentComponent,
   type DungeonMapDocumentEdge,
   type DungeonMapDocumentEntity,
@@ -44,6 +42,17 @@ type Edit = Readonly<{
   axis: DungeonMapDocumentStructureAxis;
   index: number;
 }>;
+
+const fourTuple = <T>(values: readonly T[]): readonly [T, T, T, T] => {
+  if (values.length !== 4) throw new Error('地图方向/角槽必须恰好有四项。');
+  return [values[0], values[1], values[2], values[3]];
+};
+
+const pointSides = (values: readonly DungeonMapPointEndpoint[]): DungeonMapSharedPointSides => {
+  if (values.length === 1) return [values[0]];
+  if (values.length === 2) return [values[0], values[1]];
+  return fourTuple(values);
+};
 
 type PositionedTile = Readonly<{
   tileId: string;
@@ -173,14 +182,14 @@ const editDungeonMapDocumentStructure = (
   const tileIds = positionedTiles.map(({ tileId }) => tileId);
   const provisionalSides: DungeonMapDocumentSide[] = [];
   const tileSides = positionedTiles.map(({ tileId, sourceIndex }) => (
-    DUNGEON_MAP_DIRECTION_ORDER.map((direction, directionIndex) => {
+    fourTuple(DUNGEON_MAP_DIRECTION_ORDER.map((direction, directionIndex) => {
       const existingId = sourceIndex === undefined
         ? undefined
         : source.grid.tileSides[sourceIndex]?.[directionIndex];
       const id = existingId ?? allocateId(`${tileId}:${direction}`, reservedSideIds);
       provisionalSides.push({ id, tileId, direction, edgeId: '' });
       return id;
-    }) as DungeonMapDirectionTuple<string>
+    }))
   ));
   const sideBySlot = (x: number, y: number, directionIndex: number): string => (
     tileSides[y * width + x][directionIndex]
@@ -277,12 +286,12 @@ const editDungeonMapDocumentStructure = (
       };
       points.push(point);
       corners.forEach(({ tileId, corner }) => pointIdByTileCorner.set(`${tileId}:${corner}`, id));
-      if (!existing) newPoints.push({ point, sides: endpoints as DungeonMapSharedPointSides });
+      if (!existing) newPoints.push({ point, sides: pointSides(endpoints) });
     }
   }
-  const tilePoints = tileIds.map((tileId) => DUNGEON_MAP_CORNER_ORDER.map(
+  const tilePoints = tileIds.map((tileId) => fourTuple(DUNGEON_MAP_CORNER_ORDER.map(
     (corner) => pointIdByTileCorner.get(`${tileId}:${corner}`)!,
-  ) as DungeonMapCornerTuple<string>);
+  )));
 
   const validTargetKeys = new Set<string>([
     'map',

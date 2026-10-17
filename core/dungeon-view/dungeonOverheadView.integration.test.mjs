@@ -58,7 +58,10 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     const camera = new ArcRotateCamera('camera', 1, 1, 40, Vector3.Zero(), scene); c = createCameraLabController(camera);
     const canvas = document.querySelector('canvas'); canvas.hasPointerCapture = () => false;
     viewport = new LabViewportManager(document.body, canvas, c, () => {});
-    const refs = { current: null }; const services = new Map(); const memory = new LabMemoryRegistry();
+    const refs = { current: null }; const services = new class extends Map {
+      get(key) { return super.get(key?.id??key); } set(key,value) { return super.set(key?.id??key,value); }
+      delete(key) { return super.delete(key?.id??key); }
+    }(); const memory = new LabMemoryRegistry();
     const publishMemory = (definition, value) => memory.scope('dungeon-map-loader').acquire(definition).replace(value);
     const assembly = new DungeonRuntimeAssembly(); services.set(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, assembly);
     cleanups.push(() => assembly.dispose());

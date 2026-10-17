@@ -3,6 +3,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { auditCoreBoundary } from '../../codex-tools/coreBoundaryAudit.ts';
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -17,6 +18,13 @@ const collectTypeScriptFiles = (relativePath: string): string[] => {
 
 const guardedFiles = [
   ...collectTypeScriptFiles('core/map'),
+  ...collectTypeScriptFiles('core/map-document'),
+  ...collectTypeScriptFiles('core/dungeon-spatial'),
+  ...collectTypeScriptFiles('core/dungeon-actions'),
+  ...collectTypeScriptFiles('core/dungeon-traversal'),
+  ...collectTypeScriptFiles('core/dungeon-movement'),
+  ...collectTypeScriptFiles('core/dungeon-agent'),
+  ...collectTypeScriptFiles('core/dungeon-navigation'),
   ...collectTypeScriptFiles('core/dungeon-obstacle'),
   ...collectTypeScriptFiles('core/dungeon-transition'),
   ...collectTypeScriptFiles('core/dungeon-player-movement'),
@@ -34,22 +42,25 @@ const guardedFiles = [
   'core/scene/shadowQualityPreset.types.ts',
 ];
 
-const forbiddenPatterns: ReadonlyArray<readonly [RegExp, string]> = [
-  [/(?:from|import\s*\()\s*['"]@\/labs\//, '不得导入 Lab 页面、基础设施或 Lab Module'],
-  [/\b(?:LabContext|LabModule|LabCommunication|LabServiceRegistry)\b/, '不得声明或消费 Lab 契约'],
-  [/\bcontext\.(?:communication|services|ui|panels|viewport)\b/, '不得访问 LabContext 服务'],
-  [/\b(?:document|window)\./, '不得直接操作 DOM 或浏览器生命周期'],
-  [/\b(?:LabState|registerReference|RuntimeDataStore|registerModule|createScope|releaseScope)\b/,
-    '业务 Core 不得注册 LabState 或旧 Runtime 内存'],
-];
-
 test('composable Dungeon Lab core dependencies remain independent from Lab infrastructure', () => {
   const violations: string[] = [];
   guardedFiles.forEach((relativePath) => {
     const source = readFileSync(resolve(projectRoot, relativePath), 'utf8');
-    forbiddenPatterns.forEach(([pattern, message]) => {
-      if (pattern.test(source)) violations.push(`${relativePath}: ${message}`);
-    });
+    auditCoreBoundary(relativePath, source).forEach(message => violations.push(`${relativePath}: ${message}`));
   });
   assert.deepEqual(violations, []);
+});
+
+test('boundary audit distinguishes map data from global DOM without ignoring real dependencies', () => {
+  assert.deepEqual(auditCoreBoundary('fixture.ts', `function f(document: { grid: unknown }) { return document.grid; }
+    const window = { value: 1 }; window.value; // document.createElement('div')
+    const example = 'LabContext document.body';`), []);
+  for (const source of [
+    `document.createElement('div')`, `window['addEventListener']('load', f)`,
+    `globalThis.document.body`, `globalThis['window'].location`,
+    `import x from '../../labs/kit/x'`, `export { x } from '@/labs/modules/x'`,
+    `import('../../labs/kit/x')`, `const x = require('../../labs/kit/x')`,
+    `type T = import('../../labs/kit/x').T`, `let context: LabContext`,
+    `context['services'].provide(x)`, `registerReference(x)`,
+  ]) assert.ok(auditCoreBoundary('fixture.ts', source).length, source);
 });

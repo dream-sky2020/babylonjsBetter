@@ -1,3 +1,7 @@
+import { useEffect, useMemo, useRef } from 'react';
+import { ObjectHierarchy, InspectorPanel, InspectorSection } from '@/core/ui/editor-kit';
+import { DungeonMapWorkbench } from './DungeonMapWorkbench';
+import { createMapBrowserIndexes, createMapOutline } from './dungeonMapOutline';
 import type { DungeonMapTopologyMode } from '@/core/map';
 import { resolveBatchFieldValue, type ComponentFieldSchema, type IComponent, type IEntity } from '@/core/entity';
 import { componentDefinitions as COMPONENT_DEFINITIONS, componentRegistry as COMPONENT_REGISTRY, entityTypeDefinitions as ENTITY_TYPE_DEFINITIONS, entityTypeRegistry as ENTITY_TYPE_REGISTRY } from '@/tools/entity-container-editor';
@@ -7,6 +11,17 @@ import { valueWithPath, valueAtPath, SELECTION_LIST_PREVIEW_LIMIT, selectionObje
 import type { DungeonMapCanvasLabViewModel } from './DungeonMapCanvasLabActivity';
 
 export const DungeonMapCanvasLabView = ({ model }: { model: DungeonMapCanvasLabViewModel }) => {
+  const componentAnchors = useRef(new Map<string, HTMLDivElement>());
+  const focusComponent = (id: string) => {
+    model.setSelectedComponentId(id);
+    const element = componentAnchors.current.get(id);
+    const heading = element?.querySelector<HTMLButtonElement>('.editor-inspector-section-heading');
+    if (heading?.getAttribute('aria-expanded') === 'false') heading.click();
+    requestAnimationFrame(() => element?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
+  };
+  useEffect(() => {
+    if (model.selectedComponentId) focusComponent(model.selectedComponentId);
+  }, [model.selectedEntityId, model.selectedComponentId]);
   const {
     activeBatchComponentDefinition,
     activeBatchComponents,
@@ -78,12 +93,10 @@ export const DungeonMapCanvasLabView = ({ model }: { model: DungeonMapCanvasLabV
     mapWidth,
     minCanvasHeight,
     minCanvasWidth,
-    navigatingWorkspace,
     newPresetKey,
     newPresetName,
     options,
     panelWorkspace,
-    panelScrollRef,
     patternRendering,
     patterns,
     pendingMutationPlan,
@@ -174,7 +187,9 @@ const renderComponentCard = (entity: IEntity, component: IComponent) => {
       entity.id, component.id, `修改 ${definition?.label ?? component.type} · ${field.label}`,
       (current) => valueWithPath(current, field.path, value),
     );
-    return <div className="component-card" key={component.id}>
+    return <div className="map-component-anchor" data-component-id={component.id} data-selected={component.id === selectedComponentId} key={component.id} ref={element => {
+      if (element) componentAnchors.current.set(component.id, element);else componentAnchors.current.delete(component.id);
+    }}><InspectorSection className="component-card" title={definition?.label ?? component.type} subtitle={`v${component.version}`}>
       <div className="component-card__header"><span className="inspector-heading"><strong>{definition?.label ?? component.type}</strong><small>{component.type} · v{component.version}{!isAllowed ? ' · 当前 Entity 类型不允许' : ''}</small></span><label className="component-enabled"><input type="checkbox" checked={component.enabled !== false} onChange={(event) => updateComponentById(entity.id, component.id, `切换 ${definition?.label ?? component.type} 启用状态`, (current) => ({ ...current, enabled: event.target.checked }))} />启用</label></div>
       {definition ? <div className="physics-fields">
         {definition.fields.map((field) => {
@@ -192,7 +207,7 @@ const renderComponentCard = (entity: IEntity, component: IComponent) => {
         })}
       </div> : <label className="unknown-component-json"><span>未注册组件，使用原始 JSON 编辑</span><textarea key={`${component.id}-${JSON.stringify(component)}`} rows={8} defaultValue={JSON.stringify(component, null, 2)} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; try { const parsed = JSON.parse(event.currentTarget.value) as IComponent; if (!parsed.id || !parsed.type || !parsed.version) throw new Error(); event.currentTarget.setCustomValidity(''); updateComponentById(entity.id, component.id, `修改未注册 Component：${component.type}`, () => parsed); delete event.currentTarget.dataset.dirty; } catch { event.currentTarget.setCustomValidity('必须包含合法的 id、type、version'); event.currentTarget.reportValidity(); } }} /></label>}
       <details className="inspector-advanced"><summary>高级设置与操作</summary><div className="inspector-advanced__body"><div className="component-instance-meta"><label><span>Component Slot</span><input key={`${component.id}-slot-${component.slot ?? ''}`} defaultValue={component.slot ?? ''} placeholder="多实例跨 Entity 匹配键" onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; updateComponentById(entity.id, component.id, '修改 Component Slot', (current) => ({ ...current, slot: event.currentTarget.value || undefined })); delete event.currentTarget.dataset.dirty; }} /></label></div><button type="button" className="danger-button compact-button" disabled={isRequired} onClick={() => removeComponentById(entity.id, component.id)}>{isRequired ? '必需组件，不能删除' : '删除 Component'}</button></div></details>
-    </div>;
+    </InspectorSection></div>;
   };
 
 const renderBatchField = (field: ComponentFieldSchema) => {
@@ -214,124 +229,106 @@ const renderBatchField = (field: ComponentFieldSchema) => {
     return <label className="batch-field" key={`${field.path}-${fieldState.state}-${String(currentValue)}`}><span>{field.label}{status ? <em>{status}</em> : null}</span><input defaultValue={String(currentValue ?? '')} placeholder={mixed ? '多个值；输入后覆盖全部目标' : field.placeholder} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; batchSetComponentField(field, event.currentTarget.value || undefined); delete event.currentTarget.dataset.dirty; }} /></label>;
   };
 
-return (
-    <div className="dungeon-lab">
-      <aside className="dungeon-lab__panel">
-        <div className="dungeon-lab__panel-scroll" ref={panelScrollRef}>
-        <div className="panel-intro">
-          <p className="dungeon-lab__eyebrow">CORE UI / DATA-DRIVEN</p>
-          <h1>Dungeon Map Canvas</h1>
-          <p className="dungeon-lab__intro">地图拓扑数据检查、可视化与编辑工具。</p>
-        </div>
-        <nav className="panel-workspace-tabs" aria-label="面板目录">
-          <button type="button" className={`${panelWorkspace === 'project' ? 'is-current' : ''}${navigatingWorkspace === 'project' ? ' is-navigating' : ''}`} aria-current={panelWorkspace === 'project' ? 'location' : undefined} onClick={() => jumpToPanelSection('project')}><span>地图</span><small>预设与结构</small></button>
-          <button type="button" className={`${panelWorkspace === 'inspector' ? 'is-current' : ''}${navigatingWorkspace === 'inspector' ? ' is-navigating' : ''}`} aria-current={panelWorkspace === 'inspector' ? 'location' : undefined} onClick={() => jumpToPanelSection('inspector')}><span>检查器</span><small>{canvasSelections.length > 1 ? `${canvasSelections.length} 项` : canvasSelection ? `${canvasSelection.x}, ${canvasSelection.y}` : '未选择'}</small></button>
-          <button type="button" className={`${panelWorkspace === 'appearance' ? 'is-current' : ''}${navigatingWorkspace === 'appearance' ? ' is-navigating' : ''}`} aria-current={panelWorkspace === 'appearance' ? 'location' : undefined} onClick={() => jumpToPanelSection('appearance')}><span>外观</span><small>主题与视图</small></button>
-        </nav>
-        <section id="lab-project-section" className="control-card panel-section panel-section--project">
-          <div className="status-row"><span>地图结构</span><strong>{validationIssues.length === 0 ? '校验通过' : `${validationIssues.length} 项错误`}</strong></div>
-          <div className="status-row"><span>公用边</span><strong>{map.sharedEdges?.length ?? 0} 条</strong></div>
-          <div className="status-row"><span>公用点</span><strong>{map.sharedPoints?.length ?? 0} 个</strong></div>
-          <div className="status-row"><span>当前坐标</span><strong>{canvasSelection ? `${canvasSelection.x}, ${canvasSelection.y}` : '未选择'}</strong></div>
-        </section>
-        <section className="control-card controls map-preset-controls panel-section--project">
-          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('map-presets')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'map-presets')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('map-presets') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图预设</strong><small>拓扑参数只在新建时生效</small></span></button><strong>{Object.keys(mapPresets).length} 个</strong></div>
-          {!collapsedPanelIds.has('map-presets') ? <div className="collapsible-panel-body">
-          <label>当前预设<select value={activePresetKey} disabled={Object.keys(mapPresets).length === 0} onChange={(event) => selectMapPreset(event.target.value)}>{Object.keys(mapPresets).length === 0 ? <option value="">暂无已保存预设</option> : null}{Object.values(mapPresets).map((preset) => <option key={preset.presetKey} value={preset.presetKey}>{preset.name} · {preset.presetKey}</option>)}</select></label>
-          {activePresetKey && mapPresets[activePresetKey] ? <><label>presetKey（按确认才生效）<span className="preset-key-row"><input value={presetKeyDraft} placeholder="输入新的 presetKey" onChange={(event) => setPresetKeyDraft(event.target.value)} /><button type="button" disabled={presetKeyDraft.trim() === activePresetKey} onClick={confirmPresetKeyChange}>确认修改 ID</button></span></label><label>当前预设名称<input value={mapPresets[activePresetKey].name} onChange={(event) => renameCurrentPreset(event.target.value)} /></label><div className="preset-actions"><button type="button" onClick={duplicateMapPreset}>复制当前预设</button><button type="button" className="danger-button" onClick={deleteMapPreset}>删除当前预设</button></div></> : null}
-          <div className="preset-divider"><span>新地图参数</span><small>当前地图：{mapWidth} × {mapHeight}</small></div>
-          <div className="map-size-fields">
-            <label>地图 X<input type="number" min="1" max="30" value={draftMapWidth} onChange={(event) => setDraftMapWidth(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
-            <label>地图 Y<input type="number" min="1" max="30" value={draftMapHeight} onChange={(event) => setDraftMapHeight(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
-          </div>
-          <label>拓扑模式<select value={draftTopologyMode} onChange={(event) => setDraftTopologyMode(event.target.value as DungeonMapTopologyMode)}><option value="bounded">有界模式</option><option value="loop-horizontal">左右循环</option><option value="loop-vertical">上下循环</option><option value="loop">双向循环</option></select></label>
-          <div className="map-size-fields">
-            <label>新预设 Key<input value={newPresetKey} onChange={(event) => setNewPresetKey(event.target.value)} /></label>
-            <label>显示名称<input value={newPresetName} onChange={(event) => setNewPresetName(event.target.value)} /></label>
-          </div>
-          <button type="button" className="create-preset-button" onClick={createMapPreset}>新建地图预设</button>
-          <div className="preset-save-actions">
-            <button type="button" className="reload-preset-button" disabled={!activePresetKey || presetReloading} onClick={() => void reloadCurrentPreset()}>{presetReloading ? '正在重新加载…' : '重新加载当前预设'}</button>
-            <button type="button" className="save-preset-button" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '正在保存…' : '保存全部地图预设'}</button>
-          </div>
-          <button type="button" disabled={!mapDocument || topologyShellCleanupPreview.entityCount === 0} onClick={cleanupGeneratedTopologyShells}>清理自动生成的拓扑占位 Entity</button>
-          <small>{topologyShellCleanupPreview.entityCount > 0 ? `当前可安全清理 ${topologyShellCleanupPreview.entityCount} 个 Entity / ${topologyShellCleanupPreview.componentCount} 个 Component；操作可撤销。` : '当前地图没有检测到自动生成的拓扑占位 Entity。'}</small>
-          {activePreset ? <div className={`preset-dirty-state${hasUnsavedCurrentPreset ? ' is-dirty' : ''}`}>{hasUnsavedCurrentPreset ? '当前预设存在尚未保存到 config 的修改' : '当前预设与最近加载 / 保存的版本一致'}</div> : null}
-          <div className={`preset-status${presetError ? ' is-error' : ''}`}>{presetMessage}</div>
-          </div> : null}
-        </section>
-        <section className="control-card controls map-structure-controls panel-section--project">
-          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('map-structure')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'map-structure')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('map-structure') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图结构</strong><small>整行 / 整列修改仅保存在当前页面</small></span></button><strong>{map.width} × {map.height}</strong></div>
-          {!collapsedPanelIds.has('map-structure') ? <div className="collapsible-panel-body">
-            <div className="map-structure-target">
-              <span>操作基准</span>
-              <strong>第 {targetRow + 1} 行 · 第 {targetColumn + 1} 列</strong>
-              <small>{structureSelection ? '跟随 Canvas 当前选中坐标' : 'Canvas 未选中格子，使用下方手动坐标'}</small>
+  const outline = useMemo(() => mapDocument ? createMapOutline(mapDocument) : undefined, [mapDocument]);
+  const browsers = useMemo(() => mapDocument ? createMapBrowserIndexes(mapDocument, outline) : undefined, [mapDocument, outline]);
+  const outlineItems = useMemo(() => outline ? Object.fromEntries(Object.entries(outline.items).map(([id, item]) => [id, {
+    ...item, typeLabel: item.typeLabel ? ENTITY_TYPE_REGISTRY.get(item.typeLabel)?.label ?? item.typeLabel : undefined,
+  }])) : {}, [outline]);
+  const selectedOutlineIds = outline ? [...outline.locations].filter(([, location]) => location.entityId
+    ? location.entityId === selectedEntityId
+    : !selectedEntityId && canvasSelections.some(selection => selection.mode === location.selection.mode
+      && (selection.sharedEdgeId ? selection.sharedEdgeId === location.selection.sharedEdgeId
+        : selection.sharedPointId ? selection.sharedPointId === location.selection.sharedPointId
+        : selection.x === location.selection.x && selection.y === location.selection.y
+          && selection.direction === location.selection.direction))).map(([id]) => id) : [];
+  const outlinePanel = <ObjectHierarchy title="地图内容" eyebrow="MAP CONTENTS" items={outlineItems} rootIds={outline?.roots ?? []}
+    selectedIds={selectedOutlineIds} defaultExpandedIds={outline?.roots} enableRangeSelection searchPlaceholder="搜索名称、类型、ID 或组件"
+    emptyLabel="当前地图没有匹配的 Entity，可在地图空格添加" status={mapDocument ? mapDocument.entities.length + ' Entity' : undefined}
+    onSelectionChange={(ids, mode) => {
+      const location = ids[0] && outline?.locations.get(ids[0]);
+      if (mode === 'replace') {
+        if (!location) return;
+        if (location.entityId) selectEntityAt(location.entityId, location.selection);
+        else { setSelectedEntityId('');setSelectedComponentId('');handleCanvasSelectionsChange([location.selection]); }
+        return;
+      }
+      const choices = ids.flatMap(id => { const item = outline?.locations.get(id);return item ? [item.selection] : []; });
+      if (!choices.length) return;
+      const next = new Map((mode === 'toggle' ? canvasSelections : []).map(selection => [selectionObjectId(selection), selection]));
+      for (const selection of choices) {
+        const key = selectionObjectId(selection);
+        if (mode === 'toggle' && next.has(key)) next.delete(key);else next.set(key, selection);
+      }
+      setSelectedEntityId('');setSelectedComponentId('');handleCanvasSelectionsChange([...next.values()]);
+    }}
+    onClearSelection={() => { setSelectedEntityId('');setSelectedComponentId('');handleCanvasSelectionsChange([]); }}
+    footer={<><span>{map.width} × {map.height} · 只列出有内容的空间</span><span>Ctrl / ⌘ 多选 · Shift 连选</span><button onClick={() => jumpToPanelSection('project')}>地图设置</button></>} />;
+  const entityItems = useMemo(() => Object.fromEntries(Object.entries(browsers?.entities.items ?? {}).map(([id, item]) => [id, {
+    ...item, typeLabel: item.typeLabel ? ENTITY_TYPE_REGISTRY.get(item.typeLabel)?.label ?? item.typeLabel : undefined,
+    searchText: `${item.searchText ?? ''} ${(item.searchText ?? '').split(' ').map(type => COMPONENT_REGISTRY.get(type)?.label ?? '').join(' ')}`,
+    title: `${item.title}\n${(browsers?.entityLocations.get(browsers.entityRows.get(id) ?? '') ?? []).map(selectionObjectLabel).join('\n')}`,
+  }])), [browsers]);
+  const componentItems = useMemo(() => Object.fromEntries(Object.entries(browsers?.components.items ?? {}).map(([id, item]) => {
+    const type = browsers?.componentTypes.get(id), rowType = type ?? browsers?.componentRows.get(id)?.type;
+    const label = rowType ? COMPONENT_REGISTRY.get(rowType)?.label ?? (rowType === 'spatial-attachment' ? '空间挂载（定位）' : rowType) : '';
+    return [id, { ...item, label: type ? label : item.label, searchText: `${item.searchText ?? ''} ${label}` }];
+  })), [browsers]);
+  const chooseBrowserEntity = (entityId: string, componentId?: string) => {
+    const locations = browsers?.entityLocations.get(entityId);if (!locations?.length) return;
+    const current = locations.find(location => canvasSelection && selectionObjectId(location) === selectionObjectId(canvasSelection));
+    selectEntityAt(entityId, current ?? locations[0]);
+    if (componentId) model.setSelectedComponentId(componentId);
+  };
+  const locationSummary = (entityId: string) => {
+    const locations = browsers?.entityLocations.get(entityId) ?? [];
+    return locations.length ? `${selectionObjectLabel(locations[0])}${locations.length > 1 ? ` · 共 ${locations.length} 处` : ''}` : '无有效挂载';
+  };
+  const entitiesPanel = <ObjectHierarchy title="实体" eyebrow="ENTITIES" items={entityItems} rootIds={browsers?.entities.roots ?? []}
+    selectedIds={selectedEntityId ? [`entity:${selectedEntityId}`] : []} searchPlaceholder="搜索实体名称、类型、ID 或组件"
+    onSelectionChange={ids => { const entityId = ids[0] && browsers?.entityRows.get(ids[0]);if (entityId) chooseBrowserEntity(entityId); }}
+    renderRowMetadata={id => { const entityId = browsers?.entityRows.get(id);return entityId ? <span className="map-browser-metadata"><span>{locationSummary(entityId)}</span><span>{browsers?.componentCounts.get(entityId) ?? 0} 组件</span></span> : null; }}
+    footer={<span>{browsers?.entities.roots.length ?? 0} 个实体 · 多处挂载只显示一次</span>} />;
+  const selectedComponentRows = [...(browsers?.componentRows ?? [])].filter(([, row]) => row.entityId === selectedEntityId && row.componentId === selectedComponentId).map(([id]) => id);
+  const componentsPanel = <ObjectHierarchy title="组件" eyebrow="COMPONENTS" items={componentItems} rootIds={browsers?.components.roots ?? []}
+    selectedIds={selectedComponentRows} defaultExpandedIds={browsers?.components.roots} searchPlaceholder="搜索组件类型、ID、实体或 Slot"
+    onSelectionChange={ids => { const row = ids[0] && browsers?.componentRows.get(ids[0]);if (row) chooseBrowserEntity(row.entityId, row.type === 'spatial-attachment' ? undefined : row.componentId); }}
+    renderRowMetadata={id => { const row = browsers?.componentRows.get(id);return row ? <span className="map-browser-metadata"><span>{locationSummary(row.entityId)}</span><span>{row.componentId}</span></span> : null; }}
+    footer={<span>{browsers?.componentRows.size ?? 0} 个组件 · 空间挂载项定位所属实体</span>} />;
+  return <DungeonMapWorkbench
+    documentBar={<>
+      <div className="editor-command-bar__document">
+              <strong>{activePreset?.name ?? '未命名地图'}</strong>
+              <span>{activePresetKey || map.id}</span>
+              {hasUnsavedCurrentPreset ? <i title="存在未保存修改">● 未保存</i> : <i className="is-saved">✓ 已保存</i>}
             </div>
-            {!structureSelection ? <div className="map-size-fields">
-              <label>目标行（从 1 开始）<input type="number" min="1" max={map.height} value={targetRow + 1} onChange={(event) => setStructureRowIndex(Math.max(0, Math.min(map.height - 1, Number(event.target.value) - 1 || 0)))} /></label>
-              <label>目标列（从 1 开始）<input type="number" min="1" max={map.width} value={targetColumn + 1} onChange={(event) => setStructureColumnIndex(Math.max(0, Math.min(map.width - 1, Number(event.target.value) - 1 || 0)))} /></label>
-            </div> : null}
-            <div className="map-structure-group">
-              <span>行操作</span>
-              <div className="map-structure-actions">
-                <button type="button" disabled={!mapDocument} onClick={() => editStructure('insert-row-above')}>上方插入一行</button>
-                <button type="button" disabled={!mapDocument} onClick={() => editStructure('insert-row-below')}>下方插入一行</button>
-                <button type="button" className="danger-button" disabled={!mapDocument || map.height <= 1} onClick={() => editStructure('delete-row')}>删除当前行</button>
+      <select className="map-workbench-preset" aria-label="当前地图预设" value={activePresetKey} onChange={event => selectMapPreset(event.target.value)}>
+        {Object.values(mapPresets).map(preset => <option key={preset.presetKey} value={preset.presetKey}>{preset.name} · {preset.presetKey}</option>)}
+      </select>
+      <div className="editor-command-bar__actions">
+              <button type="button" title="撤销最近一次数据修改" disabled={!mapStore?.canUndo || Boolean(pendingMutationPlan)} onClick={undoMutationPlan}>↶</button>
+              <button type="button" title="重做最近一次数据修改" disabled={!mapStore?.canRedo || Boolean(pendingMutationPlan)} onClick={redoMutationPlan}>↷</button>
+              <span className={`validation-command${validationIssues.length ? ' has-errors' : ''}`} title={validationIssues[0]?.message ?? '地图校验通过'}>{validationIssues.length ? `${validationIssues.length} 项问题` : '✓ 校验通过'}</span>
+              <button type="button" className="save-command" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '保存中…' : '保存'}</button>
+              <div className="map-zoom"><button type="button" aria-label="缩小地图" onClick={() => setMapScale((scale) => Math.max(0.5, scale - 0.1))}>−</button><button type="button" className="map-zoom__value" onClick={() => setMapScale(1)} title="恢复为适配窗口">{Math.round(mapScale * 100)}%</button><button type="button" aria-label="放大地图" onClick={() => setMapScale((scale) => Math.min(2.5, scale + 0.1))}>＋</button></div>
+              <details className="viewport-menu"><summary title="视图设置" aria-label="视图设置">⚙</summary><div><strong>视图设置</strong><label><input type="checkbox" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} />显示网格</label><label><input type="checkbox" checked={showCoordinates} onChange={(event) => setShowCoordinates(event.target.checked)} />显示坐标</label><label><input type="checkbox" checked={fogEnabled} onChange={(event) => setFogEnabled(event.target.checked)} />探索迷雾</label><button type="button" onClick={() => jumpToPanelSection('appearance')}>跳到完整外观设置</button></div></details>
+            </div>
+    </>}
+    toolbar={<div className="editor-command-bar__selection">
+              <span>显示</span>
+              <div className="selection-mode-toolbar" role="group" aria-label="Entity 显示方式">
+                <button type="button" className={entityViewMode === 'overview' ? 'is-active' : ''} aria-pressed={entityViewMode === 'overview'} onClick={() => setEntityViewMode('overview')}>概览</button>
+                <button type="button" className={entityViewMode === 'entities' ? 'is-active' : ''} aria-pressed={entityViewMode === 'entities'} onClick={() => setEntityViewMode('entities')}>实体展开 3D</button>
               </div>
-            </div>
-            <div className="map-structure-group">
-              <span>列操作</span>
-              <div className="map-structure-actions">
-                <button type="button" disabled={!mapDocument} onClick={() => editStructure('insert-column-left')}>左侧插入一列</button>
-                <button type="button" disabled={!mapDocument} onClick={() => editStructure('insert-column-right')}>右侧插入一列</button>
-                <button type="button" className="danger-button" disabled={!mapDocument || map.width <= 1} onClick={() => editStructure('delete-column')}>删除当前列</button>
+              <span>选择</span>
+              <div className="selection-mode-toolbar" role="group" aria-label="Canvas 选择类型">
+                {([['all', '自动'], ['map', '地图'], ['tile', '格子'], ['edge', '单格边'], ['shared', '公用边'], ['point', '公用点']] as const).map(([mode, label]) => <button type="button" key={mode} className={selectionMode === mode ? 'is-active' : ''} aria-pressed={selectionMode === mode} onClick={() => changeSelectionMode(mode)}>{label}</button>)}
               </div>
-            </div>
-            <div className="map-structure-note">删除含玩家 Spawn 的行或列会被阻止；删除入口、出口、阻碍或 Marker 前会先列出影响并请求确认。</div>
-          </div> : null}
-        </section>
-        <section id="lab-appearance-section" className="control-card controls visual-controls panel-section panel-section--appearance">
-          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('visual')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'visual')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('visual') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>视觉参数</strong><small>仅改变 Lab 显示，不重建地图数据</small></span></button></div>
-          {!collapsedPanelIds.has('visual') ? <div className="collapsible-panel-body">
-          <label>格子尺寸 <strong>{cellSize}px</strong><input type="range" min="24" max="128" value={cellSize} onChange={(event) => setCellSize(Number(event.target.value))} /></label>
-          <label>地图外侧留白 <strong>{canvasOuterPadding}px</strong><input type="range" min="0" max="160" step="4" value={canvasOuterPadding} onChange={(event) => setCanvasOuterPadding(Number(event.target.value))} /></label>
-          <div className="map-size-fields">
-            <label>最小画布宽度<input type="number" min="0" max="2400" step="20" value={minCanvasWidth} onChange={(event) => setMinCanvasWidth(Math.max(0, Math.min(2400, Number(event.target.value) || 0)))} /></label>
-            <label>最小画布高度<input type="number" min="0" max="2400" step="20" value={minCanvasHeight} onChange={(event) => setMinCanvasHeight(Math.max(0, Math.min(2400, Number(event.target.value) || 0)))} /></label>
-          </div>
-          <label className="check"><input type="checkbox" checked={fogEnabled} onChange={(event) => setFogEnabled(event.target.checked)} />探索迷雾</label>
-          <label className="check"><input type="checkbox" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} />显示网格</label>
-          <label className="check"><input type="checkbox" checked={showCoordinates} onChange={(event) => setShowCoordinates(event.target.checked)} />显示坐标</label>
-          <button type="button" className="reset-button" onClick={reset}>重置编辑数据</button>
-          </div> : null}
-        </section>
-        <section id="lab-inspector-section" className="control-card selection-panel panel-section panel-section--inspector">
-          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('selection')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('selection') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>选中数据</strong><small>左键框选；右键点击或框选取消</small></span></button><strong>{canvasSelections.length === 0 ? '未选择' : canvasSelections.length > 1 ? `${canvasSelections.length} 项` : `${canvasSelection!.x}, ${canvasSelection!.y}`}</strong></div>
-          {!collapsedPanelIds.has('selection') ? <div className="collapsible-panel-body">
-          {canvasSelections.length === 0 ? <div className="editor-empty">当前没有选中任何数据容器，可在地图上点击或框选。</div> : canvasSelections.length > 1 ? <>
-            <div className="selection-overview"><strong>已选择 {uniqueBatchSelections.length} 个数据容器</strong><span>{selectionCountSummary}</span></div>
-            <div className="selection-object-list">
-              <div className="selection-object-list__header"><strong>选中对象列表</strong><span>已按真实容器 ID 去重</span></div>
-              {uniqueBatchSelections.slice(0, SELECTION_LIST_PREVIEW_LIMIT).map(({ selection: item, target }) => <div className="selection-object-list__item" key={target.id}><span className="selection-object-list__marker">●</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span><button type="button" className="selection-object-list__remove" title={`取消选择 ${selectionObjectLabel(item)}`} aria-label={`取消选择 ${selectionObjectLabel(item)}`} onClick={() => removeSelectedContainer(target.id)}>−</button></div>)}
-              {uniqueBatchSelections.length > SELECTION_LIST_PREVIEW_LIMIT ? <div className="selection-object-list__overflow">仅预览前 {SELECTION_LIST_PREVIEW_LIMIT} 项，另有 {uniqueBatchSelections.length - SELECTION_LIST_PREVIEW_LIMIT} 项仍参与批量操作与导出。</div> : null}
-            </div>
-            <div className="selection-multi-hint">下方 JSON 包含全部选中数据容器；循环拓扑的重复画布位置只导出一次。</div>
-          </> : <div className="selection-summary"><span>类型：{SELECTION_MODE_LABEL[canvasSelection!.mode]}</span>{canvasSelection!.direction&&canvasSelection!.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection!.direction]}</span>:null}</div>}
-          <div className="selection-data-panel">
-            <button type="button" className="selection-data-panel__header" aria-expanded={!selectionJsonCollapsed} onClick={toggleSelectionJson}>
-              <span>{selectionJsonCollapsed ? '▸' : '▾'}</span>
-              <strong>全部选中容器 JSON</strong>
-              <small>{uniqueBatchSelections.length} 个容器{currentLoadedLargeSelectionJson ? ' · 已加载' : largeSelectionJsonRequiresConfirmation ? ' · 展开需确认' : ''}</small>
-            </button>
-            {!selectionJsonCollapsed ? <>
-              <div className="selection-json-actions"><div><button type="button" onClick={copySelectedContainersJson}>复制 JSON</button><button type="button" onClick={downloadSelectedContainersJson}>下载 JSON</button></div><span>{selectionJsonMessage}</span></div>
-              <pre className="selection-data">{selectedContainersJsonText}</pre>
-            </> : null}
-          </div>
-          </div> : null}
-        </section>
-        <section className="control-card entity-component-editor panel-section--inspector">
+            </div>}
+    outline={outlinePanel}
+    entities={entitiesPanel} components={componentsPanel}
+    inspector={<InspectorPanel title={selectedEntity?.name ?? (canvasSelection ? selectionObjectLabel(canvasSelection) : '未选择对象')}
+      status={canvasSelections.length > 1 ? canvasSelections.length + ' 个空间' : selectedEntity?.entityType}>
+      <section className="control-card entity-component-editor panel-section--inspector">
           <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('entity-component')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'entity-component')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('entity-component') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>Entity / Component</strong><small>{ENTITY_TYPE_DEFINITIONS.length} 种 Entity / {COMPONENT_DEFINITIONS.length} 种 Component 定义已自动扫描</small></span></button><strong>{canvasSelections.length > 1 ? `${canvasSelections.length} 个目标` : `${selectedContainerData?.entities.length ?? 0} Entity`}</strong></div>
           {!collapsedPanelIds.has('entity-component') ? <div className="collapsible-panel-body">
           {canvasSelections.length > 1 ? <div className="batch-editor">
@@ -379,7 +376,8 @@ return (
             </section>
             {selectedEntity ? [selectedEntity].map((entity) => {
               const entityDefinition = ENTITY_TYPE_REGISTRY.get(entity.entityType);
-              const availableComponentDefinitions = COMPONENT_REGISTRY.listForEntity(entity.entityType);
+              const availableComponentDefinitions = COMPONENT_REGISTRY.listForEntity(entity.entityType)
+                .filter(definition => definition.allowMultiple !== false || !entity.components.some(component => component.type === definition.type));
               const effectiveComponentTypeToAdd = availableComponentDefinitions.some((definition) => definition.type === componentTypeToAdd) ? componentTypeToAdd : availableComponentDefinitions[0]?.type ?? '';
               const chosen = entity.components.find((component) => component.id === selectedComponentId) ?? entity.components[0];
               return <section className="entity-inspector" key={entity.id}>
@@ -392,17 +390,122 @@ return (
                   <div className="component-outline__list">{entity.components.map((component) => {
                     const definition = COMPONENT_REGISTRY.get(component.type);
                     const required = entityDefinition?.requiredComponents?.includes(component.type) === true;
-                    return <button type="button" key={component.id} className={`component-outline__item${chosen?.id === component.id ? ' is-active' : ''}`} onClick={() => setSelectedComponentId(component.id)}><i className={component.enabled === false ? 'is-disabled' : ''} /><span><strong>{definition?.label ?? component.type}</strong><small>{component.slot ? `Slot: ${component.slot}` : component.type}</small></span>{required ? <em>必需</em> : null}</button>;
+                    return <button type="button" key={component.id} className={`component-outline__item${chosen?.id === component.id ? ' is-active' : ''}`} onClick={() => focusComponent(component.id)}><i className={component.enabled === false ? 'is-disabled' : ''} /><span><strong>{definition?.label ?? component.type}</strong><small>{component.slot ? `Slot: ${component.slot}` : component.type}</small></span>{required ? <em>必需</em> : null}</button>;
                   })}{entity.components.length === 0 ? <div className="editor-empty">暂无 Component</div> : null}</div>
                   <div className="component-add-row"><label className="component-toolbar__field"><span>新增 Component</span><select aria-label={`新增 ${entity.name || entity.id} 的 Component 类型`} value={effectiveComponentTypeToAdd} disabled={availableComponentDefinitions.length === 0} onChange={(event) => setComponentTypeToAdd(event.target.value)}>{availableComponentDefinitions.length === 0 ? <option value="">当前 Entity 无可用组件</option> : null}{availableComponentDefinitions.map((definition) => <option key={definition.type} value={definition.type}>{definition.label}</option>)}</select></label><button type="button" className="compact-button" disabled={!effectiveComponentTypeToAdd} onClick={() => addComponentToEntity(entity.id, effectiveComponentTypeToAdd)}>＋ Component</button></div>
                 </div>
-                {chosen ? renderComponentCard(entity, chosen) : null}
+                {entity.components.map(component => renderComponentCard(entity, component))}
               </section>;
             }) : null}
           </div>}
           </div> : null}
         </section>
-        <section className="control-card pattern-controls panel-section--appearance">
+<section id="lab-inspector-section" className="control-card selection-panel panel-section panel-section--inspector">
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('selection')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('selection') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>选中数据</strong><small>左键框选；右键点击或框选取消</small></span></button><strong>{canvasSelections.length === 0 ? '未选择' : canvasSelections.length > 1 ? `${canvasSelections.length} 项` : `${canvasSelection!.x}, ${canvasSelection!.y}`}</strong></div>
+          {!collapsedPanelIds.has('selection') ? <div className="collapsible-panel-body">
+          {canvasSelections.length === 0 ? <div className="editor-empty">当前没有选中任何数据容器，可在地图上点击或框选。</div> : canvasSelections.length > 1 ? <>
+            <div className="selection-overview"><strong>已选择 {uniqueBatchSelections.length} 个数据容器</strong><span>{selectionCountSummary}</span></div>
+            <div className="selection-object-list">
+              <div className="selection-object-list__header"><strong>选中对象列表</strong><span>已按真实容器 ID 去重</span></div>
+              {uniqueBatchSelections.slice(0, SELECTION_LIST_PREVIEW_LIMIT).map(({ selection: item, target }) => <div className="selection-object-list__item" key={target.id}><span className="selection-object-list__marker">●</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span><button type="button" className="selection-object-list__remove" title={`取消选择 ${selectionObjectLabel(item)}`} aria-label={`取消选择 ${selectionObjectLabel(item)}`} onClick={() => removeSelectedContainer(target.id)}>−</button></div>)}
+              {uniqueBatchSelections.length > SELECTION_LIST_PREVIEW_LIMIT ? <div className="selection-object-list__overflow">仅预览前 {SELECTION_LIST_PREVIEW_LIMIT} 项，另有 {uniqueBatchSelections.length - SELECTION_LIST_PREVIEW_LIMIT} 项仍参与批量操作与导出。</div> : null}
+            </div>
+            <div className="selection-multi-hint">下方 JSON 包含全部选中数据容器；循环拓扑的重复画布位置只导出一次。</div>
+          </> : <div className="selection-summary"><span>类型：{SELECTION_MODE_LABEL[canvasSelection!.mode]}</span>{canvasSelection!.direction&&canvasSelection!.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection!.direction]}</span>:null}</div>}
+          <div className="selection-data-panel">
+            <button type="button" className="selection-data-panel__header" aria-expanded={!selectionJsonCollapsed} onClick={toggleSelectionJson}>
+              <span>{selectionJsonCollapsed ? '▸' : '▾'}</span>
+              <strong>全部选中容器 JSON</strong>
+              <small>{uniqueBatchSelections.length} 个容器{currentLoadedLargeSelectionJson ? ' · 已加载' : largeSelectionJsonRequiresConfirmation ? ' · 展开需确认' : ''}</small>
+            </button>
+            {!selectionJsonCollapsed ? <>
+              <div className="selection-json-actions"><div><button type="button" onClick={copySelectedContainersJson}>复制 JSON</button><button type="button" onClick={downloadSelectedContainersJson}>下载 JSON</button></div><span>{selectionJsonMessage}</span></div>
+              <pre className="selection-data">{selectedContainersJsonText}</pre>
+            </> : null}
+          </div>
+          </div> : null}
+        </section>
+
+    </InspectorPanel>}
+    settingsMode={panelWorkspace} onSettingsMode={jumpToPanelSection}
+    settings={panelWorkspace === 'project' ? <><section id="lab-project-section" className="control-card panel-section panel-section--project">
+          <div className="status-row"><span>地图结构</span><strong>{validationIssues.length === 0 ? '校验通过' : `${validationIssues.length} 项错误`}</strong></div>
+          <div className="status-row"><span>公用边</span><strong>{map.sharedEdges?.length ?? 0} 条</strong></div>
+          <div className="status-row"><span>公用点</span><strong>{map.sharedPoints?.length ?? 0} 个</strong></div>
+          <div className="status-row"><span>当前坐标</span><strong>{canvasSelection ? `${canvasSelection.x}, ${canvasSelection.y}` : '未选择'}</strong></div>
+        </section>
+<section className="control-card controls map-preset-controls panel-section--project">
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('map-presets')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'map-presets')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('map-presets') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图预设</strong><small>拓扑参数只在新建时生效</small></span></button><strong>{Object.keys(mapPresets).length} 个</strong></div>
+          {!collapsedPanelIds.has('map-presets') ? <div className="collapsible-panel-body">
+          <label>当前预设<select value={activePresetKey} disabled={Object.keys(mapPresets).length === 0} onChange={(event) => selectMapPreset(event.target.value)}>{Object.keys(mapPresets).length === 0 ? <option value="">暂无已保存预设</option> : null}{Object.values(mapPresets).map((preset) => <option key={preset.presetKey} value={preset.presetKey}>{preset.name} · {preset.presetKey}</option>)}</select></label>
+          {activePresetKey && mapPresets[activePresetKey] ? <><label>presetKey（按确认才生效）<span className="preset-key-row"><input value={presetKeyDraft} placeholder="输入新的 presetKey" onChange={(event) => setPresetKeyDraft(event.target.value)} /><button type="button" disabled={presetKeyDraft.trim() === activePresetKey} onClick={confirmPresetKeyChange}>确认修改 ID</button></span></label><label>当前预设名称<input value={mapPresets[activePresetKey].name} onChange={(event) => renameCurrentPreset(event.target.value)} /></label><div className="preset-actions"><button type="button" onClick={duplicateMapPreset}>复制当前预设</button><button type="button" className="danger-button" onClick={deleteMapPreset}>删除当前预设</button></div></> : null}
+          <div className="preset-divider"><span>新地图参数</span><small>当前地图：{mapWidth} × {mapHeight}</small></div>
+          <div className="map-size-fields">
+            <label>地图 X<input type="number" min="1" max="30" value={draftMapWidth} onChange={(event) => setDraftMapWidth(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
+            <label>地图 Y<input type="number" min="1" max="30" value={draftMapHeight} onChange={(event) => setDraftMapHeight(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
+          </div>
+          <label>拓扑模式<select value={draftTopologyMode} onChange={(event) => setDraftTopologyMode(event.target.value as DungeonMapTopologyMode)}><option value="bounded">有界模式</option><option value="loop-horizontal">左右循环</option><option value="loop-vertical">上下循环</option><option value="loop">双向循环</option></select></label>
+          <div className="map-size-fields">
+            <label>新预设 Key<input value={newPresetKey} onChange={(event) => setNewPresetKey(event.target.value)} /></label>
+            <label>显示名称<input value={newPresetName} onChange={(event) => setNewPresetName(event.target.value)} /></label>
+          </div>
+          <button type="button" className="create-preset-button" onClick={createMapPreset}>新建地图预设</button>
+          <div className="preset-save-actions">
+            <button type="button" className="reload-preset-button" disabled={!activePresetKey || presetReloading} onClick={() => void reloadCurrentPreset()}>{presetReloading ? '正在重新加载…' : '重新加载当前预设'}</button>
+            <button type="button" className="save-preset-button" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '正在保存…' : '保存全部地图预设'}</button>
+          </div>
+          <button type="button" disabled={!mapDocument || topologyShellCleanupPreview.entityCount === 0} onClick={cleanupGeneratedTopologyShells}>清理自动生成的拓扑占位 Entity</button>
+          <small>{topologyShellCleanupPreview.entityCount > 0 ? `当前可安全清理 ${topologyShellCleanupPreview.entityCount} 个 Entity / ${topologyShellCleanupPreview.componentCount} 个 Component；操作可撤销。` : '当前地图没有检测到自动生成的拓扑占位 Entity。'}</small>
+          {activePreset ? <div className={`preset-dirty-state${hasUnsavedCurrentPreset ? ' is-dirty' : ''}`}>{hasUnsavedCurrentPreset ? '当前预设存在尚未保存到 config 的修改' : '当前预设与最近加载 / 保存的版本一致'}</div> : null}
+          <div className={`preset-status${presetError ? ' is-error' : ''}`}>{presetMessage}</div>
+          </div> : null}
+        </section>
+<section className="control-card controls map-structure-controls panel-section--project">
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('map-structure')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'map-structure')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('map-structure') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图结构</strong><small>整行 / 整列修改仅保存在当前页面</small></span></button><strong>{map.width} × {map.height}</strong></div>
+          {!collapsedPanelIds.has('map-structure') ? <div className="collapsible-panel-body">
+            <div className="map-structure-target">
+              <span>操作基准</span>
+              <strong>第 {targetRow + 1} 行 · 第 {targetColumn + 1} 列</strong>
+              <small>{structureSelection ? '跟随 Canvas 当前选中坐标' : 'Canvas 未选中格子，使用下方手动坐标'}</small>
+            </div>
+            {!structureSelection ? <div className="map-size-fields">
+              <label>目标行（从 1 开始）<input type="number" min="1" max={map.height} value={targetRow + 1} onChange={(event) => setStructureRowIndex(Math.max(0, Math.min(map.height - 1, Number(event.target.value) - 1 || 0)))} /></label>
+              <label>目标列（从 1 开始）<input type="number" min="1" max={map.width} value={targetColumn + 1} onChange={(event) => setStructureColumnIndex(Math.max(0, Math.min(map.width - 1, Number(event.target.value) - 1 || 0)))} /></label>
+            </div> : null}
+            <div className="map-structure-group">
+              <span>行操作</span>
+              <div className="map-structure-actions">
+                <button type="button" disabled={!mapDocument} onClick={() => editStructure('insert-row-above')}>上方插入一行</button>
+                <button type="button" disabled={!mapDocument} onClick={() => editStructure('insert-row-below')}>下方插入一行</button>
+                <button type="button" className="danger-button" disabled={!mapDocument || map.height <= 1} onClick={() => editStructure('delete-row')}>删除当前行</button>
+              </div>
+            </div>
+            <div className="map-structure-group">
+              <span>列操作</span>
+              <div className="map-structure-actions">
+                <button type="button" disabled={!mapDocument} onClick={() => editStructure('insert-column-left')}>左侧插入一列</button>
+                <button type="button" disabled={!mapDocument} onClick={() => editStructure('insert-column-right')}>右侧插入一列</button>
+                <button type="button" className="danger-button" disabled={!mapDocument || map.width <= 1} onClick={() => editStructure('delete-column')}>删除当前列</button>
+              </div>
+            </div>
+            <div className="map-structure-note">删除含玩家 Spawn 的行或列会被阻止；删除入口、出口、阻碍或 Marker 前会先列出影响并请求确认。</div>
+          </div> : null}
+        </section></> : <><section id="lab-appearance-section" className="control-card controls visual-controls panel-section panel-section--appearance">
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('visual')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'visual')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('visual') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>视觉参数</strong><small>仅改变 Lab 显示，不重建地图数据</small></span></button></div>
+          {!collapsedPanelIds.has('visual') ? <div className="collapsible-panel-body">
+          <label>格子尺寸 <strong>{cellSize}px</strong><input type="range" min="24" max="128" value={cellSize} onChange={(event) => setCellSize(Number(event.target.value))} /></label>
+          <label>地图外侧留白 <strong>{canvasOuterPadding}px</strong><input type="range" min="0" max="160" step="4" value={canvasOuterPadding} onChange={(event) => setCanvasOuterPadding(Number(event.target.value))} /></label>
+          <div className="map-size-fields">
+            <label>最小画布宽度<input type="number" min="0" max="2400" step="20" value={minCanvasWidth} onChange={(event) => setMinCanvasWidth(Math.max(0, Math.min(2400, Number(event.target.value) || 0)))} /></label>
+            <label>最小画布高度<input type="number" min="0" max="2400" step="20" value={minCanvasHeight} onChange={(event) => setMinCanvasHeight(Math.max(0, Math.min(2400, Number(event.target.value) || 0)))} /></label>
+          </div>
+          <label className="check"><input type="checkbox" checked={fogEnabled} onChange={(event) => setFogEnabled(event.target.checked)} />探索迷雾</label>
+          <label className="check"><input type="checkbox" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} />显示网格</label>
+          <label className="check"><input type="checkbox" checked={showCoordinates} onChange={(event) => setShowCoordinates(event.target.checked)} />显示坐标</label>
+          <button type="button" className="reset-button" onClick={reset}>重置编辑数据</button>
+          </div> : null}
+        </section>
+<section className="control-card pattern-controls panel-section--appearance">
           <div className="pattern-controls__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('patterns')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'patterns')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('patterns') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图图案</strong><small>资源自动扫描自 public</small></span></button><span>{Object.keys(PATTERN_MODULES).length} 个</span></div>
           {!collapsedPanelIds.has('patterns') ? <div className="collapsible-panel-body">
           <div className="pattern-rendering-control">
@@ -486,38 +589,18 @@ return (
             )}
           </div>
           </div> : null}
-        </section>
-        </div>
-      </aside>
-      <main className="dungeon-lab__stage">
-        <div className="map-frame">
-          <div className="map-frame__header editor-command-bar">
-            <div className="editor-command-bar__document">
-              <strong>{activePreset?.name ?? '未命名地图'}</strong>
-              <span>{activePresetKey || map.id}</span>
-              {hasUnsavedCurrentPreset ? <i title="存在未保存修改">● 未保存</i> : <i className="is-saved">✓ 已保存</i>}
-            </div>
-            <div className="editor-command-bar__selection">
-              <span>显示</span>
-              <div className="selection-mode-toolbar" role="group" aria-label="Entity 显示方式">
-                <button type="button" className={entityViewMode === 'overview' ? 'is-active' : ''} aria-pressed={entityViewMode === 'overview'} onClick={() => setEntityViewMode('overview')}>概览</button>
-                <button type="button" className={entityViewMode === 'entities' ? 'is-active' : ''} aria-pressed={entityViewMode === 'entities'} onClick={() => setEntityViewMode('entities')}>实体展开 3D</button>
-              </div>
-              <span>选择</span>
-              <div className="selection-mode-toolbar" role="group" aria-label="Canvas 选择类型">
-                {([['all', '自动'], ['map', '地图'], ['tile', '格子'], ['edge', '单格边'], ['shared', '公用边'], ['point', '公用点']] as const).map(([mode, label]) => <button type="button" key={mode} className={selectionMode === mode ? 'is-active' : ''} aria-pressed={selectionMode === mode} onClick={() => changeSelectionMode(mode)}>{label}</button>)}
-              </div>
-            </div>
-            <div className="editor-command-bar__actions">
-              <button type="button" title="撤销最近一次数据修改" disabled={!mapStore?.canUndo || Boolean(pendingMutationPlan)} onClick={undoMutationPlan}>↶</button>
-              <button type="button" title="重做最近一次数据修改" disabled={!mapStore?.canRedo || Boolean(pendingMutationPlan)} onClick={redoMutationPlan}>↷</button>
-              <span className={`validation-command${validationIssues.length ? ' has-errors' : ''}`} title={validationIssues[0]?.message ?? '地图校验通过'}>{validationIssues.length ? `${validationIssues.length} 项问题` : '✓ 校验通过'}</span>
-              <button type="button" className="save-command" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '保存中…' : '保存'}</button>
-              <div className="map-zoom"><button type="button" aria-label="缩小地图" onClick={() => setMapScale((scale) => Math.max(0.5, scale - 0.1))}>−</button><button type="button" className="map-zoom__value" onClick={() => setMapScale(1)} title="恢复为适配窗口">{Math.round(mapScale * 100)}%</button><button type="button" aria-label="放大地图" onClick={() => setMapScale((scale) => Math.min(2.5, scale + 0.1))}>＋</button></div>
-              <details className="viewport-menu"><summary title="视图设置" aria-label="视图设置">⚙</summary><div><strong>视图设置</strong><label><input type="checkbox" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} />显示网格</label><label><input type="checkbox" checked={showCoordinates} onChange={(event) => setShowCoordinates(event.target.checked)} />显示坐标</label><label><input type="checkbox" checked={fogEnabled} onChange={(event) => setFogEnabled(event.target.checked)} />探索迷雾</label><button type="button" onClick={() => jumpToPanelSection('appearance')}>跳到完整外观设置</button></div></details>
-            </div>
-          </div>
-          <div className={`map-scroll${entityViewMode === 'entities' ? ' map-scroll--3d' : ''}`} ref={mapViewportRef}>
+        </section></>}
+    status={<div className="map-frame__footer editor-status-bar">
+            <span>坐标 <strong>{canvasSelection ? `${canvasSelection.x}, ${canvasSelection.y}` : '—'}</strong></span>
+            <span><strong>{uniqueBatchSelections.length}</strong> 个对象</span>
+            <span><strong>{map.width} × {map.height}</strong></span>
+            <span className={hasUnsavedCurrentPreset ? 'is-dirty' : 'is-saved'}>{hasUnsavedCurrentPreset ? '尚未保存' : '已保存'}</span>
+            <details className="entity-legend-menu"><summary>Entity 图例</summary><div>{ENTITY_TYPE_DEFINITIONS.map((definition) => <span className="entity-color-legend__item" key={definition.type} title={definition.type}><i style={{ background: definition.labAppearance.color }} />{definition.label}</span>)}<span className="entity-color-legend__item" title="没有注册 Entity 类型或尚未迁移的数据"><i style={{ background: '#94a3b8' }} />未注册数据</span></div></details>
+          </div>}
+    issuesCount={validationIssues.length}
+    issues={validationIssues.length ? <ul>{validationIssues.map((issue, index) => <li key={index}>{issue.message}</li>)}</ul> : <p>当前地图校验通过。</p>}
+  >
+    <div className={`map-scroll${entityViewMode === 'entities' ? ' map-scroll--3d' : ''}`} ref={mapViewportRef}>
             {entityViewMode === 'entities' ? <DungeonMapCanvas3D
               document={mapDocument}
               map={mapDocument ? undefined : map}
@@ -562,16 +645,5 @@ return (
               keyboardEnabled={false}
             />}
           </div>
-          <div className="map-frame__footer editor-status-bar">
-            <span>坐标 <strong>{canvasSelection ? `${canvasSelection.x}, ${canvasSelection.y}` : '—'}</strong></span>
-            <span><strong>{uniqueBatchSelections.length}</strong> 个对象</span>
-            <span><strong>{map.width} × {map.height}</strong></span>
-            <span className={validationIssues.length ? 'has-errors' : 'is-valid'}>{validationIssues.length ? `${validationIssues.length} 项问题` : '校验通过'}</span>
-            <span className={hasUnsavedCurrentPreset ? 'is-dirty' : 'is-saved'}>{hasUnsavedCurrentPreset ? '尚未保存' : '已保存'}</span>
-            <details className="entity-legend-menu"><summary>Entity 图例</summary><div>{ENTITY_TYPE_DEFINITIONS.map((definition) => <span className="entity-color-legend__item" key={definition.type} title={definition.type}><i style={{ background: definition.labAppearance.color }} />{definition.label}</span>)}<span className="entity-color-legend__item" title="没有注册 Entity 类型或尚未迁移的数据"><i style={{ background: '#94a3b8' }} />未注册数据</span></div></details>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
+  </DungeonMapWorkbench>;
 };

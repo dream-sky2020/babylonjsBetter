@@ -6,11 +6,13 @@ import type { DungeonRuntimePlayerPosition } from '../dungeon-runtime';
  * 它不属于 DungeonMapData，也不能作为地图结构差分使用。
  */
 export type DungeonRuntimeSaveState = {
-  version: 1;
+  version: 1 | 2;
   dungeonPresetKey: string;
   playerPosition?: DungeonRuntimePlayerPosition;
   playerFacing?: DungeonMapDirection;
   obstacleStates?: Record<string, boolean>;
+  /** v2 safe snapshot: only atomically committed anchors, never half an action. */
+  bodies?: { bodyId: string; entityId: string; tileX: number; tileY: number; facing: string; enabled: boolean }[];
 };
 
 export type ApplyDungeonRuntimeSaveStateResult = { warnings: string[] };

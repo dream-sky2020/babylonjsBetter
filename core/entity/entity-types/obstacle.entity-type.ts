@@ -7,7 +7,7 @@ export const entityTypeDefinition: EntityTypeDefinition = {
   labAppearance: { color: '#fb7185' },
   allowedContainers: ['tile', 'tile-edge', 'shared-edge'],
   batch: { scope: 'compatible', create: true, delete: true },
-  defaultComponents: ['movement-obstacle'],
-  requiredComponents: ['movement-obstacle'],
+  defaultComponents: ['spatial-body', 'spatial-collider'],
+  requiredComponents: ['spatial-body', 'spatial-collider'],
   allowMultiplePerContainer: true,
 };

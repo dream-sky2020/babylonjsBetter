@@ -9,7 +9,7 @@ import type {
 /** 数组层固定使用 east、south、west、north；相反方向可用 index ^ 2 得到。 */
 export type DungeonMapDirectionIndex = 0 | 1 | 2 | 3;
 
-export type DungeonMapDataDefinitionComponent = Omit<IComponent, 'id'> & {
+export type DungeonMapDataDefinitionComponent = Omit<IComponent, 'id'> & Pick<IComponent, 'type' | 'version'> & {
   localId: string;
   absoluteId?: string;
 };

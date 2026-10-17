@@ -51,7 +51,7 @@ export const compileDungeonMapDocumentTopology = (
   const edgeIndices = filledIndices(slotCount);
   const pointIndices = filledIndices(slotCount);
 
-  document.grid.tileIds.forEach((tileId, tileIndex) => {
+  document.grid.tileIds.forEach((_tileId, tileIndex) => {
     document.grid.tileSides[tileIndex].forEach((sideId, directionIndex) => {
       const slot = tileIndex * 4 + directionIndex;
       const side = indexes.sideById.get(sideId)!;

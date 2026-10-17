@@ -177,7 +177,7 @@ export const startDungeonAgentMovement = (
   const { agent } = resolved;
   const fromTileIndex = agent.tileIndex;
   if (!agent.enabled) return { started: false, completed: false, entityId, fromTileIndex, blockedReason: 'agent-disabled' };
-  if (agent.movement) return { started: false, completed: false, entityId, fromTileIndex, blockedReason: 'movement-in-progress' };
+  if (agent.movement || state.movementResolver.isBusy(entityId)) return { started: false, completed: false, entityId, fromTileIndex, blockedReason: 'movement-in-progress' };
   const inspection = inspectDungeonAgentStepTraversal(state, map, agent, fromTileIndex, direction, options);
   const { toTileIndex } = inspection;
   if (inspection.blockedReason || toTileIndex === undefined) {
@@ -249,7 +249,7 @@ export const startDungeonAgentTurn = (
   if (!resolved) return { started: false, completed: false, entityId, blockedReason: 'agent-not-found' };
   const { agent } = resolved;
   if (!agent.enabled) return { started: false, completed: false, entityId, blockedReason: 'agent-disabled' };
-  if (agent.movement) return { started: false, completed: false, entityId, blockedReason: 'movement-in-progress' };
+  if (agent.movement || state.movementResolver.isBusy(entityId)) return { started: false, completed: false, entityId, blockedReason: 'movement-in-progress' };
   const duration = requireDuration(durationSeconds);
   const currentIndex = CLOCKWISE_DIRECTIONS.indexOf(agent.facing);
   const offset = turn === 'left' ? -2 : turn === 'right' ? 2 : 4;

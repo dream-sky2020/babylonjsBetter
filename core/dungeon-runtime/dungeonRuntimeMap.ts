@@ -1,3 +1,5 @@
+import { migrateDungeonSpatialDefinitions } from '../map-document/dungeonMapDocument.spatialMigration.ts';
+import { compileSpatialDefinitions, type SpatialBodyDefinition } from '../dungeon-spatial/dungeonSpatialDefinition.ts';
 import type { DungeonMapDirection } from '../map/dungeonMap.types.ts';
 import {
   compileDungeonMapDocumentTopology,
@@ -14,15 +16,24 @@ export type DungeonRuntimeMap = Readonly<{
   height: number;
   document: DungeonMapDocumentV2;
   topology: CompiledDungeonMapTopology;
+  spatialDefinitions: readonly SpatialBodyDefinition[];
 }>;
 
-export const createDungeonRuntimeMap = (document: DungeonMapDocumentV2): DungeonRuntimeMap => ({
-  id: document.identity.id,
-  width: document.grid.width,
-  height: document.grid.height,
-  document,
-  topology: compileDungeonMapDocumentTopology(document),
-});
+export const createDungeonRuntimeMap = (document: DungeonMapDocumentV2): DungeonRuntimeMap => {
+  // Legacy formats are normalized once at this input boundary, never run by a second engine.
+  const converted = migrateDungeonSpatialDefinitions(document);
+  if (!converted.document) throw new Error(converted.issues.map(issue => issue.path + ': ' + issue.message).join('\n'));
+  document = converted.document;
+  const definitions = compileSpatialDefinitions(document);
+  return {
+    spatialDefinitions: definitions.bodies,
+    id: document.identity.id,
+    width: document.grid.width,
+    height: document.grid.height,
+    document,
+    topology: compileDungeonMapDocumentTopology(document),
+  };
+};
 
 export const isDungeonRuntimePositionInside = (
   map: DungeonRuntimeMap,

@@ -11,6 +11,8 @@ import {
   DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
 } from '../dungeon-traversal/index.ts';
 import { createDungeonMovementResolver } from '../dungeon-movement/index.ts';
+import { SpatialEnabledMap } from '../dungeon-spatial/dungeonSpatialViews.ts';
+import { resolveDungeonMapTileWorldLayout } from '../scene/dungeonMapSceneLayout.ts';
 
 /** Plain data factories injected by a composed host; no dependency on host infrastructure. */
 export type DungeonRuntimeStorageFactories = {
@@ -39,11 +41,16 @@ export const createDungeonRuntime = (
   const factories = options.systems ?? {
     obstacles: scanDungeonDocumentObstacles, traversal: createDungeonTraversalWorld, movement: createDungeonMovementResolver,
   };
-  const obstacles = factories.obstacles?.(document) ?? [];
+  const obstacles = factories.obstacles?.(map.document) ?? [];
   const obstacleStorage = options.storage?.obstacles(obstacles) ?? { states: createDungeonObstacleStatesFromBindings(obstacles) };
   const obstacleStates = obstacleStorage.states;
   if (factories.movement && !factories.traversal) throw new Error('移动系统需要先安装通行系统。');
   const traversal = factories.traversal?.(map, obstacles, obstacleStates, options.storage?.traversal(map));
+  if (traversal) for (const binding of obstacles) {
+    const initial = binding.placement;
+    if (initial.kind === 'tile') Object.defineProperty(binding,'placement',{enumerable:true,configurable:true,
+      get:()=>{const body=traversal.body(binding.entity.id);return body?{kind:'tile',tileX:body.logicalPosition.tileX,tileY:body.logicalPosition.tileY}:initial;}});
+  }
   const movementResolver = traversal ? factories.movement?.(traversal, {}, options.storage?.movement(traversal)) : undefined;
   const playerStorage = options.storage?.player(playerSpawn, playerFacing) ?? {
     playerPosition: { tileX: playerSpawn.tilePosition.x, tileY: playerSpawn.tilePosition.y },
@@ -53,7 +60,7 @@ export const createDungeonRuntime = (
     playerMovement: null,
   } satisfies DungeonPlayerStorage;
   const playerTileIndex = playerSpawn.tilePosition.y * map.width + playerSpawn.tilePosition.x;
-  if (options.registerPlayer !== false) traversal?.registerActor({
+  traversal?.registerActor({
     id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
     kind: 'player',
     tileIndex: playerTileIndex,
@@ -62,6 +69,28 @@ export const createDungeonRuntime = (
     spatialFootprint: 'center',
     movementProfileId: options.playerMovementProfileId ?? 'ground',
   });
+  if (traversal) {
+    const body = traversal.body(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)!;
+    body.facing = playerStorage.playerFacing;
+    body.worldPosition = playerStorage.playerWorldPosition; body.worldRotationY = playerStorage.playerWorldRotationY;
+    Object.defineProperties(playerStorage, {
+      playerPosition: { enumerable: true, configurable: true, get: () => body.logicalPosition, set: value => { body.logicalPosition = value; } },
+      playerFacing: { enumerable: true, configurable: true, get: () => body.facing, set: value => { body.facing = value; } },
+      playerWorldPosition: { enumerable: true, configurable: true, get: () => body.worldPosition, set: value => { body.worldPosition = value; } },
+      playerWorldRotationY: { enumerable: true, configurable: true, get: () => body.worldRotationY, set: value => { body.worldRotationY = value; } },
+    });
+    obstacleStorage.states = new SpatialEnabledMap(traversal);
+    traversal.obstacleStates = obstacleStorage.states;
+    if (movementResolver) {
+      movementResolver.worldPositionFor = playerSpawn.sceneEnvironmentComponent
+        ? (x,y) => [...resolveDungeonMapTileWorldLayout(playerSpawn.sceneEnvironmentComponent,map.width,map.height,x,y).center]
+        : (x,y) => [x,0,y];
+      Object.defineProperty(playerStorage, 'playerMovement', { enumerable: true, configurable: true,
+        get: () => movementResolver.storage.tracks!.get(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID) ?? null,
+        set: value => { if (value) movementResolver.storage.tracks!.set(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,value);
+          else movementResolver.storage.tracks!.delete(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID); } });
+    }
+  }
   return {
     map,
     // Compatibility facade: absent capabilities fail explicitly, never silently create systems.

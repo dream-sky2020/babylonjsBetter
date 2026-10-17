@@ -473,7 +473,11 @@ export const playerMovementLabModule: LabModule = {
       }
       syncMarker();
       if (result.completed) refreshRuntimeJson();
-      status.textContent = result.blockedReason === 'movement-obstacle'
+      if (result.actionId && inputPolicy.continuous && directionalInput.hasHeldDirection) {
+        continuousHoldMovementDurationSeconds = result.actionDurationSeconds ?? null;
+      }
+      status.textContent = result.actionKind ? `开始${result.actionKind === 'push' ? '推动' : '换位'}：${result.actionId}。`
+        : result.blockedReason === 'movement-obstacle'
         ? `玩家尝试向 ${direction} 移动，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
         : result.blockedReason === 'map-boundary'
           ? `玩家尝试向 ${direction} 移动，即将被地图边界挡回。`
@@ -532,7 +536,8 @@ export const playerMovementLabModule: LabModule = {
       }
       syncMarker();
       if (result.completed) refreshRuntimeJson();
-      status.textContent = result.blockedReason === 'movement-obstacle'
+      status.textContent = result.actionKind ? `开始${result.actionKind === 'push' ? '推动' : '换位'}：${result.actionId}。`
+        : result.blockedReason === 'movement-obstacle'
         ? `玩家尝试 ${movement}，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
         : result.blockedReason === 'map-boundary'
           ? `玩家尝试 ${movement}，即将被地图边界挡回。`
@@ -660,11 +665,9 @@ export const playerMovementLabModule: LabModule = {
       )
     );
 
-    const stopFrameTask = context.scheduler.register({
-      id: 'update', phase: 'simulation', order: 100, description: '推进玩家输入和活动动作',
-      enabled: () => !assembly.isPaused,
-      run: (deltaSeconds) => {
+    const stopFrameTask = assembly.registerSimulation('player-movement', 100, (deltaSeconds) => {
         if (!current) return;
+        if (playerSystem?.isBusy && !current.player.playerMovement) { syncMarker(); return; }
         if (!current.player.playerMovement && pendingEightWayInitialMove) {
           pendingEightWayInitialMove = false;
           const nextDirection = directionalInput.consume(performance.now(), 0, 'eight-way');
@@ -723,9 +726,10 @@ export const playerMovementLabModule: LabModule = {
           );
           if (!nextDirection) break;
           move(nextDirection);
-          if (!current.player.playerMovement || remainingSeconds <= 0) break;
+            // Loader's action engine assigns the remaining frame time at the next boundary.
+            // A newly submitted intent must never consume the previous request's sample.
+            break;
         }
-      },
     });
     const stopDebugTask = context.scheduler.register({
       id: 'debug-summary', phase: 'debug', order: 110, intervalSeconds: .25,
@@ -735,6 +739,7 @@ export const playerMovementLabModule: LabModule = {
       },
     });
     let offMovementChanges = () => {};
+    let offGroupStep = () => {};
     const offReady = context.communication.on(dungeonMapChangedEvent, (changed) => {
       const loaded = playerMemory.current, grid = gridMemory.current;
       if (!loaded || !grid || loaded.loadId !== changed.loadId || grid.loadId !== changed.loadId) return;
@@ -748,6 +753,13 @@ export const playerMovementLabModule: LabModule = {
       offMovementChanges();
       offMovementChanges = movementControl.subscribe(event.loadId, () => refreshRuntimeJson());
       playerSystem = playerControl.acquire(loaded.loadId);
+      offGroupStep();
+      offGroupStep = playerSystem!.subscribeGroupStep(result => {
+        observeStep(result);
+        if (result.stopContinuation) clearDirectionalInput();
+        syncMarker();
+        void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-movement-completed' });
+      });
       syncMovementProfile();
       teleportXInput.max = String(event.grid.width - 1);
       teleportYInput.max = String(event.grid.height - 1);
@@ -768,6 +780,7 @@ export const playerMovementLabModule: LabModule = {
       stopFrameTask();
       stopDebugTask();
       offMovementChanges();
+      offGroupStep();
       keyboardRegistration.dispose();
       offKeyboardChanged();
       panelVisibilityObserver.disconnect();

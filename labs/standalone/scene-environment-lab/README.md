@@ -1,5 +1,7 @@
 # Scene Environment Lab
 
+面板停靠树、标题拖拽、投放预览、分隔条与显隐/折叠壳现与地图编辑器共用 `core/ui/editor-kit/DockWorkspace.tsx` 和 `dockLayout.ts`。本页继续管理 objects/materials/textures 内容、原 workspace:v2 偏好、默认位置和工作区宽度；已有布局无需迁移。
+
 Valsekamerplant 展示共有 7 个预设：灌木、办公、中世纪、围栏套件、城市道路、盆栽，以及合并城市围墙、交通路障、城市卫生和城市设施的城市场景。原 1239 件总览已移除；完整清单见 `docs/valsekamerplant-scene-presets.md`。
 
 ## 共享贴图编辑（2026-10-03）

@@ -88,7 +88,7 @@ export const dungeonAgentLabModule: LabModule = {
     const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
     let prepared: { loadId: number; data: ReturnType<typeof allocateDungeonAgentStorage> } | null = null;
     const offPreparation = assembly.registerPreparation('dungeon-agent', (runtime, loadId) => {
-      const data = allocateDungeonAgentStorage(loadId, '');
+      const data = allocateDungeonAgentStorage(loadId, '', runtime);
       const system = new DungeonAgentSystem(runtime, controllerRegistry, data.storage);
       prepared = { loadId, data };
       return system;
@@ -229,8 +229,10 @@ export const dungeonAgentLabModule: LabModule = {
       const data = agentStateMemory.current;
       const agent = data?.loadId === loaded?.loadId ? data?.agents.get(entityId) : undefined;
       if (!marker || !agent) return;
+      const physicalPosition = agent.poseX === undefined || agent.poseY === undefined || !loaded ? null
+        : resolveDungeonMapTileWorldLayout(loaded,loaded.width,loaded.height,agent.poseX,agent.poseY).center;
       if (!agent.movementKind) {
-        marker.setPose(tileWorldPosition(agent.tileIndex), getDungeonMovementDirectionYaw(agent.facing));
+        marker.setPose(physicalPosition ?? tileWorldPosition(agent.tileIndex), getDungeonMovementDirectionYaw(agent.facing));
         return;
       }
       const progress = agent.visualProgress ?? (agent.durationSeconds! <= 0
@@ -244,7 +246,7 @@ export const dungeonAgentLabModule: LabModule = {
         fromYaw,
         getDungeonMovementDirectionYaw(agent.toFacing!),
       ) * rotationProgress;
-      marker.setPose([
+      marker.setPose(physicalPosition ?? [
         lerp(from[0], to[0], progress),
         lerp(from[1], to[1], progress),
         lerp(from[2], to[2], progress),
@@ -723,10 +725,7 @@ export const dungeonAgentLabModule: LabModule = {
     });
     debugToggle.input.addEventListener('change', renderMarkers);
 
-    const stopFrameTask = context.scheduler.register({
-      id: 'update', phase: 'simulation', order: 200, description: '推进 Agent 动作和决策',
-      enabled: () => !assembly.isPaused,
-      run: (deltaSeconds) => {
+    const stopFrameTask = assembly.registerSimulation('dungeon-agent', 200, (deltaSeconds) => {
         if (!loaded) return;
 
         if (!agentSystem) return;
@@ -743,7 +742,6 @@ export const dungeonAgentLabModule: LabModule = {
           entityIds: completed,
           reason: 'movement-completed',
         });
-      },
     });
     const stopDebugTask = context.scheduler.register({
       id: 'debug-summary', phase: 'debug', order: 210, intervalSeconds: .25,

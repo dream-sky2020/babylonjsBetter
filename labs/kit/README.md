@@ -2,13 +2,13 @@
 
 ## 共享数据申请与系统图（2026-10-12）
 
-### 2D 移动状态归属（第一步，2026-10-12）
+### 2D 空间与动作状态归属（2026-10-17）
 
 当前组合式 Dungeon 的运行状态由领域 `.memory.ts` 分配并作为权威数据发布。Loader 创建候选玩家/障碍、通行和移动数据，再通过普通数据契约传入 Core；完成存档/入口恢复及准备后发布同一对象，失败不替换旧会话。Core 不导入 Lab 内存设施，不复制配置、请求、占位和预约；Runtime 字段是反向访问共享数据的兼容门面。移动内存增加 Actor 请求索引/请求序号，通行内存增加路径预约反向索引，Inspector 可直接查看。
 
 Agent 的五块原有领域内存持有基础字段、活动 Agent ID 索引及完整动作、Controller 覆盖和内部状态、寻路计划及预约同步标记、决策设置、回合数与 decisionElapsed。Core Agent 仅通过门面读写它们，原平铺字段由同一份动作/计划派生。候选在系统准备时创建，成功切图通知时发布；旧 `createDungeon*StateData` 等活字段适配保留给兼容调用，正常装配不再使用。Core 的订阅表、Agent 门面数组和可重建执行索引属于能力/缓存；无 Lab 的便捷 API 仍可默认分配独立数据。
 
-本步只调整状态归属，玩家和 Agent 仍按原调度分别推进；同步格步规则、续步、传送优先级、提交/回退和存档格式保持原行为。共享引用直接读写，无 Proxy、业务轮询、权限检查或逐帧通信。
+目前 Loader 的一个 simulation 任务调用 DungeonActionEngine.tick，玩家和 Agent 以 order 100/200 注册投影，不能独立重复推进物理请求。同步格步规则先于续步，暂停/切图会截断旧会话。dungeon.spatial-world 持有 Body、Collider 与可重建索引；dungeon.spatial-actions 持有普通请求、组动作、姿态轨道、采样和时钟。原玩家、Agent、障碍字段访问同一 Body；存档 v2 保存已提交锚点，读取 v1。共享引用直接读写，无 Proxy、业务轮询、权限检查或逐帧通信。
 
 跨模块的数据通过 `context.memory.acquire(DEFINITION)` 申请。没有该 key 就调用同步 factory 创建；已有该 key 且运行时类型定义相同就返回**同一个句柄**；类型不匹配立即抛出 TypeError，包含 key、申请模块、首次创建模块及两种类型。类型、factory 和 Debug 摘要统一写在领域模块的 `.memory.ts`，所有申请模块导入同一份定义，禁止在调用方用泛型断言伪装类型。
 
@@ -102,13 +102,13 @@ Loader 成功提交后、广播前发布两块内存，释放时置空；运行�
 
 ### 第六批模块迁移：dungeon-traversal
 
-通行模块只申请 `dungeon.traversal-state` 和 `dungeon.grid`。Actor Map、实占位 Set 数组、寻路预约 Map 数组直接指向 Core 现有集合，不含 Runtime、地图文档、障碍绑定或能力方法。集合项的层数由有限嵌套面板控制，深层项可进入查看；Inspector 不创建整图副本、不扫描全体格子统计占位数。
+通行模块只申请 `dungeon.spatial-world` 和 `dungeon.grid`。Actor Map、实占位 Set 数组、寻路预约 Map 数组直接指向 Core 现有集合，不含 Runtime、地图文档、障碍绑定或能力方法。集合项的层数由有限嵌套面板控制，深层项可进入查看；Inspector 不创建整图副本、不扫描全体格子统计占位数。
 
 `DungeonTraversalControl` Token 通过 Loader 绑定当前 Session 的下一格检查和变化订阅；旧 loadId 与旧世界通知被生命周期适配忽略，不增加权限机制。通行变化继续发布原观察广播，并标记共享内存 Debug 版本。原 dirty 调度和 pendingActors/pendingTiles 合并刷新保留，切图重置 pending/dirty/检查结果。Loader 提交后广播前发布，未安装通行系统为 null，释放置空。原通行算法和存档格式不变。
 
 ### 第七批模块迁移：dungeon-movement
 
-移动仲裁模块仅申请 `dungeon.movement-state`、`dungeon.grid`。配置、活动请求 Map、逐格临时预留、交叉点临时预留均在顶层，不嵌入 Resolver、通行世界或 Runtime。配置通过活字段接口读取 Core 的当前对象，集合直接复用 Core 引用；有限嵌套面板分页检查这些集合，采样不克隆全部预约数据。
+移动仲裁模块仅申请 `dungeon.spatial-actions`、`dungeon.grid`。配置、活动请求 Map、逐格临时预留、交叉点临时预留均在顶层，不嵌入 Resolver、通行世界或 Runtime。配置通过活字段接口读取 Core 的当前对象，集合由 .memory.ts 分配后直接注入 Core；有限嵌套面板分页检查这些集合，采样不克隆全部预约数据。
 
 配置更新、订阅和活动进度摘要使用 DungeonMovementControl 能力，保持 Core 配置验证和变化通知，旧 loadId 操作与旧 Resolver 通知不能进入新 Session。debugActiveMoves 从原快照计算提取，旧 debugSnapshot 格式不变；Lab 只生成活动摘要与非空预约项，不再复制完整预约表。Loader 在成功提交后广播前发布，未安装 movement 时置空，释放置空。原 debug 任务合并离散变化，250ms 采样仅服务可见面板的活动进度，不用于业务发现内存变化，无权限机制。
 
@@ -116,7 +116,7 @@ Loader 成功提交后、广播前发布两块内存，释放时置空；运行�
 
 ### 第八批模块迁移：player-movement
 
-玩家输入模块仅申请 `dungeon.player-state`、`dungeon.grid`、`dungeon.movement-state`、`dungeon.obstacle-state`，不新增内存块或第二份玩家状态。姿态、续步与回退判断直接读取共享活数据；坐标换算复用 Core 布局函数。Debug 仲裁摘要仅输出非空预约项，避免复制整张空表。
+玩家输入模块仅申请 `dungeon.player-state`、`dungeon.grid`、`dungeon.spatial-actions`、`dungeon.obstacle-state`，不新增内存块或第二份玩家状态。姿态、续步与回退判断直接读取共享活数据；坐标换算复用 Core 布局函数。Debug 仲裁摘要仅输出非空预约项，避免复制整张空表。
 
 命令通过 `DungeonPlayerControl` 取得当前 Session 的小型接口：移动、相对移动、转向、推进、通行检查、移动模式和瞬移。Loader 缓存准备结果，不逐帧查找或创建接口对象，接口不暴露 Runtime。旧 Session 命令不能操作新地图，生命周期检查不构成权限。原 preparation、同步格步规则、广播、暂停、输入路由和连续移动保留；Core 仍负责权威玩家状态与通行占位。验证 `npm run test:dungeon-player-movement` 覆盖命令、瞬移占位、旧 Session 与连续输入。
 

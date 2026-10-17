@@ -440,7 +440,12 @@ export class DungeonMapDocumentStore {
         )) as Record<string, DungeonMapDocumentComponent[]>;
         source.components.filter(({ type }) => type !== 'spatial-attachment').forEach((component) => {
           const table = components[component.type] ?? [];
-          table.push({ ...cloneRecord(component), entityId: source.id });
+          const record = { ...cloneRecord(component), entityId: source.id } as DungeonMapDocumentComponent;
+          if (record.type === 'spatial-collider') {
+            if (target.kind === 'side' || target.kind === 'edge') record.shape = 'boundary';
+            else if (target.kind === 'point') record.shape = 'point';
+          }
+          table.push(record);
           components[component.type] = table;
         });
         let attachmentId = `${source.id}:spatial-attachment`;

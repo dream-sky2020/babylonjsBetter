@@ -1,0 +1,493 @@
+import type { DungeonTraversalWorld } from '../dungeon-traversal/index.ts';
+import { requestSpatialGroup, advanceSpatialGroups, spatialGroupProgress, type SpatialActionGroup } from './dungeonActionGroup.ts';
+import { indexSpatialBody, sweepSpatialBody } from '../dungeon-spatial/dungeonSpatialGeometry.ts';
+import type { SpatialBody } from '../dungeon-spatial/dungeonSpatialState.ts';
+import type { DungeonMovementDirection } from '../dungeon-movement/dungeonMovement.direction.ts';
+import type {
+  DungeonMoveAdvanceResult,
+  DungeonMoveRequest,
+  DungeonMoveRequestOptions,
+  DungeonMoveRequestResult,
+  DungeonMovementDebugSnapshot,
+  DungeonMovementResolverConfig,
+  DungeonMovementChange,
+  DungeonMovementStorage,
+} from '../dungeon-movement/dungeonMovement.types.ts';
+import {
+  getDungeonDiagonalCornerIndex, getDungeonMovementDirectionVector,
+  isDungeonDiagonalDirection,
+  resolveDungeonMovementProfile,
+} from '../dungeon-movement/dungeonMovement.direction.ts';
+
+const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
+
+const requireUnitInterval = (value: number, label: string): number => {
+  if (!Number.isFinite(value) || value < 0 || value > 1) {
+    throw new RangeError(`${label}必须位于 0 到 1 之间。`);
+  }
+  return value;
+};
+
+/**
+ * 管理格步的临时目标占位。实占位仍由 DungeonTraversalWorld 持有，只有 Commit 时才移动。
+ * Resolver 不依赖 Babylon；表现层只读取 visualProgress 播放 Forward 或 Rollback。
+ */
+export class DungeonActionEngine {
+  readonly traversal: DungeonTraversalWorld;
+  readonly storage: DungeonMovementStorage;
+  externallyDriven = false;
+  private readonly groupListeners = new Set<(group: SpatialActionGroup) => void>();
+  subscribeGroupCompleted(run: (group: SpatialActionGroup) => void) { this.groupListeners.add(run);return()=>{this.groupListeners.delete(run);}; }
+  groupChanged(group: SpatialActionGroup, kind: 'contact'|'committed'|'completed'|'cancelled') {
+    for(const member of group.members)this.changed({kind,actorId:member.actorId,requestId:group.id,fromTileIndex:member.from,toTileIndex:member.to});
+    if(kind==='completed')for(const run of this.groupListeners)run(group);
+  }
+  cancelGroup(id: string): void {
+    const group=this.storage.groups!.get(id);if(!group||group.status!=='running'||group.recovering)return;
+    for(const member of group.members) {
+      const body=this.traversal.body(member.actorId)!,original=member.path;
+      const scaled=spatialGroupProgress(group,group.elapsed/group.duration,original.length-1);
+      const index=Math.min(original.length-2,Math.floor(scaled));
+      member.path=group.committed?[{...body.pose},...original.slice(index+1)]:[{...body.pose},...original.slice(0,index+1).reverse()];
+      if(member.path.length<2)member.path.push({...body.pose});
+    }
+    group.elapsed=0;group.duration=.25;group.recovering=true;
+  }
+  worldPositionFor?: (x: number, y: number) => [number, number, number];
+  projectBody(body: SpatialBody) { if (this.worldPositionFor) body.worldPosition = this.worldPositionFor(body.pose.x, body.pose.y); }
+  requestPush(actorId: string, direction: DungeonMovementDirection, duration = .6) { return requestSpatialGroup(this, 'push', actorId, direction, duration); }
+  requestSwap(actorId: string, otherId: string, duration = .8) { return requestSpatialGroup(this, 'swap', actorId, otherId, duration); }
+  private advanceGroups(delta: number, ready: () => boolean) { advanceSpatialGroups(this, delta, ready); }
+  get samples() { return this.storage.samples!; }
+  /** Only this method advances physical requests in a composed session. Projectors read samples. */
+  tick(delta: number, project: (delta: number) => void = () => {}, ready: () => boolean = () => true): void {
+    if (!Number.isFinite(delta) || delta < 0) throw new RangeError('动作时间必须非负有限。');
+    if (!ready()) return;
+    this.samples.clear(); project(0);
+    const history=[...this.storage.groups!.values()].filter(g=>g.status!=='running');
+    for(const group of history.slice(0,Math.max(0,history.length-50)))this.storage.groups!.delete(group.id);
+    let remaining = delta, count = 0;
+    do {
+      if (!ready()) return;
+      let slice = remaining;
+      // Rotation and blocked-attempt tracks share the same event boundaries.
+      // Their projectors consume only this slice; the engine owns all remainder.
+      for (const value of this.storage.tracks!.values()) {
+        if (!value || typeof value !== 'object') continue;
+        const track = value as { elapsedSeconds?: number; durationSeconds?: number;
+          movementDurationSeconds?: number; turnDurationSeconds?: number };
+        const duration = Math.max(track.durationSeconds ?? 0, track.movementDurationSeconds ?? 0, track.turnDurationSeconds ?? 0);
+        const until = duration - (track.elapsedSeconds ?? 0);
+        if (Number.isFinite(until) && until > 1e-9) slice = Math.min(slice, until);
+      }
+      for (const group of this.storage.groups!.values()) if (group.status === 'running') {
+        const marks=group.recovering?[1]:group.kind==='push'?[.2,.5,.8,1]:[1/3,.5,2/3,1];
+        for(const mark of marks){const until=group.duration*mark-group.elapsed;if(until>1e-9){slice=Math.min(slice,until);break;}}
+      }
+      for (const request of this.requests.values()) {
+        const until = request.state === 'rollback' ? (request.rollbackDurationSeconds ?? 0) - (request.rollbackElapsedSeconds ?? 0)
+          : request.durationSeconds * (request.state === 'forward-before-commit' ? request.commitProgress : 1) - request.elapsedSeconds;
+        if (until > 1e-9) slice = Math.min(slice, until);
+      }
+      this.samples.clear();
+      const actors = [...this.requests.values()].sort((a,b)=>this.priorityOf(b)-this.priorityOf(a)||a.actorId.localeCompare(b.actorId)).map(request => request.actorId);
+      for (const actorId of actors) {
+        if (!ready()) return;
+        const request = this.getActiveRequest(actorId); if (!request) continue;
+        let waiting = request.waitForActorIds?.some(id => this.getActiveRequest(id)?.state === 'rollback');
+        const body=this.traversal.body(actorId);
+        if(!waiting&&!request.ignoreDynamicOccupancy&&body&&request.fromTileIndex>=0) {
+          const vector=getDungeonMovementDirectionVector(request.direction);
+          const progress=request.state==='rollback'
+            ? (request.rollbackStartProgress??0)*(1-Math.min(1,((request.rollbackElapsedSeconds??0)+slice)/Math.max(1e-9,request.rollbackDurationSeconds??0)))
+            : Math.min(1,(request.elapsedSeconds+slice)/Math.max(1e-9,request.durationSeconds));
+          const target={x:request.fromTileIndex%this.traversal.map.width+vector.x*progress,y:Math.floor(request.fromTileIndex/this.traversal.map.width)+vector.y*progress};
+          const hits=sweepSpatialBody(this.traversal.spatial,body,body.pose,target);
+          if(hits.length){
+            if(request.state==='forward-before-commit')this.beginRollback(request);
+            else waiting=true;
+          }
+        }
+        this.samples.set(actorId, this.advanceRequest(actorId, waiting ? 0 : slice));
+        this.updatePose(request);
+      }
+      this.advanceGroups(slice, ready);
+      this.storage.simulationSeconds! += slice;
+      if (!ready()) return;
+      project(slice);
+      remaining = Math.max(0, remaining - slice);
+      if (++count >= 128) { if (remaining > 1e-8) throw new Error('动作边界超过单帧128次，拒绝静默丢弃时间。'); break; }
+      if (!remaining) break;
+    } while (remaining > 0);
+  }
+  private updatePose(request: DungeonMoveRequest) {
+    const body = this.traversal.body(request.actorId); if (!body) return;
+    const vector = getDungeonMovementDirectionVector(request.direction);
+    const sample = this.samples.get(request.actorId);
+    const p = sample?.visualProgress ?? (request.durationSeconds <= 0 ? 1 : request.elapsedSeconds / request.durationSeconds);
+    const x = request.fromTileIndex % this.traversal.map.width, y = Math.floor(request.fromTileIndex / this.traversal.map.width);
+    body.pose = { x: x + vector.x * p, y: y + vector.y * p };
+    if(sample?.completed&&!sample.rolledBack&&request.toTileIndex>=0)body.pose={x:body.logicalPosition.tileX,y:body.logicalPosition.tileY};
+    indexSpatialBody(this.traversal.spatial, body); this.projectBody(body);
+  }
+  advanceActor(actorId: string, deltaSeconds: number): DungeonMoveAdvanceResult {
+    if (!this.externallyDriven || (deltaSeconds === 0 && this.getActiveRequest(actorId)?.durationSeconds === 0)) {
+      const request=this.getActiveRequest(actorId),result=this.advanceRequest(actorId,deltaSeconds);
+      if(request){this.samples.set(actorId,result);this.updatePose(request);}return result;
+    }
+    const sample = this.samples.get(actorId);
+    if (sample) return sample;
+    const request = this.getActiveRequest(actorId);
+    return { active: !!request, completed: false, committed: false, rolledBack: false,
+      request, state: request?.state, visualProgress: request ? request.elapsedSeconds / Math.max(1e-9, request.durationSeconds) : 1,
+      consumedSeconds: deltaSeconds, remainingSeconds: 0 };
+  }
+  get config() { return this.storage.config; }
+  set config(value: DungeonMovementResolverConfig) { this.storage.config = value; }
+  get movementReservationsByTile() { return this.storage.movementReservationsByTile; }
+  get movementReservationsByPoint() { return this.storage.movementReservationsByPoint; }
+  private get requests() { return this.storage.activeRequests; }
+  private get activeRequestIdByActor() { return this.storage.activeRequestIdByActor; }
+  private get nextRequestSequence() { return this.storage.nextRequestSequence; }
+  private set nextRequestSequence(value: number) { this.storage.nextRequestSequence = value; }
+  private readonly changeListeners = new Set<(change: DungeonMovementChange) => void>();
+
+  subscribe(listener: (change: DungeonMovementChange) => void): () => void {
+    this.changeListeners.add(listener);
+    return () => { this.changeListeners.delete(listener); };
+  }
+
+  private changed(change: DungeonMovementChange): void {
+    this.changeListeners.forEach((listener) => {
+      try { listener(change); } catch (error) { console.error('Dungeon 移动状态监听失败。', error); }
+    });
+  }
+
+  private rejected(actorId: string, result: DungeonMoveRequestResult): DungeonMoveRequestResult {
+    this.changed({ kind: 'request-rejected', actorId, blockedReason: result.blockedReason,
+      blockingEntityIds: result.blockingEntityIds });
+    return result;
+  }
+
+  constructor(
+    traversal: DungeonTraversalWorld,
+    config: Partial<DungeonMovementResolverConfig> = {},
+    storage?: DungeonMovementStorage,
+  ) {
+    this.traversal = traversal;
+    // Standalone callers retain their convenience allocation; composed hosts inject storage.
+    this.storage = storage ?? {
+      config: {
+        progressWeight: config.progressWeight ?? 1,
+        commitProgress: requireUnitInterval(config.commitProgress ?? 0.5, '默认提交进度'),
+        playerBasePriority: config.playerBasePriority ?? 1000,
+      },
+      activeRequests: new Map(), activeRequestIdByActor: new Map(), nextRequestSequence: 1,
+      movementReservationsByTile: Array.from({ length: traversal.occupantIdsByTile.length }, () => new Map()),
+      movementReservationsByPoint: Array.from({ length: traversal.map.topology.pointIds.length }, () => new Map()),
+    };
+    this.storage.samples ??= new Map(); this.storage.groups ??= new Map(); this.storage.tracks ??= new Map(); this.storage.simulationSeconds ??= 0;
+    requireUnitInterval(this.config.commitProgress, '默认提交进度');
+    if (!Number.isFinite(this.config.progressWeight) || this.config.progressWeight < 0) {
+      throw new RangeError('移动进度优先级权重必须是非负有限数。');
+    }
+    if (!Number.isFinite(this.config.playerBasePriority)) {
+      throw new RangeError('玩家基础移动优先级必须是有限数。');
+    }
+    if (this.movementReservationsByTile.length !== traversal.occupantIdsByTile.length
+      || this.movementReservationsByPoint.length !== traversal.map.topology.pointIds.length) {
+      throw new RangeError('移动存储的预留表尺寸与地图不一致。');
+    }
+  }
+
+  updateConfig(next: Partial<DungeonMovementResolverConfig>): void {
+    const progressWeight = next.progressWeight ?? this.config.progressWeight;
+    const commitProgress = next.commitProgress ?? this.config.commitProgress;
+    const playerBasePriority = next.playerBasePriority ?? this.config.playerBasePriority;
+    if (!Number.isFinite(progressWeight) || progressWeight < 0) {
+      throw new RangeError('移动进度优先级权重必须是非负有限数。');
+    }
+    if (!Number.isFinite(playerBasePriority)) {
+      throw new RangeError('玩家基础移动优先级必须是有限数。');
+    }
+    this.config = {
+      progressWeight,
+      commitProgress: requireUnitInterval(commitProgress, '默认提交进度'),
+      playerBasePriority,
+    };
+    this.changed({ kind: 'config-changed' });
+  }
+
+  getActiveRequest(actorId: string): DungeonMoveRequest | undefined {
+    const requestId = this.activeRequestIdByActor.get(actorId);
+    return requestId ? this.requests.get(requestId) : undefined;
+  }
+
+  getRequest(requestId: string): DungeonMoveRequest | undefined {
+    return this.requests.get(requestId);
+  }
+
+  isBusy(actorId: string): boolean {
+    return this.activeRequestIdByActor.has(actorId) || this.storage.tracks!.has(actorId)
+      || [...this.storage.groups!.values()].some(group => group.status === 'running'
+        && group.members.some(member => member.actorId === actorId));
+  }
+  get hasActiveRequests(): boolean {
+    return this.requests.size > 0 || [...this.storage.groups!.values()].some(group => group.status === 'running');
+  }
+  /** Live request records for shared diagnostics; no snapshot or per-frame copy. */
+  get activeRequests(): ReadonlyMap<string, DungeonMoveRequest> { return this.requests; }
+
+  priorityOf(request: DungeonMoveRequest): number {
+    const progress = request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds);
+    return request.basePriority + request.progressWeight * progress;
+  }
+
+  private reservationWinner(tileIndex: number): DungeonMoveRequest | undefined {
+    const requestId = [...(this.movementReservationsByTile[tileIndex]?.values() ?? [])][0];
+    return requestId ? this.requests.get(requestId) : undefined;
+  }
+
+  private releaseReservation(request: DungeonMoveRequest): void {
+    this.movementReservationsByTile[request.toTileIndex]?.delete(request.actorId);
+    if (request.crossingPointIndex !== undefined) {
+      this.movementReservationsByPoint[request.crossingPointIndex]?.delete(request.actorId);
+    }
+  }
+
+  private beginRollback(request: DungeonMoveRequest): void {
+    if (request.state !== 'forward-before-commit') return;
+    const progress = request.durationSeconds <= 0 ? 0 : clamp01(request.elapsedSeconds / request.durationSeconds);
+    this.releaseReservation(request);
+    request.state = 'rollback';
+    request.rollbackStartProgress = progress;
+    request.rollbackElapsedSeconds = 0;
+    request.rollbackDurationSeconds = progress <= 0 ? 0 : Math.max(0.08, request.durationSeconds * progress);
+    this.changed({ kind: 'rollback-started', actorId: request.actorId, requestId: request.id,
+      fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex });
+  }
+
+  requestMove(options: DungeonMoveRequestOptions): DungeonMoveRequestResult {
+    if (!Number.isFinite(options.durationSeconds) || options.durationSeconds < 0) {
+      throw new RangeError('移动时长必须是非负有限数。');
+    }
+    if (this.isBusy(options.actorId)) {
+      return this.rejected(options.actorId,
+        { accepted: false, blockedReason: 'movement-in-progress', blockingEntityIds: [] });
+    }
+    const actor = this.traversal.actors.get(options.actorId);
+    if (!actor) throw new Error(`不存在通行 Actor“${options.actorId}”。`);
+    if(!actor.enabled||this.traversal.body(options.actorId)?.mobility==='fixed')return this.rejected(options.actorId,
+      {accepted:false,blockedReason:'movement-obstacle',blockingEntityIds:[actor.id]});
+    const outsideTarget = options.outsideMapStep?.toTileIndex;
+    if (outsideTarget !== undefined && (outsideTarget !== -1 && (!Number.isInteger(outsideTarget) || !this.traversal.occupantIdsByTile[outsideTarget]))) throw new RangeError('地图外移动的目标索引无效。');
+    const inspection = outsideTarget !== undefined ? {
+      toTileIndex: outsideTarget,
+      blockingEntityIds: options.ignoreDynamicOccupancy ? [] : this.traversal.blockingOccupants(outsideTarget, actor.id),
+      blockedReason: undefined,
+    } : this.traversal.inspectStep(actor.id, actor.tileIndex, options.direction, {
+      checkTerrain: options.checkTerrain,
+      checkStaticObstacles: options.checkStaticObstacles,
+      ignoreDynamicOccupancy: options.ignoreDynamicOccupancy,
+    });
+    if (outsideTarget !== undefined && inspection.blockingEntityIds.length) return this.rejected(actor.id, { accepted: false, blockedReason: 'occupied', blockingEntityIds: inspection.blockingEntityIds });
+    if (inspection.blockedReason || inspection.toTileIndex === undefined) {
+      return this.rejected(options.actorId, {
+        accepted: false,
+        blockedReason: inspection.blockedReason ?? 'map-boundary',
+        blockingEntityIds: inspection.blockingEntityIds,
+      });
+    }
+
+    const request: DungeonMoveRequest = {
+      id: `move:${this.nextRequestSequence++}:${options.actorId}`,
+      actorId: options.actorId,
+      direction: options.direction,
+      fromTileIndex: actor.tileIndex,
+      toTileIndex: inspection.toTileIndex,
+      ...(isDungeonDiagonalDirection(options.direction)
+        && !options.ignoreDynamicOccupancy && outsideTarget === undefined
+        && resolveDungeonMovementProfile(actor.movementProfileId).reserveDiagonalCrossing
+        ? {
+          crossingPointIndex: this.traversal.map.topology.pointIndices[
+            actor.tileIndex * 4 + getDungeonDiagonalCornerIndex(options.direction)
+          ],
+        }
+        : {}),
+      durationSeconds: options.durationSeconds,
+      commitProgress: requireUnitInterval(options.commitProgress ?? this.config.commitProgress, '提交进度'),
+      basePriority: options.basePriority ?? 0,
+      progressWeight: options.progressWeight ?? this.config.progressWeight,
+      ignoreDynamicOccupancy: options.ignoreDynamicOccupancy,
+      allowOutsideMap: outsideTarget !== undefined,
+      state: 'forward-before-commit',
+      elapsedSeconds: 0,
+    };
+    const groupConflict = [...this.storage.groups!.values()].find(group => group.status === 'running'
+      && (group.cells.includes(request.toTileIndex) || group.members.some(member => member.actorId === options.actorId)));
+    if (groupConflict) return this.rejected(options.actorId, { accepted: false, blockedReason: 'reservation-conflict',
+      blockingEntityIds: groupConflict.members.map(member => member.actorId) });
+    const tileWinner = options.ignoreDynamicOccupancy ? undefined : this.reservationWinner(request.toTileIndex);
+    const pointRequestId = request.crossingPointIndex === undefined
+      ? undefined
+      : [...(this.movementReservationsByPoint[request.crossingPointIndex]?.values() ?? [])][0];
+    const pointWinner = pointRequestId ? this.requests.get(pointRequestId) : undefined;
+    const winners = [...new Map(
+      [tileWinner, pointWinner].filter((winner): winner is DungeonMoveRequest => !!winner)
+        .map((winner) => [winner.id, winner]),
+    ).values()];
+    for (const winner of winners) {
+      const scoreDelta = this.priorityOf(request) - this.priorityOf(winner);
+      const requestWins = scoreDelta > 0
+        || (scoreDelta === 0 && request.actorId.localeCompare(winner.actorId) < 0);
+      if (!requestWins) {
+        return this.rejected(options.actorId, {
+          accepted: false,
+          blockedReason: 'reservation-conflict',
+          blockingEntityIds: [winner.actorId],
+        });
+      }
+    }
+    winners.forEach((winner) => this.beginRollback(winner));
+    if (winners.length) request.waitForActorIds = winners.map(winner => winner.actorId);
+    this.requests.set(request.id, request);
+    this.activeRequestIdByActor.set(request.actorId, request.id);
+    if (!options.ignoreDynamicOccupancy) this.movementReservationsByTile[request.toTileIndex]?.set(request.actorId, request.id);
+    if (request.crossingPointIndex !== undefined && request.crossingPointIndex >= 0) {
+      this.movementReservationsByPoint[request.crossingPointIndex].set(request.actorId, request.id);
+    }
+    this.changed({ kind: 'request-accepted', actorId: request.actorId, requestId: request.id,
+      fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex,
+      crossingPointIndex: request.crossingPointIndex });
+    return {
+      accepted: true,
+      request,
+      ...(winners[0] ? { displacedRequestId: winners[0].id } : {}),
+      blockingEntityIds: [],
+    };
+  }
+
+  cancelActor(actorId: string): void {
+    // Explicit teleport/despawn API: abort the whole group at its committed anchors.
+    // Normal gameplay interruptions use cancelGroup's continuous recovery instead.
+    for(const group of this.storage.groups!.values())if(group.status==='running'&&group.members.some(m=>m.actorId===actorId)){
+      group.status='cancelled';for(const member of group.members){const body=this.traversal.body(member.actorId);if(body){
+        body.pose={x:body.logicalPosition.tileX,y:body.logicalPosition.tileY};indexSpatialBody(this.traversal.spatial,body);this.projectBody(body);}}
+      this.groupChanged(group,'cancelled');
+    }
+    const request = this.getActiveRequest(actorId);
+    if (!request) return;
+    this.releaseReservation(request);
+    this.activeRequestIdByActor.delete(actorId);
+    this.requests.delete(request.id);
+    this.changed({ kind: 'cancelled', actorId, requestId: request.id,
+      fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex });
+  }
+
+  private advanceRequest(actorId: string, deltaSeconds: number): DungeonMoveAdvanceResult {
+    if (!Number.isFinite(deltaSeconds) || deltaSeconds < 0) {
+      throw new RangeError('移动帧时间必须是非负有限数。');
+    }
+    const request = this.getActiveRequest(actorId);
+    if (!request) {
+      return {
+        active: false, completed: false, committed: false, rolledBack: false,
+        visualProgress: 1, consumedSeconds: 0, remainingSeconds: deltaSeconds,
+      };
+    }
+
+    let committed = false;
+    let completed = false;
+    let rolledBack = false;
+    let consumedSeconds: number;
+    let visualProgress: number;
+
+    if (request.state === 'rollback') {
+      const duration = request.rollbackDurationSeconds ?? 0;
+      const elapsed = request.rollbackElapsedSeconds ?? 0;
+      consumedSeconds = Math.min(deltaSeconds, Math.max(0, duration - elapsed));
+      request.rollbackElapsedSeconds = elapsed + consumedSeconds;
+      const rollbackProgress = duration <= 0 ? 1 : clamp01(request.rollbackElapsedSeconds / duration);
+      visualProgress = (request.rollbackStartProgress ?? 0) * (1 - rollbackProgress);
+      if (rollbackProgress >= 1) {
+        completed = true;
+        rolledBack = true;
+      }
+    } else {
+      consumedSeconds = Math.min(deltaSeconds, Math.max(0, request.durationSeconds - request.elapsedSeconds));
+      request.elapsedSeconds += consumedSeconds;
+      visualProgress = request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds);
+      if (request.state === 'forward-before-commit' && visualProgress >= request.commitProgress) {
+        // A debug/teleporting actor can enter an already reserved tile between request and commit.
+        if (!request.ignoreDynamicOccupancy && this.traversal.blockingOccupants(request.toTileIndex, request.actorId).length) {
+          this.beginRollback(request);
+          return { active: true, completed: false, committed: false, rolledBack: false, state: request.state, request, visualProgress, consumedSeconds, remainingSeconds: 0 };
+        }
+        this.traversal.moveActor(request.actorId, request.toTileIndex, request.id, request);
+        this.releaseReservation(request);
+        request.state = 'forward-after-commit';
+        committed = true;
+        this.changed({ kind: 'committed', actorId, requestId: request.id,
+          fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex });
+      }
+      if (visualProgress >= 1) completed = true;
+    }
+
+    if (completed) {
+      this.activeRequestIdByActor.delete(actorId);
+      this.requests.delete(request.id);
+      this.changed({ kind: rolledBack ? 'rolled-back' : 'completed', actorId, requestId: request.id,
+        fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex });
+    }
+    return {
+      active: !completed,
+      completed,
+      committed,
+      rolledBack,
+      state: request.state,
+      request,
+      visualProgress,
+      consumedSeconds,
+      remainingSeconds: completed ? Math.max(0, deltaSeconds - consumedSeconds) : 0,
+    };
+  }
+
+  debugSnapshot(): DungeonMovementDebugSnapshot {
+    return {
+      config: this.config,
+      activeMoves: this.debugActiveMoves(),
+      movementReservationsByTile: this.movementReservationsByTile
+        .map((reservations) => Object.fromEntries(reservations)),
+      movementReservationsByPoint: this.movementReservationsByPoint
+        .map((reservations) => Object.fromEntries(reservations)),
+    };
+  }
+
+  debugActiveMoves(limit = Number.POSITIVE_INFINITY): DungeonMovementDebugSnapshot['activeMoves'] {
+    const moves: Array<DungeonMovementDebugSnapshot['activeMoves'][number]> = [];
+    for (const request of this.requests.values()) {
+      if (moves.length >= limit) break;
+      moves.push({
+        requestId: request.id,
+        actorId: request.actorId,
+        fromTileIndex: request.fromTileIndex,
+        toTileIndex: request.toTileIndex,
+        state: request.state,
+        progress: request.state === 'rollback'
+          ? (request.rollbackStartProgress ?? 0) * (1 - clamp01(
+            (request.rollbackElapsedSeconds ?? 0) / Math.max(request.rollbackDurationSeconds ?? 0, Number.EPSILON),
+          ))
+          : request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds),
+        commitProgress: request.commitProgress,
+        priority: this.priorityOf(request),
+      });
+    }
+    return moves;
+  }
+}
+
+export const createDungeonActionEngine = (
+  traversal: DungeonTraversalWorld,
+  config: Partial<DungeonMovementResolverConfig> = {},
+  storage?: DungeonMovementStorage,
+): DungeonActionEngine => new DungeonActionEngine(traversal, config, storage);

@@ -121,7 +121,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   panels.className = 'lab-panels';
   const home = document.createElement('a');
   home.className = 'lab-home-link';
-  home.href = '../../index.html';
+  home.href = '../../../index.html';
   home.textContent = '返回工具入口';
   sidebar.append(heading, description, status, panels, home);
 

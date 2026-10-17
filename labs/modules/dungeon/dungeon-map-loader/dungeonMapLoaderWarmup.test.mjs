@@ -38,7 +38,7 @@ test('loader warms after view publication, keeps loading paused and fails closed
     const session = memory.scope('observer').acquire(DUNGEON_SESSION_INFO_MEMORY);
     let published = 0, frames = 0, fail = false;
     const assembly = () => services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
-    cleanup = dungeonMapLoaderLabModule.setup({ scene, services, memory: memory.scope('dungeon-map-loader'), scheduler: { isPaused: false },
+    cleanup = dungeonMapLoaderLabModule.setup({ scene, services, memory: memory.scope('dungeon-map-loader'), scheduler: { isPaused: false, register: () => () => {} },
       ui: new LabUi(document.querySelector('aside'), document.querySelector('#status')),
       labState: { registerReference: () => ({ markChanged() {}, unregister() {} }) },
       viewport: { openHtmlLayer(options) {

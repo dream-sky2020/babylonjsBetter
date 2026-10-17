@@ -93,7 +93,10 @@ const validateSavedDungeonMapDeltas = (value: unknown): SavedDungeonMapDeltas =>
 };
 
 const validateDungeonRuntimeSaveState = (value: unknown, presetKey: string): value is DungeonRuntimeSaveState => {
-  if (!isRecord(value) || value.version !== 1 || value.dungeonPresetKey !== presetKey) return false;
+  if (!isRecord(value) || (value.version !== 1 && value.version !== 2) || value.dungeonPresetKey !== presetKey) return false;
+  if (value.bodies !== undefined && (!Array.isArray(value.bodies) || !value.bodies.every(row => isRecord(row)
+    && typeof row.bodyId === 'string' && typeof row.entityId === 'string' && Number.isInteger(row.tileX)
+    && Number.isInteger(row.tileY) && typeof row.facing === 'string' && typeof row.enabled === 'boolean'))) return false;
   const position = value.playerPosition;
   if (position !== undefined && (!isRecord(position)
     || !Number.isInteger(position.tileX) || !Number.isInteger(position.tileY))) return false;
@@ -158,6 +161,16 @@ export const dungeonMapLoaderLabModule: LabModule = {
       status,
     );
 
+    const stopSimulation = context.scheduler.register({ id: 'spatial-actions', phase: 'simulation', order: 100,
+      description: '统一空间动作推进与有序规则边界',
+      enabled: () => !assembly.isPaused,
+      run: delta => {
+        if (!activeRuntime || activeRuntime.installedSystems?.movement === false) return;
+        const runtime = activeRuntime;
+        runtime.movementResolver.tick(delta, slice => assembly.projectSimulation(slice),
+          () => activeRuntime === runtime && !assembly.isPaused);
+      },
+    });
     let generation = 0;
     let pendingLoad: AbortController | null = null;
     let failedWarmupLayer: ReturnType<typeof context.viewport.openHtmlLayer> | null = null;
@@ -376,6 +389,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
               movement: traversal => candidateMovement = allocateDungeonMovementStateData(loadId, presetKey,
                 traversal.occupantIdsByTile.length, traversal.map.topology.pointIds.length),
             });
+            if (runtime.installedSystems?.movement !== false) runtime.movementResolver.externallyDriven = true;
             const saved = runtimeSaves.current[presetKey];
             const warnings = saved
               ? applyDungeonRuntimeSaveState(runtime, saved, (position) => resolveDungeonMapTileWorldLayout(
@@ -474,6 +488,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         }
       },
       dispose() {
+        stopSimulation();
         generation += 1;
         pendingLoad?.abort();
         pendingLoad = null;

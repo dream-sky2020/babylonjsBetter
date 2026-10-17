@@ -4,12 +4,14 @@ import type { DungeonAgentsData, DungeonAgentState, DungeonAgentStateData } from
 import type { DungeonAgentControllerData, DungeonAgentControllerState, DungeonAgentSettingsData } from './dungeonAgentController.memory.ts';
 import type { DungeonAgentNavigation, DungeonAgentNavigationData } from './dungeonAgentNavigation.memory.ts';
 
+import type { DungeonRuntime } from '../../../../core/dungeon-runtime/dungeonRuntime.types.ts';
+
 const EMPTY = Object.freeze([]);
 const EMPTY_PARAMETERS = Object.freeze({});
 
 /** All mutable authority is allocated here. Core receives facades over the domain records.
  * Bindings remain outside shared data; view fields are derived from the owned records. */
-export const allocateDungeonAgentStorage = (loadId: number, presetKey: string) => {
+export const allocateDungeonAgentStorage = (loadId: number, presetKey: string, world?: DungeonRuntime) => {
   const descriptions: DungeonAgentsData = { loadId, presetKey, agents: new Map() };
   const state: DungeonAgentStateData & { activeAgentIds: Set<string> } = { loadId, presetKey, agents: new Map(), activeAgentIds: new Set() };
   const settings: DungeonAgentSettingsData = {
@@ -70,6 +72,17 @@ export const allocateDungeonAgentStorage = (loadId: number, presetKey: string) =
       get movementProfileId() { return binding.gridAgent.movementProfileId; },
       get spatialFootprint() { return binding.gridAgent.spatialFootprint ?? 'center'; },
     });
+    const body = world?.traversal.body(entityId);
+    if (body) {
+      Object.defineProperties(row, {
+        tileIndex: { enumerable:true, get:()=>body.tileIndex,set:value=>{body.tileIndex=value;} },
+        facing: { enumerable:true,get:()=>body.facing,set:value=>{body.facing=value;} },
+        enabled: { enumerable:true,get:()=>body.enabled,set:value=>{body.enabled=value;} },
+        poseX: { enumerable:true,get:()=>body.pose.x }, poseY:{enumerable:true,get:()=>body.pose.y},
+        movement: { enumerable:true,get:()=>world!.movementResolver.storage.tracks!.get(entityId)??null,
+          set:value=>{if(value)world!.movementResolver.storage.tracks!.set(entityId,value);else world!.movementResolver.storage.tracks!.delete(entityId);} },
+      });
+    }
     state.agents.set(entityId, row);
     controllers.agents.set(entityId, controller);
     navigation.agents.set(entityId, path);

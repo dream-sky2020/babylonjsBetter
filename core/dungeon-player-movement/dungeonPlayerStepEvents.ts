@@ -1,4 +1,4 @@
-import { createServiceToken } from '../system-runtime/ServiceToken';
+import { createServiceToken } from '../system-runtime/ServiceToken.ts';
 import type { DungeonMapDirection } from '../map';
 import type { DungeonRuntimePlayerPosition } from '../dungeon-runtime';
 

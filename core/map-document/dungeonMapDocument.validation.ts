@@ -1,3 +1,4 @@
+import { compileSpatialDefinitions } from '../dungeon-spatial/dungeonSpatialDefinition.ts';
 import {
   DUNGEON_MAP_CORNER_ORDER,
   DUNGEON_MAP_DIRECTION_ORDER,
@@ -164,5 +165,8 @@ export const validateDungeonMapDocumentV2 = (
       add('spawn.legacy-position', 'actor-spawn 不能保存 tileX/tileY；出生位置由空间挂载表达。', `components.actor-spawn[${index}]`);
     }
   });
+  if (document.components['spatial-body'] || document.components['spatial-collider']) {
+    compileSpatialDefinitions(document).issues.forEach(issue => add('spatial.definition', issue.message, issue.path));
+  }
   return issues;
 };

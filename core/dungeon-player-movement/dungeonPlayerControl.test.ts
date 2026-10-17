@@ -18,7 +18,9 @@ const session = () => {
   const runtime: DungeonRuntime = { map, traversal, movementResolver: createDungeonMovementResolver(traversal), obstacles: [],
     playerPosition: { tileX: 0, tileY: 0 }, playerFacing: 'east', playerWorldPosition: [0, 0, 0], playerWorldRotationY: Math.PI / 2,
     playerMovement: null, obstacleStates: new Map() };
-  const system: Pick<DungeonPlayerSystem, 'move' | 'moveRelative' | 'turn' | 'update'> = {
+  const system: Pick<DungeonPlayerSystem, 'move' | 'moveRelative' | 'turn' | 'update' | 'isBusy' | 'subscribeGroupStep'> = {
+    get isBusy() { return runtime.movementResolver.isBusy(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID); },
+    subscribeGroupStep() { return () => {}; },
     move(...args) { assert.equal(this, system); return { ...startDungeonPlayerMovement(runtime, ...args), stopContinuation: false }; },
     moveRelative(...args) { assert.equal(this, system); return { ...startDungeonPlayerRelativeMovement(runtime, ...args), stopContinuation: false }; },
     turn(...args) { assert.equal(this, system); return startDungeonPlayerTurn(runtime, ...args); },
@@ -54,6 +56,7 @@ test('cached player commands cannot operate after map replacement or disposal', 
   active = { ...session(), loadId: 2 };
   assert.throws(() => commands.move('east', { teleport: true, resolveWorldPosition: () => [0, 0, 0] }), /地图已切换/);
   assert.throws(() => commands.update(1), /地图已切换/); assert.throws(() => commands.setMovementProfile('ground'), /地图已切换/);
+  assert.throws(() => commands.isBusy, /地图已切换/);
   assert.equal(active.runtime.playerPosition.tileX, 0); active = null;
   assert.equal(control.acquire(2), null); assert.throws(() => commands.teleport({ tileX: 0, tileY: 0 }, [0, 0, 0]), /地图已切换/);
 });

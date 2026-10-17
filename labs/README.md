@@ -15,3 +15,5 @@
 可拖拽工作台归 `kit/draggable/`，公共层不导入具体 Lab。各 Lab 的实验业务、面板和样式归自身目录；三个入口均通过配置使用公共工作台。旧 standalone 下三个目录只保留跳转页，以兼容书签和带参数入口。
 
 新增页面时，同步根 `index.html` 中对应分组、`vite.config.ts` 的构建入口以及 `PROJECT_MAP.md`。入口使用 `/labs/standalone/<name>/…`、`/labs/composable/<name>/…` 或 `/labs/draggable/<name>/…`；旧 `/tools/<name>/…` 路径已迁移。
+
+上述三类页面返回根首页均使用 `../../../index.html`，同目录页面之间继续使用相对链接，以兼容构建后的 `file://`。Vite 使用多页模式，禁止将不存在的页面当作首页返回；重复拼接的已知入口和旧 `/labs/index.html` 由开发/预览导航中间件恢复，未知页面显示 404 和根首页链接。新增或迁移入口后运行 `npm run test:lab-entries`；实际点击回归使用 `npm run test:lab-navigation-browser`。

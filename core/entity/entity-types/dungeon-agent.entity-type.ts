@@ -8,7 +8,7 @@ export const entityTypeDefinition: EntityTypeDefinition = {
   labAppearance: { color: '#f97316' },
   allowedContainers: ['tile'],
   batch: { scope: 'same-kind', create: true, delete: true },
-  defaultComponents: ['grid-agent', 'agent-controller', 'faction'],
-  requiredComponents: ['grid-agent', 'agent-controller'],
+  defaultComponents: ['spatial-body', 'spatial-collider', 'agent-timing', 'agent-controller', 'faction'],
+  requiredComponents: ['spatial-body', 'agent-timing', 'agent-controller'],
   allowMultiplePerContainer: true,
 };

@@ -59,6 +59,9 @@ export type DungeonPlayerMovementOptions = {
 
 export type DungeonPlayerMovementResult = {
   handled?: boolean;
+  actionId?: string;
+  actionKind?: 'push' | 'swap';
+  actionDurationSeconds?: number;
   started: boolean;
   completed: boolean;
   direction: DungeonMovementDirection;
@@ -116,7 +119,7 @@ export const inspectDungeonPlayerMovement = (
   const from = { ...runtime.playerPosition };
   const offset = getDungeonMovementDirectionVector(direction);
   const coordinateDestination = { tileX: from.tileX + offset.x, tileY: from.tileY + offset.y };
-  if (runtime.playerMovement) {
+  if (runtime.playerMovement || runtime.movementResolver.isBusy(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)) {
     return { started: false, completed: false, direction, from, to: coordinateDestination, blockedReason: 'movement-in-progress' };
   }
   if (!insideMap(runtime, from)) return inspectBoundaryStep(runtime, direction, options);
@@ -242,6 +245,33 @@ export const startDungeonPlayerMovement = (
   if (inspection.blockedReason === 'movement-in-progress') return inspection;
   if ((inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle')
     && options.onBlockedAttempt?.(inspection)) return { ...inspection, handled: true };
+  if (inspection.blockedReason === 'movement-obstacle' && !options.teleport && !isDungeonDiagonalDirection(direction)) {
+    const world = runtime.traversal;
+    const targets = [...(world.occupantIdsByTile[positionIndex(runtime, to)] ?? [])]
+      .map(id => world.body(id)).filter(body => body?.enabled && body.blocksMovement);
+    const target = targets.length === 1 ? targets[0] : undefined;
+    if (target && target.onPlayerPush !== 'block') {
+      // Ignoring only the selected body must leave a legal step: walls, terrain and
+      // other blockers cannot be bypassed by choosing a push/swap response.
+      const step = world.inspectStep(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, positionIndex(runtime, from), direction,
+        { ignoreBodyIds: [target.id] });
+      if (!step.blockedReason) {
+        const duration = Math.max(.08, resolveMovementDuration(distance3d(
+          [...options.resolveWorldPosition(from)], [...options.resolveWorldPosition(to)]), direction, options));
+        const result = target.onPlayerPush === 'push'
+          ? runtime.movementResolver.requestPush(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, direction, duration)
+          : runtime.movementResolver.requestSwap(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, target.id, duration);
+        if (result.accepted) {
+          if (options.faceMovementDirection ?? true) {
+            runtime.playerFacing = resolveDungeonCardinalFacing(direction);
+            runtime.playerWorldRotationY = getDungeonMovementDirectionYaw(direction);
+          }
+          return { started: true, completed: false, direction, from, to, actionId: result.actionId,
+            actionKind: target.onPlayerPush, actionDurationSeconds: duration };
+        }
+      }
+    }
+  }
   const startBlockedAttempt = (
     blockedReason: 'map-boundary' | 'movement-obstacle' | 'direction-not-supported',
     blockedObstacleIds?: readonly string[],
@@ -289,7 +319,11 @@ export const startDungeonPlayerMovement = (
     return startBlockedAttempt(inspection.blockedReason, inspection.blockedObstacleIds);
   }
   const fromWorldPosition: DungeonRuntimeWorldPosition = [...runtime.playerWorldPosition];
-  const resolvedTarget = options.resolveWorldPosition(to);
+  const stepVector = getDungeonMovementDirectionVector(direction);
+  const crossedSeam = insideMap(runtime,from) && insideMap(runtime,to)
+    && (Math.abs(to.tileX-from.tileX)>1 || Math.abs(to.tileY-from.tileY)>1);
+  const resolvedTarget = options.resolveWorldPosition(crossedSeam
+    ? {tileX:from.tileX+stepVector.x,tileY:from.tileY+stepVector.y} : to);
   const toWorldPosition: DungeonRuntimeWorldPosition = [resolvedTarget[0], resolvedTarget[1], resolvedTarget[2]];
   const targetFacing = (options.faceMovementDirection ?? true)
     ? resolveDungeonCardinalFacing(direction) : runtime.playerFacing;
@@ -368,7 +402,7 @@ export const startDungeonPlayerTurn = (
 ): DungeonPlayerTurnResult => {
   const fromFacing = runtime.playerFacing;
   const toFacing = resolveTurnFacing(fromFacing, turn);
-  if (runtime.playerMovement) {
+  if (runtime.playerMovement || runtime.movementResolver.isBusy(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)) {
     return { started: false, completed: false, turn, fromFacing, toFacing, blockedReason: 'movement-in-progress' };
   }
   const yawDelta = shortestAngleDelta(runtime.playerWorldRotationY, DIRECTION_YAWS[toFacing]);
@@ -455,6 +489,8 @@ export const updateDungeonPlayerMovement = (
       if (movement.kind === 'rollback') runtime.playerPosition = { ...movement.from };
       runtime.playerFacing = movement.targetFacing;
       runtime.playerMovement = null;
+      const body=runtime.traversal.body?.(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
+      if(body&&runtime.movementResolver.worldPositionFor)runtime.playerWorldPosition=runtime.movementResolver.worldPositionFor(body.pose.x,body.pose.y);
     }
     return {
       active: !completed,
