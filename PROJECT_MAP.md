@@ -1,3 +1,11 @@
+## 2026-10-18：独立仓库 Lab
+
+新增 `labs/draggable/warehouse-lab/`，提供运行页、Puck 编辑器和 Grid 工作台三个入口，面板仅为仓库、按钮与信息。物品目录与演示用会话内存由仓库 Lab 维护；堆叠／独立实例、仓库与战斗背包上限、转移、整备、战斗内外效果及使用后损耗结算由 `core/items/` 提供。Lab 用我方／敌方样例状态演示效果和回合消耗，尚未把库存接入 Press Turn 行动队列；页面不修改整备 Lab 的人物和装备数据。Grid/Puck 布局分别保存在 `warehouse-lab.grid.v1` / `warehouse-lab.puck.v1`，与业务数据分离。旧 `labs/standalone/warehouse-lab/` 地址仅作兼容跳转。入口在根首页和 Vite 多页构建中注册。
+
+## 2026-10-18：通用战斗属性目录
+
+新增 `core/combat/`，保存与具体世界观和 UI 无关的角色属性定义、单位、分组及属性结算；`modifiers.ts` 支持基础值变更、固定加值、两层加乘与逐条独立乘区。新增 `core/items/`，保存装备/技能物品定义、普通堆叠与独立实例、附魔、装备技能等级、使用后概率损耗与耐久规则。整备 Lab 从这两个目录读取规则，并在 `model.ts` 管理样例角色装备、仓库与预览；角色初始值和显示格式留在 Lab。Press Turn 和 Clash 的行动、伤害、回合规则仍为独立实验实现，未接入新的 Core 目录。
+
 ## 2026-10-18：普通格步提交后的旧格交接
 
 `DungeonActionEngine` 在普通移动提交点只迁移 `DungeonSpatialWorld` 的逻辑占位，不再把移动中 Body 的连续 `pose` 瞬移到目标格；传送等显式 `moveActor` 调用仍同步姿态。提交后进入离开者旧格的普通移动请求记在离开者活动请求中，双方在该交接期间的逐帧扫掠互相豁免，但其余碰撞、目标占位和预约检查保留。即使后来者动画先完成，离开者仍继续原动画；取消或传送使交接关系失效。玩家、Agent、同步提交事件和整格碰撞体均有 Core 回归覆盖。
@@ -1585,6 +1593,7 @@ config/monsterDisplayConfigs.json
 - `core/monster-death-motion/`：死亡模式注册、参数定义和纯姿态采样；`visual` 只声明常驻 Sprite Recipe 能力与粒子预设，不创建渲染对象。
 - `core/monster-status-particle/`：怪物状态粒子。
 - `core/battlefield/`：战场和编队数据类型。
+- `core/combat/`：通用战斗属性定义与静态数值加成计算；不包含战场布局、UI 或具体 Lab 的行动规则。
 
 ### Sprite、特效与状态
 

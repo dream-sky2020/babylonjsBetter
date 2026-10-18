@@ -899,36 +899,36 @@
     ],
     "spatial-interaction": [
       {
+        "enabled": true,
         "entityId": "agent:corridor:gate-sentry",
         "id": "component:4c3825ce-02e6-4073-952d-44ef25a39a5c",
         "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true
+        "version": 1
       },
       {
+        "enabled": true,
         "entityId": "agent:corridor:full-tile-hunter",
         "id": "component:7de71df3-13bb-445e-ad34-e1a4bb5b0e33",
         "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true
+        "version": 1
       },
       {
-        "id": "agent:corridor:patrol:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:corridor:patrol",
+        "id": "agent:corridor:patrol:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:corridor:hunter:spatial-interaction",
-        "entityId": "agent:corridor:hunter",
-        "type": "spatial-interaction",
-        "version": 1,
         "enabled": true,
-        "onPlayerPush": "swap"
+        "entityId": "agent:corridor:hunter",
+        "id": "agent:corridor:hunter:spatial-interaction",
+        "onPlayerPush": "swap",
+        "type": "spatial-interaction",
+        "version": 1
       }
     ]
   },

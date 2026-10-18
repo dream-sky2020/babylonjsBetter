@@ -1,4 +1,4 @@
-import { commandDirections, equipmentDirections, equipmentPanelSettings, type PanelDirection } from './panelSettings.ts';
+import { commandDirections, equipmentDirections, equipmentPanelSettings, type CharacterView, type PanelDirection } from './panelSettings.ts';
 import type { Config } from '@puckeditor/core';
 import { GridWorkbench, type GridDefinition } from '../../kit/draggable/GridWorkbench.tsx';
 import { PuckWorkbench } from '../../kit/draggable/PuckWorkbench.tsx';
@@ -21,6 +21,6 @@ const definition: GridDefinition<GridData> = {
   grid: { cols: 48, pitch: 16, margin: 4, minW: 4, minH: 3, maxH: 1000, step: 0.5, precisions: [0.5, 1, 2] },
   classes: { app: 'pt-app eq-app', toolbar: 'pt-toolbar', options: 'pt-options', grid: 'pt-grid eq-grid', window: 'pt-window pt-grid-window eq-window', title: 'pt-window-title', drag: 'pt-drag', body: 'pt-window-body eq-body' },
   panelSettings: equipmentPanelSettings,
-  renderPanel: (id, options) => <Panel id={id as PanelId} columns={Number(options.columns ?? 1)} direction={options.direction as PanelDirection | undefined} statsColumns={Number(options.statsColumns ?? 1)} />,
+  renderPanel: (id, options) => <Panel id={id as PanelId} columns={Number(options.columns ?? 1)} direction={options.direction as PanelDirection | undefined} statsColumns={Number(options.statsColumns ?? 1)} characterView={options.characterView as CharacterView | undefined} />,
 };
 export function App({ entry }: { entry: string }) { return entry === 'grid' ? <GridWorkbench definition={definition} /> : <PuckWorkbench editor={entry === 'editor'} definition={{ id: 'equipment', title: '整备 Lab', storageKey: PUCK_KEY, config, defaults: defaultPuck, parse: parsePuck, navigation, appClass: 'pt-app eq-app', toolbarClass: 'pt-toolbar' }} />; }

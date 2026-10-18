@@ -6,8 +6,8 @@
     "presetKey": "dungeon_map_2"
   },
   "grid": {
-    "width": 16,
-    "height": 14,
+    "width": 20,
+    "height": 20,
     "topologyMode": "bounded"
   },
   "entities": [
@@ -380,6 +380,88 @@
         "version": 1
       }
     ],
+    "agent-timing": [
+      {
+        "actionPeriod": 1,
+        "entityId": "agent:plaza:friendly-guard",
+        "id": "agent:plaza:friendly-guard:grid-agent:timing",
+        "priority": 40,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 2,
+        "entityId": "agent:plaza:patrol",
+        "id": "agent:plaza:patrol:grid-agent:timing",
+        "priority": 10,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "entityId": "agent:plaza:hunter",
+        "id": "agent:plaza:hunter:grid-agent:timing",
+        "priority": 30,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "entityId": "agent:plaza:wanderer",
+        "id": "agent:plaza:wanderer:grid-agent:timing",
+        "priority": 0,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "entityId": "agent:plaza:watcher",
+        "id": "agent:plaza:watcher:grid-agent:timing",
+        "priority": 50,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 2,
+        "entityId": "agent:plaza:wisp",
+        "id": "agent:plaza:wisp:grid-agent:timing",
+        "priority": 5,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "entityId": "agent:plaza:locked-patrol",
+        "id": "agent:plaza:locked-patrol:grid-agent:timing",
+        "priority": 25,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "entityId": "agent:plaza:adaptive-patrol",
+        "id": "agent:plaza:adaptive-patrol:grid-agent:timing",
+        "priority": 15,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "entityId": "agent:plaza:delayed-patrol",
+        "id": "agent:plaza:delayed-patrol:grid-agent:timing",
+        "priority": 20,
+        "type": "agent-timing",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "entityId": "agent:plaza:full-tile-hunter",
+        "id": "agent:plaza:full-tile-hunter:grid-agent:timing",
+        "priority": 35,
+        "type": "agent-timing",
+        "version": 1
+      }
+    ],
     "dungeon-entrance": [
       {
         "entityId": "tile:1,1:transition:entrance:side",
@@ -572,7 +654,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:1,3"
+            "tileId": "tile:1,9"
           }
         ],
         "type": "spatial-attachment",
@@ -584,7 +666,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,5"
+            "tileId": "tile:8,11"
           }
         ],
         "type": "spatial-attachment",
@@ -596,7 +678,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,6"
+            "tileId": "tile:8,12"
           }
         ],
         "type": "spatial-attachment",
@@ -608,7 +690,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:15,6:east"
+            "sideId": "tile:19,12:east"
           }
         ],
         "type": "spatial-attachment",
@@ -620,7 +702,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:11,10:east"
+            "edgeId": "shared:11,16:east"
           }
         ],
         "type": "spatial-attachment",
@@ -644,7 +726,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,6"
+            "tileId": "tile:5,12"
           }
         ],
         "type": "spatial-attachment",
@@ -656,7 +738,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:10,4"
+            "tileId": "tile:10,10"
           }
         ],
         "type": "spatial-attachment",
@@ -668,7 +750,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:11,8"
+            "tileId": "tile:11,14"
           }
         ],
         "type": "spatial-attachment",
@@ -680,7 +762,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,9"
+            "tileId": "tile:5,15"
           }
         ],
         "type": "spatial-attachment",
@@ -692,7 +774,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,6"
+            "tileId": "tile:9,12"
           }
         ],
         "type": "spatial-attachment",
@@ -704,7 +786,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:12,11"
+            "tileId": "tile:12,17"
           }
         ],
         "type": "spatial-attachment",
@@ -716,7 +798,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:4,3"
+            "tileId": "tile:4,9"
           }
         ],
         "type": "spatial-attachment",
@@ -728,7 +810,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:4,10"
+            "tileId": "tile:4,16"
           }
         ],
         "type": "spatial-attachment",
@@ -740,7 +822,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:11,10"
+            "tileId": "tile:11,16"
           }
         ],
         "type": "spatial-attachment",
@@ -752,7 +834,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,3"
+            "tileId": "tile:7,9"
           }
         ],
         "type": "spatial-attachment",
@@ -764,7 +846,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,9"
+            "tileId": "tile:7,15"
           }
         ],
         "type": "spatial-attachment",
@@ -776,7 +858,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,9"
+            "tileId": "tile:8,15"
           }
         ],
         "type": "spatial-attachment",
@@ -788,7 +870,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,8"
+            "tileId": "tile:9,14"
           }
         ],
         "type": "spatial-attachment",
@@ -800,7 +882,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,6"
+            "tileId": "tile:7,12"
           }
         ],
         "type": "spatial-attachment",
@@ -812,7 +894,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:10,7"
+            "tileId": "tile:10,13"
           }
         ],
         "type": "spatial-attachment",
@@ -824,7 +906,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:14,12"
+            "tileId": "tile:18,18"
           }
         ],
         "type": "spatial-attachment",
@@ -856,570 +938,488 @@
     ],
     "spatial-body": [
       {
-        "id": "obstacle:plaza:test-wall:5,6:movement",
+        "activeByDefault": true,
         "entityId": "obstacle:plaza:test-wall:5,6",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "fixed",
-        "pushable": false,
+        "id": "obstacle:plaza:test-wall:5,6:movement",
         "initialFacing": "south",
-        "movementProfileId": "ground"
+        "mobility": "fixed",
+        "movementProfileId": "ground",
+        "pushable": false,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:test-wall:5,7:movement",
+        "activeByDefault": true,
         "entityId": "obstacle:plaza:test-wall:5,7",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "fixed",
-        "pushable": false,
+        "id": "obstacle:plaza:test-wall:5,7:movement",
         "initialFacing": "south",
-        "movementProfileId": "ground"
+        "mobility": "fixed",
+        "movementProfileId": "ground",
+        "pushable": false,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:test-wall:5,8:movement",
+        "activeByDefault": true,
         "entityId": "obstacle:plaza:test-wall:5,8",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "fixed",
-        "pushable": false,
+        "id": "obstacle:plaza:test-wall:5,8:movement",
         "initialFacing": "south",
-        "movementProfileId": "ground"
+        "mobility": "fixed",
+        "movementProfileId": "ground",
+        "pushable": false,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:test-wall:6,7:movement",
+        "activeByDefault": true,
         "entityId": "obstacle:plaza:test-wall:6,7",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "fixed",
-        "pushable": false,
+        "id": "obstacle:plaza:test-wall:6,7:movement",
         "initialFacing": "south",
-        "movementProfileId": "ground"
+        "mobility": "fixed",
+        "movementProfileId": "ground",
+        "pushable": false,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:center-post:6,6:movement",
+        "activeByDefault": true,
         "entityId": "obstacle:plaza:center-post:6,6",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "fixed",
-        "pushable": false,
+        "id": "obstacle:plaza:center-post:6,6:movement",
         "initialFacing": "south",
-        "movementProfileId": "ground"
+        "mobility": "fixed",
+        "movementProfileId": "ground",
+        "pushable": false,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:center-post:9,7:movement",
+        "activeByDefault": true,
         "entityId": "obstacle:plaza:center-post:9,7",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
+        "id": "obstacle:plaza:center-post:9,7:movement",
+        "initialFacing": "south",
         "mobility": "fixed",
+        "movementProfileId": "ground",
         "pushable": false,
-        "initialFacing": "south",
-        "movementProfileId": "ground"
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:friendly-guard:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:friendly-guard",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:friendly-guard:grid-agent",
         "initialFacing": "east",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:patrol:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:patrol",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:patrol:grid-agent",
         "initialFacing": "east",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:hunter:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:hunter",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:hunter:grid-agent",
         "initialFacing": "west",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:wanderer:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:wanderer",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:wanderer:grid-agent",
         "initialFacing": "north",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:watcher:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:watcher",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:watcher:grid-agent",
         "initialFacing": "south",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:wisp:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:wisp",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:wisp:grid-agent",
         "initialFacing": "north",
-        "movementProfileId": "flying"
+        "mobility": "movable",
+        "movementProfileId": "flying",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:locked-patrol:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:locked-patrol",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:locked-patrol:grid-agent",
         "initialFacing": "east",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:adaptive-patrol:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:adaptive-patrol",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:adaptive-patrol:grid-agent",
         "initialFacing": "east",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:delayed-patrol:grid-agent",
+        "activeByDefault": true,
         "entityId": "agent:plaza:delayed-patrol",
-        "type": "spatial-body",
-        "version": 1,
-        "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "id": "agent:plaza:delayed-patrol:grid-agent",
         "initialFacing": "west",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       },
       {
-        "id": "agent:plaza:full-tile-hunter:grid-agent",
-        "entityId": "agent:plaza:full-tile-hunter",
-        "type": "spatial-body",
-        "version": 1,
         "activeByDefault": true,
-        "mobility": "movable",
-        "pushable": true,
+        "entityId": "agent:plaza:full-tile-hunter",
+        "id": "agent:plaza:full-tile-hunter:grid-agent",
         "initialFacing": "north",
-        "movementProfileId": "ground"
+        "mobility": "movable",
+        "movementProfileId": "ground",
+        "pushable": true,
+        "type": "spatial-body",
+        "version": 1
       }
     ],
     "spatial-collider": [
       {
-        "id": "obstacle:plaza:test-wall:5,6:movement:collider",
         "entityId": "obstacle:plaza:test-wall:5,6",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
         "footprint": "full-tile",
-        "shape": "box",
-        "radius": 0.25,
-        "halfWidth": 0.5,
         "halfHeight": 0.5,
+        "halfWidth": 0.5,
+        "id": "obstacle:plaza:test-wall:5,6:movement:collider",
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "box",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:test-wall:5,7:movement:collider",
         "entityId": "obstacle:plaza:test-wall:5,7",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
         "footprint": "full-tile",
-        "shape": "box",
-        "radius": 0.25,
-        "halfWidth": 0.5,
         "halfHeight": 0.5,
+        "halfWidth": 0.5,
+        "id": "obstacle:plaza:test-wall:5,7:movement:collider",
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "box",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:test-wall:5,8:movement:collider",
         "entityId": "obstacle:plaza:test-wall:5,8",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
         "footprint": "full-tile",
-        "shape": "box",
-        "radius": 0.25,
-        "halfWidth": 0.5,
         "halfHeight": 0.5,
+        "halfWidth": 0.5,
+        "id": "obstacle:plaza:test-wall:5,8:movement:collider",
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "box",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:test-wall:6,7:movement:collider",
         "entityId": "obstacle:plaza:test-wall:6,7",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
         "footprint": "full-tile",
-        "shape": "box",
-        "radius": 0.25,
-        "halfWidth": 0.5,
         "halfHeight": 0.5,
+        "halfWidth": 0.5,
+        "id": "obstacle:plaza:test-wall:6,7:movement:collider",
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "box",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:center-post:6,6:movement:collider",
         "entityId": "obstacle:plaza:center-post:6,6",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
         "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
         "halfHeight": 0.5,
+        "halfWidth": 0.5,
+        "id": "obstacle:plaza:center-post:6,6:movement:collider",
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
-        "id": "obstacle:plaza:center-post:9,7:movement:collider",
         "entityId": "obstacle:plaza:center-post:9,7",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
         "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
         "halfHeight": 0.5,
+        "halfWidth": 0.5,
+        "id": "obstacle:plaza:center-post:9,7:movement:collider",
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:friendly-guard",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:friendly-guard:grid-agent:collider",
-        "entityId": "agent:plaza:friendly-guard",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:patrol",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:patrol:grid-agent:collider",
-        "entityId": "agent:plaza:patrol",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:hunter",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:hunter:grid-agent:collider",
-        "entityId": "agent:plaza:hunter",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:wanderer",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:wanderer:grid-agent:collider",
-        "entityId": "agent:plaza:wanderer",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:watcher",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:watcher:grid-agent:collider",
-        "entityId": "agent:plaza:watcher",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:wisp",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:wisp:grid-agent:collider",
-        "entityId": "agent:plaza:wisp",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:locked-patrol",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:locked-patrol:grid-agent:collider",
-        "entityId": "agent:plaza:locked-patrol",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:adaptive-patrol",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:adaptive-patrol:grid-agent:collider",
-        "entityId": "agent:plaza:adaptive-patrol",
-        "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "center",
-        "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
         "offsetX": 0,
-        "offsetY": 0
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "disc",
+        "type": "spatial-collider",
+        "version": 1
       },
       {
+        "entityId": "agent:plaza:delayed-patrol",
+        "footprint": "center",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
         "id": "agent:plaza:delayed-patrol:grid-agent:collider",
-        "entityId": "agent:plaza:delayed-patrol",
-        "type": "spatial-collider",
-        "version": 1,
+        "offsetX": 0,
+        "offsetY": 0,
+        "radius": 0.25,
         "response": "block",
-        "footprint": "center",
         "shape": "disc",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
-        "offsetX": 0,
-        "offsetY": 0
-      },
-      {
-        "id": "agent:plaza:full-tile-hunter:grid-agent:collider",
-        "entityId": "agent:plaza:full-tile-hunter",
         "type": "spatial-collider",
-        "version": 1,
-        "response": "block",
-        "footprint": "full-tile",
-        "shape": "box",
-        "radius": 0.25,
-        "halfWidth": 0.5,
-        "halfHeight": 0.5,
-        "offsetX": 0,
-        "offsetY": 0
-      }
-    ],
-    "agent-timing": [
-      {
-        "id": "agent:plaza:friendly-guard:grid-agent:timing",
-        "entityId": "agent:plaza:friendly-guard",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 1,
-        "priority": 40
+        "version": 1
       },
       {
-        "id": "agent:plaza:patrol:grid-agent:timing",
-        "entityId": "agent:plaza:patrol",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 2,
-        "priority": 10
-      },
-      {
-        "id": "agent:plaza:hunter:grid-agent:timing",
-        "entityId": "agent:plaza:hunter",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 1,
-        "priority": 30
-      },
-      {
-        "id": "agent:plaza:wanderer:grid-agent:timing",
-        "entityId": "agent:plaza:wanderer",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 1,
-        "priority": 0
-      },
-      {
-        "id": "agent:plaza:watcher:grid-agent:timing",
-        "entityId": "agent:plaza:watcher",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 1,
-        "priority": 50
-      },
-      {
-        "id": "agent:plaza:wisp:grid-agent:timing",
-        "entityId": "agent:plaza:wisp",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 2,
-        "priority": 5
-      },
-      {
-        "id": "agent:plaza:locked-patrol:grid-agent:timing",
-        "entityId": "agent:plaza:locked-patrol",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 1,
-        "priority": 25
-      },
-      {
-        "id": "agent:plaza:adaptive-patrol:grid-agent:timing",
-        "entityId": "agent:plaza:adaptive-patrol",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 1,
-        "priority": 15
-      },
-      {
-        "id": "agent:plaza:delayed-patrol:grid-agent:timing",
-        "entityId": "agent:plaza:delayed-patrol",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 1,
-        "priority": 20
-      },
-      {
-        "id": "agent:plaza:full-tile-hunter:grid-agent:timing",
         "entityId": "agent:plaza:full-tile-hunter",
-        "type": "agent-timing",
-        "version": 1,
-        "actionPeriod": 1,
-        "priority": 35
+        "footprint": "full-tile",
+        "halfHeight": 0.5,
+        "halfWidth": 0.5,
+        "id": "agent:plaza:full-tile-hunter:grid-agent:collider",
+        "offsetX": 0,
+        "offsetY": 0,
+        "radius": 0.25,
+        "response": "block",
+        "shape": "box",
+        "type": "spatial-collider",
+        "version": 1
       }
     ],
     "spatial-interaction": [
       {
-        "id": "agent:plaza:friendly-guard:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:friendly-guard",
+        "id": "agent:plaza:friendly-guard:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:patrol:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:patrol",
+        "id": "agent:plaza:patrol:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:hunter:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:hunter",
+        "id": "agent:plaza:hunter:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:wanderer:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:wanderer",
+        "id": "agent:plaza:wanderer:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:watcher:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:watcher",
+        "id": "agent:plaza:watcher:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:wisp:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:wisp",
+        "id": "agent:plaza:wisp:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:locked-patrol:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:locked-patrol",
+        "id": "agent:plaza:locked-patrol:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:adaptive-patrol:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:adaptive-patrol",
+        "id": "agent:plaza:adaptive-patrol:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:delayed-patrol:spatial-interaction",
+        "enabled": true,
         "entityId": "agent:plaza:delayed-patrol",
+        "id": "agent:plaza:delayed-patrol:spatial-interaction",
+        "onPlayerPush": "swap",
         "type": "spatial-interaction",
-        "version": 1,
-        "enabled": true,
-        "onPlayerPush": "swap"
+        "version": 1
       },
       {
-        "id": "agent:plaza:full-tile-hunter:spatial-interaction",
-        "entityId": "agent:plaza:full-tile-hunter",
-        "type": "spatial-interaction",
-        "version": 1,
         "enabled": true,
-        "onPlayerPush": "swap"
+        "entityId": "agent:plaza:full-tile-hunter",
+        "id": "agent:plaza:full-tile-hunter:spatial-interaction",
+        "onPlayerPush": "swap",
+        "type": "spatial-interaction",
+        "version": 1
       }
     ]
   },
