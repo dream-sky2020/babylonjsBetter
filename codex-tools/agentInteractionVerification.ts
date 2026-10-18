@@ -3,6 +3,8 @@ import { dungeonLabModuleCatalog } from '../labs/modules/dungeon';
 import { DungeonRuntimeAssembly } from '../core/dungeon-runtime/dungeonRuntimeAssembly';
 import { setDungeonRuntimePlayerPosition } from '../core/dungeon-runtime/dungeonRuntime';
 import { DungeonPlayerSystem } from '../core/dungeon-player-movement/dungeonPlayerSystem';
+import { startDungeonAgentMovement } from '../core/dungeon-agent/dungeonAgent.runtime';
+import type { DungeonAgentSystem } from '../core/dungeon-agent/dungeonAgentSystem';
 import type { DungeonPlayerMovementResult } from '../core/dungeon-player-movement/dungeonPlayerMovement';
 import { dungeonMapSwitchRequest } from '../labs/modules/dungeon/dungeon-map-loader/dungeonMapLoader.protocol';
 import type { DungeonRuntime } from '../core/dungeon-runtime/dungeonRuntime.types';
@@ -37,6 +39,12 @@ async function run() {
       const toggle = [...document.querySelectorAll<HTMLInputElement>('input')].find(input => input.parentElement?.textContent?.includes('启用 Agent Controller'));
       assert(toggle, 'Controller toggle missing');
       toggle.checked = false; toggle.dispatchEvent(new Event('change'));
+      const walkingSpeedInput = [...document.querySelectorAll<HTMLInputElement>('input')].find(input =>
+        input.parentElement?.textContent?.includes('移动速度（世界单位/秒）'));
+      assert(walkingSpeedInput, 'Walking speed control missing');
+      const ignoreSidestep = [...document.querySelectorAll<HTMLInputElement>('input')].find(input =>
+        input.parentElement?.textContent?.includes('换位计时忽略轻微错身距离'));
+      assert(ignoreSidestep, 'Swap sidestep timing switch missing');
       const body = r.traversal.body('agent:plaza:friendly-guard')!;
       const marker = host.context.scene.transformNodes.find(node => node.name.startsWith('dungeon_agent_debug_') && node.name.endsWith('agent_plaza_friendly-guard'))!;
       const playerMarker = host.context.scene.getTransformNodeByName('composable_player_pose')!;
@@ -44,6 +52,8 @@ async function run() {
       const system = a.readPreparation<DungeonPlayerSystem>(r, 'player-movement');
       const results = [];
       for (const response of ['swap', 'push', 'block'] as const) {
+        const walkingSpeedLimit=response==='swap'?10:60;
+        walkingSpeedInput.value=String(walkingSpeedLimit);walkingSpeedInput.dispatchEvent(new Event('input'));
         toggle.checked = response === 'swap'; toggle.dispatchEvent(new Event('change'));
         body.onPlayerPush = response; // Disposable session only; no preset writes.
         const targetFrom = { ...body.logicalPosition };
@@ -65,17 +75,29 @@ async function run() {
           assert(r.playerPosition.tileX === from.tileX && body.logicalPosition.tileX === targetFrom.tileX, 'Block changed anchors');
         } else {
           assert(result.actionKind === response, `UI ${response} rejected: ${JSON.stringify(result)}`);
-          if(response==='swap')assert(result.actionDurationSeconds===.25,'Swap duration still depends on walking speed');
+          if(response==='swap')assert(result.actionDurationSeconds!>.25,'Slow initiator did not extend swap duration');
           let intermediateSamples = 0;
           const duration = result.actionDurationSeconds!;
-          for (let i = 0; i < 10; i++) {
-            r.movementResolver.tick(duration / 10, delta => a.projectSimulation(delta));
+          const samples=60,deltaSeconds=duration/samples;
+          let peakInteractionSpeed=0,minimumInteractionSpeed=Infinity;
+          for (let i = 0; i < samples; i++) {
+            const beforePlayer=[...r.playerWorldPosition],beforeObject=[...(body.worldPosition??r.movementResolver.worldPositionFor!(body.pose.x,body.pose.y))];
+            r.movementResolver.tick(deltaSeconds, delta => a.projectSimulation(delta));
             assert(same(marker.position.asArray(), body.worldPosition!), `Idle Agent visual stale during ${response} at sample ${i}`);
             assert(same(playerMarker.position.asArray(), r.playerWorldPosition), `Player visual stale during ${response}`);
             if(response==='swap') {
               assert(body.pose.y===targetFrom.tileY,'Physical swap still follows a side lane');
               assert(Math.abs(marker.position.z-r.movementResolver.worldPositionFor!(body.pose.x,body.pose.y)[2])<=8*.12+1e-6,'Cosmetic sidestep too large');
-              if(i<9)assert(r.playerPosition.tileX===from.tileX&&body.logicalPosition.tileX===targetFrom.tileX,'Swap committed before the animation ended');
+              if(i<samples-1)assert(r.playerPosition.tileX===from.tileX&&body.logicalPosition.tileX===targetFrom.tileX,'Swap committed before the animation ended');
+            } else {
+              const actorPose=r.traversal.body('$dungeon-player')!.pose;
+              assert(actorPose.x<=targetFrom.tileX+1e-8,'Push player overshot then returned');
+            }
+            for(const [position,before] of [[r.playerWorldPosition,beforePlayer],[body.worldPosition!,beforeObject]]) {
+              const speed=Math.hypot(...position.map((value,axis)=>value-before[axis]))/deltaSeconds;
+              peakInteractionSpeed=Math.max(peakInteractionSpeed,speed);
+              minimumInteractionSpeed=Math.min(minimumInteractionSpeed,speed);
+              assert(speed<=walkingSpeedLimit+1e-3,`${response} exceeds initiator walking speed: ${speed}`);
             }
             if (body.pose.x % 1 !== 0 || body.pose.y % 1 !== 0) intermediateSamples++;
           }
@@ -85,20 +107,74 @@ async function run() {
           assert(body.logicalPosition.tileX === (response === 'swap' ? from.tileX : targetFrom.tileX + 1), 'Agent anchor not committed');
           assert(same(marker.position.asArray(), body.worldPosition!), 'Final visual pose stale');
           assert(!r.movementResolver.isBusy('$dungeon-player'), 'Group did not finish');
+          if(response==='swap')assert(minimumInteractionSpeed>=walkingSpeedLimit*.98,
+            `Swap is slower than initiator walking speed: ${minimumInteractionSpeed}`);
+          Object.assign(result,{verifiedPeakSpeed:peakInteractionSpeed,verifiedMinimumSpeed:minimumInteractionSpeed,walkingSpeedLimit});
         }
         results.push({ response, result, player: { ...r.playerPosition }, agent: { ...body.logicalPosition }, marker: marker.position.asArray() });
         await settle();
       }
       body.onPlayerPush = 'swap';
+      walkingSpeedInput.value='10';walkingSpeedInput.dispatchEvent(new Event('input'));
+      ignoreSidestep.checked=true;ignoreSidestep.dispatchEvent(new Event('change'));
+      const ignoredFrom={tileX:body.logicalPosition.tileX-1,tileY:body.logicalPosition.tileY};
+      setDungeonRuntimePlayerPosition(r,ignoredFrom);
+      r.playerWorldPosition=r.movementResolver.worldPositionFor!(ignoredFrom.tileX,ignoredFrom.tileY);
+      let ignoredResult:DungeonPlayerMovementResult|undefined;
+      const originalMove=system.move;
+      system.move=function(...args){const outcome=originalMove.apply(this,args);ignoredResult=outcome;return outcome;};
+      try{document.querySelector<HTMLButtonElement>('[data-move="east"]')!.click();}
+      finally{system.move=originalMove;}
+      assert(ignoredResult?.actionKind==='swap','UI switch did not permit swap');
+      const stepWorld=r.movementResolver.worldPositionFor!(ignoredFrom.tileX+1,ignoredFrom.tileY);
+      const fromWorld=r.movementResolver.worldPositionFor!(ignoredFrom.tileX,ignoredFrom.tileY);
+      const expectedDuration=Math.hypot(...stepWorld.map((value,index)=>value-fromWorld[index]))/10;
+      assert(Math.abs(ignoredResult.actionDurationSeconds!-expectedDuration)<1e-8,
+        'Ignore-sidestep switch did not use center distance');
+      r.movementResolver.tick(ignoredResult.actionDurationSeconds!,delta=>a.projectSimulation(delta));
+      ignoreSidestep.checked=false;ignoreSidestep.dispatchEvent(new Event('change'));
       setDungeonRuntimePlayerPosition(r, { tileX: body.logicalPosition.tileX - 1, tileY: body.logicalPosition.tileY });
-      const moving = r.movementResolver.requestMove({ actorId: body.id, direction: 'east', durationSeconds: 1 });
-      assert(moving.accepted, 'Busy target fixture failed');
-      document.querySelector<HTMLButtonElement>('[data-move="east"]')!.click();
-      assert(document.body.textContent?.includes('目标正在执行动作'), 'Missing interaction rejection explanation');
+      const agentSystem=a.readPreparation<DungeonAgentSystem>(r,'dungeon-agent');
+      assert(agentSystem,'Agent system unavailable for shared-track takeover');
+      const moving = startDungeonAgentMovement(agentSystem.state,r.map,body.id,'east',{durationSeconds:1});
+      assert(moving.started,'Moving Agent fixture failed');
+      const oldRequestId=agentSystem.state.agents.find(agent=>agent.binding.entity.id===body.id)?.movement?.requestId;
+      assert(oldRequestId&&r.movementResolver.storage.tracks!.has(body.id),'Shared Agent movement track missing');
       r.movementResolver.tick(.2, delta => a.projectSimulation(delta));
-      assert(document.body.textContent?.includes('目标正在执行动作'), 'Bump completion erased failure explanation');
+      const takeoverPose={...body.pose};
+      const takeoverFrom={...r.playerPosition};
+      let takeoverResult:DungeonPlayerMovementResult|undefined;
+      const originalTakeoverMove=system.move;
+      system.move=function(...args){const outcome=originalTakeoverMove.apply(this,args);takeoverResult=outcome;return outcome;};
+      try{document.querySelector<HTMLButtonElement>('[data-move="east"]')!.click();}
+      finally{system.move=originalTakeoverMove;}
+      assert(takeoverResult?.actionKind==='swap'&&takeoverResult.started,'Moving Agent was bumped instead of swapped');
+      assert(!r.playerMovement&&r.movementResolver.getActiveRequest(body.id)===undefined,'Old Agent move was not superseded');
+      assert(!r.movementResolver.storage.tracks!.has(body.id),'Old Agent presentation track survived takeover');
+      assert(same([body.pose.x,body.pose.y],[takeoverPose.x,takeoverPose.y]),'Agent pose snapped at takeover');
+      r.movementResolver.tick(takeoverResult.actionDurationSeconds!,delta=>a.projectSimulation(delta));
+      assert(body.logicalPosition.tileX===takeoverFrom.tileX&&body.logicalPosition.tileY===takeoverFrom.tileY,
+        'Moving Agent swap did not reach player anchor');
+      assert(same(marker.position.asArray(),body.worldPosition!),'Moving Agent marker stale after takeover');
       await settle();
-      return { ok: true, configurations, results, busyTargetExplanation: true };
+      await host.context.communication.request(dungeonMapSwitchRequest,{presetKey:'dungeon_push_test'});
+      const pushRuntime=runtime!;
+      const pushBodies=[...pushRuntime.traversal.spatial.bodies.values()].filter(item=>item.id!=='$dungeon-player');
+      assert(pushBodies.length===24&&pushBodies.every(item=>item.mobility==='movable'&&item.pushable&&item.onPlayerPush==='push'),'Push preset contains non-pushable objects');
+      assert(pushRuntime.playerPosition.tileX===8&&pushRuntime.playerPosition.tileY===8,'Push preset spawn incorrect');
+      assert(host.context.scene.getTransformNodeByName('scene_environment_minimal-city'),'Push preset did not load minimal-city');
+      const northObject=pushRuntime.traversal.body('push-test:01')!;
+      const pushMarker=host.context.scene.transformNodes.find(node=>node.name.startsWith('dungeon_agent_debug_')&&node.name.endsWith('push-test_01'));
+      assert(pushMarker,'Push object visual missing');
+      document.querySelector<HTMLButtonElement>('[data-move="north"]')!.click();
+      assert([...pushRuntime.movementResolver.storage.groups!.values()].some(group=>group.kind==='push'&&group.status==='running'),'Push preset UI collision did not start pushing');
+      pushRuntime.movementResolver.tick(1,delta=>a.projectSimulation(delta));
+      assert(northObject.logicalPosition.tileY===6&&Number(pushRuntime.playerPosition.tileY)===7,'Push preset did not commit pushed positions');
+      assert(same(pushMarker.position.asArray(),northObject.worldPosition!),'Push preset object visual did not follow');
+      await settle();
+      return { ok: true, configurations, results, ignoredSidestepDuration:ignoredResult.actionDurationSeconds,
+        movingTargetSwap: true,
+        pushPreset:{presetKey:'dungeon_push_test',objects:pushBodies.length,scene:'minimal-city',uiPush:true,visualSync:true} };
     } finally { await settle(); host.dispose(); }
   } finally { DungeonRuntimeAssembly.prototype.prepare = prepare; }
 }

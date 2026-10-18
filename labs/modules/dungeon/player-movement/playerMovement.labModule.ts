@@ -49,6 +49,7 @@ const describeInteractionFailure = (result: import('@/core/dungeon-player-moveme
   if (!failure) return null;
   const reasons: Record<string, string> = {
     'movement-in-progress': '目标正在执行动作，请稍后重试',
+    'priority-conflict': '目标当前动作优先级更高',
     'trajectory-blocked': '动画路径被墙体或其他物体挡住',
     'no-space-for-trajectory': '地图边缘没有足够的动画空间',
     'participants-overlap': '双方碰撞体无法在这条路径中错开',
@@ -142,7 +143,8 @@ export const playerMovementLabModule: LabModule = {
       ['seconds-per-tile', '移动一格需要多少秒'],
     ]);
     const movementTimingInput = createNumberInput(60, 0.01, 0.1);
-    const swapDurationInput = createNumberInput(.25, .01, .05);
+    const swapDurationInput = createNumberInput(0, 0, .01);
+    const swapIgnorePresentationDistanceToggle = createLabSwitch('换位计时忽略轻微错身距离（世界速度模式）', false);
     const turnTimingSelect = createModeSelect<DungeonPlayerTurnTimingMode>([
       ['radians-per-second', '每秒转动多少度'],
       ['seconds-per-turn', '每次转向需要多少秒'],
@@ -252,7 +254,8 @@ export const playerMovementLabModule: LabModule = {
       keyboardOwnershipStatus,
       createLabField('移动计时模式', movementTimingSelect),
       movementTimingField,
-      createLabField('换位耗时（秒）', swapDurationInput),
+      createLabField('换位最短耗时（秒，0 为自动）', swapDurationInput),
+      swapIgnorePresentationDistanceToggle.row,
       createLabField('转向计时模式', turnTimingSelect),
       turnTimingField,
       createLabField('绝对方向移动', controls),
@@ -283,6 +286,10 @@ export const playerMovementLabModule: LabModule = {
         turnSecondsPerAction: turnTimingMode === 'seconds-per-turn'
           ? readPositiveNumber(turnTimingInput, 0.25) : undefined,
       };
+    };
+    const readSwapMinimumDuration = () => {
+      const value=Number(swapDurationInput.value);
+      return Number.isFinite(value)&&value>=0?value:0;
     };
 
     let current: MovementView | null = null;
@@ -478,7 +485,8 @@ export const playerMovementLabModule: LabModule = {
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
         ...readTimingOptions(),
-        swapDurationSeconds: readPositiveNumber(swapDurationInput, .25),
+        swapDurationSeconds: readSwapMinimumDuration(),
+        swapIgnorePresentationDistance: swapIgnorePresentationDistanceToggle.input.checked,
         teleport: teleportToggle.input.checked,
         resolveWorldPosition: resolveWorldPosition(event),
       });
@@ -487,11 +495,12 @@ export const playerMovementLabModule: LabModule = {
         return true;
       }
       if (!result.started) {
-        status.textContent = result.blockedReason === 'movement-obstacle'
+        blockedInteractionStatus = describeInteractionFailure(result);
+        status.textContent = blockedInteractionStatus ?? (result.blockedReason === 'movement-obstacle'
           ? `移动被阻碍挡住：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
           : result.blockedReason === 'movement-in-progress'
             ? '玩家仍在上一次移动过程中。'
-            : `移动被地图边界阻挡：目标格 (${result.to.tileX}, ${result.to.tileY})。`;
+            : `移动被地图边界阻挡：目标格 (${result.to.tileX}, ${result.to.tileY})。`);
         return true;
       }
       syncMarker();
@@ -546,17 +555,19 @@ export const playerMovementLabModule: LabModule = {
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
         ...readTimingOptions(),
-        swapDurationSeconds: readPositiveNumber(swapDurationInput, .25),
+        swapDurationSeconds: readSwapMinimumDuration(),
+        swapIgnorePresentationDistance: swapIgnorePresentationDistanceToggle.input.checked,
         teleport: teleportToggle.input.checked,
         resolveWorldPosition: resolveWorldPosition(event),
       });
       if (result.handled) { status.textContent = `${movement} 的受阻移动已由其他模块接管。`; return; }
       if (!result.started) {
-        status.textContent = result.blockedReason === 'movement-obstacle'
+        blockedInteractionStatus = describeInteractionFailure(result);
+        status.textContent = blockedInteractionStatus ?? (result.blockedReason === 'movement-obstacle'
           ? `相对移动被阻碍挡住：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
           : result.blockedReason === 'movement-in-progress'
             ? '玩家仍在上一次移动或转向过程中。'
-            : `相对移动被地图边界阻挡：目标格 (${result.to.tileX}, ${result.to.tileY})。`;
+            : `相对移动被地图边界阻挡：目标格 (${result.to.tileX}, ${result.to.tileY})。`);
         return;
       }
       syncMarker();

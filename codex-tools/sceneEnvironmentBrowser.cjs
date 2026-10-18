@@ -56,15 +56,38 @@ app.whenReady().then(async () => {
       boxRow.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,button:2,clientX:120,clientY:120}));
       await wait(()=>button('添加模型'));
       button('添加模型').click();
+      let assetEntry=button('添加模型').closest('.command-menu-entry');
+      for(const segment of ['GLB','artist_t4kum','ClosedBoxes']){
+        const submenu=assetEntry.querySelector(':scope > .command-submenu');
+        const folder=[...submenu.children].map(entry=>entry.querySelector(':scope > button')).find(entry=>entry?.hasAttribute('aria-haspopup') && entry.textContent.includes(segment));
+        if(folder){folder.click();assetEntry=folder.closest('.command-menu-entry');}
+      }
       await wait(()=>button('ClosedBox01.glb'));
-      const folders=[];let assetEntry=button('ClosedBox01.glb').closest('.command-menu-entry');
-      while((assetEntry=assetEntry.parentElement.closest('.command-menu-entry')))folders.unshift(assetEntry.querySelector('button'));
-      folders.forEach(folder=>folder.click());
       button('ClosedBox01.glb').click();
       await wait(()=>ready() && draft().models.length===2 && draft().models[1].modelPath.endsWith('artist_t4kum/ClosedBoxes/ClosedBox01.glb'));
       check(draft().models[1].parentId==='object:box','Added model did not inherit the context parent');
       check(runtime().getTransformNodeByName('child:'+draft().models[1].id).parent===runtime().getMeshByName('box'),'Async model was not attached to its declared parent');
       button('撤销').click(); await wait(()=>ready() && draft().models.length===1);
+      phase = 'object clipboard and delete';
+      const openObjectMenu = name => {
+        const row=[...document.querySelectorAll('.editor-hierarchy-row')].find(row=>row.querySelector('.editor-hierarchy-label')?.textContent===name);
+        check(row, 'Missing object row '+name);
+        row.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,button:2,clientX:120,clientY:120}));
+      };
+      openObjectMenu('Browser Box'); button('复制对象').click();
+      openObjectMenu('Browser Box'); button('粘贴到此节点').click();
+      await wait(()=>ready() && draft().objects.some(item=>item.id==='box-copy-1'));
+      check(draft().objects.find(item=>item.id==='box-copy-1').parentId==='object:box','Copied object parent was not set');
+      openObjectMenu('Browser Box 副本'); button('剪切对象').click();
+      await wait(()=>ready() && !draft().objects.some(item=>item.id==='box-copy-1'));
+      document.querySelector('.environment-hierarchy-menu-area').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,button:2,clientX:120,clientY:120}));
+      button('粘贴到根层级').click();
+      await wait(()=>ready() && draft().objects.some(item=>item.id==='box-copy-1'));
+      check(draft().objects.find(item=>item.id==='box-copy-1').parentId===null,'Cut object was not pasted at root');
+      openObjectMenu('Browser Box 副本'); button('删除对象').click();
+      await wait(()=>ready() && !draft().objects.some(item=>item.id==='box-copy-1'));
+      button('撤销').click(); await wait(()=>ready() && draft().objects.some(item=>item.id==='box-copy-1'));
+      button('重做').click(); await wait(()=>ready() && !draft().objects.some(item=>item.id==='box-copy-1'));
       select('Browser Hemi'); await wait(()=>input('地面颜色')); check(!input('阴影预设（清空关闭阴影）'),'Hemi exposed shadow');
       select('Browser Sun'); await wait(()=>input('阴影预设（清空关闭阴影）')); check(!input('照明范围'),'Sun exposed point range');
       select('Browser Point'); await wait(()=>input('照明范围'));

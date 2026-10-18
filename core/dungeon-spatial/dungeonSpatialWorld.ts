@@ -255,7 +255,7 @@ export class DungeonSpatialWorld {
     this.changed({ kind: 'actor-unregistered', actorId, fromTileIndex: actor.tileIndex });
   }
 
-  moveActor(actorId: string, toTileIndex: number, requestId?: string, options: { allowOutsideMap?: boolean; ignoreDynamicOccupancy?: boolean } = {}): void {
+  moveActor(actorId: string, toTileIndex: number, requestId?: string, options: { allowOutsideMap?: boolean; ignoreDynamicOccupancy?: boolean; preservePose?: boolean } = {}): void {
     const actor = this.actors.get(actorId);
     if (!actor) throw new Error(`不存在通行 Actor“${actorId}”。`);
     if ((!Number.isInteger(toTileIndex) || !this.occupantIdsByTile[toTileIndex]) && !(options.allowOutsideMap && toTileIndex === -1)) {
@@ -270,7 +270,13 @@ export class DungeonSpatialWorld {
     const fromTileIndex = actor.tileIndex;
     this.occupantIdsByTile[fromTileIndex]?.delete(actorId);
     actor.tileIndex = toTileIndex;
-    const movedBody = this.body(actorId); if (movedBody) { movedBody.presentationOffset=undefined;movedBody.pose = {x:movedBody.logicalPosition.tileX,y:movedBody.logicalPosition.tileY};indexSpatialBody(this.spatial,movedBody); }
+    const movedBody = this.body(actorId); if (movedBody) {
+      movedBody.presentationOffset=undefined;
+      if (!options.preservePose) {
+        movedBody.pose = {x:movedBody.logicalPosition.tileX,y:movedBody.logicalPosition.tileY};
+        indexSpatialBody(this.spatial,movedBody);
+      }
+    }
     this.occupantIdsByTile[toTileIndex]?.add(actorId);
     if (fromTileIndex !== toTileIndex) {
       this.changed({ kind: 'actor-moved', actorId, requestId, fromTileIndex, toTileIndex });

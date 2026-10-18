@@ -47,8 +47,9 @@ test('model menu keeps distinct files and collapses shared public directories', 
   assert.deepEqual(entries.map(item => 'label' in item ? item.label : ''), ['Characters / Hero', 'GLB / artist_t4kum / ClosedBoxes']);
   const glb = entries.find(item => 'label' in item && item.label === 'GLB / artist_t4kum / ClosedBoxes');
   assert.ok(glb && 'children' in glb);
-  assert.deepEqual(glb.children?.map(item => 'label' in item ? item.label : ''), ['ClosedBox01.glb', 'ClosedBox02.glb']);
-  const leaf = glb.children?.[1];
+  const children = typeof glb.children === 'function' ? glb.children() : glb.children ?? [];
+  assert.deepEqual(children.map(item => 'label' in item ? item.label : ''), ['ClosedBox01.glb', 'ClosedBox02.glb']);
+  const leaf = children[1];
   if (leaf && 'action' in leaf) leaf.action?.();
   assert.deepEqual(chosen, ['/resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox02.glb']);
   const flat = modelAssetMenuEntries(['/resources/Model/GLB/artist_t4kum/ClosedBoxes/ClosedBox01.glb'], () => {});

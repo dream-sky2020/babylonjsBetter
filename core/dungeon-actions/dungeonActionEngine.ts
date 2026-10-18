@@ -1,5 +1,5 @@
 import type { DungeonTraversalWorld } from '../dungeon-traversal/index.ts';
-import { requestSpatialGroup, advanceSpatialGroups, spatialGroupProgress, DEFAULT_SWAP_DURATION_SECONDS, type SpatialActionGroup } from './dungeonActionGroup.ts';
+import { requestSpatialGroup, advanceSpatialGroups, spatialGroupProgress, configurePushTiming, configureSwapTiming, DEFAULT_SWAP_DURATION_SECONDS, type SpatialActionGroup } from './dungeonActionGroup.ts';
 import { indexSpatialBody, sweepSpatialBody } from '../dungeon-spatial/dungeonSpatialGeometry.ts';
 import type { SpatialBody } from '../dungeon-spatial/dungeonSpatialState.ts';
 import { spatialPresentationPose } from '../dungeon-spatial/dungeonSpatialState.ts';
@@ -29,6 +29,13 @@ const requireUnitInterval = (value: number, label: string): number => {
   return value;
 };
 
+/** One authoritative classification for action admission; a presentation track may mirror a move. */
+export type DungeonActorActionState =
+  | { kind: 'idle' }
+  | { kind: 'move' | 'rollback'; request: DungeonMoveRequest }
+  | { kind: 'track' }
+  | { kind: 'group'; group: SpatialActionGroup };
+
 /**
  * 管理格步的临时目标占位。实占位仍由 DungeonTraversalWorld 持有，只有 Commit 时才移动。
  * Resolver 不依赖 Babylon；表现层只读取 visualProgress 播放 Forward 或 Rollback。
@@ -48,21 +55,48 @@ export class DungeonActionEngine {
     for(const member of group.members) {
       const body=this.traversal.body(member.actorId)!,original=member.path;
       member.recoveryOffset=body.presentationOffset?{...body.presentationOffset}:undefined;
-      const scaled=spatialGroupProgress(group,group.elapsed/group.duration,original.length-1);
+      const scaled=spatialGroupProgress(group,group.elapsed/group.duration,original.length-1,member);
       const index=Math.min(original.length-2,Math.floor(scaled));
       member.path=group.committed?[{...body.pose},...original.slice(index+1)]:[{...body.pose},...original.slice(0,index+1).reverse()];
       if(member.path.length<2)member.path.push({...body.pose});
     }
-    group.elapsed=0;group.duration=.25;group.recovering=true;
+    group.elapsed=0;group.duration=group.kind==='swap'?.001:.25;group.recovering=true;
+    if(group.kind==='push'&&group.secondsPerTile)configurePushTiming(group);
+    if(group.kind==='swap'&&group.secondsPerTile)configureSwapTiming(this,group);
   }
   worldPositionFor?: (x: number, y: number) => [number, number, number];
   /** Cosmetic distance in tile units; zero gives a plain 2D crossing. */
   swapPresentationOffset = .12;
   projectBody(body: SpatialBody) { if (this.worldPositionFor) { const pose=spatialPresentationPose(body);body.worldPosition = this.worldPositionFor(pose.x, pose.y); } }
-  requestPush(actorId: string, direction: DungeonMovementDirection, duration = .6) { return requestSpatialGroup(this, 'push', actorId, direction, duration); }
-  requestSwap(actorId: string, otherId: string, duration = DEFAULT_SWAP_DURATION_SECONDS) { return requestSpatialGroup(this, 'swap', actorId, otherId, duration); }
+  /** The duration of walking one tile; contact distance adds time instead of accelerating the push. */
+  requestPush(actorId: string, direction: DungeonMovementDirection, secondsPerTile = .6) { return requestSpatialGroup(this, 'push', actorId, direction, secondsPerTile); }
+  /** Presented path follows initiator speed by default; tile timing can ignore the cosmetic detour. */
+  requestSwap(actorId: string, otherId: string, minimumDuration = DEFAULT_SWAP_DURATION_SECONDS,
+    secondsPerTile = .6, includePresentationDistance = true,
+    priority?: {basePriority?:number;progressWeight?:number}) {
+    return requestSpatialGroup(this, 'swap', actorId, otherId, minimumDuration, secondsPerTile, includePresentationDistance,priority);
+  }
   private advanceGroups(delta: number, ready: () => boolean) { advanceSpatialGroups(this, delta, ready); }
   get samples() { return this.storage.samples!; }
+  /** A committed move owns its destination; its old tile may be entered while its pose finishes travelling. */
+  private releasedTileHandoffIds(request: DungeonMoveRequest): Set<string> {
+    const partners = new Set<string>();
+    if (request.state === 'rollback') return partners;
+    if (request.state === 'forward-after-commit') for (const actorId of request.releasedTileHandoffActorIds ?? []) {
+      const body = this.traversal.body(actorId);
+      const next = this.getActiveRequest(actorId);
+      if (body?.tileIndex === request.fromTileIndex
+        || (next?.state !== 'rollback' && (next?.fromTileIndex === request.fromTileIndex
+          || next?.toTileIndex === request.fromTileIndex))) partners.add(actorId);
+    }
+    for (const other of this.requests.values()) {
+      if (other.actorId === request.actorId || other.state === 'rollback') continue;
+      const handoff = (other.state === 'forward-after-commit' && other.fromTileIndex === request.toTileIndex)
+        || (request.state === 'forward-after-commit' && request.fromTileIndex === other.toTileIndex);
+      if (handoff) partners.add(other.actorId);
+    }
+    return partners;
+  }
   /** Only this method advances physical requests in a composed session. Projectors read samples. */
   tick(delta: number, project: (delta: number) => void = () => {}, ready: () => boolean = () => true): void {
     if (!Number.isFinite(delta) || delta < 0) throw new RangeError('动作时间必须非负有限。');
@@ -85,7 +119,7 @@ export class DungeonActionEngine {
         if (Number.isFinite(until) && until > 1e-9) slice = Math.min(slice, until);
       }
       for (const group of this.storage.groups!.values()) if (group.status === 'running') {
-        const marks=group.recovering?[1]:group.kind==='push'?[.2,.5,.8,1]:[.5,1];
+        const marks=[...new Set([...(group.segmentEndProgress??[]),...(group.recovering||group.kind==='swap'?[]:[.5]),1])].sort((a,b)=>a-b);
         for(const mark of marks){const until=group.duration*mark-group.elapsed;if(until>1e-9){slice=Math.min(slice,until);break;}}
       }
       for (const request of this.requests.values()) {
@@ -106,7 +140,7 @@ export class DungeonActionEngine {
             ? (request.rollbackStartProgress??0)*(1-Math.min(1,((request.rollbackElapsedSeconds??0)+slice)/Math.max(1e-9,request.rollbackDurationSeconds??0)))
             : Math.min(1,(request.elapsedSeconds+slice)/Math.max(1e-9,request.durationSeconds));
           const target={x:request.fromTileIndex%this.traversal.map.width+vector.x*progress,y:Math.floor(request.fromTileIndex/this.traversal.map.width)+vector.y*progress};
-          const hits=sweepSpatialBody(this.traversal.spatial,body,body.pose,target);
+          const hits=sweepSpatialBody(this.traversal.spatial,body,body.pose,target,this.releasedTileHandoffIds(request));
           if(hits.length){
             if(request.state==='forward-before-commit')this.beginRollback(request);
             else waiting=true;
@@ -232,9 +266,20 @@ export class DungeonActionEngine {
   }
 
   isBusy(actorId: string): boolean {
-    return this.activeRequestIdByActor.has(actorId) || this.storage.tracks!.has(actorId)
-      || [...this.storage.groups!.values()].some(group => group.status === 'running'
-        && group.members.some(member => member.actorId === actorId));
+    return this.actionStateOf(actorId).kind !== 'idle';
+  }
+  actionStateOf(actorId: string): DungeonActorActionState {
+    const group=[...this.storage.groups!.values()].find(value=>value.status==='running'
+      && value.members.some(member=>member.actorId===actorId));
+    if(group)return {kind:'group',group};
+    const request=this.getActiveRequest(actorId);
+    const hasTrack=this.storage.tracks!.has(actorId),track=this.storage.tracks!.get(actorId);
+    if(request?.state==='rollback')return {kind:'rollback',request};
+    if(hasTrack) {
+      if(!request || track===null || typeof track!=='object' || !('kind' in track) || !('requestId' in track)
+        || track.kind!=='move' || track.requestId!==request.id)return {kind:'track'};
+    }
+    return request?{kind:'move',request}:{kind:'idle'};
   }
   get hasActiveRequests(): boolean {
     return this.requests.size > 0 || [...this.storage.groups!.values()].some(group => group.status === 'running');
@@ -257,6 +302,18 @@ export class DungeonActionEngine {
     if (request.crossingPointIndex !== undefined) {
       this.movementReservationsByPoint[request.crossingPointIndex]?.delete(request.actorId);
     }
+  }
+
+  /** Called only after a replacement swap has passed all collision and reservation checks. */
+  supersedeMoveForSwap(request: DungeonMoveRequest, actionId: string): void {
+    if (this.getActiveRequest(request.actorId)?.id !== request.id) throw new Error('被换位接管的移动已失效。');
+    this.releaseReservation(request);
+    this.activeRequestIdByActor.delete(request.actorId);
+    this.requests.delete(request.id);
+    this.samples.delete(request.actorId);
+    this.changed({ kind: 'superseded', actorId: request.actorId, requestId: request.id,
+      fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex,
+      replacedByActionId: actionId, wasCommitted: request.state === 'forward-after-commit' });
   }
 
   private beginRollback(request: DungeonMoveRequest): void {
@@ -354,6 +411,14 @@ export class DungeonActionEngine {
     }
     winners.forEach((winner) => this.beginRollback(winner));
     if (winners.length) request.waitForActorIds = winners.map(winner => winner.actorId);
+    for (const other of this.requests.values()) {
+      // World listeners run inside moveActor(), before the request state flips.
+      const committed = other.state === 'forward-after-commit'
+        || (other.state === 'forward-before-commit'
+          && this.traversal.body(other.actorId)?.tileIndex === other.toTileIndex);
+      if (!committed || other.fromTileIndex !== request.toTileIndex) continue;
+      (other.releasedTileHandoffActorIds ??= []).push(request.actorId);
+    }
     this.requests.set(request.id, request);
     this.activeRequestIdByActor.set(request.actorId, request.id);
     if (!options.ignoreDynamicOccupancy) this.movementReservationsByTile[request.toTileIndex]?.set(request.actorId, request.id);
@@ -428,7 +493,7 @@ export class DungeonActionEngine {
           this.beginRollback(request);
           return { active: true, completed: false, committed: false, rolledBack: false, state: request.state, request, visualProgress, consumedSeconds, remainingSeconds: 0 };
         }
-        this.traversal.moveActor(request.actorId, request.toTileIndex, request.id, request);
+        this.traversal.moveActor(request.actorId, request.toTileIndex, request.id, { ...request, preservePose: true });
         this.releaseReservation(request);
         request.state = 'forward-after-commit';
         committed = true;

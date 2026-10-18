@@ -26,6 +26,7 @@ import { moveEnvironmentNode, reparentEnvironmentNode } from './sceneEnvironment
 import type { EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { mountEnvironmentEditor, openEnvironmentCreateMenu } from './sceneEnvironmentEditorView';
 import { addEnvironmentObject, type EnvironmentObjectKind } from './sceneEnvironmentObjects';
+import { deleteEnvironmentSelection, pasteEnvironmentSelection, type EnvironmentObjectClipboard } from './sceneEnvironmentClipboard';
 import { collectModelTextureStats, formatTextureBytes } from './sceneEnvironmentTextureStats';
 import { modelUvTextures, meshesUvTextures, type UvCoverage, type UvTexture } from './sceneEnvironmentUvCoverage';
 import { collectEnvironmentTextures, releaseTexturePreviews } from './sceneEnvironmentTextures';
@@ -317,6 +318,30 @@ const editorHost = {
       writePreset(result.preset);
     }
     catch (error) { pendingSelectionId = null; setStatus(`添加失败：${error instanceof Error ? error.message : String(error)}`, true); }
+  },
+  remove: (ids: readonly string[]) => {
+    const preset = library[activeKey];
+    if (!preset || !editor.enabled) return false;
+    editor.cancel();
+    try {
+      const next = deleteEnvironmentSelection(preset, ids);
+      if (next === preset) return false;
+      pendingSelectionId = null;
+      writePreset(next);
+      return true;
+    } catch (error) { setStatus(`删除失败：${error instanceof Error ? error.message : String(error)}`, true); return false; }
+  },
+  paste: (clipboard: EnvironmentObjectClipboard, parentId: string | null, preserveIds: boolean) => {
+    const preset = library[activeKey];
+    if (!preset || !editor.enabled) return false;
+    editor.cancel();
+    try {
+      const result = pasteEnvironmentSelection(preset, clipboard, parentId, preserveIds);
+      if (!result.selectedIds.length) return false;
+      pendingSelectionId = result.selectedIds[0];
+      writePreset(result.preset);
+      return true;
+    } catch (error) { pendingSelectionId = null; setStatus(`粘贴失败：${error instanceof Error ? error.message : String(error)}`, true); return false; }
   },
 };
 const editorView = mountEnvironmentEditor(editor, editorHost);

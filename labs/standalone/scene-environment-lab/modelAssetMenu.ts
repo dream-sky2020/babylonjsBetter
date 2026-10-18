@@ -31,7 +31,7 @@ export function modelAssetMenuEntries(paths: readonly string[], choose: (path: s
         const [onlyName, onlyChild] = child.folders.entries().next().value!;
         labels.push(displayName(onlyName)); child = onlyChild;
       }
-      return { id: `${key}/${part}`, label: labels.join(' / '), children: render(child, `${key}/${part}`) } satisfies CommandMenuEntry;
+      return { id: `${key}/${part}`, label: labels.join(' / '), children: () => render(child, `${key}/${part}`) } satisfies CommandMenuEntry;
     }),
     ...[...node.files].sort(([a], [b]) => compareNames(a, b)).map(([file, path]) => ({
       id: `model:${path}`, label: displayName(file), action: () => choose(path),

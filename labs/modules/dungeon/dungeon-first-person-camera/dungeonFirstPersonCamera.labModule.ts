@@ -26,6 +26,7 @@ import {
 const degToRad = (value: number): number => value * Math.PI / 180;
 const radToDeg = (value: number): number => value * 180 / Math.PI;
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));
+const DEFAULT_OVERHEAD_DISTANCE = 240;
 
 const createNumberInput = (value: number, min: number, max: number, step: number): HTMLInputElement => {
   const input = document.createElement('input');
@@ -93,7 +94,8 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     immediateRecenterButton.type = 'button';
     immediateRecenterButton.textContent = '立即回正';
     recenterActions.append(smoothRecenterButton, immediateRecenterButton);
-    const overheadDistanceInput = createNumberInput(64, 4, 120, 1);
+    const overheadDistanceInput = createNumberInput(DEFAULT_OVERHEAD_DISTANCE, 4, 300, 1);
+    overheadDistanceInput.dataset.playerCamera = 'overheadDistance';
     const overheadPitchInput = createNumberInput(55, 15, 85, 1);
     const overheadYawInput = createNumberInput(0, -180, 180, 1);
     const overheadTargetHeightInput = createNumberInput(0.8, -10, 20, 0.1);
@@ -133,7 +135,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       recenterActions,
       createLabField('俯视投影（第一人称固定透视）', projectionSelect),
       createLabField('正交垂直可见半范围（世界单位）', orthographicSizeInput),
-      createLabField('俯视距离', overheadDistanceInput),
+      createLabField('俯视镜头距离（世界单位；正交缩放由可见范围控制）', overheadDistanceInput),
       createLabField('俯视仰角（度）', overheadPitchInput),
       createLabField('俯视水平朝向（度，0=北朝上）', overheadYawInput),
       createLabField('俯视目标高度', overheadTargetHeightInput),
@@ -175,7 +177,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       projectionSelect.value = projectionSettings.projection;
       projectionSelect.disabled = !enabledToggle.input.checked || activeMode !== 'overhead';
       orthographicSizeInput.disabled = projectionSelect.disabled || projectionSettings.projection !== 'orthographic';
-      overheadDistanceInput.disabled = projectionSelect.disabled || (externalView?.config.projection ?? projectionSettings.projection) === 'orthographic';
+      overheadDistanceInput.disabled = projectionSelect.disabled;
       if (document.activeElement !== orthographicSizeInput) orthographicSizeInput.value = projectionSettings.orthographicSize === null ? '' : String(projectionSettings.orthographicSize);
     };
     // When the shared panel or native wheel changes the actual camera, read it back
@@ -295,7 +297,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       cameraState.orbitYaw = degToRad(externalView?.config.yawDeg ?? readClampedNumber(overheadYawInput, 0));
       cameraState.orbitPitchDeg = externalView?.config.pitchDeg ?? readClampedNumber(overheadPitchInput, 55);
       if (externalView) Object.assign(cameraState, { viewLocked: true, lowerAlphaLimit: null, upperAlphaLimit: null, lowerBetaLimit: .0001, upperBetaLimit: Math.PI - .0001 });
-      cameraState.orbitRadius = readClampedNumber(overheadDistanceInput, 32);
+      cameraState.orbitRadius = readClampedNumber(overheadDistanceInput, DEFAULT_OVERHEAD_DISTANCE);
       context.cameraController.applyPose();
       const projection = externalView?.config.projection ?? projectionSettings.projection;
       const size = externalView?.config.orthographicSize ?? projectionSettings.orthographicSize;

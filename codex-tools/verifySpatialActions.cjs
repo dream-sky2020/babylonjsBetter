@@ -17,7 +17,7 @@ app.whenReady().then(async()=>{
       const snapshot=()=>{const pre=document.querySelector('[data-spatial-summary]');if(!pre)throw new Error('空间摘要不存在');return JSON.parse(pre.textContent);};
       const require=(condition,message)=>{if(!condition)throw new Error(message);};
       require(!!button('向右推动'),'未初始化空间动作模块');await wait(400);
-      button('向右推动').click();await wait(1400);let rows=snapshot();
+      button('向右推动').click();await wait(1900);let rows=snapshot();
       require(rows.find(r=>r.id==='$dungeon-player').committed.tileX===2,'推动后的玩家位置错误');
       require(rows.find(r=>r.id==='box').committed.tileX===3,'箱子未被推动');
       const scenario=[...document.querySelectorAll('select')].find(s=>[...s.options].some(o=>o.value==='swap'));

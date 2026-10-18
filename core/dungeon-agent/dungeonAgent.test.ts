@@ -117,6 +117,29 @@ test('Agent Runtime 根据剩余路径建立并推进格子预约', () => {
   assert.equal(state.traversal.reservationsByTile[1].has('agent:guard'), false);
 });
 
+test('higher-priority swap clears an Agent move and route, then syncs its final anchor',()=>{
+  const document=migrateDungeonMapToDocumentV2({presetKey:'agent-swap',name:'Agent 换位',map:createDungeonMapData({
+    id:'agent-swap',width:3,height:1,
+    createTileData:({x})=>x===1?createEntityContainer(agentEntity()):undefined,
+  })}).document;
+  const map=createDungeonRuntimeMap(document),state=createDungeonAgentRuntimeState(map),engine=state.movementResolver;
+  state.traversal.registerActor({id:'high',kind:'dynamic',tileIndex:2,enabled:true,blocksMovement:true,movementProfileId:'ground'});
+  const agent=state.agents[0];
+  agent.navigationPlan={targetTileIndex:0,tileIndices:[1,0],directions:['west'],nextStepIndex:0,
+    totalCost:1,visitedCount:2,planSequence:1};
+  rebuildDungeonAgentPathReservations(state);
+  assert.equal(startDungeonAgentMovement(state,map,'agent:guard','west',{durationSeconds:1}).started,true);
+  engine.tick(.2);
+  const result=engine.requestSwap('high','agent:guard',0,1,true,{basePriority:10});
+  assert.equal(result.accepted,true);
+  assert.equal(agent.movement,null);
+  assert.equal(agent.navigationPlan,undefined);
+  assert.equal(state.traversal.reservationsByTile[0].has('agent:guard'),false);
+  engine.tick(result.durationSeconds!);
+  assert.equal(agent.tileIndex,2);
+  assert.equal(state.traversal.body('agent:guard')!.tileIndex,2);
+});
+
 test('扫描器拒绝缺少必需组件的 dungeon-agent', () => {
   const document = createDocument();
   document.components['agent-controller'] = [];

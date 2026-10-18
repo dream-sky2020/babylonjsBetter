@@ -4,11 +4,12 @@ import type { SceneEditor } from '@/core/scene-editor';
 import { SceneEditorHierarchy, SceneEditorToolbar, useSceneEditor } from '@/core/scene-editor/SceneEditorPanels';
 import { ObjectHierarchy, InspectorPanel, InspectorSection, type EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { openCommandMenuAtPoint, type CommandMenuEntry } from '@/core/ui/menu';
-import { loadModelAssetManifestByExtension } from '@/core/resources';
+import { loadModelAssetManifestByExtension, readBundledModelAssetPaths } from '@/core/resources';
 import { readBundledResourceAssetPaths } from '@/core/resources/resourceManifest';
 import type { SceneEnvironmentPreset } from '@/core/scene/sceneEnvironment.types';
 import { applyEnvironmentBatchFields, applyEnvironmentFields, commonEnvironmentFields, environmentFields, environmentTarget, fieldValue, formatField, type EnvironmentField, type EnvironmentVectorChanges } from './sceneEnvironmentFields';
 import { modelAssetMenuEntries } from './modelAssetMenu';
+import { copyEnvironmentSelection, type EnvironmentObjectClipboard } from './sceneEnvironmentClipboard';
 import type { EnvironmentObjectKind } from './sceneEnvironmentObjects';
 import type { EnvironmentModelAssetProperties } from './sceneEnvironmentAdapter';
 import { environmentNodeEntries, environmentParentCandidates } from '@/core/scene/sceneEnvironment.hierarchy';
@@ -22,6 +23,8 @@ import { EnvironmentWorkspace, WorkspaceButtons, createWorkspacePreferences } fr
 export type EnvironmentEditorHost = {
   read(): SceneEnvironmentPreset | undefined; write(preset: SceneEnvironmentPreset): void;
   create(kind: EnvironmentObjectKind, modelPath?: string, parentId?: string | null): void;
+  remove(ids: readonly string[]): boolean;
+  paste(clipboard: EnvironmentObjectClipboard, parentId: string | null, preserveIds: boolean): boolean;
   reparent(id: string, parentId: string | null): void; shadowKeys(): string[];
   canMove(intent: EditorHierarchyDropIntent): boolean; move(intent: EditorHierarchyDropIntent): void;
   markersVisible(): boolean; setMarkersVisible(visible: boolean): void;
@@ -37,21 +40,45 @@ export type EnvironmentEditorHost = {
   modelMaterials?(id: string): { gltfMaterialIndex: number; name: string; textures: Record<string, string | null> }[];
 };
 
-export async function openEnvironmentCreateMenu(x: number, y: number, host: EnvironmentEditorHost, selectedId: string | null = null) {
+const modelExtension = /\.(glb|gltf)$/i;
+let modelPaths = readBundledModelAssetPaths().filter(path => modelExtension.test(path));
+let modelRefreshStarted = 0;
+let modelRefreshPending: Promise<void> | null = null;
+let objectClipboard: { content: EnvironmentObjectClipboard; cut: boolean } | null = null;
+function refreshModelPaths() {
+  if (modelRefreshPending || Date.now() - modelRefreshStarted < 30_000) return;
+  modelRefreshStarted = Date.now();
+  modelRefreshPending = loadModelAssetManifestByExtension(modelExtension)
+    .then(paths => { modelPaths = paths; })
+    .finally(() => { modelRefreshPending = null; });
+}
+
+export function openEnvironmentCreateMenu(x: number, y: number, host: EnvironmentEditorHost, selectedId: string | null = null, selectedIds: readonly string[] = selectedId ? [selectedId] : []) {
   const preset = host.read();
   if (!preset || (selectedId && selectedId !== 'scene' && !environmentNodeEntries(preset).some(entry => entry.id === selectedId))) {
     return;
   }
-  const models = await loadModelAssetManifestByExtension(/\.(glb|gltf)$/i);
-  if (host.read() !== preset) return;
+  refreshModelPaths();
   const parentId = selectedId && selectedId !== 'scene' && !selectedId.startsWith('light:') ? selectedId : null;
+  const objectIds = selectedIds.filter(id => id !== 'scene');
+  const copySelection = () => copyEnvironmentSelection(host.read()!, objectIds);
   const entry = (kind: EnvironmentObjectKind, label: string): CommandMenuEntry => ({ id: `create-${kind}`, label, action: () => host.create(kind, undefined, parentId) });
-  const modelEntries = modelAssetMenuEntries(models, path => host.create('model', path, parentId));
+  const modelEntries = modelAssetMenuEntries(modelPaths, path => host.create('model', path, parentId));
   openCommandMenuAtPoint(x, y, [
     entry('empty', '添加空节点'), entry('rig', '添加 Rig'), entry('socket', '添加 Socket 挂点'),
     { id: 'geometry', label: '添加几何体', children: [entry('ground', '地面'), entry('box', '方盒'), entry('cylinder', '圆柱')] },
     { id: 'model', label: '添加模型', disabled: modelEntries.length === 0, children: modelEntries },
     { id: 'light', label: '添加光源', children: [entry('hemispheric', '半球光'), entry('directional', '方向光'), entry('point', '点光')] },
+    { type: 'separator' },
+    { id: 'copy', label: '复制对象', disabled: !objectIds.length, action: () => { objectClipboard = { content: copySelection(), cut: false }; } },
+    { id: 'cut', label: '剪切对象', disabled: !objectIds.length, action: () => {
+      const content = copySelection();
+      if (host.remove(objectIds)) objectClipboard = { content, cut: true };
+    } },
+    { id: 'paste', label: parentId ? '粘贴到此节点' : '粘贴到根层级', disabled: !objectClipboard, action: () => {
+      if (objectClipboard && host.paste(objectClipboard.content, parentId, objectClipboard.cut) && objectClipboard.cut) objectClipboard = null;
+    } },
+    { id: 'delete', label: '删除对象', danger: true, disabled: !objectIds.length, action: () => { host.remove(objectIds); } },
     ...(selectedId && selectedId !== 'scene' ? [{ id: 'move-root', label: '移至根层级（保持世界姿态）', action: () => { try { host.reparent(selectedId, null); } catch { /* Host reports the failure in the scene status. */ } } }] : []),
   ], parentId ? '在此节点下添加' : '添加场景对象');
 }
@@ -329,7 +356,7 @@ export function mountEnvironmentEditor(editor: SceneEditor, host: EnvironmentEdi
           </>;
         }}
         onSelectionChange={(next, mode) => { chooseMaterial(null); selection.change(next, mode); }} canDrop={host.canMove} onMove={host.move}
-        onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); chooseMaterial(null); selection.replace([id]); void openEnvironmentCreateMenu(event.clientX, event.clientY, host, id); }} />
+        onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); chooseMaterial(null); if (!selection.ids.includes(id)) selection.replace([id]); void openEnvironmentCreateMenu(event.clientX, event.clientY, host, id, selection.ids); }} />
     </div>;
   }
   function Materials() {

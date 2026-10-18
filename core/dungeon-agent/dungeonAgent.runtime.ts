@@ -52,7 +52,33 @@ export const createDungeonAgentRuntimeState = (
       movementProfileId: agent.binding.gridAgent.movementProfileId,
     });
   });
+  movementResolver.subscribe(change => {
+    if(change.kind!=='superseded'||!change.actorId)return;
+    const agent=agents.find(row=>row.binding.entity.id===change.actorId);
+    if(!agent)return;
+    const body=traversal.body(change.actorId);
+    if(body)agent.tileIndex=body.tileIndex;
+    agent.movement=null;
+    agent.navigationPlan=undefined;
+    traversal.clearReservations(change.actorId);
+    agent.reservationPlanSequence=undefined;
+    agent.reservationStartIndex=undefined;
+    storage?.activeAgentIds.delete(change.actorId);
+  });
   const turnCounter = storage?.turnCounter ?? { turnNumber: 0 };
+  movementResolver.subscribeGroupCompleted(group => {
+    if(group.kind!=='swap')return;
+    for(const member of group.members) {
+      const index=agents.findIndex(agent=>agent.binding.entity.id===member.actorId);
+      if(index<0)continue;
+      const agent=agents[index],body=traversal.body(member.actorId);
+      if(body)agent.tileIndex=body.tileIndex;
+      agent.navigationPlan=undefined;
+      traversal.clearReservations(member.actorId);
+      agent.reservationPlanSequence=undefined;
+      agent.reservationStartIndex=undefined;
+    }
+  });
   return {
     // Rebuildable execution indexes contain facades, never a second copy of agent state.
     activeAgents: storage ? undefined : new Set(),
@@ -285,6 +311,15 @@ export const updateDungeonAgentMovements = (
     if (!agent.movement) { deactivateAgent(state, agent); return; }
     if (agent.movement.kind === 'move' || agent.movement.kind === 'rollback') {
       const advance = state.movementResolver.advanceActor(agent.binding.entity.id, deltaSeconds);
+      if (!advance.active && !advance.completed && !state.movementResolver.getActiveRequest(agent.binding.entity.id)) {
+        const body=state.traversal.body(agent.binding.entity.id);
+        if(body)agent.tileIndex=body.tileIndex;
+        agent.navigationPlan=undefined;
+        syncDungeonAgentPathReservation(state,agent);
+        agent.movement=null;
+        deactivateAgent(state,agent);
+        return;
+      }
       if (advance.state === 'rollback') {
         agent.movement.kind = 'rollback';
         agent.navigationPlan = undefined;

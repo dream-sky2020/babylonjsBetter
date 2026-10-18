@@ -44,8 +44,10 @@ export type DungeonPlayerMovementOptions = {
   movementSpeed?: number;
   /** 每跨越一格所需秒数，默认 1；仅用于 seconds-per-tile。 */
   movementSecondsPerTile?: number;
-  /** Swap has its own duration, independent of walking speed. */
+  /** Optional minimum swap duration; zero (default) follows movement timing exactly. */
   swapDurationSeconds?: number;
+  /** In world-speed mode, ignore the cosmetic sidestep when computing swap duration. */
+  swapIgnorePresentationDistance?: boolean;
   /** 转向计时模式；默认按弧度/秒。 */
   turnTimingMode?: DungeonPlayerTurnTimingMode;
   /** 弧度/秒，默认一秒旋转一整圈；仅用于 radians-per-second。 */
@@ -191,6 +193,10 @@ const assertPositiveSpeed = (value: number, label: string): number => {
   if (!Number.isFinite(value) || value <= 0) throw new RangeError(`${label}必须是大于 0 的有限数值。`);
   return value;
 };
+const assertNonnegativeDuration = (value: number, label: string): number => {
+  if (!Number.isFinite(value) || value < 0) throw new RangeError(`${label}必须是非负有限数值。`);
+  return value;
+};
 
 const distance3d = (from: DungeonRuntimeWorldPosition, to: DungeonRuntimeWorldPosition): number => Math.hypot(
   to[0] - from[0], to[1] - from[1], to[2] - from[2],
@@ -262,26 +268,36 @@ export const startDungeonPlayerMovement = (
       const step = world.inspectStep(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, positionIndex(runtime, from), direction,
         { ignoreBodyIds: [target.id] });
       if (!step.blockedReason) {
+        const walkingTileSeconds = resolveMovementDuration(distance3d(
+          [...options.resolveWorldPosition(from)], [...options.resolveWorldPosition(to)]), direction, options);
         const duration = actionKind === 'swap'
-          ? assertPositiveSpeed(options.swapDurationSeconds ?? DEFAULT_SWAP_DURATION_SECONDS, '换位耗时')
-          : Math.max(.08, resolveMovementDuration(distance3d(
-            [...options.resolveWorldPosition(from)], [...options.resolveWorldPosition(to)]), direction, options));
+          ? assertNonnegativeDuration(options.swapDurationSeconds ?? DEFAULT_SWAP_DURATION_SECONDS, '换位最短耗时')
+          : Math.max(.08, walkingTileSeconds);
         const result = actionKind === 'push'
           ? runtime.movementResolver.requestPush(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, direction, duration)
-          : runtime.movementResolver.requestSwap(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, target.id, duration);
+          : runtime.movementResolver.requestSwap(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, target.id, duration,
+            walkingTileSeconds, options.movementTimingMode !== 'seconds-per-tile' && !options.swapIgnorePresentationDistance,
+            {basePriority:runtime.movementResolver.config.playerBasePriority,
+              progressWeight:runtime.movementResolver.config.progressWeight});
         if (result.accepted) {
           if (options.faceMovementDirection ?? true) {
             runtime.playerFacing = resolveDungeonCardinalFacing(direction);
             runtime.playerWorldRotationY = getDungeonMovementDirectionYaw(direction);
           }
           return { started: true, completed: false, direction, from, to, actionId: result.actionId,
-            actionKind, actionDurationSeconds: duration };
+            actionKind, actionDurationSeconds: result.durationSeconds ?? duration };
         }
         interactionFailure = { kind: actionKind, reason: result.reason ?? 'blocked', blockingEntityIds: result.blockingEntityIds };
       } else {
         interactionFailure = { kind: actionKind, reason: step.blockedReason, blockingEntityIds: step.blockingEntityIds };
       }
     }
+  }
+  // Action admission failed before a physical interaction began. Report the
+  // executor's decision without staging a misleading collision animation.
+  if (interactionFailure?.kind === 'swap'
+    && (interactionFailure.reason === 'movement-in-progress' || interactionFailure.reason === 'priority-conflict')) {
+    return { ...inspection, interactionFailure };
   }
   const startBlockedAttempt = (
     blockedReason: 'map-boundary' | 'movement-obstacle' | 'direction-not-supported',
@@ -473,6 +489,16 @@ export const updateDungeonPlayerMovement = (
         consumedSeconds: 0, remainingSeconds: deltaSeconds,
       }
       : runtime.movementResolver.advanceActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, deltaSeconds);
+    if (!activeRequest && !advance.completed && !movement.positionCompleted) {
+      const body=runtime.traversal.body?.(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
+      runtime.playerMovement=null;
+      if(body) {
+        runtime.playerPosition={tileX:body.logicalPosition.tileX,tileY:body.logicalPosition.tileY};
+        if(runtime.movementResolver.worldPositionFor)runtime.playerWorldPosition=runtime.movementResolver.worldPositionFor(body.pose.x,body.pose.y);
+      }
+      return {active:false,completed:false,movementProgress:1,turnProgress:1,
+        consumedSeconds:0,remainingSeconds:deltaSeconds};
+    }
     const rotationConsumedSeconds = Math.min(
       deltaSeconds,
       Math.max(0, movement.turnDurationSeconds - movement.elapsedSeconds),

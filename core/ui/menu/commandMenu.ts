@@ -14,7 +14,7 @@ export type CommandMenuItem = Readonly<{
   disabled?: boolean;
   danger?: boolean;
   checked?: boolean;
-  children?: readonly CommandMenuEntry[];
+  children?: readonly CommandMenuEntry[] | (() => readonly CommandMenuEntry[]);
   action?: () => void;
 }>;
 
@@ -42,6 +42,7 @@ const VIEWPORT_GAP = 8;
 
 let activeMenu: { id: number; close: () => void } | null = null;
 let nextMenuId = 1;
+const lazySubmenus = new WeakMap<HTMLElement, { children: () => readonly CommandMenuEntry[]; closeAll: () => void }>();
 
 const iconPaths: Record<CommandMenuIcon, readonly string[]> = {
   focus: ['M8 2v2', 'M8 12v2', 'M2 8h2', 'M12 8h2', 'M8 5.25A2.75 2.75 0 1 0 8 10.75 2.75 2.75 0 0 0 8 5.25Z'],
@@ -127,6 +128,13 @@ const placeSubmenu = (entry: HTMLElement, submenu: HTMLElement): void => {
 const openChildMenu = (entry: HTMLElement, focusFirst: boolean): void => {
   const menu = entry.parentElement;
   const button = entry.firstElementChild;
+  const lazy = lazySubmenus.get(entry);
+  if (lazy) {
+    lazySubmenus.delete(entry);
+    const submenu = createMenuElement(lazy.children(), lazy.closeAll);
+    submenu.classList.add('command-submenu');
+    entry.append(submenu);
+  }
   const submenu = entry.lastElementChild;
   if (!(menu instanceof HTMLElement) || !(button instanceof HTMLButtonElement) || !(submenu instanceof HTMLElement)) return;
   closeChildMenus(menu, entry);
@@ -178,14 +186,19 @@ const createMenuElement = (items: readonly CommandMenuEntry[], closeAll: () => v
     label.textContent = item.label;
     button.append(iconSlot, label);
 
-    if (item.children?.length) {
+    if (item.children && (typeof item.children === 'function' || item.children.length > 0)) {
       const arrow = createSvg(['m6 3 5 5-5 5'], 'command-menu-arrow');
       button.append(arrow);
       button.setAttribute('aria-haspopup', 'menu');
       button.setAttribute('aria-expanded', 'false');
-      const submenu = createMenuElement(item.children, closeAll);
-      submenu.classList.add('command-submenu');
-      entry.append(button, submenu);
+      entry.append(button);
+      if (typeof item.children === 'function') {
+        lazySubmenus.set(entry, { children: item.children, closeAll });
+      } else {
+        const submenu = createMenuElement(item.children, closeAll);
+        submenu.classList.add('command-submenu');
+        entry.append(submenu);
+      }
       entry.addEventListener('pointerenter', () => openChildMenu(entry, false));
       button.addEventListener('click', () => openChildMenu(entry, true));
     } else {

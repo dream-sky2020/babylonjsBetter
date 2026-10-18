@@ -14,11 +14,19 @@
 - `dungeonSpatialWorld.ts`：统一占用、拓扑查询、路径软预约与整组原子提交。
 - `dungeonSpatialGeometry.ts`：增量局部索引、扫掠检测及环绕邻域；圆精确检测，混合矩形采用保守轴对齐包围检测。
 - `dungeonSpatialViews.ts`：旧障碍启用字段的 Body 门面，无第二份布尔状态。
-- `../dungeon-actions/`：唯一动作时钟；普通移动保留提交/回退仲裁，推动先接触再位移。换位直接沿双方连线推进，完成时原子提交；仅在双方之间忽略碰撞，墙与第三方继续检查。presentationOffset 是可清除的表现偏移，不参与碰撞或存档；默认最多0.12格，贴墙缩小至0，设为0可呈现2D直接交换。默认独立耗时0.25秒，单格窄道可换位。
+- `../dungeon-actions/`：唯一动作时钟；普通移动保留提交/回退仲裁，推动先接触再位移。换位直接沿双方连线推进，完成时原子提交；仅在双方之间忽略碰撞，墙与第三方继续检查。presentationOffset 是可清除的表现偏移，不参与碰撞或存档；默认最多0.12格，贴墙缩小至0，设为0可呈现2D直接交换。换位默认按发起者的普通移动速度在完整视觉路径上匀速播放；秒/格模式或显式选择时忽略错身附加距离。单格窄道可换位。
+
+普通格步在提交点仅释放旧格并占据目标格，Body.pose 继续按原动画进度播放，不在提交瞬间跳到目标格。此后其他玩家或 Agent 可立即申请进入释放的旧格；动作执行器对这对交接对象的普通移动扫掠互相豁免，直至离开者动画结束。后来者动画先结束也不会阻停离开者；无关第三方、静态障碍、地形及其他预约照常检查。显式传送继续同步逻辑格与姿态。
+
+动作准入由 `DungeonActionEngine.actionStateOf` 统一判断。共享动作存储中 Agent 的 `move` 表现轨道若与活动移动请求 ID 匹配，视为同一个动作，高优先级换位可接管；独立转向、失配轨道、回退和协同动作仍忙碌。玩家遇到忙碌或优先级不足的换位目标时直接显示拒绝原因，不播放受阻回弹；地形和真实碰撞仍沿原行为处理。
 
 装配层通过 `context.memory.acquire(DUNGEON_TRAVERSAL_STATE_MEMORY)` 和 `context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY)` 申请同一导出定义；候选由对应 `allocate...StateData` 分配，通过 Runtime 的 storage 参数注入，准备成功后 `handle.replace(candidate)`。Core 不申请 Lab 内存。
 
 运行 `npm run test:dungeon-spatial`、`npm run typecheck:dungeon-spatial`。完整范围与缺项见 `docs/dungeon-spatial-world-upgrade-validation-2026-10-17.md`。
+
+推动速度：`requestPush(actorId, direction, secondsPerTile)` 的第三参数是普通移动一格的耗时，接触间隙增加额外时间。阶段按双方各段最大距离计时，玩家不越过终点再回收，取消恢复也遵守同一速度上限。返回的 `durationSeconds` 才是整段动作实际时长；自动推动兼容世界单位/秒与秒/格模式，Lab 用实际时长安排续步。验证见 `docs/dungeon-push-speed-validation-2026-10-18.md`。
+
+换位速度：`requestSwap(actorId, otherId, minimumDuration, secondsPerTile, includePresentationDistance)` 的第四参数是发起者普通移动一格的耗时，第五参数决定错身额外距离是否参与计时。世界速度模式默认依据视觉曲线弧长等速播放；秒/格模式传入 false，正好用一格耗时，错身视觉仍保留。Lab 另有“换位计时忽略轻微错身距离”开关，供世界速度模式使用；最短耗时默认0，可显式放慢。打断回退按剩余距离与模式计时。验证见 `docs/dungeon-swap-speed-validation-2026-10-18.md`。
 
 迁移工具：
 

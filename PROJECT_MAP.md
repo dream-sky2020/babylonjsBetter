@@ -1,8 +1,32 @@
+## 2026-10-18：普通格步提交后的旧格交接
+
+`DungeonActionEngine` 在普通移动提交点只迁移 `DungeonSpatialWorld` 的逻辑占位，不再把移动中 Body 的连续 `pose` 瞬移到目标格；传送等显式 `moveActor` 调用仍同步姿态。提交后进入离开者旧格的普通移动请求记在离开者活动请求中，双方在该交接期间的逐帧扫掠互相豁免，但其余碰撞、目标占位和预约检查保留。即使后来者动画先完成，离开者仍继续原动画；取消或传送使交接关系失效。玩家、Agent、同步提交事件和整格碰撞体均有 Core 回归覆盖。
+
+## 2026-10-18：动作执行器统一移动状态与换位准入
+
+`DungeonActionEngine.actionStateOf` 统一分类空闲、普通移动、回退、独立轨道和协同动作。Agent 在共享 `dungeon.spatial-actions.tracks` 中保存的 `move` 轨道若 `requestId` 与同一执行器活动请求一致，只是该移动的表现门面，不再构成第二个忙碌动作；转向、失配轨道、回退与协同动作继续拒绝换位。玩家换位失败若仅因目标忙碌或优先级不足，直接显示执行器原因，不播放伪碰撞回弹。真实共享存储的提交前/后接管测试及 Agent Lab WebGL 验证覆盖此规则。
+
+## 2026-10-18：高优先级换位接管进行中的格步
+
+`core/dungeon-actions/` 的换位请求可携带发起者基础优先级；Player 自动换位传入现有 `playerBasePriority`。目标正在普通移动时，执行器以现有基础值加进度系数比较，平分沿用 Actor ID 仲裁。换位发起者自身忙碌、目标回退中或协同动作中仍拒绝。请求先检查双方逻辑锚点相邻、格边、真实轨迹、第三方碰撞与预约；全部通过后才原子安装换位组、释放目标旧预约并发出 `superseded` 事件。提交前接管使用目标原锚点，提交后使用已提交锚点，不撤销已经提交的格步。
+
+换位双方由各自当下的 Body.pose 直达对方逻辑锚点，保留安全的轻微错身。每条视觉轨迹独立计算弧长，较短者延后出发，按发起者速度同时到达；显式最短时长可整体放慢。秒/格与忽略错身距离模式按格心距离计时。Player 和 Agent 门面在旧移动被接管时清理旧动作，Agent 同时失效寻路预约；换位完成再同步 Agent 权威锚点。相关测试覆盖提交前、提交后、优先级拒绝、轨迹拒绝与玩家自动交互。
+
+## 2026-10-18：换位按发起者速度匀速播放
+
+换位动作以发起者普通移动一格的耗时为速度基准。世界单位/秒模式默认把正弦轻微错身纳入视觉轨迹长度，通过派生弧长表按实际世界距离匀速推进；双方在视觉中保持发起者设定的速度。秒/格模式直接使用一格耗时，忽略错身附加距离。Player Lab 的“换位计时忽略轻微错身距离”开关让世界速度模式也只按格心距离计时，错身仍显示；最短耗时默认0，显式设置才会放慢。实际 durationSeconds 返回给长按续步，取消后的连续返回按当前模式重新计时。直接调用 requestSwap 可传入发起者的 secondsPerTile 和是否计入错身距离。共享状态仍位于 dungeon.spatial-actions；原子提交、预约和第三方碰撞检查不变。见 docs/dungeon-swap-speed-validation-2026-10-18.md。
+
+## 2026-10-18：推动速度上限
+
+推动请求的第三参数现在明确为推动者普通移动一格的耗时，而非整段动画耗时。SpatialActionGroup 在现有共享 dungeon.spatial-actions 内保存 secondsPerTile 与按各段最大移动距离派生的 segmentEndProgress，接触前距离额外增加耗时，取消恢复也按同一速度上限重新计时。玩家到目标格心即停，不再越过终点回收；物体在同一速度上限内补齐剩余位移。推动保持50%原子提交、连续扫掠与接触事件。GroupResult 返回实际 durationSeconds，玩家结果透传给 Lab 续步逻辑。世界单位速度与每格耗时两种模式都使用原移动计时解析，Core 不申请新内存或复制玩家状态。见 docs/dungeon-push-speed-validation-2026-10-18.md。
+
 ## 2026-10-18：相邻直线换位与表现错身
+
+新增 config/dungeonMapPresets/dungeon_push_test.json（推动测试场 · 极简城市），在同目录 index.json 注册，编辑器与组合式 Lab 通过现有目录加载。17×17、6单位格距、minimal-city 场景；出生(8,8)，道路上24个 movable/pushable/onPlayerPush=push 的静止测试实体，使用现有 dungeon-agent 标记呈现，stationary Controller 不自行移动或转向，无额外固定碰撞障碍或传送出口。场景建筑作为 minimal-city 的背景模型保留，未转换为空间 Body。四向出生对象、单体、相邻对及边界组覆盖成功/阻挡；空格供物体位移，不填满每个格子。真实运行验证加入 verifyAgentInteractionRuntime.cjs 的既有页面，检查24个权威 Body、场景、出生、玩家按钮推动及画面同步。
 
 换位的 Body.pose 沿双方连线平滑推进，仅双方互相忽略阻挡；双方间墙体、目标地形、第三方扫掠和动作预约仍检查。动作只锁定两个格子，完成时才原子交换逻辑锚点并触发一次玩家格步。中途取消连续返回原锚点，存档保存已提交锚点。推动仍在50%提交。
 
-SpatialBody.presentationOffset 是动作派生的可清除表现偏移，不参与碰撞、占位或存档；默认最多0.12格正弦错身，贴墙/边界按0.12、0.06、0减小，不因视觉绕行拒绝合法换位。engine.swapPresentationOffset=0 可用于2D表现。projectBody、Agent 的派生 poseX/Y 和空间动作示例读取同一表现姿态，取消/瞬移/恢复清除偏移。换位默认独立0.25秒，玩家移动面板提供“换位耗时（秒）”，绝对和相对移动共用此配置，不再复用走路时长。真实 Agent Lab 与构建版空间动作 Lab 的验证均覆盖新行为；报告见 docs/dungeon-direct-swap-validation-2026-10-18.md。
+SpatialBody.presentationOffset 是动作派生的可清除表现偏移，不参与碰撞、占位或存档；默认最多0.12格正弦错身，贴墙/边界按0.12、0.06、0减小，不因视觉绕行拒绝合法换位。engine.swapPresentationOffset=0 可用于2D表现。projectBody、Agent 的派生 poseX/Y 和空间动作示例读取同一表现姿态，取消/瞬移/恢复清除偏移。最初换位单独按0.25秒推进；现已改为按发起者速度计时，详见上面的换位规则。真实 Agent Lab 与构建版空间动作 Lab 的验证均覆盖新行为；报告见 docs/dungeon-direct-swap-validation-2026-10-18.md。
 
 ## 2026-10-18：Vite 开发服务监听地址统一
 
@@ -985,6 +1009,8 @@ Standard/PBR 使用 MaterialPlugin，Sprite 的普通/条纹/死亡 Recipe 通�
 ## 2026-09-26：Dungeon 玩家俯视相机正交配置
 
 `dungeon-first-person-camera/dungeonFirstPersonCamera.labModule.ts` 仍承载 `dungeon-player-camera` 实现，旧 ID 保持兼容。现有 `first-person / overhead` 两种玩家模式中，仅 overhead 开放透视/正交选择及正交垂直半范围；第一人称持续使用 Runtime 姿态绑定和独立透视 FOV。模块调用公共 `setProjection / setOrthographicSize`，不拥有视锥或 resize 监听；原生滚轮与共享浮动面板的实际投影/范围会读回玩家面板。切图重置跟随目标但保留投影设置。
+
+俯视镜头距离在透视和正交投影下均可调整，默认 240、面板范围 4–300 世界单位，驱动同一个 Orbit Camera 半径；正交可见范围仍由 `orthographicSize` 独立决定。统一俯视配置接管投影时，玩家相机面板仍可调整镜头距离。
 
 `dungeon-player-camera/dungeonPlayerCamera.projection.ts` 校验模块投影设置。设置注册为 LabState 的 `dungeon-player-camera/projection` v1，通过现有 Snapshot 显式保存/恢复；缺省为 perspective，`orthographicSize: null` 表示首次进入正交时由共享控制器匹配构图。旧 Boolean 页面偏好不变，不直接新增 localStorage 或写入地图/游戏配置。第一人称下恢复正交设置只影响下次俯视，不改变当前玩家驾驶视角。
 

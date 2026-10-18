@@ -7,7 +7,7 @@
 - `verifyDungeonMapBrowsers.cjs`：Vite 127.0.0.1:1184 启动后 `npm run test:dungeon-map-browsers-webgl`，验证三个浏览器的独立搜索、中文组件检索、实体/组件选中联动、折叠和隐藏、真实鼠标拖拽及边缘预览、键盘分隔调节、刷新恢复、窄屏，以及场景环境 Lab 的共享拖拽回归；不提交写请求。JSON 与默认/调整后截图位于 node_modules/.cache/dungeon-map-browsers-*。
 - `verifyDungeonMapPresetBaseline.cjs`：Vite 127.0.0.1:1184 启动后 `node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonMapPresetBaseline.cjs`，检查 Agent 广场无修改加载/重载不报未保存，真实编辑与撤销重做、跨预设切换和丢弃提醒保持有效；拒绝写请求，报告在 node_modules/.cache/dungeon-map-preset-baseline-verification.json。
 - `verifyAgentInteractionEditor.cjs`：Vite 127.0.0.1:1184 启动后，用 runElectronVerification.mjs 执行，逐一检查长廊4个、广场10个 Agent 默认换位、可移动及碰撞配置；检查只有阻挡/换位/推动三项、新建 Agent 自带换位，浏览不变脏；不提交写请求，报告位于 node_modules/.cache/agent-interaction-editor-verification.json。
-- `verifyAgentInteractionRuntime.cjs`：通过同一 launcher 执行，加载 `agentInteractionVerification.html`，复用真实 dungeon-agent-lab 模块和两张正式地图；核对14个 Agent，验证 AI 开启时换位、相对移动推动、阻挡、动作忙碌说明及静止 Agent 每片/最终图形同步。只改验证会话，JSON/PNG 输出在 node_modules/.cache/agent-interaction-runtime-verification.*；浏览器报错使验证失败。
+- `verifyAgentInteractionRuntime.cjs`：通过同一 launcher 执行，加载 `agentInteractionVerification.html`，复用真实 dungeon-agent-lab 模块与正式地图；核对14个 Agent，验证 AI 开启时换位、慢速玩家与双方等速换位、忽略错身距离开关、相对移动推动、阻挡、移动 Agent 的共享轨道接管及静止 Agent 每片/最终图形同步；另检查推动测试预设24个可推动实体、minimal-city 场景、出生点、玩家按钮推动与画面同步。只改验证会话，JSON/PNG 输出在 node_modules/.cache/agent-interaction-runtime-verification.*；浏览器报错使验证失败。
 
 - `buildSpatialActionsLab.mjs`：`npm run build:spatial-actions`，只构建统一空间动作页，不复制 public。
 - `verifySpatialActions.cjs`：构建后 `npm run test:spatial-actions-webgl`，Electron 实测推动、完成时原子换位、单格窄道换位并截图。

@@ -47,53 +47,67 @@
   "name": "极简城市",
   "objects": [
     {
-      "color": "#405442",
-      "geometry": {
-        "height": 120,
-        "primitive": "ground",
-        "width": 120
-      },
       "id": "ground",
       "name": "地面",
+      "geometry": {
+        "primitive": "ground",
+        "width": 120,
+        "height": 120
+      },
       "position": [
         0,
         0,
         0
       ],
+      "color": "#405442",
       "shadow": {
         "receive": true
       }
     },
     {
-      "color": "#252a31",
-      "geometry": {
-        "height": 110,
-        "primitive": "ground",
-        "width": 12
-      },
       "id": "road-main",
       "name": "主道路",
+      "geometry": {
+        "primitive": "ground",
+        "width": 12,
+        "height": 110
+      },
+      "scaling": [
+        1,
+        1,
+        1
+      ],
       "position": [
         0,
-        0.08,
+        0.21814563870429993,
         0
       ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": "#252a31",
       "shadow": {
         "receive": true
       }
     },
     {
-      "color": "#2b3038",
-      "geometry": {
-        "height": 110,
-        "primitive": "ground",
-        "width": 10
-      },
       "id": "road-cross",
       "name": "横向道路",
+      "geometry": {
+        "primitive": "ground",
+        "width": 10,
+        "height": 110
+      },
+      "scaling": [
+        1,
+        1,
+        1
+      ],
       "position": [
         0,
-        0.105,
+        0.4949531853199005,
         0
       ],
       "rotation": [
@@ -101,165 +115,236 @@
         1.5707963267948966,
         0
       ],
+      "color": "#2b3038",
       "shadow": {
         "receive": true
       }
     },
     {
-      "color": "#667487",
-      "geometry": {
-        "depth": 18,
-        "height": 18,
-        "primitive": "box",
-        "width": 15
-      },
       "id": "building-nw-1",
       "name": "西北建筑 1",
+      "geometry": {
+        "primitive": "box",
+        "width": 15,
+        "height": 18,
+        "depth": 18
+      },
+      "scaling": [
+        1,
+        1,
+        1
+      ],
       "position": [
-        -22,
+        -48.06296920776367,
         9,
         -28
       ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": "#667487",
       "shadow": {
         "cast": true,
         "receive": true
       }
     },
     {
-      "color": "#536273",
-      "geometry": {
-        "depth": 14,
-        "height": 11,
-        "primitive": "box",
-        "width": 18
-      },
       "id": "building-nw-2",
       "name": "西北建筑 2",
+      "geometry": {
+        "primitive": "box",
+        "width": 18,
+        "height": 11,
+        "depth": 14
+      },
+      "scaling": [
+        1,
+        1,
+        1
+      ],
       "position": [
         -38,
         5.5,
-        -7
+        -49.32692337036133
       ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": "#536273",
       "shadow": {
         "cast": true,
         "receive": true
       }
     },
     {
-      "color": "#718096",
-      "geometry": {
-        "depth": 20,
-        "height": 14,
-        "primitive": "box",
-        "width": 17
-      },
       "id": "building-ne-1",
       "name": "东北建筑 1",
+      "geometry": {
+        "primitive": "box",
+        "width": 17,
+        "height": 14,
+        "depth": 20
+      },
+      "scaling": [
+        1,
+        1,
+        1
+      ],
       "position": [
-        25,
+        45.7468376159668,
         7,
         -30
       ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": "#718096",
       "shadow": {
         "cast": true,
         "receive": true
       }
     },
     {
-      "color": "#59697b",
-      "geometry": {
-        "depth": 13,
-        "height": 22,
-        "primitive": "box",
-        "width": 14
-      },
       "id": "building-ne-2",
       "name": "东北建筑 2",
-      "position": [
-        38,
-        11,
-        -8
+      "geometry": {
+        "primitive": "box",
+        "width": 14,
+        "height": 22,
+        "depth": 13
+      },
+      "scaling": [
+        1,
+        1,
+        1
       ],
+      "position": [
+        44.585777282714844,
+        11,
+        -48.514854431152344
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": "#59697b",
       "shadow": {
         "cast": true,
         "receive": true
       }
     },
     {
-      "color": "#6a765f",
-      "geometry": {
-        "depth": 15,
-        "height": 13,
-        "primitive": "box",
-        "width": 20
-      },
       "id": "building-sw-1",
       "name": "西南建筑 1",
-      "position": [
-        -28,
-        6.5,
-        26
+      "geometry": {
+        "primitive": "box",
+        "width": 20,
+        "height": 13,
+        "depth": 15
+      },
+      "scaling": [
+        1,
+        1,
+        1
       ],
+      "position": [
+        -46.81382369995117,
+        6.5,
+        15.882891654968262
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": "#6a765f",
       "shadow": {
         "cast": true,
         "receive": true
       }
     },
     {
-      "color": "#556352",
-      "geometry": {
-        "depth": 17,
-        "height": 20,
-        "primitive": "box",
-        "width": 13
-      },
       "id": "building-sw-2",
       "name": "西南建筑 2",
+      "geometry": {
+        "primitive": "box",
+        "width": 13,
+        "height": 20,
+        "depth": 17
+      },
+      "scaling": [
+        1,
+        1,
+        1
+      ],
       "position": [
-        -43,
+        -44.48622131347656,
         10,
         45
       ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": "#556352",
       "shadow": {
         "cast": true,
         "receive": true
       }
     },
     {
-      "color": "#777064",
-      "geometry": {
-        "depth": 18,
-        "height": 17,
-        "primitive": "box",
-        "width": 18
-      },
       "id": "building-se-1",
       "name": "东南建筑 1",
+      "geometry": {
+        "primitive": "box",
+        "width": 18,
+        "height": 17,
+        "depth": 18
+      },
+      "scaling": [
+        1,
+        1,
+        1
+      ],
       "position": [
-        27,
+        43.74661636352539,
         8.5,
         27
       ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "color": "#777064",
       "shadow": {
         "cast": true,
         "receive": true
       }
     },
     {
-      "color": "#625d55",
-      "geometry": {
-        "depth": 20,
-        "height": 10,
-        "primitive": "box",
-        "width": 15
-      },
       "id": "building-se-2",
       "name": "东南建筑 2",
+      "geometry": {
+        "primitive": "box",
+        "width": 15,
+        "height": 10,
+        "depth": 20
+      },
       "position": [
         44,
         5,
         47
       ],
+      "color": "#625d55",
       "shadow": {
         "cast": true,
         "receive": true

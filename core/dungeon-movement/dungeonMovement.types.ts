@@ -34,6 +34,8 @@ export type DungeonMoveRequest = {
   readonly ignoreDynamicOccupancy?: boolean;
   readonly allowOutsideMap?: boolean;
   waitForActorIds?: string[];
+  /** Actors admitted into this move's released origin; retained until this animation completes. */
+  releasedTileHandoffActorIds?: string[];
   state: DungeonMoveRequestState;
   elapsedSeconds: number;
   rollbackStartProgress?: number;
@@ -112,7 +114,7 @@ export type DungeonMovementDebugSnapshot = Readonly<{
 /** 实际移动仲裁的离散变化，不包含逐帧的进度更新。 */
 export type DungeonMovementChange = Readonly<{
   kind: 'config-changed' | 'request-rejected' | 'request-accepted'
-    | 'rollback-started' | 'contact' | 'committed' | 'completed' | 'rolled-back' | 'cancelled';
+    | 'rollback-started' | 'contact' | 'committed' | 'completed' | 'rolled-back' | 'cancelled' | 'superseded';
   actorId?: string;
   requestId?: string;
   fromTileIndex?: number;
@@ -120,4 +122,6 @@ export type DungeonMovementChange = Readonly<{
   crossingPointIndex?: number;
   blockedReason?: DungeonMoveRequestResult['blockedReason'];
   blockingEntityIds?: readonly string[];
+  replacedByActionId?: string;
+  wasCommitted?: boolean;
 }>;
