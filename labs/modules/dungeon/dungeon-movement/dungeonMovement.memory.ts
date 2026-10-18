@@ -4,13 +4,13 @@ import type { DungeonMovementStorage } from '@/core/dungeon-movement/dungeonMove
 
 type Fields = Pick<DungeonMovementResolver, 'config' | 'activeRequests' | 'movementReservationsByTile' | 'movementReservationsByPoint'>;
 export type DungeonMovementStateData = { loadId: number; presetKey: string } & Fields
-  & Partial<Pick<DungeonMovementStorage, 'activeRequestIdByActor' | 'nextRequestSequence' | 'groups'>>;
+  & Partial<Pick<DungeonMovementStorage, 'activeRequestIdByActor' | 'nextRequestSequence' | 'groups' | 'timing'>>;
 export type DungeonMovementOwnedData = DungeonMovementStateData & DungeonMovementStorage;
 export const allocateDungeonMovementStateData = (loadId: number, presetKey: string,
   tileCount: number, pointCount: number): DungeonMovementOwnedData => ({
   loadId, presetKey, config: { progressWeight: 1, commitProgress: 0.5, playerBasePriority: 1000 },
   activeRequests: new Map(), activeRequestIdByActor: new Map(), nextRequestSequence: 1,
-  samples: new Map(), groups: new Map(), tracks: new Map(), simulationSeconds: 0,
+  samples: new Map(), groups: new Map(), tracks: new Map(), simulationSeconds: 0, timing:{pendingSeconds:0},
   movementReservationsByTile: Array.from({ length: tileCount }, () => new Map()),
   movementReservationsByPoint: Array.from({ length: pointCount }, () => new Map()),
 });
@@ -23,6 +23,7 @@ const reservations = (v: unknown) => Array.isArray(v) && v.every(ids => {
 const type = defineLabMemoryType<DungeonMovementStateData | null>('DungeonMovementStateData',
   (v): v is DungeonMovementStateData | null => {
     if (v === null) return true;
+    if(record(v)&&'timing' in v&&(!record(v.timing)||!Number.isFinite(v.timing.pendingSeconds)||(v.timing.pendingSeconds as number)<0))return false;
     if(record(v)&&'groups' in v&&(!(v.groups instanceof Map)||!(v.tracks instanceof Map)||!(v.samples instanceof Map)
       ||!Number.isFinite(v.simulationSeconds)||(v.simulationSeconds as number)<0))return false;
     if (!record(v) || !Number.isSafeInteger(v.loadId) || (v.loadId as number) <= 0 || typeof v.presetKey !== 'string'
@@ -47,6 +48,7 @@ export const DUNGEON_MOVEMENT_STATE_MEMORY = defineLabSharedData({
     loadId: v.loadId, presetKey: v.presetKey, config: { ...v.config }, activeRequestCount: v.activeRequests.size,
     groups: 'groups' in v ? v.groups : undefined, tracks: 'tracks' in v ? v.tracks : undefined,
     simulationSeconds: 'simulationSeconds' in v ? v.simulationSeconds : undefined, activeRequests: v.activeRequests, movementReservationsByTile: v.movementReservationsByTile,
+    timing: 'timing' in v ? v.timing : undefined,
     movementReservationsByPoint: v.movementReservationsByPoint,
     activeRequestIdByActor: 'activeRequestIdByActor' in v ? v.activeRequestIdByActor : undefined,
     nextRequestSequence: 'nextRequestSequence' in v ? v.nextRequestSequence : undefined,

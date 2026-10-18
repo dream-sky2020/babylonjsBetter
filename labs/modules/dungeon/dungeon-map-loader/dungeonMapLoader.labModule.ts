@@ -152,6 +152,11 @@ export const dungeonMapLoaderLabModule: LabModule = {
     deltaRefreshButton.textContent = '结算并刷新当前地图 Delta';
     const deltaJson = createLabJson('尚无地图 Delta。');
     const status = createLabStatus('等待地图装载……');
+    const actionStatus = createLabStatus('');
+    const actionDetails = createLabJson(''); actionDetails.hidden = true;
+    const reloadActions = document.createElement('button');
+    reloadActions.type = 'button'; reloadActions.textContent = '重新加载当前地图'; reloadActions.hidden = true;
+    let actionPause: (() => void) | null = null;
     panel.content.append(
       createLabField('地图预设', mapKey),
       createLabField('场景预设', sceneKey),
@@ -159,6 +164,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
       createLabField('地图结构差分', deltaRefreshButton),
       deltaJson,
       status,
+      actionStatus, reloadActions, actionDetails,
     );
 
     const stopSimulation = context.scheduler.register({ id: 'spatial-actions', phase: 'simulation', order: 100,
@@ -167,8 +173,18 @@ export const dungeonMapLoaderLabModule: LabModule = {
       run: delta => {
         if (!activeRuntime || activeRuntime.installedSystems?.movement === false) return;
         const runtime = activeRuntime;
-        runtime.movementResolver.tick(delta, slice => assembly.projectSimulation(slice),
+        const result=runtime.movementResolver.tick(delta, slice => assembly.projectSimulation(slice),
           () => activeRuntime === runtime && !assembly.isPaused);
+        if(activeRuntime!==runtime)return;
+        if(result.stall) {
+          actionPause??=assembly.acquirePause();
+          actionStatus.textContent=result.stall.message;
+          actionDetails.hidden=false;actionDetails.textContent=JSON.stringify(result.stall,null,2);
+          reloadActions.hidden=false;
+        } else if(result.yielded) {
+          actionStatus.textContent=`动作处理已分帧，待处理 ${result.remainingSeconds.toFixed(3)} 秒；模拟仍在继续。`;
+        } else if(!actionPause)actionStatus.textContent='';
+        if(result.yielded||result.stall)movementMemory.markChanged();
       },
     });
     let generation = 0;
@@ -409,6 +425,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
             sceneView.setCurrent(instance, binding.preset);
             activePresetKey = presetKey;
             activeRuntime = runtime;
+            actionPause?.(); actionPause=null;
+            actionStatus.textContent=''; actionDetails.hidden=true; reloadActions.hidden=true;
             activeSpawn = spawn;
             activeBaseDocument = baseDocument;
             activeLiveDocument = liveDocument;
@@ -489,6 +507,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
       },
       dispose() {
         stopSimulation();
+        actionPause?.(); actionPause=null;
         generation += 1;
         pendingLoad?.abort();
         pendingLoad = null;
@@ -520,6 +539,13 @@ export const dungeonMapLoaderLabModule: LabModule = {
         loadedStateRegistration.markChanged();
       },
     };
+    reloadActions.addEventListener('click',async()=>{
+      if(!activePresetKey)return;
+      reloadActions.disabled=true;
+      try {await loader.switchDungeon(activePresetKey);}
+      catch(error){actionStatus.textContent=error instanceof Error?error.message:String(error);}
+      finally {reloadActions.disabled=false;}
+    });
     context.communication.handle(dungeonMapSwitchRequest, async ({ presetKey, entranceId }) => ({
       loaded: await loader.switchDungeon(presetKey, { entranceId }),
       presetKey,

@@ -1,4 +1,5 @@
 import { createLab } from '../labs/kit';
+import { Engine } from '@babylonjs/core';
 import { dungeonLabModuleCatalog } from '../labs/modules/dungeon';
 import { DungeonRuntimeAssembly } from '../core/dungeon-runtime/dungeonRuntimeAssembly';
 import { setDungeonRuntimePlayerPosition } from '../core/dungeon-runtime/dungeonRuntime';
@@ -15,6 +16,9 @@ const settle = () => new Promise(resolve => setTimeout(resolve, 0));
 const same = (a: readonly number[], b: readonly number[]) => a.length === b.length && a.every((v, i) => Math.abs(v - b[i]) < 1e-6);
 
 async function run() {
+  let renderFrame: (()=>void) | undefined;
+  const runRenderLoop=Engine.prototype.runRenderLoop;
+  Engine.prototype.runRenderLoop=function(frame){renderFrame=frame;return runRenderLoop.call(this,frame);};
   let runtime: DungeonRuntime | undefined;
   let assembly: DungeonRuntimeAssembly | undefined;
   // Verification-only capture; production entries keep their service boundaries.
@@ -172,11 +176,69 @@ async function run() {
       assert(northObject.logicalPosition.tileY===6&&Number(pushRuntime.playerPosition.tileY)===7,'Push preset did not commit pushed positions');
       assert(same(pushMarker.position.asArray(),northObject.worldPosition!),'Push preset object visual did not follow');
       await settle();
+      // Exercise the actual createLab frame callback, not a separate test clock.
+      assert(renderFrame,'Host frame callback missing');
+      const hiddenDescriptor=Object.getOwnPropertyDescriptor(document,'hidden');
+      const originalGetDeltaTime=host.context.engine.getDeltaTime;
+      let hidden=false,frameMilliseconds=16;
+      Object.defineProperty(document,'hidden',{configurable:true,get:()=>hidden});
+      host.context.engine.getDeltaTime=()=>frameMilliseconds;
+      try {
+        document.dispatchEvent(new Event('visibilitychange'));renderFrame();
+        document.querySelector<HTMLButtonElement>('[data-move="east"]')!.click();
+        const request=pushRuntime.movementResolver.getActiveRequest('$dungeon-player');
+        assert(request,'Foreground movement did not start');renderFrame();
+        const before=request.elapsedSeconds;
+        hidden=true;document.dispatchEvent(new Event('visibilitychange'));frameMilliseconds=3600000;renderFrame();
+        assert(request.elapsedSeconds===before,'Hidden page advanced the simulation');
+        hidden=false;document.dispatchEvent(new Event('visibilitychange'));renderFrame();
+        assert(request.elapsedSeconds===before,'Resume fast-forwarded background time');
+        frameMilliseconds=16;renderFrame();
+        assert(Math.abs(request.elapsedSeconds-before-.016)<1e-9,'Foreground motion did not resume normally');
+        const after=request.elapsedSeconds;frameMilliseconds=7200000;renderFrame();
+        assert(request.elapsedSeconds===after,'Sleep without a visibility event fast-forwarded the simulation');
+        frameMilliseconds=16;renderFrame();
+        assert(Math.abs(request.elapsedSeconds-after-.016)<1e-9,'Motion did not resume after sleep');
+        setDungeonRuntimePlayerPosition(pushRuntime,{...pushRuntime.playerPosition});
+        const tracks=pushRuntime.movementResolver.storage.tracks!;
+        for(let index=0;index<140;index++)tracks.set(`budget:${index}`,{kind:'turn',elapsedSeconds:0,durationSeconds:(index+1)*.00001});
+        const offBudgetProjection=a.registerSimulation('verify-budget',150,delta=>{
+          for(const [id,value] of tracks)if(id.startsWith('budget:')){
+            const track=value as {elapsedSeconds:number;durationSeconds:number};track.elapsedSeconds+=delta;
+            if(track.elapsedSeconds>=track.durationSeconds-1e-12)tracks.delete(id);
+          }
+        });
+        renderFrame();
+        assert(pushRuntime.movementResolver.storage.timing?.lastTick?.yielded,'Host did not yield its work budget');
+        assert(document.body.textContent?.includes('动作处理已分帧'),'Missing backlog status');
+        assert(!a.isPaused&&!host.context.scheduler.isPaused,'Legitimate work budget paused the Lab');
+        renderFrame();offBudgetProjection();
+        assert(pushRuntime.movementResolver.storage.timing?.pendingSeconds===0,'Backlog did not drain');
+        tracks.set('broken-actor',{kind:'turn',requestId:'broken-action',elapsedSeconds:0,durationSeconds:.001});
+        let renders=0;const renderObserver=host.context.scene.onAfterRenderObservable.add(()=>renders++);
+        renderFrame();
+        assert(pushRuntime.movementResolver.storage.timing?.stall?.actors.some(actor=>actor.actorId==='broken-actor'),'Missing stalled actor diagnostic');
+        assert(a.isPaused&&!host.context.scheduler.isPaused,'Action stall did not pause only the simulation');
+        assert(document.body.textContent?.includes('broken-action'),'Stall details are not inspectable');
+        const beforeRender=renders;renderFrame();assert(renders>beforeRender,'Action stall stopped rendering');
+        host.context.scene.onAfterRenderObservable.remove(renderObserver);
+        const reload=[...document.querySelectorAll<HTMLButtonElement>('button')].find(button=>button.textContent==='重新加载当前地图');
+        assert(reload&&!reload.hidden,'Map recovery button missing');reload.click();
+        for(let attempt=0;attempt<300&&(runtime===pushRuntime||a.isPaused);attempt++)await new Promise(resolve=>setTimeout(resolve,16));
+        assert(runtime!==pushRuntime&&!a.isPaused,'Reload did not recover the action session');
+        renderFrame();assert(!runtime!.movementResolver.storage.timing?.stall,'Reload revived a stalled action');
+      } finally {
+        host.context.engine.getDeltaTime=originalGetDeltaTime;
+        if(hiddenDescriptor)Object.defineProperty(document,'hidden',hiddenDescriptor);
+        else Reflect.deleteProperty(document,'hidden');
+      }
       return { ok: true, configurations, results, ignoredSidestepDuration:ignoredResult.actionDurationSeconds,
         movingTargetSwap: true,
+        backgroundResume:{hiddenHourPaused:true,resumeWithoutCatchup:true,sleepWithoutVisibility:true,normalFramesContinue:true},
+        actionBudget:{yieldWithoutFailure:true,backlogDrained:true,stallInspectable:true,renderContinues:true,mapReloadRecovers:true},
         pushPreset:{presetKey:'dungeon_push_test',objects:pushBodies.length,scene:'minimal-city',uiPush:true,visualSync:true} };
     } finally { await settle(); host.dispose(); }
-  } finally { DungeonRuntimeAssembly.prototype.prepare = prepare; }
+  } finally { DungeonRuntimeAssembly.prototype.prepare = prepare;Engine.prototype.runRenderLoop=runRenderLoop; }
 }
 run().then(result => { document.querySelector('#result')!.textContent = JSON.stringify(result); })
   .catch(error => { document.querySelector('#result')!.textContent = JSON.stringify({ ok: false, error: String(error), stack: error.stack }); });

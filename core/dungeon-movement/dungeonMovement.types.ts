@@ -1,6 +1,19 @@
 import type { DungeonMovementDirection } from './dungeonMovement.direction.ts';
 
 /** Data supplied by the host; the resolver only operates on this storage. */
+export type DungeonActionStall = {
+  kind: 'no-progress'; message: string; simulationSeconds: number; remainingSeconds: number;
+  reason: 'independent-track' | 'time-resolution'; repeatedBoundaryCount: number;
+  actors: Array<{ actorId: string; actionId?: string; kind: string; elapsedSeconds?: number; boundarySeconds?: number }>;
+};
+export type DungeonActionTickResult = {
+  consumedSeconds: number; remainingSeconds: number; boundaries: number; yielded: boolean; paused: boolean;
+  stall?: DungeonActionStall;
+};
+export type DungeonActionTiming = {
+  pendingSeconds: number; lastTick?: DungeonActionTickResult; stall?: DungeonActionStall;
+  noProgressBoundary?: { fingerprint: string; repeats: number };
+};
 export type DungeonMovementStorage = {
   config: DungeonMovementResolverConfig;
   activeRequests: Map<string, DungeonMoveRequest>;
@@ -12,6 +25,7 @@ export type DungeonMovementStorage = {
   groups?: Map<string, import('../dungeon-actions/dungeonActionGroup.ts').SpatialActionGroup>;
   tracks?: Map<string, unknown>;
   simulationSeconds?: number;
+  timing?: DungeonActionTiming;
 };
 
 export type DungeonMoveRequestState =

@@ -2,6 +2,10 @@
 
 启动本地 Vite 验证服务前，先检查 localhost:1184 与 127.0.0.1:1184 并复用现有服务。项目默认绑定127.0.0.1且严格占用1184；不要以另一个监听地址再开同端口实例，它们会争用依赖预构建缓存，引发504 Outdated Optimize Dep。独立端口测试服务使用独立 cacheDir；一次性服务结束后清理自身进程，保留用户正在使用的开发服务。
 
+`npm run test:lab-clock` 验证组合式 Lab 前台计时与后台恢复策略；`verifyAgentInteractionRuntime.cjs` 另通过真实 createLab 渲染回调模拟隐藏一小时与无可见性事件的两小时休眠，检查暂停、恢复首帧不补跑及后续正常推进，结果写入既有报告 backgroundResume 字段。
+
+同一真实 Lab 验证还覆盖超过128个合法边界时分帧与积压排空、真实无进展的诊断暂停、暂停期间继续渲染，以及点击“重新加载当前地图”恢复；报告 actionBudget 字段全部为true才通过。Core 对应回归在 dungeonActionBudget.test.ts。
+
 - `buildDungeonMapLab.mjs`：`npm run build:dungeon-map-lab`，只构建地图数据编辑工作台到 node_modules/.cache/dungeon-map-workbench-build，不复制 public。
 - `verifyDungeonMapWorkbench.cjs`：Vite 127.0.0.1:1184 启动后执行 `npm run test:dungeon-map-workbench-webgl`，验证三栏、搜索、历史、组件、批量编辑、3D、设置、调宽及布局恢复和窄屏；阻止写入正式预设，报告与截图位于 node_modules/.cache/dungeon-map-workbench-*。
 - `verifyDungeonMapBrowsers.cjs`：Vite 127.0.0.1:1184 启动后 `npm run test:dungeon-map-browsers-webgl`，验证三个浏览器的独立搜索、中文组件检索、实体/组件选中联动、折叠和隐藏、真实鼠标拖拽及边缘预览、键盘分隔调节、刷新恢复、窄屏，以及场景环境 Lab 的共享拖拽回归；不提交写请求。JSON 与默认/调整后截图位于 node_modules/.cache/dungeon-map-browsers-*。

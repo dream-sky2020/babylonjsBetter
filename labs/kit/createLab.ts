@@ -16,6 +16,7 @@ import { createLabCommunicationLogPanel } from './labCommunicationLogPanel';
 import { LabServiceRegistry } from './labServiceRegistry';
 import type { CreateLabOptions, LabContext, LabHost, LabModuleLifecycle } from './labKit.types';
 import { LabUi } from './labUi';
+import { LabFrameClock } from './labFrameClock';
 import { LabViewportManager } from './labViewportManager';
 import {
   LabKeyboardRouter,
@@ -137,6 +138,16 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   options.root.replaceChildren(layout);
 
   const engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+  const frameClock = new LabFrameClock();
+  const resetFrameClock = () => frameClock.reset();
+  document.addEventListener('visibilitychange', resetFrameClock);
+  window.addEventListener('pagehide', resetFrameClock);
+  window.addEventListener('pageshow', resetFrameClock);
+  const disposeFrameClock = () => {
+    document.removeEventListener('visibilitychange', resetFrameClock);
+    window.removeEventListener('pagehide', resetFrameClock);
+    window.removeEventListener('pageshow', resetFrameClock);
+  };
   const scene = new Scene(engine);
   const camera = new ArcRotateCamera('composableLabCamera', -Math.PI / 4, 1.08, 105, Vector3.Zero(), scene);
   camera.lowerRadiusLimit = 3;
@@ -309,7 +320,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
 
     services.setPhase('ready');
     engine.runRenderLoop(() => {
-      const deltaSeconds = engine.getDeltaTime() / 1000;
+      const deltaSeconds = frameClock.next(engine.getDeltaTime() / 1000, document.hidden);
+      if (deltaSeconds === null) return;
       performanceStats.beginFrame();
       try {
         performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('simulation', deltaSeconds));
@@ -332,6 +344,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     });
     context.ui.setStatus(`已组合 ${executionPlan.entries.length} 个 Lab 模块。`);
   } catch (error) {
+    disposeFrameClock();
     const cleanupErrors = disposeModules();
     disposeLabStatePanel();
     disposeKeyboardPanel();
@@ -371,6 +384,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     dispose() {
       if (disposed) return;
       disposed = true;
+      disposeFrameClock();
       const cleanupErrors = disposeModules();
       performanceStats.stop(); finalPerformance = performanceStats.inspect();
       disposeLabStatePanel();

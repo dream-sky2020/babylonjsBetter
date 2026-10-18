@@ -57,6 +57,7 @@ export const applyDungeonRuntimeSaveState = (
     runtime.movementResolver.storage.tracks!.clear();
     runtime.movementResolver.storage.samples!.clear();
     runtime.movementResolver.storage.groups!.clear();
+    if(runtime.movementResolver.storage.timing)runtime.movementResolver.storage.timing={pendingSeconds:0};
   }
   let restorePlayer = true;
   if (saveState.version === 2 && runtime.installedSystems?.traversal !== false) {

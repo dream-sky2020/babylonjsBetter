@@ -24,6 +24,8 @@
 
 运行 `npm run test:dungeon-spatial`、`npm run typecheck:dungeon-spatial`。完整范围与缺项见 `docs/dungeon-spatial-world-upgrade-validation-2026-10-17.md`。
 
+执行预算：`engine.tick(newDelta, project, ready, { maxBoundaries: 128 })` 返回处理结果，超预算仅在完整规则边界后让出，余量自动保存在共享 `storage.timing.pendingSeconds`；后续调用只传新帧时间，`tick(0)` 可排积压。`timing.stall` 仅记录真实无进展；正常等待不报故障，移动镜像轨道不作为独立时钟。Loader 提供可检查现场的暂停和当前地图重载恢复。安全恢复清除积压/诊断。详见 `docs/dungeon-action-budget-validation-2026-10-18.md`。
+
 推动速度：`requestPush(actorId, direction, secondsPerTile)` 的第三参数是普通移动一格的耗时，接触间隙增加额外时间。阶段按双方各段最大距离计时，玩家不越过终点再回收，取消恢复也遵守同一速度上限。返回的 `durationSeconds` 才是整段动作实际时长；自动推动兼容世界单位/秒与秒/格模式，Lab 用实际时长安排续步。验证见 `docs/dungeon-push-speed-validation-2026-10-18.md`。
 
 换位速度：`requestSwap(actorId, otherId, minimumDuration, secondsPerTile, includePresentationDistance)` 的第四参数是发起者普通移动一格的耗时，第五参数决定错身额外距离是否参与计时。世界速度模式默认依据视觉曲线弧长等速播放；秒/格模式传入 false，正好用一格耗时，错身视觉仍保留。Lab 另有“换位计时忽略轻微错身距离”开关，供世界速度模式使用；最短耗时默认0，可显式放慢。打断回退按剩余距离与模式计时。验证见 `docs/dungeon-swap-speed-validation-2026-10-18.md`。

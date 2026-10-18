@@ -1,3 +1,15 @@
+## 2026-10-18：动作预算让出与无进展诊断
+
+DungeonActionEngine.tick 不再因达到128次边界而抛错。128是单次工作预算，完整执行边界投影/同步规则后返回 consumedSeconds、remainingSeconds、boundaries、yielded、paused；余量自动保存在现有 dungeon.spatial-actions.timing.pendingSeconds，下一帧加入新时间再处理，tick(0)可仅排积压，调用者不要再次传入返回的remainingSeconds。Lab分配timing数据，Core保留旧调用兼容初始化。安全恢复清空积压与诊断，存档不携带它们。
+
+独立轨道连续两次到达同一边界却不推进/结束，或时间精度和动作状态均无法推进时，记录timing.stall，包含原因、重复次数、对象/动作ID、耗时边界及余量。普通移动的镜像track不再作为独立时钟参与分片；正常碰撞等待不误报。Loader显示积压状态；真实无进展仅持有assembly暂停令牌，渲染/相机/Debug和共享内存检查保持可用，提供“重新加载当前地图”，新会话成功提交后释放该令牌。未知异常的原有SystemRunner处理不变。见 docs/dungeon-action-budget-validation-2026-10-18.md。
+
+## 2026-10-18：组合式 Lab 后台恢复时钟
+
+createLab 通过 labs/kit/labFrameClock.ts 消费前台帧时间：document.hidden 时跳过整个帧循环，visibilitychange/pagehide/pageshow 重置恢复状态，恢复首帧使用0秒；没有可见性事件但帧间隔超过1秒时，也按休眠恢复跳过该间隔。后续普通帧原样推进，手动 scheduler 暂停规则不变；初始化失败及销毁移除新增监听器。离开页面不会补跑后台数分钟。随后Core的128次异常保护已改为上面的可让出工作预算。
+
+`npm run test:lab-clock` 用真实连续移动复现原异常，再验证隐藏/恢复和无事件休眠；verifyAgentInteractionRuntime.cjs 的真实 createLab 回调模拟隐藏一小时、恢复与两小时休眠，确认动作不补跑且后续16ms帧继续。详见 docs/lab-background-resume-validation-2026-10-18.md。
+
 ## 2026-10-18：独立仓库 Lab
 
 新增 `labs/draggable/warehouse-lab/`，提供运行页、Puck 编辑器和 Grid 工作台三个入口，面板仅为仓库、按钮与信息。物品目录与演示用会话内存由仓库 Lab 维护；堆叠／独立实例、仓库与战斗背包上限、转移、整备、战斗内外效果及使用后损耗结算由 `core/items/` 提供。Lab 用我方／敌方样例状态演示效果和回合消耗，尚未把库存接入 Press Turn 行动队列；页面不修改整备 Lab 的人物和装备数据。Grid/Puck 布局分别保存在 `warehouse-lab.grid.v1` / `warehouse-lab.puck.v1`，与业务数据分离。旧 `labs/standalone/warehouse-lab/` 地址仅作兼容跳转。入口在根首页和 Vite 多页构建中注册。

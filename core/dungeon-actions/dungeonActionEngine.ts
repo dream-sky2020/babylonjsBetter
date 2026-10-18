@@ -13,6 +13,8 @@ import type {
   DungeonMovementResolverConfig,
   DungeonMovementChange,
   DungeonMovementStorage,
+  DungeonActionTickResult,
+  DungeonActionStall,
 } from '../dungeon-movement/dungeonMovement.types.ts';
 import {
   getDungeonDiagonalCornerIndex, getDungeonMovementDirectionVector,
@@ -98,24 +100,39 @@ export class DungeonActionEngine {
     return partners;
   }
   /** Only this method advances physical requests in a composed session. Projectors read samples. */
-  tick(delta: number, project: (delta: number) => void = () => {}, ready: () => boolean = () => true): void {
+  tick(delta: number, project: (delta: number) => void = () => {}, ready: () => boolean = () => true,
+    options: { maxBoundaries?: number } = {}): DungeonActionTickResult {
     if (!Number.isFinite(delta) || delta < 0) throw new RangeError('动作时间必须非负有限。');
-    if (!ready()) return;
+    const budget=options.maxBoundaries??128;
+    if(!Number.isSafeInteger(budget)||budget<1)throw new RangeError('动作处理预算必须为正整数。');
+    const timing=this.storage.timing??={pendingSeconds:0};
+    let remaining=timing.pendingSeconds,consumed=0,count=0;
+    const finish=(yielded=false,paused=false):DungeonActionTickResult=>{
+      timing.pendingSeconds=remaining;
+      return timing.lastTick={consumedSeconds:consumed,remainingSeconds:remaining,boundaries:count,yielded,paused,
+        ...(timing.stall?{stall:timing.stall}:{})};
+    };
+    if (!ready()||timing.stall) return finish(false,true);
+    remaining+=delta;
+    if(!Number.isFinite(remaining))throw new RangeError('累计动作时间超出有限数值范围。');
     this.samples.clear(); project(0);
     const history=[...this.storage.groups!.values()].filter(g=>g.status!=='running');
     for(const group of history.slice(0,Math.max(0,history.length-50)))this.storage.groups!.delete(group.id);
-    let remaining = delta, count = 0;
     do {
-      if (!ready()) return;
+      if (!ready()) return finish(false,true);
       let slice = remaining;
       // Rotation and blocked-attempt tracks share the same event boundaries.
       // Their projectors consume only this slice; the engine owns all remainder.
-      for (const value of this.storage.tracks!.values()) {
+      const trackBoundaries:Array<{actorId:string;value:unknown;elapsed:number;duration:number;until:number}>=[];
+      for (const [actorId,value] of this.storage.tracks!) {
         if (!value || typeof value !== 'object') continue;
         const track = value as { elapsedSeconds?: number; durationSeconds?: number;
-          movementDurationSeconds?: number; turnDurationSeconds?: number };
+          movementDurationSeconds?: number; turnDurationSeconds?: number; requestId?:string };
+        // A move's presentation facade has no independent clock or boundary.
+        if(track.requestId&&this.getActiveRequest(actorId)?.id===track.requestId)continue;
         const duration = Math.max(track.durationSeconds ?? 0, track.movementDurationSeconds ?? 0, track.turnDurationSeconds ?? 0);
         const until = duration - (track.elapsedSeconds ?? 0);
+        if(Number.isFinite(until))trackBoundaries.push({actorId,value,elapsed:track.elapsedSeconds??0,duration,until});
         if (Number.isFinite(until) && until > 1e-9) slice = Math.min(slice, until);
       }
       for (const group of this.storage.groups!.values()) if (group.status === 'running') {
@@ -128,9 +145,11 @@ export class DungeonActionEngine {
         if (until > 1e-9) slice = Math.min(slice, until);
       }
       this.samples.clear();
+      const cannotConsumeTime=remaining>0&&remaining-slice===remaining;
+      const before=cannotConsumeTime?this.boundaryFingerprint():undefined;
       const actors = [...this.requests.values()].sort((a,b)=>this.priorityOf(b)-this.priorityOf(a)||a.actorId.localeCompare(b.actorId)).map(request => request.actorId);
       for (const actorId of actors) {
-        if (!ready()) return;
+        if (!ready()) return finish(false,true);
         const request = this.getActiveRequest(actorId); if (!request) continue;
         let waiting = request.waitForActorIds?.some(id => this.getActiveRequest(id)?.state === 'rollback');
         const body=this.traversal.body(actorId);
@@ -151,13 +170,49 @@ export class DungeonActionEngine {
       }
       this.advanceGroups(slice, ready);
       this.storage.simulationSeconds! += slice;
-      if (!ready()) return;
+      consumed+=slice;
+      const nextRemaining=Math.max(0,remaining-slice);
+      if (!ready()) {remaining=nextRemaining;return finish(false,true);}
       project(slice);
-      remaining = Math.max(0, remaining - slice);
-      if (++count >= 128) { if (remaining > 1e-8) throw new Error('动作边界超过单帧128次，拒绝静默丢弃时间。'); break; }
+      count++;
+      remaining=nextRemaining;
+      if(!ready())return finish(false,true);
+      const unchangedTracks=trackBoundaries.filter(boundary=>{
+        const current=this.storage.tracks!.get(boundary.actorId) as {elapsedSeconds?:number;durationSeconds?:number;movementDurationSeconds?:number;turnDurationSeconds?:number}|undefined;
+        return boundary.until<=slice+1e-12&&current===boundary.value&&(current?.elapsedSeconds??0)===boundary.elapsed
+          &&Math.max(current?.durationSeconds??0,current?.movementDurationSeconds??0,current?.turnDurationSeconds??0)===boundary.duration;
+      });
+      const fingerprint=unchangedTracks.length?JSON.stringify(unchangedTracks.map(({actorId,elapsed,duration})=>({actorId,elapsed,duration}))):undefined;
+      timing.noProgressBoundary=fingerprint?{fingerprint,repeats:timing.noProgressBoundary?.fingerprint===fingerprint?timing.noProgressBoundary.repeats+1:1}:undefined;
+      const repeats=timing.noProgressBoundary?.repeats??0;
+      if((cannotConsumeTime&&before===this.boundaryFingerprint())||repeats>=2) {
+        timing.stall={kind:'no-progress',reason:repeats>=2?'independent-track':'time-resolution',repeatedBoundaryCount:repeats,
+          message:repeats>=2?'独立动作轨道连续到达同一边界却未推进，已暂停模拟；可查看现场并重新加载当前地图。'
+            :'动作时间和边界状态均未前进，已暂停模拟；可查看现场并重新加载当前地图。',
+          simulationSeconds:this.storage.simulationSeconds!,remainingSeconds:remaining,actors:this.boundaryActors()};
+        return finish(false,true);
+      }
+      // Rules/projectors have completed this entire boundary before we yield.
+      if(count>=budget&&remaining>0)return finish(true);
       if (!remaining) break;
     } while (remaining > 0);
+    return finish();
   }
+  private boundaryActors(): DungeonActionStall['actors'] {
+    return [
+      ...[...this.requests.values()].map(request=>({actorId:request.actorId,actionId:request.id,kind:request.state,
+        elapsedSeconds:request.state==='rollback'?request.rollbackElapsedSeconds:request.elapsedSeconds,
+        boundarySeconds:request.state==='rollback'?request.rollbackDurationSeconds:request.durationSeconds*(request.state==='forward-before-commit'?request.commitProgress:1)})),
+      ...[...this.storage.groups!.values()].filter(group=>group.status==='running').flatMap(group=>group.members.map(member=>({
+        actorId:member.actorId,actionId:group.id,kind:group.recovering?'group-recovery':group.kind,elapsedSeconds:group.elapsed,boundarySeconds:group.duration}))),
+      ...[...this.storage.tracks!.entries()].map(([actorId,value])=>{
+        const track=value as {kind?:string;requestId?:string;elapsedSeconds?:number;durationSeconds?:number;movementDurationSeconds?:number;turnDurationSeconds?:number};
+        return {actorId,actionId:track?.requestId,kind:track?.kind??'track',elapsedSeconds:track?.elapsedSeconds,
+          boundarySeconds:Math.max(track?.durationSeconds??0,track?.movementDurationSeconds??0,track?.turnDurationSeconds??0)};
+      }),
+    ];
+  }
+  private boundaryFingerprint(): string { return JSON.stringify(this.boundaryActors()); }
   private updatePose(request: DungeonMoveRequest) {
     const body = this.traversal.body(request.actorId); if (!body) return;
     const vector = getDungeonMovementDirectionVector(request.direction);
