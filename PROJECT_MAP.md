@@ -1,3 +1,27 @@
+## 2026-10-18：相邻直线换位与表现错身
+
+换位的 Body.pose 沿双方连线平滑推进，仅双方互相忽略阻挡；双方间墙体、目标地形、第三方扫掠和动作预约仍检查。动作只锁定两个格子，完成时才原子交换逻辑锚点并触发一次玩家格步。中途取消连续返回原锚点，存档保存已提交锚点。推动仍在50%提交。
+
+SpatialBody.presentationOffset 是动作派生的可清除表现偏移，不参与碰撞、占位或存档；默认最多0.12格正弦错身，贴墙/边界按0.12、0.06、0减小，不因视觉绕行拒绝合法换位。engine.swapPresentationOffset=0 可用于2D表现。projectBody、Agent 的派生 poseX/Y 和空间动作示例读取同一表现姿态，取消/瞬移/恢复清除偏移。换位默认独立0.25秒，玩家移动面板提供“换位耗时（秒）”，绝对和相对移动共用此配置，不再复用走路时长。真实 Agent Lab 与构建版空间动作 Lab 的验证均覆盖新行为；报告见 docs/dungeon-direct-swap-validation-2026-10-18.md。
+
+## 2026-10-18：Vite 开发服务监听地址统一
+
+Vite server.host 固定为 127.0.0.1，与本地验证客户端一致，继续 strictPort: true、端口1184。此前用户开发实例监听 ::1、验证实例监听127.0.0.1，操作系统允许两者占用同端口却共用 vite-dev 预构建缓存，导致不同 browserHash 的 Babylon 请求返回504 Outdated Optimize Dep。已清理多余验证进程，保留用户 electron:dev 下的开发服务；localhost 和127.0.0.1目前指向同一监听实例和依赖版本。验证服务应复用现有实例；独立端口服务必须有独立 cacheDir。
+
+## 2026-10-18：目标组件决定默认碰撞响应
+
+真实 dungeon-agent-lab 的 Agent 标记现在同时投影自身动作和共享 dungeon.spatial-actions 的协同动作；每片读取运行中组成员并保留上一片 ID，以覆盖完成/取消的最后姿态，切图清空派生索引。否则静止 Agent 已被推动/换位，图形仍停在原地。状态权威仍为共享 Body/pose，没有新增存储。玩家动作结果透传 interactionFailure，Lab 显示轨迹阻挡、目标忙碌等原因，受阻回弹结束保留说明。
+
+codex-tools/agentInteractionVerification.html 复用真实组合式模块和正式地图，检查14个运行时 Agent 配置、AI 开启时默认换位、相对移动推动、阻挡及逐帧/最终图形同步；verifyAgentInteractionRuntime.cjs 用现有 Vite 执行，只改验证会话，并拦截 HTTP 写请求。
+
+两个正式地图中现有 14 个 dungeon-agent（长廊 4、广场 10）的 spatial-interaction 统一设为 swap，普通移动碰撞即尝试换位。Agent 类型的默认组件包含空间交互，编辑器创建和批量创建时配置为 swap，同时保留 movable Body；通用空间交互组件自身仍默认 block，没有组件或禁用也阻挡。既有 pushable 能力及 Collider 保留，包括此前已设为 block 的 wisp，不修改 AI 参数或其他实体的响应。
+
+空间交互只提供 block/swap/push；已删除按键选择模式、移动命令中的额外交互意图以及 Ctrl/Shift 解析。绝对、相对及长按续步均走既有目标响应与统一动作执行器，受阻拦截优先级保留；动作失败时受阻，不自动换另一种。墙、边界、轨迹与预约检查仍适用。说明与检查见 docs/agent-spatial-interaction-validation-2026-10-18.md。
+
+## 2026-10-18：旧空间预设的未保存误报
+
+地图编辑器现在先通过 dungeonMapEditorDocument.ts 规范化所有加载的文档，再生成投影、保存比较指纹和 Store；显式重新加载也走同一入口。旧 Agent 广场中的 grid-agent / movement-obstacle 转换为新空间组件属于初始化，不算用户编辑；基准只在外部读取/保存时建立，切换预设不会覆盖已有基准或吞掉真实未保存修改。兼容转换不写正式预设。专项回归覆盖旧格式和当前广场、编辑/撤销/重做，以及实际页面切换和重载提示；说明见 docs/dungeon-map-preset-baseline-validation-2026-10-18.md。
+
 ## 2026-10-18：地图的三个停靠浏览面板
 
 Dungeon Map Canvas Lab 左侧提供“地图内容 / 实体 / 组件”三个独立搜索视图：空间树保留原挂载浏览与空间多选，实体表按 ID 去重，组件按类型分组并列出实际实例、所属实体、Slot 与位置。多处挂载显示数量与位置提示；无效挂载/缺失所属实体保留警示行，不伪造地图位置。选择实体或组件复用 Activity 的选区，组件选择在 React 提交后展开并定位 Inspector 字段。索引来自同一 DungeonMapDocument，不复制权威状态。

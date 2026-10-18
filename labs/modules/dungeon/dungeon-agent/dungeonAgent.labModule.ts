@@ -725,12 +725,23 @@ export const dungeonAgentLabModule: LabModule = {
     });
     debugToggle.input.addEventListener('change', renderMarkers);
 
+    // Group-driven bodies need projection even when their own Controller is idle.
+    // Retain the previous slice's IDs to project the final/cancelled pose as well.
+    let groupMarkerIds = new Set<string>();
     const stopFrameTask = assembly.registerSimulation('dungeon-agent', 200, (deltaSeconds) => {
         if (!loaded) return;
 
         if (!agentSystem) return;
         const { completed, actions, changed } = agentSystem.update(deltaSeconds);
         changed.forEach(agent => syncMarker(agent.binding.entity.id));
+        const nextGroupMarkerIds = new Set<string>();
+        const movement = movementMemory.current;
+        if (movement?.loadId === loaded.loadId) for (const group of movement.groups?.values() ?? []) {
+          if (group.status === 'running') for (const member of group.members) nextGroupMarkerIds.add(member.actorId);
+        }
+        for (const id of new Set([...groupMarkerIds, ...nextGroupMarkerIds])) syncMarker(id);
+        if (groupMarkerIds.size || nextGroupMarkerIds.size) queuePanelRefresh();
+        groupMarkerIds = nextGroupMarkerIds;
         if (!completed.length && !actions.length) return;
         pendingStatus = actions.length
           ? describeControllerActions(actions)
@@ -758,6 +769,7 @@ export const dungeonAgentLabModule: LabModule = {
       if (!next || next.loadId !== changed.loadId) return;
       const nextSystem = agentControl.acquire(next.loadId);
       if (!nextSystem) return;
+      groupMarkerIds.clear();
       loaded = next;
       agentSystem = nextSystem;
       if (!prepared || prepared.loadId !== next.loadId) return;

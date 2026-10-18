@@ -8,7 +8,7 @@
     "test:dungeon-spatial": "node --experimental-strip-types --test core/dungeon-spatial/*.test.ts",
     "typecheck:dungeon-spatial": "tsc --noEmit -p tsconfig.dungeon-spatial.json",
     "build:dungeon-map-lab": "node codex-tools/buildDungeonMapLab.mjs",
-    "test:dungeon-map-workbench": "node --experimental-strip-types --test labs/standalone/dungeon-map-canvas-lab/dungeonMapOutline.test.ts labs/standalone/dungeon-map-canvas-lab/dungeonMapWorkspace.test.ts core/ui/editor-kit/dockLayout.test.ts",
+    "test:dungeon-map-workbench": "node --experimental-strip-types --test labs/standalone/dungeon-map-canvas-lab/dungeonMapOutline.test.ts labs/standalone/dungeon-map-canvas-lab/dungeonMapWorkspace.test.ts labs/standalone/dungeon-map-canvas-lab/dungeonMapEditorDocument.test.ts core/ui/editor-kit/dockLayout.test.ts",
     "test:dungeon-map-workbench-webgl": "node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonMapWorkbench.cjs",
     "test:dungeon-map-browsers-webgl": "node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonMapBrowsers.cjs",
     "build:spatial-actions": "node codex-tools/buildSpatialActionsLab.mjs",

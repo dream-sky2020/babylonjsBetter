@@ -4,7 +4,7 @@
 
 - `spatial-body`：初始启用、可移动/固定、可推动、朝向和移动规则引用；唯一 attachment 保存位置。
 - `spatial-collider`：可多实例，包含 block/trigger、导航 footprint、局部形状与偏移。组件 ID 即 Collider ID。
-- `spatial-interaction`：可选且唯一；onPlayerPush 为 block/push/swap。缺省或禁用等于 block；push 要求 movable + pushable，swap 要求 movable。响应编译到 Body，玩家移动入口在既有受阻接管之后选择组动作；不改变 Agent AI。
+- `spatial-interaction`：可选且唯一；onPlayerPush 为 block/swap/push，直接决定玩家尝试进入目标位置时阻挡、换位或推动，无需 Ctrl/Shift 等交互按键。缺省或禁用等于 block；push 要求 movable + pushable，swap 要求 movable。创建 Agent 时自动带此组件并设为 swap，通用组件自身仍默认 block。响应编译到 Body，玩家移动入口在既有受阻接管之后选择组动作；失败时受阻，不自动切换动作，不改变 Agent AI。
 - `agent-timing`：行动周期和仲裁优先级；优先级不是推动力量。
 - `compileSpatialDefinitions`：校验关系、身份、挂载与形状，返回全部定义或空结果加定位诊断；不分配运行态，不访问 Lab。
 
@@ -14,7 +14,7 @@
 - `dungeonSpatialWorld.ts`：统一占用、拓扑查询、路径软预约与整组原子提交。
 - `dungeonSpatialGeometry.ts`：增量局部索引、扫掠检测及环绕邻域；圆精确检测，混合矩形采用保守轴对齐包围检测。
 - `dungeonSpatialViews.ts`：旧障碍启用字段的 Body 门面，无第二份布尔状态。
-- `../dungeon-actions/`：唯一动作时钟；普通移动保留提交/回退仲裁，推动先接触再位移，换位沿经检测的两条侧向轨迹，窄道拒绝。
+- `../dungeon-actions/`：唯一动作时钟；普通移动保留提交/回退仲裁，推动先接触再位移。换位直接沿双方连线推进，完成时原子提交；仅在双方之间忽略碰撞，墙与第三方继续检查。presentationOffset 是可清除的表现偏移，不参与碰撞或存档；默认最多0.12格，贴墙缩小至0，设为0可呈现2D直接交换。默认独立耗时0.25秒，单格窄道可换位。
 
 装配层通过 `context.memory.acquire(DUNGEON_TRAVERSAL_STATE_MEMORY)` 和 `context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY)` 申请同一导出定义；候选由对应 `allocate...StateData` 分配，通过 Runtime 的 storage 参数注入，准备成功后 `handle.replace(candidate)`。Core 不申请 Lab 内存。
 
@@ -31,4 +31,4 @@ npm run migrate:dungeon-spatial -- config/dungeonMapPresets/dungeon_map_2.json -
 
 可运行示例为 `/labs/composable/dungeon-spatial-actions-lab/`。构建、WebGL 验证与基准命令见 `codex-tools/README.md`。
 
-初版范围是格子玩法的连续运动：单箱推动、相邻非环绕换位、轴对齐形状和组打断恢复。未实现质量/摩擦、连锁推动、移动边界、触发器进出事件和通用动作编辑器；trigger 可保存但不阻挡。大型混合形状可能保守拒绝，需要专门轨迹规划才能放宽。
+初版范围是格子玩法的连续运动：单箱推动、相邻非环绕换位、轴对齐形状和组打断恢复。换位未完成时取消会连续退回原锚点；途中存档只保留原锚点。未实现质量/摩擦、连锁推动、移动边界、触发器进出事件和通用动作编辑器；trigger 可保存但不阻挡。大型混合形状仍使用保守几何检查。

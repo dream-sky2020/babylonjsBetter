@@ -270,7 +270,7 @@ export class DungeonSpatialWorld {
     const fromTileIndex = actor.tileIndex;
     this.occupantIdsByTile[fromTileIndex]?.delete(actorId);
     actor.tileIndex = toTileIndex;
-    const movedBody = this.body(actorId); if (movedBody) { movedBody.pose = {x:movedBody.logicalPosition.tileX,y:movedBody.logicalPosition.tileY};indexSpatialBody(this.spatial,movedBody); }
+    const movedBody = this.body(actorId); if (movedBody) { movedBody.presentationOffset=undefined;movedBody.pose = {x:movedBody.logicalPosition.tileX,y:movedBody.logicalPosition.tileY};indexSpatialBody(this.spatial,movedBody); }
     this.occupantIdsByTile[toTileIndex]?.add(actorId);
     if (fromTileIndex !== toTileIndex) {
       this.changed({ kind: 'actor-moved', actorId, requestId, fromTileIndex, toTileIndex });

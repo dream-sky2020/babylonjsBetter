@@ -23,12 +23,11 @@ app.whenReady().then(async()=>{
       const scenario=[...document.querySelectorAll('select')].find(s=>[...s.options].some(o=>o.value==='swap'));
       scenario.value='swap';scenario.dispatchEvent(new Event('change'));button('橙绿换位').click();await wait(1600);rows=snapshot();
       require(rows.find(r=>r.id==='box').committed.tileX===3&&rows.find(r=>r.id==='peer').committed.tileX===2,'换位未整体完成');
-      scenario.value='narrow';scenario.dispatchEvent(new Event('change'));button('橙绿换位').click();await wait(400);rows=snapshot();
-      require(document.body.textContent.includes('拒绝：trajectory-blocked'),'窄道没有拒绝换位');
-      require(rows.find(r=>r.id==='box').committed.tileX===2,'拒绝换位后位置被改动');
+      scenario.value='narrow';scenario.dispatchEvent(new Event('change'));button('橙绿换位').click();await wait(1600);rows=snapshot();
+      require(rows.find(r=>r.id==='box').committed.tileX===3&&rows.find(r=>r.id==='peer').committed.tileX===2,'单格窄道换位未完成');
       document.querySelector('[data-spatial-summary]').parentElement.scrollIntoView({block:'start'});
       const canvas=document.querySelector('canvas');require(canvas&&canvas.width>0&&canvas.height>0,'没有绘制画布');
-      return{passed:true,checks:['WebGL startup','push','atomic swap','narrow corridor rejection','unchanged rejected anchors'],canvas:{width:canvas.width,height:canvas.height}};
+      return{passed:true,checks:['WebGL startup','push','atomic swap','single-tile corridor swap'],canvas:{width:canvas.width,height:canvas.height}};
     })()`);
     if(errors.length)throw new Error(errors.join('\n'));
     const screenshot=await window.webContents.capturePage(undefined,{stayHidden:true,stayAwake:true});

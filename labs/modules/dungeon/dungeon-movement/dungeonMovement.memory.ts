@@ -4,7 +4,7 @@ import type { DungeonMovementStorage } from '@/core/dungeon-movement/dungeonMove
 
 type Fields = Pick<DungeonMovementResolver, 'config' | 'activeRequests' | 'movementReservationsByTile' | 'movementReservationsByPoint'>;
 export type DungeonMovementStateData = { loadId: number; presetKey: string } & Fields
-  & Partial<Pick<DungeonMovementStorage, 'activeRequestIdByActor' | 'nextRequestSequence'>>;
+  & Partial<Pick<DungeonMovementStorage, 'activeRequestIdByActor' | 'nextRequestSequence' | 'groups'>>;
 export type DungeonMovementOwnedData = DungeonMovementStateData & DungeonMovementStorage;
 export const allocateDungeonMovementStateData = (loadId: number, presetKey: string,
   tileCount: number, pointCount: number): DungeonMovementOwnedData => ({

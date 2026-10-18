@@ -5,19 +5,23 @@ import { indexSpatialBody, sweepSpatialBody, bodySupport, sweepSpatialPair, type
 
 export type SpatialActionGroup = {
   id: string; kind: 'push' | 'swap'; elapsed: number; duration: number; committed: boolean;
-  members: { actorId: string; from: number; to: number; path: SpatialPoint[] }[];
+  members: { actorId: string; from: number; to: number; path: SpatialPoint[];
+    sideOffset?: SpatialPoint; recoveryOffset?: SpatialPoint }[];
   cells: number[]; status: 'running' | 'completed' | 'cancelled';
   recovering?: boolean; blockedBy?: string[];
   contacted?: boolean;
 };
 export type GroupResult = { accepted: boolean; actionId?: string; reason?: string; blockingEntityIds: string[] };
+export const DEFAULT_SWAP_DURATION_SECONDS = .25;
+const smoothProgress = (t: number) => t * t * (3 - 2 * t);
 export function spatialGroupProgress(group: SpatialActionGroup,t:number,n:number):number {
-  return group.recovering?t*n:group.kind==='push'?(t<.2?t/.2:t<.8?1+(t-.2)/.6:2+(t-.8)/.2):t*n;
+  return group.recovering?t*n:group.kind==='push'?(t<.2?t/.2:t<.8?1+(t-.2)/.6:2+(t-.8)/.2):smoothProgress(t)*n;
 }
 export function requestSpatialGroup(engine: DungeonActionEngine, kind: 'push'|'swap', actorId: string,
-  target: string|DungeonMovementDirection, duration=0.6): GroupResult {
+  target: string|DungeonMovementDirection, duration=kind==='swap'?DEFAULT_SWAP_DURATION_SECONDS:.6): GroupResult {
   const world=engine.traversal, actor=world.body(actorId), reject=(reason:string,ids:string[]=[]):GroupResult=>({accepted:false,reason,blockingEntityIds:ids});
   if(!Number.isFinite(duration)||duration<=0)throw new RangeError('协同动作时长必须为正有限数。');
+  if(kind==='swap'&&(!Number.isFinite(engine.swapPresentationOffset)||engine.swapPresentationOffset<0))throw new RangeError('换位错身幅度必须为非负有限数。');
   if(!actor?.enabled||actor.mobility!=='movable')return reject('actor-not-movable');
   let other, direction: DungeonMovementDirection;
   if(kind==='push') {
@@ -35,26 +39,53 @@ export function requestSpatialGroup(engine: DungeonActionEngine, kind: 'push'|'s
   const groupIds=new Set([actor.id,other.id]);
   if([...groupIds].some(id=>engine.storage.tracks!.has(id)||engine.getActiveRequest(id)||[...engine.storage.groups!.values()].some(g=>g.status==='running'&&g.members.some(m=>m.actorId===id))))return reject('movement-in-progress');
   const vector=getDungeonMovementDirectionVector(direction),from=actor.tileIndex;
+  if(kind==='swap') {
+    const reverse=direction==='east'?'west':direction==='west'?'east':direction==='north'?'south':'north';
+    for(const [body,dir] of [[actor,direction],[other,reverse]] as const) {
+      const step=world.inspectStep(body.id,body.tileIndex,dir,{ignoreBodyIds:[...groupIds]});
+      if(step.blockedReason)return reject(step.blockedReason,[...step.blockingEntityIds]);
+    }
+  }
   const last=kind==='push'?world.inspectStep(other.id,other.tileIndex,direction,{ignoreBodyIds:[...groupIds]}):{toTileIndex:from};
   if(last.toTileIndex===undefined||('blockedReason' in last&&last.blockedReason))return reject('blocked',('blockingEntityIds' in last?last.blockingEntityIds:[]) as string[]);
   const dest=last.toTileIndex, cells=new Set([from,other.tileIndex,dest]);
   const a={...actor.pose},b={...other.pose};
   const endA={x:a.x+vector.x,y:a.y+vector.y},endB=kind==='push'?{x:b.x+vector.x,y:b.y+vector.y}:a;
-  const perpendicular={x:-vector.y*.8,y:vector.x*.8};
   const gap=Math.max(0,1-bodySupport(world.spatial,actor,vector)-bodySupport(world.spatial,other,{x:-vector.x,y:-vector.y}));
   const members:SpatialActionGroup['members']=kind==='push'
     ? [{actorId:actor.id,from,to:other.tileIndex,path:[a,{x:a.x+vector.x*gap,y:a.y+vector.y*gap},{x:endA.x+vector.x*gap,y:endA.y+vector.y*gap},endA]},
       {actorId:other.id,from:other.tileIndex,to:dest,path:[b,b,endB,endB]}]
-    : [{actorId:actor.id,from,to:other.tileIndex,path:[a,{x:a.x+perpendicular.x,y:a.y+perpendicular.y},{x:b.x+perpendicular.x,y:b.y+perpendicular.y},b]},
-      {actorId:other.id,from:other.tileIndex,to:from,path:[b,{x:b.x-perpendicular.x,y:b.y-perpendicular.y},{x:a.x-perpendicular.x,y:a.y-perpendicular.y},a]}];
-  for(let i=1;i<members[0].path.length;i++)if(sweepSpatialPair(world.spatial,actor,members[0].path[i-1],members[0].path[i],other,members[1].path[i-1],members[1].path[i]))return reject('participants-overlap');
+    : [{actorId:actor.id,from,to:other.tileIndex,path:[a,b]},
+      {actorId:other.id,from:other.tileIndex,to:from,path:[b,a]}];
+  // Swap participants deliberately pass each other; only their mutual collision is ignored.
+  if(kind==='push')for(let i=1;i<members[0].path.length;i++)if(sweepSpatialPair(world.spatial,actor,members[0].path[i-1],members[0].path[i],other,members[1].path[i-1],members[1].path[i]))return reject('participants-overlap');
   for(const m of members) for(let i=1;i<m.path.length;i++) {
     const p=m.path[i],prev=m.path[i-1];
     if(p.x<-.25||p.y<-.25||p.x>world.map.width-.75||p.y>world.map.height-.75)return reject('no-space-for-trajectory');
     const hits=sweepSpatialBody(world.spatial,world.body(m.actorId)!,prev,p,groupIds);if(hits.length)return reject('trajectory-blocked',hits);
-    for(let x=Math.floor(Math.min(p.x,prev.x)+.25);x<=Math.floor(Math.max(p.x,prev.x)+.75);x++)
+    if(kind==='push')for(let x=Math.floor(Math.min(p.x,prev.x)+.25);x<=Math.floor(Math.max(p.x,prev.x)+.75);x++)
       for(let y=Math.floor(Math.min(p.y,prev.y)+.25);y<=Math.floor(Math.max(p.y,prev.y)+.75);y++)
         if(x>=0&&x<world.map.width&&y>=0&&y<world.map.height)cells.add(y*world.map.width+x);
+  }
+  if(kind==='swap') {
+    // Cosmetic sidestep never decides whether a logical swap is legal. Reduce it
+    // near third-party geometry/edges, down to a straight crossing when necessary.
+    for(const amplitude of [engine.swapPresentationOffset,engine.swapPresentationOffset/2,0]) {
+      const offsets=members.map((_,i)=>({x:-vector.y*amplitude*(i?-1:1),y:vector.x*amplitude*(i?-1:1)}));
+      const clear=members.every((m,i)=>{
+        let previous=m.path[0];
+        for(let sample=1;sample<=16;sample++) {
+          const t=sample/16,s=smoothProgress(t),arc=sample===16?0:Math.sin(Math.PI*s);
+          const point={x:m.path[0].x+(m.path[1].x-m.path[0].x)*s+offsets[i].x*arc,
+            y:m.path[0].y+(m.path[1].y-m.path[0].y)*s+offsets[i].y*arc};
+          if(point.x<-.25||point.y<-.25||point.x>world.map.width-.75||point.y>world.map.height-.75
+            ||sweepSpatialBody(world.spatial,world.body(m.actorId)!,previous,point,groupIds).length)return false;
+          previous=point;
+        }
+        return true;
+      });
+      if(clear){members.forEach((m,i)=>{m.sideOffset=offsets[i];});break;}
+    }
   }
   for(const cell of cells)if(engine.movementReservationsByTile[cell]?.size)return reject('reservation-conflict');
   for(const g of engine.storage.groups!.values())if(g.status==='running'&&g.cells.some(c=>cells.has(c)))return reject('reservation-conflict');
@@ -83,9 +114,12 @@ export function advanceSpatialGroups(engine:DungeonActionEngine,delta:number,rea
     for(const m of group.members) {
       const body=engine.traversal.body(m.actorId)!;
       body.pose=poses[group.members.indexOf(m)];indexSpatialBody(engine.traversal.spatial,body);
+      const offset=group.recovering?m.recoveryOffset:m.sideOffset;
+      const weight=t>=1?0:group.recovering?1-t:Math.sin(Math.PI*smoothProgress(t));
+      body.presentationOffset=offset&&weight?{x:offset.x*weight,y:offset.y*weight}:undefined;
       engine.projectBody(body);
     }
-    if(t>=.5&&!group.committed&&!group.recovering){engine.traversal.commitGroup(group.members);group.committed=true;engine.groupChanged(group,'committed');}
+    if(t>=(group.kind==='swap'?1:.5)&&!group.committed&&!group.recovering){engine.traversal.commitGroup(group.members);group.committed=true;engine.groupChanged(group,'committed');}
     if(t>=1){group.status=group.recovering?'cancelled':'completed';engine.groupChanged(group,group.recovering?'cancelled':'completed');}
   }
 }

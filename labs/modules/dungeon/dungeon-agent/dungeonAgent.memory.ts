@@ -17,6 +17,7 @@ export type DungeonAgentState = {
   visualProgress: number | undefined; rotationProgress: number | undefined;
   /** Authoritative movement record in new Sessions; old adapters remain compatible. */
   movement?: DungeonAgentMovement | null;
+  /** Presentation coordinates, including cosmetic sidestep; colliders use Body.pose. */
   poseX?: number; poseY?: number;
 };
 type Data<T> = { loadId: number; presetKey: string; agents: Map<string, T> };

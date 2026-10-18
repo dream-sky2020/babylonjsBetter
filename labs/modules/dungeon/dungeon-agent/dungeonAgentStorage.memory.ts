@@ -5,6 +5,7 @@ import type { DungeonAgentControllerData, DungeonAgentControllerState, DungeonAg
 import type { DungeonAgentNavigation, DungeonAgentNavigationData } from './dungeonAgentNavigation.memory.ts';
 
 import type { DungeonRuntime } from '../../../../core/dungeon-runtime/dungeonRuntime.types.ts';
+import { spatialPresentationPose } from '../../../../core/dungeon-spatial/dungeonSpatialState.ts';
 
 const EMPTY = Object.freeze([]);
 const EMPTY_PARAMETERS = Object.freeze({});
@@ -78,7 +79,7 @@ export const allocateDungeonAgentStorage = (loadId: number, presetKey: string, w
         tileIndex: { enumerable:true, get:()=>body.tileIndex,set:value=>{body.tileIndex=value;} },
         facing: { enumerable:true,get:()=>body.facing,set:value=>{body.facing=value;} },
         enabled: { enumerable:true,get:()=>body.enabled,set:value=>{body.enabled=value;} },
-        poseX: { enumerable:true,get:()=>body.pose.x }, poseY:{enumerable:true,get:()=>body.pose.y},
+        poseX: { enumerable:true,get:()=>spatialPresentationPose(body).x }, poseY:{enumerable:true,get:()=>spatialPresentationPose(body).y},
         movement: { enumerable:true,get:()=>world!.movementResolver.storage.tracks!.get(entityId)??null,
           set:value=>{if(value)world!.movementResolver.storage.tracks!.set(entityId,value);else world!.movementResolver.storage.tracks!.delete(entityId);} },
       });

@@ -1,4 +1,5 @@
 import type { DungeonMapDirection } from '../map';
+import { DEFAULT_SWAP_DURATION_SECONDS } from '../dungeon-actions/dungeonActionGroup.ts';
 import type {
   DungeonRuntime,
   DungeonRuntimePlayerPosition,
@@ -43,6 +44,8 @@ export type DungeonPlayerMovementOptions = {
   movementSpeed?: number;
   /** 每跨越一格所需秒数，默认 1；仅用于 seconds-per-tile。 */
   movementSecondsPerTile?: number;
+  /** Swap has its own duration, independent of walking speed. */
+  swapDurationSeconds?: number;
   /** 转向计时模式；默认按弧度/秒。 */
   turnTimingMode?: DungeonPlayerTurnTimingMode;
   /** 弧度/秒，默认一秒旋转一整圈；仅用于 radians-per-second。 */
@@ -62,6 +65,7 @@ export type DungeonPlayerMovementResult = {
   actionId?: string;
   actionKind?: 'push' | 'swap';
   actionDurationSeconds?: number;
+  interactionFailure?: { kind: 'push' | 'swap'; reason: string; blockingEntityIds: readonly string[] };
   started: boolean;
   completed: boolean;
   direction: DungeonMovementDirection;
@@ -241,6 +245,7 @@ export const startDungeonPlayerMovement = (
   options: DungeonPlayerMovementOptions,
 ): DungeonPlayerMovementResult => {
   const inspection = inspectDungeonPlayerMovement(runtime, direction, options);
+  let interactionFailure: DungeonPlayerMovementResult['interactionFailure'];
   const { from, to } = inspection;
   if (inspection.blockedReason === 'movement-in-progress') return inspection;
   if ((inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle')
@@ -250,15 +255,18 @@ export const startDungeonPlayerMovement = (
     const targets = [...(world.occupantIdsByTile[positionIndex(runtime, to)] ?? [])]
       .map(id => world.body(id)).filter(body => body?.enabled && body.blocksMovement);
     const target = targets.length === 1 ? targets[0] : undefined;
-    if (target && target.onPlayerPush !== 'block') {
+    const actionKind = target?.onPlayerPush;
+    if (target && (actionKind === 'push' || actionKind === 'swap')) {
       // Ignoring only the selected body must leave a legal step: walls, terrain and
       // other blockers cannot be bypassed by choosing a push/swap response.
       const step = world.inspectStep(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, positionIndex(runtime, from), direction,
         { ignoreBodyIds: [target.id] });
       if (!step.blockedReason) {
-        const duration = Math.max(.08, resolveMovementDuration(distance3d(
-          [...options.resolveWorldPosition(from)], [...options.resolveWorldPosition(to)]), direction, options));
-        const result = target.onPlayerPush === 'push'
+        const duration = actionKind === 'swap'
+          ? assertPositiveSpeed(options.swapDurationSeconds ?? DEFAULT_SWAP_DURATION_SECONDS, '换位耗时')
+          : Math.max(.08, resolveMovementDuration(distance3d(
+            [...options.resolveWorldPosition(from)], [...options.resolveWorldPosition(to)]), direction, options));
+        const result = actionKind === 'push'
           ? runtime.movementResolver.requestPush(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, direction, duration)
           : runtime.movementResolver.requestSwap(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, target.id, duration);
         if (result.accepted) {
@@ -267,8 +275,11 @@ export const startDungeonPlayerMovement = (
             runtime.playerWorldRotationY = getDungeonMovementDirectionYaw(direction);
           }
           return { started: true, completed: false, direction, from, to, actionId: result.actionId,
-            actionKind: target.onPlayerPush, actionDurationSeconds: duration };
+            actionKind, actionDurationSeconds: duration };
         }
+        interactionFailure = { kind: actionKind, reason: result.reason ?? 'blocked', blockingEntityIds: result.blockingEntityIds };
+      } else {
+        interactionFailure = { kind: actionKind, reason: step.blockedReason, blockingEntityIds: step.blockingEntityIds };
       }
     }
   }
@@ -316,7 +327,8 @@ export const startDungeonPlayerMovement = (
   if (inspection.blockedReason === 'map-boundary'
     || inspection.blockedReason === 'movement-obstacle'
     || inspection.blockedReason === 'direction-not-supported') {
-    return startBlockedAttempt(inspection.blockedReason, inspection.blockedObstacleIds);
+    return { ...startBlockedAttempt(inspection.blockedReason, inspection.blockedObstacleIds),
+      ...(interactionFailure ? { interactionFailure } : {}) };
   }
   const fromWorldPosition: DungeonRuntimeWorldPosition = [...runtime.playerWorldPosition];
   const stepVector = getDungeonMovementDirectionVector(direction);

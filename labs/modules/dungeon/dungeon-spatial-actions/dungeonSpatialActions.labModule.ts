@@ -4,6 +4,7 @@ import { createLabEvent } from '@/labs/kit/labCommunication.types';
 import { createSpatialExampleDocument } from '@/core/dungeon-spatial/dungeonSpatialExample';
 import { createDungeonRuntime } from '@/core/dungeon-runtime/dungeonRuntime';
 import type { DungeonRuntime } from '@/core/dungeon-runtime/dungeonRuntime.types';
+import { spatialPresentationPose } from '@/core/dungeon-spatial/dungeonSpatialState';
 import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
 import type { DungeonMovementDirection } from '@/core/dungeon-movement';
 import { createDungeonRuntimeSaveState,applyDungeonRuntimeSaveState } from '@/core/dungeon-runtime-save/dungeonRuntimeSave';
@@ -23,7 +24,7 @@ export const dungeonSpatialActionsLabModule: LabModule={
     const playerMemory=context.memory.acquire(DUNGEON_PLAYER_STATE_MEMORY),obstacleMemory=context.memory.acquire(DUNGEON_OBSTACLE_STATE_MEMORY);
     const panel=context.ui.addPanel('spatial-example','空间动作验证');
     const scenario=document.createElement('select');
-    for(const [value,label] of [['push','推动'],['swap','换位'],['narrow','窄道拒绝']])scenario.add(new Option(label,value));
+    for(const [value,label] of [['push','推动'],['swap','换位'],['narrow','窄道换位']])scenario.add(new Option(label,value));
     const actor=document.createElement('select');for(const [value,label] of [['$dungeon-player','蓝色角色'],['box','橙色箱子'],['peer','绿色角色']])actor.add(new Option(label,value));
     const status=document.createElement('p'),summary=document.createElement('pre');summary.dataset.spatialSummary='true';
     panel.content.append(scenario,actor,status,summary);
@@ -37,7 +38,7 @@ export const dungeonSpatialActionsLabModule: LabModule={
     const draw=()=>{
       if(!runtime)return;
       for(const body of runtime.traversal.spatial.bodies.values()){
-        const mesh=meshes.get(body.id);if(mesh){mesh.position.set(body.pose.x,.3,body.pose.y);mesh.setEnabled(body.enabled);}
+        const mesh=meshes.get(body.id);if(mesh){const pose=spatialPresentationPose(body);mesh.position.set(pose.x,.3,pose.y);mesh.setEnabled(body.enabled);}
       }
     };
     const reset=()=>{
@@ -69,7 +70,7 @@ export const dungeonSpatialActionsLabModule: LabModule={
       status.textContent=result.accepted?'开始移动':`拒绝：${result.blockedReason}`;
     });
     button('向右推动',()=>{const r=runtime.movementResolver.requestPush('$dungeon-player','east',1);status.textContent=r.accepted?'接触后推动':`拒绝：${r.reason}`;});
-    button('橙绿换位',()=>{const r=runtime.movementResolver.requestSwap('box','peer',1.2);status.textContent=r.accepted?'沿两侧绕行换位':`拒绝：${r.reason}`;});
+    button('橙绿换位',()=>{const r=runtime.movementResolver.requestSwap('box','peer');status.textContent=r.accepted?'直线换位，轻微错身':`拒绝：${r.reason}`;});
     button('打断协同动作',()=>{for(const g of runtime.movementResolver.storage.groups!.values())if(g.status==='running')runtime.movementResolver.cancelGroup(g.id);});
     button('暂停 / 继续',()=>{paused=!paused;});button('重置',reset);
     button('保存安全快照',()=>{saved=createDungeonRuntimeSaveState('spatial-example',runtime,spawn);status.textContent='已保存整组提交位置，恢复时不保留半个动画。';});

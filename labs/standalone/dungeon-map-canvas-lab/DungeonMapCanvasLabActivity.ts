@@ -1,4 +1,4 @@
-import { migrateDungeonSpatialDefinitions } from '@/core/map-document/dungeonMapDocument.spatialMigration.ts';
+import { prepareDungeonMapEditorDocument } from './dungeonMapEditorDocument';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { validateDungeonTransitionMap } from '@/core/dungeon-transition';
 import { deleteDungeonMapDocumentColumn, deleteDungeonMapDocumentRow, insertDungeonMapDocumentColumn, insertDungeonMapDocumentRow } from '@/core/map';
@@ -645,10 +645,7 @@ const clearMapEdits = () => {
   };
 
 const installDocumentStore = (document: DungeonMapDocumentV2) => {
-    const normalized = migrateDungeonSpatialDefinitions(document);
-    if (!normalized.document) throw new Error(normalized.issues.map(issue=>issue.message).join('\n'));
-    document = normalized.document;
-    const store = new DungeonMapDocumentStore(document);
+    const store = new DungeonMapDocumentStore(prepareDungeonMapEditorDocument(document));
     setMapStore(store);
     setMapDocument(store.getDocument());
   };
@@ -688,10 +685,10 @@ useEffect(() => {
     loadDungeonMapDocumentLibraryV2()
       .then((loadedDocuments) => {
         if (!active) return;
-        const documents = Object.fromEntries(Object.entries(loadedDocuments).map(([key, document]) => [key, {
+        const documents = Object.fromEntries(Object.entries(loadedDocuments).map(([key, document]) => [key, prepareDungeonMapEditorDocument({
           ...document,
           identity: { ...document.identity, presetKey: key },
-        }])) as DungeonMapDocumentLibraryV2;
+        })])) as DungeonMapDocumentLibraryV2;
         const library = normalizedPresetLibrary(Object.fromEntries(Object.entries(documents).map(([key, document]) => [key, {
           presetKey: key,
           name: document.identity.name,
@@ -980,7 +977,7 @@ const reloadCurrentPreset = async () => {
       && !window.confirm('重新加载会丢弃当前地图尚未保存的全部修改，确定继续吗？')) return;
     setPresetReloading(true);
     try {
-      const loadedDocument = await loadDungeonMapDocumentV2(activePresetKey);
+      const loadedDocument = prepareDungeonMapEditorDocument(await loadDungeonMapDocumentV2(activePresetKey));
       const loaded: DungeonMapPreset = {
         presetKey: loadedDocument.identity.presetKey,
         name: loadedDocument.identity.name,

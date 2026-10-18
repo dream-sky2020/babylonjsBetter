@@ -14,9 +14,11 @@
 
 DungeonMapWorkbench.tsx 管工作台外壳和设置窗口；dungeonMapOutline.ts 管三个只读浏览索引；dungeonMapWorkspace.ts 管布局校验与迁移；dungeon-map-workbench.css 在现有领域表单样式上复用公共 scene-editor 主题。停靠机制与场景环境 Lab 共同使用 core/ui/editor-kit/DockWorkspace.tsx 和 dockLayout.ts。Activity 不通过面板 DOM ID 和滚动监听判断工作区；地图视口继续使用 ref 测量尺寸。
 
+加载及重新加载预设时，先由 dungeonMapEditorDocument.ts 完成旧空间组件的内存规范化，再创建文档、投影和“已保存”比较基准。因此旧 Agent 广场的兼容转换不显示为用户未保存编辑，也不回写原文件。基准不在普通预设切换时重置，实际编辑、撤销/重做及放弃修改提醒仍有效。
+
 验证：`npm run test:dungeon-map-workbench`、`npm run build:dungeon-map-lab`。Vite 在 127.0.0.1:1184 启动后执行 `npm run test:dungeon-map-workbench-webgl` 和 `npm run test:dungeon-map-browsers-webgl`；界面测试阻止对正式预设的写请求。
 
-空间物体可在检查器的“新增 Component”选择“空间交互”，配置“玩家推动响应”：阻挡、推动、换位。先在“空间物体”组件将运动能力设为“可移动”；选择推动时还须开启“允许推动”，换位不需要。没有空间交互组件或组件禁用时默认阻挡。只有运行时空间检查通过才执行动作；窄道、墙和被占据落点仍会阻挡。配置随地图保存并支持撤销/重做，不改变 Agent AI。
+空间物体可在检查器的“新增 Component”选择“空间交互”，配置“玩家推动响应”：阻挡、换位、推动。玩家只需移动，碰撞目标时由目标配置直接决定响应，无需 Ctrl/Shift。先在“空间物体”组件将运动能力设为“可移动”；推动还须开启“允许推动”。新建 Agent 默认带空间交互并设为换位，通用组件自身默认阻挡；没有组件或禁用时也阻挡。只有运行时空间检查通过才执行动作；窄道、墙和被占据落点仍会阻挡，失败不切换另一种动作。配置随地图保存并支持撤销/重做，不改变 Agent AI。
 
 ## 1. 文件入口
 

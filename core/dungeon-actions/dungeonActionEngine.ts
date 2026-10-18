@@ -1,7 +1,8 @@
 import type { DungeonTraversalWorld } from '../dungeon-traversal/index.ts';
-import { requestSpatialGroup, advanceSpatialGroups, spatialGroupProgress, type SpatialActionGroup } from './dungeonActionGroup.ts';
+import { requestSpatialGroup, advanceSpatialGroups, spatialGroupProgress, DEFAULT_SWAP_DURATION_SECONDS, type SpatialActionGroup } from './dungeonActionGroup.ts';
 import { indexSpatialBody, sweepSpatialBody } from '../dungeon-spatial/dungeonSpatialGeometry.ts';
 import type { SpatialBody } from '../dungeon-spatial/dungeonSpatialState.ts';
+import { spatialPresentationPose } from '../dungeon-spatial/dungeonSpatialState.ts';
 import type { DungeonMovementDirection } from '../dungeon-movement/dungeonMovement.direction.ts';
 import type {
   DungeonMoveAdvanceResult,
@@ -46,6 +47,7 @@ export class DungeonActionEngine {
     const group=this.storage.groups!.get(id);if(!group||group.status!=='running'||group.recovering)return;
     for(const member of group.members) {
       const body=this.traversal.body(member.actorId)!,original=member.path;
+      member.recoveryOffset=body.presentationOffset?{...body.presentationOffset}:undefined;
       const scaled=spatialGroupProgress(group,group.elapsed/group.duration,original.length-1);
       const index=Math.min(original.length-2,Math.floor(scaled));
       member.path=group.committed?[{...body.pose},...original.slice(index+1)]:[{...body.pose},...original.slice(0,index+1).reverse()];
@@ -54,9 +56,11 @@ export class DungeonActionEngine {
     group.elapsed=0;group.duration=.25;group.recovering=true;
   }
   worldPositionFor?: (x: number, y: number) => [number, number, number];
-  projectBody(body: SpatialBody) { if (this.worldPositionFor) body.worldPosition = this.worldPositionFor(body.pose.x, body.pose.y); }
+  /** Cosmetic distance in tile units; zero gives a plain 2D crossing. */
+  swapPresentationOffset = .12;
+  projectBody(body: SpatialBody) { if (this.worldPositionFor) { const pose=spatialPresentationPose(body);body.worldPosition = this.worldPositionFor(pose.x, pose.y); } }
   requestPush(actorId: string, direction: DungeonMovementDirection, duration = .6) { return requestSpatialGroup(this, 'push', actorId, direction, duration); }
-  requestSwap(actorId: string, otherId: string, duration = .8) { return requestSpatialGroup(this, 'swap', actorId, otherId, duration); }
+  requestSwap(actorId: string, otherId: string, duration = DEFAULT_SWAP_DURATION_SECONDS) { return requestSpatialGroup(this, 'swap', actorId, otherId, duration); }
   private advanceGroups(delta: number, ready: () => boolean) { advanceSpatialGroups(this, delta, ready); }
   get samples() { return this.storage.samples!; }
   /** Only this method advances physical requests in a composed session. Projectors read samples. */
@@ -81,7 +85,7 @@ export class DungeonActionEngine {
         if (Number.isFinite(until) && until > 1e-9) slice = Math.min(slice, until);
       }
       for (const group of this.storage.groups!.values()) if (group.status === 'running') {
-        const marks=group.recovering?[1]:group.kind==='push'?[.2,.5,.8,1]:[1/3,.5,2/3,1];
+        const marks=group.recovering?[1]:group.kind==='push'?[.2,.5,.8,1]:[.5,1];
         for(const mark of marks){const until=group.duration*mark-group.elapsed;if(until>1e-9){slice=Math.min(slice,until);break;}}
       }
       for (const request of this.requests.values()) {
@@ -372,7 +376,8 @@ export class DungeonActionEngine {
     // Normal gameplay interruptions use cancelGroup's continuous recovery instead.
     for(const group of this.storage.groups!.values())if(group.status==='running'&&group.members.some(m=>m.actorId===actorId)){
       group.status='cancelled';for(const member of group.members){const body=this.traversal.body(member.actorId);if(body){
-        body.pose={x:body.logicalPosition.tileX,y:body.logicalPosition.tileY};indexSpatialBody(this.traversal.spatial,body);this.projectBody(body);}}
+          body.presentationOffset=undefined;
+          body.pose={x:body.logicalPosition.tileX,y:body.logicalPosition.tileY};indexSpatialBody(this.traversal.spatial,body);this.projectBody(body);}}
       this.groupChanged(group,'cancelled');
     }
     const request = this.getActiveRequest(actorId);

@@ -7,6 +7,8 @@ import type { PlayerPushResponse } from '../entity/components/spatial-interactio
 export type SpatialBody = DungeonTraversalActor & {
   bodyId: string; entityId: string; mobility: 'fixed' | 'movable'; pushable: boolean;
   facing: string; pose: { x: number; y: number }; logicalPosition: { tileX: number; tileY: number };
+  /** Derived presentation only; excluded from occupancy, colliders and saves. */
+  presentationOffset?: { x: number; y: number };
   colliderIds: string[]; source: 'map' | 'actor';
   initialTileIndex: number; initialEnabled: boolean;
   onPlayerPush: PlayerPushResponse;
@@ -74,3 +76,8 @@ export function installSpatialDefinitions(state: SpatialState, actors: Map<strin
 }
 
 export const spatialBodyFor = (state: SpatialState, entityId: string) => state.bodies.get(state.bodyIdByEntity.get(entityId) ?? entityId);
+
+export const spatialPresentationPose = (body: SpatialBody) => ({
+  x: body.pose.x + (body.presentationOffset?.x ?? 0),
+  y: body.pose.y + (body.presentationOffset?.y ?? 0),
+});

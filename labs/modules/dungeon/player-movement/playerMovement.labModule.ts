@@ -44,6 +44,24 @@ import {
 
 type MovementView = { loadId: number; player: DungeonPlayerStateData; grid: DungeonGridData };
 
+const describeInteractionFailure = (result: import('@/core/dungeon-player-movement').DungeonPlayerMovementResult): string | null => {
+  const failure = result.interactionFailure;
+  if (!failure) return null;
+  const reasons: Record<string, string> = {
+    'movement-in-progress': '目标正在执行动作，请稍后重试',
+    'trajectory-blocked': '动画路径被墙体或其他物体挡住',
+    'no-space-for-trajectory': '地图边缘没有足够的动画空间',
+    'participants-overlap': '双方碰撞体无法在这条路径中错开',
+    'reservation-conflict': '路径已被其他动作占用',
+    blocked: '目标后方无法通行',
+    'movement-obstacle': '双方之间还有其他障碍',
+    terrain: '目标地形无法通行',
+    'not-pushable': '目标未开启推动能力',
+    'target-not-movable': '目标不是可移动物体',
+  };
+  return `${failure.kind === 'push' ? '推动' : '换位'}失败：${reasons[failure.reason] ?? failure.reason}${failure.blockingEntityIds.length ? `（${failure.blockingEntityIds.join('、')}）` : ''}。`;
+};
+
 const createNumberInput = (value: number, min: number | undefined, step: number): HTMLInputElement => {
   const input = document.createElement('input');
   input.type = 'number';
@@ -97,6 +115,7 @@ export const playerMovementLabModule: LabModule = {
     const blockedAttemptService = createDungeonPlayerBlockedAttemptService();
     context.services.set(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY, blockedAttemptService);
     const panel = context.ui.addPanel('player-movement', '玩家移动');
+    let blockedInteractionStatus: string | null = null;
     const boundsToggle = createLabSwitch('限制玩家不能移出地图', true);
     const obstacleToggle = createLabSwitch('限制玩家不能跨越障碍', true);
     const teleportToggle = createLabSwitch('瞬移（跳过逐帧过渡）');
@@ -123,6 +142,7 @@ export const playerMovementLabModule: LabModule = {
       ['seconds-per-tile', '移动一格需要多少秒'],
     ]);
     const movementTimingInput = createNumberInput(60, 0.01, 0.1);
+    const swapDurationInput = createNumberInput(.25, .01, .05);
     const turnTimingSelect = createModeSelect<DungeonPlayerTurnTimingMode>([
       ['radians-per-second', '每秒转动多少度'],
       ['seconds-per-turn', '每次转向需要多少秒'],
@@ -232,9 +252,11 @@ export const playerMovementLabModule: LabModule = {
       keyboardOwnershipStatus,
       createLabField('移动计时模式', movementTimingSelect),
       movementTimingField,
+      createLabField('换位耗时（秒）', swapDurationInput),
       createLabField('转向计时模式', turnTimingSelect),
       turnTimingField,
       createLabField('绝对方向移动', controls),
+      createLabStatus('碰撞交互由目标的空间交互组件决定：阻挡、换位或推动，无需额外按键；空间不足时仍受阻。'),
       createLabField('相对当前朝向移动', relativeControls),
       createLabField('原地转向', turnControls),
       createLabField('指定格坐标（X / Y）', teleportPositionControls),
@@ -456,6 +478,7 @@ export const playerMovementLabModule: LabModule = {
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
         ...readTimingOptions(),
+        swapDurationSeconds: readPositiveNumber(swapDurationInput, .25),
         teleport: teleportToggle.input.checked,
         resolveWorldPosition: resolveWorldPosition(event),
       });
@@ -476,14 +499,15 @@ export const playerMovementLabModule: LabModule = {
       if (result.actionId && inputPolicy.continuous && directionalInput.hasHeldDirection) {
         continuousHoldMovementDurationSeconds = result.actionDurationSeconds ?? null;
       }
-      status.textContent = result.actionKind ? `开始${result.actionKind === 'push' ? '推动' : '换位'}：${result.actionId}。`
+      blockedInteractionStatus = describeInteractionFailure(result);
+      status.textContent = blockedInteractionStatus ?? (result.actionKind ? `开始${result.actionKind === 'push' ? '推动' : '换位'}：${result.actionId}。`
         : result.blockedReason === 'movement-obstacle'
         ? `玩家尝试向 ${direction} 移动，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
         : result.blockedReason === 'map-boundary'
           ? `玩家尝试向 ${direction} 移动，即将被地图边界挡回。`
         : result.completed
         ? `玩家瞬移到 (${result.to.tileX}, ${result.to.tileY})，朝向 ${direction}。`
-        : `开始移动到 (${result.to.tileX}, ${result.to.tileY})，同时转向 ${direction}。`;
+        : `开始移动到 (${result.to.tileX}, ${result.to.tileY})，同时转向 ${direction}。`);
       if (result.completed) {
         observeStep(result);
         if (result.stopContinuation) clearDirectionalInput();
@@ -522,6 +546,7 @@ export const playerMovementLabModule: LabModule = {
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
         ...readTimingOptions(),
+        swapDurationSeconds: readPositiveNumber(swapDurationInput, .25),
         teleport: teleportToggle.input.checked,
         resolveWorldPosition: resolveWorldPosition(event),
       });
@@ -536,14 +561,15 @@ export const playerMovementLabModule: LabModule = {
       }
       syncMarker();
       if (result.completed) refreshRuntimeJson();
-      status.textContent = result.actionKind ? `开始${result.actionKind === 'push' ? '推动' : '换位'}：${result.actionId}。`
+      blockedInteractionStatus = describeInteractionFailure(result);
+      status.textContent = blockedInteractionStatus ?? (result.actionKind ? `开始${result.actionKind === 'push' ? '推动' : '换位'}：${result.actionId}。`
         : result.blockedReason === 'movement-obstacle'
         ? `玩家尝试 ${movement}，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
         : result.blockedReason === 'map-boundary'
           ? `玩家尝试 ${movement}，即将被地图边界挡回。`
         : result.completed
         ? `${movement} 瞬移完成：玩家位于 (${result.to.tileX}, ${result.to.tileY})，仍朝向 ${facingBeforeMove}。`
-        : `开始 ${movement} 到 (${result.to.tileX}, ${result.to.tileY})，保持朝向 ${facingBeforeMove}。`;
+        : `开始 ${movement} 到 (${result.to.tileX}, ${result.to.tileY})，保持朝向 ${facingBeforeMove}。`);
       if (result.completed) {
         observeStep(result);
         if (result.stopContinuation) clearDirectionalInput();
@@ -705,7 +731,7 @@ export const playerMovementLabModule: LabModule = {
           if (!result.completed) break;
           remainingSeconds = result.remainingSeconds;
           status.textContent = movementKind === 'blocked' || movementKind === 'rollback'
-            ? `移动受阻：玩家退回 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})。`
+            ? blockedInteractionStatus ?? `移动受阻：玩家退回 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})。`
             : movementKind === 'turn'
             ? `原地转向完成：玩家仍位于 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})，朝向 ${current.player.playerFacing}。`
             : `移动完成：玩家位于 (${current.player.playerPosition.tileX}, ${current.player.playerPosition.tileY})，朝向 ${current.player.playerFacing}。`;
@@ -750,6 +776,7 @@ export const playerMovementLabModule: LabModule = {
       };
       clearDirectionalInput();
       current = event;
+      blockedInteractionStatus = null;
       offMovementChanges();
       offMovementChanges = movementControl.subscribe(event.loadId, () => refreshRuntimeJson());
       playerSystem = playerControl.acquire(loaded.loadId);

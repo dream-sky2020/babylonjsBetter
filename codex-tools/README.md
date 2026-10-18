@@ -1,11 +1,16 @@
 # Codex 工具与资源处理档案
 
+启动本地 Vite 验证服务前，先检查 localhost:1184 与 127.0.0.1:1184 并复用现有服务。项目默认绑定127.0.0.1且严格占用1184；不要以另一个监听地址再开同端口实例，它们会争用依赖预构建缓存，引发504 Outdated Optimize Dep。独立端口测试服务使用独立 cacheDir；一次性服务结束后清理自身进程，保留用户正在使用的开发服务。
+
 - `buildDungeonMapLab.mjs`：`npm run build:dungeon-map-lab`，只构建地图数据编辑工作台到 node_modules/.cache/dungeon-map-workbench-build，不复制 public。
 - `verifyDungeonMapWorkbench.cjs`：Vite 127.0.0.1:1184 启动后执行 `npm run test:dungeon-map-workbench-webgl`，验证三栏、搜索、历史、组件、批量编辑、3D、设置、调宽及布局恢复和窄屏；阻止写入正式预设，报告与截图位于 node_modules/.cache/dungeon-map-workbench-*。
 - `verifyDungeonMapBrowsers.cjs`：Vite 127.0.0.1:1184 启动后 `npm run test:dungeon-map-browsers-webgl`，验证三个浏览器的独立搜索、中文组件检索、实体/组件选中联动、折叠和隐藏、真实鼠标拖拽及边缘预览、键盘分隔调节、刷新恢复、窄屏，以及场景环境 Lab 的共享拖拽回归；不提交写请求。JSON 与默认/调整后截图位于 node_modules/.cache/dungeon-map-browsers-*。
+- `verifyDungeonMapPresetBaseline.cjs`：Vite 127.0.0.1:1184 启动后 `node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonMapPresetBaseline.cjs`，检查 Agent 广场无修改加载/重载不报未保存，真实编辑与撤销重做、跨预设切换和丢弃提醒保持有效；拒绝写请求，报告在 node_modules/.cache/dungeon-map-preset-baseline-verification.json。
+- `verifyAgentInteractionEditor.cjs`：Vite 127.0.0.1:1184 启动后，用 runElectronVerification.mjs 执行，逐一检查长廊4个、广场10个 Agent 默认换位、可移动及碰撞配置；检查只有阻挡/换位/推动三项、新建 Agent 自带换位，浏览不变脏；不提交写请求，报告位于 node_modules/.cache/agent-interaction-editor-verification.json。
+- `verifyAgentInteractionRuntime.cjs`：通过同一 launcher 执行，加载 `agentInteractionVerification.html`，复用真实 dungeon-agent-lab 模块和两张正式地图；核对14个 Agent，验证 AI 开启时换位、相对移动推动、阻挡、动作忙碌说明及静止 Agent 每片/最终图形同步。只改验证会话，JSON/PNG 输出在 node_modules/.cache/agent-interaction-runtime-verification.*；浏览器报错使验证失败。
 
 - `buildSpatialActionsLab.mjs`：`npm run build:spatial-actions`，只构建统一空间动作页，不复制 public。
-- `verifySpatialActions.cjs`：构建后 `npm run test:spatial-actions-webgl`，Electron 实测推动、原子换位、窄道拒绝并截图。
+- `verifySpatialActions.cjs`：构建后 `npm run test:spatial-actions-webgl`，Electron 实测推动、完成时原子换位、单格窄道换位并截图。
 - `verifySpatialInteractionEditor.cjs`：Vite 127.0.0.1:1184 启动后，用 `node codex-tools/runElectronVerification.mjs codex-tools/verifySpatialInteractionEditor.cjs` 验证地图画布 Lab 新增空间交互组件、默认阻挡及编辑换位；不保存到正式预设，JSON/PNG 位于 node_modules/.cache/。
 - `verifySpatialIntegration.cjs`：Vite 127.0.0.1:1184 启动后 `npm run test:spatial-integration-webgl`，复用真实 crossroads/Agent/俯视变形与格子像素回归页。
 - `benchmarkSpatialActions.mjs`：`npm run benchmark:spatial-actions`，比较 1200 物体的旧静态索引和新统一索引局部查询；这是微基准，不代表整帧性能。以上 JSON/PNG 输出在 node_modules/.cache/。

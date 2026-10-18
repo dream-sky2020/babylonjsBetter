@@ -26,7 +26,7 @@ app.whenReady().then(async () => {
       document.querySelector('.component-add-row button').click();await wait(200);
       const field = () => [...document.querySelectorAll('label')].find(label => label.querySelector('span')?.textContent === '玩家推动响应')?.querySelector('select');
       require(field()?.value === 'block', '默认响应不是阻挡');
-      require([...field().options].map(option => option.textContent).join('/') === '阻挡/推动/换位', '响应选项不完整');
+      require([...field().options].map(option => option.value).join('/') === 'block/swap/push', '响应选项不完整');
       // Configure physical capability first, through the same Inspector fields.
       const bodyButton = [...document.querySelectorAll('.component-outline__item')].find(button => button.textContent.includes('空间物体'));
       bodyButton.click();await wait(100);

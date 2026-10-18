@@ -29,7 +29,7 @@ function fixture(response?: 'block' | 'push' | 'swap', disabled = false) {
 
 test('interaction component is optional, unique, validated and editable through map history, delta and v3', () => {
   assert.equal(interaction.createDefault().onPlayerPush, 'block');
-  assert.deepEqual(interaction.fields[0].options?.map(option => option.value), ['block', 'push', 'swap']);
+  assert.deepEqual(interaction.fields[0].options?.map(option => option.value), ['block', 'swap', 'push']);
   assert.ok(interaction.allowedEntityTypes?.includes('spatial-object'));
   assert.equal(interaction.allowMultiple, false);
   const { doc } = fixture();
@@ -49,7 +49,7 @@ test('interaction component is optional, unique, validated and editable through 
 test('invalid interaction values, duplicate components, missing bodies and incompatible capabilities are rejected', () => {
   const { doc } = fixture('push');
   const row = doc.components['spatial-interaction'][0];
-  for (const patch of [{ onPlayerPush: 'unknown' }, { version: 2 }]) {
+  for (const patch of [{ onPlayerPush: 'unknown' }, { onPlayerPush: 'push-or-swap' }, { version: 2 }]) {
     const candidate = structuredClone(doc);Object.assign(candidate.components['spatial-interaction'][0], patch);
     assert.ok(compileSpatialDefinitions(candidate).issues.length);
   }
@@ -71,13 +71,14 @@ test('invalid interaction values, duplicate components, missing bodies and incom
 test('walking into configured objects submits a push or swap, with atomic occupancy and no ordinary bump track', () => {
   for (const response of ['push', 'swap'] as const) {
     const { runtime, engine } = fixture(response);
-    const result = startDungeonPlayerMovement(runtime, 'east', options);
+    const result = startDungeonPlayerMovement(runtime, 'east', {...options,swapDurationSeconds:1});
     assert.equal(result.started, true);assert.equal(result.actionKind, response);
     assert.equal(runtime.playerMovement, null);assert.equal(engine.activeRequests.size, 0);
     assert.equal(startDungeonPlayerMovement(runtime, 'east', options).blockedReason, 'movement-in-progress');
-    engine.tick(.5);assert.equal(runtime.playerPosition.tileX, 2);
-    assert.equal(runtime.traversal.body('box')!.logicalPosition.tileX, response === 'push' ? 3 : 1);
-    engine.tick(.5);assert.equal(engine.isBusy('$dungeon-player'), false);
+    engine.tick(.5);assert.equal(runtime.playerPosition.tileX, response === 'push' ? 2 : 1);
+    assert.equal(runtime.traversal.body('box')!.logicalPosition.tileX, response === 'push' ? 3 : 2);
+    engine.tick(.5);assert.equal(engine.isBusy('$dungeon-player'), false);assert.equal(runtime.playerPosition.tileX,2);
+    assert.equal(runtime.traversal.body('box')!.logicalPosition.tileX,response === 'push'?3:1);
   }
 });
 
@@ -93,13 +94,17 @@ test('absent, blocked or disabled responses retain blocked movement; existing in
   assert.equal(result.handled, true);assert.equal(engine.storage.groups!.size, 0);
 });
 
-test('blocked push destinations and narrow swap paths never fall back to another interaction', () => {
+test('blocked push destinations do not fall back; adjacent scenery does not block a straight swap', () => {
   const push = fixture('push');push.runtime.traversal.moveActor('peer', 17);
-  assert.equal(startDungeonPlayerMovement(push.runtime, 'east', options).blockedReason, 'movement-obstacle');
+  const pushResult = startDungeonPlayerMovement(push.runtime, 'east', options);
+  assert.equal(pushResult.blockedReason, 'movement-obstacle');
+  assert.equal(pushResult.interactionFailure?.kind, 'push');
+  assert.equal(pushResult.interactionFailure?.reason, 'blocked');
   assert.equal(push.engine.storage.groups!.size, 0);assert.equal(push.runtime.playerPosition.tileX, 1);
   const swap = fixture('swap');swap.runtime.traversal.moveActor('peer', 23);
-  assert.equal(startDungeonPlayerMovement(swap.runtime, 'east', options).blockedReason, 'movement-obstacle');
-  assert.equal(swap.engine.storage.groups!.size, 0);
+  const swapResult = startDungeonPlayerMovement(swap.runtime, 'east', options);
+  assert.equal(swapResult.actionKind, 'swap');
+  assert.equal(swap.engine.storage.groups!.size, 1);
 });
 
 test('automatic interaction emits one synchronous player step before observers and supports relative movement', () => {
@@ -112,4 +117,16 @@ test('automatic interaction emits one synchronous player step before observers a
   assert.equal(result.actionKind, 'push');assert.equal(system.isBusy, true);
   engine.tick(1, delta => system.update(delta));engine.tick(1, delta => system.update(delta));
   assert.deepEqual(order, ['transition', 'observe']);assert.equal(runtime.playerFacing, 'east');off();
+});
+
+test('automatic swap uses independent timing and emits one player step only after both final anchors commit',()=>{
+  const {runtime,engine}=fixture('swap');
+  const steps=new DungeonPlayerStepEvents(),system=new DungeonPlayerSystem(runtime,7,steps);let count=0;
+  steps.subscribe('check-swap',100,()=>{
+    count++;assert.equal(runtime.playerPosition.tileX,2);assert.equal(runtime.traversal.body('box')!.logicalPosition.tileX,1);
+  });
+  const result=system.moveRelative('forward',{...options,movementSecondsPerTile:9});
+  assert.equal(result.actionDurationSeconds,.25);
+  engine.tick(.125);assert.equal(count,0);assert.equal(runtime.playerPosition.tileX,1);
+  engine.tick(.125);assert.equal(count,1);engine.tick(1);assert.equal(count,1);
 });

@@ -6,6 +6,8 @@ import { createDungeonRuntime } from '../dungeon-runtime/dungeonRuntime.ts';
 import { createDungeonRuntimeSaveState,applyDungeonRuntimeSaveState } from '../dungeon-runtime-save/dungeonRuntimeSave.ts';
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
 import { indexSpatialBody,sweepSpatialBody } from './dungeonSpatialGeometry.ts';
+import { spatialPresentationPose } from './dungeonSpatialState.ts';
+import { createSpatialExampleDocument } from './dungeonSpatialExample.ts';
 import { DungeonMapDocumentStore } from '../map-document/dungeonMapDocument.store.ts';
 import { componentDefinition as bodyComponent } from '../entity/components/spatial-body.component.ts';
 import { componentDefinition as colliderComponent } from '../entity/components/spatial-collider.component.ts';
@@ -46,13 +48,51 @@ test('push reserves both participants, updates continuous poses and commits the 
   assert.equal(engine.storage.groups!.get(result.actionId!)!.status,'completed');off();
 });
 
-test('swap follows opposite checked lanes and atomically exchanges committed anchors',()=>{
+test('swap crosses directly with a small cosmetic sidestep and commits both anchors only at completion',()=>{
   const {world,engine}=spatialFixture();
   const a=world.body('box')!,b=world.body('peer')!;
   const result=engine.requestSwap(a.id,b.id,1);assert.equal(result.accepted,true);
-  engine.tick(.25);assert.ok(a.pose.y>2);assert.ok(b.pose.y<2);assert.equal(a.tileIndex,16);
-  engine.tick(.25);assert.equal(a.tileIndex,17);assert.equal(b.tileIndex,16);
+  let commits=0;world.subscribe(change=>{if(change.kind==='actor-moved'){commits++;assert.equal(a.tileIndex,17);assert.equal(b.tileIndex,16);}});
+  engine.tick(.25);assert.equal(a.pose.y,2);assert.equal(b.pose.y,2);assert.ok(a.pose.x>2);assert.ok(b.pose.x<3);
+  assert.ok(spatialPresentationPose(a).y>2);assert.ok(spatialPresentationPose(b).y<2);
+  assert.ok(Math.abs(spatialPresentationPose(a).y-2)<=.12);assert.equal(a.tileIndex,16);
+  engine.tick(.25);assert.equal(a.pose.x,2.5);assert.equal(b.pose.x,2.5);assert.equal(a.tileIndex,16);assert.equal(b.tileIndex,17);assert.equal(commits,0);
   engine.tick(.5);assert.deepEqual(a.pose,{x:3,y:2});assert.deepEqual(b.pose,{x:2,y:2});
+  assert.equal(a.tileIndex,17);assert.equal(b.tileIndex,16);assert.equal(commits,2);assert.equal(a.presentationOffset,undefined);
+});
+
+test('single-tile corridor permits swap; tight walls reduce cosmetic sidestep to zero without changing colliders',()=>{
+  const doc=createSpatialExampleDocument('narrow');
+  for(const collider of doc.components['spatial-collider']??[])if(collider.entityId.startsWith('wall:'))collider.halfHeight=.74;
+  const spawn={tilePosition:{x:1,y:2},worldPosition:[1,0,2]} as unknown as DungeonPlayerSpawnBinding;
+  const runtime=createDungeonRuntime(doc,spawn),engine=runtime.movementResolver;
+  const result=engine.requestSwap('box','peer',1);assert.equal(result.accepted,true);
+  assert.deepEqual(engine.storage.groups!.get(result.actionId!)!.cells,[16,17]);
+  engine.tick(.5);
+  for(const id of ['box','peer']) {
+    const body=runtime.traversal.body(id)!;assert.equal(body.pose.y,2);assert.equal(spatialPresentationPose(body).y,2);
+    assert.equal(body.blocksMovement,true);assert.equal(body.tileIndex,id==='box'?16:17);
+  }
+  engine.tick(.5);assert.equal(runtime.traversal.body('box')!.tileIndex,17);
+});
+
+test('2D zero-offset swap stays straight and its two cells reject third-party entry',()=>{
+  const {engine,world}=spatialFixture();engine.swapPresentationOffset=0;
+  world.registerActor({id:'third',kind:'dynamic',tileIndex:9,enabled:true,blocksMovement:true,movementProfileId:'ground'});
+  assert.equal(engine.requestSwap('box','peer').accepted,true);
+  assert.equal(engine.requestMove({actorId:'third',direction:'south',durationSeconds:1,ignoreDynamicOccupancy:true,checkStaticObstacles:false}).blockedReason,'reservation-conflict');
+  engine.tick(.125);assert.equal(spatialPresentationPose(world.body('box')!).y,2);assert.equal(world.body('box')!.tileIndex,16);
+  engine.tick(.125);assert.equal(world.body('box')!.tileIndex,17);
+});
+
+test('a boundary between neighbours prevents a direct swap',()=>{
+  const {doc,spawn}=spatialFixture();const store=new DungeonMapDocumentStore(doc);
+  const side=doc.grid.sides.find(row=>row.tileId===doc.grid.tileIds[16]&&row.direction==='east')!;
+  store.addEntityAt({kind:'side',sideId:side.id},{id:'wall-between',entityType:'obstacle',components:[bodyComponent.createDefault(),colliderComponent.createDefault()]});
+  const runtime=createDungeonRuntime(store.getDocument(),spawn);
+  const result=runtime.movementResolver.requestSwap('box','peer');
+  assert.equal(result.accepted,false);assert.ok(result.blockingEntityIds.includes('wall-between'));
+  assert.equal(runtime.traversal.body('box')!.tileIndex,16);
 });
 
 test('group participants cannot start independent moves or turns before the group finishes',()=>{
@@ -95,7 +135,7 @@ test('pause prevents both initial projection and continuation after a completed 
   ready=true;engine.requestSwap('box','peer',1);
   engine.subscribeGroupCompleted(()=>{ready=false;});
   engine.tick(2,()=>projects++,()=>ready);
-  assert.equal(engine.storage.simulationSeconds,1);assert.equal(projects,4);
+  assert.equal(engine.storage.simulationSeconds,1);assert.equal(projects,2);
 });
 
 test('zero-duration requests complete once and loop seam poses use the neighbouring periodic image',()=>{
@@ -122,22 +162,36 @@ test('rotation completion splits a large frame before a new physical intent begi
   assert.equal(world.body('$dungeon-player')!.pose.x,1.25);
 });
 
-test('narrow boundaries and third-party colliders reject a swap without changing any position',()=>{
+test('third-party geometry on the direct path rejects a swap without changing any position',()=>{
   const {world,engine}=spatialFixture();const b=world.body('$dungeon-player')!;
-  b.pose={x:2,y:3};indexSpatialBody(world.spatial,b);
+  b.pose={x:2.5,y:2};indexSpatialBody(world.spatial,b);
   const result=engine.requestSwap('box','peer');assert.equal(result.accepted,false);assert.equal(result.reason,'trajectory-blocked');
   assert.deepEqual(world.body('box')!.pose,{x:2,y:2});assert.equal(engine.storage.groups!.size,0);
 });
 
-test('cancel before commit recovers continuously, while cancel after commit retains exchanged facts',()=>{
+test('new third-party geometry interrupts a running swap and recovery clears the cosmetic pose',()=>{
+  const {engine,world}=spatialFixture();const result=engine.requestSwap('box','peer',1);assert.equal(result.accepted,true);
+  engine.tick(.1);
+  world.registerActor({id:'intruder',kind:'dynamic',tileIndex:10,enabled:true,blocksMovement:true,movementProfileId:'ground'});
+  const intruder=world.body('intruder')!;world.spatial.colliders.get(intruder.colliderIds[0])!.radius=.1;
+  intruder.pose={x:2.5,y:2};indexSpatialBody(world.spatial,intruder);
+  engine.tick(.4);assert.equal(engine.storage.groups!.get(result.actionId!)!.recovering,true);
+  engine.tick(.25);assert.equal(engine.storage.groups!.get(result.actionId!)!.status,'cancelled');
+  assert.equal(world.body('box')!.tileIndex,16);assert.equal(world.body('peer')!.tileIndex,17);
+  assert.equal(world.body('box')!.presentationOffset,undefined);
+});
+
+test('swap cancellation at any in-flight point returns continuously to original anchors and clears cosmetic offsets',()=>{
   for(const elapsed of [.1,.7]){
     const {engine,world}=spatialFixture();const result=engine.requestSwap('box','peer',1);assert.equal(result.accepted,true);
     engine.tick(elapsed);const before={...world.body('box')!.pose};engine.cancelGroup(result.actionId!);
+    const visualBefore=spatialPresentationPose(world.body('box')!);engine.tick(0);
+    assert.deepEqual(spatialPresentationPose(world.body('box')!),visualBefore);
     assert.deepEqual(world.body('box')!.pose,before);engine.tick(.25);
-    assert.equal(world.body('box')!.tileIndex,elapsed<.5?16:17);
-    assert.deepEqual(world.body('box')!.pose,{x:elapsed<.5?2:3,y:2});
+    assert.equal(world.body('box')!.tileIndex,16);
+    assert.deepEqual(world.body('box')!.pose,{x:2,y:2});assert.equal(world.body('box')!.presentationOffset,undefined);
     assert.equal(engine.storage.groups!.get(result.actionId!)!.status,'cancelled');
-    assert.equal(engine.storage.groups!.get(result.actionId!)!.committed,elapsed>=.5);
+    assert.equal(engine.storage.groups!.get(result.actionId!)!.committed,false);
   }
 });
 
@@ -157,8 +211,9 @@ test('safe v2 snapshot restores a whole mid-swap to committed anchors and accept
   runtime.traversal.body('peer')!.facing='north-east';
   const saved=createDungeonRuntimeSaveState('spatial-test',runtime,spawn)!;assert.equal(saved.version,2);
   const fresh=spatialFixture();applyDungeonRuntimeSaveState(fresh.runtime,saved,p=>[p.tileX,0,p.tileY]);
-  assert.equal(fresh.world.body('box')!.tileIndex,17);assert.deepEqual(fresh.world.body('box')!.pose,{x:3,y:2});
-  assert.equal(fresh.world.body('peer')!.tileIndex,16);assert.equal(fresh.engine.storage.groups!.size,0);
+  assert.equal(fresh.world.body('box')!.tileIndex,16);assert.deepEqual(fresh.world.body('box')!.pose,{x:2,y:2});
+  assert.equal(fresh.world.body('peer')!.tileIndex,17);assert.equal(fresh.engine.storage.groups!.size,0);
+  assert.equal(fresh.world.body('peer')!.presentationOffset,undefined);
   assert.equal(fresh.world.body('peer')!.facing,'north-east');
   assert.doesNotThrow(()=>applyDungeonRuntimeSaveState(fresh.runtime,{version:1,dungeonPresetKey:'spatial-test',playerFacing:'north'},p=>[p.tileX,0,p.tileY]));
 });
@@ -171,7 +226,7 @@ test('swept geometry catches a thin third-party collider between endpoints',()=>
 
 test('restore validates player and other bodies together and clears in-flight tracks',()=>{
   const {engine,runtime,spawn}=spatialFixture();
-  assert.equal(engine.requestSwap('$dungeon-player','box',1).accepted,true);engine.tick(.6);
+  assert.equal(engine.requestSwap('$dungeon-player','box',1).accepted,true);engine.tick(1);
   const saved=createDungeonRuntimeSaveState('spatial-test',runtime,spawn)!;
   const fresh=spatialFixture();fresh.engine.requestSwap('box','peer',1);fresh.engine.tick(.2);
   const result=applyDungeonRuntimeSaveState(fresh.runtime,saved,p=>[p.tileX,0,p.tileY]);

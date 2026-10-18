@@ -247,6 +247,9 @@ export default defineConfig({
   appType: 'mpa',
   plugins: [react(), labNavigationPlugin(), sharedConfigPlugin()],
   server: {
+    // Use the same loopback address as verification clients. Separate ::1/127.0.0.1
+    // listeners can otherwise share port 1184 and corrupt each other's optimizer cache.
+    host: '127.0.0.1',
     port: 1184, // 将端口设置为你想要的数字
     strictPort: true, // 如果端口被占用，直接报错退出，而不是自动切换到下一个端口
     open: true, // 项目启动后自动在浏览器打开

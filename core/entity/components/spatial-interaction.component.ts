@@ -15,13 +15,13 @@ export const validateSpatialInteraction = (value: ISpatialInteractionComponent):
 
 export const componentDefinition: ComponentDefinition<ISpatialInteractionComponent> = {
   type: 'spatial-interaction', version: 1, label: '空间交互',
-  description: '玩家向此物体移动时的响应。推动需要物体可移动且允许推动；换位需要物体可移动。空间不足时仍会受阻。',
+  description: '玩家尝试进入此物体所在位置时，按配置阻挡、换位或推动，无需交互按键。推动需要可移动且允许推动，换位需要可移动；空间检查失败时受阻，不切换其他动作。',
   allowedEntityTypes: ['spatial-object', 'obstacle', 'dungeon-agent'],
   allowMultiple: false,
   batch: { scope: 'compatible', create: true, edit: true, delete: true },
   fields: [{
     path: 'onPlayerPush', label: '玩家推动响应', control: 'select',
-    options: [{ value: 'block', label: '阻挡' }, { value: 'push', label: '推动' }, { value: 'swap', label: '换位' }],
+    options: [{ value: 'block', label: '阻挡' }, { value: 'swap', label: '换位' }, { value: 'push', label: '推动' }],
     batch: { editable: true },
   }],
   createDefault: () => ({ id: createEntityDataId('component'), type: 'spatial-interaction', version: 1, onPlayerPush: 'block' }),

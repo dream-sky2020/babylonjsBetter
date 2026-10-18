@@ -6,6 +6,8 @@ import {
   type EntityTypeDefinition,
   type IEntity,
 } from '@/core/entity';
+import type { ISpatialBodyComponent } from '@/core/entity/components/spatial-body.component';
+import type { ISpatialInteractionComponent } from '@/core/entity/components/spatial-interaction.component';
 
 const componentModules = import.meta.glob('/core/entity/components/*.component.ts', {
   eager: true,
@@ -37,9 +39,11 @@ export const createEntityFromDefinition = (definition: EntityTypeDefinition): IE
       ? [componentDefinition.createDefault()]
       : [];
   });
-  if(entity.entityType==='dungeon-agent') {
-    const body=entity.components.find(c=>c.type==='spatial-body');
-    if(body) (body as unknown as {mobility:string}).mobility='movable';
+  if (entity.entityType === 'dungeon-agent') {
+    const body = entity.components.find(c => c.type === 'spatial-body') as ISpatialBodyComponent | undefined;
+    if (body) body.mobility = 'movable';
+    const interaction = entity.components.find(c => c.type === 'spatial-interaction') as ISpatialInteractionComponent | undefined;
+    if (interaction) interaction.onPlayerPush = 'swap';
   }
   return entity;
 };

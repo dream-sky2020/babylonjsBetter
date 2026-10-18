@@ -50,6 +50,7 @@ export const applyDungeonRuntimeSaveState = (
     // Loading a safe snapshot ends all old tracks, including cooperative actions.
     for (const body of runtime.traversal.spatial.bodies.values()) {
       runtime.movementResolver.cancelActor(body.id);
+      body.presentationOffset = undefined;
       body.pose = { x: body.logicalPosition.tileX, y: body.logicalPosition.tileY };
       indexSpatialBody(runtime.traversal.spatial, body);
     }

@@ -85,6 +85,14 @@ test('player simulation reuses blocked inspection and defers bounded Debug summa
     assert.equal(runtime.playerMovement, null);assert.equal(runtime.movementResolver.storage.groups.size, 1);
     simulation.run(.02);assert.equal(runtime.movementResolver.getActiveRequest('$dungeon-player'), undefined);
     simulation.run(2);assert.equal(runtime.playerPosition.tileX, 1);assert.equal(box.logicalPosition.tileX, 2);
+    box.onPlayerPush = 'block';
+    document.querySelector('[data-move="east"]').click();
+    assert.equal(runtime.playerMovement.kind, 'blocked');simulation.run(2);
+    assert.equal(runtime.playerPosition.tileX, 1);assert.equal(box.logicalPosition.tileX, 2);
+    box.onPlayerPush = 'push';document.querySelector('[data-move="east"]').click();simulation.run(2);
+    assert.equal(runtime.playerPosition.tileX, 2);assert.equal(box.logicalPosition.tileX, 3);
+    box.onPlayerPush = 'block';document.querySelector('[data-move="east"]').click();simulation.run(2);
+    assert.equal(runtime.playerPosition.tileX, 2);assert.equal(box.logicalPosition.tileX, 3);
     cleanup(); cleanup = null; assert.equal(tasks.size, 0); assert.equal(handlers.size, 0);
   } finally {
     cleanup?.(); assembly?.dispose(); scene?.dispose(); engine?.dispose(); await server.close(); dom.window.close();
