@@ -340,7 +340,7 @@ export default defineConfig({
         bulletConfigLab: path.resolve(__dirname, 'labs/standalone/bullet-config-lab/index.html'),
         dungeonMapCanvasLab: path.resolve(__dirname, 'labs/standalone/dungeon-map-canvas-lab/index.html'),
         dialogueMapCanvasLab: path.resolve(__dirname, 'labs/standalone/dialogue-map-canvas-lab/index.html'),
-        dialoguePreviewCanvasLab: path.resolve(__dirname, 'labs/standalone/dialogue-preview-canvas-lab/index.html'),
+        uiPreviewCanvasLab: path.resolve(__dirname, 'labs/standalone/ui-preview-canvas-lab/index.html'),
         jrpgTerminalDialogueLab: path.resolve(__dirname, 'labs/standalone/jrpg-terminal-dialogue-lab/index.html'),
         sceneEnvironmentLab: path.resolve(__dirname, 'labs/standalone/scene-environment-lab/index.html'),
         dbGameSelfstatusLab: path.resolve(__dirname, 'labs/standalone/db-game-selfstatus-lab/index.html'),

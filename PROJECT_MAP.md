@@ -1,3 +1,27 @@
+## 2026-10-20：本地画布角色整备示例
+
+UI Preview Canvas Lab 增加 config/dialoguePreviewPresets/equipment_ui.json（角色整备·本地可交互），1280×720画布。通用 panel/label/button/resource-bar Definition 位于 core/ui-document/uiBasic.definitions.ts，加入既有Registry；每个头像、资源、属性、装备/技能槽和库存按钮都可独立选中、移动与修改样式。Lab 的 equipmentPreview.ts 持有会话内角色、选中对象和装备操作，previewContext 在渲染时合并、不写回布局；纯预览命中按钮的 action 后调用共享整备规则。编辑与预览共用相同坐标和 Definition。角色/物品样例规则抽到 labs/data/equipment.ts 与 equipmentAttributes.ts，原整备 Lab 路径保留转导出，两页独立创建会话。?preset=equipment_ui 直接打开新示例；旧对话预设、保存接口与格式继续兼容。不依赖 Plasmic 账号或包。
+
+## 2026-10-20：通用 UI Preview Canvas Lab 命名
+
+游戏 UI 文档编辑器入口从 labs/standalone/dialogue-preview-canvas-lab 更名为 labs/standalone/ui-preview-canvas-lab，入口组件/启动文件/CSS 同步改为 UiPreviewCanvasLab / uiPreviewCanvasLabMain / ui-preview-canvas-lab.css。首页与 Vite 多页入口指向新路径，页面标题改为 UI Preview Canvas Lab。保留现有 core/dialogue-preview Definition Registry、预设 API 与文档格式，已有预设不迁移或重建。
+
+## 2026-10-20：Puck 推荐整备布局
+
+Equipment Puck 默认编排为顶部整备操作，下面三栏：左侧紧凑人物状态与两列属性对比，中间装备与八槽技能，右侧选中对象信息与独立滚动库存。复用 Panel / Columns（单列嵌套作为纵向堆叠），布局仍可通过 Puck 编辑；不修改 Grid 默认坐标。编辑器“推荐整备布局”按钮加载这套默认编排，沿用保存布局流程，不覆盖已有浏览器保存数据。
+
+## 2026-10-20：整备 Lab 人物与属性面板分离
+
+整备 Lab 的 character 使用紧凑横向人物卡：左侧等级/可用加点/头像/姓名职业，右侧四条资源进度，底部状态与距升级经验；专注人物切换、姓名/职业/等级、HP/MP/SP、经验进度、剩余升级经验、可用加点与当前状态；读取人物现有 Core 属性，状态由 Lab Actor.statuses 持有，仅展示，不新增战斗或加点规则。详细属性、解释版、列数和换装预览移至独立 attributes 面板。Grid 布局版本2沿用原存储键，旧版本1六窗口保留几何/分组/显隐/参考框，追加属性窗口并迁移 character 的面板设置；默认七窗口。Puck 默认增加属性面板，root.props.equipmentPanelsVersion=2 标记迁移完成，旧编排补入一次后允许自行移除。
+
+## 2026-10-20：可拖拽 Lab 游戏画面参考框
+
+公共 GridWorkbench 的布局设置增加游戏画面参考框，默认显示1920×1080绿色边框。支持前景/背景层级（默认背景，前景覆盖窗口边界但鼠标穿透）与1920×1080、1600×900、1366×768、1280×720、960×540、854×480规格切换，仍可自定义。宽高按 CSS 像素显示，随浏览器缩放和页面滚动；绝对定位于工作区原点、按层级显示且不接收鼠标，不参与网格、碰撞或窗口尺寸换算。显示时工作区至少容纳参考高度，横向溢出可滚动查看；不改变 Grid 实际宽度和旧面板几何。referenceFrame 设置随各 Lab 原有布局自动保存、导入导出及撤销重做，旧数据缺字段时补默认。覆盖 Press Turn、整备、仓库、Clash 的 Grid 工作台。
+
+## 2026-10-20：技能主动与被动组合
+
+Core SkillItemDefinition 以 modifiers 表达装备/启用期间的被动属性，active.battle / active.field 分别定义主动目标、共享效果、MP/SP 消耗和战斗行动消耗，取代 passive 布尔分类与顶层 mpCost。resolveSkillUse 只处理显式启用技能，返回施法者、目标和事件，不操作库存；效果组与物品共用。labs/data/skills.ts 是整备与仓库 Lab 的共享示例目录。仓库新增技能筛选、启用/停用、两种场景发动及被动属性合计预览；启用状态仅在该演示会话内保存，未接入 Press Turn。整备装备技能继续通过同一 modifiers 参与属性结算，显示主动＋被动类型和场景消耗。两页角色与库存仍分别持有。
+
 ## 2026-10-18：动作预算让出与无进展诊断
 
 DungeonActionEngine.tick 不再因达到128次边界而抛错。128是单次工作预算，完整执行边界投影/同步规则后返回 consumedSeconds、remainingSeconds、boundaries、yielded、paused；余量自动保存在现有 dungeon.spatial-actions.timing.pendingSeconds，下一帧加入新时间再处理，tick(0)可仅排积压，调用者不要再次传入返回的remainingSeconds。Lab分配timing数据，Core保留旧调用兼容初始化。安全恢复清空积压与诊断，存档不携带它们。
@@ -1096,13 +1120,13 @@ Agent 导航受阻后不再立即丢弃整条路线。动态占位会保留计�
 
 ## 2026-09-22：通用 Editor Inspector UI
 
-`core/ui/editor-kit/` 提供不依赖 Babylon 或具体文档模型的紧凑编辑器层级树和 Inspector 外壳。`ObjectHierarchy` 统一搜索、展开、受控选择、多选提示、状态徽标、右键入口和可选拖拽改父级；拖拽使用明确的 before、after、inside 与 root-end Drop Intent，显示插入线、Group 高亮和目标文字，支持多选拖动、非法循环拒绝、悬停展开和边缘自动滚动。具体修改仍由各领域 Store/History 执行。Animation Workbench 使用 Animation Workspace 对象适配该层级树，`babylon-scene-inspector` 保留原公共接口并在内部适配 Babylon Scene Node，Dialogue Preview Canvas 使用 UI Document 的 `nodes + rootIds` 接入同一层级树和 Inspector 外壳。
+`core/ui/editor-kit/` 提供不依赖 Babylon 或具体文档模型的紧凑编辑器层级树和 Inspector 外壳。`ObjectHierarchy` 统一搜索、展开、受控选择、多选提示、状态徽标、右键入口和可选拖拽改父级；拖拽使用明确的 before、after、inside 与 root-end Drop Intent，显示插入线、Group 高亮和目标文字，支持多选拖动、非法循环拒绝、悬停展开和边缘自动滚动。具体修改仍由各领域 Store/History 执行。Animation Workbench 使用 Animation Workspace 对象适配该层级树，`babylon-scene-inspector` 保留原公共接口并在内部适配 Babylon Scene Node，UI Preview Canvas 使用 UI Document 的 `nodes + rootIds` 接入同一层级树和 Inspector 外壳。
 
-Dialogue Preview Canvas 左栏最上方固定为可伸缩的 UI 对象与关系树，预设、画布安全区域和 Definition 创建区紧凑排列在其下方；右侧继续按 Definition Schema 编辑所选节点属性。树内拖放按预览位置精确提交同层顺序或 Group 父级，多选对象保持相对顺序，改父级继续通过世界矩形回写避免画布对象跳位，整次放置只产生一个 Store 历史步骤。页面视觉沿用 Animation Workbench 的紧凑、扁平分区，只在主栏、分组边界及输入焦点处保留必要分隔线；考虑 UI 文档编辑需要长时间阅读和精细操作，Dialogue Lab 在该共享紧凑基准上将字体、树行、表单和工具栏统一放大约 25%。
+UI Preview Canvas 左栏最上方固定为可伸缩的 UI 对象与关系树，预设、画布安全区域和 Definition 创建区紧凑排列在其下方；右侧继续按 Definition Schema 编辑所选节点属性。树内拖放按预览位置精确提交同层顺序或 Group 父级，多选对象保持相对顺序，改父级继续通过世界矩形回写避免画布对象跳位，整次放置只产生一个 Store 历史步骤。页面视觉沿用 Animation Workbench 的紧凑、扁平分区，只在主栏、分组边界及输入焦点处保留必要分隔线；考虑 UI 文档编辑需要长时间阅读和精细操作，Dialogue Lab 在该共享紧凑基准上将字体、树行、表单和工具栏统一放大约 25%。
 
-## 2026-09-22：Dialogue Preview Canvas Lab
+## 2026-09-22：UI Preview Canvas Lab
 
-`labs/standalone/dialogue-preview-canvas-lab/` 是独立于剧情节点图的游戏 UI 文档编辑器入口。预览中的头像、对话框、姓名牌、文字与图标由共享 Definition Registry 分派到单一 Canvas Renderer；Lab 不再包含按组件类型分支的绘图逻辑。编辑器支持画布滚轮缩放与中键平移、单选/多选/框选、多节点整体拖动、四角尺寸调整、网格与边缘/中心智能参考线吸附、多选对齐以及 Undo/Redo；拖动、缩放和对齐均作为单个 Store 事务记录。左侧使用 `rootIds + childIds` 生成可拖拽层级树：普通节点之间拖放会在同层重排，拖到 Group 会保持世界位置并改为父级相对坐标，根层级接收区可解除父级；成组/取消 Group 同样保持节点世界位置并可撤销。Renderer 沿父链解析世界坐标，并继承父级可见性、锁定和透明度；Group 移动带动整个子树，尺寸调整按比例缩放全部后代。属性 Inspector 根据 Definition 字段 Schema 自动生成。未知 Definition 会以诊断占位框显示并原样保留参数，不阻断整个文档打开和保存。
+`labs/standalone/ui-preview-canvas-lab/` 是独立于剧情节点图的游戏 UI 文档编辑器入口。预览中的头像、对话框、姓名牌、文字与图标由共享 Definition Registry 分派到单一 Canvas Renderer；Lab 不再包含按组件类型分支的绘图逻辑。编辑器支持画布滚轮缩放与中键平移、单选/多选/框选、多节点整体拖动、四角尺寸调整、网格与边缘/中心智能参考线吸附、多选对齐以及 Undo/Redo；拖动、缩放和对齐均作为单个 Store 事务记录。左侧使用 `rootIds + childIds` 生成可拖拽层级树：普通节点之间拖放会在同层重排，拖到 Group 会保持世界位置并改为父级相对坐标，根层级接收区可解除父级；成组/取消 Group 同样保持节点世界位置并可撤销。Renderer 沿父链解析世界坐标，并继承父级可见性、锁定和透明度；Group 移动带动整个子树，尺寸调整按比例缩放全部后代。属性 Inspector 根据 Definition 字段 Schema 自动生成。未知 Definition 会以诊断占位框显示并原样保留参数，不阻断整个文档打开和保存。
 
 通用 V2 文档模型、层级校验、V1 迁移、Definition Registry、Canvas Renderer 与带事务历史的 `UiDocumentStore` 位于 `core/ui-document/`；对话界面的内置 Definition 和默认文档位于 `core/dialogue-preview/`。V2 使用标准化 `nodes + rootIds`，节点将通用布局、Definition props 和可选数据 bindings 分离。布局同时支持旧的父级相对 `absolute` 和响应式 `rect-transform`：后者保存 anchorMin/anchorMax、pivot、anchoredPosition、sizeDelta，并可让根节点相对全画布或 safeArea 求解；拖动、缩放、对齐、成组与改父级均通过统一世界矩形转换保持视觉位置。Lab 可编辑画布分辨率和四边安全区，画布上会显示安全区及所选节点锚点。布局按预设拆分保存于 `config/dialoguePreviewPresets/`，目录由 `index.json` 管理；开发服务的 `/api/dialogue-preview-presets` 同时接受旧 V1 和新 V2，并在 Lab 下一次显式保存时写出 V2。该 UI 文档不写入 `core/dialogue-map/` 的剧情图文档。
 

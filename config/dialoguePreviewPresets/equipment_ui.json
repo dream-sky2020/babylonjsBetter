@@ -1,0 +1,1710 @@
+{
+  "schemaVersion": 2,
+  "presetKey": "equipment_ui",
+  "name": "角色整备 · 本地可交互",
+  "canvas": {
+    "width": 1280,
+    "height": 720,
+    "backgroundTop": "#0c1421",
+    "backgroundBottom": "#101c2c",
+    "gridSize": 16,
+    "safeArea": {
+      "top": 16,
+      "right": 16,
+      "bottom": 16,
+      "left": 16
+    }
+  },
+  "rootIds": [
+    "heading",
+    "subtitle",
+    "actor-0",
+    "actor-1",
+    "actor-2",
+    "character",
+    "attributes",
+    "loadout",
+    "inventory",
+    "details",
+    "message"
+  ],
+  "nodes": {
+    "heading": {
+      "id": "heading",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "角色整备",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 30,
+        "y": 20,
+        "width": 520,
+        "height": 42,
+        "zIndex": 0
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "角色整备",
+        "fontSize": 32
+      }
+    },
+    "subtitle": {
+      "id": "subtitle",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "本地 UI 画布 · 每个控件均可单独编辑",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 32,
+        "y": 65,
+        "width": 700,
+        "height": 26,
+        "zIndex": 1
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "本地 UI 画布 · 每个控件均可单独编辑",
+        "fontSize": 16
+      }
+    },
+    "actor-0": {
+      "id": "actor-0",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "艾里克",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 850,
+        "y": 30,
+        "width": 112,
+        "height": 42,
+        "zIndex": 2
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "艾里克",
+        "action": "actor:actor0",
+        "fontSize": 17
+      }
+    },
+    "actor-1": {
+      "id": "actor-1",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "露娜",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 974,
+        "y": 30,
+        "width": 112,
+        "height": 42,
+        "zIndex": 3
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "露娜",
+        "action": "actor:actor1",
+        "fontSize": 17
+      }
+    },
+    "actor-2": {
+      "id": "actor-2",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "诺亚",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 1098,
+        "y": 30,
+        "width": 112,
+        "height": 42,
+        "zIndex": 4
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "诺亚",
+        "action": "actor:actor2",
+        "fontSize": 17
+      }
+    },
+    "character": {
+      "id": "character",
+      "type": "group",
+      "definitionVersion": 1,
+      "name": "人物与状态",
+      "parentId": null,
+      "childIds": [
+        "character-bg",
+        "character-title",
+        "portrait",
+        "actor-name",
+        "actor-job",
+        "hp-bar",
+        "mp-bar",
+        "sp-bar",
+        "exp-bar",
+        "status"
+      ],
+      "layout": {
+        "mode": "absolute",
+        "x": 24,
+        "y": 112,
+        "width": 366,
+        "height": 278,
+        "zIndex": 5
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {}
+    },
+    "character-bg": {
+      "id": "character-bg",
+      "type": "panel",
+      "definitionVersion": 1,
+      "name": "人物与状态背景",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 0,
+        "y": 0,
+        "width": 366,
+        "height": 278,
+        "zIndex": 6
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "fill": "#111f30",
+        "stroke": "#304458"
+      }
+    },
+    "character-title": {
+      "id": "character-title",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "人物与状态",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 12,
+        "width": 330,
+        "height": 30,
+        "zIndex": 7
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "人物与状态",
+        "fontSize": 20
+      }
+    },
+    "portrait": {
+      "id": "portrait",
+      "type": "portrait",
+      "definitionVersion": 1,
+      "name": "角色头像",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 58,
+        "width": 90,
+        "height": 112,
+        "zIndex": 8
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "艾",
+        "fontSize": 48,
+        "cornerRadius": 8
+      },
+      "bindings": {
+        "text": {
+          "source": "actor.portrait"
+        }
+      }
+    },
+    "actor-name": {
+      "id": "actor-name",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "角色姓名",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 124,
+        "y": 48,
+        "width": 220,
+        "height": 30,
+        "zIndex": 9
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "角色姓名",
+        "fontSize": 22
+      },
+      "bindings": {
+        "text": {
+          "source": "actor.name"
+        }
+      }
+    },
+    "actor-job": {
+      "id": "actor-job",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "职业与等级",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 124,
+        "y": 78,
+        "width": 220,
+        "height": 20,
+        "zIndex": 10
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "职业与等级",
+        "fontSize": 13
+      },
+      "bindings": {
+        "text": {
+          "source": "actor.job"
+        }
+      }
+    },
+    "hp-bar": {
+      "id": "hp-bar",
+      "type": "resource-bar",
+      "definitionVersion": 1,
+      "name": "HP资源条",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 124,
+        "y": 100,
+        "width": 222,
+        "height": 30,
+        "zIndex": 11
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "HP",
+        "accent": "#71cdb5",
+        "fontSize": 15
+      },
+      "bindings": {
+        "value": {
+          "source": "actor.hp"
+        },
+        "maximum": {
+          "source": "actor.maxHp"
+        }
+      }
+    },
+    "mp-bar": {
+      "id": "mp-bar",
+      "type": "resource-bar",
+      "definitionVersion": 1,
+      "name": "MP资源条",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 124,
+        "y": 137,
+        "width": 222,
+        "height": 30,
+        "zIndex": 12
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "MP",
+        "accent": "#70a6e8",
+        "fontSize": 15
+      },
+      "bindings": {
+        "value": {
+          "source": "actor.mp"
+        },
+        "maximum": {
+          "source": "actor.maxMp"
+        }
+      }
+    },
+    "sp-bar": {
+      "id": "sp-bar",
+      "type": "resource-bar",
+      "definitionVersion": 1,
+      "name": "SP资源条",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 124,
+        "y": 174,
+        "width": 222,
+        "height": 30,
+        "zIndex": 13
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "SP",
+        "accent": "#e5b66f",
+        "fontSize": 15
+      },
+      "bindings": {
+        "value": {
+          "source": "actor.sp"
+        },
+        "maximum": {
+          "source": "actor.maxSp"
+        }
+      }
+    },
+    "exp-bar": {
+      "id": "exp-bar",
+      "type": "resource-bar",
+      "definitionVersion": 1,
+      "name": "经验条",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 210,
+        "width": 328,
+        "height": 38,
+        "zIndex": 14
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "EXP",
+        "accent": "#b295df",
+        "fontSize": 15
+      },
+      "bindings": {
+        "value": {
+          "source": "actor.experience"
+        },
+        "maximum": {
+          "source": "actor.experienceToLevel"
+        }
+      }
+    },
+    "status": {
+      "id": "status",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "当前状态",
+      "parentId": "character",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 249,
+        "width": 328,
+        "height": 24,
+        "zIndex": 15
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "当前状态",
+        "fontSize": 14
+      },
+      "bindings": {
+        "text": {
+          "source": "actor.status"
+        }
+      }
+    },
+    "attributes": {
+      "id": "attributes",
+      "type": "group",
+      "definitionVersion": 1,
+      "name": "属性 · 换装对比",
+      "parentId": null,
+      "childIds": [
+        "attributes-bg",
+        "attributes-title",
+        "stat-attack",
+        "stat-defense",
+        "stat-magic",
+        "stat-magicDefense",
+        "stat-speed",
+        "stat-luck"
+      ],
+      "layout": {
+        "mode": "absolute",
+        "x": 24,
+        "y": 408,
+        "width": 366,
+        "height": 276,
+        "zIndex": 16
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {}
+    },
+    "attributes-bg": {
+      "id": "attributes-bg",
+      "type": "panel",
+      "definitionVersion": 1,
+      "name": "属性 · 换装对比背景",
+      "parentId": "attributes",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 0,
+        "y": 0,
+        "width": 366,
+        "height": 276,
+        "zIndex": 17
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "fill": "#111f30",
+        "stroke": "#304458"
+      }
+    },
+    "attributes-title": {
+      "id": "attributes-title",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "属性 · 换装对比",
+      "parentId": "attributes",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 12,
+        "width": 330,
+        "height": 30,
+        "zIndex": 18
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "属性 · 换装对比",
+        "fontSize": 20
+      }
+    },
+    "stat-attack": {
+      "id": "stat-attack",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "attack",
+      "parentId": "attributes",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 20,
+        "y": 58,
+        "width": 328,
+        "height": 27,
+        "zIndex": 19
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "attack",
+        "fontSize": 18
+      },
+      "bindings": {
+        "text": {
+          "source": "stats.attack"
+        }
+      }
+    },
+    "stat-defense": {
+      "id": "stat-defense",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "defense",
+      "parentId": "attributes",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 20,
+        "y": 90,
+        "width": 328,
+        "height": 27,
+        "zIndex": 20
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "defense",
+        "fontSize": 18
+      },
+      "bindings": {
+        "text": {
+          "source": "stats.defense"
+        }
+      }
+    },
+    "stat-magic": {
+      "id": "stat-magic",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "magic",
+      "parentId": "attributes",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 20,
+        "y": 122,
+        "width": 328,
+        "height": 27,
+        "zIndex": 21
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "magic",
+        "fontSize": 18
+      },
+      "bindings": {
+        "text": {
+          "source": "stats.magic"
+        }
+      }
+    },
+    "stat-magicDefense": {
+      "id": "stat-magicDefense",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "magicDefense",
+      "parentId": "attributes",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 20,
+        "y": 154,
+        "width": 328,
+        "height": 27,
+        "zIndex": 22
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "magicDefense",
+        "fontSize": 18
+      },
+      "bindings": {
+        "text": {
+          "source": "stats.magicDefense"
+        }
+      }
+    },
+    "stat-speed": {
+      "id": "stat-speed",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "speed",
+      "parentId": "attributes",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 20,
+        "y": 186,
+        "width": 328,
+        "height": 27,
+        "zIndex": 23
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "speed",
+        "fontSize": 18
+      },
+      "bindings": {
+        "text": {
+          "source": "stats.speed"
+        }
+      }
+    },
+    "stat-luck": {
+      "id": "stat-luck",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "luck",
+      "parentId": "attributes",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 20,
+        "y": 218,
+        "width": 328,
+        "height": 27,
+        "zIndex": 24
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "luck",
+        "fontSize": 18
+      },
+      "bindings": {
+        "text": {
+          "source": "stats.luck"
+        }
+      }
+    },
+    "loadout": {
+      "id": "loadout",
+      "type": "group",
+      "definitionVersion": 1,
+      "name": "装备与技能",
+      "parentId": null,
+      "childIds": [
+        "loadout-bg",
+        "loadout-title",
+        "slot-weapon",
+        "slot-shield",
+        "slot-head",
+        "slot-body",
+        "slot-accessory",
+        "skill-title",
+        "slot-skill1",
+        "slot-skill2",
+        "slot-skill3",
+        "slot-skill4",
+        "slot-skill5",
+        "slot-skill6",
+        "slot-skill7",
+        "slot-skill8"
+      ],
+      "layout": {
+        "mode": "absolute",
+        "x": 410,
+        "y": 112,
+        "width": 400,
+        "height": 572,
+        "zIndex": 25
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {}
+    },
+    "loadout-bg": {
+      "id": "loadout-bg",
+      "type": "panel",
+      "definitionVersion": 1,
+      "name": "装备与技能背景",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 0,
+        "y": 0,
+        "width": 400,
+        "height": 572,
+        "zIndex": 26
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "fill": "#111f30",
+        "stroke": "#304458"
+      }
+    },
+    "loadout-title": {
+      "id": "loadout-title",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "装备与技能",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 12,
+        "width": 364,
+        "height": 30,
+        "zIndex": 27
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "装备与技能",
+        "fontSize": 20
+      }
+    },
+    "slot-weapon": {
+      "id": "slot-weapon",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "武器",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 54,
+        "width": 364,
+        "height": 32,
+        "zIndex": 28
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "武器",
+        "action": "slot:weapon",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.weapon"
+        },
+        "fill": {
+          "source": "slot.weapon.fill"
+        }
+      }
+    },
+    "slot-shield": {
+      "id": "slot-shield",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "盾牌",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 92,
+        "width": 364,
+        "height": 32,
+        "zIndex": 29
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "盾牌",
+        "action": "slot:shield",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.shield"
+        },
+        "fill": {
+          "source": "slot.shield.fill"
+        }
+      }
+    },
+    "slot-head": {
+      "id": "slot-head",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "头部",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 130,
+        "width": 364,
+        "height": 32,
+        "zIndex": 30
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "头部",
+        "action": "slot:head",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.head"
+        },
+        "fill": {
+          "source": "slot.head.fill"
+        }
+      }
+    },
+    "slot-body": {
+      "id": "slot-body",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "身体",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 168,
+        "width": 364,
+        "height": 32,
+        "zIndex": 31
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "身体",
+        "action": "slot:body",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.body"
+        },
+        "fill": {
+          "source": "slot.body.fill"
+        }
+      }
+    },
+    "slot-accessory": {
+      "id": "slot-accessory",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "饰品",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 206,
+        "width": 364,
+        "height": 32,
+        "zIndex": 32
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "饰品",
+        "action": "slot:accessory",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.accessory"
+        },
+        "fill": {
+          "source": "slot.accessory.fill"
+        }
+      }
+    },
+    "skill-title": {
+      "id": "skill-title",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "技能 · 主动 / 被动共用八槽",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 250,
+        "width": 364,
+        "height": 24,
+        "zIndex": 33
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 · 主动 / 被动共用八槽",
+        "fontSize": 15
+      }
+    },
+    "slot-skill1": {
+      "id": "slot-skill1",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "技能 1",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 280,
+        "width": 364,
+        "height": 29,
+        "zIndex": 34
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 1",
+        "action": "slot:skill1",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.skill1"
+        },
+        "fill": {
+          "source": "slot.skill1.fill"
+        }
+      }
+    },
+    "slot-skill2": {
+      "id": "slot-skill2",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "技能 2",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 313,
+        "width": 364,
+        "height": 29,
+        "zIndex": 35
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 2",
+        "action": "slot:skill2",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.skill2"
+        },
+        "fill": {
+          "source": "slot.skill2.fill"
+        }
+      }
+    },
+    "slot-skill3": {
+      "id": "slot-skill3",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "技能 3",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 346,
+        "width": 364,
+        "height": 29,
+        "zIndex": 36
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 3",
+        "action": "slot:skill3",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.skill3"
+        },
+        "fill": {
+          "source": "slot.skill3.fill"
+        }
+      }
+    },
+    "slot-skill4": {
+      "id": "slot-skill4",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "技能 4",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 379,
+        "width": 364,
+        "height": 29,
+        "zIndex": 37
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 4",
+        "action": "slot:skill4",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.skill4"
+        },
+        "fill": {
+          "source": "slot.skill4.fill"
+        }
+      }
+    },
+    "slot-skill5": {
+      "id": "slot-skill5",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "技能 5",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 412,
+        "width": 364,
+        "height": 29,
+        "zIndex": 38
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 5",
+        "action": "slot:skill5",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.skill5"
+        },
+        "fill": {
+          "source": "slot.skill5.fill"
+        }
+      }
+    },
+    "slot-skill6": {
+      "id": "slot-skill6",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "技能 6",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 445,
+        "width": 364,
+        "height": 29,
+        "zIndex": 39
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 6",
+        "action": "slot:skill6",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.skill6"
+        },
+        "fill": {
+          "source": "slot.skill6.fill"
+        }
+      }
+    },
+    "slot-skill7": {
+      "id": "slot-skill7",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "技能 7",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 478,
+        "width": 364,
+        "height": 29,
+        "zIndex": 40
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 7",
+        "action": "slot:skill7",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.skill7"
+        },
+        "fill": {
+          "source": "slot.skill7.fill"
+        }
+      }
+    },
+    "slot-skill8": {
+      "id": "slot-skill8",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "技能 8",
+      "parentId": "loadout",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 511,
+        "width": 364,
+        "height": 29,
+        "zIndex": 41
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "技能 8",
+        "action": "slot:skill8",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "slot.skill8"
+        },
+        "fill": {
+          "source": "slot.skill8.fill"
+        }
+      }
+    },
+    "inventory": {
+      "id": "inventory",
+      "type": "group",
+      "definitionVersion": 1,
+      "name": "库存装备与技能",
+      "parentId": null,
+      "childIds": [
+        "inventory-bg",
+        "inventory-title",
+        "stock-blade",
+        "stock-staff",
+        "stock-shield",
+        "stock-hat",
+        "stock-heal",
+        "stock-guard"
+      ],
+      "layout": {
+        "mode": "absolute",
+        "x": 830,
+        "y": 112,
+        "width": 426,
+        "height": 346,
+        "zIndex": 42
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {}
+    },
+    "inventory-bg": {
+      "id": "inventory-bg",
+      "type": "panel",
+      "definitionVersion": 1,
+      "name": "库存装备与技能背景",
+      "parentId": "inventory",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 0,
+        "y": 0,
+        "width": 426,
+        "height": 346,
+        "zIndex": 43
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "fill": "#111f30",
+        "stroke": "#304458"
+      }
+    },
+    "inventory-title": {
+      "id": "inventory-title",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "库存装备与技能",
+      "parentId": "inventory",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 12,
+        "width": 390,
+        "height": 30,
+        "zIndex": 44
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "库存装备与技能",
+        "fontSize": 20
+      }
+    },
+    "stock-blade": {
+      "id": "stock-blade",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "骑士长剑",
+      "parentId": "inventory",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 58,
+        "width": 390,
+        "height": 36,
+        "zIndex": 45
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "骑士长剑",
+        "action": "select:blade",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "stock.blade"
+        },
+        "fill": {
+          "source": "stock.blade.fill"
+        }
+      }
+    },
+    "stock-staff": {
+      "id": "stock-staff",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "贤者手杖",
+      "parentId": "inventory",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 102,
+        "width": 390,
+        "height": 36,
+        "zIndex": 46
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "贤者手杖",
+        "action": "select:staff",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "stock.staff"
+        },
+        "fill": {
+          "source": "stock.staff.fill"
+        }
+      }
+    },
+    "stock-shield": {
+      "id": "stock-shield",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "圆盾",
+      "parentId": "inventory",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 146,
+        "width": 390,
+        "height": 36,
+        "zIndex": 47
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "圆盾",
+        "action": "select:shield",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "stock.shield"
+        },
+        "fill": {
+          "source": "stock.shield.fill"
+        }
+      }
+    },
+    "stock-hat": {
+      "id": "stock-hat",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "魔法帽",
+      "parentId": "inventory",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 190,
+        "width": 390,
+        "height": 36,
+        "zIndex": 48
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "魔法帽",
+        "action": "select:hat",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "stock.hat"
+        },
+        "fill": {
+          "source": "stock.hat.fill"
+        }
+      }
+    },
+    "stock-heal": {
+      "id": "stock-heal",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "治愈心得",
+      "parentId": "inventory",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 234,
+        "width": 390,
+        "height": 36,
+        "zIndex": 49
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "治愈心得",
+        "action": "select:heal",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "stock.heal"
+        },
+        "fill": {
+          "source": "stock.heal.fill"
+        }
+      }
+    },
+    "stock-guard": {
+      "id": "stock-guard",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "坚守心得",
+      "parentId": "inventory",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 278,
+        "width": 390,
+        "height": 36,
+        "zIndex": 50
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "坚守心得",
+        "action": "select:guard",
+        "fontSize": 17
+      },
+      "bindings": {
+        "text": {
+          "source": "stock.guard"
+        },
+        "fill": {
+          "source": "stock.guard.fill"
+        }
+      }
+    },
+    "details": {
+      "id": "details",
+      "type": "group",
+      "definitionVersion": 1,
+      "name": "选中对象",
+      "parentId": null,
+      "childIds": [
+        "details-bg",
+        "details-title",
+        "selected-name",
+        "selected-description",
+        "equip",
+        "unequip"
+      ],
+      "layout": {
+        "mode": "absolute",
+        "x": 830,
+        "y": 476,
+        "width": 426,
+        "height": 208,
+        "zIndex": 51
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {}
+    },
+    "details-bg": {
+      "id": "details-bg",
+      "type": "panel",
+      "definitionVersion": 1,
+      "name": "选中对象背景",
+      "parentId": "details",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 0,
+        "y": 0,
+        "width": 426,
+        "height": 208,
+        "zIndex": 52
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "fill": "#111f30",
+        "stroke": "#304458"
+      }
+    },
+    "details-title": {
+      "id": "details-title",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "选中对象",
+      "parentId": "details",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 12,
+        "width": 390,
+        "height": 30,
+        "zIndex": 53
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "选中对象",
+        "fontSize": 20
+      }
+    },
+    "selected-name": {
+      "id": "selected-name",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "所选物品名称",
+      "parentId": "details",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 52,
+        "width": 390,
+        "height": 30,
+        "zIndex": 54
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "所选物品名称",
+        "fontSize": 21
+      },
+      "bindings": {
+        "text": {
+          "source": "selection.name"
+        }
+      }
+    },
+    "selected-description": {
+      "id": "selected-description",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "物品说明",
+      "parentId": "details",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 90,
+        "width": 390,
+        "height": 38,
+        "zIndex": 55
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "物品说明",
+        "fontSize": 14
+      },
+      "bindings": {
+        "text": {
+          "source": "selection.description"
+        }
+      }
+    },
+    "equip": {
+      "id": "equip",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "装备",
+      "parentId": "details",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 18,
+        "y": 147,
+        "width": 182,
+        "height": 40,
+        "zIndex": 56
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "装备",
+        "action": "equip",
+        "fontSize": 17
+      }
+    },
+    "unequip": {
+      "id": "unequip",
+      "type": "button",
+      "definitionVersion": 1,
+      "name": "卸下",
+      "parentId": "details",
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 212,
+        "y": 147,
+        "width": 196,
+        "height": 40,
+        "zIndex": 57
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "卸下",
+        "action": "unequip",
+        "fontSize": 17
+      }
+    },
+    "message": {
+      "id": "message",
+      "type": "label",
+      "definitionVersion": 1,
+      "name": "操作提示",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 26,
+        "y": 690,
+        "width": 1100,
+        "height": 24,
+        "zIndex": 58
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "操作提示",
+        "fontSize": 14
+      },
+      "bindings": {
+        "text": {
+          "source": "message"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "runtime": "equipment-preview"
+  },
+  "previewContext": {}
+}

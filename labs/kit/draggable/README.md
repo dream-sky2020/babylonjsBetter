@@ -7,7 +7,7 @@
 - `PuckWorkbench.tsx`：由 `PuckDefinition` 装配运行页和编辑器，统一预览、保存、导入导出、错误提示和中文编辑器按钮；保留每个 Lab 自身组件配置及布局迁移器。
 - `Navigation.tsx`：首页和三个入口导航。
 - `panelSettings.ts`：面板自定义选项接口。Lab 在 GridDefinition.panelSettings 注册各面板的字段数组（key/label/type/default；select 提供 options，number 提供 min/max/step），renderPanel(id, options) 接收解析后的默认值与保存值。Lab 布局类型声明可选 panelSettings，解析器调用 parsePanelSettings(value, ids, registry) 校验；公共层支持 select/boolean/number。
-- `PanelContextMenu` / `PanelSettingsEditor`：窗口标题或标签右键直接调整选项，或选中窗口后在布局设置中调整。标签合并只合并窗口，不合并成员选项；修改和恢复默认都可撤销、保存和导出。内容原有右键操作继续由业务面板处理。
+- `PanelContextMenu` / `PanelSettingsEditor`：顶部面板显隐列表的名称或复选框也可右键打开同一设置菜单，隐藏面板同样可配置；左键显隐保持不变。窗口标题或标签右键直接调整选项，或选中窗口后在布局设置中调整。标签合并只合并窗口，不合并成员选项；修改和恢复默认都可撤销、保存和导出。内容原有右键操作继续由业务面板处理。
 - `dragMerge.ts`：布局设置中的“允许拖动合并”默认关闭；开启标签合并后可单独开启，拖动标题到另一个窗口的标题栏/标签栏，看到轮廓提示后松开即可。目标窗口提供位置，拖入窗口/组成为新标签，并激活拖入面板；普通移动仍遵守原碰撞设置。
 - `history.ts`：Grid 工具栏撤销/重做及 Ctrl/Cmd+Z、Ctrl/Cmd+Y、Ctrl/Cmd+Shift+Z，输入框保留文字撤销。本页保存最近100步布局历史，涵盖移动/缩放、合并/拆分、设置/显隐/锁定、导入/恢复；标签切换不记步骤，业务数据不参与，刷新后历史清空而当前布局保留。新布局编辑清空重做分支。
 - `layout.ts` / `settings.ts`：纯函数显示转换、回写、碰撞检查及公共设置校验。
@@ -21,3 +21,7 @@
 旧 standalone 的九个 HTML 仅跳转到同名新入口，保留查询参数和锚点，生产构建也包含跳转页。布局与业务会话互相独立，刷新后实验数据重置。
 
 检查：`npm run test:draggable`、三个 Lab 原有 test/typecheck、`npm run test:lab-entries`、`npm run build:draggable`。
+
+Grid「布局设置 → 游戏画面参考框」默认显示1920×1080绿色边框，可切换显示并调整宽高（1–16384整数 CSS 像素，失焦或回车应用）。边框从工作区左上角开始，与窗口一起滚动、随浏览器缩放，不接收鼠标、不参与碰撞、不改变网格宽度和面板坐标。工作区至少容纳参考高度，宽度超出视口时可横向滚动。设置保存在原布局 settings.referenceFrame 中，参与导入导出和历史；旧布局无该字段时使用默认值。
+
+参考框支持“最前面 · 检查边界”与“最后面 · 作为背景”（默认），两种模式都不接收鼠标。常用规格可一键切换1920×1080、1600×900、1366×768、1280×720、960×540、854×480；手动编辑宽高仍可自定义。层级和规格沿用现有保存、历史与导入导出，旧参考设置无 layer 字段时按背景显示。

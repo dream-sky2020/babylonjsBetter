@@ -23,9 +23,9 @@ test('合并窗口移动缩放只改变组首窗口，关闭与拆分恢复各�
   const moved = equipmentParse(mergeItems(data, shown, 2, false));
   assert.deepEqual(moved.items.find(item => item.i === 'skills'), original.items.find(item => item.i === 'skills'));
   assert.equal(moved.items.find(item => item.i === 'equipment').y, original.items.find(item => item.i === 'equipment').y + 4);
-  const switchedOff = { ...moved, tabs: { ...moved.tabs, enabled: false } }; assert.equal(workspaceWindows(switchedOff).length, 6);
+  const switchedOff = { ...moved, tabs: { ...moved.tabs, enabled: false } }; assert.equal(workspaceWindows(switchedOff).length, data.items.length);
   assert.equal(displayItems(switchedOff, 1, false, { w: 4, h: 3, maxH: 1000 }).find(item => item.i === 'skills').x, 31);
-  assert.equal(workspaceWindows({ ...moved, tabs: { enabled: true, groups: [] } }).length, 6);
+  assert.equal(workspaceWindows({ ...moved, tabs: { enabled: true, groups: [] } }).length, data.items.length);
   assert.deepEqual(data.items, original.items);
 });
 test('组首或当前标签隐藏时保留其余标签和组位置，全部隐藏时不显示窗口', () => {

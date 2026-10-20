@@ -20,7 +20,7 @@ test('homepage groups entries by destination and every local link exists', () =>
       for (const link of links) {
         const destination = link.getAttribute('href').replace(/^\.\//, '');
         assert.ok(destination.startsWith(prefix), `Misplaced homepage entry: ${destination}`);
-        assert.ok(existsSync(path.join(root, destination)), `Missing homepage entry: ${destination}`);
+        assert.ok(existsSync(path.join(root, destination.split(/[?#]/)[0])), `Missing homepage entry: ${destination}`);
         destinations.push(destination);
       }
     }
@@ -64,7 +64,7 @@ test('composable Lab home link reaches the real homepage over HTTP and file prot
         for (const link of homepage.window.document.querySelectorAll('a[href]')) {
           const target = new URL(link.getAttribute('href'), home);
           assert.ok(target.href.startsWith(base));
-          assert.ok(existsSync(path.join(root, decodeURI(target.href.slice(base.length)))));
+          assert.ok(existsSync(path.join(root, decodeURI(target.href.slice(base.length).split(/[?#]/)[0]))));
         }
       }
     }

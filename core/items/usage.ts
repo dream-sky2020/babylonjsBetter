@@ -9,10 +9,11 @@ export type ItemEffect =
   | { type: 'damage'; amount: EffectAmount }
   | { type: 'applyStatus'; statusId: string; chance: number; turns: number }
   | { type: 'triggerEvent'; eventId: string };
-export type ItemUseAction = { target: UseTarget; cost: UseCost } & (
+export type EffectAction = { target: UseTarget } & (
   | { effects: readonly ItemEffect[]; effectSetId?: never }
   | { effectSetId: string; effects?: never }
 );
+export type ItemUseAction = EffectAction & { cost: UseCost };
 export type ItemUseProfiles = { battle?: ItemUseAction; field?: ItemUseAction };
 export type ItemStorageLimits = { backpackLimit: number; warehouseLimit: number };
 export type UsableItemDefinition = { id: string; storage: ItemStorageLimits; use?: ItemUseProfiles; wear?: WearRule };
@@ -68,7 +69,7 @@ export function restockItem(stock: ItemStock, definition: UsableItemDefinition, 
   if (moved < 1) return { stock, moved: 0, turnCost: 0 };
   return { stock: transferItem(stock, definition, 'warehouse', chosen, moved), moved, turnCost: 1 };
 }
-export function effectsFor(action: ItemUseAction, sets: EffectSets = {}): readonly ItemEffect[] {
+export function effectsFor(action: EffectAction, sets: EffectSets = {}): readonly ItemEffect[] {
   if ('effects' in action && action.effects) return action.effects;
   const effects = sets[action.effectSetId!];
   if (!effects) throw new Error(`效果组不存在：${action.effectSetId}。`);
@@ -79,7 +80,7 @@ function amountValue(amount: EffectAmount, maximum: number): number {
   if (!Number.isFinite(value) || value < 0) throw new Error('效果数值无效。');
   return Math.floor(value);
 }
-function applyEffects(targets: readonly EffectTargetState[], effects: readonly ItemEffect[], random: () => number): { targets: EffectTargetState[]; events: string[] } {
+export function applyEffects(targets: readonly EffectTargetState[], effects: readonly ItemEffect[], random: () => number): { targets: EffectTargetState[]; events: string[] } {
   const next = structuredClone(targets) as EffectTargetState[];
   const events: string[] = [];
   for (const effect of effects) {

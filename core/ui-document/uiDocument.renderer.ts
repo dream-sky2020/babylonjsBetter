@@ -1,5 +1,5 @@
 import type { UiDefinitionRegistry } from './uiDefinition.registry.ts';
-import type { UiDocument, UiNode, UiPoint, UiRenderRuntime } from './uiDocument.types.ts';
+import type { UiDocument, UiResolvedNode, UiPoint, UiRenderRuntime } from './uiDocument.types.ts';
 import { resolveUiNodeLayout } from './uiDocument.layout.ts';
 
 const createRuntime = (document: UiDocument, mode: UiRenderRuntime['mode'], requestRender: () => void): UiRenderRuntime => ({
@@ -7,8 +7,8 @@ const createRuntime = (document: UiDocument, mode: UiRenderRuntime['mode'], requ
 });
 export const resolveUiNode = resolveUiNodeLayout;
 
-export const listUiNodesInPaintOrder = (document: UiDocument): UiNode[] => {
-  const result: UiNode[] = [];
+export const listUiNodesInPaintOrder = (document: UiDocument): UiResolvedNode[] => {
+  const result: UiResolvedNode[] = [];
   const ordered = (ids: string[]) => ids.map((id, index) => ({ id, index })).sort((left, right) => (document.nodes[left.id]?.layout.zIndex ?? 0) - (document.nodes[right.id]?.layout.zIndex ?? 0) || left.index - right.index);
   const visit = (id: string) => { const node = resolveUiNode(document, id); if (!node) return; result.push(node); ordered(document.nodes[id]?.childIds ?? []).forEach((entry) => visit(entry.id)); };
   ordered(document.rootIds).forEach((entry) => visit(entry.id));
@@ -30,7 +30,7 @@ export const renderUiDocument = (ctx: CanvasRenderingContext2D, document: UiDocu
     ctx.restore();
   });
 };
-export const hitTestUiDocument = (document: UiDocument, registry: UiDefinitionRegistry, point: UiPoint): UiNode | undefined => [...listUiNodesInPaintOrder(document)].reverse().find((node) => {
+export const hitTestUiDocument = (document: UiDocument, registry: UiDefinitionRegistry, point: UiPoint): UiResolvedNode | undefined => [...listUiNodesInPaintOrder(document)].reverse().find((node) => {
   if (!node.visible) return false; const definition = registry.get(node.type); if (definition?.hitTest) return definition.hitTest(point, node);
   const { x, y, width, height } = node.layout; return point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height;
 });

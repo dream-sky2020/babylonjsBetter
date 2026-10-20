@@ -1,4 +1,5 @@
-import { UiDefinitionRegistry, type UiDefinition, type UiNode, type UiRenderRuntime } from '../ui-document';
+import { uiBasicDefinitions } from '../ui-document/uiBasic.definitions.ts';
+import { UiDefinitionRegistry, type UiDefinition, type UiResolvedNode, type UiRenderRuntime } from '../ui-document';
 
 type VisualProps = Record<string, unknown> & {
   content: string; fill: string; stroke: string; textColor: string; accent: string;
@@ -31,10 +32,10 @@ const fields = (includeIcon = false) => [
   { path: 'cornerRadius', label: '圆角', control: 'number' as const, group: '视觉样式', min: 0 },
   { path: 'strokeWidth', label: '描边宽', control: 'number' as const, group: '视觉样式', min: 0, step: .5 },
 ];
-const roundRect = (ctx: CanvasRenderingContext2D, node: UiNode, props: VisualProps) => {
+const roundRect = (ctx: CanvasRenderingContext2D, node: UiResolvedNode, props: VisualProps) => {
   const { x, y, width, height } = node.layout; ctx.beginPath(); ctx.roundRect(x, y, width, height, Math.min(props.cornerRadius, width / 2, height / 2));
 };
-const basePanel = (ctx: CanvasRenderingContext2D, node: UiNode, props: VisualProps) => {
+const basePanel = (ctx: CanvasRenderingContext2D, node: UiResolvedNode, props: VisualProps) => {
   roundRect(ctx, node, props); ctx.fillStyle = props.fill; ctx.fill(); if (props.strokeWidth > 0) { ctx.strokeStyle = props.stroke; ctx.lineWidth = props.strokeWidth; ctx.stroke(); }
 };
 const wrapText = (ctx: CanvasRenderingContext2D, text: string, maxWidth: number) => {
@@ -42,7 +43,7 @@ const wrapText = (ctx: CanvasRenderingContext2D, text: string, maxWidth: number)
   for (const character of text) { const next = line + character; if (line && ctx.measureText(next).width > maxWidth) { lines.push(line); line = character; } else line = next; }
   if (line) lines.push(line); return lines;
 };
-const boundText = (node: UiNode, props: VisualProps, runtime: UiRenderRuntime) => String(runtime.resolveBinding(node.bindings?.text?.source ?? '', props.content) ?? props.content);
+const boundText = (node: UiResolvedNode, props: VisualProps, runtime: UiRenderRuntime) => String(runtime.resolveBinding(node.bindings?.text?.source ?? '', props.content) ?? props.content);
 
 const createDefinition = (definition: Omit<UiDefinition<VisualProps>, 'version' | 'category' | 'normalizeProps' | 'fields' | 'createDefaultProps'> & { iconField?: boolean; defaults?: Partial<VisualProps> }): UiDefinition<VisualProps> => ({
   version: 1, category: '对话界面', fields: fields(definition.iconField), normalizeProps: normalize,
@@ -54,9 +55,9 @@ const dialogueBox = createDefinition({ type: 'dialogue-box', label: '对话框',
   ctx.fillStyle = props.accent; ctx.fillRect(x + 30, y + 34, 5, Math.max(20, height - 68)); ctx.fillStyle = props.textColor; ctx.font = `500 ${props.fontSize}px ui-sans-serif`; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
   wrapText(ctx, boundText(node, props, runtime), width - 94).slice(0, Math.max(1, Math.floor((height - 64) / (props.fontSize * 1.5)))).forEach((line, index) => ctx.fillText(line, x + 58, y + 36 + index * props.fontSize * 1.5));
 } });
-const portrait = createDefinition({ type: 'portrait', label: '头像', defaultSize: { width: 390, height: 560 }, defaults: { fill: '#243a55', accent: '#68d5c3', cornerRadius: 28, fontSize: 112 }, render: (ctx, node) => {
+const portrait = createDefinition({ type: 'portrait', label: '头像', defaultSize: { width: 390, height: 560 }, defaults: { fill: '#243a55', accent: '#68d5c3', cornerRadius: 28, fontSize: 112 }, render: (ctx, node, runtime) => {
   const props = normalize(node.props); const { x, y, width, height } = node.layout; const gradient = ctx.createLinearGradient(x, y, x, y + height); gradient.addColorStop(0, props.accent); gradient.addColorStop(.7, props.fill); gradient.addColorStop(1, '#0b1020');
-  roundRect(ctx, node, props); ctx.fillStyle = gradient; ctx.fill(); ctx.strokeStyle = props.stroke; ctx.lineWidth = props.strokeWidth; ctx.stroke(); ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.beginPath(); ctx.arc(x + width / 2, y + height * .31, Math.min(width, height) * .19, 0, Math.PI * 2); ctx.fill(); ctx.beginPath(); ctx.ellipse(x + width / 2, y + height * .74, width * .34, height * .25, 0, Math.PI, Math.PI * 2); ctx.fill(); ctx.fillStyle = props.textColor; ctx.font = `700 ${props.fontSize}px ui-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(props.content || '角', x + width / 2, y + height * .4);
+  roundRect(ctx, node, props); ctx.fillStyle = gradient; ctx.fill(); ctx.strokeStyle = props.stroke; ctx.lineWidth = props.strokeWidth; ctx.stroke(); ctx.fillStyle = 'rgba(255,255,255,.12)'; ctx.beginPath(); ctx.arc(x + width / 2, y + height * .31, Math.min(width, height) * .19, 0, Math.PI * 2); ctx.fill(); ctx.beginPath(); ctx.ellipse(x + width / 2, y + height * .74, width * .34, height * .25, 0, Math.PI, Math.PI * 2); ctx.fill(); ctx.fillStyle = props.textColor; ctx.font = `700 ${props.fontSize}px ui-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(boundText(node, props, runtime) || '角', x + width / 2, y + height * .4);
 } });
 const centeredText = (type: string, label: string, size: { width: number; height: number }, bold: boolean) => createDefinition({ type, label, defaultSize: size, render: (ctx, node, runtime) => {
   const props = normalize(node.props); const { x, y, width, height } = node.layout; basePanel(ctx, node, props); ctx.fillStyle = props.textColor; ctx.font = `${bold ? 700 : 500} ${props.fontSize}px ui-sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(boundText(node, props, runtime) || node.name, x + width / 2, y + height / 2);
@@ -70,6 +71,7 @@ const icon = createDefinition({ type: 'icon', label: '图标', iconField: true, 
 
 export const createDialoguePreviewDefinitionRegistry = (): UiDefinitionRegistry => {
   const registry = new UiDefinitionRegistry();
+  uiBasicDefinitions.forEach(definition => registry.register(definition));
   [dialogueBox, portrait, centeredText('nameplate', '姓名牌', { width: 226, height: 68 }, true), centeredText('text', '文字', { width: 360, height: 60 }, false), icon].forEach((definition) => registry.register(definition));
   registry.register({
     type: 'group', version: 1, label: 'Group', category: '布局', description: '只管理层级与整体变换，不绘制运行时内容。', defaultSize: { width: 320, height: 180 }, fields: [],

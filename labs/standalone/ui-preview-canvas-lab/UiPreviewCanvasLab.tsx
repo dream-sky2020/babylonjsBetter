@@ -1,3 +1,4 @@
+import { createEquipmentPreview, equipmentPreviewContext, runEquipmentPreview } from './equipmentPreview.ts';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   createDialoguePreviewDefinitionRegistry,
@@ -8,7 +9,7 @@ import {
 } from '@/core/dialogue-preview';
 import { applyUiAnchorPreset, convertUiNodeToAbsolute, convertUiNodeToRectTransform, getUiLayoutParentRect, getUiSafeAreaRect, hitTestUiDocument, listUiNodesInPaintOrder, renderUiDocument, resolveUiNode, setUiNodeWorldRect, UiDocumentStore, type UiDefinition, type UiNode, type UiPropertyField, type UiResolvedNode } from '@/core/ui-document';
 import { InspectorPanel, ObjectHierarchy, type EditorHierarchyDropIntent, type EditorHierarchyItem } from '@/core/ui/editor-kit';
-import './dialogue-preview-canvas-lab.css';
+import './ui-preview-canvas-lab.css';
 
 const registry = createDialoguePreviewDefinitionRegistry();
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -23,6 +24,8 @@ const anchorPresets = [
 const UiNodeIcon = ({ group }: { group: boolean }) => <svg viewBox="0 0 24 24" aria-hidden="true">{group ? <><path d="M4 6h6l2 2h8v10H4z" /><path d="M8 12h8M12 9v6" /></> : <><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M8 8h8v8H8z" /></>}</svg>;
 
 type CanvasProps = {
+  runtimeContext?: Record<string, unknown>;
+  onAction?(action: string): void;
   store: UiDocumentStore;
   selectedIds: string[];
   editMode: boolean;
@@ -48,7 +51,7 @@ const selectionBounds = (nodes: UiResolvedNode[]) => {
   return { left, top, right, bottom, centerX: (left + right) / 2, centerY: (top + bottom) / 2 };
 };
 
-const PreviewCanvas: React.FC<CanvasProps> = ({ store, selectedIds, editMode, showGrid, snapToGrid, viewport, onViewportChange, onSelectionChange, onChanged }) => {
+const PreviewCanvas: React.FC<CanvasProps> = ({ store, selectedIds, editMode, showGrid, snapToGrid, viewport, onViewportChange, onSelectionChange, onChanged, runtimeContext, onAction }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const interactionRef = useRef<CanvasInteraction | undefined>(undefined);
   const [overlay, setOverlay] = useState<{ box?: { x: number; y: number; width: number; height: number }; guideX?: number; guideY?: number }>({});
@@ -58,7 +61,7 @@ const PreviewCanvas: React.FC<CanvasProps> = ({ store, selectedIds, editMode, sh
   useEffect(() => {
     const canvas = canvasRef.current; const ctx = canvas?.getContext('2d'); if (!canvas || !ctx) return;
     canvas.width = document.canvas.width; canvas.height = document.canvas.height;
-    renderUiDocument(ctx, document, registry, {
+    renderUiDocument(ctx, runtimeContext ? { ...document, previewContext: { ...document.previewContext, ...runtimeContext } } : document, registry, {
       mode: editMode ? 'edit' : 'preview',
       beforeNodes: editMode ? (gridContext) => {
         const { width, height, gridSize } = document.canvas; gridContext.save();
@@ -72,7 +75,7 @@ const PreviewCanvas: React.FC<CanvasProps> = ({ store, selectedIds, editMode, sh
       } : undefined,
     });
     if (editMode) {
-      selectedIds.map((id) => resolveUiNode(document, id)).filter((node): node is UiNode => Boolean(node?.visible)).forEach((node) => {
+      selectedIds.map((id) => resolveUiNode(document, id)).filter((node): node is UiResolvedNode => Boolean(node?.visible)).forEach((node) => {
         const { x, y, width, height } = node.layout; ctx.save(); ctx.strokeStyle = node.id === primaryId ? '#f5c96a' : '#67d7f0'; ctx.lineWidth = 3; ctx.setLineDash([10, 8]); ctx.strokeRect(x - 5, y - 5, width + 10, height + 10); ctx.restore();
       });
       const primary = resolveUiNode(document, primaryId);
@@ -91,7 +94,7 @@ const PreviewCanvas: React.FC<CanvasProps> = ({ store, selectedIds, editMode, sh
       }
       if (overlay.box) { ctx.save(); ctx.fillStyle = 'rgba(103,215,240,.12)'; ctx.strokeStyle = '#67d7f0'; ctx.lineWidth = 2; ctx.setLineDash([8, 6]); ctx.fillRect(overlay.box.x, overlay.box.y, overlay.box.width, overlay.box.height); ctx.strokeRect(overlay.box.x, overlay.box.y, overlay.box.width, overlay.box.height); ctx.restore(); }
     }
-  }, [document, editMode, overlay, primaryId, selectedIds, showGrid]);
+  }, [document, editMode, overlay, primaryId, selectedIds, showGrid, runtimeContext]);
 
   const point = (event: React.PointerEvent<HTMLCanvasElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -115,10 +118,10 @@ const PreviewCanvas: React.FC<CanvasProps> = ({ store, selectedIds, editMode, sh
     setOverlay({});
   };
 
-  return <div className="preview-canvas-viewport" style={{ transform: `translate(${viewport.panX}px, ${viewport.panY}px) scale(${viewport.zoom})` }}><canvas ref={canvasRef} className={`preview-canvas${editMode ? ' is-editing' : ''}`} aria-label="对话界面 Canvas 预览"
+  return <div className="preview-canvas-viewport" style={{ transform: `translate(${viewport.panX}px, ${viewport.panY}px) scale(${viewport.zoom})` }}><canvas ref={canvasRef} className={`preview-canvas${editMode ? ' is-editing' : ''}`} aria-label="UI Canvas 预览"
     onWheel={(event) => { if (!editMode) return; event.preventDefault(); const zoom = clamp(viewport.zoom * (event.deltaY < 0 ? 1.1 : .9), .25, 3); onViewportChange({ ...viewport, zoom }); }}
     onPointerDown={(event) => {
-      if (!editMode) return;
+      if (!editMode) { if (event.button === 0) { const target = hitTestUiDocument(document, registry, point(event)); const action = target?.props.action; if (typeof action === 'string' && action) onAction?.(action); } return; }
       if (event.button === 1) { interactionRef.current = { mode: 'pan', clientX: event.clientX, clientY: event.clientY, panX: viewport.panX, panY: viewport.panY }; event.currentTarget.setPointerCapture(event.pointerId); return; }
       const rect = event.currentTarget.getBoundingClientRect(); const p = point(event); const handle = resizeHandleAt(p, document.canvas.width / rect.width);
       if (handle) {
@@ -132,7 +135,7 @@ const PreviewCanvas: React.FC<CanvasProps> = ({ store, selectedIds, editMode, sh
       if (toggle) { onSelectionChange([target.id], 'toggle'); return; }
       const moveIds = selectedIds.includes(target.id) ? selectedIds : [target.id]; if (!selectedIds.includes(target.id)) onSelectionChange([target.id]);
       const selectedSet = new Set(moveIds); const hasSelectedAncestor = (node: UiNode) => { let parentId = node.parentId; while (parentId) { if (selectedSet.has(parentId)) return true; parentId = document.nodes[parentId]?.parentId ?? null; } return false; };
-      const movable = moveIds.map((id) => document.nodes[id]).filter((node): node is UiNode => Boolean(node && !resolveUiNode(document, node)?.locked && !hasSelectedAncestor(node))); if (!movable.length) return;
+      const movable = moveIds.map((id) => document.nodes[id]).filter((node): node is UiResolvedNode => Boolean(node && !resolveUiNode(document, node)?.locked && !hasSelectedAncestor(node))); if (!movable.length) return;
       store.beginTransaction('移动 UI 节点'); interactionRef.current = { mode: 'move', ids: movable.map((node) => node.id), pointer: p, starts: new Map(movable.map((node) => { const resolved = resolveUiNode(document, node); return [node.id, resolved ? { ...resolved.layout } : { x: 0, y: 0, width: 8, height: 8 }]; })) }; event.currentTarget.setPointerCapture(event.pointerId);
     }}
     onPointerMove={(event) => {
@@ -151,7 +154,7 @@ const PreviewCanvas: React.FC<CanvasProps> = ({ store, selectedIds, editMode, sh
           interaction.descendants.forEach((rect, id) => { const child = draft.nodes[id]; if (child) setUiNodeWorldRect(draft, child, { x: left + (rect.x - original.x) * scaleX, y: top + (rect.y - original.y) * scaleY, width: Math.max(8, rect.width * scaleX), height: Math.max(8, rect.height * scaleY) }); });
         }); onChanged(); return;
       }
-      const current = store.getDocument(); const movingNodes = interaction.ids.map((id) => resolveUiNode(current, id)).filter((node): node is UiNode => Boolean(node)); if (!movingNodes.length) return;
+      const current = store.getDocument(); const movingNodes = interaction.ids.map((id) => resolveUiNode(current, id)).filter((node): node is UiResolvedNode => Boolean(node)); if (!movingNodes.length) return;
       const originalNodes = movingNodes.map((node) => { const start = interaction.starts.get(node.id); return { ...node, layout: { ...node.layout, x: start?.x ?? node.layout.x, y: start?.y ?? node.layout.y } }; }); const bounds = selectionBounds(originalNodes); let dx = p.x - interaction.pointer.x; let dy = p.y - interaction.pointer.y;
       if (snapToGrid) { dx = Math.round((bounds.left + dx) / current.canvas.gridSize) * current.canvas.gridSize - bounds.left; dy = Math.round((bounds.top + dy) / current.canvas.gridSize) * current.canvas.gridSize - bounds.top; }
       const excluded = new Set(interaction.ids); const collectExcluded = (id: string) => current.nodes[id]?.childIds.forEach((childId) => { excluded.add(childId); collectExcluded(childId); }); interaction.ids.forEach(collectExcluded);
@@ -182,15 +185,17 @@ const PropertyControl = ({ field, node, update }: { field: UiPropertyField; node
   return <label className="text-field"><span>{field.label}</span><input value={String(value ?? '')} onChange={(event) => update(event.target.value)} /></label>;
 };
 
-export const DialoguePreviewCanvasLab: React.FC = () => {
+export const UiPreviewCanvasLab: React.FC = () => {
+  const [equipment, setEquipment] = useState(createEquipmentPreview);
   const [stores, setStores] = useState(() => new Map<string, UiDocumentStore>()); const unsubscribersRef = useRef<(() => void)[]>([]);
   const [revision, setRevision] = useState(0); const [activeKey, setActiveKey] = useState(''); const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [message, setMessage] = useState('正在载入界面预设…'); const [isError, setIsError] = useState(false); const [saving, setSaving] = useState(false);
   const [editMode, setEditMode] = useState(true); const [showGrid, setShowGrid] = useState(true); const [snapToGrid, setSnapToGrid] = useState(false);
-  const [viewport, setViewport] = useState({ zoom: 1, panX: 0, panY: 0 });
+  const [viewport, setViewport] = useState({ zoom: new URLSearchParams(window.location.search).get('preset') === 'equipment_ui' ? .65 : 1, panX: 0, panY: 0 });
   const [expandedUiIds, setExpandedUiIds] = useState<Set<string>>(() => new Set());
   const [newKey, setNewKey] = useState('dialogue_ui_copy'); const [newName, setNewName] = useState('对话界面副本');
   const selectedId = selectedIds.at(-1) ?? ''; const store = stores.get(activeKey); const preset = store?.getDocument(); const selected = preset?.nodes[selectedId]; const definition = selected ? registry.get(selected.type) : undefined;
+  const runtimeContext = useMemo(() => preset?.metadata?.runtime === 'equipment-preview' ? equipmentPreviewContext(equipment) : undefined, [equipment, preset?.metadata?.runtime]);
   const dirty = useMemo(() => { void revision; return [...stores.values()].some((item) => item.dirty); }, [revision, stores]);
   const refresh = useCallback(() => setRevision((value) => value + 1), []);
   const subscribeStore = useCallback((nextStore: UiDocumentStore) => { unsubscribersRef.current.push(nextStore.subscribe(refresh)); }, [refresh]);
@@ -200,7 +205,7 @@ export const DialoguePreviewCanvasLab: React.FC = () => {
     try {
       const library = await loadDialoguePreviewPresetLibrary(); unsubscribersRef.current.forEach((unsubscribe) => unsubscribe()); unsubscribersRef.current = [];
       const nextStores = new Map(Object.entries(library).map(([key, document]) => [key, new UiDocumentStore(document)] as const)); nextStores.forEach(subscribeStore); setStores(nextStores);
-      const key = Object.keys(library)[0] ?? ''; setActiveKey(key); setSelectedIds(library[key]?.rootIds[0] ? [library[key].rootIds[0]] : []); setMessage(`已载入 ${Object.keys(library).length} 个界面预设；旧格式会在保存时升级到 V2。`); setIsError(false);
+      const requested = new URLSearchParams(window.location.search).get('preset'); const key = requested && library[requested] ? requested : Object.keys(library)[0] ?? ''; setActiveKey(key); setSelectedIds(library[key]?.rootIds[0] ? [library[key].rootIds[0]] : []); setMessage(`已载入 ${Object.keys(library).length} 个界面预设；旧格式会在保存时升级到 V2。`); setIsError(false);
     } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); setIsError(true); }
   }, [subscribeStore]);
   // Initial async repository hydration is the intended external synchronization for this Lab.
@@ -287,7 +292,7 @@ export const DialoguePreviewCanvasLab: React.FC = () => {
     const next = createDialoguePreviewPreset(key, newName.trim() || key); const nextStore = new UiDocumentStore(next); subscribeStore(nextStore); setStores((current) => new Map(current).set(key, nextStore)); setActiveKey(key); setSelectedIds(next.rootIds[0] ? [next.rootIds[0]] : []); setMessage(`已创建“${next.name}”，保存全部后写入预设库。`); setIsError(false); refresh();
   };
 
-  if (!store || !preset) return <main className="preview-empty"><h1>Dialogue Preview Canvas Lab</h1><p className={isError ? 'is-error' : ''}>{message}</p><button onClick={() => void load()}>重新加载</button></main>;
+  if (!store || !preset) return <main className="preview-empty"><h1>UI Preview Canvas Lab</h1><p className={isError ? 'is-error' : ''}>{message}</p><button onClick={() => void load()}>重新加载</button></main>;
   const groups = new Map<string, UiPropertyField[]>();
   definition?.fields.forEach((field) => { const group = field.group ?? '属性'; groups.set(group, [...(groups.get(group) ?? []), field]); });
   const selectedResolved = selected ? resolveUiNode(preset, selected) : undefined; const selectedParentRect = selected ? getUiLayoutParentRect(preset, selected) : undefined;
@@ -299,15 +304,17 @@ export const DialoguePreviewCanvasLab: React.FC = () => {
     return [node.id, { id: node.id, label: node.name, typeLabel: node.type === 'group' ? 'Group' : entry?.label ?? '缺失', parentId: node.parentId, childIds: treeIds(node.childIds), icon: <UiNodeIcon group={node.type === 'group'} />, disabled: !node.visible, locked: node.locked, draggable: !node.locked, acceptsChildren: node.type === 'group', badges, searchText: node.type, title: `${node.name} · ${node.type}` }];
   }));
   return <div className="preview-lab">
-    <header className="preview-header"><div><span className="eyebrow">GAME UI DOCUMENT V2 · DEFINITION DRIVEN</span><h1>Dialogue Preview Canvas Lab</h1></div><div className={`save-status${isError ? ' is-error' : ''}`}><i />{message}</div></header>
+    <header className="preview-header"><div><span className="eyebrow">GAME UI DOCUMENT V2 · DEFINITION DRIVEN</span><h1>UI Preview Canvas Lab</h1></div><div className={`save-status${isError ? ' is-error' : ''}`}><i />{message}</div></header>
     <aside className="preview-sidebar">
       <ObjectHierarchy className="dialogue-hierarchy" eyebrow="UI OBJECTS" title="界面对象与关系" status={`${Object.keys(preset.nodes).length}`}
         items={hierarchyItems} rootIds={treeIds(preset.rootIds)} selectedIds={selectedIds} expandedIds={expandedUiIds} onExpandedChange={setExpandedUiIds}
-        searchPlaceholder="搜索 UI 对象" onSelectionChange={changeSelection} onMove={moveHierarchyNodes} onClearSelection={() => setSelectedIds([])}
+        searchPlaceholder="搜索 UI 对象" onSelectionChange={(ids, mode) => changeSelection(ids, mode === 'toggle' ? 'toggle' : 'replace')} onMove={moveHierarchyNodes} onClearSelection={() => setSelectedIds([])}
         footer={<><span>{Object.keys(preset.nodes).length} 个对象</span><span>拖拽重排 · Ctrl 多选</span></>}
       />
       <section className="panel"><div className="panel-heading"><span>界面预设</span><strong>{stores.size}</strong></div>
-        <label className="select-field"><span>当前预设</span><select value={activeKey} onChange={(event) => { const key = event.target.value; const firstId = stores.get(key)?.getDocument().rootIds[0]; setActiveKey(key); setSelectedIds(firstId ? [firstId] : []); setViewport({ zoom: 1, panX: 0, panY: 0 }); }}>{[...stores].map(([key, item]) => <option key={key} value={key}>{item.getDocument().name}</option>)}</select></label>
+        <label className="select-field"><span>当前预设</span><select value={activeKey} onChange={(event) => { const key = event.target.value; const firstId = stores.get(key)?.getDocument().rootIds[0]; setActiveKey(key); setSelectedIds(firstId ? [firstId] : []); setViewport({ zoom: key === 'equipment_ui' ? .65 : 1, panX: 0, panY: 0 }); }}>{[...stores].map(([key, item]) => <option key={key} value={key}>{item.getDocument().name}</option>)}</select></label>
+        {stores.has('equipment_ui') && <button onClick={() => { setActiveKey('equipment_ui'); setSelectedIds([]); setViewport({ zoom: .65, panX: 0, panY: 0 }); }}>打开角色整备示例</button>}
+        {runtimeContext && <><p className="hint">编辑模式调整控件；切换“纯预览”可选角色、选库存、装备与卸下。操作只影响本次演示。</p><p role="status" aria-label="整备演示状态">{String(runtimeContext['actor.name'])} · {String(runtimeContext['selection.name'])} · {equipment.message}</p><button onClick={() => setEquipment(createEquipmentPreview())}>重置整备演示</button></>}
         <label className="text-field"><span>预设名称</span><input value={preset.name} onChange={(event) => { store.mutate('重命名预设', (draft) => { draft.name = event.target.value; }); refresh(); }} /></label>
         <div className="new-preset"><input value={newKey} onChange={(event) => setNewKey(event.target.value)} aria-label="新预设 Key" /><input value={newName} onChange={(event) => setNewName(event.target.value)} aria-label="新预设名称" /><button onClick={createPreset}>创建新预设</button></div>
       </section>
@@ -323,7 +330,7 @@ export const DialoguePreviewCanvasLab: React.FC = () => {
     <main className="preview-stage"><div className="stage-toolbar"><div><strong>{preset.name}</strong><span>{preset.presetKey}</span>{dirty ? <em>● 未保存</em> : <em className="is-saved">✓ 已保存</em>}</div><div className="toolbar-actions">
       <button disabled={!store.canUndo} onClick={() => { store.undo(); refresh(); }}>撤销</button><button disabled={!store.canRedo} onClick={() => { store.redo(); refresh(); }}>重做</button><button className={editMode ? 'is-active' : ''} onClick={() => setEditMode(true)}>编辑模式</button><button className={!editMode ? 'is-active' : ''} onClick={() => setEditMode(false)}>纯预览</button><label><input type="checkbox" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} /> 网格</label><label><input type="checkbox" checked={snapToGrid} onChange={(event) => setSnapToGrid(event.target.checked)} /> 吸附</label><button className="save-button" disabled={saving} onClick={() => void save()}>{saving ? '保存中…' : '保存全部'}</button>
     </div></div>
-      <div className="canvas-shell"><div className="viewport-toolbar"><button onClick={() => setViewport((current) => ({ ...current, zoom: clamp(current.zoom / 1.2, .25, 3) }))}>−</button><button onClick={() => setViewport({ zoom: 1, panX: 0, panY: 0 })}>{Math.round(viewport.zoom * 100)}%</button><button onClick={() => setViewport((current) => ({ ...current, zoom: clamp(current.zoom * 1.2, .25, 3) }))}>＋</button>{selectedIds.length > 1 ? <><i /><button onClick={groupSelection}>成组</button><button onClick={() => alignSelection('left')}>左</button><button onClick={() => alignSelection('center-x')}>水平中</button><button onClick={() => alignSelection('right')}>右</button><button onClick={() => alignSelection('top')}>顶</button><button onClick={() => alignSelection('center-y')}>垂直中</button><button onClick={() => alignSelection('bottom')}>底</button></> : null}{selected?.type === 'group' ? <><i /><button onClick={ungroupSelected}>取消 Group</button></> : null}</div><PreviewCanvas store={store} selectedIds={selectedIds} editMode={editMode} showGrid={showGrid} snapToGrid={snapToGrid} viewport={viewport} onViewportChange={setViewport} onSelectionChange={changeSelection} onChanged={refresh} /><div className="canvas-caption"><span>{editMode ? '拖动空白框选 · Ctrl/Shift 多选 · 树中拖拽重排/移入 Group' : '运行时同源 Canvas 预览'}</span><span>{selectedIds.length ? `已选择 ${selectedIds.length} 项 · ` : ''}{preset.canvas.width} × {preset.canvas.height}</span></div></div>
+      <div className="canvas-shell"><div className="viewport-toolbar"><button onClick={() => setViewport((current) => ({ ...current, zoom: clamp(current.zoom / 1.2, .25, 3) }))}>−</button><button onClick={() => setViewport({ zoom: 1, panX: 0, panY: 0 })}>{Math.round(viewport.zoom * 100)}%</button><button onClick={() => setViewport((current) => ({ ...current, zoom: clamp(current.zoom * 1.2, .25, 3) }))}>＋</button>{selectedIds.length > 1 ? <><i /><button onClick={groupSelection}>成组</button><button onClick={() => alignSelection('left')}>左</button><button onClick={() => alignSelection('center-x')}>水平中</button><button onClick={() => alignSelection('right')}>右</button><button onClick={() => alignSelection('top')}>顶</button><button onClick={() => alignSelection('center-y')}>垂直中</button><button onClick={() => alignSelection('bottom')}>底</button></> : null}{selected?.type === 'group' ? <><i /><button onClick={ungroupSelected}>取消 Group</button></> : null}</div><PreviewCanvas store={store} selectedIds={selectedIds} editMode={editMode} showGrid={showGrid} snapToGrid={snapToGrid} viewport={viewport} onViewportChange={setViewport} onSelectionChange={changeSelection} onChanged={refresh} runtimeContext={runtimeContext} onAction={action => setEquipment(previous => runEquipmentPreview(previous, action))} /><div className="canvas-caption"><span>{editMode ? '拖动空白框选 · Ctrl/Shift 多选 · 树中拖拽重排/移入 Group' : '运行时同源 Canvas 预览'}</span><span>{selectedIds.length ? `已选择 ${selectedIds.length} 项 · ` : ''}{preset.canvas.width} × {preset.canvas.height}</span></div></div>
     </main>
     <InspectorPanel className="preview-inspector" eyebrow="INSPECTOR" title={selected ? definition?.label ?? selected.type : '对象属性'} status={selected ? (selected.locked ? '已锁定' : '可编辑') : undefined} footer={<><span>{selectedIds.length ? `已选择 ${selectedIds.length} 项` : '未选择对象'}</span><span>UI Document V2</span></>}>{selected ? <>
       <section className="panel inspector-title"><div><span>{definition?.label ?? '缺少 Definition'}</span><h2>{selected.name}</h2><code>{selected.id}</code></div><div className="tiny-actions"><button onClick={() => updateNode('切换可见性', (node) => { node.visible = !node.visible; })}>{selected.visible ? '隐藏' : '显示'}</button><button onClick={() => updateNode('切换锁定', (node) => { node.locked = !node.locked; })}>{selected.locked ? '解锁' : '锁定'}</button></div></section>

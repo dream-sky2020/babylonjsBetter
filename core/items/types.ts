@@ -1,5 +1,5 @@
 import type { AttributeModifier } from '../combat/modifiers.ts';
-import type { ItemStorageLimits, ItemUseProfiles } from './usage.ts';
+import type { EffectAction, ItemStorageLimits, ItemUseProfiles } from './usage.ts';
 
 export type ItemBase = { id: string; name: string; description: string; storage?: ItemStorageLimits; use?: ItemUseProfiles };
 export type WearRule =
@@ -13,7 +13,8 @@ export type EquipmentDefinition = ItemBase & {
   skills: EquipmentSkill[];
   wear: WearRule;
 };
-export type SkillItemDefinition = ItemBase & { kind: 'skill'; mpCost?: number; passive?: boolean; modifiers: AttributeModifier[] };
+export type SkillAction = EffectAction & { cost: { mp?: number; sp?: number }; turnCost?: 0 | 1 };
+export type SkillItemDefinition = Omit<ItemBase, 'use'> & { kind: 'skill'; modifiers: AttributeModifier[]; active?: { battle?: SkillAction; field?: SkillAction } };
 export type ItemDefinition = EquipmentDefinition | SkillItemDefinition;
 export type Enchantment = { id: string; modifiers: AttributeModifier[]; skills?: EquipmentSkill[] };
 export type PlainItem = { kind: 'plain'; definitionId: string };

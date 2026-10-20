@@ -6,3 +6,11 @@
 .wb-window[data-panel-selected=true]{outline:1px solid #b99b52;outline-offset:-2px}
 
 .wb-panel-tabs>button{touch-action:none;user-select:none;cursor:grab}.wb-panel-tabs>button:active{cursor:grabbing}
+
+.wb-app .wb-grid{position:relative;isolation:isolate}
+.wb-reference-frame{position:absolute;left:0;top:0;box-sizing:border-box;border:2px solid #22c55e;pointer-events:none;user-select:none;z-index:0}
+.wb-reference-frame>span{position:absolute;left:6px;bottom:6px;padding:3px 7px;white-space:nowrap;background:#123c25;color:#8dffb5;font:12px/1.4 Consolas,'Microsoft YaHei',monospace}
+.wb-grid>.react-grid-layout{position:relative;z-index:1}
+.wb-reference-settings p{flex-basis:100%;margin:0}
+
+.wb-reference-frame.wb-reference-front{z-index:2}

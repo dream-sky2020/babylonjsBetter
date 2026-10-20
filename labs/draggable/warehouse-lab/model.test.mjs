@@ -53,3 +53,17 @@ test('仓库演示区使用、整备和两种库存分别更新', () => {
   assert.equal(useWarehouse.getState().warehouse.stacks.potion, 4);
   assert.equal(useWarehouse.getState().battleTurns, 2);
 });
+
+test('技能启用与发动不消耗库存，停用后不能发动', () => {
+  const run = action => useWarehouse.getState().run(action);
+  run('reset'); useWarehouse.getState().select({ definitionId: 'heal' });
+  run('useBattle'); assert.equal(useWarehouse.getState().hero.mp, 10);
+  run('toggleSkill'); run('useBattle');
+  assert.equal(useWarehouse.getState().hero.hp, 70); assert.equal(useWarehouse.getState().hero.mp, 6);
+  assert.equal(useWarehouse.getState().warehouse.stacks.heal, 1);
+  run('useField'); assert.equal(useWarehouse.getState().hero.hp, 100); assert.equal(useWarehouse.getState().hero.mp, 4);
+  assert.equal(useWarehouse.getState().battleTurns, 1);
+  run('withdraw'); assert.equal(useWarehouse.getState().warehouse.stacks.heal, 1);
+  run('toggleSkill'); run('useBattle'); assert.equal(useWarehouse.getState().hero.mp, 4);
+  run('reset');
+});

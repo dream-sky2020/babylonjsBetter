@@ -30,9 +30,9 @@ test('grid settings and quarter-grid geometry round-trip; old saves acquire safe
   const old = defaultGrid(); delete old.settings;
   const next = parseGrid(old);
   assert.deepEqual(next.items, old.items);
-  assert.deepEqual(next.settings, { precision: 2, threshold: 6, autoCompact: false, collision: 'push', preview: 'window' });
+  assert.deepEqual(next.settings, { precision: 2, threshold: 6, autoCompact: false, collision: 'push', preview: 'window', referenceFrame: { visible: true, width: 1920, height: 1080, layer: 'back' } });
   next.items[0].y = 0.25; next.items[0].h = 18.75;
-  next.settings = { precision: 4, threshold: 10, autoCompact: true, collision: 'push', preview: 'outline' };
+  next.settings = { precision: 4, threshold: 10, autoCompact: true, collision: 'push', preview: 'outline', referenceFrame: { visible: true, width: 1920, height: 1080, layer: 'back' } };
   assert.deepEqual(parseGrid(JSON.parse(JSON.stringify(next))), next);
   assert.throws(() => parseGrid({ ...next, settings: { ...next.settings, precision: 3 } }));
   assert.throws(() => parseGrid({ ...next, settings: { ...next.settings, threshold: -1 } }));

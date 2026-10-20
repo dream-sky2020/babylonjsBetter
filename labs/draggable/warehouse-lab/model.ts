@@ -1,11 +1,14 @@
+import { skillDefinitions } from '../../data/skills.ts';
+import type { SkillItemDefinition } from '../../../core/items/types.ts';
 import type { ItemInventory, UniqueItem } from '../../../core/items/types.ts';
 import type { EffectSets, EffectTargetState, ItemEffect, ItemStock, ItemUseAction, UsableItemDefinition } from '../../../core/items/usage.ts';
 
-export type WarehouseItem = UsableItemDefinition & { name: string; category: '材料' | '消耗品' | '装备' | '任务物品'; description: string; stackable: boolean; maxDurability?: number };
+export type WarehouseItem = UsableItemDefinition & { name: string; category: '材料' | '消耗品' | '装备' | '任务物品' | '技能'; description: string; stackable: boolean; skill?: SkillItemDefinition; maxDurability?: number };
 const fixed = (value: number) => ({ kind: 'fixed' as const, value });
 const action = (target: ItemUseAction['target'], cost: ItemUseAction['cost'], effects: readonly ItemEffect[]): ItemUseAction => ({ target, cost, effects });
 export const effectSets: EffectSets = { 'herb-recovery': [{ type: 'restore', resource: 'hp', amount: fixed(12) }] };
 export const items: WarehouseItem[] = [
+  ...skillDefinitions.map(skill => ({ id: skill.id, name: skill.name, description: skill.description, category: '技能' as const, stackable: true, storage: { backpackLimit: 1, warehouseLimit: 9 }, skill })),
   { id: 'iron-ore', name: '铁矿石', category: '材料', description: '用于锻造的常见矿石，可以成批存放。', stackable: true, storage: { backpackLimit: 10, warehouseLimit: 99 }, use: { field: action('self', 'consumeOne', [{ type: 'triggerEvent', eventId: 'craft.iron' }]) } },
   { id: 'herb', name: '药草', category: '材料', description: '战斗内外都能使用，两个场景共用同一效果组。', stackable: true, storage: { backpackLimit: 5, warehouseLimit: 99 }, use: { battle: { target: 'oneAlly', cost: 'consumeOne', effectSetId: 'herb-recovery' }, field: { target: 'oneAlly', cost: 'consumeOne', effectSetId: 'herb-recovery' } } },
   { id: 'potion', name: '治疗药剂', category: '消耗品', description: '战斗中恢复 50 HP，战斗外恢复 80 HP。', stackable: true, storage: { backpackLimit: 3, warehouseLimit: 50 }, use: { battle: action('oneAlly', 'consumeOne', [{ type: 'restore', resource: 'hp', amount: fixed(50) }]), field: action('oneAlly', 'consumeOne', [{ type: 'restore', resource: 'hp', amount: fixed(80) }]) } },
@@ -14,7 +17,7 @@ export const items: WarehouseItem[] = [
   { id: 'key', name: '古旧钥匙', category: '任务物品', description: '只能在战斗外触发开锁事件，每把都有独立来历。', stackable: false, storage: { backpackLimit: 1, warehouseLimit: 5 }, use: { field: action('self', 'none', [{ type: 'triggerEvent', eventId: 'door.unlock' }]) } },
 ];
 export const catalog = Object.fromEntries(items.map(item => [item.id, item])) as Record<string, WarehouseItem>;
-export const categories = ['全部', '材料', '消耗品', '装备', '任务物品'] as const;
+export const categories = ['全部', '材料', '消耗品', '装备', '任务物品', '技能'] as const;
 export type CategoryFilter = typeof categories[number];
 export type Warehouse = ItemInventory;
 export type Selection = { definitionId: string; instanceId?: string };
@@ -23,7 +26,7 @@ export function sampleStock(): ItemStock { return { warehouse: sample(), backpac
 export function sampleTargets(): { hero: EffectTargetState; enemy: EffectTargetState } { return { hero: { id: 'hero', hp: 20, maxHp: 100, mp: 10, maxMp: 30, sp: 0, maxSp: 10, statuses: {} }, enemy: { id: 'enemy', hp: 100, maxHp: 100, mp: 0, maxMp: 0, sp: 0, maxSp: 0, statuses: {} } }; }
 
 export function sample(): Warehouse {
-  return { stacks: { 'iron-ore': 36, herb: 18, potion: 8, screwdriver: 3 }, uniques: [
+  return { stacks: { ...Object.fromEntries(skillDefinitions.map(skill => [skill.id, 1])), 'iron-ore': 36, herb: 18, potion: 8, screwdriver: 3 }, uniques: [
     { kind: 'unique', definitionId: 'relic', instanceId: 'sample-relic-1', durability: 5, enchantments: [] },
     { kind: 'unique', definitionId: 'key', instanceId: 'sample-key-1', enchantments: [] },
     { kind: 'unique', definitionId: 'screwdriver', instanceId: 'sample-tool-1', enchantments: [{ id: '锋锐', modifiers: [{ attribute: 'attack', stage: 'first', value: 0.1 }] }] },

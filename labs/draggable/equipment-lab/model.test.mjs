@@ -41,7 +41,7 @@ test('Grid 布局可往返保存、保留重叠，拒绝外部格式和越界', 
   const invalid = structuredClone(layout); invalid.items[0].w = 49; assert.throws(() => parseGrid(invalid));
   assert.throws(() => parseGrid({ ...layout, items: Array(6).fill(layout.items[0]) }));
 });
-test('Puck 布局含六种面板，验证嵌套、重复编号和外部组件', () => {
+test('Puck 布局含七种面板，验证嵌套、重复编号和外部组件', () => {
   const data = defaultPuck(); assert.deepEqual(parsePuck(JSON.parse(JSON.stringify(data))), data);
   const invalid = structuredClone(data); invalid.content[0].props.panel = 'battlefield'; assert.throws(() => parsePuck(invalid));
   const duplicate = structuredClone(data); duplicate.content.push(duplicate.content[0]); assert.throws(() => parsePuck(duplicate));
@@ -60,10 +60,10 @@ test('角色属性目录完整，装备加成只影响对应属性', () => {
   assert.equal(values.attack, stats(actor).attack);
   assert.throws(() => calculateAttributes(values, [{ attack: Infinity }]));
 });
-test('Grid 人物面板的属性版与解释版可保存并严格校验', () => {
+test('Grid 属性面板的属性版与解释版可保存并严格校验', () => {
   const before = defaultGrid();
-  const next = updatePanelSetting(before, 'character', 'characterView', 'explanations', before.items.map(item => item.i), equipmentPanelSettings);
-  assert.equal(resolvedPanelSettings(next.panelSettings, 'character', equipmentPanelSettings).characterView, 'explanations');
+  const next = updatePanelSetting(before, 'attributes', 'characterView', 'explanations', before.items.map(item => item.i), equipmentPanelSettings);
+  assert.equal(resolvedPanelSettings(next.panelSettings, 'attributes', equipmentPanelSettings).characterView, 'explanations');
   assert.deepEqual(parseGrid(JSON.parse(JSON.stringify(next))), next);
   assert.throws(() => parseGrid({ ...before, panelSettings: { character: { characterView: 'unknown' } } }));
 });

@@ -105,6 +105,6 @@ export type UiDefinition<TProps extends Record<string, unknown> = Record<string,
   normalizeProps(value: unknown): TProps;
   migrateProps?(value: unknown, fromVersion: number): TProps;
   validate?(props: TProps): UiDiagnostic[];
-  render(ctx: CanvasRenderingContext2D, node: UiNode & { props: TProps }, runtime: UiRenderRuntime): void;
-  hitTest?(point: UiPoint, node: UiNode & { props: TProps }): boolean;
+  render(ctx: CanvasRenderingContext2D, node: UiResolvedNode & { props: TProps }, runtime: UiRenderRuntime): void;
+  hitTest?(point: UiPoint, node: UiResolvedNode & { props: TProps }): boolean;
 };

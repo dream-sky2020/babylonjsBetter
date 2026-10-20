@@ -40,3 +40,9 @@
 这里同时包含可执行工具与历史档案；归档不代表所有文件都已停用。修改或删除工具前，检查 package.json、Vite 配置和代码引用。
 
 后续 Codex 工作先检查并复用现有工具。需要长期保留的新辅助工具放在本目录，说明用途及调用方式。一次性临时工具放入被 Git 忽略的 .asset-migration/，完成后清理；不要重新创建 scripts/ 或把临时工具散落到项目根目录。
+
+- `verifyDraggableReferenceFrame.cjs`：经 runElectronVerification.mjs 在隔离隐藏浏览器验证四个 Grid Lab 的1920×1080默认参考框、输入尺寸、指针穿透、几何保持、撤销重做、显示开关和刷新恢复；仅操作验证会话的 localStorage，报告/截图位于 node_modules/.cache/draggable-reference-frame.json / .png。
+
+- `verifyEquipmentPuckLayout.cjs`：经 runElectronVerification.mjs 验证推荐整备布局的三栏、七面板、资源条、选中对象详情、换装预览及保存后运行页；输出 node_modules/.cache/equipment-puck-recommended.json / .png。
+
+- `verifyUiPreviewCanvasLab.cjs`：经 runElectronVerification.mjs 检查 UI Preview Canvas Lab 标题、对话预设与整备画布，模拟角色切换、选库存、装备/卸下和编辑选中资源条，拦截写请求；报告位于 node_modules/.cache/ui-preview-canvas-verification.json。
