@@ -1,4 +1,5 @@
 import { writeSceneEnvironmentPreset, readSceneEnvironmentPresets } from './codex-tools/sceneEnvironmentPresetStore.ts'
+import { handleUiPreviewPresetRequest } from './codex-tools/uiPreviewPresetStore.ts'
 import { defineConfig, type Plugin } from 'vite'
 import { labNavigationPlugin } from './codex-tools/labNavigation.ts'
 import react from '@vitejs/plugin-react'
@@ -14,6 +15,7 @@ const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
 const PUBLIC_DIR = path.resolve(__dirname, 'public')
 const DUNGEON_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dungeonMapPresets')
 const DIALOGUE_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dialogueMapPresets')
+const UI_PREVIEW_PRESETS_DIR = path.resolve(CONFIG_DIR, 'uiPreviewPresets')
 const FIRST_PERSON_WEAPON_PRESETS_PATH = path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')
 const SCENE_ENVIRONMENT_PRESETS_PATH = path.resolve(CONFIG_DIR, 'sceneEnvironmentPresets')
 const ANIMATION_SCENE_PRESETS_PATH = path.resolve(CONFIG_DIR, 'animationScenePresets.json')
@@ -104,6 +106,7 @@ const sharedConfigPlugin = (): Plugin => ({
         || changedPath.startsWith(`${DUNGEON_MAP_PRESETS_DIR}${path.sep}`)) return []
       if (changedPath === DIALOGUE_MAP_PRESETS_DIR
         || changedPath.startsWith(`${DIALOGUE_MAP_PRESETS_DIR}${path.sep}`)) return []
+      if (changedPath.startsWith(`${UI_PREVIEW_PRESETS_DIR}${path.sep}`)) return []
       return undefined
     },
   },
@@ -111,6 +114,10 @@ const sharedConfigPlugin = (): Plugin => ({
     server.middlewares.use((req, res, next) => {
       const url = req.url ?? ''
       const pathname = url.split('?')[0]
+      if (pathname === '/api/dialogue-preview-presets') {
+        void handleUiPreviewPresetRequest(req, res, UI_PREVIEW_PRESETS_DIR)
+        return
+      }
       if (pathname === '/api/first-person-weapon-presets') {
         void (async () => {
           const sendJson = (statusCode: number, payload: unknown) => {

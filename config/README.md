@@ -36,7 +36,7 @@
 
 - `dialogueMapPresets/index.json` 保存目录，每个对话预设单独保存为同目录 JSON。
 - `labs/standalone/dialogue-map-canvas-lab/` 通过 `/api/dialogue-map-presets` 读取和保存完整预设库。
-- `dialoguePreviewPresets/index.json` 保存游戏 UI 文档目录，每个 Canvas UI 预设单独保存为同目录 JSON。旧 V1 `components` 会在读取时迁移，编辑器下一次显式保存会写成 V2 `nodes + rootIds`。
+- `uiPreviewPresets/index.json` 保存游戏 UI 文档目录，每个 Canvas UI 预设单独保存为同目录 JSON。旧 V1 `components` 会在读取时迁移，编辑器下一次显式保存会写成 V2 `nodes + rootIds`。
 - `labs/standalone/ui-preview-canvas-lab/` 通过 `/api/dialogue-preview-presets` 读取和保存 UI 文档库；Definition 代码位于 `core/dialogue-preview/`，布局实例与剧情节点数据相互独立。
 - 对话图使用 schemaVersion 5：对话、判断、选项、事件四类节点，规则放在对应节点中，连线独立保存 from/to。事件节点区分发送与等待。旧版不再迁移，新示例覆盖四类节点。
 - 编辑期集合使用 Map，JSON 边界编码为对象；保存允许不完整草稿，流程语义交给显式检查／编译。编译输出与编辑器文档分离。
@@ -55,4 +55,4 @@
 - Web: `localStorage` / `IndexedDB`
 - Electron: `app.getPath("userData")`（通过主进程读写）
 
-- `dialoguePreviewPresets/equipment_ui.json`：1280×720本地角色整备示例，每个控件独立保存；按钮 action 由 UI Preview Canvas Lab 的会话演示适配器处理，布局与演示角色/库存状态分开保存。
+- `uiPreviewPresets/equipment_ui.json`：1280×720本地角色整备示例，每个控件独立保存；按钮 action 由 UI Preview Canvas Lab 的会话演示适配器处理，布局与演示角色/库存状态分开保存。

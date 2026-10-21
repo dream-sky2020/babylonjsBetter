@@ -1,5 +1,9 @@
 # Codex 工具与资源处理档案
 
+`verifyUiClipboard.cjs` 经 runElectronVerification.mjs 验证 UI Lab 的 Shift+方向键范围选择、过滤顺序、右键多选复制/剪切/粘贴/删除、完整子树、锁定保护、撤销重做及实际键盘快捷键；不写正式预设，报告在 node_modules/.cache/ui-clipboard-verification.json。
+
+`uiPreviewPresetStore.ts` 为 Vite 提供 UI Lab 的同源预设 GET/PUT，将独立 JSON 和 index.json 写入 config/uiPreviewPresets；`node --experimental-strip-types --test codex-tools/uiPreviewPresetStore.test.ts` 在临时目录验证文件、索引、新建预设、非法数据拒绝及 HTTP 保存后重启读取。
+
 启动本地 Vite 验证服务前，先检查 localhost:1184 与 127.0.0.1:1184 并复用现有服务。项目默认绑定127.0.0.1且严格占用1184；不要以另一个监听地址再开同端口实例，它们会争用依赖预构建缓存，引发504 Outdated Optimize Dep。独立端口测试服务使用独立 cacheDir；一次性服务结束后清理自身进程，保留用户正在使用的开发服务。
 
 `npm run test:lab-clock` 验证组合式 Lab 前台计时与后台恢复策略；`verifyAgentInteractionRuntime.cjs` 另通过真实 createLab 渲染回调模拟隐藏一小时与无可见性事件的两小时休眠，检查暂停、恢复首帧不补跑及后续正常推进，结果写入既有报告 backgroundResume 字段。

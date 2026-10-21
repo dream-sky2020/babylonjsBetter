@@ -24,7 +24,7 @@ test('换角色与技能槽选择独立，资源不足或不兼容不改游戏�
   assert.deepEqual(runEquipmentPreview(next,'reset'),createEquipmentPreview());
 });
 test('整备预设的绑定均能由演示数据提供，所有可视控件在画布内',()=>{
-  const doc=parseUiDocument(JSON.parse(readFileSync(new URL('../../../config/dialoguePreviewPresets/equipment_ui.json',import.meta.url),'utf8')));
+  const doc=parseUiDocument(JSON.parse(readFileSync(new URL('../../../config/uiPreviewPresets/equipment_ui.json',import.meta.url),'utf8')));
   const context=equipmentPreviewContext(createEquipmentPreview());
   for(const node of listUiNodesInPaintOrder(doc)){
     for(const binding of Object.values(node.bindings??{}))assert.ok(Object.hasOwn(context,binding.source),binding.source);

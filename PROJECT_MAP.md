@@ -1,3 +1,27 @@
+## 2026-10-21：UI 剪贴板与键盘连续选择
+
+core/ui-document/uiDocument.clipboard.ts 提供选区子树去重、独立复制快照、批量删除及跨文档粘贴；保留类型、属性、绑定、子树局部布局与锚点，并按粘贴点平移整组选区。UI Lab 会话剪贴板支持右键复制/剪切/粘贴/删除和 Ctrl/Cmd+C/X/V、Delete；剪切立即删除，成功粘贴后消费，能保留的原 ID 保留。每批操作经 Store 单次 mutate，锁定选区/后代禁止剪切删除，锁定目标禁止粘贴。右键已选节点保留多选。ObjectHierarchy 开启现有 enableRangeSelection，支持 Shift+↑/↓、Shift 点击及过滤后的可见顺序连续选择，无须修改其他 Lab。
+
+## 2026-10-21：UI 预制 React 组件与右键目录菜单
+
+core/ui/prefabs/ 按基础、对话、布局存放独立 .ui.tsx 预制组件，每个文件默认导出 React 组件、命名导出 ui 属性元数据。catalog.ts 通过 import.meta.glob 自动发现文件，uiReactDefinitions.ts 用同一目录注册实际渲染组件；uiPrefabMenu.ts 按源文件目录生成任意深度添加菜单，无手工组件列表。UI Lab 移除组件库面板，左侧只显示对象树；编辑模式右键工作区空白在点击世界坐标添加根节点，右键 UI/树节点添加子节点，锁定父级禁止添加，沿用 Store 撤销/重做和预设保存。共用 core/ui/menu 与场景环境 Lab 的菜单交互；预览保留组件原生右键。旧 workspace:v1 的组件库 tab 偏好会被忽略，其他偏好保留。
+
+## 2026-10-21：UI Lab 同源文件持久化
+
+vite.config.ts 的 /api/dialogue-preview-presets GET/PUT 通过 codex-tools/uiPreviewPresetStore.ts 读写 config/uiPreviewPresets/，每个 UI 文档独立 JSON，保存同步维护 index.json，新建预设也登记；省略的预设不删除。写入前验证全部文档/文件名，串行保存并以临时文件替换，目录更新不触发编辑页整页刷新。core/dialogue-preview/dialoguePreviewPresetRepository.ts 改为同源请求，移除对 4550–4600 端口数据服务的依赖；正式构建继续只读静态打包预设。
+
+## 2026-10-21：React UI 预设切换入口
+
+UI Lab 将唯一的预设选择下拉框放入右侧文档设置的“界面预设”，顶部仅显示名称与保存状态，移除单独的整备示例跳转；新建表单默认折叠。加载、新建、切换预设不自动选中节点，直接显示设置。切换复用原有各预设 Store，保留未保存草稿与撤销历史，保存 API 不变。
+
+## 2026-10-21：React UI 实际分辨率视角
+
+UiPreviewCanvasLab 的“按实际分辨率”按钮读取当前 devicePixelRatio，将视角缩放设为其倒数、居中并显示参考框，使框的屏幕物理像素尺寸对应文档 canvas.width/height。只改视角与参考框显隐，不修改布局、保存或撤销；与完整容纳参考框的自动适配分开。
+
+## 2026-10-21：React UI 右侧常驻设置
+
+UiPreviewWorkbench 将文档设置与视图设置改为右侧默认展开的两个 InspectorSection，移除设置弹窗和顶部入口。选中组件的 InspectorPanel 始终排在设置上方，共用右侧滚动区域；选择变化时滚回顶部。两个设置折叠状态复用 workspace:v1.sections 偏好，不影响文档保存或撤销；旧偏好缺失时默认展开。
+
 ## 2026-10-21：React UI 开放工作区与玩家可视参考框
 
 UiReactEditor 将接收输入的工作区与逻辑坐标平面拆开；整个视口均可开始框选、平移、缩放，节点仍按原文档局部坐标和锚点解算。文档 canvas.width/height 作为玩家可视尺寸及根锚点参考，不再裁切编辑器中的 UI；编辑和预览均显示框外节点，绿色参考框严格对应该尺寸并穿透鼠标。参考框显隐保存在独立 workspace:v1 偏好，旧值缺字段默认显示；“适应参考框”保留框外工作留白。UiDocumentView 的其他运行宿主仍保留默认裁切，只有编辑器通过 style 显式开放溢出。验证覆盖负坐标节点的实际 DOM 命中/拖动、框外空白平移和框选、显隐刷新恢复及零 Canvas。
@@ -20,7 +44,7 @@ core/ui-document/UiDocumentView.tsx 是独立 React 运行入口：复用布局�
 
 ## 2026-10-20：本地画布角色整备示例
 
-UI Preview Canvas Lab 增加 config/dialoguePreviewPresets/equipment_ui.json（角色整备·本地可交互），1280×720画布。通用 panel/label/button/resource-bar Definition 位于 core/ui-document/uiBasic.definitions.ts，加入既有Registry；每个头像、资源、属性、装备/技能槽和库存按钮都可独立选中、移动与修改样式。Lab 的 equipmentPreview.ts 持有会话内角色、选中对象和装备操作，previewContext 在渲染时合并、不写回布局；纯预览命中按钮的 action 后调用共享整备规则。编辑与预览共用相同坐标和 Definition。角色/物品样例规则抽到 labs/data/equipment.ts 与 equipmentAttributes.ts，原整备 Lab 路径保留转导出，两页独立创建会话。?preset=equipment_ui 直接打开新示例；旧对话预设、保存接口与格式继续兼容。不依赖 Plasmic 账号或包。
+UI Preview Canvas Lab 增加 config/uiPreviewPresets/equipment_ui.json（角色整备·本地可交互），1280×720画布。通用 panel/label/button/resource-bar Definition 位于 core/ui-document/uiBasic.definitions.ts，加入既有Registry；每个头像、资源、属性、装备/技能槽和库存按钮都可独立选中、移动与修改样式。Lab 的 equipmentPreview.ts 持有会话内角色、选中对象和装备操作，previewContext 在渲染时合并、不写回布局；纯预览命中按钮的 action 后调用共享整备规则。编辑与预览共用相同坐标和 Definition。角色/物品样例规则抽到 labs/data/equipment.ts 与 equipmentAttributes.ts，原整备 Lab 路径保留转导出，两页独立创建会话。?preset=equipment_ui 直接打开新示例；旧对话预设、保存接口与格式继续兼容。不依赖 Plasmic 账号或包。
 
 ## 2026-10-20：通用 UI Preview Canvas Lab 命名
 
@@ -1148,7 +1172,7 @@ UI Preview Canvas 左栏最上方固定为可伸缩的 UI 对象与关系树，�
 
 `labs/standalone/ui-preview-canvas-lab/` 是独立于剧情节点图的游戏 UI 文档编辑器入口。预览中的头像、对话框、姓名牌、文字与图标由共享 Definition Registry 分派到单一 Canvas Renderer；Lab 不再包含按组件类型分支的绘图逻辑。编辑器支持画布滚轮缩放与中键平移、单选/多选/框选、多节点整体拖动、四角尺寸调整、网格与边缘/中心智能参考线吸附、多选对齐以及 Undo/Redo；拖动、缩放和对齐均作为单个 Store 事务记录。左侧使用 `rootIds + childIds` 生成可拖拽层级树：普通节点之间拖放会在同层重排，拖到 Group 会保持世界位置并改为父级相对坐标，根层级接收区可解除父级；成组/取消 Group 同样保持节点世界位置并可撤销。Renderer 沿父链解析世界坐标，并继承父级可见性、锁定和透明度；Group 移动带动整个子树，尺寸调整按比例缩放全部后代。属性 Inspector 根据 Definition 字段 Schema 自动生成。未知 Definition 会以诊断占位框显示并原样保留参数，不阻断整个文档打开和保存。
 
-通用 V2 文档模型、层级校验、V1 迁移、Definition Registry、Canvas Renderer 与带事务历史的 `UiDocumentStore` 位于 `core/ui-document/`；对话界面的内置 Definition 和默认文档位于 `core/dialogue-preview/`。V2 使用标准化 `nodes + rootIds`，节点将通用布局、Definition props 和可选数据 bindings 分离。布局同时支持旧的父级相对 `absolute` 和响应式 `rect-transform`：后者保存 anchorMin/anchorMax、pivot、anchoredPosition、sizeDelta，并可让根节点相对全画布或 safeArea 求解；拖动、缩放、对齐、成组与改父级均通过统一世界矩形转换保持视觉位置。Lab 可编辑画布分辨率和四边安全区，画布上会显示安全区及所选节点锚点。布局按预设拆分保存于 `config/dialoguePreviewPresets/`，目录由 `index.json` 管理；开发服务的 `/api/dialogue-preview-presets` 同时接受旧 V1 和新 V2，并在 Lab 下一次显式保存时写出 V2。该 UI 文档不写入 `core/dialogue-map/` 的剧情图文档。
+通用 V2 文档模型、层级校验、V1 迁移、Definition Registry、Canvas Renderer 与带事务历史的 `UiDocumentStore` 位于 `core/ui-document/`；对话界面的内置 Definition 和默认文档位于 `core/dialogue-preview/`。V2 使用标准化 `nodes + rootIds`，节点将通用布局、Definition props 和可选数据 bindings 分离。布局同时支持旧的父级相对 `absolute` 和响应式 `rect-transform`：后者保存 anchorMin/anchorMax、pivot、anchoredPosition、sizeDelta，并可让根节点相对全画布或 safeArea 求解；拖动、缩放、对齐、成组与改父级均通过统一世界矩形转换保持视觉位置。Lab 可编辑画布分辨率和四边安全区，画布上会显示安全区及所选节点锚点。布局按预设拆分保存于 `config/uiPreviewPresets/`，目录由 `index.json` 管理；开发服务的 `/api/dialogue-preview-presets` 同时接受旧 V1 和新 V2，并在 Lab 下一次显式保存时写出 V2。该 UI 文档不写入 `core/dialogue-map/` 的剧情图文档。
 
 ## 2026-09-20：Dialogue Map V3 统一节点与运行时入口
 

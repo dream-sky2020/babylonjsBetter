@@ -5,7 +5,7 @@ import { defaultUiPreviewWorkspace, normalizeUiPreviewWorkspace, readUiPreviewWo
 test('UI 工作区恢复合法偏好，截断损坏的宽度和分组值', () => {
   const restored = normalizeUiPreviewWorkspace({ left: -20, right: 9000, leftOpen: false, tab: 'components', sections: { layout: false, appearance: true, broken: 'yes' } }, 1366);
   assert.equal(restored.left, 220); assert.equal(restored.right, 560);
-  assert.equal(restored.leftOpen, false); assert.equal(restored.tab, 'components');
+  assert.equal(restored.leftOpen, false); assert.equal('tab' in restored, false);
   assert.deepEqual(restored.sections, { layout: false, appearance: true });
   assert.deepEqual(normalizeUiPreviewWorkspace({ left: Infinity, right: NaN }, 1366), defaultUiPreviewWorkspace(1366));
 });

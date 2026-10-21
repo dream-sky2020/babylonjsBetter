@@ -10,6 +10,10 @@ import { applyUiAnchorPreset, convertUiNodeToAbsolute, convertUiNodeToRectTransf
 import { canReparentUiNode, reparentUiNode, duplicateUiSubtree } from '@/core/ui-document';
 import { createReactUiDefinitionRegistry } from '@/core/ui-document/react/uiReactDefinitions';
 import { UiReactEditor } from './UiReactEditor';
+import { canPasteUiNodes, canRemoveUiNodes, copyUiNodes, pasteUiNodes, removeUiNodes, type UiNodeClipboard } from '@/core/ui-document/uiDocument.clipboard';
+import { reactUiPrefabs } from '@/core/ui/prefabs/catalog';
+import { openCommandMenuAtPoint, closeCommandMenu } from '@/core/ui/menu';
+import { buildUiPrefabMenu } from './uiPrefabMenu';
 import { InspectorPanel, InspectorSection, ObjectHierarchy, type EditorHierarchyDropIntent, type EditorHierarchyItem } from '@/core/ui/editor-kit';
 import { UiPreviewWorkbench } from './UiPreviewWorkbench';
 import { readUiPreviewWorkspace, type UiPreviewWorkspace } from './uiPreviewWorkspace';
@@ -51,20 +55,27 @@ const PropertyControl = ({ field, node, update }: { field: UiPropertyField; node
 };
 
 export const UiPreviewCanvasLab: React.FC = () => {
+
   const [workspace, setWorkspace] = useState<UiPreviewWorkspace>(() => readUiPreviewWorkspace(localStorage, window.innerWidth));
-  const [componentQuery, setComponentQuery] = useState('');
+
   const canvasShellRef = useRef<HTMLDivElement>(null);
+  const menuFrame = useRef<number | null>(null);
+  const clipboard = useRef<{ content: UiNodeClipboard; cut: boolean } | null>(null);
   const [autoFit, setAutoFit] = useState(true);
   const [equipment, setEquipment] = useState(createEquipmentPreview);
   const [stores, setStores] = useState(() => new Map<string, UiDocumentStore>()); const unsubscribersRef = useRef<(() => void)[]>([]);
   const [revision, setRevision] = useState(0); const [activeKey, setActiveKey] = useState(''); const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [message, setMessage] = useState('正在载入界面预设…'); const [isError, setIsError] = useState(false); const [saving, setSaving] = useState(false);
   const [keepWorldPosition, setKeepWorldPosition] = useState(true);
-  const [addToSelection, setAddToSelection] = useState(true);
+
   const [editMode, setEditMode] = useState(true); const [showGrid, setShowGrid] = useState(true); const [snapToGrid, setSnapToGrid] = useState(false);
   const [viewport, setViewport] = useState({ zoom: new URLSearchParams(window.location.search).get('preset') === 'equipment_ui' ? .65 : 1, panX: 0, panY: 0 });
   const [expandedUiIds, setExpandedUiIds] = useState<Set<string>>(() => new Set());
   const [newKey, setNewKey] = useState('dialogue_ui_copy'); const [newName, setNewName] = useState('对话界面副本');
+  useEffect(() => {
+    closeCommandMenu();
+    return () => { closeCommandMenu(); if (menuFrame.current !== null) cancelAnimationFrame(menuFrame.current); };
+  }, [activeKey, editMode]);
   const selectedId = selectedIds.at(-1) ?? ''; const store = stores.get(activeKey);
   // The store is mutable; explicitly invalidate snapshots so React Compiler cannot reuse stale reads.
   const preset = useMemo(() => { void revision; return store?.getDocument(); }, [store, revision]);
@@ -86,22 +97,51 @@ export const UiPreviewCanvasLab: React.FC = () => {
     try {
       const library = await loadDialoguePreviewPresetLibrary(); unsubscribersRef.current.forEach((unsubscribe) => unsubscribe()); unsubscribersRef.current = [];
       const nextStores = new Map(Object.entries(library).map(([key, document]) => [key, new UiDocumentStore(document)] as const)); nextStores.forEach(subscribeStore); setStores(nextStores);
-      const requested = new URLSearchParams(window.location.search).get('preset'); const key = requested && library[requested] ? requested : Object.keys(library)[0] ?? ''; setActiveKey(key); setSelectedIds(library[key]?.rootIds[0] ? [library[key].rootIds[0]] : []); setMessage(`已载入 ${Object.keys(library).length} 个界面预设。`); setIsError(false);
+      const requested = new URLSearchParams(window.location.search).get('preset'); const key = requested && library[requested] ? requested : Object.keys(library)[0] ?? ''; setActiveKey(key); setSelectedIds([]); setMessage(`已载入 ${Object.keys(library).length} 个界面预设。`); setIsError(false);
     } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); setIsError(true); }
   }, [subscribeStore]);
   // Initial async repository hydration is the intended external synchronization for this Lab.
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { void load(); return () => unsubscribersRef.current.forEach((unsubscribe) => unsubscribe()); }, [load]);
+  const copySelection = useCallback((ids: readonly string[] = selectedIds) => {
+    if (!store || !editMode) return false;
+    const content = copyUiNodes(store.getDocument(), ids); if (!content) return false;
+    clipboard.current = { content, cut: false }; return true;
+  }, [store, editMode, selectedIds]);
+  const removeSelection = useCallback((ids: readonly string[] = selectedIds, cut = false) => {
+    if (!store || !editMode || !canRemoveUiNodes(store.getDocument(), ids)) return false;
+    const content = cut ? copyUiNodes(store.getDocument(), ids) : null;
+    store.mutate(cut ? '剪切 UI 选区' : '删除 UI 选区', draft => removeUiNodes(draft, ids));
+    if (content) clipboard.current = { content, cut: true };
+    setSelectedIds([]); refresh(); return true;
+  }, [store, editMode, selectedIds, refresh]);
+  const pasteSelection = useCallback((parentId: string | null = null, point?: { x: number; y: number }) => {
+    const copied = clipboard.current;
+    if (!store || !editMode || !copied || !canPasteUiNodes(store.getDocument(), parentId)) return false;
+    let ids: string[] = [];
+    store.mutate(copied.cut ? '粘贴剪切的 UI' : '粘贴 UI 副本', draft => { ids = pasteUiNodes(draft, copied.content, parentId, point, copied.cut); });
+    if (copied.cut) clipboard.current = null;
+    if (parentId) setExpandedUiIds(current => new Set([...current, parentId]));
+    setSelectedIds(ids); refresh(); return true;
+  }, [store, editMode, refresh]);
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (document.querySelector('dialog[open]') || !(event.ctrlKey || event.metaKey) || event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement) return;
-      const activeStore = stores.get(activeKey); if (!activeStore) return;
-      const redo = event.key.toLowerCase() === 'y' || (event.key.toLowerCase() === 'z' && event.shiftKey); const undo = event.key.toLowerCase() === 'z' && !event.shiftKey;
-      if ((undo && activeStore.undo()) || (redo && activeStore.redo())) { event.preventDefault(); refresh(); }
+      const target = event.target;
+      if (document.querySelector('dialog[open]') || target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement || (target instanceof HTMLElement && target.isContentEditable)) return;
+      const activeStore = stores.get(activeKey); if (!activeStore || activeStore.inTransaction) return;
+      const modified = event.ctrlKey || event.metaKey; const key = event.key.toLowerCase();
+      const redo = modified && (key === 'y' || (key === 'z' && event.shiftKey)); const undo = modified && key === 'z' && !event.shiftKey;
+      let handled = false;
+      if (undo) handled = activeStore.undo();
+      else if (redo) handled = activeStore.redo();
+      else if (modified && !event.shiftKey && key === 'c') handled = copySelection();
+      else if (modified && !event.shiftKey && key === 'x') handled = removeSelection(selectedIds, true);
+      else if (modified && !event.shiftKey && key === 'v') handled = pasteSelection(selectedIds.length === 1 && activeStore.getDocument().nodes[selectedIds[0]] ? selectedIds[0] : null);
+      else if (!modified && !event.altKey && key === 'delete') handled = removeSelection();
+      if (handled) { event.preventDefault(); closeCommandMenu(); refresh(); }
     };
     window.addEventListener('keydown', onKeyDown); return () => window.removeEventListener('keydown', onKeyDown);
-  }, [activeKey, refresh, stores]);
-
+  }, [activeKey, refresh, stores, selectedIds, copySelection, removeSelection, pasteSelection]);
   const updateNode = (label: string, mutation: (node: UiNode) => void) => { if (!store || !selected) return; store.updateNode(selected.id, label, mutation); refresh(); };
   const updateMargin = (side: 'left' | 'right' | 'top' | 'bottom', value: number) => {
     if (!store || !selected) return; store.mutate(`修改${side}边距`, (draft) => { const node = draft.nodes[selected.id]; if (!node) return; const resolved = resolveUiNode(draft, node); const parent = getUiLayoutParentRect(draft, node); if (!resolved || !parent) return; const rect = { ...resolved.layout };
@@ -166,17 +206,61 @@ export const UiPreviewCanvasLab: React.FC = () => {
       ordered.forEach((id, index) => { const node = draft.nodes[id]; if (node) node.layout.zIndex = ordered.length - index - 1; });
     }); if (intent.parentId) setExpandedUiIds(current => new Set([...current, intent.parentId!])); setSelectedIds(movingIds); refresh();
   };
-  const save = async () => { setSaving(true); try { await saveDialoguePreviewPresetLibrary(currentLibrary()); stores.forEach((item) => item.markSaved()); setMessage(`已保存 ${stores.size} 个 V2 界面预设。`); setIsError(false); refresh(); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); setIsError(true); } finally { setSaving(false); } };
-  const addNode = (entry: UiDefinition) => {
-    if (!store || !preset) return; const ids = new Set(Object.keys(preset.nodes)); let index = 1; while (ids.has(`${entry.type}-${index}`)) index += 1; const id = `${entry.type}-${index}`;
-    const parentId = addToSelection && selected && !resolveUiNode(preset, selected)?.locked ? selected.id : null;
-    store.addNode({ id, type: entry.type, definitionVersion: entry.version, name: `${entry.label} ${index}`, parentId, childIds: [], layout: { mode: 'rect-transform', anchorMin: { x: .5, y: .5 }, anchorMax: { x: .5, y: .5 }, pivot: { x: .5, y: .5 }, anchoredPosition: { x: 0, y: 0 }, sizeDelta: { x: entry.defaultSize.width, y: entry.defaultSize.height }, relativeTo: 'parent', zIndex: Math.max(-1, ...(parentId ? preset.nodes[parentId].childIds : preset.rootIds).map(sibling => preset.nodes[sibling].layout.zIndex)) + 1 }, visible: true, locked: false, opacity: 1, props: entry.createDefaultProps() });
+  const save = async () => { setSaving(true); try { await saveDialoguePreviewPresetLibrary(currentLibrary()); stores.forEach((item) => item.markSaved()); setMessage(`已将 ${stores.size} 个界面预设保存到 config/uiPreviewPresets/。`); setIsError(false); refresh(); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); setIsError(true); } finally { setSaving(false); } };
+  const addNode = (entry: UiDefinition, parentId: string | null, point?: { x: number; y: number }) => {
+    if (!store || !preset) return;
+    const document = store.getDocument();
+    const parent = parentId ? resolveUiNode(document, parentId) : undefined;
+    if (parentId && (!parent || parent.locked)) return;
+    let index = 1; while (document.nodes[`${entry.type}-${index}`]) index += 1; const id = `${entry.type}-${index}`;
+    const bounds = parent?.layout ?? { x: 0, y: 0, width: document.canvas.width, height: document.canvas.height };
+    const position = point ? { x: point.x - bounds.x - bounds.width / 2, y: point.y - bounds.y - bounds.height / 2 } : { x: 0, y: 0 };
+    store.addNode({ id, type: entry.type, definitionVersion: entry.version, name: `${entry.label} ${index}`, parentId, childIds: [], layout: { mode: 'rect-transform', anchorMin: { x: .5, y: .5 }, anchorMax: { x: .5, y: .5 }, pivot: { x: .5, y: .5 }, anchoredPosition: position, sizeDelta: { x: entry.defaultSize.width, y: entry.defaultSize.height }, relativeTo: 'parent', zIndex: Math.max(-1, ...(parentId ? document.nodes[parentId].childIds : document.rootIds).map(sibling => document.nodes[sibling].layout.zIndex)) + 1 }, visible: true, locked: false, opacity: 1, props: entry.createDefaultProps() });
     if (parentId) setExpandedUiIds(current => new Set([...current, parentId]));
     setSelectedIds([id]); refresh();
   };
+  const openAddMenu = (x: number, y: number, parentId: string | null = null, point?: { x: number; y: number }) => {
+    if (!editMode || !store) return;
+    const parent = parentId ? resolveUiNode(store.getDocument(), parentId) : undefined;
+    const targets = parentId && !selectedIds.includes(parentId) ? [parentId] : selectedIds;
+    if (parentId && !selectedIds.includes(parentId)) setSelectedIds([parentId]);
+    if (menuFrame.current !== null) cancelAnimationFrame(menuFrame.current);
+    closeCommandMenu();
+    // Let selection-driven hierarchy/inspector scrolling settle before opening
+    // the shared menu, whose normal scroll behavior dismisses it.
+    menuFrame.current = requestAnimationFrame(() => {
+      menuFrame.current = requestAnimationFrame(() => {
+        menuFrame.current = null;
+        const document = store.getDocument();
+        const removable = canRemoveUiNodes(document, targets);
+        openCommandMenuAtPoint(x, y, [
+          { id: 'add-ui', label: '添加 UI', disabled: Boolean(parent?.locked), children: buildUiPrefabMenu(reactUiPrefabs, entry => addNode(entry, parentId, point)) },
+          { type: 'separator' },
+          { id: 'ui-copy', label: '复制', shortcut: 'Ctrl+C', disabled: !targets.some(id => document.nodes[id]), action: () => { copySelection(targets); } },
+          { id: 'ui-cut', label: '剪切', shortcut: 'Ctrl+X', disabled: !removable, action: () => { removeSelection(targets, true); } },
+          { id: 'ui-paste', label: '粘贴', shortcut: 'Ctrl+V', disabled: !clipboard.current || !canPasteUiNodes(document, parentId), action: () => { pasteSelection(parentId, point); } },
+          { type: 'separator' },
+          { id: 'ui-delete', label: '删除', shortcut: 'Delete', danger: true, disabled: !removable, action: () => { removeSelection(targets); } },
+        ], parent?.locked ? '节点已锁定' : parent ? `在 ${parent.name} 上操作` : 'UI 操作');
+      });
+    });
+  };
   const createPreset = () => {
     const key = newKey.trim(); if (!/^[A-Za-z0-9_-]+$/.test(key) || stores.has(key)) { setMessage(stores.has(key) ? '这个预设 Key 已存在。' : '预设 Key 只能使用字母、数字、下划线和连字符。'); setIsError(true); return; }
-    const next = createDialoguePreviewPreset(key, newName.trim() || key); const nextStore = new UiDocumentStore(next); subscribeStore(nextStore); setStores((current) => new Map(current).set(key, nextStore)); setActiveKey(key); setSelectedIds(next.rootIds[0] ? [next.rootIds[0]] : []); setMessage(`已创建“${next.name}”，保存全部后写入预设库。`); setIsError(false); refresh();
+    const next = createDialoguePreviewPreset(key, newName.trim() || key); const nextStore = new UiDocumentStore(next); subscribeStore(nextStore); setStores((current) => new Map(current).set(key, nextStore)); setActiveKey(key); setSelectedIds([]); setMessage(`已创建“${next.name}”，保存全部后写入预设库。`); setIsError(false); refresh();
+  };
+  const showActualResolution = () => {
+    const pixelRatio = window.devicePixelRatio > 0 ? window.devicePixelRatio : 1;
+    setAutoFit(false);
+    setViewport({ zoom: 1 / pixelRatio, panX: 0, panY: 0 });
+    setWorkspace(current => ({ ...current, referenceFrameVisible: true }));
+  };
+  const switchPreset = (key: string) => {
+    if (!stores.has(key) || key === activeKey) return;
+    setActiveKey(key);
+    setSelectedIds([]);
+    setAutoFit(true);
+    setViewport({ zoom: 1, panX: 0, panY: 0 });
   };
 
   if (!store || !preset) return <main className="preview-empty"><h1>React UI Layout Lab</h1><p className={isError ? 'is-error' : ''}>{message}</p><button onClick={() => void load()}>重新加载</button></main>;
@@ -198,21 +282,20 @@ export const UiPreviewCanvasLab: React.FC = () => {
   const commonOpacity = chosenNodes.length && chosenNodes.every(node => node.opacity === chosenNodes[0].opacity) ? chosenNodes[0].opacity : '';
   const patchSelection = (mutation: (node: UiNode) => void) => { store.mutate('修改选区共同属性', draft => { chosenNodes.forEach(node => { if (!resolveUiNode(draft, node.id)?.locked) mutation(draft.nodes[node.id]); }); }); refresh(); };
   const locateSelected = () => {
-    setWorkspace(current => ({ ...current, leftOpen: true, tab: 'objects', ...(window.innerWidth < 1050 ? { rightOpen: false } : {}) }));
+    setWorkspace(current => ({ ...current, leftOpen: true, ...(window.innerWidth < 1050 ? { rightOpen: false } : {}) }));
     const ancestors = new Set(expandedUiIds); selectedIds.forEach(id => { let parent = preset.nodes[id]?.parentId; while (parent) { ancestors.add(parent); parent = preset.nodes[parent]?.parentId; } }); setExpandedUiIds(ancestors);
     requestAnimationFrame(() => window.document.querySelector('.dialogue-hierarchy .editor-hierarchy-row.selected')?.scrollIntoView({ block: 'nearest' }));
   };
   const issues = Object.values(preset.nodes).filter(node => !registry.get(node.type)?.component).map(node => ({ nodeId: node.id, message: `未注册 React 组件：${node.type}` }));
   return <UiPreviewWorkbench workspace={workspace} onWorkspaceChange={setWorkspace}
-    documentBar={<>        <label className="select-field"><select aria-label="当前预设" value={activeKey} onChange={(event) => { const key = event.target.value; const firstId = stores.get(key)?.getDocument().rootIds[0]; setActiveKey(key); setSelectedIds(firstId ? [firstId] : []); setViewport({ zoom: key === 'equipment_ui' ? .65 : 1, panX: 0, panY: 0 }); }}>{[...stores].map(([key, item]) => <option key={key} value={key}>{item.getDocument().name}</option>)}</select></label><span className={dirty ? 'ui-dirty' : 'ui-saved'}>{dirty ? '● 未保存' : '✓ 已保存'}</span></>}
-    objects={<><div className="ui-tree-tools"><button onClick={locateSelected} disabled={!selectedIds.length}>定位所选</button><button onClick={() => setExpandedUiIds(new Set(Object.keys(preset.nodes)))}>展开全部</button><button onClick={() => setExpandedUiIds(new Set())}>折叠全部</button></div>      <ObjectHierarchy className="dialogue-hierarchy" eyebrow="UI OBJECTS" title="对象层级" showTypeLabels={false} status={`${Object.keys(preset.nodes).length}`}
-        items={hierarchyItems} rootIds={treeIds(preset.rootIds)} selectedIds={selectedIds} expandedIds={expandedUiIds} onExpandedChange={setExpandedUiIds}
-        searchPlaceholder="搜索 UI 对象" onSelectionChange={(ids, mode) => changeSelection(ids, mode === 'toggle' ? 'toggle' : 'replace')} onMove={moveHierarchyNodes} onClearSelection={() => setSelectedIds([])}
+    documentBar={<><strong className="ui-current-preset" title={activeKey}>{preset.name}</strong><span className={dirty ? 'ui-dirty' : 'ui-saved'}>{dirty ? '● 未保存' : '✓ 已保存'}</span></>}
+    objects={<div className="ui-tree-menu-area" onContextMenu={event => { event.preventDefault(); openAddMenu(event.clientX, event.clientY); }}><div className="ui-tree-tools"><button disabled={!editMode} onClick={event => { const rect = event.currentTarget.getBoundingClientRect(); openAddMenu(rect.left, rect.bottom, selectedId || null); }}>添加 UI</button><button onClick={locateSelected} disabled={!selectedIds.length}>定位所选</button><button onClick={() => setExpandedUiIds(new Set(Object.keys(preset.nodes)))}>展开全部</button><button onClick={() => setExpandedUiIds(new Set())}>折叠全部</button></div>      <ObjectHierarchy className="dialogue-hierarchy" eyebrow="UI OBJECTS" title="对象层级" showTypeLabels={false} status={`${Object.keys(preset.nodes).length}`}
+        enableRangeSelection items={hierarchyItems} rootIds={treeIds(preset.rootIds)} selectedIds={selectedIds} expandedIds={expandedUiIds} onExpandedChange={setExpandedUiIds}
+        onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); openAddMenu(event.clientX, event.clientY, id); }} searchPlaceholder="搜索 UI 对象" onSelectionChange={(ids, mode) => changeSelection(ids, mode === 'toggle' ? 'toggle' : 'replace')} onMove={moveHierarchyNodes} onClearSelection={() => setSelectedIds([])}
         renderRowMetadata={id => { const node = preset.nodes[id]; const resolved = resolveUiNode(preset, id); return <><small title={node.type}>{registry.get(node.type)?.label ?? node.type}</small><button className="ui-row-action" title={node.visible ? '隐藏对象' : '显示对象'} aria-label={`${node.name}：${node.visible ? '隐藏' : '显示'}`} onClick={event => { event.stopPropagation(); store.updateNode(id, '切换可见性', item => { item.visible = !item.visible; }); }}>{node.visible ? '◉' : '○'}</button><button className="ui-row-action" title={resolved?.locked && !node.locked ? '继承父级锁定' : node.locked ? '解锁对象' : '锁定对象'} aria-label={`${node.name}：锁定`} onClick={event => { event.stopPropagation(); store.updateNode(id, '切换锁定', item => { item.locked = !item.locked; }); }}>{resolved?.locked ? '◆' : '◇'}</button></>; }}
-        footer={<><span>{Object.keys(preset.nodes).length} 个对象</span><span>拖拽重排 · Ctrl 多选</span></>}
-      /></>}
-    components={<section className="ui-component-library"><h2>组件库</h2><label className="text-field"><span>搜索组件</span><input aria-label="搜索组件" placeholder="名称、类型或分类" value={componentQuery} onChange={event => setComponentQuery(event.target.value)} /></label><label className="checkbox-field"><input type="checkbox" checked={addToSelection} onChange={event => setAddToSelection(event.target.checked)} />添加到所选节点下</label><p className="hint">插入位置：{addToSelection && selected && !selectedResolved?.locked ? selected.name : '画布根节点'}</p><div className="ui-component-cards">{registry.list().filter(entry => `${entry.label} ${entry.type} ${entry.category}`.toLowerCase().includes(componentQuery.trim().toLowerCase())).map(entry => <button key={entry.type} onClick={() => addNode(entry)}><strong>＋ {entry.label}</strong><small>{entry.category} · {entry.defaultSize.width} × {entry.defaultSize.height}</small><span>{entry.description ?? entry.type}</span></button>)}</div></section>}
-    inspector={    <InspectorPanel className="preview-inspector" eyebrow="INSPECTOR" title={selected ? definition?.label ?? selected.type : '对象属性'} action={<button aria-label="收起属性面板" onClick={() => setWorkspace(current => ({ ...current, rightOpen: false }))}>›</button>} status={selected ? (selectedResolved?.locked ? '已锁定' : '可编辑') : undefined} footer={<><span>{selectedIds.length ? `已选择 ${selectedIds.length} 项` : '未选择对象'}</span><span>UI Document V2</span></>}>{chosenNodes.length > 1 ? <section className="ui-multi-inspector panel"><h2>已选择 {chosenNodes.length} 个对象</h2><p className="hint">共同操作仅影响未锁定对象。</p><div className="ui-wrap-actions">{([['left', '左对齐'], ['center-x', '水平居中'], ['right', '右对齐'], ['top', '顶对齐'], ['center-y', '垂直居中'], ['bottom', '底对齐']] as const).map(([mode, label]) => <button key={mode} onClick={() => alignSelection(mode)}>{label}</button>)}<button onClick={groupSelection}>成组</button></div><h3>共同属性</h3><div className="ui-wrap-actions"><button onClick={() => patchSelection(node => { node.visible = true; })}>显示选区</button><button onClick={() => patchSelection(node => { node.visible = false; })}>隐藏选区</button></div><NumberField label="透明度（多个值时留空）" value={commonOpacity} min={0} max={1} step={.05} onChange={value => patchSelection(node => { node.opacity = clamp(value, 0, 1); })} /></section> : selected ? <>
+        footer={<><span>{Object.keys(preset.nodes).length} 个对象</span><span>Shift＋↑↓ 连选 · Ctrl 多选</span></>}
+      /></div>}
+    inspectorKey={selectedIds.join('|')} inspector={chosenNodes.length > 0 && <InspectorPanel className="preview-inspector" eyebrow="INSPECTOR" title={selected ? definition?.label ?? selected.type : '对象属性'} action={<button aria-label="收起属性面板" onClick={() => setWorkspace(current => ({ ...current, rightOpen: false }))}>›</button>} status={selected ? (selectedResolved?.locked ? '已锁定' : '可编辑') : undefined} footer={<><span>{selectedIds.length ? `已选择 ${selectedIds.length} 项` : '未选择对象'}</span><span>UI Document V2</span></>}>{chosenNodes.length > 1 ? <section className="ui-multi-inspector panel"><h2>已选择 {chosenNodes.length} 个对象</h2><p className="hint">共同操作仅影响未锁定对象。</p><div className="ui-wrap-actions">{([['left', '左对齐'], ['center-x', '水平居中'], ['right', '右对齐'], ['top', '顶对齐'], ['center-y', '垂直居中'], ['bottom', '底对齐']] as const).map(([mode, label]) => <button key={mode} onClick={() => alignSelection(mode)}>{label}</button>)}<button onClick={groupSelection}>成组</button></div><h3>共同属性</h3><div className="ui-wrap-actions"><button onClick={() => patchSelection(node => { node.visible = true; })}>显示选区</button><button onClick={() => patchSelection(node => { node.visible = false; })}>隐藏选区</button></div><NumberField label="透明度（多个值时留空）" value={commonOpacity} min={0} max={1} step={.05} onChange={value => patchSelection(node => { node.opacity = clamp(value, 0, 1); })} /></section> : selected ? <>
       <section className="panel inspector-title"><div><span>{definition?.label ?? '缺少 Definition'}</span><h2>{selected.name}</h2><p className="ui-parent-path">{selected.parentId ? preset.nodes[selected.parentId]?.name : preset.name} / {selected.name}</p></div><div className="tiny-actions"><button onClick={() => updateNode('切换可见性', (node) => { node.visible = !node.visible; })}>{selected.visible ? '隐藏' : '显示'}</button><button onClick={() => updateNode('切换锁定', (node) => { node.locked = !node.locked; })}>{selected.locked ? '解锁' : '锁定'}</button></div></section>
       {!definition ? <section className="panel"><h3>缺少组件定义</h3><p>类型 <code>{selected.type}</code> 当前未注册。原始参数会被保留，仍可移动或删除此节点。</p></section> : null}
       <InspectorSection title="布局" subtitle={selectedResolved ? `${Math.round(selectedResolved.layout.width)} × ${Math.round(selectedResolved.layout.height)} · ${selected.layout.mode === 'absolute' ? '父级相对' : '锚点布局'}` : undefined} {...sectionProps('layout', true)}><div className="panel-heading"><span>相对位置与尺寸</span><button onClick={() => { store.mutate('切换布局模式', (draft) => { const node = draft.nodes[selected.id]; if (!node) return; if (node.layout.mode === 'absolute') convertUiNodeToRectTransform(draft, node); else convertUiNodeToAbsolute(draft, node); }); refresh(); }}>{selected.layout.mode === 'absolute' ? '启用锚点' : '转绝对布局'}</button></div>
@@ -237,13 +320,13 @@ export const UiPreviewCanvasLab: React.FC = () => {
       <InspectorSection title="高级信息" subtitle={selected.type} {...sectionProps('advanced', false)}><label className="text-field"><span>节点 ID</span><input value={selected.id} readOnly /></label><label className="text-field"><span>组件类型</span><input value={selected.type} readOnly /></label><p className="hint">组件版本 {selected.definitionVersion} · UI Document V2</p></InspectorSection>
       <section className="panel danger-row"><button onClick={() => {
         let id = ''; store.mutate('复制节点及子树', draft => { id = duplicateUiSubtree(draft, selected.id); }); setSelectedIds([id]); refresh();
-      }}>复制节点及子树</button><button className="danger" onClick={() => { store.removeNode(selected.id); setSelectedIds((current) => current.filter((id) => Boolean(store.getDocument().nodes[id]))); refresh(); }}>删除节点</button></section>
-    </> : <section className="panel empty-inspector"><strong>未选择节点</strong><p>{preset.name} · {Object.keys(preset.nodes).length} 个节点<br />{preset.canvas.width} × {preset.canvas.height}<br />点击画面或对象树开始编辑；可视区域尺寸与安全区在顶部“文档设置”。</p></section>}</InspectorPanel>}
-    documentSettings={<>      <section className="panel"><div className="panel-heading"><span>界面预设</span><strong>{stores.size}</strong></div>
+      }}>复制节点及子树</button><button className="danger" disabled={!canRemoveUiNodes(preset, [selected.id])} onClick={() => { removeSelection([selected.id]); }}>删除节点</button></section>
+    </> : <section className="panel empty-inspector"><strong>未选择节点</strong><p>{preset.name} · {Object.keys(preset.nodes).length} 个节点<br />{preset.canvas.width} × {preset.canvas.height}<br />点击画面或对象树开始编辑；可视区域尺寸与安全区在下方“文档设置”。</p></section>}</InspectorPanel>}
+    documentSettings={<>      <section className="panel"><div className="panel-heading"><span>界面预设</span><strong>{stores.size}</strong></div><p className="hint">“保存全部”写入 config/uiPreviewPresets/，每个预设独立保存为 JSON 文件。</p>
 
-        {stores.has('equipment_ui') && <button onClick={() => { setActiveKey('equipment_ui'); setSelectedIds([]); setViewport({ zoom: .65, panX: 0, panY: 0 }); }}>打开角色整备示例</button>}
-        <label className="text-field"><span>预设名称</span><input value={preset.name} onChange={(event) => { store.mutate('重命名预设', (draft) => { draft.name = event.target.value; }); refresh(); }} /></label>
-        <div className="new-preset"><input value={newKey} onChange={(event) => setNewKey(event.target.value)} aria-label="新预设 Key" /><input value={newName} onChange={(event) => setNewName(event.target.value)} aria-label="新预设名称" /><button onClick={createPreset}>创建新预设</button></div>
+        <label className="select-field"><span>当前预设</span><select aria-label="当前预设" value={activeKey} onChange={event => switchPreset(event.target.value)}>{[...stores].map(([key, item]) => <option key={key} value={key}>{item.getDocument().name} · {key}{item.dirty ? ' · 未保存' : ''}</option>)}</select></label>
+        <label className="text-field"><span>预设名称</span><input aria-label="预设名称" value={preset.name} onChange={(event) => { store.mutate('重命名预设', (draft) => { draft.name = event.target.value; }); refresh(); }} /></label>
+        <details className="ui-preset-create"><summary>新建预设</summary><div className="new-preset"><label className="text-field"><span>预设 Key</span><input value={newKey} onChange={(event) => setNewKey(event.target.value)} aria-label="新预设 Key" /></label><label className="text-field"><span>预设名称</span><input value={newName} onChange={(event) => setNewName(event.target.value)} aria-label="新预设名称" /></label><button onClick={createPreset}>创建新预设</button></div></details>
       </section>
       <section className="panel"><div className="panel-heading"><span>玩家可视区域与安全区</span><strong>{preset.canvas.width}×{preset.canvas.height}</strong></div><div className="control-grid">
         <NumberField label="可视区宽" value={preset.canvas.width} min={320} onChange={(value) => { store.mutate('修改画布宽度', (draft) => { draft.canvas.width = Math.max(320, value); }); refresh(); }} />
@@ -258,6 +341,6 @@ export const UiPreviewCanvasLab: React.FC = () => {
   >    <main className="preview-stage"><div className="stage-toolbar"><div><strong>{preset.name}</strong><span>{preset.presetKey}</span>{dirty ? <em>● 未保存</em> : <em className="is-saved">✓ 已保存</em>}</div><div className="toolbar-actions">
       <button disabled={!history.canUndo} onClick={() => { store.undo(); refresh(); }}>撤销</button><button disabled={!history.canRedo} onClick={() => { store.redo(); refresh(); }}>重做</button><button className={editMode ? 'is-active' : ''} onClick={() => setEditMode(true)}>编辑模式</button><button className={!editMode ? 'is-active' : ''} onClick={() => setEditMode(false)}>预览</button><button className="save-button" disabled={saving} onClick={() => void save()}>{saving ? '保存中…' : '保存全部'}</button>
     </div></div>
-      <div ref={canvasShellRef} className="canvas-shell"><div className="viewport-toolbar"><button onClick={() => { setAutoFit(false); setViewport((current) => ({ ...current, zoom: clamp(current.zoom / 1.2, .1, 3) })); }}>−</button><button onClick={() => { setAutoFit(false); setViewport({ zoom: 1, panX: 0, panY: 0 }); }}>{Math.round(viewport.zoom * 100)}%</button><button onClick={() => { setAutoFit(false); setViewport((current) => ({ ...current, zoom: clamp(current.zoom * 1.2, .1, 3) })); }}>＋</button><button aria-pressed={autoFit} onClick={() => setAutoFit(true)}>适应参考框</button>{selectedIds.length > 1 ? <><i /><button onClick={groupSelection}>成组</button><button onClick={() => alignSelection('left')}>左</button><button onClick={() => alignSelection('center-x')}>水平中</button><button onClick={() => alignSelection('right')}>右</button><button onClick={() => alignSelection('top')}>顶</button><button onClick={() => alignSelection('center-y')}>垂直中</button><button onClick={() => alignSelection('bottom')}>底</button></> : null}{selected?.type === 'group' ? <><i /><button onClick={ungroupSelected}>取消 Group</button></> : null}</div><UiReactEditor store={store} document={preset} registry={registry} selectedIds={selectedIds} editMode={editMode} showGrid={showGrid} showReferenceFrame={workspace.referenceFrameVisible} snapToGrid={snapToGrid} viewport={viewport} onViewportChange={next => { setAutoFit(false); setViewport(next); }} onSelectionChange={changeSelection} onChanged={refresh} runtimeContext={runtimeContext} onAction={action => setEquipment(previous => runEquipmentPreview(previous, action))} /><div className="canvas-caption"><span>{editMode ? '拖动空白框选 · Ctrl/Shift 多选 · 树中拖拽重排/设置父子关系' : 'React 组件预览 · 原生交互'}</span><span>{selectedIds.length ? `已选择 ${selectedIds.length} 项 · ` : ''}{preset.canvas.width} × {preset.canvas.height}</span></div></div>
+      <div ref={canvasShellRef} className="canvas-shell"><div className="viewport-toolbar"><button onClick={() => { setAutoFit(false); setViewport((current) => ({ ...current, zoom: clamp(current.zoom / 1.2, .1, 3) })); }}>−</button><button onClick={() => { setAutoFit(false); setViewport({ zoom: 1, panX: 0, panY: 0 }); }}>{Math.round(viewport.zoom * 100)}%</button><button onClick={() => { setAutoFit(false); setViewport((current) => ({ ...current, zoom: clamp(current.zoom * 1.2, .1, 3) })); }}>＋</button><button aria-pressed={autoFit} onClick={() => setAutoFit(true)}>适应参考框</button><button onClick={showActualResolution} title="按屏幕实际像素显示参考框，自动补偿系统和浏览器缩放；超出工作区时可拖动查看。">按实际分辨率</button>{selectedIds.length > 1 ? <><i /><button onClick={groupSelection}>成组</button><button onClick={() => alignSelection('left')}>左</button><button onClick={() => alignSelection('center-x')}>水平中</button><button onClick={() => alignSelection('right')}>右</button><button onClick={() => alignSelection('top')}>顶</button><button onClick={() => alignSelection('center-y')}>垂直中</button><button onClick={() => alignSelection('bottom')}>底</button></> : null}{selected?.type === 'group' ? <><i /><button onClick={ungroupSelected}>取消 Group</button></> : null}</div><UiReactEditor onAddMenu={openAddMenu} store={store} document={preset} registry={registry} selectedIds={selectedIds} editMode={editMode} showGrid={showGrid} showReferenceFrame={workspace.referenceFrameVisible} snapToGrid={snapToGrid} viewport={viewport} onViewportChange={next => { setAutoFit(false); setViewport(next); }} onSelectionChange={changeSelection} onChanged={refresh} runtimeContext={runtimeContext} onAction={action => setEquipment(previous => runEquipmentPreview(previous, action))} /><div className="canvas-caption"><span>{editMode ? '右键添加 UI · 拖动空白框选 · Ctrl/Shift 多选' : '空白处拖动平移 · 空格/中键拖动 · 组件可直接交互'}</span><span>{selectedIds.length ? `已选择 ${selectedIds.length} 项 · ` : ''}{preset.canvas.width} × {preset.canvas.height}</span></div></div>
     </main></UiPreviewWorkbench>;
 };

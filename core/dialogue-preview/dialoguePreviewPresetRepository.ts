@@ -1,13 +1,13 @@
-import { requestDevServer } from '../network/devServerPortResolver';
+import { CONFIG_READ_ONLY_MESSAGE } from '../config/configWriteAccess';
 import { encodeDialoguePreviewPresetLibrary, parseDialoguePreviewPreset, parseDialoguePreviewPresetLibrary } from './dialoguePreview';
 import type { DialoguePreviewPresetCatalog, DialoguePreviewPresetLibrary } from './dialoguePreview.types';
 
 type JsonModuleLoader = () => Promise<unknown>;
 
-const bundledCatalogModules = import.meta.glob('../../config/dialoguePreviewPresets/index.json', { eager: true, import: 'default' }) as Record<string, unknown>;
+const bundledCatalogModules = import.meta.glob('../../config/uiPreviewPresets/index.json', { eager: true, import: 'default' }) as Record<string, unknown>;
 const bundledPresetModules = import.meta.glob([
-  '../../config/dialoguePreviewPresets/*.json',
-  '!../../config/dialoguePreviewPresets/index.json',
+  '../../config/uiPreviewPresets/*.json',
+  '!../../config/uiPreviewPresets/index.json',
 ], { import: 'default' }) as Record<string, JsonModuleLoader>;
 
 const parseCatalog = (value: unknown): DialoguePreviewPresetCatalog => {
@@ -20,7 +20,7 @@ const parseCatalog = (value: unknown): DialoguePreviewPresetCatalog => {
 const readBundledCatalog = () => parseCatalog(Object.values(bundledCatalogModules)[0]);
 
 const loadServerLibrary = async (): Promise<DialoguePreviewPresetLibrary> => {
-  const response = await requestDevServer(`/api/dialogue-preview-presets?t=${Date.now()}`, { method: 'GET' });
+  const response = await fetch(`/api/dialogue-preview-presets?t=${Date.now()}`, { method: 'GET', cache: 'no-store' });
   const payload = await response.json() as { success?: boolean; data?: unknown; message?: string };
   if (!response.ok || payload.success === false) throw new Error(payload.message ?? `HTTP ${response.status}`);
   return parseDialoguePreviewPresetLibrary(payload.data);
@@ -39,7 +39,7 @@ export const loadDialoguePreviewPresetLibrary = async (): Promise<DialoguePrevie
   }
   const catalog = readBundledCatalog();
   const entries = await Promise.all(Object.entries(catalog.presets).map(async ([key, entry]) => {
-    const loader = Object.entries(bundledPresetModules).find(([modulePath]) => modulePath.replace(/\\/g, '/').endsWith(`/dialoguePreviewPresets/${entry.file}`))?.[1];
+    const loader = Object.entries(bundledPresetModules).find(([modulePath]) => modulePath.replace(/\\/g, '/').endsWith(`/uiPreviewPresets/${entry.file}`))?.[1];
     if (!loader) throw new Error(`打包对话界面预设不存在：${entry.file}`);
     return [key, parseDialoguePreviewPreset(await loader(), key)] as const;
   }));
@@ -47,7 +47,8 @@ export const loadDialoguePreviewPresetLibrary = async (): Promise<DialoguePrevie
 };
 
 export const saveDialoguePreviewPresetLibrary = async (library: DialoguePreviewPresetLibrary): Promise<void> => {
-  const response = await requestDevServer('/api/dialogue-preview-presets', {
+  if (!import.meta.env.DEV) throw new Error(CONFIG_READ_ONLY_MESSAGE);
+  const response = await fetch('/api/dialogue-preview-presets', {
     method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(encodeDialoguePreviewPresetLibrary(library)),
   });
   const payload = await response.json() as { success?: boolean; message?: string; errors?: string[] };

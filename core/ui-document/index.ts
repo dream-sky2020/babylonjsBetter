@@ -5,3 +5,4 @@ export * from './uiDefinition.registry.ts';
 export * from './uiDocument.renderer.ts';
 export * from './uiDocument.layout.ts';
 export * from './uiDocument.hierarchy.ts';
+export * from './uiDocument.clipboard.ts';

@@ -8,7 +8,10 @@ app.whenReady().then(async () => {
   const report = { passed: false, errors: [], blockedWrites: [] };
   window.webContents.on('console-message', event => { if (event.level === 'error') report.errors.push(event.message); });
   window.webContents.session.webRequest.onBeforeRequest({ urls: ['http://127.0.0.1:1184/*'] }, (details, callback) => { const write = !['GET','HEAD','OPTIONS'].includes(details.method); if (write) report.blockedWrites.push(details.url); callback({ cancel: write }); });
-  const page = source => window.webContents.executeJavaScript(source);
+  const page = async source => {
+    try { return await window.webContents.executeJavaScript(source); }
+    catch (error) { throw new Error(`Browser step failed: ${source.slice(0, 350)}`, { cause: error }); }
+  };
   const wait = async source => { for (let i=0;i<120;i++) { if (await page(source)) return; await new Promise(resolve=>setTimeout(resolve,100)); } throw new Error(source); };
   const click = label => page(`Array.from(document.querySelectorAll('button')).find(b=>b.textContent.trim()===${JSON.stringify(label)}).click();void 0`);
   const assertPureReact = async () => {
@@ -25,6 +28,11 @@ app.whenReady().then(async () => {
     const pointer = (type, x, y, buttons=0) => window.webContents.debugger.sendCommand('Input.dispatchMouseEvent', { type, x, y, button: 'left', buttons, clickCount: 1 });
     const box = selector => page(`(() => { const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}; })()`);
     const drag = async (selector, dx, dy) => { const rect = await box(selector); const x=rect.x+rect.width/2, y=rect.y+rect.height/2; await pointer('mouseMoved',x,y);await pointer('mousePressed',x,y,1);await pointer('mouseMoved',x+dx,y+dy,1);await pointer('mouseReleased',x+dx,y+dy); };
+    const clickMenu = async id => {
+      const selector = `[data-command-menu-item="${id}"]`;
+      const rect = await box(selector); assert.ok(rect.width > 0 && rect.height > 0);
+      await drag(selector,0,0);
+    };
     await window.loadURL('http://127.0.0.1:1184/labs/standalone/ui-preview-canvas-lab/index.html');
     await wait(`Boolean(document.querySelector('[data-ui-node="portrait-left"]'))`);
     assert.equal(await page('document.title'), 'React UI Layout Lab');
@@ -34,6 +42,7 @@ app.whenReady().then(async () => {
     report.dialogue = { nativeComponents: true, noCanvas: true };
     await window.loadURL('http://127.0.0.1:1184/labs/standalone/ui-preview-canvas-lab/index.html?preset=equipment_ui');
     await wait(`Boolean(document.querySelector('[data-ui-node="heading"]'))`);
+    await page(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))`);
     await assertPureReact();
     console.log('React UI verification: equipment rendered');
     // Real pointer input selects a React button without running its game action in edit mode.
@@ -84,20 +93,115 @@ app.whenReady().then(async () => {
     report.referenceFrame = { configuredSize: true, pointerTransparent: true, overflowVisible: true, outsidePicking: true, outsideDrag: true, outsidePan: true, outsideBoxSelection: true };
     report.edit = { nativePicking: true, actionsSuppressed: true, move: true, resize: true, undo: true };
     console.log('React UI verification: move and resize passed');
-    // A component added through the library is also a native React node.
-    await click('组件库');
-    await page(`Array.from(document.querySelectorAll('.ui-component-cards button')).find(b=>b.textContent.includes('文本标签')).click();void 0`);
+    // Right-click blank space inserts a discovered prefab at the clicked world point.
+    const addPoint = {x:surface.x+15,y:surface.y+150};
+    for (const type of ['mousePressed','mouseReleased']) await window.webContents.debugger.sendCommand('Input.dispatchMouseEvent',{type,x:addPoint.x,y:addPoint.y,button:'right',buttons:type==='mousePressed'?2:0,clickCount:1});
+    await wait(`Boolean(document.querySelector('[data-command-menu-item="add-ui"]'))`);
+    await clickMenu('add-ui'); await clickMenu('ui-prefab-folder:基础');
+    await page(`new Promise(resolve=>setTimeout(resolve,120))`);
+    fs.writeFileSync(resolveRepoPath('node_modules/.cache/ui-preview-prefab-menu.png'), (await window.webContents.capturePage()).toPNG());
+    await clickMenu('ui-prefab:label');
     await wait(`Boolean(document.querySelector('[data-ui-node="label-1"]'))`);
+    const inserted = await box('[data-ui-node="label-1"]');
+    assert.ok(Math.abs(inserted.x+inserted.width/2-addPoint.x)<1 && Math.abs(inserted.y+inserted.height/2-addPoint.y)<1);
+    assert.equal(await page(`document.querySelector('[data-ui-node="label-1"]').parentElement.hasAttribute('data-ui-document')`), true);
     await assertPureReact();
+    await click('撤销'); await wait(`!document.querySelector('[data-ui-node="label-1"]')`);
+    await click('重做'); await wait(`Boolean(document.querySelector('[data-ui-node="label-1"]'))`);
     await click('撤销');
-    await wait(`!document.querySelector('[data-ui-node="label-1"]')`);
-    await click('对象层级');
+    // Hierarchy context adds a child, using the same registry and metadata as rendering.
+    await page(`document.querySelector('[data-object-id="heading"]').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:180,clientY:300}));void 0`);
+    await wait(`Boolean(document.querySelector('[data-command-menu-item="add-ui"]'))`);
+    await page(`document.querySelector('[data-command-menu-item="add-ui"]').click();document.querySelector('[data-command-menu-item="ui-prefab-folder:基础"]').click();document.querySelector('[data-command-menu-item="ui-prefab:button"]').click();void 0`);
+    await wait(`document.querySelector('[data-ui-node="button-1"]').parentElement.dataset.uiNode==='heading'`);
+    await click('撤销'); await wait(`!document.querySelector('[data-ui-node="button-1"]')`);
+    await page(`document.querySelector('[data-object-id="heading"]').click();void 0`);
+    await wait(`Boolean(document.querySelector('.inspector-title .tiny-actions button:last-child'))`);
+    await page(`document.querySelector('.inspector-title .tiny-actions button:last-child').click();void 0`);
+    await page(`document.querySelector('[data-object-id="heading"]').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:180,clientY:300}));void 0`);
+    await wait(`Boolean(document.querySelector('[data-command-menu-item="add-ui"]'))`);
+    assert.equal(await page(`document.querySelector('[data-command-menu-item="add-ui"]').disabled`), true);
+    await page(`import('/core/ui/menu/index.ts').then(module=>module.closeCommandMenu())`);
+    await click('撤销');
+    const discovered = await page(`import('/core/ui/prefabs/catalog.ts').then(module=>module.reactUiPrefabs.map(prefab=>({source:prefab.source,type:prefab.definition.type,react:typeof prefab.definition.component==='function'})))`);
+    assert.equal(discovered.length,10);assert.ok(discovered.every(prefab=>prefab.react&&prefab.source.endsWith('.ui.tsx')));
+    report.prefabs = { discovered, rootAtPointer:true, hierarchyChild:true, lockedParentBlocked:true, undoRedo:true };
     // Keep the same DOM/component instance mounted when changing modes.
     await page(`window.__headingElement=document.querySelector('[data-ui-node="heading"]');void 0`);
     await click('预览');
     await wait(`document.querySelector('.ui-react-editor').dataset.uiEditorMode==='preview'`);
+    assert.equal(await page(`document.querySelector('.ui-react-workspace').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:600,clientY:400}))`), true);
+    assert.equal(await page(`Boolean(document.querySelector('.command-menu-layer'))`), false);
     assert.equal(await page(`window.__headingElement===document.querySelector('[data-ui-node="heading"]')`), true);
-    await page(`document.querySelector('[data-ui-node="actor-1"] button').click();void 0`);
+    const wheel = async (selector, deltaY) => {
+      const rect = await box(selector); const x=rect.x+rect.width/2, y=rect.y+rect.height/2;
+      await pointer('mouseMoved',x,y);
+      await window.webContents.debugger.sendCommand('Input.dispatchMouseEvent',{type:'mouseWheel',x,y,deltaX:0,deltaY});
+    };
+    const wheelBefore = await box('[data-ui-reference-frame]');
+    const wheelAnchor = await box('[data-ui-node="actor-1"] button');
+    await wheel('[data-ui-node="actor-1"] button',-100);
+    await wait(`document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().width>${wheelBefore.width}`);
+    const wheelAfter = await box('[data-ui-reference-frame]');
+    const factor = wheelAfter.width/wheelBefore.width;
+    assert.ok(Math.abs(wheelAfter.x-(wheelAnchor.x+wheelAnchor.width/2+(wheelBefore.x-wheelAnchor.x-wheelAnchor.width/2)*factor))<1);
+    assert.ok(Math.abs(wheelAfter.y-(wheelAnchor.y+wheelAnchor.height/2+(wheelBefore.y-wheelAnchor.y-wheelAnchor.height/2)*factor))<1);
+    await wheel('[data-ui-node="actor-1"] button',100);
+    await wait(`document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().width<${wheelAfter.width}`);
+    // Verify components can claim the event, then release it for workspace zoom.
+    for (const method of ['preventDefault', 'stopPropagation']) {
+      const beforeIntercept = await box('[data-ui-reference-frame]');
+      await page(`window.__wheelTarget=document.querySelector('[data-ui-node="actor-1"] button');window.__wheelHandler=event=>event.${method}();window.__wheelTarget.addEventListener('wheel',window.__wheelHandler,{passive:false});void 0`);
+      await wheel('[data-ui-node="actor-1"] button',-100);
+      await page(`new Promise(resolve=>setTimeout(resolve,100))`);
+      assert.equal((await box('[data-ui-reference-frame]')).width, beforeIntercept.width);
+      await page(`window.__wheelTarget.removeEventListener('wheel',window.__wheelHandler);void 0`);
+    }
+    const releasedWheel = await box('[data-ui-reference-frame]');
+    await wheel('[data-ui-node="actor-1"] button',-100);
+    await wait(`document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().width>${releasedWheel.width}`);
+    report.previewWheel = { nativeZoomIn: true, nativeZoomOut: true, cursorAnchor: true, preventDefaultRespected: true, stopPropagationRespected: true, releasedEventZooms: true };
+    const calibrated = [];
+    const basePixelRatio = await page('window.devicePixelRatio');
+    const savedBeforeCalibration = await page(`Boolean(document.querySelector('.ui-document-switch .ui-saved'))`);
+    for (const pixelRatio of [1, 1.25, 2]) {
+      window.webContents.setZoomFactor(pixelRatio/basePixelRatio);
+      await wait(`Math.abs(window.devicePixelRatio-${pixelRatio})<.001`);
+      await click('按实际分辨率');
+      await wait(`Math.abs(document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().width*window.devicePixelRatio-1280)<1`);
+      const actual = await box('[data-ui-reference-frame]');
+      assert.ok(Math.abs(actual.height*pixelRatio-720)<1);
+      assert.equal(await page(`Number.parseFloat(document.querySelector('[data-ui-node="heading"]').style.left)`), headingX);
+      assert.equal(await page(`Boolean(document.querySelector('.ui-document-switch .ui-saved'))`), savedBeforeCalibration);
+      calibrated.push(pixelRatio);
+    }
+    window.webContents.setZoomFactor(1);
+    await wait(`Math.abs(window.devicePixelRatio-${basePixelRatio})<.001`);
+    report.actualResolution = { devicePixelRatios: calibrated, exactFramePixels: true, layoutUnchanged: true, noDocumentEdits: true };
+    await click('适应参考框');
+    await wait(`Math.abs(document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().width-${frame.width})<1 && Math.abs(document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().x-${frame.x})<1`);
+    // Preview keeps workspace navigation without consuming native component clicks.
+    const previewFrame = await box('[data-ui-reference-frame]');
+    const blank = { x: surface.x+15, y: surface.y+150 };
+    assert.equal(await page(`document.elementFromPoint(${blank.x},${blank.y})?.closest('.ui-react-workspace')!==null`), true);
+    assert.equal(await page(`Boolean(document.elementFromPoint(${blank.x},${blank.y})?.closest('[data-ui-node]'))`), false);
+    await pointer('mousePressed',blank.x,blank.y,1);
+    await pointer('mouseMoved',blank.x+35,blank.y+25,1);await pointer('mouseReleased',blank.x+35,blank.y+25);
+    await wait(`Math.abs(document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().x-${previewFrame.x+35})<1`);
+    assert.ok(Math.abs((await box('[data-ui-reference-frame]')).y-previewFrame.y-25)<1);
+    await window.webContents.debugger.sendCommand('Input.dispatchKeyEvent',{type:'keyDown',key:' ',code:'Space',windowsVirtualKeyCode:32});
+    await drag('[data-ui-node="actor-1"] button',20,10);
+    await window.webContents.debugger.sendCommand('Input.dispatchKeyEvent',{type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32});
+    await wait(`Math.abs(document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().x-${previewFrame.x+55})<1`);
+    assert.ok(await page(`document.querySelector('[aria-label="整备演示状态"]').textContent.includes('艾里克')`));
+    await window.webContents.debugger.sendCommand('Input.dispatchMouseEvent',{type:'mousePressed',x:blank.x,y:blank.y,button:'middle',buttons:4,clickCount:1});
+    await window.webContents.debugger.sendCommand('Input.dispatchMouseEvent',{type:'mouseMoved',x:blank.x+15,y:blank.y+10,button:'middle',buttons:4});
+    await window.webContents.debugger.sendCommand('Input.dispatchMouseEvent',{type:'mouseReleased',x:blank.x+15,y:blank.y+10,button:'middle',buttons:0,clickCount:1});
+    await wait(`Math.abs(document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().x-${previewFrame.x+70})<1`);
+    assert.equal(await page(`Number.parseFloat(document.querySelector('[data-ui-node="heading"]').style.left)`), headingX);
+    await click('适应参考框');
+    await wait(`Math.abs(document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().width-${frame.width})<1 && Math.abs(document.querySelector('[data-ui-reference-frame]').getBoundingClientRect().x-${frame.x})<1`);
+    await drag('[data-ui-node="actor-1"] button',0,0);
     await wait(`document.querySelector('[aria-label="整备演示状态"]').textContent.includes('露娜')`);
     await page(`document.querySelector('[data-ui-node="stock-blade"] button').click();void 0`);
     await page(`document.querySelector('[data-ui-node="equip"] button').click();void 0`);
@@ -105,7 +209,7 @@ app.whenReady().then(async () => {
     await page(`document.querySelector('[data-ui-node="unequip"] button').click();void 0`);
     await wait(`document.querySelector('[aria-label="整备演示状态"]').textContent.includes('已卸下')`);
     await assertPureReact();
-    report.preview = { sameMountedTree: true, actorSwitch: true, equip: true, unequip: true };
+    report.preview = { sameMountedTree: true, blankDragPan: true, spaceDragPan: true, middleDragPan: true, panSuppressesAction: true, layoutUnchanged: true, actorSwitch: true, equip: true, unequip: true };
     console.log('React UI verification: native preview passed');
     await click('编辑模式');
     await page(`document.querySelector('[data-object-id="actor-0"]').click();void 0`);

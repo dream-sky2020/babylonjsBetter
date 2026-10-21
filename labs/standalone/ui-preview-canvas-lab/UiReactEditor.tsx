@@ -15,15 +15,18 @@ type Viewport = { zoom: number; panX: number; panY: number };
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 
 /** One mounted React document, with a DOM editing layer. Preview only releases event interception. */
-export function UiReactEditor({ store, document, registry, selectedIds, editMode, showGrid, showReferenceFrame = true, snapToGrid, viewport, runtimeContext, onViewportChange, onSelectionChange, onChanged, onAction }: {
+export function UiReactEditor({ store, document, registry, selectedIds, editMode, showGrid, showReferenceFrame = true, snapToGrid, viewport, runtimeContext, onViewportChange, onSelectionChange, onChanged, onAction, onAddMenu }: {
   store: UiDocumentStore; document: UiDocument; registry: UiDefinitionRegistry; selectedIds: string[];
   editMode: boolean; showGrid: boolean; showReferenceFrame?: boolean; snapToGrid: boolean; viewport: Viewport; runtimeContext?: Record<string, unknown>;
   onViewportChange(viewport: Viewport): void; onSelectionChange(ids: string[], mode?: 'replace' | 'toggle'): void; onChanged(): void; onAction(action: string): void;
+  onAddMenu?(clientX: number, clientY: number, parentId: string | null, point: { x: number; y: number }): void;
 }) {
   const root = useRef<HTMLDivElement>(null);
   const plane = useRef<HTMLDivElement>(null);
   const interaction = useRef<Interaction | null>(null);
   const space = useRef(false);
+  const suppressPanClick = useRef(false);
+  const handledWheel = useRef<WheelEvent | null>(null);
   const [box, setBox] = useState<Rect | null>(null);
   const primaryId = selectedIds.at(-1);
   const effectiveDocument = runtimeContext ? { ...document, previewContext: { ...document.previewContext, ...runtimeContext } } : document;
@@ -53,6 +56,17 @@ export function UiReactEditor({ store, document, registry, selectedIds, editMode
     window.addEventListener('keydown', down); window.addEventListener('keyup', up); window.addEventListener('blur', blur);
     return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); window.removeEventListener('blur', blur); if (store.inTransaction) store.rollbackTransaction(); };
   }, [store]);
+  useEffect(() => {
+    // React delegates passive wheel listeners. Cancel browser scrolling only after
+    // component handlers have bubbled and the workspace has accepted the gesture.
+    const preventScroll = (event: WheelEvent) => {
+      if (handledWheel.current !== event) return;
+      handledWheel.current = null;
+      event.preventDefault();
+    };
+    window.document.addEventListener('wheel', preventScroll, { passive: false });
+    return () => window.document.removeEventListener('wheel', preventScroll);
+  }, []);
   const point = (event: PointerEvent<HTMLDivElement>) => {
     const rect = plane.current!.getBoundingClientRect();
     return { x: (event.clientX - rect.left) / viewport.zoom, y: (event.clientY - rect.top) / viewport.zoom };
@@ -66,21 +80,32 @@ export function UiReactEditor({ store, document, registry, selectedIds, editMode
       backgroundSize: editMode && showGrid ? `${gridPitch}px ${gridPitch}px, ${gridPitch}px ${gridPitch}px, 100% 100%` : '100% 100%',
       backgroundPosition: editMode && showGrid ? `${gridOrigin}, ${gridOrigin}, 0 0` : undefined,
     }}
-    onClickCapture={event => { if (editMode) { event.preventDefault(); event.stopPropagation(); } }}
+    onClickCapture={event => { if (editMode || suppressPanClick.current) { event.preventDefault(); event.stopPropagation(); } suppressPanClick.current = false; }}
     onDoubleClickCapture={event => { if (editMode) { event.preventDefault(); event.stopPropagation(); } }}
+    onContextMenuCapture={event => {
+      if (!editMode || !onAddMenu) return;
+      event.preventDefault(); event.stopPropagation();
+      const rect = plane.current!.getBoundingClientRect();
+      const parentId = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-ui-node]')?.dataset.uiNode ?? null : null;
+      onAddMenu(event.clientX, event.clientY, parentId, { x: (event.clientX - rect.left) / viewport.zoom, y: (event.clientY - rect.top) / viewport.zoom });
+    }}
     onWheel={event => {
-      if (!editMode) return; event.preventDefault();
+      if (event.defaultPrevented || event.deltaY === 0) return;
+      handledWheel.current = event.nativeEvent;
       const zoom = clamp(viewport.zoom * (event.deltaY < 0 ? 1.1 : .9), .1, 3);
       const rect = plane.current!.getBoundingClientRect();
       const relativeX = event.clientX - rect.left - rect.width / 2; const relativeY = event.clientY - rect.top - rect.height / 2;
       onViewportChange({ zoom, panX: viewport.panX + relativeX * (1 - zoom / viewport.zoom), panY: viewport.panY + relativeY * (1 - zoom / viewport.zoom) });
     }}
     onPointerDownCapture={event => {
-      if (event.button === 1 || (editMode && event.button === 0 && space.current)) {
+      const element = event.target instanceof Element ? event.target : null;
+      suppressPanClick.current = false;
+      if (event.button === 1 || (event.button === 0 && (space.current || (!editMode && !element?.closest('[data-ui-node]'))))) {
+        suppressPanClick.current = true;
         interaction.current = { mode: 'pan', x: event.clientX, y: event.clientY, panX: viewport.panX, panY: viewport.panY }; capture(event); return;
       }
       if (!editMode || event.button !== 0 || interaction.current) return;
-      const p = point(event); const element = event.target instanceof Element ? event.target : null;
+      const p = point(event);
       const handle = element?.closest<HTMLElement>('[data-ui-resize]');
       if (handle) {
         const id = handle.dataset.uiResize!; const node = resolveUiNode(document, id);
