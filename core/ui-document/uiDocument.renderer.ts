@@ -21,7 +21,7 @@ export const renderUiDocument = (ctx: CanvasRenderingContext2D, document: UiDocu
   const runtime = createRuntime(document, options.mode, options.requestRender ?? (() => undefined));
   listUiNodesInPaintOrder(document).filter((node) => node.visible).forEach((node) => {
     ctx.save(); ctx.globalAlpha = node.opacity; const definition = registry.get(node.type);
-    if (definition) definition.render(ctx, node, runtime);
+    if (definition?.render) definition.render(ctx, node, runtime);
     else {
       const { x, y, width: nodeWidth, height: nodeHeight } = node.layout;
       ctx.fillStyle = 'rgba(91, 18, 31, .78)'; ctx.strokeStyle = '#fb7185'; ctx.lineWidth = 3; ctx.fillRect(x, y, nodeWidth, nodeHeight); ctx.strokeRect(x, y, nodeWidth, nodeHeight);

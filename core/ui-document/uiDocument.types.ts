@@ -1,3 +1,5 @@
+import type { ComponentType } from 'react';
+
 export type UiPoint = { x: number; y: number };
 
 export type UiAbsoluteLayout = {
@@ -105,6 +107,14 @@ export type UiDefinition<TProps extends Record<string, unknown> = Record<string,
   normalizeProps(value: unknown): TProps;
   migrateProps?(value: unknown, fromVersion: number): TProps;
   validate?(props: TProps): UiDiagnostic[];
-  render(ctx: CanvasRenderingContext2D, node: UiResolvedNode & { props: TProps }, runtime: UiRenderRuntime): void;
+  /** React implementations need no Canvas renderer. */
+  component?: ComponentType<UiReactComponentProps>;
+  render?(ctx: CanvasRenderingContext2D, node: UiResolvedNode & { props: TProps }, runtime: UiRenderRuntime): void;
   hitTest?(point: UiPoint, node: UiResolvedNode & { props: TProps }): boolean;
+};
+
+export type UiReactComponentProps = {
+  node: UiResolvedNode;
+  runtime: UiRenderRuntime;
+  onAction?: (action: string) => void;
 };

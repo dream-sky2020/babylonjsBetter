@@ -1,7 +1,7 @@
 :root { color-scheme: dark; color: #dfe1e5; background: #202124; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; font-synthesis: none; }
 * { box-sizing: border-box; }
 html, body, #root { width: 100%; height: 100%; margin: 0; overflow: hidden; }
-body { min-width: 1120px; background: #1d1e21; }
+body { min-width: 0; background: #1d1e21; }
 button, input, select, textarea { font: inherit; }
 button { border: 0; border-radius: 2px; color: #bcc0c5; background: transparent; cursor: pointer; }
 button:hover { color: #fff; background: #37393e; }
@@ -56,6 +56,9 @@ input[type="checkbox"] { width: 14px; height: 14px; padding: 0; accent-color: va
 .preview-canvas-viewport { display: grid; place-items: center; width: 100%; height: 100%; min-width: 0; min-height: 0; transform-origin: center; will-change: transform; }
 .preview-canvas { display: block; max-width: 100%; max-height: calc(100vh - 130px); border: 1px solid #31343a; border-radius: 1px; aspect-ratio: 16/9; background: #111827; box-shadow: 0 12px 32px #0007; touch-action: none; }
 .preview-canvas.is-editing { cursor: grab; }.preview-canvas.is-editing:active { cursor: grabbing; }
+.react-preview-viewport { position: absolute; transform-origin: center; box-shadow: 0 12px 32px #0007; }
+.react-preview-viewport button:hover { filter: brightness(1.16); }
+.react-preview-viewport button:focus-visible { outline: 3px solid #5eead4; outline-offset: -3px; }
 .viewport-toolbar { position: absolute; top: 7px; left: 7px; z-index: 3; display: flex; align-items: center; gap: 1px; padding: 2px; border: 1px solid #45484d; border-radius: 3px; background: rgba(43,45,48,.95); box-shadow: 0 3px 10px #0005; }
 .viewport-toolbar button { min-width: 26px; height: 25px; padding: 0 5px; font-size: 8px; }.viewport-toolbar button:nth-child(2) { min-width: 46px; color: #8db4c7; font-family: ui-monospace, monospace; }
 .viewport-toolbar i { width: 1px; height: 16px; margin: 0 2px; background: #4a4d52; }

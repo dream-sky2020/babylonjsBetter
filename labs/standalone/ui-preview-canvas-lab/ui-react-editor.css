@@ -1,0 +1,15 @@
+.ui-react-workspace { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; outline: none; }
+.ui-react-workspace.is-editing { user-select: none; touch-action: none; }
+.ui-react-editor { position: absolute; transform-origin: center; flex-shrink: 0; overflow: visible; }
+.ui-player-reference { position: absolute; left: 0; top: 0; z-index: 2147483645; box-sizing: border-box; border: 2px solid #22c55e; pointer-events: none; user-select: none; }
+.ui-player-reference > span { position: absolute; padding: 3px 7px; background: #123c25; color: #8dffb5; white-space: nowrap; line-height: 1.4; }
+.ui-edit-overlay { position: absolute; inset: 0; z-index: 2147483646; pointer-events: none; overflow: visible; }
+.ui-edit-safe-area { position: absolute; border: 1px dashed #5eead477; }
+.ui-edit-selection { position: absolute; border: 1px dashed #67d7f0; box-sizing: border-box; }
+.ui-edit-selection.primary { border-color: #f5c96a; }
+.ui-edit-handle { position: absolute; pointer-events: auto; background: #f5c96a; border: 1px solid #171b21; }
+.ui-edit-handle.nw { left: 0; top: 0; transform: translate(-50%, -50%); cursor: nwse-resize; }
+.ui-edit-handle.ne { right: 0; top: 0; transform: translate(50%, -50%); cursor: nesw-resize; }
+.ui-edit-handle.sw { left: 0; bottom: 0; transform: translate(-50%, 50%); cursor: nesw-resize; }
+.ui-edit-handle.se { right: 0; bottom: 0; transform: translate(50%, 50%); cursor: nwse-resize; }
+.ui-edit-box { position: absolute; background: #67d7f022; border: 1px solid #67d7f0; }

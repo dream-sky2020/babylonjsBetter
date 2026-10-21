@@ -45,4 +45,7 @@
 
 - `verifyEquipmentPuckLayout.cjs`：经 runElectronVerification.mjs 验证推荐整备布局的三栏、七面板、资源条、选中对象详情、换装预览及保存后运行页；输出 node_modules/.cache/equipment-puck-recommended.json / .png。
 
-- `verifyUiPreviewCanvasLab.cjs`：经 runElectronVerification.mjs 检查 UI Preview Canvas Lab 标题、对话预设与整备画布，模拟角色切换、选库存、装备/卸下和编辑选中资源条，拦截写请求；报告位于 node_modules/.cache/ui-preview-canvas-verification.json。
+- `verifyUiPreviewCanvasLab.cjs`：兼容入口，委托 verifyReactUiLayoutLab.cjs 验证纯 React 布局编辑器。后者通过浏览器协议禁止 getContext，断言编辑/预览均无 Canvas、真实指针选择/移动/缩放、属性同步、原生角色/装备操作、换父级、子树复制及撤销；保存请求在验证会话内模拟，不写正式预设。reactUiComponentVerification.tsx 验证 React-only 注册、hooks 状态、属性/布局/序列化以及旧绘制定义不回退。报告仍为 node_modules/.cache/ui-preview-canvas-verification.json，截图为 react-ui-layout-editor.png。
+- `verifyUiPreviewWorkbench.cjs`：同一 launcher 验证 UI 工作台组件搜索、属性折叠、栏宽调整、刷新恢复、设置窗口、多选、只读浏览不变脏、窄屏侧栏和画布适配；使用独立浏览会话并拦截写请求。报告为 node_modules/.cache/ui-preview-workbench-verification.json，截图包括 ui-preview-workbench-1366.png、-1920.png、-narrow.png。
+
+React UI 验证另覆盖玩家可视参考框的严格尺寸/鼠标穿透、负坐标节点可命中及拖回、框外空白可开始平移和框选；工作台验证同时检查参考框显隐刷新恢复且不使文档变脏。

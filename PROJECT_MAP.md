@@ -1,3 +1,23 @@
+## 2026-10-21：React UI 开放工作区与玩家可视参考框
+
+UiReactEditor 将接收输入的工作区与逻辑坐标平面拆开；整个视口均可开始框选、平移、缩放，节点仍按原文档局部坐标和锚点解算。文档 canvas.width/height 作为玩家可视尺寸及根锚点参考，不再裁切编辑器中的 UI；编辑和预览均显示框外节点，绿色参考框严格对应该尺寸并穿透鼠标。参考框显隐保存在独立 workspace:v1 偏好，旧值缺字段默认显示；“适应参考框”保留框外工作留白。UiDocumentView 的其他运行宿主仍保留默认裁切，只有编辑器通过 style 显式开放溢出。验证覆盖负坐标节点的实际 DOM 命中/拖动、框外空白平移和框选、显隐刷新恢复及零 Canvas。
+
+## 2026-10-21：修正为纯 React 组件布局编辑器
+
+沿用 labs/standalone/ui-preview-canvas-lab/index.html 历史 URL，页面与首页显示名改为 React UI Layout Lab。移除 Lab 的 Canvas 绘制/拾取组件、Canvas 预览分支和渲染器切换；编辑与预览均挂载同一 UiDocumentView 组件树。UiReactEditor.tsx 使用 DOM 祖先拾取、HTML/CSS 网格/选框/尺寸手柄处理移动、缩放、框选、平移与撤销；编辑态捕获原生事件，预览态释放事件。没有 Canvas 节点、getContext 调用或图像回退。
+
+core/ui-document/react/uiReactDefinitions.ts 将 React component 与属性字段/默认值/规范化一并注册；所有现有对话及整备类型都有 React 实现。UiDefinition 的 Canvas render 改为可选，新组件不必提供绘制适配。UiDocumentView 未注册 React 类型时显示 DOM 占位，绝不调用旧绘制函数；共享 Canvas renderer 仅保留供历史调用方使用。V2 布局格式、原预设 API、父子关系与锚点保持兼容。验证包含禁用 HTMLCanvasElement.getContext、真实指针编辑、同一树切换模式、组件 hooks 状态、元数据、保存形状和缺失 React 实现不回退。
+
+## 2026-10-21：UI Preview 工作台首轮改版
+
+UI Preview Canvas Lab 使用 UiPreviewWorkbench.tsx 分离工作台外壳，对象层级与可搜索组件库切换显示，文档/画布/安全区与视图设置移入独立窗口；侧栏可调宽、隐藏，窄屏使用覆盖面板。uiPreviewWorkspace.ts 将宽度、显隐、浏览页和属性折叠偏好存入 ui-preview-canvas-lab:workspace:v1，不参与 UI 文档、保存或撤销。公共 InspectorSection 增加可选受控展开接口，保留旧调用兼容；UI Lab 用它显示布局/内容/外观/绑定/高级信息的折叠分组。多选提供共同操作与对齐，底部仅报告实际执行的缺失组件定义检查。Canvas/React 预览共用逻辑像素缩放，适应画布通过视口尺寸更新；现有 V2 预设 API 与保存语义保持不变。完整 React 编辑、插槽/V3、属性剪贴板及命令菜单仍按设计文档后续实施。
+
+## 2026-10-21：UI 父子布局与 React 运行入口
+
+UI Preview Canvas Lab 允许所有未锁定节点接收子节点，支持树拖放及父节点下拉选择、保留画布位置/局部布局换父级、默认以中心锚点创建子节点、直接编辑锚点范围和完整子树复制。成组/解组保留锚点及同父级关系；父级拖拽调整尺寸按子级锚点响应，不再重写整棵子树的缩放坐标。Core 的 uiDocument.hierarchy.ts 提供换父级检查及子树复制；V2 JSON/API 与旧预设兼容。
+
+core/ui-document/UiDocumentView.tsx 是独立 React 运行入口：复用布局解算，DOM 按文档父子嵌套，components 映射接入 React 控件。panel/label/button/resource-bar 提供原生 React 实现；其余 Definition 回退为节点 Canvas。Lab 的 React 预览连接现有整备会话动作，编辑仍用 Canvas。文档快照和历史状态以 Store 事件版本显式失效，避免 React Compiler 缓存可变 Store 导致画面/撤销按钮不刷新。接入示例与边界见 core/ui-document/README.md。
+
 ## 2026-10-20：本地画布角色整备示例
 
 UI Preview Canvas Lab 增加 config/dialoguePreviewPresets/equipment_ui.json（角色整备·本地可交互），1280×720画布。通用 panel/label/button/resource-bar Definition 位于 core/ui-document/uiBasic.definitions.ts，加入既有Registry；每个头像、资源、属性、装备/技能槽和库存按钮都可独立选中、移动与修改样式。Lab 的 equipmentPreview.ts 持有会话内角色、选中对象和装备操作，previewContext 在渲染时合并、不写回布局；纯预览命中按钮的 action 后调用共享整备规则。编辑与预览共用相同坐标和 Definition。角色/物品样例规则抽到 labs/data/equipment.ts 与 equipmentAttributes.ts，原整备 Lab 路径保留转导出，两页独立创建会话。?preset=equipment_ui 直接打开新示例；旧对话预设、保存接口与格式继续兼容。不依赖 Plasmic 账号或包。

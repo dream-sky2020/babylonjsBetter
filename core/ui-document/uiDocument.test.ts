@@ -58,6 +58,18 @@ test('Definition Registry 拒绝重复类型', () => {
   assert.throws(() => registry.register(definition), /重复注册/);
 });
 
+test('React 组件和属性元数据可以独立注册，无须 Canvas 绘制函数', () => {
+  const registry = new UiDefinitionRegistry();
+  const component = () => null;
+  registry.register({ type: 'react-only', version: 1, label: 'React', category: '测试', component,
+    defaultSize: { width: 160, height: 44 }, fields: [{ path: 'content', label: '文字', control: 'text' }],
+    createDefaultProps: () => ({ content: '默认' }), normalizeProps: raw => ({ content: String((raw as Record<string, unknown>)?.content ?? '默认') }),
+  });
+  assert.equal(registry.require('react-only').component, component);
+  assert.equal(registry.require('react-only').render, undefined);
+  assert.equal(registry.require('react-only').normalizeProps({ content: '新值' }).content, '新值');
+});
+
 test('层级节点使用父级相对坐标并继承可见性、锁定和透明度', () => {
   const base = parseUiDocument(legacyPreset);
   const document = parseUiDocument({
