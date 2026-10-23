@@ -45,6 +45,8 @@
     "test:equipment": "node --experimental-strip-types --test labs/draggable/equipment-lab/*.test.mjs core/items/*.test.mjs",
     "typecheck:warehouse": "tsc --noEmit -p tsconfig.warehouse.json",
     "test:warehouse": "node --experimental-strip-types --test labs/draggable/warehouse-lab/*.test.mjs core/items/usage.test.mjs",
+    "typecheck:limit-function": "tsc --noEmit -p tsconfig.limit-function.json",
+    "test:limit-function": "node --experimental-strip-types --test labs/draggable/limit-function-lab/*.test.mjs",
     "typecheck:press-turn": "tsc --noEmit -p tsconfig.press-turn.json",
     "test:press-turn": "node --experimental-strip-types --test labs/draggable/press-turn-lab/*.test.mjs",
     "typecheck:clash": "tsc --noEmit -p tsconfig.clash.json",

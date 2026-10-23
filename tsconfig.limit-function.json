@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "allowJs": false, "checkJs": false, "strict": true, "noImplicitAny": true },
+  "include": ["labs/draggable/limit-function-lab/**/*.ts", "labs/draggable/limit-function-lab/**/*.tsx"],
+  "exclude": ["node_modules", "dist", "python"]
+}

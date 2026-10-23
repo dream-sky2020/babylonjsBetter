@@ -1,3 +1,9 @@
+## 2026-10-23：极限函数可拖拽 Lab
+
+`labs/draggable/limit-function-lab/` 提供 index.html 运行页、editor.html Puck 编辑器和 grid.html Grid 工作台，通过 labs/kit/draggable 公共框架装配。运行页默认保持原有侧栏、公式/四项结果/曲线/下方双列布局；Puck 保存后运行页读取自定义排列。八个功能面板共享 session.tsx 的计算状态，工作台外壳不订阅计算变化，避免 Puck 插槽重新挂载导致图表拖拽中断。Grid/Puck 布局分别使用 limit-function-lab.grid.v1 / .puck.v1 存入本机，可导入/导出；计算参数只在当前页会话存在，刷新恢复默认。原 standalone 下三个地址只保留跳转，保留 query/hash；首页分类、Vite 入口及专项脚本同步迁移。
+
+functions.ts 负责分式/指数/反正切/Hill 数学、参考点反推与验证；Chart.tsx 负责 SVG 曲线、固定坐标范围的指针捕获拖拽；session.tsx 负责输入、共享结果与八个面板；layouts.ts 负责默认布局和导入校验；App.tsx 装配三个入口。整数 X 统一约束数值输入、拖点、滑块、快捷按钮、进度反算与 CSV。极限差距使用对数域计算并保留浮点精度说明。专项验证使用 tsconfig.limit-function.json、functions.test.mjs、layouts.test.mjs；codex-tools/verifyLimitFunctionLab.cjs 在隔离隐藏浏览器验证默认布局、实际拖点、整数开关、Puck 保存/预览、Grid 拖拽/刷新及兼容跳转。buildDraggableLabs.mjs 动态发现可拖拽目录并打包每个 Lab 的三入口和三个兼容页。
+
 ## 2026-10-21：UI 剪贴板与键盘连续选择
 
 core/ui-document/uiDocument.clipboard.ts 提供选区子树去重、独立复制快照、批量删除及跨文档粘贴；保留类型、属性、绑定、子树局部布局与锚点，并按粘贴点平移整组选区。UI Lab 会话剪贴板支持右键复制/剪切/粘贴/删除和 Ctrl/Cmd+C/X/V、Delete；剪切立即删除，成功粘贴后消费，能保留的原 ID 保留。每批操作经 Store 单次 mutate，锁定选区/后代禁止剪切删除，锁定目标禁止粘贴。右键已选节点保留多选。ObjectHierarchy 开启现有 enableRangeSelection，支持 Shift+↑/↓、Shift 点击及过滤后的可见顺序连续选择，无须修改其他 Lab。

@@ -72,7 +72,7 @@ test('composable Lab home link reaches the real homepage over HTTP and file prot
 });
 
 test('all legacy draggable addresses preserve query parameters and hashes', () => {
-  for (const lab of ['press-turn-lab', 'equipment-lab', 'warehouse-lab', 'clash-lab']) {
+  for (const lab of readdirSync(path.join(root, 'labs/draggable'))) {
     assert.deepEqual(readdirSync(path.join(root, 'labs/standalone', lab)).sort(), ['editor.html', 'grid.html', 'index.html']);
     for (const entry of ['index', 'editor', 'grid']) {
       const dom = new JSDOM(readFileSync(path.join(root, 'labs/standalone', lab, `${entry}.html`), 'utf8'));

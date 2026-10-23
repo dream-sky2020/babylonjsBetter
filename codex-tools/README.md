@@ -38,7 +38,7 @@
 - `labEntries.test.mjs` / `labNavigation.test.mjs`：通过 `npm run test:lab-entries` 检查首页分组、链接目标、组合式 Lab 构建入口和目录归属，以及 HTTP/file 首页往返、重复路径恢复、开发与预览真实服务的 404、资源和请求方法边界。
 - `labNavigation.ts`：Vite 开发/预览导航中间件，只对构建入口白名单恢复重复目录，未知页面显示可返回首页的 404；配合 appType: mpa 禁止错误首页回退。
 - `verifyLabNavigation.cjs`：Vite 127.0.0.1:1184 启动后 `npm run test:lab-navigation-browser`，Electron 实际点击场景环境 Lab、地图编辑器、组合式 Lab 首页往返，并验证错误地址恢复与查询参数/锚点保留。拒绝预设写入，报告在 node_modules/.cache/lab-navigation-verification.json。
-- `buildDraggableLabs.mjs`：通过 `npm run build:draggable` 构建三个可拖拽 Lab 的九个入口与九个旧地址跳转页到 node_modules/.cache/draggable-labs-build，不复制 public。
+- `buildDraggableLabs.mjs`：通过 `npm run build:draggable` 动态发现并构建所有可拖拽 Lab 的三个入口与三个旧地址跳转页到 node_modules/.cache/draggable-labs-build，不复制 public。
 - `dialogueTextVerification.html`：通过开发服务打开，比较旧版顶部基线裁剪与新字形安全区绘制，在 8 种缩放和 DPR 1/1.25/2 下统计丢失笔画像素，并确认文字实际绘制；结果保存在页面 `#result`，passed 表示所有 24 组新绘制均无裁剪损失。
 
 这里同时包含可执行工具与历史档案；归档不代表所有文件都已停用。修改或删除工具前，检查 package.json、Vite 配置和代码引用。
@@ -53,3 +53,5 @@
 - `verifyUiPreviewWorkbench.cjs`：同一 launcher 验证 UI 工作台组件搜索、属性折叠、栏宽调整、刷新恢复、设置窗口、多选、只读浏览不变脏、窄屏侧栏和画布适配；使用独立浏览会话并拦截写请求。报告为 node_modules/.cache/ui-preview-workbench-verification.json，截图包括 ui-preview-workbench-1366.png、-1920.png、-narrow.png。
 
 React UI 验证另覆盖玩家可视参考框的严格尺寸/鼠标穿透、负坐标节点可命中及拖回、框外空白可开始平移和框选；工作台验证同时检查参考框显隐刷新恢复且不使文档变脏。
+
+- `verifyLimitFunctionLab.cjs`：经 runElectronVerification.mjs 在隔离隐藏浏览器验证极限函数运行页原布局、真实曲线拖动与整数 X、Puck 编辑/保存/预览、Grid 拖拽及刷新恢复、旧地址参数保留；只操作隔离会话，报告/截图位于 node_modules/.cache/limit-function-*。
