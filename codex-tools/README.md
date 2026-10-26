@@ -1,5 +1,7 @@
 # Codex 工具与资源处理档案
 
+`buildMonsterVisualLab.mjs` 通过 `npm run build:monster-visual` 专项构建新的怪物视觉组合式 Lab，不复制 public。`verifyMonsterVisualLab.cjs` 经 `npm run test:monster-visual-webgl` 在隔离隐藏 Electron 中先验证正式页控件，再运行 monsterVisualVerification.html 的真实 Host 集成检查，覆盖四模块依赖、四层渲染、多实例、动作、暂停、存档和释放；阻止写请求，报告／截图在 node_modules/.cache/monster-visual-verification.*。
+
 `verifyUiClipboard.cjs` 经 runElectronVerification.mjs 验证 UI Lab 的 Shift+方向键范围选择、过滤顺序、右键多选复制/剪切/粘贴/删除、完整子树、锁定保护、撤销重做及实际键盘快捷键；不写正式预设，报告在 node_modules/.cache/ui-clipboard-verification.json。
 
 `uiPreviewPresetStore.ts` 为 Vite 提供 UI Lab 的同源预设 GET/PUT，将独立 JSON 和 index.json 写入 config/uiPreviewPresets；`node --experimental-strip-types --test codex-tools/uiPreviewPresetStore.test.ts` 在临时目录验证文件、索引、新建预设、非法数据拒绝及 HTTP 保存后重启读取。

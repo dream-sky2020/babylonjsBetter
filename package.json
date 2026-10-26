@@ -5,6 +5,9 @@
   "main": "electron/main.cjs",
   "type": "module",
   "scripts": {
+    "build:monster-visual": "node codex-tools/buildMonsterVisualLab.mjs",
+    "test:monster-visual": "node --experimental-strip-types --test labs/modules/monster/*.test.ts",
+    "test:monster-visual-webgl": "node codex-tools/runElectronVerification.mjs codex-tools/verifyMonsterVisualLab.cjs",
     "test:dungeon-spatial": "node --experimental-strip-types --test core/dungeon-spatial/*.test.ts",
     "typecheck:dungeon-spatial": "tsc --noEmit -p tsconfig.dungeon-spatial.json",
     "build:dungeon-map-lab": "node codex-tools/buildDungeonMapLab.mjs",

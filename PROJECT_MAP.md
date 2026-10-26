@@ -1,3 +1,13 @@
+## 2026-10-26：怪物视觉组合模块与最小测试 Lab
+
+同日补充：测试页面直接组合已有 `dungeon-config` 与怪物测试模块，合并 Dungeon/Monster catalog；Host 只额外展开 `dungeon-libraries`、`dungeon-map-loader`、`dungeon-config` 三项，使用既有地图选择和场景装载链，不新建场景模块，也不安装玩家、AI、格子 Debug、通行或移动模块。页面总计七项模块；切图不重建怪物实例。图形回归包含默认地图装载、切到推动测试场再切回、检查怪物实例保持。
+
+新增 `labs/modules/monster/` 独立 catalog：monster-visual-libraries、monster-battlefield、monster-visual、monster-visual-debug。四个怪物模块本身不依赖 Dungeon catalog、玩家、AI、地牢格子或逻辑移动系统；测试页面按上面的装配额外加入现有场景加载链。首页组合式分组与 Vite 多页入口已注册；原 `labs/standalone/monster-3d-visual-lab/` 完整保留。
+
+复用 core/monster 的 MonsterVisualManager 和现有动作预设，Host 提供唯一 Scene、相机和渲染循环；presentation / 200 任务推进条纹与移动／攻击／受击／死亡表现，跟随 Host 或局部暂停。三块共享内存分别保存资源库、战场实例与测试设置；战场及设置登记 LabState v1。实例显示覆盖不修改预设，配置刷新、替换和销毁会取消未完成动作；事件带 actionId 或 generation。显示设置不重建精灵，派生配置缓存避免无关实例更新中断动画。新页不扫描素材或写正式配置；特殊状态、感叹号及跳字等仍由原独立 Lab 调试。
+
+`build:monster-visual` 只构建新入口到 node_modules/.cache/monster-visual-build，不复制 public；`test:monster-visual` 检查校验与共享数据隔离；`test:monster-visual-webgl` 通过隔离隐藏 Electron 验证实际控件、四层渲染、独立实例、动作、暂停恢复、存档和释放，拒绝写请求。详见 labs/modules/monster/README.md。
+
 ## 2026-10-23：极限函数可拖拽 Lab
 
 `labs/draggable/limit-function-lab/` 提供 index.html 运行页、editor.html Puck 编辑器和 grid.html Grid 工作台，通过 labs/kit/draggable 公共框架装配。运行页默认保持原有侧栏、公式/四项结果/曲线/下方双列布局；Puck 保存后运行页读取自定义排列。八个功能面板共享 session.tsx 的计算状态，工作台外壳不订阅计算变化，避免 Puck 插槽重新挂载导致图表拖拽中断。Grid/Puck 布局分别使用 limit-function-lab.grid.v1 / .puck.v1 存入本机，可导入/导出；计算参数只在当前页会话存在，刷新恢复默认。原 standalone 下三个地址只保留跳转，保留 query/hash；首页分类、Vite 入口及专项脚本同步迁移。

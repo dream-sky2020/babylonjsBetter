@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "types": ["vite/client", "node"] },
+  "include": ["core/resources/virtual-modules.d.ts", "labs/modules/monster/**/*.ts", "labs/composable/monster-visual-lab/**/*.ts"],
+  "exclude": ["node_modules"]
+}
