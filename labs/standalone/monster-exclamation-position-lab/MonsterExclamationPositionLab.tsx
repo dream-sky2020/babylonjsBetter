@@ -1,3 +1,4 @@
+import { MonsterExclamationAttachments } from '@/core/monster';
 import React, {
   useCallback,
   useEffect,
@@ -16,7 +17,7 @@ import {
   STRIPE_PRESET_URL,
   createDefaultMonsterExclamationIndicator,
   createDefaultMonsterExclamationPosition,
-  MonsterVisualManager,
+  MonsterVisualRuntime,
   normalizeMonsterConfigLibrary,
   normalizeMonsterExclamationPositions,
   normalizeMonsterStripePresetLibrary,
@@ -95,7 +96,7 @@ const CommitNumberInput: React.FC<CommitNumberInputProps> = ({
 export const MonsterExclamationPositionLab: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null),
     stageRef = useRef<HTMLElement>(null),
-    visualManagerRef = useRef<MonsterVisualManager | null>(null);
+    visualManagerRef = useRef<MonsterVisualRuntime | null>(null);
   const [monsterConfigs, setMonsterConfigs] =
       useState<MonsterDisplayConfigLibrary>({}),
     [monsterStripes, setMonsterStripes] = useState<MonsterStripePresetLibrary>(
@@ -227,8 +228,8 @@ export const MonsterExclamationPositionLab: React.FC = () => {
     const context = createCameraLabScene(canvas),
       camera = createCameraLabController(context.camera),
       panel = createFloatingCameraControlPanel(stage, camera),
-      visualManager = new MonsterVisualManager(context.scene);
-    visualManager.setHelpersVisible(false);
+      visualManager = new MonsterVisualRuntime(context.scene, { capabilities: [MonsterExclamationAttachments] });
+
     visualManagerRef.current = visualManager;
     const drag = { active: false, id: -1, x: 0, y: 0 };
     const down = (event: PointerEvent) => {
@@ -338,7 +339,7 @@ export const MonsterExclamationPositionLab: React.FC = () => {
       { configs: monsterConfigs, monsterStripes, stripes },
       "monster-exclamation-position-preview",
     );
-    visualManager.setMonsterInstanceOffset(
+    visualManager.renderer.setMonsterInstanceOffset(
       "monster-exclamation-position-preview",
       new Vector3(...config.monsterPositionOffset),
     );
@@ -374,7 +375,7 @@ export const MonsterExclamationPositionLab: React.FC = () => {
     });
   }, [monsterKey, config.indicators, markPresets, basePresets]);
   useEffect(() => {
-    visualManagerRef.current?.syncMonsterExclamations(
+    visualManagerRef.current?.exclamations.syncMonsterExclamations(
       "monster-exclamation-position-preview",
       config,
       { markPresets, basePresets },
@@ -386,7 +387,7 @@ export const MonsterExclamationPositionLab: React.FC = () => {
     for (const item of config.indicators) {
       const mark = markPresets[item.exclamationPresetKey] ?? markPresets[Object.keys(markPresets)[0] ?? ""];
       const base = basePresets[item.basePresetKey] ?? basePresets[Object.keys(basePresets)[0] ?? ""] ?? mark?.base;
-      manager.setMonsterExclamationProgress(
+      manager.exclamations.setMonsterExclamationProgress(
         "monster-exclamation-position-preview",
         item.id,
         item.exclamationProgress,

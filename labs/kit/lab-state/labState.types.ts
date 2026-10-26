@@ -39,6 +39,12 @@ export type LabStateReferenceOptions<TLive, TSaved extends LabStateJsonValue = n
   readonly key: string;
   readonly version: number;
   readonly value: TLive;
+  /** Restore-only aliases for state split across modules; aliases are never serialized. */
+  readonly legacy?: readonly {
+    readonly moduleId: string;
+    readonly key: string;
+    readonly select: (saved: unknown) => unknown;
+  }[];
   /** 返回供 Debug UI 使用的可序列化视图，不暴露原始引用。 */
   readonly inspect: (value: TLive) => LabStateJsonValue;
   readonly save?: LabStateSaveDefinition<TLive, TSaved>;

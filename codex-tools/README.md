@@ -1,6 +1,6 @@
 # Codex 工具与资源处理档案
 
-`buildMonsterVisualLab.mjs` 通过 `npm run build:monster-visual` 专项构建新的怪物视觉组合式 Lab，不复制 public。`verifyMonsterVisualLab.cjs` 经 `npm run test:monster-visual-webgl` 在隔离隐藏 Electron 中先验证正式页控件，再运行 monsterVisualVerification.html 的真实 Host 集成检查，覆盖四模块依赖、四层渲染、多实例、动作、暂停、存档和释放；阻止写请求，报告／截图在 node_modules/.cache/monster-visual-verification.*。
+`buildMonsterVisualLab.mjs` 通过 `npm run build:monster-visual` 构建怪物组合式页及 11 个迁移后的独立 Lab，不复制 public。`verifyMonsterVisualLab.cjs` 经 `npm run test:monster-visual-webgl` 在隔离隐藏 Electron 中验证九个怪物模块的面板归属与公共顺序、唯一表现任务、真实 Host 集成和全部独立页面交互。monsterModuleAssemblyVerification.ts 检查七种最小模块组合的资源请求、命令隔离、参数恢复和旧存档；monsterVisualCapabilitiesVerification.ts 检查 Core 能力卸载、动作替换和异步销毁；monsterVisualPageProbe.ts 只读检查实际场景对象。阻止写请求，报告／截图在 node_modules/.cache/monster-visual-verification.*。
 
 `verifyUiClipboard.cjs` 经 runElectronVerification.mjs 验证 UI Lab 的 Shift+方向键范围选择、过滤顺序、右键多选复制/剪切/粘贴/删除、完整子树、锁定保护、撤销重做及实际键盘快捷键；不写正式预设，报告在 node_modules/.cache/ui-clipboard-verification.json。
 

@@ -57,7 +57,7 @@ export const normalizeExclamationMarkPresets = (value: unknown): ExclamationMark
     const source = raw as Partial<ExclamationMarkPreset> & Record<string, unknown>;
     const rawPosition = Array.isArray(source.position) ? source.position : [];
     const rawProgress = source.progress && typeof source.progress === 'object' ? source.progress : {};
-    const rawBase = source.base && typeof source.base === 'object' ? source.base : {};
+    const rawBase: Partial<ExclamationMarkPreset['base']> = source.base && typeof source.base === 'object' ? source.base : {};
     const legacyDirection = source.fillDirection;
     const legacyVertical = legacyDirection === 'bottom-to-top' || legacyDirection === 'top-to-bottom';
     const legacyReverse = legacyDirection === 'top-to-bottom' || legacyDirection === 'right-to-left';
@@ -120,8 +120,8 @@ export const normalizeExclamationMarkPresets = (value: unknown): ExclamationMark
         progress: {
           enabled: rawBase.progress?.enabled !== false,
           progress: Math.max(0, Math.min(1, finite(rawBase.progress?.progress, 0))),
-          shape: ['none', 'linear', 'radial', 'sector', 'ring', 'diamond', 'box', 'rect-perimeter'].includes(String(rawBase.progress?.shape)) ? rawBase.progress.shape : 'linear',
-          direction: ['forward', 'reverse', 'center-out', 'edges-in'].includes(String(rawBase.progress?.direction)) ? rawBase.progress.direction : 'forward',
+          shape: ['none', 'linear', 'radial', 'sector', 'ring', 'diamond', 'box', 'rect-perimeter'].includes(String(rawBase.progress?.shape)) ? rawBase.progress?.shape : 'linear',
+          direction: ['forward', 'reverse', 'center-out', 'edges-in'].includes(String(rawBase.progress?.direction)) ? rawBase.progress?.direction : 'forward',
           angleDeg: finite(rawBase.progress?.angleDeg, 0), startAngleDeg: finite(rawBase.progress?.startAngleDeg, 0), sweepAngleDeg: finite(rawBase.progress?.sweepAngleDeg, 360),
           innerRadius: finite(rawBase.progress?.innerRadius, 0.65), outerRadius: finite(rawBase.progress?.outerRadius, 1), softness: finite(rawBase.progress?.softness, 0),
           centerOffsetPx: { x: finite(rawBase.progress?.centerOffsetPx?.x, 0), y: finite(rawBase.progress?.centerOffsetPx?.y, 0) },

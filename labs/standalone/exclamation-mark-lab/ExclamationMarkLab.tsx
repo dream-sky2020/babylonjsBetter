@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
-import { MonsterVisualManager } from '@/core/monster';
+import { ExclamationPreviewController } from '@/core/sprite/exclamation/ExclamationPreviewController';
 import {
   createDefaultExclamationMarkPreset,
   createDefaultExclamationBasePreset,
@@ -33,7 +33,7 @@ const uniqueKey = (base: string, presets: Record<string, unknown>): string => {
 export const ExclamationMarkLab: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLElement>(null);
-  const visualManagerRef = useRef<MonsterVisualManager | null>(null);
+  const visualManagerRef = useRef<ExclamationPreviewController | null>(null);
   const [presets, setPresets] = useState<ExclamationMarkPresetMap>({});
   const [activeKey, setActiveKey] = useState('');
   const [basePresets, setBasePresets] = useState<ExclamationBasePresetMap>({});
@@ -110,8 +110,8 @@ export const ExclamationMarkLab: React.FC = () => {
   useEffect(() => {
     const canvas = canvasRef.current, stage = stageRef.current;
     if (!canvas || !stage) return;
-    const context = createCameraLabScene(canvas), camera = createCameraLabController(context.camera), cameraPanel = createFloatingCameraControlPanel(stage, camera), visualManager = new MonsterVisualManager(context.scene);
-    visualManager.setHelpersVisible(false);
+    const context = createCameraLabScene(canvas), camera = createCameraLabController(context.camera), cameraPanel = createFloatingCameraControlPanel(stage, camera), visualManager = new ExclamationPreviewController(context.scene);
+
     visualManagerRef.current = visualManager;
     const drag = { active: false, id: -1, x: 0, y: 0 };
     const down = (event: PointerEvent) => { if (event.button !== 0) return; if (camera.state.lookControlMode === 'pointerLock') { void canvas.requestPointerLock?.(); return; } drag.active = true; drag.id = event.pointerId; drag.x = event.clientX; drag.y = event.clientY; canvas.setPointerCapture(event.pointerId); };
@@ -143,8 +143,8 @@ export const ExclamationMarkLab: React.FC = () => {
     if (!preset) return;
     visualManagerRef.current?.setExclamationPreviewProgress(
       'exclamation-mark-lab',
-      preset.progress.progress,
-      preset.base.progress.progress,
+      preset.progress.progress ?? 1,
+      preset.base.progress.progress ?? 0,
       preset.base
     );
   }, [preset?.progress.progress, preset?.base.progress.progress, preset?.base.progress]);

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
-import { MonsterVisualManager } from '@/core/monster';
+import { SpecialStatusPreviewController } from '@/core/special-status/preview/SpecialStatusPreviewController';
 import { SpecialStatusBadge } from '@/core/ui';
 import {
   getPublicResourceImagePaths,
@@ -840,7 +840,7 @@ type Babylon3dStatusPreviewProps = {
 const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc, values, visible, statusHeight, statusScale, numberScale, cornerInset, position, numberOffsets, numberPreset, billboard, debug }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const visualManagerRef = useRef<MonsterVisualManager | null>(null);
+  const visualManagerRef = useRef<SpecialStatusPreviewController | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current, stage = stageRef.current;
@@ -848,8 +848,8 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
     const context = createCameraLabScene(canvas);
     const camera = createCameraLabController(context.camera);
     const cameraPanel = createFloatingCameraControlPanel(stage, camera);
-    const visualManager = new MonsterVisualManager(context.scene);
-    visualManager.setHelpersVisible(false);
+    const visualManager = new SpecialStatusPreviewController(context.scene);
+
     visualManagerRef.current = visualManager;
     const drag = { active: false, id: -1, x: 0, y: 0 };
     const down = (event: PointerEvent) => { if (event.button !== 0) return; if (camera.state.lookControlMode === 'pointerLock') { void canvas.requestPointerLock?.(); return; } drag.active = true; drag.id = event.pointerId; drag.x = event.clientX; drag.y = event.clientY; canvas.style.cursor = 'grabbing'; canvas.setPointerCapture(event.pointerId); };
@@ -896,7 +896,7 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
       [...values] as SpecialStatus3dValues,
       [...visible] as SpecialStatus3dVisibility,
       debug
-    ).catch((error) => console.error('MonsterVisualManager 特殊状态预览更新失败', error));
+    ).catch((error) => console.error('SpecialStatusPreviewController 特殊状态预览更新失败', error));
   }, [numberPreset, iconSrc, statusHeight, statusScale, numberScale, cornerInset, position[0], position[1], position[2], numberOffsets, billboard, debug, values[0], values[1], values[2], values[3], visible[0], visible[1], visible[2], visible[3]]);
 
   return (

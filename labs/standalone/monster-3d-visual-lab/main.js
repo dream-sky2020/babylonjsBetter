@@ -20,7 +20,7 @@ import {
   DEFAULT_MONSTER_STRIPE_PRESET_KEY,
   MONSTER_LAYER_KEYS,
   MONSTER_RENDER_ORDER,
-  MonsterVisualManager,
+  MonsterVisualRuntime,
   STRIPE_NONE,
   collectMonsterResourceImages,
   createDefaultMonsterConfig as createCoreDefaultMonsterConfig,
@@ -617,7 +617,7 @@ const layerShaderEditorHtml = (layerKey) => {
 const applyLayerShaderParams = (layerKey) => {
   const params = state.layerShaderParams[layerKey];
   if (!params) return;
-  state.babylon.visualManager?.setMonsterLayerProgress(
+  state.babylon.visualManager?.renderer.setMonsterLayerProgress(
     EDITOR_MONSTER_ID,
     layerKey,
     { enabled: params.scope === 'composite' && params.composite.shape !== 'none', ...params.composite },
@@ -952,11 +952,11 @@ const renderLayerControls = () => {
 };
 
 const getLayerMesh = (layerKey) => (
-  state.babylon.visualManager?.getMonsterLayerMesh(EDITOR_MONSTER_ID, layerKey) || null
+  state.babylon.visualManager?.renderer.getMonsterLayerMesh(EDITOR_MONSTER_ID, layerKey) || null
 );
 
 const syncAllLayerFacingAxis = () => {
-  state.babylon.visualManager?.setMonsterFacingAxis(EDITOR_MONSTER_ID, state.babylon.spriteFacingAxis);
+  state.babylon.visualManager?.renderer.setMonsterFacingAxis(EDITOR_MONSTER_ID, state.babylon.spriteFacingAxis);
 };
 
 const disposeLayerDebugHandle = (layerKey) => {
@@ -1031,7 +1031,7 @@ const applyMonsterTransformFromInputs = () => {
   const finalScale = sizeRatio * scene3dScale;
   const scene3dHeight = toNumber(el.scene3dHeightInput?.value, 0);
   const scene3dOffsetX = toNumber(el.scene3dOffsetXInput?.value, 0);
-  manager.setMonsterTransform(EDITOR_MONSTER_ID, finalScale, scene3dHeight, scene3dOffsetX);
+  manager.renderer.setMonsterTransform(EDITOR_MONSTER_ID, finalScale, scene3dHeight, scene3dOffsetX);
 };
 
 const updateCameraProjection = () => {
@@ -1133,7 +1133,7 @@ const loadAllLayerMeshes = async () => {
   const manager = state.babylon.visualManager;
   const config = activeMonsterConfig();
   if (!manager || !config) return;
-  setStatus('正在由 MonsterVisualManager 刷新 3D 怪物...');
+  setStatus('正在刷新 3D 怪物...');
   for (const layerKey of LAYER_KEYS) {
     state.layers[layerKey].path = normalizeResourcePath(state.layers[layerKey].path) || DEFAULT_ASSETS[layerKey];
   }
@@ -1700,8 +1700,8 @@ const initBabylon = () => {
   light.groundColor = new Color3(0.32, 0.35, 0.3);
 
   createRoadSceneEnvironment(scene);
-  const visualManager = new MonsterVisualManager(scene);
-  visualManager.setHelpersVisible(false);
+  const visualManager = new MonsterVisualRuntime(scene);
+
   const cameraController = createCameraLabController(camera);
   cameraController.state.keys = cameraController.keys;
   cameraController.state.pointerLocked = false;

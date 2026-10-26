@@ -1,10 +1,11 @@
+import { MonsterSpecialStatusAttachments } from '@/core/monster';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { loadConfigFromUrl } from '@/core/config';
 import { Vector3 } from '@babylonjs/core';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
-import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, createDefaultMonsterSpecialStatusEntry, createDefaultMonsterSpecialStatusPositions, MonsterVisualManager, normalizeMonsterConfigLibrary, normalizeMonsterSpecialStatusPositions, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type MonsterDisplayConfigLibrary, type MonsterSpecialStatusPositionConfig, type MonsterSpecialStatusRowAnchorMode, type MonsterStripePresetLibrary, type StripePresetLibrary } from '@/core/monster';
+import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, createDefaultMonsterSpecialStatusEntry, createDefaultMonsterSpecialStatusPositions, MonsterVisualRuntime, normalizeMonsterConfigLibrary, normalizeMonsterSpecialStatusPositions, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type MonsterDisplayConfigLibrary, type MonsterSpecialStatusPositionConfig, type MonsterSpecialStatusRowAnchorMode, type MonsterStripePresetLibrary, type StripePresetLibrary } from '@/core/monster';
 import { loadNumberSpritePresets, type NumberSpritePresetMap } from '@/core/sprite';
 import { SPECIAL_STATUS_VISUAL_PRESET_CONFIG_URL, normalizeSpecialStatusVisualPresets, type SpecialStatus3dValues, type SpecialStatus3dVisibility, type SpecialStatusVisualPresetMap } from '@/core/special-status';
 import { getResolvedDevServerPort, requestDevServer } from '@/core/network/devServerPortResolver.ts';
@@ -28,7 +29,7 @@ const PREVIEW_MONSTER_ID = 'monster-special-status-position-preview';
 const PREVIEW_BATTLEFIELD_ID = 'monster-special-status-position-preview-field';
 export const MonsterSpecialStatusPositionLab: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null), stageRef = useRef<HTMLElement>(null);
-    const visualManagerRef = useRef<MonsterVisualManager | null>(null);
+    const visualManagerRef = useRef<MonsterVisualRuntime | null>(null);
     const [monsters, setMonsters] = useState<MonsterDisplayConfigLibrary>({}), [monsterStripes, setMonsterStripes] = useState<MonsterStripePresetLibrary>({}), [stripes, setStripes] = useState<StripePresetLibrary>({});
     const [visuals, setVisuals] = useState<SpecialStatusVisualPresetMap>({}), [numbers, setNumbers] = useState<NumberSpritePresetMap>({});
     const [monsterKey, setMonsterKey] = useState(''), [stripeKey, setStripeKey] = useState(''), [monsterOffset, setMonsterOffset] = useState<Vec3>([0, 0, 0]);
@@ -143,8 +144,8 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
         if (!canvas || !stage)
             return;
         const context = createCameraLabScene(canvas), camera = createCameraLabController(context.camera), cameraPanel = createFloatingCameraControlPanel(stage, camera);
-        const visualManager = new MonsterVisualManager(context.scene);
-        visualManager.setHelpersVisible(false);
+        const visualManager = new MonsterVisualRuntime(context.scene, { capabilities: [MonsterSpecialStatusAttachments] });
+
         visualManagerRef.current = visualManager;
         const drag = { active: false, id: -1, x: 0, y: 0 };
         const down = (e: PointerEvent) => { if (e.button !== 0)
@@ -179,12 +180,12 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
         return () => { canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', up); canvas.removeEventListener('pointercancel', up); canvas.removeEventListener('wheel', wheel); document.removeEventListener('mousemove', docMove); document.removeEventListener('pointerlockchange', lock); window.removeEventListener('keydown', kd); window.removeEventListener('keyup', ku); window.removeEventListener('resize', resize); visualManager.dispose(); visualManagerRef.current = null; cameraPanel.dispose(); context.dispose(); };
     }, []);
     useEffect(() => { const manager = visualManagerRef.current, config = monsters[monsterKey]; if (!manager || !config)
-        return; manager.sync({ id: PREVIEW_BATTLEFIELD_ID, name: 'Special Status Position Preview', width: 1, cellSize: 1, rowSpacing: 1, monsters: [{ id: PREVIEW_MONSTER_ID, typeId: monsterKey, monsterConfigKey: monsterKey, monsterStripePresetKey: stripeKey, position: { row: 0, column: 0, size: 1, isOccupyingFullRowCentered: true }, chaos: { value: 0, threshold: 100, duration: 0 } }] }, { configs: monsters, monsterStripes, stripes }, PREVIEW_MONSTER_ID); manager.setMonsterInstanceOffset(PREVIEW_MONSTER_ID, new Vector3(...monsterOffset)); }, [monsters, monsterStripes, stripes, monsterKey, stripeKey, monsterOffset]);
+        return; manager.sync({ id: PREVIEW_BATTLEFIELD_ID, name: 'Special Status Position Preview', width: 1, cellSize: 1, rowSpacing: 1, monsters: [{ id: PREVIEW_MONSTER_ID, typeId: monsterKey, monsterConfigKey: monsterKey, monsterStripePresetKey: stripeKey, position: { row: 0, column: 0, size: 1, isOccupyingFullRowCentered: true }, chaos: { value: 0, threshold: 100, duration: 0 } }] }, { configs: monsters, monsterStripes, stripes }, PREVIEW_MONSTER_ID); manager.renderer.setMonsterInstanceOffset(PREVIEW_MONSTER_ID, new Vector3(...monsterOffset)); }, [monsters, monsterStripes, stripes, monsterKey, stripeKey, monsterOffset]);
     useEffect(() => {
         const manager = visualManagerRef.current;
         if (!manager)
             return;
-        void manager.syncMonsterSpecialStatuses(PREVIEW_MONSTER_ID, items, {
+        void manager.specialStatuses.syncMonsterSpecialStatuses(PREVIEW_MONSTER_ID, items, {
             visualPresets: visuals,
             numberPresets: numbers
         }, {

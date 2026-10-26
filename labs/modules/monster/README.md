@@ -1,31 +1,48 @@
-# 怪物视觉组合模块
+# 怪物组合式模块
 
-`monsterLabModuleCatalog` 与 Dungeon catalog 独立。声明 `monster-visual-debug` 时，怪物依赖链只展开四个模块：
+monsterLabModuleCatalog 包含九个相互独立装配的模块。模块按 Host 公共执行计划创建各自面板：依赖层级优先，同层按发现顺序；不手动移动其他模块 DOM。
 
-- `monster-visual-libraries`：加载外观、两级条纹、移动、攻击、死亡预设；开发 API 不可用时使用统一打包配置。重新读取采用代次保护并保留失败前的库。
-- `monster-battlefield`：持有当前怪物实例和行列布局，处理增删／替换／显示参数覆盖／移动目标命令。校验成功后提交同一共享句柄；存档版本 1。
-- `monster-visual`：在 Host 的同一个 Scene 中创建一个 MonsterVisualManager；唯一 presentation / 200 任务推进表现。默认隐藏管理器自带的布局辅助对象，不安装地牢格子、玩家、AI、通行或逻辑移动系统。
-- `monster-visual-debug`：测试控件、选择、包围盒与暂停；通过协议调用模块，不访问其他模块私有 DOM。当前实例的显示覆盖与外观预设分开存放，不改写配置库。
+| 模块 | 依赖 | 状态与面板 |
+| --- | --- | --- |
+| monster-visual-libraries | 无 | 外观、两级条纹资源；独立重载入口；不读取动作预设 |
+| monster-battlefield | visual-libraries | 实例、选择、布局；唯一战场数据写入者 |
+| monster-visual | visual-libraries、battlefield | 唯一基础渲染器；外观覆盖、包围盒、公共播放暂停 |
+| monster-layout-debug | visual | 网格、占位与选中标记；默认关闭 |
+| monster-distance-stripes | visual、battlefield、visual-libraries | 独立距离规则库、启用开关、可编辑规则 |
+| monster-movement | visual、battlefield | 独立移动预设库、目标行列、移动与停止 |
+| monster-attack | visual、battlefield | 独立攻击预设库、方向、攻击与停止 |
+| monster-hit | visual、battlefield | 受击时长、分层抖动、颜色；无动作预设读取 |
+| monster-death | visual、battlefield | 独立死亡预设库、死亡与恢复 |
 
-测试页面 `labs/composable/monster-visual-lab/` 直接合并既有 Dungeon catalog，并额外声明 `dungeon-config`。依赖自动补齐 `dungeon-libraries` 与 `dungeon-map-loader`，复用其他组合式 Lab 的地图选择／场景加载功能；合计七项模块。没有新增场景实现，也不装配玩家、AI、格子 Debug、通行或逻辑移动模块。地图按原有组件加载场景；怪物仍使用独立的测试战场布局，切图不重建怪物实例。
+## 装配与调度
 
-三块共享内存：`monster.visual-libraries`、`monster.battlefield`、`monster.visual-settings`。所有模块导入同一 `.memory.ts` 定义；没有镜像 Store、逐帧请求或状态轮询。管理器、Mesh、材质及可重建的显示配置缓存属于视觉模块，不进入存档。战场和测试设置通过 LabState 保存；恢复会停止旧动作并按当前布局重建，暂不保存动画中间进度。
+只声明 monster-hit 会补齐三项基础依赖，不安装移动、攻击或死亡模块，不发起这些动作库的读取请求，也不创建它们的面板和命令处理器。其他能力同理。
 
-命令／事件统一从 `monsterVisual.protocol.ts` 导入：
+monster-visual 拥有 monster.visual.runtime 服务。可选模块 setup 时注册各自 Core 能力，并在释放时注销。所有能力由唯一 presentation / 200 任务按固定顺序推进；模块不创建额外 Scene、相机、Engine 或循环。Host 暂停与基础显示面板的公共暂停均冻结表现，相机保持可操作。
 
-```ts
-await context.communication.request(monsterBattlefieldCommand, {
-  kind: 'add', configKey: 'monster_default_1',
-});
-await context.communication.request(monsterVisualCommand, {
-  kind: 'attack', monsterId, presetKey: 'forward_lunge',
-});
-```
+同一实例的测试动作互相替换，不同实例独立。monsterActionLifecycle.ts 只协调已注册能力的停止与 actionId 终态，不加载资源、不构建面板。清空、重置、配置更新和销毁取消相关动作；移除单项能力只取消该类表现。完整测试页显式列出所有选装模块，继续复用 dungeon-config 的既有地图加载链；总计十二项模块，切图保持怪物实例。
 
-移动通过 `monsterBattlefieldCommand` 的 `move` 提交目标行列及移动预设；视觉模块从旧姿态插值到目标。这里测试的是表现，不做战斗占位、碰撞、寻路或伤害判定。`patch` 直接应用布局。实例 ID 必须唯一；同一外观可供多个实例使用。
+## 数据与协议
 
-同一个怪物的测试动作互相替换，不同怪物可同时播放。`monster.visual.action-changed` 带 actionId、monsterId、kind 与 started/completed/cancelled；重置、替换和销毁会取消未完成动作。已提交战场事件带递增 generation，视觉模块拒绝过期事件。Host 模拟暂停和怪物局部暂停都会冻结管理器，相机仍可操作。
+- monster.visual-libraries：基础外观与条纹。
+- monster.battlefield、monster.selection：由实例模块持有。
+- monster.visual-settings：基础显示的包围盒与公共暂停。
+- monster.movement / attack / hit / death / layout / distance-stripes 下的 settings：各模块持有自己的参数。
+- movement、attack、death、distance-stripes 的 library：各模块加载和释放；不进入存档。
 
-原 `labs/standalone/monster-3d-visual-lab/` 保留，继续负责图层素材、条纹和正式配置编辑／保存。新测试页不扫描整个素材目录、不保存服务器预设。特殊状态、感叹号、跳字和其他覆盖层尚未在此页装配；它们可继续使用原独立 Lab，后续接入相应模块。
+各能力目录分别提供 .memory.ts、.protocol.ts、.labModule.ts。通用的 monsterModuleUi.ts 只提供控件构建工具；monsterPresetLibrary.ts 只复用加载代次与规范化工具，不持有汇总库或集中面板。
 
-验证：`npm run test:monster-visual`、`npm run test:monster-visual-webgl`（复用 127.0.0.1:1184 的开发服务）、`npm run build:monster-visual`、`npm run test:lab-entries`。专项构建不复制 public；真实图形验证拒绝所有写请求，报告和截图位于 `node_modules/.cache/monster-visual-verification.*`。`tsconfig.monster-visual.json` 可检查本入口依赖；目前会报告既有的 MonsterVisualManager 感叹号可选字段与 exclamationMarkRepository 类型错误，新模块无对应诊断。
+基础实例命令仍从 monsterVisual.protocol.ts 导入。移动命令已迁至 monster-movement/monsterMovement.protocol.ts；攻击、受击、死亡各自提供独立请求。基础 monster.visual.command 只处理刷新显示和全局重置。
+
+移动模块先校验目标及播放条件，开始移动后通过实例模块的 monster.battlefield.writer 提交目标；基础显示收到 move 变化时保留正在插值的姿态。其他实例更新不会取消当前动作。行列布局只用于视觉测试，不执行战斗碰撞、寻路或伤害判定。
+
+所有设置经独立定义校验，再替换共享引用；模块面板从各自设置恢复。LabState 仍用 v1 格式，保存实例和各模块参数，不保存动画中间进度。旧 monster-visual-debug/settings 在恢复时拆为实例选择与基础显示设置；新存档不再输出旧模块。迁移别名只读，多个来源重复指向同一状态时拒绝，保持恢复前的完整校验。
+
+## 验证
+
+npm run test:monster-visual 检查布局、共享数据和测试动作生命周期。
+npm run test:lab-state 检查恢复原子性与旧状态拆分。
+npm run test:monster-visual-webgl 检查七种最小模块组合、各自资源/命令/面板、参数恢复、面板公共顺序、唯一表现任务、完整动作与旧存档，并覆盖十一项独立 Lab。
+npm run build:monster-visual 构建组合式页及十一项独立页面，不复制 public。
+
+图形检查复用 127.0.0.1:1184，阻止写请求，报告和截图位于 node_modules/.cache/monster-visual-verification.*。tsconfig.monster-visual.json 覆盖全部迁移入口；外围地牢 UI 等既有类型诊断单独处理。原外观配置编辑器和其他独立 Lab 继续提供正式配置编辑与保存。

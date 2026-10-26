@@ -1,3 +1,4 @@
+import { MonsterLayoutHelpers, MonsterDistanceStripeRules } from '@/core/monster';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { loadConfigFromUrl } from '@/core/config';
 import { createRoot } from 'react-dom/client';
@@ -17,7 +18,7 @@ import {
   type StripePresetLibrary
 } from '@/core/monster';
 import {
-  MonsterVisualManager,
+  MonsterVisualRuntime,
   normalizeDistanceStripeRuleConfig,
   resolveDistanceStripePresetKey,
   type BattlefieldDistanceStripeRuleConfig as BattlefieldStripeRuleConfig,
@@ -37,7 +38,8 @@ const numberOr = (value: unknown, fallback: number) => Number.isFinite(Number(va
 const positiveInt = (value: unknown, fallback = 1) => Math.max(1, Math.round(numberOr(value, fallback)));
 const indexInt = (value: unknown, fallback = 0) => Math.max(0, Math.round(numberOr(value, fallback)));
 
-const normalizeBattlefield = (value: Partial<Battlefield>, fallbackId: string): Battlefield => ({
+type BattlefieldInput = Omit<Partial<Battlefield>, 'monsters'> & { monsters?: (Partial<MonsterPlacement> & { row?: number; column?: number; slots?: number; positionMode?: string })[] };
+const normalizeBattlefield = (value: BattlefieldInput, fallbackId: string): Battlefield => ({
   id: typeof value.id === 'string' && value.id.trim() ? value.id.trim() : fallbackId,
   name: typeof value.name === 'string' && value.name.trim() ? value.name : fallbackId,
   width: positiveInt(value.width, 6),
@@ -91,7 +93,7 @@ const CommitNumberInput: React.FC<CommitNumberInputProps> = ({ value, onCommit, 
 const App: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLElement>(null);
-  const visualManagerRef = useRef<MonsterVisualManager | null>(null);
+  const visualManagerRef = useRef<MonsterVisualRuntime | null>(null);
   const [configs, setConfigs] = useState<MonsterDisplayConfigLibrary>({});
   const [monsterStripes, setMonsterStripes] = useState<MonsterStripePresetLibrary>({});
   const [stripes, setStripes] = useState<StripePresetLibrary>({});
@@ -145,7 +147,7 @@ const App: React.FC = () => {
     context.camera.radius = 34;
     const camera = createCameraLabController(context.camera);
     const panel = createFloatingCameraControlPanel(stage, camera);
-    visualManagerRef.current = new MonsterVisualManager(context.scene);
+    visualManagerRef.current = new MonsterVisualRuntime(context.scene, { capabilities: [MonsterLayoutHelpers, MonsterDistanceStripeRules] });
     const drag = { active: false, pointerId: -1, x: 0, y: 0 };
     const pointerDown = (event: PointerEvent) => { if (event.button !== 0) return; if (camera.state.lookControlMode === 'pointerLock') { canvas.requestPointerLock?.().catch?.(() => {}); return; } drag.active = true; drag.pointerId = event.pointerId; drag.x = event.clientX; drag.y = event.clientY; canvas.style.cursor = 'grabbing'; canvas.setPointerCapture(event.pointerId); };
     const pointerMove = (event: PointerEvent) => { if (!drag.active || event.pointerId !== drag.pointerId) return; camera.handlePointerDelta(event.clientX - drag.x, event.clientY - drag.y); drag.x = event.clientX; drag.y = event.clientY; panel.syncFromController(); };

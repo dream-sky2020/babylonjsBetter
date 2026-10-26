@@ -1,3 +1,4 @@
+import { MonsterLayoutHelpers } from '@/core/monster';
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
@@ -6,7 +7,7 @@ import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraContro
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
 import { loadConfigFromUrl } from '@/core/config';
 import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, normalizeMonsterConfigLibrary, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type MonsterDisplayConfigLibrary, type MonsterStripePresetLibrary, type StripePresetLibrary } from '@/core/monster';
-import { MonsterVisualManager, type VisualBattlefield as Battlefield, type VisualMonster as MonsterPlacement } from '@/core/monster';
+import { MonsterVisualRuntime, type VisualBattlefield as Battlefield, type VisualMonster as MonsterPlacement } from '@/core/monster';
 
 const STORAGE_KEY='monster-formation-lab:v2';
 const OLD_STORAGE_KEY='monster-formation-lab:v1';
@@ -18,7 +19,8 @@ const numberOr=(value:unknown,fallback:number)=>Number.isFinite(Number(value))?N
 const positiveInt=(value:unknown,fallback=1)=>Math.max(1,Math.round(numberOr(value,fallback)));
 const indexInt=(value:unknown,fallback=0)=>Math.max(0,Math.round(numberOr(value,fallback)));
 const createBattlefield=(id='battlefield_default'):Battlefield=>({id,name:'默认战场',width:6,cellSize:2.5,rowSpacing:4,monsters:[]});
-const normalizeBattlefield=(value:Partial<Battlefield>,fallbackId:string):Battlefield=>({
+type BattlefieldInput = Omit<Partial<Battlefield>, 'monsters'> & { monsters?: (Partial<MonsterPlacement> & { row?: number; column?: number; slots?: number; positionMode?: string })[] };
+const normalizeBattlefield=(value:BattlefieldInput,fallbackId:string):Battlefield=>({
  id:typeof value.id==='string'&&value.id.trim()?value.id.trim():fallbackId,
  name:typeof value.name==='string'&&value.name.trim()?value.name:'未命名战场',
  width:positiveInt(value.width,6),cellSize:Math.max(.01,numberOr(value.cellSize,2.5)),rowSpacing:Math.max(.01,numberOr(value.rowSpacing,4)),
@@ -55,7 +57,7 @@ const CommitNumberInput:React.FC<CommitNumberInputProps>=({value,onCommit,min,st
 };
 
 const App:React.FC=()=>{
- const canvasRef=useRef<HTMLCanvasElement>(null),stageRef=useRef<HTMLElement>(null),visualManagerRef=useRef<MonsterVisualManager|null>(null);
+ const canvasRef=useRef<HTMLCanvasElement>(null),stageRef=useRef<HTMLElement>(null),visualManagerRef=useRef<MonsterVisualRuntime|null>(null);
  const [configs,setConfigs]=useState<MonsterDisplayConfigLibrary>({}),[monsterStripes,setMonsterStripes]=useState<MonsterStripePresetLibrary>({}),[stripes,setStripes]=useState<StripePresetLibrary>({});
  const [battlefields,setBattlefields]=useState<Record<string,Battlefield>>(()=>{try{const raw=JSON.parse(localStorage.getItem(STORAGE_KEY)||localStorage.getItem(OLD_STORAGE_KEY)||'{}');return Object.fromEntries(Object.entries(raw).map(([key,value])=>[key,normalizeBattlefield(value as Partial<Battlefield>,key)]))}catch{return {}}});
  const [activeId,setActiveId]=useState(''),[selectedId,setSelectedId]=useState(''),[message,setMessage]=useState('正在加载怪物视觉配置…');
@@ -70,7 +72,7 @@ const App:React.FC=()=>{
  useEffect(()=>{
   const canvas=canvasRef.current,stage=stageRef.current;if(!canvas||!stage)return;
   const context=createCameraLabScene(canvas);context.camera.target.set(0,-1,-8);context.camera.radius=34;
-  const camera=createCameraLabController(context.camera),panel=createFloatingCameraControlPanel(stage,camera);visualManagerRef.current=new MonsterVisualManager(context.scene);
+  const camera=createCameraLabController(context.camera),panel=createFloatingCameraControlPanel(stage,camera);visualManagerRef.current=new MonsterVisualRuntime(context.scene, { capabilities: [MonsterLayoutHelpers] });
   const drag={active:false,pointerId:-1,x:0,y:0};
   const pointerDown=(event:PointerEvent)=>{if(event.button!==0)return;if(camera.state.lookControlMode==='pointerLock'){canvas.requestPointerLock?.().catch?.(()=>{});return}drag.active=true;drag.pointerId=event.pointerId;drag.x=event.clientX;drag.y=event.clientY;canvas.style.cursor='grabbing';canvas.setPointerCapture(event.pointerId)};
   const pointerMove=(event:PointerEvent)=>{if(!drag.active||event.pointerId!==drag.pointerId)return;camera.handlePointerDelta(event.clientX-drag.x,event.clientY-drag.y);drag.x=event.clientX;drag.y=event.clientY;panel.syncFromController()};

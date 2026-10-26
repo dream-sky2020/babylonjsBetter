@@ -1,4 +1,20 @@
+## 2026-10-26：怪物组合式模块与面板按需装配
+
+怪物 catalog 从四项调整为九项：monster-visual-libraries、monster-battlefield、monster-visual、monster-layout-debug、monster-distance-stripes、monster-movement、monster-attack、monster-hit、monster-death。移除 monster-visual-debug。每项模块拥有自己的面板；布局按 Host 公共依赖层级和发现顺序创建，移除手工 insertBefore 置顶。完整测试页显式选择基础显示和六项可选能力，继续复用 dungeon-config 装载链，合计十二项模块。
+
+基础资源库只处理外观及两级条纹；移动、攻击、死亡分别读取各自预设，受击直接持有独立参数。实例模块持有选择和战场布局，移动命令归属移动模块，经实例写入服务提交目标；基础显示提供唯一 monster.visual.runtime 服务及 presentation / 200 任务。可选模块 setup 时通过 Core installCapability 注册，反向销毁取消本类动作并移除能力；统一测试动作生命周期协调器保证同实例替换和取消终态。
+
+参数、预设库分别进入各模块共享内存，参数经 LabState v1 保存。旧 monster-visual-debug/settings 存档通过 LabState 的 restore-only legacy 映射分配到实例选择与基础显示两位所有者，新存档不再输出旧模块；迁移和直接数据混用重复目标时拒绝，仍先校验全部数据再恢复。回归新增七种最小组合，检查无多余动作请求/命令/面板、面板正常顺序、参数恢复、旧存档、辅助网格和独立移动/受击。
+
+## 2026-10-26：怪物视觉能力拆分与调用方迁移
+
+`core/monster/visual/MonsterVisualManager.ts` 已移除。`MonsterVisualRenderer` 独立持有四层精灵、基础变换与附件挂点，统一应用动作采样帧；`MonsterVisualRuntime` 仅做显式能力装配、编队输入适配和帧顺序。移动、攻击、受击、死亡、布局辅助、距离条纹规则及两类附件分别拥有状态和释放逻辑，通过 MonsterActionCoordinator 保留原有动作替换规则。默认不安装能力，缺失能力访问报错，支持单项卸载；clear 保留距离规则配置。公共契约独立于运行时实现。
+
+全部 11 个直接使用旧管理器的独立 Lab 与组合式 monster-visual 模块、验证代码已迁移。纯特殊状态预览归属 `core/special-status/preview/`，纯感叹号预览归属 `core/sprite/exclamation/`，不依赖怪物运行时。特殊状态和数字的异步创建在 Scene 销毁时失效，避免 StrictMode 重挂载时向已销毁场景注册。配置持久化与 LabState v1 格式不变。专项构建与 tsconfig 扩展覆盖全部迁移页面，图形回归包含最小装配、卸载、动作替换、异步销毁及各页面实际交互。具体装配清单见 `core/monster/visual/README.md`。
+
 ## 2026-10-26：怪物视觉组合模块与最小测试 Lab
+
+同日修复：新增怪物事件携带新实例 ID，只影响新增实例，不取消其他实例动作；默认新增位置选择首个空行。MonsterVisualManager 在辅助显示关闭时不创建网格，关闭时释放已有格子和共享材质，再开启时按最近同步的布局创建。图形回归覆盖攻击／移动中新增、删除中间实例后复用空行，以及网格开关、隐藏时布局更新和清空释放。
 
 同日补充：测试页面直接组合已有 `dungeon-config` 与怪物测试模块，合并 Dungeon/Monster catalog；Host 只额外展开 `dungeon-libraries`、`dungeon-map-loader`、`dungeon-config` 三项，使用既有地图选择和场景装载链，不新建场景模块，也不安装玩家、AI、格子 Debug、通行或移动模块。页面总计七项模块；切图不重建怪物实例。图形回归包含默认地图装载、切到推动测试场再切回、检查怪物实例保持。
 

@@ -168,7 +168,7 @@ mySprite:<recipe-id>:<module-id>:<module-id>...
   - 四个 Monster Sprite Layer 均通过 `createSpriteMaskMaterial()` 创建常驻 Recipe 材质。
   - `setColorOverlay()` 驱动 `colorOverlayModule`。
   - `setNoiseErode()` 驱动 `noiseErodeModule`。
-- `core/monster/visual/MonsterVisualManager.ts`
+- `core/monster/visual/MonsterDeathController.ts`
   - 创建和管理死亡 Visual Runtime，不直接了解 Shader 参数或 GLSL。
 - `core/effects/sprite-death/createSpriteDeathVisualRuntime.ts`
   - 将同一死亡进度同步给消散控制器和粒子控制器。
@@ -190,7 +190,7 @@ mySprite:<recipe-id>:<module-id>:<module-id>...
   → 创建 ShaderMaterial
 
 播放怪物死亡
-  → MonsterVisualManager 创建 SpriteDeathVisualRuntime
+  → MonsterDeathController 通过渲染器表面效果接口创建 SpriteDeathVisualRuntime
   → Runtime 更新 SpriteDissolveController
   → Controller 只更新 noiseErode uniforms
   → Recipe 和 ShaderMaterial 保持不变
@@ -230,4 +230,4 @@ mySprite:<recipe-id>:<module-id>:<module-id>...
 - Module id、Recipe id 和模块顺序会影响缓存 key，修改时要考虑程序缓存兼容性。
 - 新模块必须为禁用状态提供无副作用路径，尤其保证进度为 `0` 时精灵保持原样。
 - `MonsterDeathDefinition.sample()` 只负责位移、旋转、缩放等纯动画采样，不创建材质、Shader 或粒子。
-- 具体死亡视觉编排放在 `core/effects/sprite-death/`，不要重新塞回 `MonsterVisualManager`。
+- 具体死亡视觉编排放在 `core/effects/sprite-death/`，由 MonsterDeathController 管理生命周期。

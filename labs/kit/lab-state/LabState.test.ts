@@ -4,6 +4,22 @@ import { createLabState } from './LabState.ts';
 
 type CounterState = { value: number; history: number[] };
 
+test('restore-only aliases split legacy module state without serializing legacy entries', async () => {
+  const state = createLabState(), first = { value: 0, history: [] as number[] }, second = { value: 0, history: [] as number[] };
+  for (const [moduleId, current, field] of [['first', first, 'a'], ['second', second, 'b']] as const) state.registerReference({
+    ...counterOptions(current), moduleId,
+    legacy: [{ moduleId: 'old', key: 'settings', select: saved => ({ value: (saved as Record<string, unknown>)[field], history: [] }) }],
+  });
+  const legacy = { format: 'lab-state', version: 1, createdAt: new Date().toISOString(), modules: { old: { settings: { version: 1, data: { a: 3, b: 7 } } } } };
+  await state.restore(legacy);
+  assert.equal(first.value, 3); assert.equal(second.value, 7);
+  assert.deepEqual(Object.keys(state.createSnapshot().modules), ['first', 'second']);
+  await assert.rejects(state.restore({ ...legacy, modules: { old: { settings: { version: 1, data: { a: 9, b: 'invalid' } } } } }));
+  assert.equal(first.value, 3); assert.equal(second.value, 7);
+  await assert.rejects(state.restore({ ...legacy, modules: { ...legacy.modules, first: { main: { version: 1, data: { value: 9, history: [] } } } } }), /重复指定/);
+  assert.equal(first.value, 3);
+});
+
 const counterOptions = (value: CounterState) => ({
   moduleId: 'counter',
   key: 'main',

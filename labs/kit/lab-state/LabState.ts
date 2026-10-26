@@ -150,12 +150,19 @@ export class LabState {
     Object.entries(snapshot.modules).forEach(([moduleId, entries]) => {
       Object.entries(entries).forEach(([key, saved]) => {
         const id = `${moduleId}/${key}`;
-        const entry = this.entries.get(id);
-        if (!entry) throw new Error(`存档中的 LabState 引用“${id}”尚未注册。`);
-        const save = entry.options.save;
-        if (!save) throw new Error(`LabState 引用“${id}”不允许读取存档。`);
-        const data = save.validate(cloneJson(saved.data), saved.version);
-        prepared.push({ entry, data: cloneJson(requireJson(data, `LabState 恢复“${id}”`)) });
+        const direct = this.entries.get(id);
+        const targets = direct ? [{ entry: direct, select: (data: unknown) => data }]
+          : [...this.entries.values()].flatMap(entry => (entry.options.legacy ?? [])
+            .filter(alias => alias.moduleId === moduleId && alias.key === key)
+            .map(alias => ({ entry, select: alias.select })));
+        if (!targets.length) throw new Error(`存档中的 LabState 引用“${id}”尚未注册。`);
+        for (const { entry, select } of targets) {
+          const save = entry.options.save;
+          if (!save) throw new Error(`LabState 引用“${id}”不允许读取存档。`);
+          if (prepared.some(item => item.entry === entry)) throw new Error(`存档重复指定 LabState 引用“${entry.id}”。`);
+          const data = save.validate(select(cloneJson(saved.data)), saved.version);
+          prepared.push({ entry, data: cloneJson(requireJson(data, `LabState 恢复“${id}”`)) });
+        }
       });
     });
     prepared.forEach(({ entry, data }) => {

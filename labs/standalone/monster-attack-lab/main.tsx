@@ -1,3 +1,4 @@
+import { MonsterLayoutHelpers, MonsterDistanceStripeRules, MonsterAttackController } from '@/core/monster';
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { loadConfigFromUrl } from '@/core/config';
 import { createRoot } from "react-dom/client";
@@ -16,7 +17,7 @@ import {
   MONSTER_CONFIG_URL,
   MONSTER_STRIPE_PRESET_URL,
   STRIPE_PRESET_URL,
-  MonsterVisualManager,
+  MonsterVisualRuntime,
   normalizeMonsterConfigLibrary,
   normalizeMonsterStripePresetLibrary,
   normalizeStripePresetLibrary,
@@ -186,7 +187,7 @@ const CommitNumberInput: React.FC<{
 const App: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null),
     stageRef = useRef<HTMLElement>(null),
-    visualManagerRef = useRef<MonsterVisualManager | null>(null),
+    visualManagerRef = useRef<MonsterVisualRuntime | null>(null),
     playerRef = useRef<Mesh | null>(null);
   const repeatRef = useRef<{ monsterId: string; delayMs: number } | null>(null),
     attackAgainRef = useRef<() => void>(() => {});
@@ -253,9 +254,10 @@ const App: React.FC = () => {
           rawMonsterStripes,
           rawStripes,
           rawFields,
-          rawRules,
+          rawRulesValue,
           rawAttacks,
         ]) => {
+          const rawRules = (rawRulesValue ?? {}) as Record<string, { rules?: StripeRule[] }>;
           const nextConfigs = normalizeMonsterConfigLibrary(rawConfigs),
             nextMonsterStripes =
               normalizeMonsterStripePresetLibrary(rawMonsterStripes),
@@ -331,7 +333,7 @@ const App: React.FC = () => {
     context.camera.radius = 34;
     const camera = createCameraLabController(context.camera),
       panel = createFloatingCameraControlPanel(stage, camera);
-    visualManagerRef.current = new MonsterVisualManager(context.scene);
+    visualManagerRef.current = new MonsterVisualRuntime(context.scene, { capabilities: [MonsterLayoutHelpers, MonsterDistanceStripeRules, MonsterAttackController] });
     const player = MeshBuilder.CreateBox(
         "attackPlayer",
         { width: 1.5, height: 1, depth: 1.5 },
@@ -446,7 +448,7 @@ const App: React.FC = () => {
   const renderField = (nextField: Battlefield) => {
     const manager = visualManagerRef.current;
     if (!manager) return;
-    manager.setDistanceStripeRules({ battlefieldId: nextField.id, name: `${nextField.id} 条纹距离规则`, rules: rulesRef.current });
+    manager.distanceStripes.setDistanceStripeRules({ battlefieldId: nextField.id, name: `${nextField.id} 条纹距离规则`, rules: rulesRef.current });
     manager.sync(toVisualField(nextField), { configs: configsRef.current, monsterStripes: monsterStripesRef.current, stripes: stripesRef.current }, selectedId);
   };
   useEffect(() => {
@@ -460,7 +462,7 @@ const App: React.FC = () => {
   };
   const attackSelected = () => {
     if (!selected || !attackPreset || !attackDefinition) return;
-    const monsterPosition = visualManagerRef.current?.getMonsterWorldPosition(selected.id);
+    const monsterPosition = visualManagerRef.current?.renderer.getMonsterWorldPosition(selected.id);
     if (!monsterPosition) return;
     const playerDelta = new Vector3(
         playerPosition.x - monsterPosition.x,
@@ -471,7 +473,7 @@ const App: React.FC = () => {
       parameters = { ...attackParameters };
     if (attackPlayer && "distance" in attackDefinition.parameters)
       parameters.distance = playerDistance;
-    visualManagerRef.current?.playMonsterAttack(
+    visualManagerRef.current?.attack.playMonsterAttack(
       selected.id,
       { ...attackPreset, parameters },
       attackPlayer && playerDistance > 0.0001
@@ -505,7 +507,7 @@ const App: React.FC = () => {
         item.id === selected.id ? next : item,
       );
     patchPlacements(items);
-    visualManagerRef.current?.stopMonsterAttack(selected.id);
+    visualManagerRef.current?.attack.stopMonsterAttack(selected.id);
     queueMicrotask(() => renderField({ ...field, monsters: items }));
   };
   const applyRules = (next: StripeRule[]) => {

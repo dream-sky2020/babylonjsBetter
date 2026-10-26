@@ -1,3 +1,4 @@
+import { MonsterHitController } from '@/core/monster';
 import { createCameraLabController } from '/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '/core/ui/FloatingCameraControlPanel.ts';
@@ -7,7 +8,7 @@ import { Color3 } from '@babylonjs/core';
 import {
   MONSTER_STRIPE_PRESET_URL,
   STRIPE_PRESET_URL,
-  MonsterVisualManager,
+  MonsterVisualRuntime,
   normalizeMonsterConfigLibrary,
   normalizeMonsterStripePresetLibrary,
   normalizeStripePresetLibrary
@@ -60,8 +61,8 @@ if (!(stage instanceof HTMLElement) || !(canvas instanceof HTMLCanvasElement)
 const context = createCameraLabScene(canvas);
 const cameraController = createCameraLabController(context.camera);
 const cameraPanel = createFloatingCameraControlPanel(stage, cameraController);
-const monsterVisualManager = new MonsterVisualManager(context.scene);
-monsterVisualManager.setHelpersVisible(false);
+const monsterVisualManager = new MonsterVisualRuntime(context.scene, { capabilities: [MonsterHitController] });
+
 const popNumberEffect = createPopNumberEffect(popNumberEffectLayer);
 const burstCapsuleEffect = createBurstCapsuleEffect(burstEffectCanvas);
 
@@ -113,7 +114,7 @@ const refreshHitParameterLabels = () => {
 
 const startMonsterHitFeedback = () => {
   const params = readHitParameters();
-  monsterVisualManager.playMonsterHit(PREVIEW_MONSTER_ID, {
+  monsterVisualManager.hit.playMonsterHit(PREVIEW_MONSTER_ID, {
     durationMs: params.durationMs,
     shakeAmplitude: params.shakeAmplitude,
     shakeFrequency: params.shakeFrequency,
@@ -147,7 +148,7 @@ const playEffectsAt = (x, y) => {
 };
 
 const renderSelectedMonster = () => {
-  monsterVisualManager.stopMonsterHit(PREVIEW_MONSTER_ID);
+  monsterVisualManager.hit.stopMonsterHit(PREVIEW_MONSTER_ID);
   const config = state.monsterConfigs[state.activeMonsterConfigId];
   const stripePreset = state.monsterStripePresets[state.activeMonsterStripePresetId] || null;
   if (!config) return;

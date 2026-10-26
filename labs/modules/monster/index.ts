@@ -1,27 +1,55 @@
-import type { LabModuleCatalog } from '@/labs/kit';
+import type { LabModule, LabModuleCatalog } from '@/labs/kit';
+import type { LabSystemManifest } from '@/labs/kit/systemManifest';
 import { monsterVisualLibrariesLabModule } from './monster-visual-libraries';
 import { monsterBattlefieldLabModule } from './monster-battlefield';
 import { monsterVisualLabModule } from './monster-visual';
-import { monsterVisualDebugLabModule } from './monster-visual-debug';
-import type { LabSystemManifest } from '@/labs/kit/systemManifest';
+import { monsterMovementLabModule } from './monster-movement/monsterMovement.labModule';
+import { monsterAttackLabModule } from './monster-attack/monsterAttack.labModule';
+import { monsterHitLabModule } from './monster-hit/monsterHit.labModule';
+import { monsterDeathLabModule } from './monster-death/monsterDeath.labModule';
+import { monsterLayoutDebugLabModule } from './monster-layout-debug/monsterLayoutDebug.labModule';
+import { monsterDistanceStripesLabModule } from './monster-distance-stripes/monsterDistanceStripes.labModule';
 
-const manifests: Record<string, LabSystemManifest> = {
-  'monster-visual-libraries': { kind: 'system', responsibility: '读取怪物外观、条纹和动作预设；候选全部就绪后替换共享库',
-    core: [{ path: 'core/monster/api/monsterApi.ts', symbols: 'requestMonsterLibrary', purpose: '开发接口读取与打包配置回退' }],
-    services: ['共享内存 monster.visual-libraries'], protocols: ['monster.visual-libraries.reload / changed'], scheduling: 'start 或显式请求异步读取；代次保护；销毁清空引用' },
-  'monster-battlefield': { kind: 'configuration', responsibility: '持有怪物实例和战场布局；校验后提交；恢复 LabState',
-    core: [{ path: 'core/monster/visual/MonsterVisualManager.ts', symbols: 'VisualBattlefield / VisualMonster', purpose: '复用视觉输入契约' }],
-    services: ['共享内存 monster.battlefield'], protocols: ['monster.battlefield.command / changed'], scheduling: 'start 建立预览；命令触发提交；无周期任务；销毁清空引用' },
-  'monster-visual': { kind: 'system', responsibility: '在 Host 场景中装配唯一怪物视觉管理器，不安装玩家、AI 或地牢系统',
-    core: [{ path: 'core/monster/visual/MonsterVisualManager.ts', symbols: 'MonsterVisualManager', purpose: '四层精灵、条纹、移动、攻击、受击、死亡' }],
-    services: ['申请 monster.visual-libraries / monster.battlefield / monster.visual-settings'],
-    protocols: ['monster.visual.command / action-changed；消费战场和资源更新'], scheduling: 'presentation / 200；跟随暂停；反向销毁取消动作并释放 Babylon 资源' },
-  'monster-visual-debug': { kind: 'debug', responsibility: '怪物实例选择、显示参数和动作测试；不写正式预设',
-    core: [], services: ['申请三块怪物共享内存'], protocols: ['请求战场和表现命令；观察生命周期'], scheduling: '用户输入和离散变化驱动；无轮询；面板随模块销毁' },
-};
-export const monsterLabModuleCatalog: LabModuleCatalog = Object.freeze(Object.fromEntries([
-  monsterVisualLibrariesLabModule, monsterBattlefieldLabModule, monsterVisualLabModule, monsterVisualDebugLabModule,
-].map(module => [module.id, Object.freeze({ ...module, manifest: manifests[module.id] })])));
+const entries: Array<[LabModule, LabSystemManifest]> = [
+  [monsterVisualLibrariesLabModule, { kind: 'configuration', responsibility: '只读取怪物外观和两级条纹，提交前请求实例模块检查引用',
+    core: [{ path: 'core/monster/api/monsterApi.ts', symbols: 'requestMonsterLibrary', purpose: '开发接口和静态配置读取' }],
+    services: ['monster.visual-libraries'], protocols: ['monster.visual-libraries.reload / changed / validate-references'], scheduling: 'start 或显式重载；异步代次保护' }],
+  [monsterBattlefieldLabModule, { kind: 'configuration', responsibility: '实例、选择、布局的唯一持有者；管理对应面板与 LabState',
+    core: [{ path: 'core/monster/visual/monsterVisual.types.ts', symbols: 'VisualBattlefield', purpose: '视觉布局契约' }],
+    services: ['monster.battlefield.writer', 'monster.battlefield', 'monster.selection'], protocols: ['monster.battlefield.command / changed', 'monster.selection.command / changed'], scheduling: '命令提交；无周期任务' }],
+  [monsterVisualLabModule, { kind: 'system', responsibility: '唯一基础渲染器、表现能力注册、测试动作生命周期；持有外观与播放面板',
+    core: [{ path: 'core/monster/visual/MonsterVisualRuntime.ts', symbols: 'MonsterVisualRuntime', purpose: '基础渲染与显式能力装配' }],
+    services: ['monster.visual.runtime', 'monster.visual-settings'], protocols: ['monster.visual.command / action-changed', '消费实例、选择和外观库变化'], scheduling: '唯一 presentation / 200；按固定能力顺序推进，跟随暂停' }],
+  ...[
+    [monsterMovementLabModule, 'MonsterMovementController', '移动预设、目标位置、移动命令及面板', 'monster.movement'],
+    [monsterAttackLabModule, 'MonsterAttackController', '攻击预设、方向、攻击命令及面板', 'monster.attack'],
+    [monsterHitLabModule, 'MonsterHitController', '受击抖动、闪色、播放命令及面板', 'monster.hit'],
+    [monsterDeathLabModule, 'MonsterDeathController', '死亡预设、播放命令及面板', 'monster.death'],
+    [monsterLayoutDebugLabModule, 'MonsterLayoutHelpers', '编队网格、占位标记及显示开关面板', 'monster.layout'],
+    [monsterDistanceStripesLabModule, 'MonsterDistanceStripeRules', '按行距离条纹规则、预设和规则面板', 'monster.distance-stripes'],
+  ].map(([module, symbol, responsibility, key]) => [module, {
+    kind: 'system', responsibility,
+    core: [{ path: 'core/monster/visual/' + symbol + '.ts', symbols: symbol, purpose: responsibility }],
+    services: ['消费 monster.visual.runtime；拥有 ' + key + ' 状态'],
+    protocols: [key + ' 独立命令；消费实例/选择变化'],
+    scheduling: 'setup 注册能力；start 按需读取本模块预设；由唯一渲染任务推进；反向释放能力与面板',
+  }] as [LabModule, LabSystemManifest]),
+];
+export const monsterLabModuleCatalog: LabModuleCatalog = Object.freeze(Object.fromEntries(
+  entries.map(([module, manifest]) => [module.id, Object.freeze({ ...module, manifest })]),
+));
 export * from './monsterVisual.memory';
 export * from './monsterVisual.protocol';
 export * from './monsterBattlefield.model';
+export * from './monster-movement/monsterMovement.memory';
+export * from './monster-movement/monsterMovement.protocol';
+export * from './monster-attack/monsterAttack.memory';
+export * from './monster-attack/monsterAttack.protocol';
+export * from './monster-hit/monsterHit.memory';
+export * from './monster-hit/monsterHit.protocol';
+export * from './monster-death/monsterDeath.memory';
+export * from './monster-death/monsterDeath.protocol';
+export * from './monster-layout-debug/monsterLayoutDebug.memory';
+export * from './monster-layout-debug/monsterLayoutDebug.protocol';
+export * from './monster-distance-stripes/monsterDistanceStripes.memory';
+export * from './monster-distance-stripes/monsterDistanceStripes.protocol';

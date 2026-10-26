@@ -67,6 +67,10 @@ export const createNumberSprite = async (
   let parts: IconPlaneController[] = [];
   let debugMeshes: Mesh[] = [];
   let generation = 0;
+  let disposed = false;
+  const pendingParts = new Set<IconPlaneController>();
+  let resolveDisposed!: () => void;
+  const whenDisposed = new Promise<void>(resolve => { resolveDisposed = resolve; });
   let debugVisible = false;
 
   const clearDebugMeshes = () => {
@@ -110,7 +114,17 @@ export const createNumberSprite = async (
     parts = [];
   };
 
+  const disposeState = () => {
+    if (disposed) return;
+    disposed = true; generation += 1;
+    resolveDisposed(); clearParts();
+    for (const part of pendingParts) part.dispose?.();
+    pendingParts.clear();
+  };
+  root.onDisposeObservable.addOnce(disposeState);
+
   const setText = async (nextText: string) => {
+    if (disposed || scene.isDisposed) return;
     const currentGeneration = ++generation;
     clearParts();
     currentText = nextText;
@@ -128,7 +142,7 @@ export const createNumberSprite = async (
         const source = preset.glyphs[character];
         if (!source) continue;
         const { imagePath, region } = await resolveGlyph(source);
-        if (currentGeneration !== generation) {
+        if (disposed || scene.isDisposed || currentGeneration !== generation) {
           for (const item of created) item.controller.dispose?.();
           return;
         }
@@ -138,13 +152,15 @@ export const createNumberSprite = async (
           surfaceName: `number_sprite_${preset.presetKey}_${index}_${character}_surface`,
           surfaceFactory
         });
+        pendingParts.add(controller);
         controller.mesh.name = `number_sprite_${preset.presetKey}_${index}_${character}`;
         controller.mesh.parent = root;
         controller.mesh.isPickable = false;
         controller.mesh.showBoundingBox = debugVisible;
         controller.setFrameRegion(region);
-        await waitForTexture(controller);
-        if (currentGeneration !== generation) {
+        await Promise.race([waitForTexture(controller), whenDisposed]);
+        pendingParts.delete(controller);
+        if (disposed || scene.isDisposed || currentGeneration !== generation) {
           controller.dispose?.();
           for (const item of created) item.controller.dispose?.();
           return;
@@ -180,12 +196,12 @@ export const createNumberSprite = async (
     setText,
     isDebugVisible: () => debugVisible,
     setDebugVisible: (visible) => {
+      if (disposed) return;
       debugVisible = visible;
       refreshDebugMeshes();
     },
     dispose: () => {
-      generation += 1;
-      clearParts();
+      disposeState();
       root.dispose();
     }
   };

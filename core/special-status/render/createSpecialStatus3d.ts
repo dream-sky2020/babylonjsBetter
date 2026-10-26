@@ -53,12 +53,18 @@ export const createSpecialStatus3d = async (
   const clearIconDebug = () => { for (const item of iconDebugMeshes) item.dispose(); iconDebugMeshes = []; };
   const clearIcon = () => { clearIconDebug(); icon?.dispose?.(); icon = null; };
   const clearNumbers = () => { for (const item of numbers) item?.dispose(); numbers = [null, null, null, null]; };
+  const disposeState = () => {
+    if (disposed) return;
+    disposed = true; generation += 1; clearIcon(); clearNumbers();
+  };
+  root.onDisposeObservable.addOnce(disposeState);
   const applyRoot = () => {
     root.position.set(config.position[0], config.position[1], config.position[2]);
     root.billboardMode = config.billboard ? Mesh.BILLBOARDMODE_Y : 0;
     root.setEnabled(state.enabled);
   };
   const applyDebug = () => {
+    if (disposed || scene.isDisposed) return;
     clearIconDebug();
     if (icon) {
       icon.mesh.showBoundingBox = state.debug;
@@ -91,9 +97,9 @@ export const createSpecialStatus3d = async (
     ];
     const runtimePreset = { ...config.numberPreset, height: config.numberPreset.height * config.numberScale, billboard: false };
     const created = await Promise.all(state.values.map(async (value, index) => {
-      if (!state.visible[index]) return null;
+      if (disposed || scene.isDisposed || !state.visible[index]) return null;
       const number = await createNumberSprite(scene, String(value), runtimePreset, surfaceFactory);
-      if (disposed || currentGeneration !== generation) { number.dispose(); return null; }
+      if (disposed || scene.isDisposed || currentGeneration !== generation) { number.dispose(); return null; }
       const base = bases[index];
       const extra = config.numberOffsets[index];
       number.root.parent = root;
@@ -136,7 +142,7 @@ export const createSpecialStatus3d = async (
     setEnabled: (enabled) => { state = { ...state, enabled }; root.setEnabled(enabled); },
     dispose: () => {
       if (disposed) return;
-      disposed = true; generation += 1; clearIcon(); clearNumbers(); root.dispose();
+      disposeState(); root.dispose();
     }
   };
   applyRoot();

@@ -1,3 +1,4 @@
+import { MonsterLayoutHelpers, MonsterDistanceStripeRules, MonsterMovementController } from '@/core/monster';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { loadConfigFromUrl } from '@/core/config';
 import { createRoot } from 'react-dom/client';
@@ -5,7 +6,7 @@ import { createCameraLabController } from '@/core/camera/cameraLabController.ts'
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
-import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, MonsterVisualManager, normalizeMonsterConfigLibrary, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type MonsterDisplayConfigLibrary, type MonsterStripePresetLibrary, type StripePresetLibrary, type VisualBattlefield, type VisualMonster } from '@/core/monster';
+import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, MonsterVisualRuntime, normalizeMonsterConfigLibrary, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type MonsterDisplayConfigLibrary, type MonsterStripePresetLibrary, type StripePresetLibrary, type VisualBattlefield, type VisualMonster } from '@/core/monster';
 import { createDefaultMonsterMotionParameters, getMonsterMotionDefinition, monsterMotionDefinitions, normalizeMonsterMotionParameters, type MonsterMotionPreset, type MonsterMotionPresetLibrary } from '@/core/monster-motion';
 
 type Monster = { id:string; monsterConfigKey:string; monsterStripePresetKey:string; positionMode:'grid'|'center'; slots:number; row:number; column:number };
@@ -35,7 +36,7 @@ const CommitNumberInput:React.FC<{value:number;onCommit:(value:number)=>void;min
 };
 
 const App:React.FC=()=>{
- const canvasRef=useRef<HTMLCanvasElement>(null),stageRef=useRef<HTMLElement>(null),visualManagerRef=useRef<MonsterVisualManager|null>(null);
+ const canvasRef=useRef<HTMLCanvasElement>(null),stageRef=useRef<HTMLElement>(null),visualManagerRef=useRef<MonsterVisualRuntime|null>(null);
  const quickTestRef=useRef<{monsterId:string;points:[{row:number;column:number;center:boolean},{row:number;column:number;center:boolean}];next:0|1}|null>(null),quickMoveRef=useRef<()=>void>(()=>{});
  const configsRef=useRef<MonsterDisplayConfigLibrary>({}),monsterStripesRef=useRef<MonsterStripePresetLibrary>({}),stripesRef=useRef<StripePresetLibrary>({}),rulesRef=useRef<StripeRule[]>([]);
  const [configs,setConfigs]=useState<MonsterDisplayConfigLibrary>({}),[monsterStripes,setMonsterStripes]=useState<MonsterStripePresetLibrary>({}),[stripes,setStripes]=useState<StripePresetLibrary>({});
@@ -43,7 +44,8 @@ const App:React.FC=()=>{
  const [activeId,setActiveId]=useState(''),[selectedId,setSelectedId]=useState(''),[selectedPresetKey,setSelectedPresetKey]=useState(''),[testA,setTestA]=useState({row:1,column:1,center:false}),[testB,setTestB]=useState({row:3,column:3,center:false}),[testRunning,setTestRunning]=useState(false),[moveStep,setMoveStep]=useState(1),[targetPoint,setTargetPoint]=useState({row:1,column:1,center:false}),[message,setMessage]=useState('正在加载配置...');
  const source=battlefields[activeId],field=useMemo(()=>source?{...source,monsters:placements[activeId]||source.monsters}:null,[source,placements,activeId]),selected=field?.monsters.find(item=>item.id===selectedId),rules=rulesByField[activeId]||[],motionPreset=motionPresets[selectedPresetKey]||Object.values(motionPresets)[0],motionDefinition=getMonsterMotionDefinition(motionPreset?.modeId||monsterMotionDefinitions[0]?.id),motionParameters=motionPreset?.parameters||createDefaultMonsterMotionParameters(motionDefinition.parameters);
 
- useEffect(()=>{Promise.all([fetchJson(MONSTER_CONFIG_URL),fetchJson(MONSTER_STRIPE_PRESET_URL),fetchJson(STRIPE_PRESET_URL),fetchJson(FORMATION_URL),fetchJson(RULE_URL),fetchJson(MOVEMENT_URL)]).then(([rawConfigs,rawMonsterStripes,rawStripes,rawFields,rawRules,rawMovements])=>{
+ useEffect(()=>{Promise.all([fetchJson(MONSTER_CONFIG_URL),fetchJson(MONSTER_STRIPE_PRESET_URL),fetchJson(STRIPE_PRESET_URL),fetchJson(FORMATION_URL),fetchJson(RULE_URL),fetchJson(MOVEMENT_URL)]).then(([rawConfigs,rawMonsterStripes,rawStripes,rawFields,rawRulesValue,rawMovements])=>{
+  const rawRules = (rawRulesValue ?? {}) as Record<string, { rules?: StripeRule[] }>;
   const nextConfigs=normalizeMonsterConfigLibrary(rawConfigs),nextMonsterStripes=normalizeMonsterStripePresetLibrary(rawMonsterStripes),nextStripes=normalizeStripePresetLibrary(rawStripes),nextFields=Object.fromEntries(Object.entries(rawFields||{}).map(([id,value])=>[id,normalizeBattlefield(value as Partial<Battlefield>,id)]));
   const nextMovements=Object.fromEntries(Object.entries(rawMovements||{}).map(([key,value])=>[key,normalizePreset(key,value)]));
   configsRef.current=nextConfigs;monsterStripesRef.current=nextMonsterStripes;stripesRef.current=nextStripes;setConfigs(nextConfigs);setMonsterStripes(nextMonsterStripes);setStripes(nextStripes);setBattlefields(nextFields);setPlacements(Object.fromEntries(Object.entries(nextFields).map(([id,item])=>[id,cloneMonsters(item.monsters)])));setRulesByField(Object.fromEntries(Object.keys(nextFields).map(id=>[id,Array.isArray(rawRules?.[id]?.rules)?rawRules[id].rules.map((rule:StripeRule)=>({...rule})):[]])));setMotionPresets(nextMovements);setSelectedPresetKey(Object.keys(nextMovements)[0]||'');setActiveId(Object.keys(nextFields)[0]||'');setMessage(`已加载 ${Object.keys(nextFields).length} 个战场和 ${Object.keys(nextMovements).length} 个移动方式配置。`)
@@ -55,7 +57,7 @@ const App:React.FC=()=>{
  useEffect(()=>{
   const canvas=canvasRef.current,stage=stageRef.current;if(!canvas||!stage)return;
   const context=createCameraLabScene(canvas);context.camera.target.set(0,-1,-8);context.camera.radius=34;
-  const camera=createCameraLabController(context.camera),panel=createFloatingCameraControlPanel(stage,camera);visualManagerRef.current=new MonsterVisualManager(context.scene);
+  const camera=createCameraLabController(context.camera),panel=createFloatingCameraControlPanel(stage,camera);visualManagerRef.current=new MonsterVisualRuntime(context.scene, { capabilities: [MonsterLayoutHelpers, MonsterDistanceStripeRules, MonsterMovementController] });
   const drag={active:false,id:-1,x:0,y:0};
   const down=(event:PointerEvent)=>{if(event.button!==0)return;if(camera.state.lookControlMode==='pointerLock'){void canvas.requestPointerLock?.();return}drag.active=true;drag.id=event.pointerId;drag.x=event.clientX;drag.y=event.clientY;canvas.setPointerCapture(event.pointerId);canvas.style.cursor='grabbing'};
   const move=(event:PointerEvent)=>{if(!drag.active||drag.id!==event.pointerId)return;camera.handlePointerDelta(event.clientX-drag.x,event.clientY-drag.y);drag.x=event.clientX;drag.y=event.clientY;panel.syncFromController()};
@@ -69,11 +71,11 @@ const App:React.FC=()=>{
   return()=>{canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('wheel',wheel);document.removeEventListener('mousemove',locked);window.removeEventListener('keydown',keyDown);window.removeEventListener('keyup',keyUp);window.removeEventListener('resize',resize);visualManagerRef.current?.dispose();visualManagerRef.current=null;panel.dispose();context.dispose()};
  },[]);
 
- const renderField=(nextField:Battlefield)=>{const manager=visualManagerRef.current;if(!manager)return;const visualField=toVisualField(nextField);manager.setDistanceStripeRules({battlefieldId:nextField.id,name:`${nextField.id} 条纹距离规则`,rules:rulesRef.current});manager.sync(visualField,{configs:configsRef.current,monsterStripes:monsterStripesRef.current,stripes:stripesRef.current},selectedId)};
+ const renderField=(nextField:Battlefield)=>{const manager=visualManagerRef.current;if(!manager)return;const visualField=toVisualField(nextField);manager.distanceStripes.setDistanceStripeRules({battlefieldId:nextField.id,name:`${nextField.id} 条纹距离规则`,rules:rulesRef.current});manager.sync(visualField,{configs:configsRef.current,monsterStripes:monsterStripesRef.current,stripes:stripesRef.current},selectedId)};
  useEffect(()=>{if(field&&Object.keys(configs).length)renderField(field)},[activeId,configs]);
 
  const patchPlacements=(next:Monster[])=>activeId&&setPlacements(all=>({...all,[activeId]:next}));
- const moveMonster=(next:Monster)=>{if(!field||!selected||!motionPreset||!motionDefinition)return;const nextPreset={...motionPreset,parameters:{...motionParameters}};visualManagerRef.current?.moveMonster(toVisualField(field),toVisualMonster(next),nextPreset,()=>{if(quickTestRef.current?.monsterId===next.id)window.setTimeout(()=>quickMoveRef.current(),120)});patchPlacements(field.monsters.map(item=>item.id===selected.id?next:item))};
+ const moveMonster=(next:Monster)=>{if(!field||!selected||!motionPreset||!motionDefinition)return;const nextPreset={...motionPreset,parameters:{...motionParameters}};visualManagerRef.current?.movement.moveMonster(toVisualField(field),toVisualMonster(next),nextPreset,()=>{if(quickTestRef.current?.monsterId===next.id)window.setTimeout(()=>quickMoveRef.current(),120)});patchPlacements(field.monsters.map(item=>item.id===selected.id?next:item))};
  quickMoveRef.current=()=>{const test=quickTestRef.current;if(!test||!selected||selected.id!==test.monsterId)return;const point=test.points[test.next];test.next=test.next===0?1:0;moveMonster({...selected,positionMode:point.center?'center':'grid',row:indexInt(point.row-1),column:indexInt(point.column-1)})};
  const stopAutomaticTest=()=>{quickTestRef.current=null;setTestRunning(false)};
  const toggleQuickTest=()=>{if(testRunning){stopAutomaticTest();return}if(!selected)return;quickTestRef.current={monsterId:selected.id,points:[{...testA},{...testB}],next:0};setTestRunning(true);queueMicrotask(()=>quickMoveRef.current())};

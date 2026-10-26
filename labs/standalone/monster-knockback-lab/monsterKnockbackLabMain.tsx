@@ -1,3 +1,4 @@
+import { MonsterDeathController } from '@/core/monster';
 /* eslint-disable react-refresh/only-export-components, react-hooks/exhaustive-deps */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { loadConfigFromUrl } from '@/core/config';
@@ -10,7 +11,7 @@ import {
   MONSTER_CONFIG_URL,
   MONSTER_STRIPE_PRESET_URL,
   STRIPE_PRESET_URL,
-  MonsterVisualManager,
+  MonsterVisualRuntime,
   normalizeMonsterConfigLibrary,
   normalizeMonsterStripePresetLibrary,
   normalizeStripePresetLibrary,
@@ -74,7 +75,7 @@ const CommitNumberInput: React.FC<{
 const App: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLElement>(null);
-  const managerRef = useRef<MonsterVisualManager | null>(null);
+  const managerRef = useRef<MonsterVisualRuntime | null>(null);
   const activePresetRef = useRef<MonsterDeathPreset | undefined>(undefined);
   const otherDeathPresetsRef = useRef<MonsterDeathPresetLibrary>({});
   const resourcesRef = useRef<{ configs: MonsterDisplayConfigLibrary; monsterStripes: MonsterStripePresetLibrary; stripes: StripePresetLibrary }>({ configs: {}, monsterStripes: {}, stripes: {} });
@@ -95,7 +96,7 @@ const App: React.FC = () => {
     const manager = managerRef.current;
     const resources = resourcesRef.current;
     if (!manager || !resources.configs[nextMonsterKey]) return;
-    manager.stopMonsterDeath(PREVIEW_MONSTER_ID);
+    manager.death.stopMonsterDeath(PREVIEW_MONSTER_ID);
     manager.sync({ id: 'deathPreview', name: '死亡预览', width: 1, cellSize: 2.5, rowSpacing: 4, monsters: [{
       id: PREVIEW_MONSTER_ID,
       typeId: nextMonsterKey,
@@ -112,8 +113,8 @@ const App: React.FC = () => {
     const manager = managerRef.current;
     const selectedPreset = preset || activePresetRef.current;
     if (!manager || !selectedPreset) return;
-    manager.stopMonsterDeath(PREVIEW_MONSTER_ID);
-    manager.playMonsterDeath(PREVIEW_MONSTER_ID, selectedPreset, () => setMessage(`播放完成：${selectedPreset.name}`));
+    manager.death.stopMonsterDeath(PREVIEW_MONSTER_ID);
+    manager.death.playMonsterDeath(PREVIEW_MONSTER_ID, selectedPreset, () => setMessage(`播放完成：${selectedPreset.name}`));
     setIsError(false);
     setMessage(`正在播放：${selectedPreset.name} · ${getMonsterDeathDefinition(selectedPreset.modeId).name}`);
   };
@@ -154,8 +155,8 @@ const App: React.FC = () => {
     const context = createCameraLabScene(canvas);
     const camera = createCameraLabController(context.camera);
     const panel = createFloatingCameraControlPanel(stage, camera);
-    const manager = new MonsterVisualManager(context.scene);
-    manager.setHelpersVisible(false);
+    const manager = new MonsterVisualRuntime(context.scene, { capabilities: [MonsterDeathController] });
+
     managerRef.current = manager;
     const drag = { active: false, id: -1, x: 0, y: 0, moved: false };
     const down = (event: PointerEvent) => { if (event.button !== 0) return; drag.active = true; drag.id = event.pointerId; drag.x = event.clientX; drag.y = event.clientY; drag.moved = false; canvas.setPointerCapture(event.pointerId); canvas.style.cursor = 'grabbing'; };
@@ -213,7 +214,7 @@ const App: React.FC = () => {
           {groups.map((group) => <div className="parameter-group" key={group}><strong>{group}</strong><div className="grid-2">{Object.entries(definition.parameters).filter(([, item]) => (item.group || '参数') === group).map(([key, item]) => <div key={key}>{item.type === 'number' ? <><label>{item.label}</label><CommitNumberInput value={Number(parameters[key])} min={item.min} max={item.max} step={item.step} onCommit={(value) => patchParameter(key, value)} /></> : item.type === 'boolean' ? <label><input type="checkbox" checked={Boolean(parameters[key])} onChange={(event) => patchParameter(key, event.target.checked)} /> {item.label}</label> : item.type === 'color' ? <><label>{item.label}</label><input type="color" value={String(parameters[key])} onChange={(event) => patchParameter(key, event.target.value)} /></> : <><label>{item.label}</label><select value={String(parameters[key])} onChange={(event) => patchParameter(key, event.target.value)}>{item.options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></>}</div>)}</div></div>)}
           <div className="grid-2 section"><button onClick={duplicatePreset}>复制配置</button><button disabled={Object.keys(presets).length <= 1} onClick={deletePreset}>删除配置</button></div></>}
       </section>
-      <section className="section grid-2"><button className="primary" disabled={!activePreset} onClick={() => playDeath()}>播放击飞</button><button onClick={() => { managerRef.current?.stopMonsterDeath(PREVIEW_MONSTER_ID); setMessage('已重置怪物。'); }}>重置怪物</button></section>
+      <section className="section grid-2"><button className="primary" disabled={!activePreset} onClick={() => playDeath()}>播放击飞</button><button onClick={() => { managerRef.current?.death.stopMonsterDeath(PREVIEW_MONSTER_ID); setMessage('已重置怪物。'); }}>重置怪物</button></section>
       <section className="section"><button className="save" onClick={() => void save()}>保存全部击飞配置</button><div className={`status${isError ? ' error' : ''}`}>{message}</div></section>
     </aside>
     <main className="stage" ref={stageRef}><canvas ref={canvasRef} /><a className="top-link" href="../../../index.html">返回调试入口</a><div className="stage-hint">单击场景播放 · 拖动旋转视角 · 滚轮缩放</div></main>
