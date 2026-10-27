@@ -22,6 +22,7 @@ export type SpriteDeathParticleController = {
   setProgress: (progress: number) => void;
   setDisplayScale: (scale: number) => void;
   updateTime: (time: number) => void;
+  setPaused: (paused: boolean) => void;
   dispose: () => void;
 };
 
@@ -88,6 +89,7 @@ export const createSpriteDeathParticles = (
   };
 
   const controller: SpriteDeathParticleController = {
+    setPaused: paused => { system.updateSpeed = paused ? 0 : .012; },
     setPreset: (next) => {
       const changed = next.particleMode !== preset.particleMode;
       preset = next;

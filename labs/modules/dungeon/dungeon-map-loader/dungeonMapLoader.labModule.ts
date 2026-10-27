@@ -28,6 +28,8 @@ import {
   type DungeonMapSceneEnvironmentInstance,
 } from '@/core/scene';
 import { createSceneEnvironmentViewController } from '@/core/dungeon-view/sceneEnvironmentDisplay.ts';
+import { DungeonSceneDraft, createDungeonSceneEditing, validateSceneTransformOverrides, type SceneTransformOverrides } from './dungeonSceneEditing';
+import type { SceneEnvironmentPreset } from '@/core/scene/sceneEnvironment.types';
 import {
   createLabField,
   createLabJson,
@@ -204,6 +206,45 @@ export const dungeonMapLoaderLabModule: LabModule = {
     let deltaStateRegistration: LabStateRegistration<DungeonMapDeltaStore> | null = null;
     let runtimeStatesRegistration: LabStateRegistration<typeof runtimeSaves> | null = null;
     let activeInstance: DungeonMapSceneEnvironmentInstance | null = null;
+    let sceneEditing: ReturnType<typeof createDungeonSceneEditing> | null = null;
+    let sceneEditingBusy = false;
+    let activeSceneBase: SceneEnvironmentPreset | null = null;
+    const sceneDrafts = new Map<string, DungeonSceneDraft>();
+    let restoredSceneDrafts: Record<string, SceneTransformOverrides> = {};
+    const sceneDraftChanged = () => { sceneDraftState.markChanged(); objectRegistration?.refresh(); };
+    const getSceneDraft = (base: SceneEnvironmentPreset) => {
+      let draft = sceneDrafts.get(base.presetKey);
+      if (!draft) { draft = new DungeonSceneDraft(base, sceneDraftChanged, restoredSceneDrafts[base.presetKey]); sceneDrafts.set(base.presetKey, draft); }
+      return draft;
+    };
+    const objectRegistration = context.objects?.register({
+      id: 'map-scene', label: '地图场景', roots: () => activeInstance ? [activeInstance.root] : [],
+      objects: () => sceneEditing?.objects() ?? [],
+    });
+    const sceneDraftState = context.labState.registerReference({ moduleId: 'dungeon-map-loader', key: 'scene-transforms', version: 1,
+      value: sceneDrafts, inspect: () => Object.fromEntries([...sceneDrafts].map(([key, draft]) => [key, { dirty: draft.dirty, edits: Object.keys(draft.history.value).length }])),
+      save: {
+        serialize: () => ({ ...restoredSceneDrafts, ...Object.fromEntries([...sceneDrafts].map(([key, draft]) => [key, draft.history.value])) }) as unknown as LabStateJsonValue,
+        validate(saved, version) {
+          if (version !== 1 || !saved || typeof saved !== 'object' || Array.isArray(saved)) throw new Error('场景变换存档无效。');
+          const values = Object.fromEntries(Object.entries(saved).map(([key, value]) => [key, validateSceneTransformOverrides(value)]));
+          const environments = librariesReference.current?.environments;
+          if (environments) for (const [key, value] of Object.entries(values)) {
+            if (!environments[key]) throw new Error(`场景变换存档引用了不存在的预设：${key}`);
+            new DungeonSceneDraft(environments[key], () => {}, value);
+          }
+          return values as unknown as LabStateJsonValue;
+        },
+        restore(_value, saved) {
+          sceneEditingBusy = true; objectRegistration?.refresh();
+          try {
+            sceneEditing?.dispose(); sceneEditing = null; sceneDrafts.clear();
+            restoredSceneDrafts = structuredClone(saved) as unknown as Record<string, SceneTransformOverrides>;
+            if (activeInstance && activeSceneBase) sceneEditing = bindSceneEditing(activeInstance, getSceneDraft(activeSceneBase));
+          } finally { sceneEditingBusy = false; sceneEditing?.sync(); objectRegistration?.refresh(); }
+        },
+      },
+    });
     let agentCommandSession: { loadId: number; map: DungeonRuntime['map']; system: DungeonAgentSystem } | null = null;
     context.services.set(DUNGEON_AGENT_CONTROL_SERVICE_KEY, createDungeonAgentControl(() => {
       if (!activeRuntime) return null;
@@ -242,6 +283,16 @@ export const dungeonMapLoaderLabModule: LabModule = {
       },
     });
     const sceneView = createSceneEnvironmentViewController();
+    const offSceneView = sceneView.subscribe(() => {
+      const wasBusy = sceneEditingBusy;
+      sceneEditingBusy = true; objectRegistration?.refresh();
+      sceneEditingBusy = wasBusy; objectRegistration?.refresh();
+    });
+    const bindSceneEditing = (instance: DungeonMapSceneEnvironmentInstance, draft: DungeonSceneDraft) => createDungeonSceneEditing(instance, draft, {
+      canEdit: () => !sceneEditingBusy && activeInstance === instance && !sceneView.isTransformed,
+      changed: () => objectRegistration?.refresh(),
+      display: preset => { if (activeInstance === instance) sceneView.setCurrent(instance, preset); },
+    });
     context.services.set(DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY, sceneView.consumer);
     const saveActiveRuntime = () => {
       if (!activePresetKey || !activeRuntime || !activeSpawn) return;
@@ -350,6 +401,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         const preset = libraries.maps[presetKey];
         if (!preset) throw new Error(`找不到地牢预设“${presetKey}”。`);
         const loadId = ++generation;
+        sceneEditingBusy = true; objectRegistration?.refresh();
         assembly.beginSession(loadId);
         const releasePause = assembly.acquirePause();
         failedWarmupLayer?.dispose(); failedWarmupLayer = null;
@@ -373,6 +425,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
             throw new Error(`地图“${presetKey}”的入口/出口配置无效：${transitionIssues.map(({ message }) => message).join(' ')}`);
           }
           const binding = resolveDungeonDocumentSceneEnvironment(liveDocument, libraries.environments);
+          const sceneDraft = getSceneDraft(binding.preset);
           if (binding.preset.renderWarmup?.enabled) {
             loadingLayer = context.viewport.openHtmlLayer({ id: `dungeon:loading:${loadId}`, title: '场景准备',
               mode: 'overlay', interactive: true, initiallyVisible: true, closable: false, pauseBabylonRendering: true });
@@ -421,8 +474,12 @@ export const dungeonMapLoaderLabModule: LabModule = {
             const obstacles = runtime.obstacles;
             const previousPresetKey = activePresetKey;
             const previousInstance = activeInstance;
+            const previousSceneEditing = sceneEditing;
             activeInstance = instance;
-            sceneView.setCurrent(instance, binding.preset);
+            activeSceneBase = binding.preset;
+            sceneEditing = bindSceneEditing(instance, sceneDraft);
+            sceneEditing.sync();
+            objectRegistration?.refresh(); previousSceneEditing?.dispose();
             activePresetKey = presetKey;
             activeRuntime = runtime;
             actionPause?.(); actionPause=null;
@@ -435,6 +492,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
             committed = true;
             previousInstance?.root.setEnabled(false);
             instance.root.setEnabled(true);
+            objectRegistration?.refresh();
             context.scene.clearColor = Color4.FromHexString(binding.preset.clearColor);
             deformationMemory.replace(createDungeonDeformationData(loadId, presetKey, liveDocument));
             overheadMemory.replace(createDungeonOverheadSettingsData(loadId, presetKey, liveDocument));
@@ -501,11 +559,14 @@ export const dungeonMapLoaderLabModule: LabModule = {
           }
           throw error;
         } finally {
+          if (loadId === generation) { sceneEditingBusy = false; objectRegistration?.refresh(); }
           if (pendingLoad === abort) pendingLoad = null;
           loadingLayer?.dispose(); releasePause();
         }
       },
       dispose() {
+        objectRegistration?.dispose();
+        offSceneView(); sceneEditing?.dispose(); sceneEditing = null; sceneDraftState.unregister(); sceneDrafts.clear();
         stopSimulation();
         actionPause?.(); actionPause=null;
         generation += 1;

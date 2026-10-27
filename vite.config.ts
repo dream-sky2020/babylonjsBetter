@@ -287,6 +287,7 @@ export default defineConfig({
         dungeonSpatialActionsLab: path.resolve(__dirname, 'labs/composable/dungeon-spatial-actions-lab/index.html'),
         dungeonAgentLab: path.resolve(__dirname, 'labs/composable/dungeon-agent-lab/index.html'),
         monsterVisualComposableLab: path.resolve(__dirname, 'labs/composable/monster-visual-lab/index.html'),
+        monsterDissolveComposableLab: path.resolve(__dirname, 'labs/composable/monster-dissolve-lab/index.html'),
         // 普通 Lab
         clashLab: path.resolve(__dirname, 'labs/draggable/clash-lab/index.html'),
         legacyClashLab: path.resolve(__dirname, 'labs/standalone/clash-lab/index.html'),

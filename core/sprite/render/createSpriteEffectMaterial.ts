@@ -459,6 +459,7 @@ export const createSpriteEffectMaterial = (
   // Surface-backed sprites pass their already configured atlas Texture here, so
   // limiting the mask switch to maskTexturePath would paint stripes over the
   // transparent part of the whole atlas frame.
+  material.setFloat('uSpriteOpacity', 1);
   material.setFloat('uUseMask', options.maskTexturePath || options.sourceTexture ? 1 : 0);
 
   const applyPreset = (preset: StripePresetLike) => {

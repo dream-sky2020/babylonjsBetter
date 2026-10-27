@@ -13,8 +13,11 @@ import type { LabPerformance } from './performance/LabPerformance';
 import type { LabViewportManager } from './labViewportManager';
 import type { LabKeyboardRouter } from './keyboard';
 import type { CameraLabController, CameraLabControllerState, CameraViewPreset } from '@/core/camera/cameraLabController.ts';
+import type { LabObjectScope } from './objects/LabObjects';
 
 export type LabContext = {
+  /** Present in the standard Host; optional for older/custom test hosts. */
+  objects?: LabObjectScope;
   /** 按统一定义申请共享数据；不存在即创建，存在则检查类型并复用引用。无读写权限检查。 */
   memory: LabMemoryScope;
   /** Host owns cleanup; task phase/order is independent of panel order. */

@@ -7,7 +7,8 @@ config.configFile = false;
 config.build = { ...config.build, outDir: 'node_modules/.cache/monster-visual-build', copyPublicDir: false,
   rollupOptions: { ...config.build?.rollupOptions, input: Object.fromEntries([
     ['monsterVisual', config.build.rollupOptions.input.monsterVisualComposableLab],
-    ...['monster-3d-visual-lab', 'monster-formation-lab', 'monster-battlefield-stripe-rules-lab',
+    ['monsterDissolve', config.build.rollupOptions.input.monsterDissolveComposableLab],
+    ...['monster-3d-visual-lab', 'monster-dissolve-effect-lab', 'monster-formation-lab', 'monster-battlefield-stripe-rules-lab',
       'monster-movement-lab', 'monster-attack-lab', 'monster-hit-feedback-lab', 'monster-knockback-lab',
       'monster-special-status-position-lab', 'monster-exclamation-position-lab',
       'special-status-visual-lab', 'exclamation-mark-lab'].map(name => {

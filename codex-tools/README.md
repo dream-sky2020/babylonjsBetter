@@ -1,5 +1,13 @@
 # Codex 工具与资源处理档案
 
+`verifyMonsterDissolveLab.cjs` 经 `npm run test:monster-dissolve-webgl` 验证新增怪物消散组合页：最小装配、独立 Lab 的七项预设、当前 Host 选择、身体/线稿参数与底部临时隐藏、手动进度、恢复、领域文档不变、多对象隔离、完成和粒子清理；原视觉页不加载消散模块。使用独立内存浏览会话，拒绝写请求，报告/截图为 node_modules/.cache/monster-dissolve-lab.*。`labWorkbenchProbe.ts` 仅读取实际场景的分层材质参数与粒子状态。
+
+`verifyMonsterVisualObjects.cjs` 经 `npm run test:monster-visual-objects-webgl` 验证正式 Monster Visual 组合页：仅一个怪物模块加既有地图加载链、四层稳定父节点、整体/分层数值与真实鼠标 Gizmo、属性选择、显隐历史、复制删除、JSON 导入校验、本机保存刷新及切图保留。阻止网络写请求，报告/截图为 node_modules/.cache/monster-visual-objects.*。原动作、工作台和场景编辑图形测试改用 `monsterVisualRuntimePage.html` 回归工具页，继续验证既有动作模块，不把动作重新装回正式视觉对象页。
+
+`verifyLabObjectEditing.cjs` 经 `npm run test:lab-object-editing-webgl` 检查组合式 Lab 场景声明对象的公共数值框、真实 Gizmo 拖动、一笔撤销/重做、Escape 取消、切图中取消与已提交草稿恢复，以及怪物保持只读。保存测试在页面内模拟 PUT 成功/失败，核对单场景声明及重试保留，真实网络层拒绝写请求。复用 labWorkbenchProbe.ts 只读投影工具柄和检查渲染节点；报告/截图为 node_modules/.cache/lab-object-editing.*。
+
+`verifyLabWorkbench.cjs` 经 `npm run test:lab-workbench-webgl` 在隔离隐藏 Electron 验证共享组合式工作台：真实分隔条拖动、键盘调宽及刷新恢复、模块/诊断分类、对象树与怪物选择双向联动、显隐和锁定、增删及切图后的旧节点清理，并检查既有 Dungeon 场景加载 Lab。`labWorkbenchProbe.ts` 只读获取实际 Babylon 对象状态及投影坐标。阻止写请求，报告/截图位于 node_modules/.cache/lab-workbench-*。
+
 `buildMonsterVisualLab.mjs` 通过 `npm run build:monster-visual` 构建怪物组合式页及 11 个迁移后的独立 Lab，不复制 public。`verifyMonsterVisualLab.cjs` 经 `npm run test:monster-visual-webgl` 在隔离隐藏 Electron 中验证九个怪物模块的面板归属与公共顺序、唯一表现任务、真实 Host 集成和全部独立页面交互。monsterModuleAssemblyVerification.ts 检查七种最小模块组合的资源请求、命令隔离、参数恢复和旧存档；monsterVisualCapabilitiesVerification.ts 检查 Core 能力卸载、动作替换和异步销毁；monsterVisualPageProbe.ts 只读检查实际场景对象。阻止写请求，报告／截图在 node_modules/.cache/monster-visual-verification.*。
 
 `verifyUiClipboard.cjs` 经 runElectronVerification.mjs 验证 UI Lab 的 Shift+方向键范围选择、过滤顺序、右键多选复制/剪切/粘贴/删除、完整子树、锁定保护、撤销重做及实际键盘快捷键；不写正式预设，报告在 node_modules/.cache/ui-clipboard-verification.json。

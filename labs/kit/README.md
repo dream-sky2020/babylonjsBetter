@@ -1,5 +1,31 @@
 # 可组合 Lab 模块规范
 
+## 共享工作台与对象树（2026-10-27）
+
+标准 `createLab` 使用左侧对象树、中间视口、右侧紧凑操作面板。左右分隔条支持拖动、方向键调宽、双击复位；顶部可隐藏侧栏或恢复布局。工作区偏好按 pathname 存入 `babylonjsBetter:lab-workspace:${pathname}:v1`，不进入 LabState。模块操作与系统诊断分开，模块说明位于各标题的“说明”中；原有面板折叠偏好继续生效。
+
+模块通过 `context.objects?.register({ id, label, objects, roots, onSelect })` 提供语义对象。`objects()` 返回稳定 ID、名称、Babylon 节点及可选 parentId/kind/pickNodes/canHide；`roots()` 声明本模块拥有的渲染根，避免重复列出原始内部节点。公共 Host 不导入任何具体模块。旧自定义 Host 可省略该接口。
+
+`context.objects.getSelected()` 读取 Host 的当前语义选择，`subscribe(listener)` 订阅选择/对象变化并返回清理函数。消费者应核对 ownerId，不能继续操作先前选中的其他模块对象。消散预览通过视觉对象模块自己的领域服务使用此接口；不把第二份选择状态写入业务文档。
+
+对象还可声明 `mountInspector(element): cleanup`，在公共变换面板下挂载模块自己的视觉/业务属性；Host 在选择切换和销毁时清理，回调应保持稳定。可选 `setVisible(visible)` 将树行显隐委托领域文档及历史；未提供时仍是原有临时显隐。monster-visual-objects 把怪物整体和四层父节点分别声明为可编辑对象，选中根节点查看完整视觉属性，选中图层查看图层属性。
+
+登记返回 `refresh()`、`select(id)`、`dispose()`：离散结构变化后刷新，领域选中变化后静默同步 select，树/视口选中则通过 onSelect 调用既有领域命令。Host 在模块退出时兜底移除登记。不要逐帧扫描对象或把调试选择写成第二份业务状态。
+
+对象树复用 Core ObjectHierarchy，支持搜索、双击/F 聚焦、行内临时显隐和视口选择锁定。怪物实例为一个语义对象，四层精灵等内部节点放入“渲染细节”；未登记的资源以只读节点显示，“辅助对象”控制 Debug/Helper 的显示。锁定对象仍可从树中检查，但不接受视口拾取或变换编辑。显隐与锁定属于当前调试会话，不修改正式预设。
+
+### 可选变换编辑
+
+`LabObject.edit` 声明明确可写的 target、channels（position/rotation/scaling）、spaces、uniformScale/minScale，以及可选 canEdit/begin/preview/cancel/sync 和必需 commit。复用 Core EditorTransform：父级局部坐标、XYZ 欧拉角度数；Local/World 仅决定 Gizmo 轴向。默认没有 edit，即只读。内部精灵或导入网格不会自动成为编辑目标。
+
+Host 创建唯一 SceneEditor，关闭其内置拾取/键盘/节点观察，由原 Host 对象登记驱动选择和刷新。Gizmo 和右侧数值框共用同一事务；开始编辑时暂停相机和其他键盘消费者，取消或结束后按现有 Viewport 门控恢复。切换选择、隐藏、锁定、目标重建及模块退出会取消未完成事务。模块须在释放目标前刷新/撤销对象登记。
+
+commit 必须同步校验并应用领域数据；不把异步请求当作提交完成。需要异步外部持久化时提供 `edit.history.save`，失败保留草稿并允许重试。`history` 同时提供 label、canUndo/canRedo/dirty、undo/redo 与可选 saveLabel；历史存储和存档格式均由业务模块拥有。Host 只将撤销/重做/保存路由到当前对象的历史，Ctrl/Cmd+Z、Shift+Z/Y 复用键盘路由，输入框保留原生撤销。
+
+首批由 dungeon-map-loader 登记场景声明对象，草稿进入自己的 LabState；开发态明确点击“保存场景预设”才写既有场景 API，静态构建导出 JSON。怪物等运行时对象尚未声明编辑能力；非等比俯视显示补偿期间场景暂不可编辑。
+
+`npm run test:lab-workbench` 验证对象登记与偏好校验；已有 1184 服务启动后，`npm run test:lab-workbench-webgl` 验证真实布局与场景/怪物交互。
+
 ## 共享数据申请与系统图（2026-10-12）
 
 ### 2D 空间与动作状态归属（2026-10-17）

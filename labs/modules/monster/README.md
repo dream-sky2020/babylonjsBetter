@@ -1,6 +1,18 @@
 # 怪物组合式模块
 
-monsterLabModuleCatalog 包含九个相互独立装配的模块。模块按 Host 公共执行计划创建各自面板：依赖层级优先，同层按发现顺序；不手动移动其他模块 DOM。
+`labs/composable/monster-dissolve-lab/` 在视觉对象页的地图加载和对象模块之上增加 `monster-dissolve-preview`。在对象树/画面选中怪物或其任一图层，到“怪物消散测试”面板选择独立 Lab 的预设，点击“对选中怪物播放”。身体和线稿应用消散，底部填充和边框从动画开始渐隐，可分别设置完全消失的动画百分比；恢复时遵循对象原有显隐。支持手动预览进度、恢复单个/全部对象，多个怪物分别持有预览状态。选中场景对象时禁止播放。测试模块只保存预设选择，不修改怪物文档或预设库。
+
+`monster-visual-objects/monsterVisualObjects.service.ts` 是预览模块的唯一对象访问入口；分层目标 revision 在资源重载或文档恢复时变化，测试效果及时清理。原始视觉页仍不安装测试模块。新页本机对象文档按 pathname 隔离，原页保存数据继续使用原键。通过 `test:monster-dissolve` / `test:monster-dissolve-webgl` 验证新模块与七个现有预设。
+
+Monster Visual 组合页现在仅使用 `monster-visual-objects`，另保留 dungeon-config 的场景加载链。该怪物模块无其他模块依赖，直接读取外观及视觉样式资源，复用底层四层精灵渲染，不引入战场和动作运行时。
+
+对象根节点支持整体移动/旋转/缩放；四层各有稳定父节点，可独立编辑局部变换、资源路径及显隐。选中根节点还可编辑外观尺寸、内部倍率/偏移、面向轴及视觉样式。对象树显隐和属性显隐共用领域文档与历史。实例配置为独立副本，不写公共预设。保存到本机后刷新自动恢复；文档可导入/导出 JSON，也随本模块 LabState 保存。模块面板保留文档级撤销入口，删除最后一个对象后仍能撤销。
+
+`monsterVisualObjects.model.ts` 管理文档校验和历史；`MonsterVisualObjects.ts` 绑定渲染节点及编辑能力；`.labModule.ts` 持有资源加载、Host 适配和 UI。整体变换、外观内部变换、图层局部变换分别保存；刷新资源保留各层父节点，恢复文档会取消未完成编辑。空图片路径保留可编辑父节点，可稍后补回资源。
+
+`test:monster-visual-objects` 与 `test:monster-visual-objects-webgl` 覆盖新页。旧动作模块的回归装配位于 codex-tools/monsterVisualRuntimePage.html，原独立 Lab 完整保留。
+
+monsterLabModuleCatalog 同时保留以下九项动作测试模块及新视觉对象模块。模块按 Host 公共执行计划创建各自面板：依赖层级优先，同层按发现顺序。
 
 | 模块 | 依赖 | 状态与面板 |
 | --- | --- | --- |
@@ -20,7 +32,7 @@ monsterLabModuleCatalog 包含九个相互独立装配的模块。模块按 Host
 
 monster-visual 拥有 monster.visual.runtime 服务。可选模块 setup 时注册各自 Core 能力，并在释放时注销。所有能力由唯一 presentation / 200 任务按固定顺序推进；模块不创建额外 Scene、相机、Engine 或循环。Host 暂停与基础显示面板的公共暂停均冻结表现，相机保持可操作。
 
-同一实例的测试动作互相替换，不同实例独立。monsterActionLifecycle.ts 只协调已注册能力的停止与 actionId 终态，不加载资源、不构建面板。清空、重置、配置更新和销毁取消相关动作；移除单项能力只取消该类表现。完整测试页显式列出所有选装模块，继续复用 dungeon-config 的既有地图加载链；总计十二项模块，切图保持怪物实例。
+同一实例的测试动作互相替换，不同实例独立。monsterActionLifecycle.ts 只协调已注册能力的停止与 actionId 终态，不加载资源、不构建面板。清空、重置、配置更新和销毁取消相关动作；移除单项能力只取消该类表现。动作回归工具页显式列出所有选装模块，复用 dungeon-config 场景加载链，切图保持怪物实例。正式 Monster Visual 组合页使用上面的单一视觉对象模块。
 
 ## 数据与协议
 

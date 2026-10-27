@@ -1,4 +1,5 @@
 export * from './createLab';
+export * from './objects/LabObjects';
 export * from './camera';
 export * from './execution-plan';
 export * from './labCommunication';

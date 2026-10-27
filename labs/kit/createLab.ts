@@ -29,6 +29,11 @@ import { createLabCameraSystem } from './camera';
 import { LabPerformance, profileSystemTask } from './performance/LabPerformance';
 import { createLabPerformancePanel } from './performance/labPerformancePanel';
 import type { SystemTask } from '@/core/system-runtime/SystemRunner';
+import { LabWorkbench } from './workbench/LabWorkbench';
+import { LabObjects } from './objects/LabObjects';
+import { mountLabObjectTree } from './objects/LabObjectTree';
+import { LabObjectEditor } from './objects/LabObjectEditor';
+import { mountLabObjectEditorPanel } from './objects/LabObjectEditorPanel';
 
 type ActiveModule = {
   readonly entry: LabExecutionPlanEntry;
@@ -107,35 +112,16 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const executionMonitor = new LabExecutionMonitor(executionPlan);
 
   options.root.className = 'lab-host';
-  const layout = document.createElement('div');
-  layout.className = 'lab-layout';
-  const sidebar = document.createElement('aside');
-  const heading = document.createElement('h1');
-  heading.textContent = options.title;
-  const description = document.createElement('p');
-  description.className = 'lab-description';
-  description.textContent = options.description;
-  const status = document.createElement('div');
-  status.className = 'lab-global-status';
-  status.textContent = '正在初始化 Lab 模块……';
-  const panels = document.createElement('div');
-  panels.className = 'lab-panels';
+  const workbench = new LabWorkbench(options.root, options.title, options.description);
+  const { stage, canvas, panels, status } = workbench;
   const home = document.createElement('a');
   home.className = 'lab-home-link';
   home.href = '../../../index.html';
   home.textContent = '返回工具入口';
-  sidebar.append(heading, description, status, panels, home);
-
-  const stage = document.createElement('main');
-  stage.className = 'lab-viewport';
-  const canvas = document.createElement('canvas');
-  canvas.className = 'lab-babylon-canvas';
+  workbench.header.append(home);
   const badge = document.createElement('div');
   badge.className = 'lab-badge';
   badge.textContent = options.badge;
-  stage.append(canvas);
-  layout.append(sidebar, stage);
-  options.root.replaceChildren(layout);
 
   const engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
   const frameClock = new LabFrameClock();
@@ -182,7 +168,9 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const registerTask = (owner: string, task: SystemTask) => runner.register(owner, profileSystemTask(performanceStats, owner, task));
   const services = new LabServiceRegistry();
   const memory = new LabMemoryRegistry();
-  const ui = new LabUi(panels, status);
+  const ui = new LabUi(panels, status, { diagnostics: workbench.diagnostics,
+    reveal: category => category === 'diagnostics' ? workbench.showDiagnostics() : workbench.showModules() });
+  const objects = new LabObjects(error => ui.setStatus(error instanceof Error ? error.message : String(error), true));
   const disposeExecutionPlanPanel = createLabExecutionPlanPanel(ui, executionMonitor, runner, services, communication);
   const disposeCommunicationLogPanel = createLabCommunicationLogPanel(ui, communication.journal);
   const labState = createLabState();
@@ -227,13 +215,27 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const disposeLabStatePanel = createLabStatePanel(ui, labState);
   const disposeKeyboardPanel = createLabKeyboardDebugPanel(ui, keyboard);
   const cameraSystem = createLabCameraSystem(stage, ui, camera, keyboard, options.initialCamera, options.cameraPresets);
-  const viewport = new LabViewportManager(stage, canvas, cameraSystem, () => engine.resize());
+  let objectEditor: LabObjectEditor | undefined;
+  let viewportInputEnabled = true, editingInput = false;
+  const syncCameraInput = () => cameraSystem.setInputEnabled(viewportInputEnabled && !editingInput);
+  const viewport = new LabViewportManager(stage, canvas, { setInputEnabled(enabled) {
+    viewportInputEnabled = enabled;
+    if (!enabled) objectEditor?.editor.cancel();
+    syncCameraInput();
+  } }, () => engine.resize());
+  workbench.connectResize(() => engine.resize());
+  objectEditor = new LabObjectEditor(scene, objects, keyboard, { isInputPaused: () => viewport.isBabylonInputPaused,
+    cameraInput(suspended) { editingInput = suspended; syncCameraInput(); }, report: (message, error) => ui.setStatus(message, error) });
+  const transformPanel = ui.addPanel('object-transform', '对象变换', { category: 'modules' });
+  const disposeTransformPanel = mountLabObjectEditorPanel(transformPanel.content, objectEditor);
+  const disposeObjectTree = mountLabObjectTree(workbench.objects, objects, scene, cameraSystem.controller, keyboard, () => viewport.isBabylonInputPaused, objectEditor);
   const disposeMemoryPanel = createLabMemoryPanel(ui, viewport, memory, executionPlan.entries.map(entry => entry.module));
   const disposeCommunicationPanel = createLabCommunicationPanel(ui, viewport, communication);
   const disposePerformancePanel = createLabPerformancePanel(ui, viewport, performanceStats);
   stage.append(badge);
   const allModuleIds = new Set(executionPlan.entries.map(({ moduleId }) => moduleId));
   const context: LabContext = {
+    objects: objects.scope('lab:host'),
     memory: memory.scope('lab:host'),
     scheduler: { get isPaused() { return runner.isPaused; }, register: task => registerTask('lab:host', task) },
     labState,
@@ -267,6 +269,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
         runner.removeOwner(entry.moduleId);
         services.removeOwner(entry.moduleId);
         memory.removeModule(entry.moduleId);
+        objects.removeOwner(entry.moduleId);
         moduleCommunication.dispose();
         if (!failed) executionMonitor.completeDispose(entry.moduleId);
       }
@@ -285,6 +288,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
         const result = await performanceStats.measure(entry.moduleId, 'setup', () => entry.module.setup({
           ...context,
           memory: memory.scope(entry.moduleId),
+          objects: objects.scope(entry.moduleId),
           ui: ui.scope(entry.module),
           scheduler: { get isPaused() { return runner.isPaused; }, register: task => registerTask(entry.moduleId, task) },
           communication: moduleCommunication,
@@ -298,6 +302,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
         runner.removeOwner(entry.moduleId);
         services.removeOwner(entry.moduleId);
         memory.removeModule(entry.moduleId);
+        objects.removeOwner(entry.moduleId);
         moduleCommunication.dispose();
         throw moduleFailure(entry, 'setup', error, options.modules, executionPlan);
       }
@@ -345,6 +350,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     context.ui.setStatus(`已组合 ${executionPlan.entries.length} 个 Lab 模块。`);
   } catch (error) {
     disposeFrameClock();
+    disposeObjectTree();
+    disposeTransformPanel(); objectEditor.dispose(); transformPanel.root.remove();
     const cleanupErrors = disposeModules();
     disposeLabStatePanel();
     disposeKeyboardPanel();
@@ -352,6 +359,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     disposeCommunicationPanel();
     disposePerformancePanel(); performanceStats.dispose();
     memory.dispose();
+    objects.dispose(); workbench.dispose();
     viewport.dispose();
     cameraSystem.dispose();
     keyboard.dispose();
@@ -385,6 +393,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       if (disposed) return;
       disposed = true;
       disposeFrameClock();
+      disposeObjectTree();
+      disposeTransformPanel(); objectEditor.dispose(); transformPanel.root.remove();
       const cleanupErrors = disposeModules();
       performanceStats.stop(); finalPerformance = performanceStats.inspect();
       disposeLabStatePanel();
@@ -393,6 +403,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       disposeCommunicationPanel();
       disposePerformancePanel(); performanceStats.dispose();
       memory.dispose();
+      objects.dispose(); workbench.dispose();
       viewport.dispose();
       cameraSystem.dispose();
       keyboard.dispose();

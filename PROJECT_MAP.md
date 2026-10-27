@@ -1,3 +1,43 @@
+## 2026-10-27：Monster Dissolve 组合式测试页
+
+新增 `labs/composable/monster-dissolve-lab/`，选择 dungeon-config 场景加载链、monster-visual-objects 与 monster-dissolve-preview；保留原 Monster Visual 和独立怪物消散 Lab。首页、Vite 与怪物专项构建登记新入口，无战场、编队、玩家、AI 或其他动作模块。
+
+视觉对象模块在 setup 提供稳定 `monster.visual-objects` 服务：读取 Host 当前选择、查询对象的分层渲染目标、订阅结构/选择变化；目标提供 revision、逐层消散和临时隐藏，不开放领域文档写入。LabObjectScope 新增只读 getSelected/subscribe。Core createLayeredMonster 增加 setLayerDissolve，原整体 setDissolve/setNoiseErode 保留。资源重载或文档恢复更新 revision，消散模块自动清理旧预览。
+
+monster-dissolve-preview 只读加载 monsterDissolvePresets.json，开发时读取同名 API；库为空时按独立 Lab 规则回退 spriteAshPresets.json。复用 createSpriteNoiseErodeOptions 与 createSpriteDeathParticles，逐实例记录临时进度；仅身体和线稿接收消散，底部填充/边框直接临时隐藏。恢复按领域文档还原显隐；换外观、删除对象、恢复文档和卸载清理粒子。Host presentation/210 推进，暂停冻结粒子；只保存所选预设，不保存播放状态或写预设库。新页面怪物文档本机存储按 pathname 隔离，原视觉页仍沿用原键。
+
+test:monster-dissolve 检查分层限制、独立生命周期和清理；test:monster-dissolve-webgl 验证实际页面的七个现有预设、选中播放、进度、恢复、文档不变、对象独立与粒子释放，并确认原视觉页不装配消散模块。报告/截图为 node_modules/.cache/monster-dissolve-lab.*。
+
+## 2026-10-27：Monster Visual 视觉对象编辑
+
+`labs/composable/monster-visual-lab/main.ts` 仅选择 dungeon-config 场景加载链与一个无依赖的 monster-visual-objects 模块，不装配旧战场、编队网格、距离条纹规则及移动/攻击/受击/死亡。页面直接导入新模块，避免通过旧怪物 catalog 引入动作模块。旧模块和独立 Lab 保留各自用途。
+
+`labs/modules/monster/monster-visual-objects/` 持有实例文档、资源读取、增删复制、领域属性、DocumentHistory、LabState 与显式本机保存/JSON 导入导出。MonsterVisualObjects 直接复用 createLayeredMonster；外层根节点保存整体变换，渲染根节点保留外观内部大小/偏移，每层独立父节点保存局部变换。Core 新增可选 layerParents/getLayerNode，父节点在资源重载时保留，旧调用默认不变。无 MonsterVisualRuntime 或战场依赖；调度仅推进材质时间。
+
+公共 LabObject 增加模块属性挂载接口 mountInspector 与可选领域 setVisible，Host 负责挂载/清理，显隐和变换都由怪物模块写入文档及历史；不修改共享外观预设。保存到本机使用 monster-visual-objects.document.v1，刷新恢复；未点保存的会话修改通过 LabState 或对象 JSON 导出。旧战场 LabState 不隐式转换成视觉对象文档。
+
+test:monster-visual-objects 检查整体/图层事务、稳定节点、预设隔离、显隐历史、恢复取消及销毁；test:monster-visual-objects-webgl 验证正式页面最小装配、真实四层渲染、Gizmo/数值、属性、导入校验与本机保存恢复、切图保留。旧动作装配的回归页迁至 codex-tools/monsterVisualRuntimePage.html，供既有图形测试使用。
+
+## 2026-10-27：组合式 Lab 场景变换编辑
+
+Host 通过 `labs/kit/objects/LabObjectEditor.ts` 借用唯一 Scene 创建 SceneEditor，复用原对象树与稳定选择 ID。对象可声明 `edit` 能力（明确 target、channels、spaces、事务回调及领域 history）；Host 只负责 Gizmo、公共数值面板、取消、相机/键盘输入仲裁以及撤销/重做/保存入口。Core SceneEditor 增加可关闭自身拾取、节点观察和键盘绑定的选项，避免双重控制；默认调用方行为保持兼容。提交同步应用领域数据，异步持久化单独走 history.save，失败保留草稿。未声明能力的怪物及原始渲染节点仍只读。
+
+`dungeon-map-loader/dungeonSceneEditing.ts` 按环境 presetKey 持有独立变换草稿和 DocumentHistory，绑定当前场景声明对象与灯光代理；几何体/模型/空节点开放三种变换，灯光仅位置。预览不写草稿，提交一笔历史，取消恢复权威值；切图保留已提交草稿，重建后重新同步，未完成编辑取消。俯视比例补偿期间只读，视图切换先取消编辑。草稿以模块自己的 scene-transforms 条目进入 LabState，不修改共享资源库或逻辑地图。保存沿用既有单场景 PUT，保留继承声明，检测其他页面已修改的源预设；静态构建导出 JSON。`core/scene/sceneEnvironment.transforms.ts` 提供共享的声明变换读写，独立 Scene Environment Lab 复用同一数据更新函数。
+
+验证：`test:lab-workbench` 包含 Host/领域草稿事务集成；`test:lab-object-editing-webgl` 验证真实页面数值输入、Gizmo、历史、取消、切图及模拟保存失败/重试，禁止真实预设写请求。报告/截图在 node_modules/.cache/lab-object-editing.*。
+
+## 2026-10-27：组合式 Lab 共享工作台与对象树
+
+`labs/kit/workbench/LabWorkbench.ts` 接管 createLab 的公共三栏布局：对象树、唯一 Babylon 视口、紧凑模块面板。两侧可拖动或用方向键调宽、隐藏、恢复默认；宽度、显隐与模块/诊断页签存入按页面隔离的 workspace:v1 本机偏好，不参与 LabState。系统诊断集中到单独页签，模块说明收进标题说明，面板连续排列；原有模块装配与操作保留。
+
+同日修复：五个布局区域固定网格行列，侧栏 display:none 时不会重新自动排版挤掉视口；说明使用浏览器 Popover 顶层浮层并约束窗口边界，避免滚动容器裁切。页面验证覆盖两侧分别隐藏/同时隐藏后的实际画布和 Engine 尺寸、同一 Scene 持续渲染，以及窄面板外的说明命中与 Escape 关闭。
+
+对象树各可显隐对象行右侧提供与 UI Preview 相同的 ◉/○ 按钮，直接切换该对象而不改变当前选择；节点自身开关与父级继承的隐藏状态分别处理。分组和只读渲染节点不提供修改按钮。
+
+`labs/kit/objects/LabObjects.ts` 提供按模块登记、自动释放的对象适配接口；`LabObjectTree.tsx` 复用 Core ObjectHierarchy，提供搜索、选择、聚焦、临时显隐及视口选择锁定。对象 ID 与 Babylon 渲染节点分离，渲染细节和辅助对象按需显示，未登记的场景根节点仍可只读检查。Dungeon 场景加载器登记当前环境及声明的模型/几何体/灯光/节点；monster-visual 登记怪物实例并复用既有实例选择命令双向联动。切图、增删实例及 Host 销毁同步释放树节点。Core 渲染器仅提供只读节点访问，不依赖 Lab；本轮不提供变换编辑或预设写入。
+
+`test:lab-workbench` 检查对象登记生命周期、选择、节点替换和布局偏好校验；`test:lab-workbench-webgl` 使用隔离 Electron 验证真实组合页的布局恢复、对象联动、显隐、切图及既有 Dungeon 页面复用。报告/截图位于 node_modules/.cache/lab-workbench-*。
+
 ## 2026-10-26：怪物组合式模块与面板按需装配
 
 怪物 catalog 从四项调整为九项：monster-visual-libraries、monster-battlefield、monster-visual、monster-layout-debug、monster-distance-stripes、monster-movement、monster-attack、monster-hit、monster-death。移除 monster-visual-debug。每项模块拥有自己的面板；布局按 Host 公共依赖层级和发现顺序创建，移除手工 insertBefore 置顶。完整测试页显式选择基础显示和六项可选能力，继续复用 dungeon-config 装载链，合计十二项模块。

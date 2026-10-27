@@ -1,0 +1,60 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import path from 'node:path';
+import { createServer } from 'vite';
+import { NullEngine, Scene } from '@babylonjs/core';
+
+test('visual object root/layer transactions survive resource reload, history, restore and disposal', async () => {
+  const server = await createServer({ configFile: false, cacheDir: `node_modules/.cache/vite-tests/monster-objects-${process.pid}`,
+    server: { middlewareMode: true, hmr: false, ws: false }, optimizeDeps: { noDiscovery: true, include: [] }, resolve: { alias: { '@': path.resolve('.') } }, logLevel: 'error' });
+  const engine = new NullEngine(), scene = new Scene(engine);
+  const oldFrame = globalThis.requestAnimationFrame, oldCancel = globalThis.cancelAnimationFrame;
+  globalThis.requestAnimationFrame = () => 1; globalThis.cancelAnimationFrame = () => {};
+  let host, binding;
+  try {
+    const { createDefaultMonsterConfig, MONSTER_LAYER_KEYS } = await server.ssrLoadModule('/core/monster/config/monsterConfig.ts');
+    const { createMonsterVisualObject, MonsterVisualObjectsDraft, validateMonsterVisualDocument } = await server.ssrLoadModule('/labs/modules/monster/monster-visual-objects/monsterVisualObjects.model.ts');
+    const { MonsterVisualObjects } = await server.ssrLoadModule('/labs/modules/monster/monster-visual-objects/MonsterVisualObjects.ts');
+    const { LabObjects } = await server.ssrLoadModule('/labs/kit/objects/LabObjects.ts');
+    const { LabObjectEditor } = await server.ssrLoadModule('/labs/kit/objects/LabObjectEditor.ts');
+    const { LabKeyboardRouter } = await server.ssrLoadModule('/labs/kit/keyboard/LabKeyboardRouter.ts');
+    const config = createDefaultMonsterConfig('test'); for (const key of MONSTER_LAYER_KEYS) config.layers[key].path = '';
+    const object = createMonsterVisualObject('test', config, 'one');
+    const registry = new LabObjects(), keyboard = new LabKeyboardRouter(null); let registration;
+    const draft = new MonsterVisualObjectsDraft({ format: 'monster-visual-objects', version: 1, objects: [object] }, () => { binding?.sync(); registration?.refresh(); });
+    const history = { label: 'objects', dirty: () => draft.dirty, canUndo: () => draft.history.canUndo, canRedo: () => draft.history.canRedo, undo: () => draft.history.undo(), redo: () => draft.history.redo() };
+    binding = new MonsterVisualObjects(scene, draft, { configs: { test: config }, monsterStripes: {}, stripes: {} }, history, () => undefined); binding.sync();
+    registration = registry.scope('monster-visual-objects').register({ id: 'objects', label: 'Objects', objects: binding.objects, roots: binding.roots });
+    const errors = [];
+    host = new LabObjectEditor(scene, registry, keyboard, { isInputPaused: () => false, cameraInput() {}, report: message => errors.push(message) });
+    const editor = host.editor, root = binding.objects()[0].node, layer = binding.objects()[3].node;
+    assert.equal(binding.objects().length, 5); assert.equal(layer.parent.parent, root);
+    registry.select('objects/one'); editor.begin('position');
+    const moved = structuredClone(object.transform); moved.position.x = 7; editor.preview(moved);
+    assert.equal(draft.value.objects[0].transform.position.x, 0); editor.cancel(); assert.equal(root.position.x, 0);
+    editor.begin('position'); editor.preview(moved); editor.commit(); assert.equal(draft.value.objects[0].transform.position.x, 7);
+    assert.equal(draft.dirty, true); host.undo(); assert.equal(root.position.x, 0); assert.equal(history.canUndo(), false); host.redo(); assert.equal(root.position.x, 7);
+    registry.select('objects/' + encodeURIComponent('one/body')); editor.begin('rotation');
+    const rotated = structuredClone(object.layers.body.transform); rotated.rotation.y = 35; editor.preview(rotated); editor.commit();
+    editor.begin('position'); rotated.position.z = .2; editor.preview(rotated); editor.commit();
+    assert.ok(Math.abs(layer.rotation.y - 35 * Math.PI / 180) < 1e-8);
+    const pivot = layer; draft.update('one', value => { value.config.scaleSize = 700; value.config.spriteFacingAxis = '-Z'; });
+    assert.equal(binding.objects()[3].node, pivot, 'Layer pivots survive renderer reload');
+    assert.equal(layer.position.z, .2); assert.equal(root.position.x, 7); assert.equal(config.scaleSize, 560, 'Public preset is never mutated');
+    registry.setVisible('objects/' + encodeURIComponent('one/body'), false);
+    assert.equal(draft.value.objects[0].layers.body.visible, false); assert.equal(layer.isEnabled(), false);
+    host.undo(); assert.equal(layer.isEnabled(), true); assert.equal(draft.value.objects[0].layers.body.visible, true);
+    registry.setVisible('objects/one', false); assert.equal(draft.value.objects[0].visible, false); host.undo(); assert.equal(root.isEnabled(), true);
+    const saved = structuredClone(draft.value); draft.markSaved(); assert.equal(draft.dirty, false);
+    const bad = structuredClone(saved); bad.objects.push(bad.objects[0]); assert.throws(() => validateMonsterVisualDocument(bad));
+    const invalid = structuredClone(saved); invalid.objects[0].layers.body.transform.scaling.x = 0; assert.throws(() => draft.replace(invalid)); assert.deepEqual(draft.value, saved);
+    editor.begin('position'); editor.preview(moved); draft.replace(saved); assert.equal(editor.editing, false, 'Restoring state cancels an active gesture'); assert.equal(layer.position.z, .2);
+    draft.history.set({ ...saved, objects: [] }); assert.equal(binding.objects().length, 0); assert.equal(root.isDisposed(), true);
+    draft.history.undo(); assert.equal(binding.objects().length, 5); assert.equal(binding.objects()[0].node.position.x, 7);
+    assert.deepEqual(errors, []); host.dispose(); host = null; registration.dispose(); binding.dispose(); binding = null; registry.dispose(); keyboard.dispose();
+    assert.equal(scene.transformNodes.length, 0);
+  } finally { host?.dispose(); binding?.dispose(); scene.dispose(); engine.dispose(); await server.close();
+    if (oldFrame) globalThis.requestAnimationFrame = oldFrame; else delete globalThis.requestAnimationFrame;
+    if (oldCancel) globalThis.cancelAnimationFrame = oldCancel; else delete globalThis.cancelAnimationFrame;
+  }
+});

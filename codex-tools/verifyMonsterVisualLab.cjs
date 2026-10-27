@@ -19,7 +19,7 @@ app.whenReady().then(async () => {
   };
   let report;
   try {
-    await window.loadURL(`${origin}/labs/composable/monster-visual-lab/index.html`);
+    await window.loadURL(`${origin}/codex-tools/monsterVisualRuntimePage.html`);
     await waitFor(`!!document.querySelector('[data-lab-panel="monster-death"][data-monster-ready="true"]')`);
     const ui = await page(`(async () => {
       const wait = ms => new Promise(resolve => setTimeout(resolve, ms));

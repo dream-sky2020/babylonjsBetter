@@ -28,14 +28,17 @@ export type LayeredMonsterController = {
     layerProgress: StripeLayerProgressOptions
   ) => void;
   setDissolve: (options: SpriteDissolveEffectState) => void;
+  setLayerDissolve: (key: MonsterLayerKey, options: SpriteDissolveEffectState) => void;
   /** @deprecated 兼容旧 Lab；新代码使用 setDissolve。 */
   setNoiseErode: (options: SpriteDissolveEffectState) => void;
   updateTime: (timeSec: number) => void;
   getLayerMesh: (key: MonsterLayerKey) => IconPlaneController['mesh'] | null;
+  /** Optional authoring pivots survive sprite resource reloads. */
+  getLayerNode: (key: MonsterLayerKey) => TransformNode | null;
   dispose: () => void;
 };
 
-export type CreateLayeredMonsterOptions = { surfaceFactory?: SpriteVisualSurfaceFactory; deformation?: VisualDeformationMetadata | false };
+export type CreateLayeredMonsterOptions = { surfaceFactory?: SpriteVisualSurfaceFactory; deformation?: VisualDeformationMetadata | false; layerParents?: boolean };
 
 export const createLayeredMonster = (
   scene: Scene,
@@ -44,6 +47,10 @@ export const createLayeredMonster = (
 ): LayeredMonsterController => {
   const root = new TransformNode(`${name}_root`, scene);
   const layers = new Map<MonsterLayerKey, LayerHandle>();
+  const layerNodes = new Map<MonsterLayerKey, TransformNode>();
+  if (options.layerParents) for (const key of MONSTER_RENDER_ORDER) {
+    const node = new TransformNode(`${name}_${key}_pivot`, scene); node.parent = root; layerNodes.set(key, node);
+  }
   let unregisterDeformation = () => {};
   let facingAxis: MonsterFacingAxis = '+Z';
   const basePosition = new Vector3(0, 0, 0);
@@ -83,7 +90,7 @@ export const createLayeredMonster = (
         }
       });
       sprite.mesh.name = `${name}_${layerKey}`;
-      sprite.mesh.parent = root;
+      sprite.mesh.parent = layerNodes.get(layerKey) ?? root;
       sprite.mesh.position = new Vector3(0, 0, index * 0.01);
       sprite.mesh.isPickable = false;
       const handle: LayerHandle = { sprite };
@@ -160,6 +167,11 @@ export const createLayeredMonster = (
         handle.sprite.surface.setEffects({ dissolve: options });
       }
     },
+    setLayerDissolve: (key, options) => {
+      const handle = layers.get(key); if (!handle) return;
+      if (Number.isFinite(options.vertexSubdivisions)) handle.sprite.setSubdivisions(options.vertexSubdivisions!);
+      handle.sprite.surface.setEffects({ dissolve: options });
+    },
     setNoiseErode: (options) => {
       for (const handle of layers.values()) {
         if (Number.isFinite(options.vertexSubdivisions)) handle.sprite.setSubdivisions(options.vertexSubdivisions!);
@@ -170,6 +182,7 @@ export const createLayeredMonster = (
       for (const handle of layers.values()) handle.sprite.surface.setTime(timeSec);
     },
     getLayerMesh: (key) => layers.get(key)?.sprite.mesh || null,
+    getLayerNode: (key) => layerNodes.get(key) ?? null,
     dispose: () => {
       disposeLayers();
       root.dispose();

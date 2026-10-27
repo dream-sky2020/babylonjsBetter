@@ -148,6 +148,9 @@ export class MonsterVisualRenderer {
         entry.attachmentRoot.scaling.setAll(1);
     }
     getAttachmentRoot(id: string): TransformNode | undefined { return this.entries.get(id)?.attachmentRoot; }
+    /** Read-only inspection ports; resource ownership remains with the renderer. */
+    get rootNode(): TransformNode { return this.root; }
+    getMonsterNode(id: string): TransformNode | null { return this.entries.get(id)?.anchor ?? null; }
     getMonsterWorldPosition(id: string): Vector3 | null {
         const anchor = this.entries.get(id)?.anchor;
         anchor?.computeWorldMatrix(true);

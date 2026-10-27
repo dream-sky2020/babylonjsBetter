@@ -1,23 +1,16 @@
 import { AbstractMesh, DirectionalLight, PointLight, Quaternion, TransformNode } from '@babylonjs/core';
 import type { EditorTransform, SceneEditorAdapter, SceneEditorObject } from '../../../core/scene-editor/types.ts';
-import type { SceneEnvironmentInstance, SceneEnvironmentPreset, SceneEnvironmentVector3, SceneEnvironmentLight } from '@/core/scene/sceneEnvironment.types';
+import type { SceneEnvironmentInstance, SceneEnvironmentPreset, SceneEnvironmentVector3 } from '@/core/scene/sceneEnvironment.types';
+import { updateEnvironmentTransform } from '../../../core/scene/sceneEnvironment.transforms.ts';
+export { updateEnvironmentTransform } from '../../../core/scene/sceneEnvironment.transforms.ts';
 import { environmentNodeEntries, orderedEnvironmentEntries } from '../../../core/scene/sceneEnvironment.hierarchy.ts';
 import { createEnvironmentMarkers } from './sceneEnvironmentMarkers.ts';
 const tuple = (v: EditorTransform['position']): SceneEnvironmentVector3 => [v.x, v.y, v.z];
-const radians = (v: EditorTransform['rotation']): SceneEnvironmentVector3 => [v.x * Math.PI / 180, v.y * Math.PI / 180, v.z * Math.PI / 180];
 export type EnvironmentModelAssetProperties = {
   position: SceneEnvironmentVector3;
   rotation: SceneEnvironmentVector3;
   scaling: SceneEnvironmentVector3;
 };
-export function updateEnvironmentTransform(preset: SceneEnvironmentPreset, id: string, value: EditorTransform): SceneEnvironmentPreset {
-  const [kind, ...parts] = id.split(':'); const key = parts.join(':');
-  if (kind === 'transform') return { ...preset, transformNodes: (preset.transformNodes ?? []).map(o => o.id === key ? { ...o, position: tuple(value.position), rotation: radians(value.rotation), scaling: tuple(value.scaling) } : o) };
-  if (kind === 'model') return { ...preset, models: preset.models.map(m => m.id === key ? { ...m, position: tuple(value.position), rotation: radians(value.rotation), scaling: tuple(value.scaling) } : m) };
-  if (kind === 'object') return { ...preset, objects: preset.objects.map(o => o.id === key ? { ...o, position: tuple(value.position), rotation: radians(value.rotation), scaling: tuple(value.scaling) } : o) };
-  if (kind === 'light') return { ...preset, lights: preset.lights.map(l => l.id !== key || l.light.primitive === 'hemispheric' ? l : { ...l, light: { ...l.light, position: tuple(value.position) } } as SceneEnvironmentLight) };
-  return preset;
-}
 export function createEnvironmentAdapter(instance: SceneEnvironmentInstance, host: { read(): SceneEnvironmentPreset; write(value: SceneEnvironmentPreset): void; undo(): void; redo(): void }) {
   const markers = createEnvironmentMarkers(instance, host.read());
   const assetProperties = new Map((instance.models ?? []).map(({ definition, entity }) => [`model:${definition.id}`, entity.normalizationRoot]));

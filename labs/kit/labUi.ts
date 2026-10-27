@@ -9,6 +9,7 @@ export type LabPanel = {
 
 export type LabPanelOptions = {
   defaultCollapsed?: boolean;
+  category?: 'modules' | 'diagnostics';
 };
 
 type LabUiPreferences = {
@@ -42,8 +43,27 @@ export class LabUi {
     return new Proxy(this, {
       get: (target, key) => {
         if (key === 'addPanel') return (id: string, title: string, options?: LabPanelOptions) => {
-          const panel = target.addPanel(id, title, options);
-          panel.content.prepend(createSystemDescription(module.id, module.dependencies ?? [], module.manifest));
+          const panel = target.addPanel(id, title, { ...options, category: options?.category ?? 'modules' });
+          const description = createSystemDescription(module.id, module.dependencies ?? [], module.manifest);
+          const help = document.createElement('div'); help.className = 'lab-panel-help';
+          help.addEventListener('click', event => event.stopPropagation());
+          const trigger = document.createElement('button'); trigger.type = 'button'; trigger.className = 'lab-panel-help-trigger';
+          trigger.textContent = '说明'; trigger.title = `系统说明 · ${module.id}`;
+          trigger.setAttribute('aria-expanded', 'false');
+          const body = document.createElement('div'); body.className = 'lab-panel-help-body'; body.popover = 'auto';
+          body.id = `lab-panel-help-${id}`; body.setAttribute('aria-label', trigger.title);
+          trigger.setAttribute('aria-controls', body.id);
+          body.append(...Array.from(description.children).filter(child => child.tagName !== 'SUMMARY'));
+          trigger.addEventListener('click', () => {
+            if (body.matches(':popover-open')) { body.hidePopover(); return; }
+            body.showPopover();
+            const anchor = trigger.getBoundingClientRect(), popup = body.getBoundingClientRect();
+            body.style.left = `${Math.max(8, Math.min(anchor.right - popup.width, window.innerWidth - popup.width - 8))}px`;
+            body.style.top = `${Math.max(8, Math.min(anchor.bottom + 5, window.innerHeight - popup.height - 8))}px`;
+          });
+          body.addEventListener('toggle', () => trigger.setAttribute('aria-expanded', String(body.matches(':popover-open'))));
+          help.append(trigger, body);
+          panel.root.querySelector('.lab-card-header')!.append(help);
           panel.root.dataset.systemOwner = module.id;
           return panel;
         };
@@ -56,11 +76,14 @@ export class LabUi {
   private readonly boundBooleanPreferenceKeys = new Set<string>();
   private readonly storageKey: string;
   private preferences: LabUiPreferences;
+  private readonly workspace?: { diagnostics: HTMLElement; reveal(category: 'modules' | 'diagnostics'): void };
 
   readonly sidebar: HTMLElement;
   readonly status: HTMLDivElement;
 
-  constructor(sidebar: HTMLElement, status: HTMLDivElement) {
+  constructor(sidebar: HTMLElement, status: HTMLDivElement,
+    workspace?: { diagnostics: HTMLElement; reveal(category: 'modules' | 'diagnostics'): void }) {
+    this.workspace = workspace;
     this.sidebar = sidebar;
     this.status = status;
     const path = typeof location === 'undefined' ? 'unknown' : location.pathname;
@@ -104,7 +127,7 @@ export class LabUi {
       root,
       content,
       collapseButton,
-      defaultCollapsed: options.defaultCollapsed === true,
+      defaultCollapsed: options.defaultCollapsed ?? (id === 'system-camera'),
     };
     header.addEventListener('click', () => this.setPanelCollapsed(entry, !root.classList.contains('is-collapsed'), true));
     header.append(heading, collapseButton);
@@ -112,7 +135,9 @@ export class LabUi {
     this.panels.set(id, entry);
     const saved = this.preferences.panels[id];
     this.setPanelCollapsed(entry, saved?.collapsed ?? entry.defaultCollapsed, false);
-    this.sidebar.append(root);
+    const category = options.category ?? (id.startsWith('system-') && id !== 'system-camera' ? 'diagnostics' : 'modules');
+    root.dataset.labCategory = category;
+    (category === 'diagnostics' && this.workspace ? this.workspace.diagnostics : this.sidebar).append(root);
     return { root, content };
   }
 
@@ -130,6 +155,7 @@ export class LabUi {
     let first: HTMLElement | undefined;
     for (const entry of this.panels.values()) {
       if (entry.root.dataset.systemOwner !== moduleId) continue;
+      this.workspace?.reveal(entry.root.dataset.labCategory as 'modules' | 'diagnostics');
       this.setPanelCollapsed(entry, false, true);
       first ??= entry.root;
     }

@@ -198,3 +198,81 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
   background: rgba(0, 0, 0, .2);
   user-select: text;
 }
+
+/* Shared compact workspace; panel DOM and module installation order are preserved. */
+.lab-host { position: relative; display: flex; flex-direction: column; --editor-panel: #101820; --editor-panel-body: #101820; --editor-heading: #19232c; --editor-line: #293b49; --editor-text: #d9e9f4; --editor-accent: #71c5ee; }
+.lab-workbench-header { display: flex; flex-shrink: 0; align-items: center; gap: 7px; min-height: 43px; padding: 5px 9px; border-bottom: 1px solid #293b49; background: #15212a; }
+.lab-workbench-header h1 { min-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0; font-size: 13px; }
+.lab-workbench-header .lab-global-status { flex: 1; min-width: 40px; margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 11px; }
+.lab-workbench-header button, .lab-controls-tabs button, .lab-object-selection button { min-height: 27px; padding: 3px 8px; border: 1px solid #3b5161; background: #1b2c38; color: #c4d7e5; cursor: pointer; font-size: 11px; white-space: nowrap; }
+.lab-workbench-header button[aria-pressed=true], .lab-controls-tabs button[aria-pressed=true] { background: #304c5e; color: #ecf6ff; }
+.lab-workbench-header .lab-home-link { flex-shrink: 0; margin: 0; font-size: 11px; }
+.lab-host .lab-workbench-layout { flex: 1; height: auto; min-height: 0; overflow: hidden; grid-template-rows: minmax(0, 1fr); }
+.lab-workbench-layout > * { grid-row: 1; }
+.lab-workbench-layout > .lab-object-browser { grid-column: 1; }
+.lab-workbench-layout > .lab-workbench-splitter.left { grid-column: 2; }
+.lab-workbench-layout > .lab-viewport { grid-column: 3; }
+.lab-workbench-layout > .lab-workbench-splitter.right { grid-column: 4; }
+.lab-workbench-layout > .lab-controls { grid-column: 5; }
+.lab-host .lab-workbench-layout > aside { padding: 0; border: 0; overflow: hidden; min-width: 0; min-height: 0; scrollbar-gutter: auto; }
+.lab-controls { display: flex; flex-direction: column; }
+.lab-controls-tabs { display: flex; gap: 3px; flex-shrink: 0; padding: 4px; border-bottom: 1px solid #293b49; }
+.lab-controls-tabs button { flex: 1; }
+.lab-control-scroll { min-height: 0; overflow: auto; flex: 1; scrollbar-gutter: stable; }
+.lab-host [hidden] { display: none !important; }
+.lab-workbench-splitter { min-width: 0; cursor: col-resize; touch-action: none; background: #263947; outline: none; }
+.lab-workbench-splitter:hover, .lab-workbench-splitter:focus-visible { background: #71c5ee; }
+.lab-workbench-layout[data-left-open=false] .lab-workbench-splitter.left, .lab-workbench-layout[data-right-open=false] .lab-workbench-splitter.right { visibility: hidden; }
+.lab-controls .lab-card { margin: 0; border: 0; border-bottom: 1px solid #314659; }
+.lab-controls .lab-card-header { min-height: 29px; padding: 0 7px; grid-template-columns: 15px minmax(0, 1fr) auto; }
+.lab-controls .lab-card h2 { font-size: 11px; }
+.lab-controls .lab-panel-content { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 7px 8px 8px; }
+.lab-controls .lab-panel-content > :not(button) { grid-column: 1 / -1; }
+.lab-controls .lab-field { grid-template-columns: minmax(85px, .85fr) minmax(0, 1.3fr); gap: 5px; align-items: center; font-size: 11px; }
+.lab-controls .lab-field:has(> .lab-json) { grid-template-columns: 1fr; }
+.lab-controls .lab-switch { display: flex; border: 0; padding-top: 3px; }
+.lab-controls .lab-field input:not([type=checkbox]), .lab-controls .lab-field select { min-width: 0; height: 28px; padding: 0 5px; font-size: 11px; }
+.lab-controls .lab-card button:not(.lab-card-collapse) { min-width: 0; height: auto; min-height: 28px; padding: 3px 6px; font-size: 11px; }
+.lab-controls .lab-inline-status { font-size: 10px; }
+.lab-controls .lab-json { padding: 6px; max-height: 220px; font-size: 10px; }
+.lab-controls .lab-panel-layout-actions { top: 0; margin: 0; padding: 4px; }
+.lab-controls .lab-panel-help { position: relative; min-width: 0; margin: 0; border: 0; border-radius: 0; padding: 0; font-size: 10px; }
+.lab-controls .lab-card .lab-panel-help-trigger { width: auto; min-height: 24px; padding: 3px 4px; border: 0; background: transparent; color: #90afc4; font-weight: 400; }
+.lab-panel-help-body { position: fixed; inset: auto; margin: 0; width: min(360px, calc(100vw - 16px)); max-height: min(420px, calc(100vh - 16px)); overflow: auto; padding: 10px 12px; border: 1px solid #4b6477; background: #101b26; color: #d9e9f4; box-shadow: 0 5px 16px #0008; cursor: default; font-size: 12px; font-weight: 400; line-height: 1.6; overflow-wrap: anywhere; }
+.lab-panel-help-body::backdrop { background: transparent; }
+.lab-panel-help-body p { margin: 6px 0; }
+.lab-panel-help-body summary { cursor: pointer; }
+.lab-object-tree { display: flex; height: 100%; min-height: 0; flex-direction: column; }
+.lab-object-editor-toolbar { display: flex; gap: 3px; flex-shrink: 0; padding: 5px; border-bottom: 1px solid #293b49; }
+.lab-object-editor-toolbar button { flex: 1; min-width: 0; min-height: 26px; border: 1px solid #3b5161; background: #1b2c38; color: #b6cad9; cursor: pointer; font-size: 11px; }
+.lab-object-editor-toolbar button[aria-pressed=true] { background: #304c5e; }
+.lab-object-editor-toolbar button:disabled { opacity: .4; cursor: default; }
+.lab-object-inspector { min-width: 0; display: grid; gap: 7px; color: #c4d7e5; font-size: 11px; }
+.lab-object-inspector [data-lab-object-properties]:not(:empty) { display: grid; gap: 5px; padding-top: 8px; border-top: 1px solid #304454; }
+.lab-object-inspector > strong, .lab-object-inspector > small { overflow-wrap: anywhere; }
+.lab-object-inspector .editor-inspector-section { margin: 0; border: 0; }
+.lab-object-inspector .scene-editor-vector { display: grid; grid-template-columns: 46px repeat(3, minmax(0, 1fr)); gap: 3px; }
+.lab-object-inspector .scene-editor-vector label { min-width: 0; }
+.lab-object-inspector .scene-editor-vector input { width: 100%; min-width: 0; height: 27px; }
+.lab-controls .lab-object-inspector .editor-inspector-section-heading { background: #19232c; border: 0; }
+.lab-object-inspector button:disabled, .lab-object-inspector input:disabled { opacity: .4; cursor: default; }
+.lab-object-history { display: flex; gap: 4px; }
+.lab-object-history button { flex: 1; }
+.lab-object-tree-options { display: flex; flex-shrink: 0; gap: 10px; padding: 6px; border-bottom: 1px solid #293b49; font-size: 11px; }
+.lab-object-tree-options label { display: flex; gap: 3px; align-items: center; }
+.lab-object-tree .editor-hierarchy { flex: 1; min-height: 0; }
+.lab-object-tree .editor-hierarchy-row { min-width: 0; height: 28px; font-size: 11px; }
+.lab-object-tree .editor-hierarchy-heading { min-height: 34px; }
+.lab-object-tree .editor-hierarchy-heading b { font-size: 12px; }
+.lab-object-tree .editor-hierarchy-search { min-height: 32px; }
+.lab-object-tree .editor-hierarchy-row small { max-width: 62px; overflow: hidden; text-overflow: ellipsis; font-size: 9px; }
+.lab-object-tree .editor-hierarchy-details { gap: 2px; }
+.lab-object-tree .lab-object-row-visibility { display: grid; place-items: center; flex-shrink: 0; width: 23px; height: 26px; padding: 0; border: 0; background: transparent; color: #8c9ba6; cursor: pointer; font: 12px/1 sans-serif; }
+.lab-object-tree .lab-object-row-visibility:hover, .lab-object-tree .lab-object-row-visibility:focus-visible { background: #30434f; color: #cbe6f8; }
+.lab-object-tree .lab-object-row-visibility[aria-pressed=false] { color: #71808b; }
+.lab-object-selection { flex-shrink: 0; display: grid; gap: 6px; padding: 8px; border-top: 1px solid #314659; font-size: 11px; }
+.lab-object-selection strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lab-object-selection > div { display: flex; gap: 4px; }
+.lab-object-selection small { color: #8da7b8; overflow-wrap: anywhere; font-size: 10px; }
+.lab-object-selection button:disabled { cursor: default; opacity: .4; }
+@media (max-width: 1000px) { .lab-workbench-header h1 { max-width: 220px; } .lab-workbench-header .lab-global-status { display: none; } .lab-workbench-header { gap: 4px; } }

@@ -19,6 +19,8 @@ editor.dispose();
 
 `SceneEditorAdapter.objects()` 注册稳定 ID、parentId、name、Babylon node、明确可写的 target、channels、spaces、readonly、uniformScale、minScale。target 可以是父节点或代理节点；未注册的渲染子 Mesh 不会自动成为可写目标。父子关系仅用于层级显示，编辑值始终是 target 的父级局部变换。Local/World 决定 Gizmo 操作方向，不改变数据坐标契约。禁止的模式和通道在控制器中再次校验。
 
+已有 Host 可通过构造选项 `picking:false / observeNodes:false / keyboard:false` 接管选择、刷新与 Escape 路由，仍保留窗口失焦和 pointercancel 的事务取消。可选 onError 处理提交失败（先回滚，再报告）；省略时沿用抛错行为。commit 同步应用领域数据，异步保存由所属领域的独立保存入口负责。
+
 `EditorTransform.rotation` 使用度数。`readTransform` 从 quaternion/Euler 读取，`writeTransform` 保留节点原有表示方式并更新世界矩阵。Lab 从权威数据同步时也必须兼容 quaternion，不能只改 rotation 而留下旧四元数。
 
 `begin → preview* → commit` 对应一次拖动或单个数值输入的焦点会话；Enter/失焦提交，Escape、窗口失焦、pointercancel、选区切换、对象移除、权限变化或 dispose 取消。preview 只写目标节点和 adapter 可选的预览回调。commit 是唯一数据提交入口，无变化不会提交。cancel 恢复节点并调用领域回滚。`sync` 在开始编辑前和提交/取消后重新应用领域数据；动画 adapter 可以根据 EDIT/AUTO/REC 决定是否恢复基础值。

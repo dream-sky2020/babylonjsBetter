@@ -19,10 +19,12 @@ export class SceneEditor {
   private resetView: (() => void) | undefined;
   readonly scene: Scene;
   readonly adapter: SceneEditorAdapter;
-  constructor(scene: Scene, adapter: SceneEditorAdapter, options: { cameraInput?: (suspended: boolean) => void; resetView?: () => void } = {}) {
+  constructor(scene: Scene, adapter: SceneEditorAdapter, options: { cameraInput?: (suspended: boolean) => void; resetView?: () => void;
+    picking?: boolean; observeNodes?: boolean; keyboard?: boolean; onError?: (error: unknown) => void } = {}) {
     this.scene = scene; this.adapter = adapter;
     this.resetView = options.resetView;
     this.cameraInput = options.cameraInput;
+    this.onError = options.onError;
     const g = this.gizmo = new GizmoManager(scene);
     g.enableAutoPicking = false; g.usePointerToAttachGizmos = false; g.clearGizmoOnEmptyPointerEvent = false;
     // Instantiate all three before subscribing; lazy creation otherwise loses rotate/scale events.
@@ -34,7 +36,7 @@ export class SceneEditor {
       part!.onDragObservable.add(() => this.preview());
       part!.onDragEndObservable.add(() => this.commit());
     }
-    const pointer = scene.onPointerObservable.add(info => {
+    const pointer = options.picking === false ? null : scene.onPointerObservable.add(info => {
       if (info.type !== PointerEventTypes.POINTERTAP || this.active || info.event.button !== 0) return;
       let node: Node | null = info.pickInfo?.pickedMesh ?? null;
       const objects = this.objects();
@@ -52,12 +54,15 @@ export class SceneEditor {
       const observer = observable.add(scheduleRefresh);
       this.cleanup.push(() => observable.remove(observer));
     };
-    watchNodes(scene.onNewMeshAddedObservable); watchNodes(scene.onMeshRemovedObservable);
-    watchNodes(scene.onNewTransformNodeAddedObservable); watchNodes(scene.onTransformNodeRemovedObservable);
+    if (options.observeNodes !== false) {
+      watchNodes(scene.onNewMeshAddedObservable); watchNodes(scene.onMeshRemovedObservable);
+      watchNodes(scene.onNewTransformNodeAddedObservable); watchNodes(scene.onTransformNodeRemovedObservable);
+    }
     if (typeof window !== 'undefined') {
       const key = (event: KeyboardEvent) => { if (event.key === 'Escape') this.cancel(); };
       const cancel = () => this.cancel();
-      window.addEventListener('keydown', key); window.addEventListener('blur', cancel);
+      if (options.keyboard !== false) window.addEventListener('keydown', key);
+      window.addEventListener('blur', cancel);
       const canvas = scene.getEngine().getRenderingCanvas();
       canvas?.addEventListener('pointercancel', cancel);
       this.cleanup.push(() => { window.removeEventListener('keydown', key); window.removeEventListener('blur', cancel); canvas?.removeEventListener('pointercancel', cancel); });
@@ -76,6 +81,7 @@ export class SceneEditor {
     this.refresh();
   }
   private cameraInput?: (suspended: boolean) => void;
+  private onError?: (error: unknown) => void;
   get editing() { return this.active !== null; }
   objects() { return this.adapter.objects().filter(o => !o.hidden && !o.node.isDisposed()); }
   get selected() { return this.objects().find(o => o.id === this.selectedId); }
@@ -137,7 +143,7 @@ export class SceneEditor {
     const value = readTransform(active.object.target!);
     if ((['x', 'y', 'z'] as const).every(axis => Math.abs(value[active.edit.channel][axis] - active.edit.before[active.edit.channel][axis]) < 1e-7)) { this.cancel(); return; }
     try { this.adapter.commit(active.edit, value); }
-    catch (error) { this.cancel(); throw error; }
+    catch (error) { this.cancel(); if (this.onError) { this.onError(error); return; } throw error; }
     this.active = null; this.releaseCamera(); this.adapter.sync?.(active.edit.id); this.emit();
   }
   cancel() {

@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": { "types": ["vite/client", "node"] },
-  "include": ["core/resources/virtual-modules.d.ts", "labs/modules/monster/**/*.ts", "labs/composable/monster-visual-lab/**/*.ts",
-    "labs/standalone/monster-3d-visual-lab/**/*.js", "labs/standalone/monster-formation-lab/**/*.tsx",
+  "include": ["core/resources/virtual-modules.d.ts", "labs/modules/monster/**/*.ts", "labs/composable/monster-visual-lab/**/*.ts", "labs/composable/monster-dissolve-lab/**/*.ts",
+    "labs/standalone/monster-3d-visual-lab/**/*.js", "labs/standalone/monster-dissolve-effect-lab/**/*.tsx", "labs/standalone/monster-formation-lab/**/*.tsx",
     "labs/standalone/monster-battlefield-stripe-rules-lab/**/*.tsx", "labs/standalone/monster-movement-lab/**/*.tsx",
     "labs/standalone/monster-attack-lab/**/*.tsx", "labs/standalone/monster-hit-feedback-lab/**/*.js",
     "labs/standalone/monster-knockback-lab/**/*.tsx", "labs/standalone/monster-special-status-position-lab/**/*.tsx",

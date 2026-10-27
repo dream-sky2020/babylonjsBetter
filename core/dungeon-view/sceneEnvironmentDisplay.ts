@@ -33,19 +33,23 @@ export function applySceneEnvironmentDisplayView(
 
 /** The loader owns instances; the overhead coordinator only owns the view lease. */
 export function createSceneEnvironmentViewController() {
+  const listeners = new Set<() => void>();
   let current: { instance: SceneEnvironmentInstance; preset: SceneEnvironmentPreset } | null = null;
   let view: ResolvedDungeonView | null = null;
   const consumer = createDungeonViewConsumer(next => {
     view = next;
+    listeners.forEach(listener => listener());
     if (current) applySceneEnvironmentDisplayView(current.instance, current.preset, next);
   });
   return {
+    get isTransformed() { return !!view && (Math.abs(view.scaleX - 1) > 1e-8 || Math.abs(view.scaleZ - 1) > 1e-8); },
+    subscribe(listener: () => void) { listeners.add(listener); return () => { listeners.delete(listener); }; },
     consumer,
     setCurrent(instance: SceneEnvironmentInstance | null, preset: SceneEnvironmentPreset | null) {
       if (current && current.instance !== instance) applySceneEnvironmentDisplayView(current.instance, current.preset, null);
       current = instance && preset ? { instance, preset } : null;
       if (current) applySceneEnvironmentDisplayView(current.instance, current.preset, view);
     },
-    dispose() { consumer.dispose(); current = null; },
+    dispose() { consumer.dispose(); current = null; listeners.clear(); },
   };
 }

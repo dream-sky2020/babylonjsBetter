@@ -9,6 +9,8 @@ import { monsterHitLabModule } from './monster-hit/monsterHit.labModule';
 import { monsterDeathLabModule } from './monster-death/monsterDeath.labModule';
 import { monsterLayoutDebugLabModule } from './monster-layout-debug/monsterLayoutDebug.labModule';
 import { monsterDistanceStripesLabModule } from './monster-distance-stripes/monsterDistanceStripes.labModule';
+import { monsterVisualObjectsLabModule } from './monster-visual-objects/monsterVisualObjects.labModule';
+import { monsterDissolvePreviewLabModule } from './monster-dissolve-preview/monsterDissolvePreview.labModule';
 
 const entries: Array<[LabModule, LabSystemManifest]> = [
   [monsterVisualLibrariesLabModule, { kind: 'configuration', responsibility: '只读取怪物外观和两级条纹，提交前请求实例模块检查引用',
@@ -36,7 +38,8 @@ const entries: Array<[LabModule, LabSystemManifest]> = [
   }] as [LabModule, LabSystemManifest]),
 ];
 export const monsterLabModuleCatalog: LabModuleCatalog = Object.freeze(Object.fromEntries(
-  entries.map(([module, manifest]) => [module.id, Object.freeze({ ...module, manifest })]),
+  [...entries.map(([module, manifest]) => [module.id, Object.freeze({ ...module, manifest })]),
+    [monsterVisualObjectsLabModule.id, monsterVisualObjectsLabModule], [monsterDissolvePreviewLabModule.id, monsterDissolvePreviewLabModule]],
 ));
 export * from './monsterVisual.memory';
 export * from './monsterVisual.protocol';

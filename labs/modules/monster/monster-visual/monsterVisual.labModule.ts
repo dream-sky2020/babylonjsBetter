@@ -4,7 +4,7 @@ import type { MonsterDisplayConfig } from '@/core/monster/types/monster.types';
 import type { MonsterVisualResources, VisualBattlefield } from '@/core/monster/visual/monsterVisual.types';
 import type { LabModule } from '@/labs/kit';
 import { MONSTER_BATTLEFIELD, MONSTER_VISUAL_LIBRARIES, MONSTER_VISUAL_SETTINGS, MONSTER_SELECTION } from '../monsterVisual.memory';
-import { monsterBattlefieldChanged, monsterLibrariesChanged, monsterSelectionChanged, monsterVisualActionChanged, monsterVisualCommand, monsterBattlefieldCommand } from '../monsterVisual.protocol';
+import { monsterBattlefieldChanged, monsterLibrariesChanged, monsterSelectionChanged, monsterSelectionCommand, monsterVisualActionChanged, monsterVisualCommand, monsterBattlefieldCommand } from '../monsterVisual.protocol';
 import { createMonsterPanel, fillMonsterSelect } from '../monsterModuleUi';
 import { persistMonsterState } from '../monsterModuleState';
 import { MONSTER_VISUAL_SERVICE } from './monsterVisual.service';
@@ -17,6 +17,20 @@ export const monsterVisualLabModule: LabModule = {
     const libraries = context.memory.acquire(MONSTER_VISUAL_LIBRARIES), field = context.memory.acquire(MONSTER_BATTLEFIELD);
     const settings = context.memory.acquire(MONSTER_VISUAL_SETTINGS), selection = context.memory.acquire(MONSTER_SELECTION);
     const runtime = new MonsterVisualRuntime(context.scene);
+    let treeSelectionRequests = 0;
+    const objectRegistration = context.objects?.register({
+      id: 'monster-instances', label: '怪物实例', roots: () => [runtime.renderer.rootNode],
+      objects: () => (field.current?.monsters ?? []).flatMap(monster => {
+        const node = runtime.renderer.getMonsterNode(monster.id);
+        return node ? [{ id: monster.id, name: `${libraries.current?.configs[monster.monsterConfigKey]?.name ?? monster.monsterConfigKey} · ${monster.id.slice(0, 8)}`,
+          node, kind: '怪物实例' }] : [];
+      }),
+      async onSelect(id) {
+        treeSelectionRequests++;
+        try { await context.communication.request(monsterSelectionCommand, { selectedId: id ?? '' }); }
+        finally { treeSelectionRequests--; }
+      },
+    });
     const actions = new MonsterActionLifecycle(event => { void context.communication.publish(monsterVisualActionChanged, event); });
     const displayCache = new Map<string, { source: MonsterDisplayConfig; signature: string; config: MonsterDisplayConfig }>();
     let started = false, disposed = false, lastGeneration = 0;
@@ -39,6 +53,7 @@ export const monsterVisualLabModule: LabModule = {
       runtime.sync(battlefield, resources, selection.current.selectedId);
       const ids = new Set(field.current.monsters.map(monster => monster.id)); for (const id of displayCache.keys()) if (!ids.has(id)) displayCache.delete(id);
       applySettings();
+      objectRegistration?.refresh();
     };
     context.services.set(MONSTER_VISUAL_SERVICE, { runtime, sync,
       assertPlayable(id) {
@@ -52,10 +67,10 @@ export const monsterVisualLabModule: LabModule = {
       if (!started || event.generation <= lastGeneration) return; lastGeneration = event.generation;
       if (event.kind !== 'move') actions.cancel(event.monsterId);
       if (event.kind === 'replace') runtime.clear();
-      sync(); render();
+      sync(); objectRegistration?.select(selection.current.selectedId || null, { onlyIfSelected: true }); render();
     });
     context.communication.on(monsterLibrariesChanged, () => { if (started) { actions.cancel(); runtime.clear(); sync(); render(); } });
-    context.communication.on(monsterSelectionChanged, () => { sync(); render(); });
+    context.communication.on(monsterSelectionChanged, () => { sync(); if (!treeSelectionRequests) objectRegistration?.select(selection.current.selectedId || null); render(); });
     context.communication.handle(monsterVisualCommand, command => { if (command.kind === 'reset') { actions.cancel(command.monsterId); sync(); } else applySettings(); });
     const panel = createMonsterPanel(context, 'monster-visual', '怪物外观与显示');
     const config = panel.select('当前实例外观', 'config'), stripe = panel.select('条纹预设', 'stripe');
@@ -89,8 +104,8 @@ export const monsterVisualLabModule: LabModule = {
       } }]);
     const stop = context.scheduler.register({ id: 'monster-visual-update', phase: 'presentation', order: 200, description: '统一推进已安装的怪物视觉能力',
       enabled: () => started && !settings.current.paused && !context.scheduler.isPaused, run: dt => runtime.update(dt) });
-    return { start() { started = true; sync(); render(); panel.root.dataset.monsterReady = 'true'; }, dispose() {
-      actions.cancel(); disposed = true; started = false; stop(); state.dispose(); runtime.dispose(); displayCache.clear(); panel.root.remove();
+    return { start() { started = true; sync(); objectRegistration?.select(selection.current.selectedId || null); render(); panel.root.dataset.monsterReady = 'true'; }, dispose() {
+      objectRegistration?.dispose(); actions.cancel(); disposed = true; started = false; stop(); state.dispose(); runtime.dispose(); displayCache.clear(); panel.root.remove();
     } };
   },
 };
