@@ -1,6 +1,6 @@
 # 怪物组合式模块
 
-`labs/composable/monster-dissolve-lab/` 在视觉对象页的地图加载和对象模块之上增加 `monster-dissolve-preview`。在对象树/画面选中怪物或其任一图层，到“怪物消散测试”面板选择独立 Lab 的预设，点击“对选中怪物播放”。身体和线稿应用消散，底部填充和边框从动画开始渐隐，可分别设置完全消失的动画百分比；恢复时遵循对象原有显隐。支持手动预览进度、恢复单个/全部对象，多个怪物分别持有预览状态。选中场景对象时禁止播放。测试模块只保存预设选择，不修改怪物文档或预设库。
+`labs/composable/monster-dissolve-lab/` 在视觉对象页的地图加载和对象模块之上增加 `monster-dissolve-preview`。在对象树/画面选中怪物或其任一图层，到“怪物消散测试”面板选择独立 Lab 的预设，点击“对选中怪物播放”。身体和线稿应用消散，底部填充和边框的渐隐终点由怪物消散预设指定，在怪物消散效果 Lab 编辑；恢复时遵循对象原有显隐。支持手动预览进度、恢复单个/全部对象，多个怪物分别持有预览状态。选中场景对象时禁止播放。测试模块只保存预设选择，不修改怪物文档或预设库。
 
 `monster-visual-objects/monsterVisualObjects.service.ts` 是预览模块的唯一对象访问入口；分层目标 revision 在资源重载或文档恢复时变化，测试效果及时清理。原始视觉页仍不安装测试模块。新页本机对象文档按 pathname 隔离，原页保存数据继续使用原键。通过 `test:monster-dissolve` / `test:monster-dissolve-webgl` 验证新模块与七个现有预设。
 
@@ -58,3 +58,5 @@ npm run test:monster-visual-webgl 检查七种最小模块组合、各自资源/
 npm run build:monster-visual 构建组合式页及十一项独立页面，不复制 public。
 
 图形检查复用 127.0.0.1:1184，阻止写请求，报告和截图位于 node_modules/.cache/monster-visual-verification.*。tsconfig.monster-visual.json 覆盖全部迁移入口；外围地牢 UI 等既有类型诊断单独处理。原外观配置编辑器和其他独立 Lab 继续提供正式配置编辑与保存。
+
+怪物消散预设包含 `bottomFillEnd` 和 `bottomBorderEnd`（0–1）；旧预设缺失时默认为 1。独立编辑器、组合式预览和死亡表现模块选择消散预设时共用分层效果。死亡模块保留原有死亡效果选项，选择消散预设时进度按死亡动作总时长计算。

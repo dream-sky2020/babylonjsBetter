@@ -1,4 +1,4 @@
-import { Color3, TransformNode, Vector3, type Scene } from '@babylonjs/core';
+import { Color3, ShaderMaterial, TransformNode, Vector3, type Scene } from '@babylonjs/core';
 import { getVisualDeformationRegistry, type VisualDeformationMetadata } from '../../render-deformation/visualDeformationRegistry.ts';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
 import type { SpriteDissolveEffectState } from '@/core/sprite/dissolve/spriteDissolve.types.ts';
@@ -29,6 +29,7 @@ export type LayeredMonsterController = {
   ) => void;
   setDissolve: (options: SpriteDissolveEffectState) => void;
   setLayerDissolve: (key: MonsterLayerKey, options: SpriteDissolveEffectState) => void;
+  setLayerOpacity: (key: MonsterLayerKey, opacity: number) => void;
   /** @deprecated 兼容旧 Lab；新代码使用 setDissolve。 */
   setNoiseErode: (options: SpriteDissolveEffectState) => void;
   updateTime: (timeSec: number) => void;
@@ -172,6 +173,7 @@ export const createLayeredMonster = (
       if (Number.isFinite(options.vertexSubdivisions)) handle.sprite.setSubdivisions(options.vertexSubdivisions!);
       handle.sprite.surface.setEffects({ dissolve: options });
     },
+    setLayerOpacity: (key, opacity) => { const material = layers.get(key)?.sprite.mesh.material; if (material instanceof ShaderMaterial) material.setFloat('uSpriteOpacity', Math.max(0, Math.min(1, opacity))); },
     setNoiseErode: (options) => {
       for (const handle of layers.values()) {
         if (Number.isFinite(options.vertexSubdivisions)) handle.sprite.setSubdivisions(options.vertexSubdivisions!);

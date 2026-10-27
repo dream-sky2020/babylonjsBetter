@@ -239,6 +239,7 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-controls .lab-panel-help { position: relative; min-width: 0; margin: 0; border: 0; border-radius: 0; padding: 0; font-size: 10px; }
 .lab-controls .lab-card .lab-panel-help-trigger { width: auto; min-height: 24px; padding: 3px 4px; border: 0; background: transparent; color: #90afc4; font-weight: 400; }
 .lab-panel-help-body { position: fixed; inset: auto; margin: 0; width: min(360px, calc(100vw - 16px)); max-height: min(420px, calc(100vh - 16px)); overflow: auto; padding: 10px 12px; border: 1px solid #4b6477; background: #101b26; color: #d9e9f4; box-shadow: 0 5px 16px #0008; cursor: default; font-size: 12px; font-weight: 400; line-height: 1.6; overflow-wrap: anywhere; }
+.lab-panel-help-body { user-select: text; }
 .lab-panel-help-body::backdrop { background: transparent; }
 .lab-panel-help-body p { margin: 6px 0; }
 .lab-panel-help-body summary { cursor: pointer; }

@@ -180,7 +180,7 @@ export class MonsterVisualRenderer {
     /** Narrow surface-effect port; ownership of sprites stays with the renderer. */
     getSurfaceEffects(id: string) {
         const controller = this.entries.get(id)?.controller;
-        return controller ? { setDissolve: controller.setDissolve } : undefined;
+        return controller ? { setDissolve: controller.setDissolve, setLayerDissolve: controller.setLayerDissolve, setLayerOpacity: controller.setLayerOpacity } : undefined;
     }
     update(dt: number): void { this.time += dt; for (const entry of this.entries.values())
         entry.controller.updateTime(this.time); }

@@ -1,8 +1,7 @@
 import type { LabModule, LabStateJsonValue } from '@/labs/kit';
 import { createLabField } from '@/labs/kit';
 import { loadConfig } from '@/core/config/configLoader';
-import { normalizeSpriteAshPresetLibrary } from '@/core/sprite/ash/spriteAshPreset';
-import type { SpriteAshPresetLibrary } from '@/core/sprite/ash/spriteAsh.types';
+import { normalizeMonsterDissolveLibrary, type MonsterDissolveLibrary } from '@/core/monster/dissolve/monsterDissolve';
 import { MONSTER_VISUAL_OBJECTS } from '../monster-visual-objects/monsterVisualObjects.service';
 import { createMonsterPanel, fillMonsterSelect } from '../monsterModuleUi';
 import { MonsterDissolvePreview } from './MonsterDissolvePreview';
@@ -18,8 +17,8 @@ export const monsterDissolvePreviewLabModule: LabModule = {
     const panel = createMonsterPanel(context, 'monster-dissolve-preview', '怪物消散测试');
     const selected = document.createElement('strong'); selected.dataset.monsterDissolveSelected = ''; panel.append(selected);
     const presets = panel.select('消散效果', 'dissolve-preset');
-    let library: SpriteAshPresetLibrary = {}, disposed = false, ready = false;
-    const settings = { presetKey: '', bottomFillEnd: 100, bottomBorderEnd: 100 };
+    let library: MonsterDissolveLibrary = {}, disposed = false, ready = false;
+    const settings = { presetKey: '' };
     const current = () => library[settings.presetKey];
     const selectedId = () => { const selected = objects.selected(); if (!selected) throw new Error('请在对象树或画面中选中怪物或其图层。'); return selected.id; };
     const play = panel.button('对选中怪物播放', 'dissolve-play', () => { const preset = current(); if (!preset) throw new Error('请选择可用的消散效果。'); preview.play(selectedId(), preset); render(); });
@@ -29,19 +28,11 @@ export const monsterDissolvePreviewLabModule: LabModule = {
     progress.addEventListener('input', () => void panel.run(() => { const preset = current(); if (preset) preview.scrub(selectedId(), preset, progress.valueAsNumber); render(); }));
     const progressNumber = document.createElement('input'); progressNumber.type = 'number'; progressNumber.min = '0'; progressNumber.max = '100'; progressNumber.step = '0.1'; progressNumber.dataset.monsterControl = 'dissolve-progress-number'; panel.append(createLabField('消散进度（%）', progressNumber));
     progressNumber.addEventListener('change', () => void panel.run(() => { const preset = current(); if (preset && Number.isFinite(progressNumber.valueAsNumber)) preview.scrub(selectedId(), preset, progressNumber.valueAsNumber / 100); render(); }));
-    const fadeInput = (label: string, key: 'bottomFillEnd' | 'bottomBorderEnd', control: string) => {
-      const input = document.createElement('input'); input.type = 'number'; input.min = '0'; input.max = '100'; input.step = '1'; input.dataset.monsterControl = control;
-      panel.append(createLabField(label, input));
-      input.addEventListener('change', () => { if (!Number.isFinite(input.valueAsNumber)) { input.value = String(settings[key]); return; } settings[key] = Math.max(0, Math.min(100, input.valueAsNumber)); input.value = String(settings[key]); preview.setFadeEnds({ bottomFillMask: settings.bottomFillEnd / 100, bottomBorder: settings.bottomBorderEnd / 100 }); state.markChanged(); });
-      return input;
-    };
-    const fillEnd = fadeInput('底部填充消失进度（%）', 'bottomFillEnd', 'dissolve-fill-end');
-    const borderEnd = fadeInput('底部边框消失进度（%）', 'bottomBorderEnd', 'dissolve-border-end');
-    const note = document.createElement('small'); note.textContent = '复用独立怪物消散 Lab 的预设和粒子。底部两层从动画开始渐隐，在各自设置的进度完全消失；0% 表示立即消失。恢复后回到对象原有显隐。测试进度不写入对象文档。'; panel.append(note);
+    const note = document.createElement('small'); note.textContent = '复用独立怪物消散 Lab 的预设和粒子。底部两层根据消散预设渐隐。恢复后回到对象原有显隐。测试进度不写入对象文档。'; panel.append(note);
     const state = context.labState.registerReference({ moduleId: 'monster-dissolve-preview', key: 'settings', version: 1, value: settings,
       inspect: value => ({ ...value }), save: { serialize: value => ({ ...value }),
-        validate(saved, version) { const value = saved as { presetKey?: unknown; bottomFillEnd?: unknown; bottomBorderEnd?: unknown }; if (version !== 1 || !value || typeof value.presetKey !== 'string' || (ready && value.presetKey && !library[value.presetKey])) throw new Error('消散测试预设选择无效。'); const valid = (n: unknown) => n === undefined || (typeof n === 'number' && Number.isFinite(n) && n >= 0 && n <= 100); if (!valid(value.bottomFillEnd) || !valid(value.bottomBorderEnd)) throw new Error('底部消失进度无效。'); return { presetKey: value.presetKey, bottomFillEnd: value.bottomFillEnd ?? 100, bottomBorderEnd: value.bottomBorderEnd ?? 100 } as LabStateJsonValue; },
-        restore(value, saved) { Object.assign(value, saved); preview.resetAll(); preview.setFadeEnds({ bottomFillMask: value.bottomFillEnd / 100, bottomBorder: value.bottomBorderEnd / 100 }); if (ready) render(); },
+        validate(saved, version) { const value = saved as { presetKey?: unknown }; if (version !== 1 || !value || typeof value.presetKey !== 'string' || (ready && value.presetKey && !library[value.presetKey])) throw new Error('消散测试预设选择无效。'); return { presetKey: value.presetKey } as LabStateJsonValue; },
+        restore(value, saved) { value.presetKey = (saved as { presetKey: string }).presetKey; preview.resetAll(); if (ready) render(); },
       } });
     presets.addEventListener('change', () => { settings.presetKey = presets.value; state.markChanged(); render(); });
     const render = () => {
@@ -49,7 +40,6 @@ export const monsterDissolvePreviewLabModule: LabModule = {
       const object = objects.selected(), active = object ? preview.status(object.id) : null, preset = current();
       selected.textContent = object ? `当前怪物：${object.name}` : '请选择怪物视觉对象或其图层'; selected.dataset.monsterDissolveSelected = object?.id ?? '';
       presets.disabled = !ready; if (ready) presets.value = settings.presetKey;
-      if (document.activeElement !== fillEnd) fillEnd.value = String(settings.bottomFillEnd); if (document.activeElement !== borderEnd) borderEnd.value = String(settings.bottomBorderEnd);
       play.disabled = !ready || !object || !preset; restore.disabled = !object || !active;
       restoreAll.disabled = !ready; progress.disabled = !ready || !object || !preset; progress.value = String(active?.progress ?? 0); progressNumber.disabled = progress.disabled; if (document.activeElement !== progressNumber) progressNumber.value = String(Math.round((active?.progress ?? 0) * 1000) / 10);
       panel.root.dataset.dissolveProgress = String(active?.progress ?? 0); panel.root.dataset.dissolvePlaying = String(active?.playing ?? false);
@@ -67,8 +57,8 @@ export const monsterDissolvePreviewLabModule: LabModule = {
         const value = payload as Record<string, unknown>; return value.data ?? value;
       } });
       if (disposed) return;
-      library = normalizeSpriteAshPresetLibrary(raw);
-      if (!Object.keys(library).length) library = normalizeSpriteAshPresetLibrary(await loadConfig('spriteAshPresets.json'));
+      library = normalizeMonsterDissolveLibrary(raw);
+      if (!Object.keys(library).length) library = normalizeMonsterDissolveLibrary(await loadConfig('spriteAshPresets.json'));
       if (disposed) return;
       if (!Object.keys(library).length) throw new Error('没有可用的怪物消散预设。');
       if (!library[settings.presetKey]) settings.presetKey = Object.keys(library)[0]!;

@@ -48,10 +48,6 @@ app.whenReady().then(async () => {
     current = await snapshot(); assert.ok(current.layers.filter(layer => layer.id === first && layer.key.startsWith('bottom')).every(layer => Math.abs(layer.opacity - .3) < 1e-6));
     assert.deepEqual((await saved()).modules['monster-visual-objects'].document.data, beforeState, 'Preview cannot write authored visibility or transforms');
     assert.equal(await page(`document.querySelector('[data-lab-dirty]').dataset.labDirty`), 'false');
-    await page(`(()=>{for (const [key,value] of [['dissolve-fill-end',50],['dissolve-border-end',25]]) {const input=document.querySelector('[data-monster-control="'+key+'"]');input.value=value;input.dispatchEvent(new Event('change',{bubbles:true}));}})();`);
-    await scrub(.25); current = await snapshot();
-    assert.equal(current.layers.find(layer => layer.id === first && layer.key === 'bottomFillMask').opacity, .5);
-    assert.equal(current.layers.find(layer => layer.id === first && layer.key === 'bottomBorder').opacity, 0);
     const meshIds = current.layers.map(layer => layer.uniqueId); await action('dissolve-reset');
     assert.ok((await snapshot()).layers.every(layer => layer.dissolve === 0 && layer.enabled));
     assert.deepEqual((await snapshot()).layers.map(layer => layer.uniqueId), meshIds, 'Reset does not rebuild sprites');
@@ -88,6 +84,10 @@ app.whenReady().then(async () => {
     await window.loadURL('http://127.0.0.1:1184/labs/composable/monster-visual-lab/index.html');
     await until(`!!document.querySelector('[data-lab-panel="monster-visual-objects"][data-monster-ready="true"]')`);
     assert.equal(await page(`!!document.querySelector('[data-lab-panel="monster-dissolve-preview"]')`),false);
+    await window.loadURL('http://127.0.0.1:1184/labs/standalone/monster-dissolve-effect-lab/index.html');
+    await until(`document.querySelector('.panel')?.textContent.includes('底部填充消失进度')`);
+    assert.equal(await page(`[...document.querySelectorAll('label')].filter(label=>/底部(填充|边框)消失进度/.test(label.textContent)).length`), 2);
+    checks.push('standalone monster dissolve editor exposes both preset fade timings');
     assert.deepEqual(errors,[]); assert.deepEqual(writes,[]);
     report={passed:true,checks,owners,presets:options,errors,writes};
   } catch(error) { report={passed:false,checks,error:error.stack??String(error),errors,writes}; const shot=await window.webContents.capturePage(undefined,{stayHidden:true,stayAwake:true});fs.writeFileSync(resolveRepoPath('node_modules/.cache/monster-dissolve-lab-failure.png'),shot.toPNG()); }

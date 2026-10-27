@@ -1,4 +1,4 @@
-import { ShaderMaterial, TransformNode, type Scene } from '@babylonjs/core';
+import { TransformNode, type Scene } from '@babylonjs/core';
 import { createLayeredMonster, type LayeredMonsterController } from '@/core/monster/render/createLayeredMonster';
 import { MONSTER_LAYER_KEYS } from '@/core/monster/config/monsterConfig';
 import type { MonsterLayerKey } from '@/core/monster/types/monster.types';
@@ -44,7 +44,7 @@ export class MonsterVisualObjects {
         const created: Handle = { root, visual, signature: '', records: [], generation: -1, revision: 0, hidden: new Set(),
           target: { root, get revision() { return created.revision; }, getLayerMesh: key => visual.getLayerMesh(key),
             setLayerDissolve: (key, options) => { if (!root.isDisposed()) visual.setLayerDissolve(key, options); },
-            setPreviewLayerOpacity(key, opacity) { const material = visual.getLayerMesh(key)?.material; if (material instanceof ShaderMaterial) material.setFloat('uSpriteOpacity', opacity); },
+            setLayerOpacity: (key, opacity) => { if (!root.isDisposed()) visual.setLayerOpacity(key, opacity); },
           } };
         handle = created; this.handles.set(object.id, handle);
       }

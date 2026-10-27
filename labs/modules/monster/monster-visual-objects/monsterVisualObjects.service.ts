@@ -9,7 +9,7 @@ export type MonsterVisualObjectTarget = {
   readonly revision: number;
   getLayerMesh(key: MonsterLayerKey): Mesh | null;
   setLayerDissolve(key: MonsterLayerKey, options: SpriteDissolveEffectState): void;
-  setPreviewLayerOpacity(key: MonsterLayerKey, opacity: number): void;
+  setLayerOpacity(key: MonsterLayerKey, opacity: number): void;
 };
 export type MonsterVisualObjectsService = {
   selected(): { id: string; name: string } | null;

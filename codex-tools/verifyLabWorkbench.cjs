@@ -62,10 +62,10 @@ app.whenReady().then(async () => {
     await page(`document.querySelector('[data-lab-splitter="right"]').dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true})); void 0;`);
     await page(`(()=>{const s=document.querySelector('[data-lab-splitter="right"]');for(let i=0;i<5;i++)s.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));document.querySelector('[data-lab-panel="monster-visual-libraries"] .lab-panel-help-trigger').click();})();`);
     await waitFor(`!!document.querySelector('.lab-panel-help-body:popover-open')`);
-    const help = await page(`(()=>{const popup=document.querySelector('.lab-panel-help-body:popover-open'),r=popup.getBoundingClientRect(),side=document.querySelector('.lab-controls').getBoundingClientRect();const x=Math.max(r.left+10,side.left-12),y=r.top+18;return {rect:r.toJSON(),sideLeft:side.left,unclipped:popup.contains(document.elementFromPoint(x,y)),text:popup.textContent,collapsed:popup.closest('.lab-card').classList.contains('is-collapsed')};})()`);
+    const help = await page(`(()=>{const popup=document.querySelector('.lab-panel-help-body:popover-open'),r=popup.getBoundingClientRect(),side=document.querySelector('.lab-controls').getBoundingClientRect();const x=Math.max(r.left+10,side.left-12),y=r.top+18;return {rect:r.toJSON(),sideLeft:side.left,unclipped:popup.contains(document.elementFromPoint(x,y)),text:popup.textContent,selectable:getComputedStyle(popup.querySelector('p') ?? popup).userSelect,collapsed:popup.closest('.lab-card').classList.contains('is-collapsed')};})()`);
     assert.ok(help.rect.left >= 0 && help.rect.right <= 1440 && help.rect.bottom <= 1000);
     assert.ok(help.rect.left < help.sideLeft && help.unclipped, 'Help remains visible and hit-testable outside the sidebar clipping boundary');
-    assert.match(help.text, /职责|直接依赖/); assert.equal(help.collapsed, false);
+    assert.match(help.text, /职责|直接依赖/); assert.equal(help.collapsed, false); assert.equal(help.selectable, 'text', 'Help content can be selected');
     const helpShot = await window.webContents.capturePage(undefined, { stayHidden: true, stayAwake: true });
     fs.writeFileSync(resolveRepoPath('node_modules/.cache/lab-workbench-help.png'), helpShot.toPNG());
     window.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'Escape' }); window.webContents.sendInputEvent({ type: 'keyUp', keyCode: 'Escape' });

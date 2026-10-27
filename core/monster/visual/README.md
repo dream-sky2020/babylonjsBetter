@@ -1,6 +1,6 @@
 # 怪物视觉能力
 
-`LayeredMonsterController.setLayerDissolve(key, options)` 只更新指定层的消散和必要网格细分；原 `setDissolve`/`setNoiseErode` 仍更新所有层，以保持独立 Lab 兼容。Monster Dissolve 组合式测试模块只调用身体/线稿两层，底部透明度通过临时预览处理，不写领域文档。
+`LayeredMonsterController.setLayerDissolve(key, options)` 只更新指定层的消散和必要网格细分；原 `setDissolve`/`setNoiseErode` 仍更新所有层，以保持旧调用兼容。怪物消散预设通过共享分层逻辑驱动身体/线稿消散及底部两层淡出；组合式测试不写怪物领域文档。
 
 纯视觉对象编辑直接复用 `render/createLayeredMonster`，无需 Runtime。其可选 `layerParents: true` 为四层各建一个 TransformNode，`getLayerNode(key)` 返回稳定父节点；`load` 仅重建精灵资源，保留这些节点的局部变换，`dispose` 一并释放。默认调用保持原节点结构。组合式 monster-visual-objects 在渲染根节点之外另加整体对象根节点，分别保存整体变换、外观内部参数和图层局部变换。
 

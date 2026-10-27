@@ -20,18 +20,15 @@ import {
   type StripePresetLibrary
 } from '@/core/monster';
 import {
-  normalizeSpriteAshPresetLibrary,
-  normalizeSpriteAshPreset,
   SPRITE_ASH_PARAMETER_DEFINITIONS,
   SPRITE_ASH_GROUP_FEATURES,
-  type SpriteAshPreset,
-  type SpriteAshPresetLibrary
+  type SpriteAshPreset
 } from '@/core/sprite';
 import {
   createSpriteDissolveParticles,
   type SpriteDissolveParticleController
 } from '@/core/sprite/ash/createSpriteDissolveParticles.ts';
-import { createSpriteNoiseErodeOptions } from '@/core/sprite/dissolve/createSpriteNoiseErodeOptions.ts';
+import { applyMonsterDissolve, normalizeMonsterDissolvePreset, normalizeMonsterDissolveLibrary, type MonsterDissolvePreset, type MonsterDissolveLibrary } from '@/core/monster/dissolve/monsterDissolve';
 
 const PRESET_URL = '/config/monsterDissolvePresets.json';
 const SPRITE_PRESET_URL = '/config/spriteAshPresets.json';
@@ -48,13 +45,13 @@ const App: React.FC = () => {
   const stageRef = useRef<HTMLElement>(null);
   const monsterRef = useRef<LayeredMonsterController | null>(null);
   const particlesRef = useRef<SpriteDissolveParticleController | null>(null);
-  const presetRef = useRef<SpriteAshPreset | undefined>(undefined);
+  const presetRef = useRef<MonsterDissolvePreset | undefined>(undefined);
   const progressRef = useRef(0);
   const playingRef = useRef(false);
   const [configs, setConfigs] = useState<MonsterDisplayConfigLibrary>({});
   const [monsterStripes, setMonsterStripes] = useState<MonsterStripePresetLibrary>({});
   const [stripes, setStripes] = useState<StripePresetLibrary>({});
-  const [presets, setPresets] = useState<SpriteAshPresetLibrary>({});
+  const [presets, setPresets] = useState<MonsterDissolveLibrary>({});
   const [monsterKey, setMonsterKey] = useState('');
   const [stripeKey, setStripeKey] = useState('');
   const [presetKey, setPresetKey] = useState('');
@@ -74,7 +71,7 @@ const App: React.FC = () => {
     setProgress(next);
     const preset = presetRef.current;
     if (!preset) return;
-    monsterRef.current?.setNoiseErode(createSpriteNoiseErodeOptions(preset, next));
+    if (monsterRef.current) applyMonsterDissolve(monsterRef.current, preset, next);
     particlesRef.current?.setProgress(next);
   };
 
@@ -86,10 +83,10 @@ const App: React.FC = () => {
       const nextConfigs = normalizeMonsterConfigLibrary(rawConfigs);
       const nextMonsterStripes = normalizeMonsterStripePresetLibrary(rawMonsterStripes);
       const nextStripes = normalizeStripePresetLibrary(rawStripes);
-      const savedMonsterPresets = normalizeSpriteAshPresetLibrary(rawMonsterPresets);
+      const savedMonsterPresets = normalizeMonsterDissolveLibrary(rawMonsterPresets);
       const nextPresets = Object.keys(savedMonsterPresets).length
         ? savedMonsterPresets
-        : normalizeSpriteAshPresetLibrary(rawSpritePresets);
+        : normalizeMonsterDissolveLibrary(rawSpritePresets);
       setConfigs(nextConfigs); setMonsterStripes(nextMonsterStripes); setStripes(nextStripes); setPresets(nextPresets);
       setMonsterKey(Object.keys(nextConfigs)[0] || '');
       setStripeKey(Object.keys(nextMonsterStripes)[0] || '');
@@ -213,9 +210,10 @@ const App: React.FC = () => {
     applyProgress(progressRef.current);
   }, [activePreset]);
 
-  const updatePreset = (next: SpriteAshPreset) => {
-    const normalized = normalizeSpriteAshPreset(next.presetKey, next);
+  const updatePreset = (next: MonsterDissolvePreset) => {
+    const normalized = normalizeMonsterDissolvePreset(next.presetKey, next);
     setPresets((current) => ({ ...current, [normalized.presetKey]: normalized }));
+    presetRef.current = normalized;
     particlesRef.current?.setPreset(normalized);
     queueMicrotask(() => applyProgress(progressRef.current));
   };
@@ -240,7 +238,7 @@ const App: React.FC = () => {
   };
   const save = async () => {
     try {
-      const payload = Object.fromEntries(Object.entries(presets).map(([key, value]) => [key, normalizeSpriteAshPreset(key, value)]));
+      const payload = Object.fromEntries(Object.entries(presets).map(([key, value]) => [key, normalizeMonsterDissolvePreset(key, value)]));
       const response = await requestDevServer(PRESET_API, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       const result = await response.json();
       if (!response.ok || result.success === false) throw new Error(result.errors?.[0] || result.message || `HTTP ${response.status}`);
@@ -262,6 +260,8 @@ const App: React.FC = () => {
         <label>预设</label><select value={activePreset?.presetKey || ''} onChange={(event) => { setPresetKey(event.target.value); setPlaying(false); progressRef.current = 0; setProgress(0); }}>{Object.values(presets).map((item) => <option key={item.presetKey} value={item.presetKey}>{item.name} · {item.presetKey}</option>)}</select>
         {activePreset && <>
           <label>边缘粒子</label><select value={activePreset.particleMode} onChange={(event) => updatePreset({ ...activePreset, particleMode: event.target.value as SpriteAshPreset['particleMode'] })}>{particleModeOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select>
+          <label>底部填充消失进度（%）</label><input type="number" min="0" max="100" step="1" value={activePreset.bottomFillEnd * 100} onChange={(event) => updatePreset({ ...activePreset, bottomFillEnd: Number(event.target.value) / 100 })} />
+          <label>底部边框消失进度（%）</label><input type="number" min="0" max="100" step="1" value={activePreset.bottomBorderEnd * 100} onChange={(event) => updatePreset({ ...activePreset, bottomBorderEnd: Number(event.target.value) / 100 })} />
           <label>预设名称</label><input type="text" value={activePreset.name} onChange={(event) => updatePreset({ ...activePreset, name: event.target.value })} />
           <div className="grid-2 section"><button onClick={duplicatePreset}>复制</button><button onClick={deletePreset} disabled={Object.keys(presets).length <= 1}>删除</button></div>
         </>}

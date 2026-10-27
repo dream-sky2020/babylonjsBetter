@@ -1,6 +1,7 @@
 import { createSpriteDeathVisualRuntime } from '@/core/effects/sprite-death/createSpriteDeathVisualRuntime';
 import type { SpriteDeathVisualRuntime } from '@/core/effects/sprite-death/spriteDeathVisual.types';
 import { getMonsterDeathDefinition,type MonsterDeathPreset } from '@/core/monster-death-motion';
+import type { MonsterDissolvePreset } from '@/core/monster/dissolve/monsterDissolve';
 import { Color3 } from '@babylonjs/core';
 import type { MonsterActionCoordinator } from './MonsterActionCoordinator';
 import type { MonsterVisualRenderer } from './MonsterVisualRenderer';
@@ -27,7 +28,7 @@ export class MonsterDeathController {
         this.offRemove = renderer.onRemove(id => this.stopMonsterDeath(id));
         this.offCoordinator = coordinator.register('death', id => this.stopMonsterDeath(id));
     }
-    playMonsterDeath(id: string, preset: MonsterDeathPreset, onComplete?: () => void): boolean {
+    playMonsterDeath(id: string, preset: MonsterDeathPreset, onComplete?: () => void, dissolvePreset?: MonsterDissolvePreset): boolean {
         if (this.disposed) return false;
         const definition = getMonsterDeathDefinition(preset.modeId);
         if (!this.renderer.has(id) || !definition)
@@ -38,7 +39,7 @@ export class MonsterDeathController {
         this.deaths.set(id, { elapsed: 0, duration, preset: { ...preset, parameters: { ...preset.parameters } }, definition, completed: false, onComplete,
             visualRuntime: definition.visual ? createSpriteDeathVisualRuntime({ scene: this.renderer.scene, host: this.renderer.getSurfaceEffects(id)!,
                 emitterMesh: this.renderer.getMonsterLayerMesh(id, 'body') ?? this.renderer.getMonsterLayerMesh(id, 'bottomFillMask'),
-                visual: definition.visual, parameters: { ...preset.parameters }, duration }) : undefined });
+                visual: definition.visual, parameters: { ...preset.parameters }, duration, monsterPreset: dissolvePreset ? structuredClone(dissolvePreset) : undefined }) : undefined });
         return true;
     }
     stopMonsterDeath(id: string): void { this.deaths.get(id)?.visualRuntime?.dispose(); this.deaths.delete(id); this.renderer.setEffect(id, 'death', null); }
