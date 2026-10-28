@@ -118,7 +118,7 @@ function LabObjectTree({ registry, scene, controller, keyboard, isInputPaused, e
       if (!picked) { registry.select(null); setRawSelected(null); return; }
       const record = registry.findNode(picked, true);
       if (record) { registry.select(record.key); setRawSelected(null); return; }
-      if (registry.findNode(picked)?.locked) return;
+      if (registry.findNode(picked)) { registry.select(null); setRawSelected(null); return; }
       let cursor: Node | null = picked;
       while (cursor) {
         const match = [...model.nodes].find(([, value]) => value === cursor);
@@ -132,9 +132,10 @@ function LabObjectTree({ registry, scene, controller, keyboard, isInputPaused, e
       onKeyDown: event => { if (isInputPaused() || event.ctrlKey || event.metaKey || event.altKey) return 'ignored'; return actions.current.focus() ? 'handled' : 'ignored'; } });
     const observer = scene.onPointerObservable.add(info => {
       if (info.type !== PointerEventTypes.POINTERTAP || info.event.button !== 0 || isInputPaused() || editorHost?.pickingBlocked) return;
-      const pick = scene.pick(scene.pointerX, scene.pointerY, mesh => mesh.isEnabled() && mesh.isVisible && mesh.visibility > 0
-        && !helper(mesh) && !registry.findNode(mesh)?.locked, false, scene.activeCamera ?? undefined);
-      actions.current.pick(pick?.pickedMesh ?? null);
+      const picks = scene.multiPick(scene.pointerX, scene.pointerY, mesh => mesh.isEnabled() && mesh.isVisible && mesh.visibility > 0
+        && !helper(mesh) && !registry.findNode(mesh)?.locked, scene.activeCamera ?? undefined) ?? [];
+      const nodes = picks.filter(pick => pick.hit && pick.pickedMesh).sort((a, b) => a.distance - b.distance).map(pick => pick.pickedMesh!);
+      actions.current.pick(registry.scenePickNode(nodes));
     });
     return () => { registration.dispose(); scene.onPointerObservable.remove(observer); };
   }, [registry, scene, keyboard, isInputPaused, editorHost]);
@@ -163,6 +164,10 @@ function LabObjectTree({ registry, scene, controller, keyboard, isInputPaused, e
       renderRowMetadata={key => {
         const record = model.records.get(key), visible = record?.node.isEnabled(false) ?? false;
         return <><small className="editor-hierarchy-type" title={model.items[key].typeLabel}>{model.items[key].typeLabel}</small>
+          {record && <button type="button" className="lab-object-row-picking" data-lab-object-picking={key}
+            title={record.sceneSelectable ? '关闭场景选中' : '开启场景选中'} aria-label={`${record.name}：${record.sceneSelectable ? '关闭' : '开启'}场景选中`} aria-pressed={record.sceneSelectable}
+            onDoubleClick={event => event.stopPropagation()}
+            onClick={event => { event.stopPropagation(); registry.setSceneSelectable(key, !record.sceneSelectable); }}>{record.sceneSelectable ? '⌖' : '⊘'}</button>}
           {record && record.canHide !== false && <button type="button" className="lab-object-row-visibility" data-lab-object-visibility={key}
             title={visible ? '隐藏对象' : '显示对象'} aria-label={`${record.name}：${visible ? '隐藏' : '显示'}`} aria-pressed={visible}
             onDoubleClick={event => event.stopPropagation()}

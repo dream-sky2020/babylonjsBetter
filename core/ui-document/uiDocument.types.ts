@@ -95,6 +95,8 @@ export type UiRenderRuntime = {
   requestRender(): void;
 };
 
+export type UiBindableField = { key: string; label: string; propertyPath: string; valueType: 'string' | 'number' };
+
 export type UiDefinition<TProps extends Record<string, unknown> = Record<string, unknown>> = {
   type: string;
   version: number;
@@ -103,6 +105,8 @@ export type UiDefinition<TProps extends Record<string, unknown> = Record<string,
   description?: string;
   defaultSize: { width: number; height: number };
   fields: UiPropertyField[];
+  /** Explicit binding slots supported by this component. */
+  bindableFields?: readonly UiBindableField[];
   createDefaultProps(): TProps;
   normalizeProps(value: unknown): TProps;
   migrateProps?(value: unknown, fromVersion: number): TProps;

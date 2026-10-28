@@ -38,3 +38,30 @@ test('background provider refresh cannot steal another provider selection', () =
   assert.equal(registry.getSnapshot().selectedKey, 'scene/b');
   a.select('a'); a.select('a', { onlyIfSelected: true }); assert.equal(registry.getSnapshot().selectedKey, 'actors/a');
 });
+
+
+test('scene selection falls back to an enabled ancestor, stays editable in tree, and persists independently', () => {
+  const values = new Map<string, string>();
+  const prior = globalThis.localStorage;
+  Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: { getItem: (key: string) => values.get(key) ?? null, setItem: (key: string, value: string) => values.set(key, value) } });
+  try {
+    const root = node(), layer = node(root), mesh = node(layer), front = node(root), frontMesh = node(front), unrelated = node(); let includeLayer = true;
+    const make = () => { const registry = new LabObjects(() => {}, 'test-picking'); const registration = registry.scope('monster').register({ id: 'objects', label: 'Objects', objects: () => [
+      { id: 'root', name: 'Root', node: root }, { id: 'front', name: 'Front', node: front, parentId: 'root', defaultSceneSelectable: false }, ...(includeLayer ? [{ id: 'layer', name: 'Layer', node: layer, parentId: 'root', defaultSceneSelectable: false }] : [])
+    ] }); return { registry, registration }; };
+    const { registry, registration } = make();
+    assert.equal(registry.findNode(mesh, true)?.id, 'root');
+    registry.select('objects/layer'); assert.equal(registry.getSnapshot().selectedKey, 'objects/layer');
+    registry.setSceneSelectable('objects/layer', true); assert.equal(registry.findNode(mesh, true)?.id, 'layer');
+    assert.equal(registry.scenePickNode([frontMesh, mesh]), mesh);
+    assert.equal(registry.scenePickNode([frontMesh, unrelated, mesh]), frontMesh);
+    registry.setSceneSelectable('objects/root', false); registry.setSceneSelectable('objects/layer', false);
+    assert.equal(registry.findNode(mesh, true), undefined); assert.equal(registry.findNode(mesh)?.id, 'layer');
+    registry.setSceneSelectable('objects/layer', true);
+    const reloaded = make(); assert.equal(reloaded.registry.findNode(mesh, true)?.id, 'layer');
+    reloaded.registry.setSceneSelectable('objects/layer', false); assert.equal(reloaded.registry.findNode(mesh, true), undefined);
+    includeLayer = false; registration.refresh(); registry.getSnapshot();
+    assert.equal(JSON.parse(values.get('test-picking')!).hasOwnProperty('objects/layer'), false);
+    registry.dispose(); reloaded.registry.dispose();
+  } finally { if (prior === undefined) delete (globalThis as { localStorage?: Storage }).localStorage; else Object.defineProperty(globalThis, 'localStorage', { configurable: true, value: prior }); }
+});

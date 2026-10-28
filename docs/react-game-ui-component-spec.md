@@ -2,7 +2,7 @@
 
 版本：提案 v0.1 · 2026-10-21
 适用项目：React UI Layout Lab（沿用 ui-preview-canvas-lab URL）及其未来游戏运行宿主
-状态：纯 React 编辑/预览和组件＋元数据注册已实施；本文拟定的完整属性 schema、文档 V3 和命名插槽仍为后续协议。实际可用接口见 core/ui-document/README.md。
+状态：纯 React 编辑/预览、组件＋元数据注册、基本数据绑定和组合式 UI 覆盖层已实施；本文拟定的完整属性 schema、文档 V3、命名插槽及结构化事件协议仍为后续协议。当前可复制使用的组件绑定接口和示例见 [预制件规范](../core/ui/prefabs/README.md)，运行接口见 [UI 文档说明](../core/ui-document/README.md)。
 
 工作台的信息组织与交互改版见 [UI Preview 工作台改版方案](ui-preview-workbench-redesign.md)，
 综合场景环境、地图和对话图 Lab 的现有能力，与本文的组件协议分工实施。

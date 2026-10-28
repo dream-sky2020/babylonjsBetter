@@ -91,3 +91,9 @@
   .ui-workbench .stage-toolbar > div:first-child { display: none; }.ui-workbench .toolbar-actions { flex: 1; justify-content: center; }
   .ui-preview-session { font-size: 10px; }.ui-workbench .canvas-caption { display: none; }
 }
+
+.ui-binding-editor { display:grid; gap:8px; }
+.ui-binding-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.ui-binding-heading label { display:flex; align-items:center; gap:5px; }
+.ui-binding-actions { display:flex; flex-wrap:wrap; gap:5px; }
+.ui-binding-hint { display:block; margin-top:4px; color:#e9bd75; font-size:11px; overflow-wrap:anywhere; }

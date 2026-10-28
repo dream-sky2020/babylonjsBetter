@@ -86,7 +86,7 @@ export class LabViewportManager {
     root.className = `lab-viewport-layer is-${options.mode}`;
     root.dataset.viewportLayer = id;
     root.hidden = true;
-    root.style.pointerEvents = options.interactive === false ? 'none' : 'auto';
+    root.style.pointerEvents = options.interactive === false || options.inputMode === 'passthrough' ? 'none' : 'auto';
 
     const toolbar = document.createElement('div');
     toolbar.className = 'lab-viewport-layer-toolbar';
@@ -103,7 +103,8 @@ export class LabViewportManager {
 
     const body = document.createElement('div');
     body.className = 'lab-viewport-layer-body';
-    root.append(toolbar, body);
+    if (options.chrome !== false) root.append(toolbar);
+    root.append(body);
     if (options.fullWindow) (this.root.closest('.lab-host') ?? this.root).append(root);
     else this.overlayHost.append(root);
 
@@ -111,7 +112,7 @@ export class LabViewportManager {
       id,
       mode: options.mode,
       root,
-      interactive: options.interactive !== false,
+      interactive: options.interactive !== false && options.inputMode !== 'passthrough',
       pauseBabylonRendering: options.pauseBabylonRendering === true,
       visible: false,
     };
@@ -236,6 +237,7 @@ export class LabViewportManager {
     const entry = this.layers.get(shell.id)!;
     const content = document.createElement('div');
     content.className = 'lab-viewport-layer-html';
+    if (options.inputMode === 'passthrough') { content.style.pointerEvents = 'none'; content.style.padding = '0'; content.style.overflow = 'hidden'; }
     shell.body.append(content);
     const handle: LabViewportHtmlLayerHandle = {
       id: entry.id,

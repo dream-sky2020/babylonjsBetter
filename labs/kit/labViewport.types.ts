@@ -9,6 +9,10 @@ export type LabViewportLayerOptions = {
   title: string;
   mode: LabViewportLayerMode;
   interactive?: boolean;
+  /** HUD: empty space passes input through; interactive descendants may receive it. */
+  inputMode?: 'modal' | 'passthrough';
+  /** Hide the standard viewport layer title and close controls. */
+  chrome?: boolean;
   initiallyVisible?: boolean;
   pauseBabylonRendering?: boolean;
   closable?: boolean;

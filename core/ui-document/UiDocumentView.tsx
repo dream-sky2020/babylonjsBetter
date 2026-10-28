@@ -7,18 +7,20 @@ export type { UiReactComponentProps } from './uiDocument.types.ts';
 export type UiReactComponents = Record<string, ComponentType<UiReactComponentProps>>;
 
 /** The same React tree renders in edit, preview, and game hosts. Never falls back to bitmap drawing. */
-export const UiDocumentView = ({ document, registry, components = uiBasicReactComponents, onAction, style, mode = 'runtime' }: {
+export const UiDocumentView = ({ document, registry, components = uiBasicReactComponents, onAction, style, runtimeContext, passthrough = false, mode = 'runtime' }: {
   document: UiDocument;
   registry: UiDefinitionRegistry;
   components?: UiReactComponents;
   onAction?: (action: string) => void;
   style?: CSSProperties;
+  runtimeContext?: Record<string, unknown>;
+  passthrough?: boolean;
   mode?: UiRenderRuntime['mode'];
 }) => {
   const [, requestRender] = React.useReducer(value => value + 1, 0);
   const runtime: UiRenderRuntime = {
     mode, assets: { getImage: () => undefined }, requestRender,
-    resolveBinding: (path, fallback) => document.previewContext?.[path] ?? fallback,
+    resolveBinding: (path, fallback) => path ? (runtimeContext ?? document.previewContext)?.[path] ?? fallback : fallback,
   };
   const ordered = (ids: string[]) => [...ids].sort((a, b) => document.nodes[a].layout.zIndex - document.nodes[b].layout.zIndex);
   const renderNode = (id: string, parentX = 0, parentY = 0): React.ReactNode => {
@@ -28,7 +30,7 @@ export const UiDocumentView = ({ document, registry, components = uiBasicReactCo
     const componentNode = definition ? { ...node, props: definition.normalizeProps(node.props) } : node;
     const Component = definition?.component ?? components[node.type];
     return <div key={id} data-ui-node={id} style={{ position: 'absolute', left: x - parentX, top: y - parentY, width, height, zIndex, opacity: source.opacity, isolation: 'isolate', pointerEvents: 'none' }}>
-      <div data-ui-visual={id} style={{ position: 'absolute', inset: 0, pointerEvents: node.type === 'group' ? 'none' : 'auto' }}>
+      <div data-ui-visual={id} style={{ position: 'absolute', inset: 0, pointerEvents: node.type === 'group' || (passthrough && node.type !== 'button') ? 'none' : 'auto' }}>
         {Component ? <Component node={componentNode} runtime={runtime} onAction={mode === 'edit' ? undefined : onAction} /> : <div data-ui-missing={node.type} style={{ width: '100%', height: '100%', padding: 8, overflow: 'hidden', color: '#fecaca', border: '1px dashed #f87171', background: '#7f1d1d' }}>未注册 React 组件：{node.type}</div>}
       </div>
       {ordered(source.childIds).map(childId => renderNode(childId, x, y))}

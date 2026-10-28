@@ -37,6 +37,7 @@ npx tsc --noEmit -p tsconfig.ui-preview.json
 node --experimental-strip-types --test labs/standalone/ui-preview-canvas-lab/uiPreviewWorkspace.test.mjs core/ui-document/*.test.ts
 node codex-tools/runElectronVerification.mjs codex-tools/verifyUiPreviewWorkbench.cjs
 node codex-tools/runElectronVerification.mjs codex-tools/verifyUiPreviewCanvasLab.cjs
+npm run test:ui-bindings-webgl
 ```
 
 浏览器验证需要已有 127.0.0.1:1184 开发服务；在隔离会话中操作并拦截正式预设写请求。
@@ -45,3 +46,7 @@ verifyUiPreviewCanvasLab.cjs 是 verifyReactUiLayoutLab.cjs 的兼容入口；�
 报告和多尺寸截图在 `node_modules/.cache/ui-preview-workbench-*`。
 后续规划见 [工作台改版方案](../../../docs/ui-preview-workbench-redesign.md) 和
 [React 组件规范](../../../docs/react-game-ui-component-spec.md)。
+
+组合式 Lab 可通过 `ui-runtime` 服务加载本编辑器保存的预设，复用相同 React 组件并覆盖 3D 视口；参考 `labs/composable/dungeon-ui-overlay-lab/` 和 `labs/kit/README.md` 的接入说明。预览数据、运行时数据与游戏业务状态各自独立。
+
+数据绑定面板列出组件声明的可绑定属性，可启用或解除绑定、编辑语义数据名称和模拟值；绑定生效时属性区标记静态备用值。模拟值以数据名为键，供同名绑定共享，进入 UI 文档历史并随预设保存；清除模拟值后使用绑定备用值，再回退静态属性。整备演示会话可关闭以查看模拟值。运行时使用模块提供的上下文，不读取模拟数据，也不修改 Lab 共享内存。自定义预制件通过 `bindableFields` 声明实际支持的绑定属性；组件如何读取绑定、如何在模块中提供数据，见[预制件的数据绑定示例](../../../core/ui/prefabs/README.md#给组件添加数据绑定)。

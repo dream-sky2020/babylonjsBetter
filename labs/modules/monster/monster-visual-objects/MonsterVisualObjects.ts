@@ -52,7 +52,7 @@ export class MonsterVisualObjects {
         const { root, visual } = handle; handle.generation = this.draft.generation; handle.revision++;
         handle.records = [{ id: object.id, name: object.name, node: root, kind: '怪物视觉对象', edit: this.binding(object.id, root), mountInspector: this.inspector(object.id),
           setVisible: visible => this.draft.update(object.id, value => { value.visible = visible; }) },
-          ...MONSTER_LAYER_KEYS.map(key => ({ id: `${object.id}/${key}`, parentId: object.id, name: MONSTER_LAYER_LABELS[key], node: visual.getLayerNode(key)!, kind: '精灵图层',
+          ...MONSTER_LAYER_KEYS.map(key => ({ id: `${object.id}/${key}`, parentId: object.id, name: MONSTER_LAYER_LABELS[key], node: visual.getLayerNode(key)!, kind: '精灵图层', defaultSceneSelectable: false,
             edit: this.binding(object.id, visual.getLayerNode(key)!, key), mountInspector: this.inspector(object.id, key),
             setVisible: (visible: boolean) => this.draft.update(object.id, value => { value.layers[key].visible = visible; }) }))];
       }

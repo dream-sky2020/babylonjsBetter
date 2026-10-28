@@ -76,3 +76,12 @@ export function translationHandle() {
   }
   return null;
 }
+
+/** Test-only projection of a visual-object layer. */
+export function visualObjectLayerPoint(id: string, layer: string) {
+  const current = scene(), node = current.transformNodes.find(n => n.metadata?.monsterVisualObjectId === id && n.metadata?.monsterVisualLayer === layer)!;
+  const mesh = node.getChildMeshes()[0], engine = current.getEngine(), rect = engine.getRenderingCanvas()!.getBoundingClientRect();
+  mesh.computeWorldMatrix(true);
+  const point = Vector3.Project(mesh.getBoundingInfo().boundingBox.centerWorld, Matrix.Identity(), current.getTransformMatrix(), current.activeCamera!.viewport.toGlobal(engine.getRenderWidth(), engine.getRenderHeight()));
+  return { x: Math.round(rect.left + point.x * rect.width / engine.getRenderWidth()), y: Math.round(rect.top + point.y * rect.height / engine.getRenderHeight()) };
+}

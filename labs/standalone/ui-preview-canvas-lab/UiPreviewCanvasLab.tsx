@@ -10,6 +10,7 @@ import { applyUiAnchorPreset, convertUiNodeToAbsolute, convertUiNodeToRectTransf
 import { canReparentUiNode, reparentUiNode, duplicateUiSubtree } from '@/core/ui-document';
 import { createReactUiDefinitionRegistry } from '@/core/ui-document/react/uiReactDefinitions';
 import { UiReactEditor } from './UiReactEditor';
+import { UiBindingEditor } from './UiBindingEditor';
 import { canPasteUiNodes, canRemoveUiNodes, copyUiNodes, pasteUiNodes, removeUiNodes, type UiNodeClipboard } from '@/core/ui-document/uiDocument.clipboard';
 import { reactUiPrefabs } from '@/core/ui/prefabs/catalog';
 import { openCommandMenuAtPoint, closeCommandMenu } from '@/core/ui/menu';
@@ -63,6 +64,7 @@ export const UiPreviewCanvasLab: React.FC = () => {
   const clipboard = useRef<{ content: UiNodeClipboard; cut: boolean } | null>(null);
   const [autoFit, setAutoFit] = useState(true);
   const [equipment, setEquipment] = useState(createEquipmentPreview);
+  const [useEquipmentDemo, setUseEquipmentDemo] = useState(true);
   const [stores, setStores] = useState(() => new Map<string, UiDocumentStore>()); const unsubscribersRef = useRef<(() => void)[]>([]);
   const [revision, setRevision] = useState(0); const [activeKey, setActiveKey] = useState(''); const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [message, setMessage] = useState('正在载入界面预设…'); const [isError, setIsError] = useState(false); const [saving, setSaving] = useState(false);
@@ -81,7 +83,7 @@ export const UiPreviewCanvasLab: React.FC = () => {
   const preset = useMemo(() => { void revision; return store?.getDocument(); }, [store, revision]);
   const history = useMemo(() => { void revision; return { canUndo: store?.canUndo ?? false, canRedo: store?.canRedo ?? false }; }, [store, revision]);
   const selected = preset?.nodes[selectedId]; const definition = selected ? registry.get(selected.type) : undefined;
-  const runtimeContext = useMemo(() => preset?.metadata?.runtime === 'equipment-preview' ? equipmentPreviewContext(equipment) : undefined, [equipment, preset?.metadata?.runtime]);
+  const runtimeContext = useMemo(() => useEquipmentDemo && preset?.metadata?.runtime === 'equipment-preview' ? equipmentPreviewContext(equipment) : undefined, [equipment, preset?.metadata?.runtime, useEquipmentDemo]);
   const canvasWidth = preset?.canvas.width; const canvasHeight = preset?.canvas.height; const canvasKey = preset?.presetKey;
   useEffect(() => {
     const shell = canvasShellRef.current; if (!shell || !canvasWidth || !canvasHeight || !autoFit) return;
@@ -315,8 +317,8 @@ export const UiPreviewCanvasLab: React.FC = () => {
         store.mutate('修改父节点', draft => reparentUiNode(draft, selected.id, parentId, keepWorldPosition));
         if (parentId) setExpandedUiIds(current => new Set([...current, parentId])); refresh();
       }}><option value="">画布根节点</option>{Object.values(preset.nodes).filter(node => node.id === selected.parentId || canReparentUiNode(preset, selected.id, node.id)).map(node => <option key={node.id} value={node.id}>{node.name} · {node.id}</option>)}</select></label><label className="checkbox-field"><input type="checkbox" checked={keepWorldPosition} onChange={event => setKeepWorldPosition(event.target.checked)} />换父级时保持画布位置</label><p className="hint">坐标相对于父节点；父节点移动时子节点跟随，调整父节点尺寸时按子节点锚点布局。</p></InspectorSection>
-      {[...groups].map(([group, fields]) => <InspectorSection key={group} title={group} subtitle={`${fields.length} 项设置`} {...sectionProps(`props-${group}`, group !== '样式' && group !== '外观')}><div className={fields.every((field) => field.control === 'color') ? 'color-grid' : 'control-grid'}>{fields.map((field) => <PropertyControl key={field.path} field={field} node={selected} update={(value) => updateNode(`修改 ${field.label}`, (node) => setProp(node, field.path, value))} />)}</div></InspectorSection>)}
-      <InspectorSection title="数据绑定" subtitle={`${Object.keys(selected.bindings ?? {}).length} 项`} {...sectionProps('bindings', false)}>{Object.entries(selected.bindings ?? {}).map(([path, binding]) => <div className="ui-binding-row" key={path}><strong>{path}</strong><code>{binding.source}</code><span>{String((runtimeContext ?? preset.previewContext)?.[binding.source] ?? binding.fallback ?? '未提供预览值')}</span></div>)}<p className="hint">这里显示当前预设绑定。新的数据选择器按组件接入规范另行实现。</p></InspectorSection>
+      {[...groups].map(([group, fields]) => <InspectorSection key={group} title={group} subtitle={`${fields.length} 项设置`} {...sectionProps(`props-${group}`, group !== '样式' && group !== '外观')}><div className={fields.every((field) => field.control === 'color') ? 'color-grid' : 'control-grid'}>{fields.map((field) => { const slot = definition?.bindableFields?.find(item => item.propertyPath === field.path && selected.bindings?.[item.key]); return <div key={field.path}><PropertyControl field={field} node={selected} update={(value) => updateNode(`修改 ${field.label}`, (node) => setProp(node, field.path, value))} />{slot && <small className="ui-binding-hint">绑定到 {selected.bindings?.[slot.key]?.source || '（未填写）'}；静态值仅在绑定和备用值不可用时显示</small>}</div>; })}</div></InspectorSection>)}
+      <InspectorSection title="数据绑定" subtitle={`${Object.keys(selected.bindings ?? {}).length} 项`} {...sectionProps('bindings', true)}>{preset.metadata?.runtime === 'equipment-preview' && <label className="checkbox-field"><input type="checkbox" checked={useEquipmentDemo} onChange={event => setUseEquipmentDemo(event.target.checked)} />使用整备演示数据</label>}<UiBindingEditor store={store} document={preset} node={selected} definition={definition} runtimeContext={runtimeContext} onChanged={refresh} /></InspectorSection>
       <InspectorSection title="高级信息" subtitle={selected.type} {...sectionProps('advanced', false)}><label className="text-field"><span>节点 ID</span><input value={selected.id} readOnly /></label><label className="text-field"><span>组件类型</span><input value={selected.type} readOnly /></label><p className="hint">组件版本 {selected.definitionVersion} · UI Document V2</p></InspectorSection>
       <section className="panel danger-row"><button onClick={() => {
         let id = ''; store.mutate('复制节点及子树', draft => { id = duplicateUiSubtree(draft, selected.id); }); setSelectedIds([id]); refresh();

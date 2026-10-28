@@ -33,6 +33,8 @@ export type LabObject = {
   kind?: string;
   pickNodes?: readonly Node[];
   canHide?: boolean;
+  /** Default for editor viewport picking; tree selection and editing remain available. */
+  defaultSceneSelectable?: boolean;
   /** When provided, authored visibility and its history belong to the module. */
   setVisible?(visible: boolean): void;
   edit?: LabObjectEditing;
@@ -52,7 +54,7 @@ export type LabObjectScope = {
   getSelected(): LabObjectRecord | undefined;
   subscribe(listener: () => void): () => void;
 };
-export type LabObjectRecord = LabObject & { key: string; providerId: string; ownerId: string; locked: boolean; visible: boolean };
+export type LabObjectRecord = LabObject & { key: string; providerId: string; ownerId: string; locked: boolean; visible: boolean; sceneSelectable: boolean };
 export type LabObjectSnapshot = {
   revision: number;
   selectedKey: string | null;
@@ -67,6 +69,19 @@ export class LabObjects {
   private entries = new Map<string, Entry>();
   private listeners = new Set<() => void>();
   private locks = new Set<string>();
+  private sceneSelection = new Map<string, boolean>();
+  private knownProviderKeys = new Map<string, Set<string>>();
+  private readonly preferenceKey: string | null;
+  private readPreferences() {
+    if (!this.preferenceKey) return;
+    try { const value: unknown = JSON.parse(localStorage.getItem(this.preferenceKey) ?? '{}');
+      if (value && typeof value === 'object' && !Array.isArray(value)) for (const [key, enabled] of Object.entries(value)) if (typeof enabled === 'boolean') this.sceneSelection.set(key, enabled);
+    } catch { /* Preferences are optional. */ }
+  }
+  private savePreferences() {
+    if (!this.preferenceKey) return;
+    try { localStorage.setItem(this.preferenceKey, JSON.stringify(Object.fromEntries(this.sceneSelection))); } catch { /* Session behavior remains available. */ }
+  }
   private hidden = new Set<string>();
   private selectedKey: string | null = null;
   private selectedOwner: string | null = null;
@@ -75,7 +90,7 @@ export class LabObjects {
   private nodeIndex = new Map<Node, LabObjectRecord>();
   private disposed = false;
   private readonly onError: (error: unknown) => void;
-  constructor(onError: (error: unknown) => void = () => {}) { this.onError = onError; }
+  constructor(onError: (error: unknown) => void = () => {}, preferenceKey: string | null = typeof location === 'undefined' ? null : `babylonjsBetter:lab-scene-selection:${location.pathname}`) { this.onError = onError; this.preferenceKey = preferenceKey; this.readPreferences(); }
   subscribe = (listener: () => void) => { this.listeners.add(listener); return () => { this.listeners.delete(listener); }; };
   getSnapshot = (): LabObjectSnapshot => {
     if (this.cached) return this.cached;
@@ -84,17 +99,22 @@ export class LabObjects {
     for (const [id, { ownerId, provider }] of this.entries) {
       groups.push({ id, label: provider.label });
       roots.push(...(provider.roots?.() ?? []).filter(node => !node.isDisposed()));
-      const ids = new Set<string>();
+      const ids = new Set<string>(), currentKeys = new Set<string>();
       for (const object of provider.objects()) {
         if (object.node.isDisposed()) continue;
         if (ids.has(object.id)) throw new Error(`对象提供者 ${id} 中存在重复 ID：${object.id}`);
         ids.add(object.id);
-        const key = keyOf(id, object.id);
+        const key = keyOf(id, object.id); currentKeys.add(key);
         if (this.hidden.has(key)) object.node.setEnabled(false);
-        const record = { ...object, key, providerId: id, ownerId, locked: this.locks.has(key), visible: object.node.isEnabled() };
+        const record = { ...object, key, providerId: id, ownerId, locked: this.locks.has(key), visible: object.node.isEnabled(), sceneSelectable: this.sceneSelection.get(key) ?? object.defaultSceneSelectable ?? true };
         records.push(record); this.nodeIndex.set(object.node, record);
         for (const pickNode of object.pickNodes ?? []) this.nodeIndex.set(pickNode, record);
       }
+      const previousKeys = this.knownProviderKeys.get(id);
+      let removed = false;
+      if (previousKeys) for (const key of previousKeys) if (!currentKeys.has(key)) removed = this.sceneSelection.delete(key) || removed;
+      this.knownProviderKeys.set(id, currentKeys);
+      if (removed) this.savePreferences();
     }
     const keys = new Set(records.map(record => record.key));
     for (const key of this.locks) if (!keys.has(key)) this.locks.delete(key);
@@ -132,6 +152,13 @@ export class LabObjects {
       catch (error) { this.onError(error); }
     }
   }
+  setSceneSelectable(key: string, selectable: boolean) {
+    const record = this.getSnapshot().records.find(item => item.key === key);
+    if (!record || record.sceneSelectable === selectable) return;
+    if (selectable === (record.defaultSceneSelectable ?? true)) this.sceneSelection.delete(key);
+    else this.sceneSelection.set(key, selectable);
+    this.savePreferences(); this.changed();
+  }
   setLocked(key: string, locked: boolean) { if (locked) this.locks.add(key); else this.locks.delete(key); this.changed(); }
   setVisible(key: string, visible: boolean) {
     const record = this.getSnapshot().records.find(record => record.key === key);
@@ -145,12 +172,35 @@ export class LabObjects {
     let cursor: Node | null = node;
     while (cursor) {
       const record = this.nodeIndex.get(cursor);
-      if (record) return forPicking && record.locked ? undefined : record;
+      if (record) { if (!forPicking) return record; if (record.locked) return undefined; if (record.sceneSelectable) return record; }
       cursor = cursor.parent;
     }
     return undefined;
   }
+  /** Resolve overlapping render layers without selecting through unrelated objects. */
+  scenePickNode(nodes: readonly Node[]): Node | null {
+    const first = nodes[0]; if (!first) return null;
+    const nearest = this.findNode(first), fallback = this.findNode(first, true);
+    if (!nearest || !fallback || nearest.sceneSelectable) return first;
+    const records = this.getSnapshot().records;
+    const isDescendant = (candidate: LabObjectRecord) => {
+      let item: LabObjectRecord | undefined = candidate;
+      const visited = new Set<string>();
+      while (item && !visited.has(item.key)) {
+        if (item.key === fallback.key) return true;
+        visited.add(item.key);
+        item = item.parentId ? records.find(record => record.providerId === item!.providerId && record.id === item!.parentId) : undefined;
+      }
+      return false;
+    };
+    for (const node of nodes.slice(1)) {
+      const record = this.findNode(node);
+      if (!record || !isDescendant(record)) break;
+      if (!record.locked && record.sceneSelectable) return node;
+    }
+    return first;
+  }
   refresh() { this.changed(); }
   removeOwner(ownerId: string) { for (const [id, entry] of this.entries) if (entry.ownerId === ownerId) this.entries.delete(id); this.changed(); }
-  dispose() { if (this.disposed) return; this.disposed = true; this.entries.clear(); this.listeners.clear(); this.locks.clear(); this.hidden.clear(); this.nodeIndex.clear(); this.cached = null; }
+  dispose() { if (this.disposed) return; this.disposed = true; this.entries.clear(); this.knownProviderKeys.clear(); this.listeners.clear(); this.locks.clear(); this.hidden.clear(); this.nodeIndex.clear(); this.cached = null; }
 }

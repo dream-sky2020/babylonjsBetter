@@ -325,3 +325,13 @@ return () => layer.dispose();
 3. 将模块加入对应 catalog。
 4. 在目标 Lab 的 `modules` 中只加入新的顶层模块。
 5. 验证依赖自动展开顺序、重复模块只初始化一次、重载地图后的 Debug 释放和 Runtime 联动。
+
+对象树的场景选中开关仅控制视口拾取，树选和编辑不受影响。命中关闭场景选中的声明对象时向 Babylon 父链寻找最近的可选声明对象；没有则清空选区，不穿透到背后。开关按页面和稳定对象 ID 保存为本机偏好，不写业务文档；模块可通过 `defaultSceneSelectable` 声明默认值。对象删除时清理已加载的偏好，复制的新对象采用模块默认值。现有锁定仍独立控制视口拾取和变换编辑。
+
+## 组合式 UI 覆盖层
+
+`uiRuntimeLabModule` 提供 `LAB_UI_RUNTIME` 服务。业务模块声明 `ui-runtime` 依赖后，在 `start` 中调用 `open({ id, presetKey, context, onAction, inputMode })`，返回的句柄支持 `update`、`show`、`hide` 和 `dispose`；业务模块退出时应释放句柄。预设复用 UI Layout Lab 的 `config/uiPreviewPresets/` 与 React Definition Registry，开发态重新打开可读到已保存的预设；构建版使用打包预设。运行时 context 不修改 UI 文档，键与预设 bindings 的 source 一致，缺失使用 binding fallback，不采用预览样例数据。
+
+默认 `passthrough` 显示透明 HUD，空白和基础非交互组件不截获场景输入，button 接收点击；`modal` 覆盖整个视口并暂停场景输入。其他自定义 React 控件若需在 HUD 模式响应指针，需要让自身交互元素显式使用 `pointer-events: auto`。设计尺寸按视口等比居中适配，超出设计框区域不渲染；输入法、滚轮和复杂弹窗需由具体组件与模块协调。
+
+模块负责申请共享内存和订阅领域事件，在状态变化后调用 `update`；共享内存不是自动响应式数据，连续变化可按需调度读取。`onAction` 将文档中的动作名映射到模块的类型化请求/事件，不应直接修改权威状态。参考 `dungeon-hud/dungeonHud.labModule.ts` 及 `labs/composable/dungeon-ui-overlay-lab/`：地图状态来自 `dungeon.session`，切换按钮请求 `dungeon.map.switch`。覆盖层不参与 UI 编辑器文档保存。

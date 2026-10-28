@@ -268,9 +268,9 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-object-tree .editor-hierarchy-search { min-height: 32px; }
 .lab-object-tree .editor-hierarchy-row small { max-width: 62px; overflow: hidden; text-overflow: ellipsis; font-size: 9px; }
 .lab-object-tree .editor-hierarchy-details { gap: 2px; }
-.lab-object-tree .lab-object-row-visibility { display: grid; place-items: center; flex-shrink: 0; width: 23px; height: 26px; padding: 0; border: 0; background: transparent; color: #8c9ba6; cursor: pointer; font: 12px/1 sans-serif; }
-.lab-object-tree .lab-object-row-visibility:hover, .lab-object-tree .lab-object-row-visibility:focus-visible { background: #30434f; color: #cbe6f8; }
-.lab-object-tree .lab-object-row-visibility[aria-pressed=false] { color: #71808b; }
+.lab-object-tree :is(.lab-object-row-visibility, .lab-object-row-picking) { display: grid; place-items: center; flex-shrink: 0; width: 23px; height: 26px; padding: 0; border: 0; background: transparent; color: #8c9ba6; cursor: pointer; font: 12px/1 sans-serif; }
+.lab-object-tree :is(.lab-object-row-visibility, .lab-object-row-picking):hover, .lab-object-tree :is(.lab-object-row-visibility, .lab-object-row-picking):focus-visible { background: #30434f; color: #cbe6f8; }
+.lab-object-tree :is(.lab-object-row-visibility, .lab-object-row-picking)[aria-pressed=false] { color: #71808b; }
 .lab-object-selection { flex-shrink: 0; display: grid; gap: 6px; padding: 8px; border-top: 1px solid #314659; font-size: 11px; }
 .lab-object-selection strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .lab-object-selection > div { display: flex; gap: 4px; }

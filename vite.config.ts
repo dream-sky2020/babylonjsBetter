@@ -277,6 +277,7 @@ export default defineConfig({
         index: path.resolve(__dirname, 'index.html'),
         // 组合式 Lab
         dungeonSceneLoaderLab: path.resolve(__dirname, 'labs/composable/dungeon-scene-loader-lab/index.html'),
+        dungeonUiOverlayLab: path.resolve(__dirname, 'labs/composable/dungeon-ui-overlay-lab/index.html'),
         dungeonRuntimeSaveSwitchingLab: path.resolve(__dirname, 'labs/composable/dungeon-runtime-save-switching-lab/index.html'),
         dungeonObstacleLab: path.resolve(__dirname, 'labs/composable/dungeon-obstacle-lab/index.html'),
         dungeonPlayerSpawnLab: path.resolve(__dirname, 'labs/composable/dungeon-player-spawn-lab/index.html'),

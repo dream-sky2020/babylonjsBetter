@@ -1,0 +1,47 @@
+const { app, BrowserWindow } = require('electron');
+const assert = require('node:assert/strict');
+app.commandLine.appendSwitch('use-angle', 'swiftshader'); app.commandLine.appendSwitch('enable-unsafe-swiftshader');
+const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+app.whenReady().then(async () => {
+  const window = new BrowserWindow({ show: false, width: 1440, height: 1050, webPreferences: { offscreen: true, backgroundThrottling: false, partition: `ui-binding-${process.pid}` } });
+  const errors = [], writes = []; window.webContents.on('console-message', details => { if (details.level === 'error') errors.push(details.message); });
+  window.webContents.session.webRequest.onBeforeRequest({ urls: ['http://127.0.0.1/*'] }, (details, callback) => { const write = !['GET', 'HEAD', 'OPTIONS'].includes(details.method); if (write) writes.push(details.url); callback({ cancel: write }); });
+  const page = code => window.webContents.executeJavaScript(code);
+  const until = async code => { const end = Date.now() + 60000; while (!await page(code)) { if (Date.now() > end) throw new Error('Timed out: ' + code); await pause(80); } };
+  const setInput = async (selector, value) => { await page(`(()=>{const input=document.querySelector(${JSON.stringify(selector)});if(!input)throw Error('missing input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,${JSON.stringify(value)});input.dispatchEvent(new Event('input',{bubbles:true}));})();`); await pause(100); };
+  try {
+    await window.loadURL('http://127.0.0.1:1184/labs/standalone/ui-preview-canvas-lab/index.html?preset=dungeon_hud_demo');
+    await until(`!!document.querySelector('[data-object-id="map"]')`);
+    await page(`document.querySelector('[data-object-id="map"]').click(); void 0;`);
+    await until(`!!document.querySelector('[data-ui-binding="text"]')`);
+    const control = '[data-ui-binding="text"]', value = '[aria-label="显示文字：模拟值"]', source = '[aria-label="显示文字：数据名称"]';
+    assert.equal(await page(`document.querySelector(${JSON.stringify(source)}).value`), 'map.name');
+    assert.match(await page(`document.querySelector('.ui-binding-hint').textContent`), /map.name/);
+    await setInput(value, '地图：测试');
+    await page(`(()=>{const label=[...document.querySelectorAll('label')].find(el=>el.querySelector('span')?.textContent==='显示文字');const input=label.querySelector('input');Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,'静态地图');input.dispatchEvent(new Event('input',{bubbles:true}));})();`); await pause(100);
+    assert.equal(await page(`document.querySelector('[data-ui-node="map"]').textContent`), '地图：测试');
+    await page(`document.querySelector(${JSON.stringify(control)} + ' input[type=checkbox]').click(); void 0;`); await pause(100);
+    assert.equal(await page(`document.querySelector('[data-ui-node="map"]').textContent`), '静态地图');
+    await page(`document.querySelector(${JSON.stringify(control)} + ' input[type=checkbox]').click(); void 0;`); await pause(100);
+    await setInput(source, 'hud.map'); await setInput(value, '新地图');
+    assert.equal(await page(`document.querySelector('[data-ui-node="map"]').textContent`), '新地图');
+    await page(`window.__savedUi=null;window.__originalFetch=window.fetch;window.fetch=(url,options)=>{if(String(url).includes('/api/dialogue-preview-presets')&&options?.method==='PUT'){window.__savedUi=JSON.parse(options.body);return Promise.resolve(new Response(JSON.stringify({success:true}),{status:200,headers:{'Content-Type':'application/json'}}));}return window.__originalFetch(url,options);};document.querySelector('.save-button').click(); void 0;`);
+    await until(`!!window.__savedUi`);
+    assert.equal(await page(`window.__savedUi.dungeon_hud_demo.nodes.map.bindings.text.source`), 'hud.map');
+    assert.equal(await page(`window.__savedUi.dungeon_hud_demo.previewContext['hud.map']`), '新地图');
+    await page(`document.querySelector(${JSON.stringify(control)} + ' button').click(); void 0;`); await pause(100);
+    assert.equal(await page(`document.querySelector('[data-ui-node="map"]').textContent`), '静态地图');
+    await window.loadURL('http://127.0.0.1:1184/labs/standalone/ui-preview-canvas-lab/index.html?preset=equipment_ui');
+    await until(`!!document.querySelector('.dialogue-hierarchy')`);
+    await page(`[...document.querySelectorAll('button')].find(b=>b.textContent==='展开全部').click(); void 0;`);
+    await until(`!!document.querySelector('[data-object-id="hp-bar"]')`);
+    await page(`document.querySelector('[data-object-id="hp-bar"]').click(); void 0;`);
+    await until(`!!document.querySelector('[aria-label="当前值：模拟值"]')`);
+    await page(`[...document.querySelectorAll('label')].find(l=>l.textContent.includes('使用整备演示数据')).querySelector('input').click(); void 0;`);
+    await setInput('[aria-label="当前值：模拟值"]', '42');
+    assert.equal(await page(`document.querySelector('[data-ui-node="hp-bar"] [role=progressbar]').getAttribute('aria-valuenow')`), '42');
+    assert.deepEqual(errors, []); assert.deepEqual(writes, []);
+    console.log(JSON.stringify({passed:true,checks:['binding name and simulated value edit live','switch to static value and rebind','clearing simulated value restores static fallback','binding and simulated values serialize; no external writes', 'numeric preview works when the equipment demo is disabled']},null,2));
+    window.destroy(); app.exit(0);
+  } catch (error) { console.error(error.stack ?? String(error), errors); window.destroy(); app.exit(1); }
+});

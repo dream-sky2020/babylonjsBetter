@@ -17,7 +17,8 @@ import { UiDocumentView, type UiReactComponentProps } from './UiDocumentView';
 import { createReactUiDefinitionRegistry, registerReactUiComponent } from './react/uiReactDefinitions';
 
 function MyHealth({ node, runtime }: UiReactComponentProps) {
-  const hp = runtime.resolveBinding(node.bindings?.value?.source ?? '', node.props.value);
+  const binding = node.bindings?.value;
+  const hp = runtime.resolveBinding(binding?.source ?? '', binding?.fallback ?? node.props.value);
   return <div style={{ width: '100%', height: '100%' }}>HP {String(hp)}</div>;
 }
 
@@ -26,16 +27,18 @@ registerReactUiComponent(registry, {
   type: 'my-health', version: 1, label: '血量', category: '游戏 UI', component: MyHealth,
   defaultSize: { width: 160, height: 40 },
   fields: [{ path: 'value', label: '当前值', control: 'number' }],
+  bindableFields: [{ key: 'value', label: '当前值', propertyPath: 'value', valueType: 'number' }],
   createDefaultProps: () => ({ value: 75 }),
   normalizeProps: raw => ({ value: Number((raw as { value?: unknown })?.value ?? 75) }),
 });
-<UiDocumentView document={document} registry={registry} mode="runtime" onAction={handleAction} />;
+<UiDocumentView document={document} registry={registry} mode="runtime" runtimeContext={{ hp: 75 }} onAction={handleAction} />;
 ```
 
 组件可以使用 React hooks 和原生交互；定位、大小、透明度和父子嵌套由外层节点负责。
 `node.layout` 是解析后的画布坐标，组件内部通常使用 100% 尺寸即可。
-文档中的绑定通过 `runtime.resolveBinding` 读取，会话数据放在 `previewContext`，
-操作通过 `onAction` 交给宿主持有的游戏状态。不要将 React 函数序列化到预设。
+文档中的绑定通过 `runtime.resolveBinding` 读取；编辑器的模拟数据保存在 `previewContext`，
+运行宿主应传入独立的 `runtimeContext`，通过业务模块读取共享内存并主动更新。
+操作通过 `onAction` 交给宿主持有的游戏状态。具体的组件绑定声明、编辑器操作和组合式接入示例见 [React UI 预制件规范](../ui/prefabs/README.md)。不要将 React 函数序列化到预设。
 面板、标签、按钮、资源条、对话框、头像、姓名牌、文字、图标和容器均有原生 React 实现。
 未注册的 React 组件显示 DOM 诊断占位，没有 Canvas 回退。
 
