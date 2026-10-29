@@ -1,5 +1,7 @@
 # Codex 工具与资源处理档案
 
+`verifyDungeonLifecycle.cjs` 经 `node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonLifecycle.cjs` 在真实 Dungeon Agent Lab 连续往返三张地图，比较同图多次加载后的模型、节点、材质、纹理、动画、变形登记与 Scene/显卡上下文监听数量，并断言没有已无活动模型实例的批次留在渲染场景。`dungeonLifecycleProbe.ts` 仅读取运行资源；拒绝写请求，报告为 `node_modules/.cache/dungeon-lifecycle.json`。资源数量用于排查清理遗漏，不等同于帧率基准。
+
 `verifyMonsterDissolveLab.cjs` 经 `npm run test:monster-dissolve-webgl` 验证新增怪物消散组合页：最小装配、独立 Lab 的七项预设、当前 Host 选择、身体/线稿参数与底部临时隐藏、手动进度、恢复、领域文档不变、多对象隔离、完成和粒子清理；原视觉页不加载消散模块。使用独立内存浏览会话，拒绝写请求，报告/截图为 node_modules/.cache/monster-dissolve-lab.*。`labWorkbenchProbe.ts` 仅读取实际场景的分层材质参数与粒子状态。
 
 `verifyMonsterVisualObjects.cjs` 经 `npm run test:monster-visual-objects-webgl` 验证正式 Monster Visual 组合页：仅一个怪物模块加既有地图加载链、四层稳定父节点、整体/分层数值与真实鼠标 Gizmo、属性选择、显隐历史、复制删除、JSON 导入校验、本机保存刷新及切图保留。阻止网络写请求，报告/截图为 node_modules/.cache/monster-visual-objects.*。原动作、工作台和场景编辑图形测试改用 `monsterVisualRuntimePage.html` 回归工具页，继续验证既有动作模块，不把动作重新装回正式视觉对象页。

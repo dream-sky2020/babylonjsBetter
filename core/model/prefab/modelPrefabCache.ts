@@ -26,6 +26,8 @@ export type ModelPrefabInstance = {
 
 export type ModelPrefabCacheStats = {
   prefabCount: number;
+  batchCount: number;
+  idleBatchCount: number;
   loadCount: number;
   activeInstanceCount: number;
   paths: string[];
@@ -134,16 +136,25 @@ export const instantiateModelPrefab = async (
       released = true;
       prefab.activeInstances = Math.max(0, prefab.activeInstances - 1);
       entries.dispose();
-      if (prefab.retired && prefab.activeInstances === 0) { prefab.batches.forEach(batch => batch.dispose()); prefab.batches.clear(); container.dispose(); }
+      // Keep the detached asset container cached, but remove render-scene masters
+      // when their last user leaves. Otherwise every visited map adds invisible
+      // meshes/materials to the live scene for the rest of the session.
+      if (prefab.activeInstances === 0) {
+        prefab.batches.forEach(batch => batch.dispose());
+        prefab.batches.clear();
+        if (prefab.retired) container.dispose();
+      }
     }
   };
 };
 
 export const getModelPrefabCacheStats = (scene: Scene): ModelPrefabCacheStats => {
   const cache = sceneCaches.get(scene);
-  if (!cache) return { prefabCount: 0, loadCount: 0, activeInstanceCount: 0, paths: [] };
+  if (!cache) return { prefabCount: 0, batchCount: 0, idleBatchCount: 0, loadCount: 0, activeInstanceCount: 0, paths: [] };
   return {
     prefabCount: cache.entries.size,
+    batchCount: [...cache.entries.values()].reduce((total, entry) => total + entry.batches.size, 0),
+    idleBatchCount: [...cache.entries.values()].reduce((total, entry) => total + (entry.activeInstances === 0 ? entry.batches.size : 0), 0),
     loadCount: cache.loadCount,
     activeInstanceCount: [...cache.entries.values()].reduce((total, entry) => total + entry.activeInstances, 0),
     paths: [...cache.entries.keys()]

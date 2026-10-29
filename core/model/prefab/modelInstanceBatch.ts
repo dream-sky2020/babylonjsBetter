@@ -9,11 +9,25 @@ export const supportsModelInstanceBatch = (container: AssetContainer) => !contai
 export function createModelInstanceBatch(scene: Scene, original: AssetContainer, policy: ModelTransparencyPolicy | undefined, receiveShadows: boolean) {
   const masters = original.instantiateModelsToScene(name => `batch:${name}`, false, { doNotInstantiate: true });
   const nodes = masters.rootNodes.flatMap(root => [root, ...root.getDescendants(false)]);
+  // Babylon's AssetContainer constructor installs a scene-dispose observer that
+  // AssetContainer.dispose() does not remove. Track our container's observer so
+  // retiring a batch also releases the closure retaining its source meshes.
+  const previousObservers = new Set(scene.onDisposeObservable.observers);
   const source = new AssetContainer(scene);
+  const sourceDisposeObservers = scene.onDisposeObservable.observers.filter(observer => !previousObservers.has(observer));
   source.rootNodes = masters.rootNodes;
   source.meshes = nodes.filter((node): node is AbstractMesh => node instanceof AbstractMesh);
   source.transformNodes = nodes.filter(node => node.getClassName() === 'TransformNode') as AssetContainer['transformNodes'];
   const materials = new Map<Material, Material>(), textures = new Set<BaseTexture>();
+  let disposed = false;
+  const dispose = () => {
+    if (disposed) return;
+    disposed = true;
+    sourceDisposeObservers.forEach(observer => scene.onDisposeObservable.remove(observer));
+    source.dispose();
+    materials.forEach(material => material.dispose(false, false));
+    textures.forEach(texture => texture.dispose());
+  };
   const clone = (material: Material | null): Material | null => {
     if (!material) return null;
     const cached = materials.get(material); if (cached) return cached;
@@ -40,6 +54,6 @@ export function createModelInstanceBatch(scene: Scene, original: AssetContainer,
     // staged light activation, replacement and disposal update Babylon's lighting cache.
     // Invisible masters draw only their visible instances and cannot be picked themselves.
     source.meshes.forEach(mesh => { mesh.isVisible = false; mesh.isPickable = false; });
-    return { source, dispose() { masters.dispose(); materials.forEach(material => material.dispose(false, false)); textures.forEach(texture => texture.dispose()); } };
-  } catch (error) { masters.dispose(); materials.forEach(material => material.dispose(false, false)); textures.forEach(texture => texture.dispose()); throw error; }
+    return { source, dispose };
+  } catch (error) { dispose(); throw error; }
 }

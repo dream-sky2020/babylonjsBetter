@@ -1,3 +1,9 @@
+## 2026-10-29：地牢切图模型实例源清理
+
+`core/model/prefab/modelPrefabCache.ts` 在预制体最后一个活动实例释放后销毁该预制体的硬件实例批次，从当前 Scene 移除隐藏源 Mesh 与独立材质；脱离 Scene 的原始资源容器继续缓存以便返回地图时复用。`modelInstanceBatch.ts` 同时释放批次 AssetContainer 的上下文恢复监听，并显式移除 Babylon 9.11 构造时添加、dispose 未移除的 Scene 销毁监听，避免容器闭包残留。并存的新旧地图仍通过活动引用计数共享批次。
+
+`test:deformation` 覆盖批次反复创建/释放及两类监听恢复基线；`codex-tools/verifyDungeonLifecycle.cjs` 在真实 Dungeon Agent Lab 往返三张地图检查资源与监听稳定，报告位于 `node_modules/.cache/dungeon-lifecycle.json`。
+
 ## 2026-10-29：Dungeon 俯视相机跟随区域
 
 `dungeon-player-camera` 增加可配置的显示坐标 X/Z 跟随区域与非拾取 Debug 线框，区域内不移动相机，越界只跟随超出部分；切图或切换俯视重置中心。设置以 `follow-area` 注册到 LabState；Dungeon Agent Lab 初始启用 8×8，其他 Lab 默认关闭。空间计算位于 `core/dungeon-view/dungeonCameraDeadZone.ts`，不改变玩家模拟。

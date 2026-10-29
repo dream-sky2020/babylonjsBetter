@@ -185,3 +185,26 @@ test('hidden batch masters follow staged lights, map replacement and later light
     entries.dispose(); batch.dispose(); original.dispose();
   } finally { scene.dispose(); engine.dispose(); }
 });
+
+test('retiring model batches releases scene and context-restoration observers', async () => {
+  const engine = new NullEngine(), scene = new Scene(engine);
+  try {
+    const original = new AssetContainer(scene), source = MeshBuilder.CreateBox('source', {}, scene);
+    source.material = new StandardMaterial('shared', scene);
+    original.meshes = [source]; original.rootNodes = [source]; original.removeAllFromScene();
+    const sceneObservers = scene.onDisposeObservable.observers.length;
+    const contextObservers = engine.onContextRestoredObservable.observers.length;
+    for (let visit = 0; visit < 3; visit++) {
+      const batch = createModelInstanceBatch(scene, original, undefined, true);
+      const entries = batch.source.instantiateModelsToScene(name => `visit:${name}`, false, { doNotInstantiate: false });
+      entries.dispose(); batch.dispose(); batch.dispose();
+      // Observable.remove defers physical removal to the next task.
+      await new Promise(resolve => setTimeout(resolve, 0));
+      assert.equal(scene.meshes.length, 0);
+      assert.equal(scene.onDisposeObservable.observers.length, sceneObservers);
+      assert.equal(engine.onContextRestoredObservable.observers.length, contextObservers);
+      assert.equal(source.isDisposed(), false, 'detached prefab remains reusable');
+    }
+    original.dispose();
+  } finally { scene.dispose(); engine.dispose(); }
+});
