@@ -19,7 +19,7 @@ export const allocateDungeonAgentStorage = (loadId: number, presetKey: string, w
     loadId, presetKey, controllersEnabled: true, decisionIntervalSeconds: 0.1, maxPathSearchesPerDecision: 2,
   };
   const controllers: DungeonAgentControllerData & { decisionElapsed: number } = {
-    loadId, presetKey, turnNumber: 0, decisionElapsed: 0, agents: new Map(),
+    loadId, presetKey, turnNumber: 0, decisionElapsed: 0, agents: new Map(), metrics: new Map(),
   };
   const navigation: DungeonAgentNavigationData = { loadId, presetKey, agents: new Map() };
   const createAgent = (binding: DungeonAgentBinding): DungeonRuntimeAgent => {
@@ -66,6 +66,7 @@ export const allocateDungeonAgentStorage = (loadId: number, presetKey: string, w
       entityId,
       get name() { return binding.entity.name ?? entityId; },
       get factionId() { return binding.faction?.factionId ?? 'neutral'; },
+      get debugColor() { return binding.controller.debugColor; },
       get initialTileIndex() { return binding.initialTileIndex; },
       get blocksMovement() { return binding.gridAgent.blocksMovement; },
       get actionPeriod() { return binding.gridAgent.actionPeriod; },
@@ -102,6 +103,6 @@ export const allocateDungeonAgentStorage = (loadId: number, presetKey: string, w
       get reservationStartIndex() { return path.reservationStartIndex; }, set reservationStartIndex(value) { path.reservationStartIndex = value; },
     };
   };
-  const storage: DungeonAgentSystemStorage = { createAgent, turnCounter: controllers, settings, clock: controllers, activeAgentIds: state.activeAgentIds };
+  const storage: DungeonAgentSystemStorage = { createAgent, turnCounter: controllers, settings, clock: controllers, metrics: controllers.metrics, activeAgentIds: state.activeAgentIds };
   return { descriptions, state, settings, controllers, navigation, storage };
 };

@@ -125,7 +125,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
 
   const engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
   const frameClock = new LabFrameClock();
-  const resetFrameClock = () => frameClock.reset();
+  const resetFrameClock = () => { frameClock.reset(); performanceStats.resetFrameTiming(); };
   document.addEventListener('visibilitychange', resetFrameClock);
   window.addEventListener('pagehide', resetFrameClock);
   window.addEventListener('pageshow', resetFrameClock);
@@ -327,6 +327,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     engine.runRenderLoop(() => {
       const deltaSeconds = frameClock.next(engine.getDeltaTime() / 1000, document.hidden);
       if (deltaSeconds === null) return;
+      if (deltaSeconds === 0) performanceStats.resetFrameTiming();
+      performanceStats.frameStarted();
       performanceStats.beginFrame();
       try {
         performanceStats.measure('lab:host/scheduler', 'host', () => runner.update('simulation', deltaSeconds));

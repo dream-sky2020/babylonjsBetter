@@ -47,7 +47,7 @@ const agentEntity = (controllerId: string, actionPeriod = 1, entityId = 'agent:t
   ],
 });
 
-const createRuntime = (controllerId: string, actionPeriod = 1, width = 2, height = 1) => {
+const createRuntime = (controllerId: string, actionPeriod = 1, width = 2, height = 1, mode: 'bounded' | 'loop-horizontal' = 'bounded', blocked: readonly number[] = []) => {
   const document = migrateDungeonMapToDocumentV2({
     presetKey: 'agent-controller-test',
     name: 'Agent Controller 测试',
@@ -55,11 +55,13 @@ const createRuntime = (controllerId: string, actionPeriod = 1, width = 2, height
       id: 'map:agent-controller-test',
       width,
       height,
+      mode,
       createTileData: ({ x, y }) => x === 0 && y === 0
         ? createEntityContainer(agentEntity(controllerId, actionPeriod))
         : undefined,
     }),
   }).document;
+  if (blocked.length) document.terrain = { default: { kind: 'floor' }, overrides: Object.fromEntries(blocked.map(index => [document.grid.tileIds[index], { kind: 'wall', walkable: false }])) };
   const map = createDungeonRuntimeMap(document);
   return { map, state: createDungeonAgentRuntimeState(map) };
 };
@@ -77,6 +79,148 @@ test('玩家格步随机 Controller 遵守 actionPeriod，并只在到期时行�
   assert.equal(actions.length, 1);
   assert.equal(actions[0].outcome, 'move-started');
   assert.equal(state.agents[0].tileIndex, 1);
+});
+
+test('轻量追踪直接靠近，动态占位时等待，解除后继续，不创建路径', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 4, 1);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  setDungeonAgentControllerOverride(state.agents[0], registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'direct', stopDistance: 0, moveDurationSeconds: 0 });
+  updateDungeonAgentControllers(state, map, registry, 0.1, { playerTileIndex: 3 });
+  assert.equal(state.agents[0].tileIndex, 1); assert.equal(state.agents[0].navigationPlan, undefined);
+  state.traversal.registerActor({ id: 'blocker', kind: 'dynamic', tileIndex: 2, enabled: true, blocksMovement: true, movementProfileId: 'ground' });
+  updateDungeonAgentControllers(state, map, registry, 0.1, { playerTileIndex: 3 }); assert.equal(state.agents[0].tileIndex, 1);
+  state.traversal.unregisterActor('blocker'); updateDungeonAgentControllers(state, map, registry, 0.1, { playerTileIndex: 3 }); assert.equal(state.agents[0].tileIndex, 2);
+});
+
+test('沿墙策略绕过静态障碍并恢复追近，保持合法格步', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 5, 3);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  setDungeonAgentControllerOverride(state.agents[0], registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'wall-follow', stopDistance: 0, moveDurationSeconds: 0 });
+  const inspect = state.traversal.inspectStep.bind(state.traversal);
+  state.traversal.inspectStep = (actor, from, direction, options) => {
+    const result = inspect(actor, from, direction, options);
+    return result.toTileIndex === 1 || result.toTileIndex === 6 ? { ...result, blockedReason: 'movement-obstacle' as const } : result;
+  };
+  for (let i = 0; i < 20 && state.agents[0].tileIndex !== 4; i++) updateDungeonAgentControllers(state, map, registry, 0.1, { playerTileIndex: 4 });
+  assert.equal(state.agents[0].tileIndex, 4); assert.equal(state.agents[0].navigationPlan, undefined);
+});
+
+test('沿墙追踪绕过错开方块，移动时仍执行通行检查', () => {
+  const blocked = new Set([1, 7, 14, 15, 21]);
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 6, 5, 'bounded', [...blocked]);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  setDungeonAgentControllerOverride(state.agents[0], registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'wall-follow', stopDistance: 0, moveDurationSeconds: 0 });
+  for (let i = 0; i < 90 && state.agents[0].tileIndex !== 5; i++) {
+    updateDungeonAgentControllers(state, map, registry, .1, { playerTileIndex: 5 });
+    assert.equal(blocked.has(state.agents[0].tileIndex), false);
+  }
+  assert.equal(state.agents[0].tileIndex, 5);
+});
+
+test('检测到绕圈后有限局部搜索可规划出口并继续沿格子移动', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 6, 5);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  setDungeonAgentControllerOverride(state.agents[0], registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'wall-follow', stopDistance: 0, moveDurationSeconds: 0 });
+  const inspect = state.traversal.inspectStep.bind(state.traversal);
+  state.traversal.inspectStep = (actor, from, direction, options) => {
+    const result = inspect(actor, from, direction, options);
+    return result.toTileIndex !== undefined && [1, 7, 13].includes(result.toTileIndex) ? { ...result, blockedReason: 'movement-obstacle' as const } : result;
+  };
+  const samples: number[] = [], options = { playerTileIndex: 5, onPathSearch: (_id: string, _ms: number, visited: number) => samples.push(visited) };
+  updateDungeonAgentControllers(state, map, registry, .1, options);
+  const wall = (state.agents[0].controllerState as { wallFollow: { heading: string; visited: string[] } }).wallFollow;
+  wall.visited.push(`${state.agents[0].tileIndex}:${wall.heading}`);
+  updateDungeonAgentControllers(state, map, registry, .1, options);
+  assert.equal(samples.length, 1); assert.ok(samples[0] <= 64);
+  for (let i = 0; i < 50 && state.agents[0].tileIndex !== 5; i++) updateDungeonAgentControllers(state, map, registry, .1, options);
+  assert.equal(state.agents[0].tileIndex, 5);
+});
+
+test('绕行中玩家换格不会清空绕行历史', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 5, 3);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  setDungeonAgentControllerOverride(state.agents[0], registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'wall-follow', stopDistance: 0, moveDurationSeconds: 0 });
+  const inspect = state.traversal.inspectStep.bind(state.traversal);
+  state.traversal.inspectStep = (actor, from, direction, options) => {
+    const result = inspect(actor, from, direction, options);
+    return result.toTileIndex === 1 || result.toTileIndex === 6 ? { ...result, blockedReason: 'movement-obstacle' as const } : result;
+  };
+  updateDungeonAgentControllers(state, map, registry, .1, { playerTileIndex: 4 });
+  const wall = (state.agents[0].controllerState as { wallFollow: { visited: string[] } }).wallFollow;
+  const history = wall.visited.slice();
+  updateDungeonAgentControllers(state, map, registry, .1, { playerTileIndex: 9 });
+  assert.deepEqual(wall.visited.slice(0, history.length), history);
+});
+
+test('八方向绕行不能从两个被占据方块的角之间穿过', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 3, 3);
+  const registry = createDefaultDungeonAgentControllerRegistry(), id = state.agents[0].binding.entity.id;
+  state.traversal.setActorMovementProfile(id, 'ground-eight-way');
+  for (const [actorId, tileIndex] of [['east-blocker', 1], ['south-blocker', 3]] as const) state.traversal.registerActor({ id: actorId, kind: 'dynamic', tileIndex, enabled: true, blocksMovement: true, spatialFootprint: 'full-tile', movementProfileId: 'ground' });
+  setDungeonAgentControllerOverride(state.agents[0], registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'wall-follow', stopDistance: 0, moveDurationSeconds: 0 });
+  for (let i = 0; i < 10; i++) updateDungeonAgentControllers(state, map, registry, .1, { playerTileIndex: 8 });
+  assert.equal(state.agents[0].tileIndex, 0);
+});
+
+test('局部绕行路线遇到动态占位时等待并保留历史，占位消失后恢复', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 5, 2);
+  const registry = createDefaultDungeonAgentControllerRegistry(), agent = state.agents[0];
+  setDungeonAgentControllerOverride(agent, registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'wall-follow', stopDistance: 0, moveDurationSeconds: 0 });
+  updateDungeonAgentControllers(state, map, registry, .1, { playerTileIndex: 4 });
+  state.traversal.registerActor({ id: 'temporary', kind: 'dynamic', tileIndex: 2, enabled: true, blocksMovement: true, movementProfileId: 'ground' });
+  const internal = agent.controllerState as { wallFollow?: unknown };
+  internal.wallFollow = { heading: 'east', entryTile: 0, target: 4, visited: ['0:east'], retry: 0, route: { tiles: [1, 2, 3], directions: ['east', 'east'], index: 0 } };
+  updateDungeonAgentControllers(state, map, registry, .1, { playerTileIndex: 4 });
+  assert.equal(agent.tileIndex, 1);
+  state.traversal.unregisterActor('temporary');
+  updateDungeonAgentControllers(state, map, registry, .3, { playerTileIndex: 4 });
+  assert.equal(agent.tileIndex, 2);
+  assert.deepEqual((internal.wallFollow as { visited: string[] }).visited, ['0:east']);
+});
+
+test('局部绕行找不到出口时可配置回退完整寻路', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 5, 12);
+  const registry = createDefaultDungeonAgentControllerRegistry(), agent = state.agents[0];
+  setDungeonAgentControllerOverride(agent, registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'wall-follow', wallFallbackToPath: true, stopDistance: 0, moveDurationSeconds: 0 });
+  const inspect = state.traversal.inspectStep.bind(state.traversal);
+  state.traversal.inspectStep = (actor, from, direction, options) => {
+    const result = inspect(actor, from, direction, options);
+    return result.toTileIndex !== undefined && result.toTileIndex % 5 === 1 && result.toTileIndex < 45
+      ? { ...result, blockedReason: 'movement-obstacle' as const } : result;
+  };
+  updateDungeonAgentControllers(state, map, registry, .1, { playerTileIndex: 4 });
+  const wall = (agent.controllerState as { wallFollow: { heading: string; visited: string[] } }).wallFollow;
+  wall.visited.push(`${agent.tileIndex}:${wall.heading}`);
+  updateDungeonAgentControllers(state, map, registry, .1, { playerTileIndex: 4, maxPathSearchesPerUpdate: 2 });
+  assert.ok(agent.navigationPlan); assert.equal((wall as { fallback?: boolean }).fallback, true);
+});
+
+test('八方向轻量追踪在斜向相邻时遵守停止距离', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 3, 3);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  state.traversal.actors.get(state.agents[0].binding.entity.id)!.movementProfileId = 'ground-eight-way';
+  setDungeonAgentControllerOverride(state.agents[0], registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'direct', stopDistance: 1, moveDurationSeconds: 0 });
+  updateDungeonAgentControllers(state, map, registry, 0.1, { playerTileIndex: 4 });
+  assert.equal(state.agents[0].tileIndex, 0);
+});
+
+test('决策统计区分轻量策略和完整搜索，并记录搜索访问数', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 5, 2);
+  const registry = createDefaultDungeonAgentControllerRegistry(), controller = registry.get(CHASE_PLAYER_CONTROLLER_ID)!;
+  let decisions = 0, searches = 0, visited = 0;
+  const options = { playerTileIndex: 4, onDecision: () => { decisions++; }, onPathSearch: (_id: string, _ms: number, count: number) => { searches++; visited += count; } };
+  setDungeonAgentControllerOverride(state.agents[0], controller, { navigationStrategy: 'direct', stopDistance: 0, moveDurationSeconds: 0 });
+  updateDungeonAgentControllers(state, map, registry, 0.1, options); assert.equal(decisions, 1); assert.equal(searches, 0);
+  setDungeonAgentControllerOverride(state.agents[0], controller, { navigationStrategy: 'path', stopDistance: 0, moveDurationSeconds: 0 });
+  updateDungeonAgentControllers(state, map, registry, 0.1, options); assert.equal(decisions, 2); assert.equal(searches, 1); assert.ok(visited > 0);
+});
+
+test('环绕地图的完整路径优先选择跨边界最短路线', () => {
+  const { map, state } = createRuntime(CHASE_PLAYER_CONTROLLER_ID, 1, 5, 2, 'loop-horizontal');
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  setDungeonAgentControllerOverride(state.agents[0], registry.get(CHASE_PLAYER_CONTROLLER_ID)!, { navigationStrategy: 'path', stopDistance: 0, moveDurationSeconds: 0 });
+  const actions = updateDungeonAgentControllers(state, map, registry, 0.1, { playerTileIndex: 4 });
+  assert.equal(actions[0]?.direction, 'west'); assert.equal(state.agents[0].tileIndex, 4);
 });
 
 test('连续随机 Controller 使用自己的等待时钟，不依赖玩家格步', () => {

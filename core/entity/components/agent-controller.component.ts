@@ -7,6 +7,8 @@ export interface IAgentControllerComponent extends IComponent {
   controllerId: string;
   /** 控制器拥有并解释的 JSON 配置；核心移动系统不读取其内部字段。 */
   parameters?: Record<string, unknown>;
+  /** Debug 模型颜色；省略时由寻路策略决定。 */
+  debugColor?: string;
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> => (
@@ -27,6 +29,10 @@ export const componentDefinition: ComponentDefinition<IAgentControllerComponent>
       placeholder: 'stationary', batch: { editable: true },
     },
     { path: 'parameters', label: '控制器参数 JSON', control: 'json', optional: true },
+    { path: 'parameters.navigationStrategy', label: '追踪寻路策略', control: 'select', optional: true, options: [
+      { value: 'path', label: '完整路径规划' }, { value: 'direct', label: '直接靠近' }, { value: 'wall-follow', label: '靠近并沿墙绕行' },
+    ] },
+    { path: 'debugColor', label: 'Debug 颜色（#RRGGBB，留空自动）', control: 'text', optional: true, placeholder: '#ff8800' },
   ],
   createDefault: () => ({
     id: createEntityDataId('component'),
@@ -41,6 +47,9 @@ export const componentDefinition: ComponentDefinition<IAgentControllerComponent>
     if (component.parameters !== undefined && !isRecord(component.parameters)) {
       errors.push('parameters 必须是 JSON 对象。');
     }
+    if (component.debugColor !== undefined && (typeof component.debugColor !== 'string' || !/^#[0-9a-fA-F]{6}$/.test(component.debugColor))) errors.push('debugColor 必须是 #RRGGBB 格式。');
+    const strategy = component.parameters?.navigationStrategy;
+    if (component.controllerId === 'chase-player' && strategy !== undefined && !['path', 'direct', 'wall-follow'].includes(strategy as string)) errors.push('追踪寻路策略无效。');
     return errors;
   },
 };

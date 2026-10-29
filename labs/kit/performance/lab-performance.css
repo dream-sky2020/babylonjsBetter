@@ -8,3 +8,13 @@
 .lab-performance-workspace td, .lab-performance-workspace th { padding: 11px; text-align: right; border-bottom: 1px solid #26334a; font-variant-numeric: tabular-nums; }
 .lab-performance-workspace td:first-child, .lab-performance-workspace th:first-child { text-align: left; overflow-wrap: anywhere; }
 .lab-performance-workspace td:nth-child(2) { overflow-wrap: anywhere; }
+.lab-performance-hud { position: absolute; top: 12px; left: 12px; z-index: 30; pointer-events: none; padding: 7px 10px; border-radius: 6px; background: #07111ddd; color: #a6f3cf; font: 12px/1.4 monospace; font-variant-numeric: tabular-nums; }
+.lab-performance-hud[hidden] { display: none; }
+.lab-performance-timing { margin: 16px 0; padding: 14px; background: #101a2b; border-radius: 8px; }
+.lab-performance-timing > strong { margin-right: 20px; }
+.lab-performance-timing input { width: 70px; }
+.lab-performance-chart { display: flex; align-items: end; gap: 1px; height: 100px; background: #070b14; overflow: hidden; }
+.lab-performance-workspace .lab-performance-chart button { flex: 1 1 0; min-width: 2px; padding: 0; border: 0; border-radius: 0; background: #48bba3; }
+.lab-performance-workspace .lab-performance-chart button.is-stall { background: #f08066; }
+.lab-performance-spikes { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+.lab-performance-workspace .lab-performance-spikes button { padding: 4px 7px; }

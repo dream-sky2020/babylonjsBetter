@@ -20,6 +20,8 @@ import {
   createDefaultDungeonAgentControllerRegistry,
   createDefaultDungeonAgentControllerParameters,
   normalizeDungeonAgentTilePointList,
+  resolveDungeonChaseStrategy,
+  DUNGEON_CHASE_DEBUG_COLORS,
   type DungeonAgentControllerAction,
   type DungeonAgentControllerParameter,
   type DungeonAgentTilePoint,
@@ -102,6 +104,7 @@ export const dungeonAgentLabModule: LabModule = {
     const controllerToggle = createLabSwitch('启用 Agent Controller', true, {
       preference: { ui: context.ui, key: 'dungeon-agent/controllers-enabled' },
     });
+    const chaseHint = document.createElement('p'); chaseHint.className = 'lab-hint';
     const selectedAgentSelect = document.createElement('select');
     const positionInput = createReadonlyInput();
     const facingInput = createReadonlyInput();
@@ -120,6 +123,13 @@ export const dungeonAgentLabModule: LabModule = {
     resetControllerButton.type = 'button';
     resetControllerButton.textContent = '恢复地图 Controller 配置';
     const factionInput = createReadonlyInput();
+    const debugColorInput = document.createElement('input'); debugColorInput.type = 'color';
+    debugColorInput.title = '本次运行覆盖；地图颜色可在地牢地图编辑器的行动控制器组件中设置。';
+    const resetDebugColor = document.createElement('button'); resetDebugColor.type = 'button'; resetDebugColor.textContent = '恢复地图 / 策略颜色';
+    const colorLegend = document.createElement('p'); colorLegend.className = 'lab-hint';
+    colorLegend.textContent = '追踪策略：绿色 直接靠近、蓝色 沿墙绕行、红色 完整路径；手动颜色优先。';
+    const metricsSummary = document.createElement('p'); metricsSummary.className = 'lab-hint';
+    const resetMetrics = document.createElement('button'); resetMetrics.type = 'button'; resetMetrics.textContent = '清空 Agent 决策统计';
     const priorityInput = document.createElement('input');
     priorityInput.type = 'number';
     priorityInput.step = '1';
@@ -159,7 +169,10 @@ export const dungeonAgentLabModule: LabModule = {
     panel.content.append(
       debugToggle.row,
       controllerToggle.row,
+      chaseHint,
       createLabField('选择 Agent', selectedAgentSelect),
+      createLabField('Debug 颜色（本次运行）', debugColorInput), resetDebugColor, colorLegend,
+      metricsSummary, resetMetrics,
       createLabField('当前格子', positionInput),
       createLabField('当前朝向', facingInput),
       createLabField('移动方向能力（本次运行）', movementModeSelect),
@@ -185,6 +198,17 @@ export const dungeonAgentLabModule: LabModule = {
     const offView = overheadView.subscribe(syncDisplayView);
     syncDisplayView();
     const markers = new Map<string, DungeonAgentDebugMarker>();
+    const markerColors = new Map<string, string>();
+    const colorOverrides = new Map<string, string>();
+    const colorFor = (entityId: string): string => {
+      const description = descriptionsMemory.current?.agents.get(entityId);
+      const controller = controllersMemory.current?.agents.get(entityId);
+      const manual = colorOverrides.get(entityId) ?? description?.debugColor;
+      if (manual && /^#[0-9a-fA-F]{6}$/.test(manual)) return manual;
+      return controller?.controllerId === 'chase-player'
+        ? DUNGEON_CHASE_DEBUG_COLORS[resolveDungeonChaseStrategy(controller.parameters.navigationStrategy)]
+        : FACTION_COLORS[description?.factionId ?? ''] ?? '#94a3b8';
+    };
     type ParameterControl = Readonly<{
       element: HTMLElement;
       sync(value: unknown): void;
@@ -202,6 +226,7 @@ export const dungeonAgentLabModule: LabModule = {
     const disposeMarkers = () => {
       markers.forEach((marker) => marker.dispose());
       markers.clear();
+      markerColors.clear();
     };
 
     const tilePosition = (tileIndex: number) => {
@@ -229,6 +254,8 @@ export const dungeonAgentLabModule: LabModule = {
       const data = agentStateMemory.current;
       const agent = data?.loadId === loaded?.loadId ? data?.agents.get(entityId) : undefined;
       if (!marker || !agent) return;
+      const color = colorFor(entityId);
+      if (markerColors.get(entityId) !== color) { marker.setColor(color); markerColors.set(entityId, color); }
       const physicalPosition = agent.poseX === undefined || agent.poseY === undefined || !loaded ? null
         : resolveDungeonMapTileWorldLayout(loaded,loaded.width,loaded.height,agent.poseX,agent.poseY).center;
       if (!agent.movementKind) {
@@ -258,7 +285,7 @@ export const dungeonAgentLabModule: LabModule = {
       const descriptions = descriptionsMemory.current;
       const runtime = agentStateMemory.current;
       if (!debugToggle.input.checked || !loaded || descriptions?.loadId !== loaded.loadId || runtime?.loadId !== loaded.loadId) return;
-      descriptions.agents.forEach((description, entityId) => {
+      descriptions.agents.forEach((_description, entityId) => {
         const agent = runtime.agents.get(entityId);
         if (!agent) return;
         const { tileX, tileY } = tilePosition(agent.tileIndex);
@@ -269,12 +296,11 @@ export const dungeonAgentLabModule: LabModule = {
           tileX,
           tileY,
         );
-        const factionId = description.factionId;
         const marker = createDungeonAgentDebugMarker(
           context.scene,
           `${loaded!.loadId}_${entityId}`,
           layout,
-          FACTION_COLORS[factionId] ?? '#94a3b8',
+          colorFor(entityId),
         );
         marker.root.parent = displayRoot;
         markers.set(entityId, marker);
@@ -510,6 +536,11 @@ export const dungeonAgentLabModule: LabModule = {
     };
     const queuePanelRefresh = () => { notifyMemories(); panelDirty = true; };
     const renderPanel = () => {
+      const chasing = [...(controllersMemory.current?.agents.values() ?? [])].filter(row => row.controllerId === 'chase-player');
+      const names = chasing.map(row => descriptionsMemory.current?.agents.get(row.entityId)?.name ?? row.entityId);
+      chaseHint.textContent = chasing.length
+        ? `追踪玩家：${names.join('、')}。${!controllerToggle.input.checked ? 'Agent Controller 已关闭，追踪不会运行。' : !debugToggle.input.checked ? 'Debug 模型已隐藏。' : '追踪者可能在远处，靠近玩家后会按停止距离停下。'}`
+        : '当前地图没有配置“追踪玩家”的 Agent；可选择 Agent 后在控制器中切换。';
       if (panel.content.hidden) { panelDirty = true; return; }
       panelDirty = false;
       const agent = selectedAgent();
@@ -536,6 +567,10 @@ export const dungeonAgentLabModule: LabModule = {
           ? '本次运行覆盖（不写回地图）'
           : '地图初始配置';
         factionInput.value = description.factionId;
+        debugColorInput.value = colorFor(agent.entityId);
+        const metrics = controllersMemory.current?.metrics?.get(agent.entityId);
+        metricsSummary.textContent = metrics ? `当前 Agent 决策 ${metrics.decisions} 次，平均 ${metrics.decisions ? (metrics.decisionMs / metrics.decisions).toFixed(3) : '0'} ms，最长 ${metrics.maxDecisionMs.toFixed(3)} ms；寻路搜索（含局部绕行）${metrics.searches} 次，累计 ${metrics.searchMs.toFixed(3)} ms，访问 ${metrics.visited} 格。切换策略后可清空再比较。` : '当前 Agent 暂无决策统计。';
+        syncMarker(agent.entityId);
         priorityInput.value = String(basic.effectivePriority);
       } else {
         positionInput.value = '';
@@ -549,8 +584,11 @@ export const dungeonAgentLabModule: LabModule = {
         controllerSource.value = '';
         factionInput.value = '';
         priorityInput.value = '';
+        metricsSummary.textContent = '请选择 Agent。';
       }
       controllerSelect.disabled = !agent;
+      debugColorInput.disabled = !agent;
+      resetDebugColor.disabled = !agent || !colorOverrides.has(agent.entityId);
       movementModeSelect.disabled = !agent;
       resetControllerButton.disabled = controllersMemory.current?.agents.get(selectedAgentSelect.value)?.source !== 'runtime-override';
       resetPriorityButton.disabled = !agent || agent.priorityOverride === undefined;
@@ -617,6 +655,10 @@ export const dungeonAgentLabModule: LabModule = {
       });
       selectedAgentSelect.replaceChildren(...options);
       if (options.some(({ value }) => value === previous)) selectedAgentSelect.value = previous;
+      else {
+        const chase = [...(controllersMemory.current?.agents.values() ?? [])].find(row => row.controllerId === 'chase-player');
+        if (chase) selectedAgentSelect.value = chase.entityId;
+      }
       refreshPanel();
     };
 
@@ -690,6 +732,9 @@ export const dungeonAgentLabModule: LabModule = {
       button.addEventListener('click', () => turnSelectedAgent(button.dataset.agentTurn as DungeonAgentTurn));
     });
     selectedAgentSelect.addEventListener('change', refreshPanel);
+    resetMetrics.addEventListener('click', () => { controllersMemory.current?.metrics?.clear(); refreshPanel(); });
+    debugColorInput.addEventListener('input', () => { const agent = selectedAgent(); if (!agent) return; colorOverrides.set(agent.entityId, debugColorInput.value); syncMarker(agent.entityId); resetDebugColor.disabled = false; });
+    resetDebugColor.addEventListener('click', () => { const agent = selectedAgent(); if (!agent) return; colorOverrides.delete(agent.entityId); syncMarker(agent.entityId); refreshPanel(); });
     movementModeSelect.addEventListener('change', () => {
       const agent = selectedAgent();
       if (!agent || !agentSystem) return;
@@ -722,8 +767,9 @@ export const dungeonAgentLabModule: LabModule = {
         settingsMemory.current.controllersEnabled = controllerToggle.input.checked;
         settingsMemory.markChanged();
       }
+      refreshPanel();
     });
-    debugToggle.input.addEventListener('change', renderMarkers);
+    debugToggle.input.addEventListener('change', () => { renderMarkers(); refreshPanel(); });
 
     // Group-driven bodies need projection even when their own Controller is idle.
     // Retain the previous slice's IDs to project the final/cancelled pose as well.
@@ -770,6 +816,7 @@ export const dungeonAgentLabModule: LabModule = {
       const nextSystem = agentControl.acquire(next.loadId);
       if (!nextSystem) return;
       groupMarkerIds.clear();
+      colorOverrides.clear();
       loaded = next;
       agentSystem = nextSystem;
       if (!prepared || prepared.loadId !== next.loadId) return;

@@ -6,8 +6,8 @@
     "presetKey": "dungeon_map"
   },
   "grid": {
-    "width": 19,
-    "height": 19,
+    "width": 30,
+    "height": 30,
     "topologyMode": "bounded"
   },
   "entities": [
@@ -191,6 +191,7 @@
         "id": "agent:corridor:hunter:controller",
         "parameters": {
           "detectionRange": 6,
+          "navigationStrategy": "direct",
           "returnToOrigin": true
         },
         "type": "agent-controller",
@@ -456,7 +457,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:9,6:east"
+            "sideId": "tile:9,17:east"
           }
         ],
         "type": "spatial-attachment",
@@ -468,7 +469,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,6"
+            "tileId": "tile:9,17"
           }
         ],
         "type": "spatial-attachment",
@@ -480,7 +481,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,11"
+            "tileId": "tile:9,22"
           }
         ],
         "type": "spatial-attachment",
@@ -492,7 +493,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:12,7:east"
+            "edgeId": "shared:12,18:east"
           }
         ],
         "type": "spatial-attachment",
@@ -504,7 +505,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:9,8:south"
+            "edgeId": "shared:9,19:south"
           }
         ],
         "type": "spatial-attachment",
@@ -540,7 +541,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:10,6"
+            "tileId": "tile:10,17"
           }
         ],
         "type": "spatial-attachment",
@@ -552,7 +553,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,10"
+            "tileId": "tile:8,21"
           }
         ],
         "type": "spatial-attachment",
@@ -576,7 +577,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:11,8"
+            "tileId": "tile:11,19"
           }
         ],
         "type": "spatial-attachment",
@@ -588,7 +589,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:13,13"
+            "tileId": "tile:13,24"
           }
         ],
         "type": "spatial-attachment",
@@ -611,7 +612,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,7"
+            "tileId": "tile:9,18"
           }
         ],
         "type": "spatial-attachment",

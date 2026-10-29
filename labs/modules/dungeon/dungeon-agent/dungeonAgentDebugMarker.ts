@@ -4,6 +4,7 @@ import type { DungeonMapTileWorldLayout } from '@/core/scene';
 export type DungeonAgentDebugMarker = {
   readonly root: TransformNode;
   setPose(position: readonly [number, number, number], yaw: number): void;
+  setColor(color: string): void;
   dispose(): void;
 };
 
@@ -71,6 +72,12 @@ export const createDungeonAgentDebugMarker = (
 
   return {
     root,
+    setColor(color) {
+      const next = Color3.FromHexString(color);
+      bodyMaterial.diffuseColor = next;
+      bodyMaterial.emissiveColor = next.scale(0.38);
+      facingMaterial.emissiveColor = next.scale(0.7).add(Color3.White().scale(0.3));
+    },
     setPose(position, yaw) {
       root.position.set(...position);
       root.rotation.y = yaw;

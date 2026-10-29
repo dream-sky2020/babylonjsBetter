@@ -5,6 +5,7 @@ type Counter = { count: number; total: number; max: number; samples: number[]; n
 type Entry = { moduleId: string; kind: PerformanceKind; calls: number; errors: number; self: Counter; inclusive: Counter; completion: Counter };
 type TaskIdentity = { taskId: string; phase: SystemTask['phase']; description: string };
 type TaskEntry = Omit<Entry, 'completion'> & TaskIdentity & { enabledChecks: number; runs: number; enabled: Counter; run: Counter; frame: Counter };
+type FrameSample = { frame: number; timeMs: number; intervalMs: number; modules: { moduleId: string; ms: number }[]; tasks: { moduleId: string; taskId: string; phase: SystemTask['phase']; ms: number }[] };
 const counter = (): Counter => ({ count: 0, total: 0, max: 0, samples: [], next: 0 });
 const add = (c: Counter, ms: number) => { c.count++; c.total += ms; c.max = Math.max(c.max, ms); if (c.samples.length < 1024) c.samples.push(ms); else { c.samples[c.next] = ms; c.next = (c.next + 1) % 1024; } };
 const summarize = (c: Counter) => {
@@ -26,12 +27,42 @@ export class LabPerformance {
   private taskFrame: Map<string, number> | undefined;
   private frameStats = new Map<string, Counter>();
   private frames = 0;
+  private liveEnabled = false;
+  private lastFrameTime: number | undefined;
+  private pendingFrame: Omit<FrameSample, 'intervalMs' | 'timeMs'> | undefined;
+  private liveIntervals: { timeMs: number; intervalMs: number }[] = [];
+  private frameSamples: FrameSample[] = [];
+  private thresholdMs = 33;
   private modules: readonly string[];
   private now: () => number;
   constructor(modules: readonly string[], now = () => performance.now()) { this.modules = modules; this.now = now; }
   start() { if (!this.enabled) { this.enabled = true; this.generation++; } }
-  stop() { this.enabled = false; this.generation++; this.frame = undefined; this.taskFrame = undefined; }
-  clear() { this.generation++; this.lifecycleGeneration++; this.entries.clear(); this.tasks.clear(); this.moduleStats.clear(); this.frameStats.clear(); this.frames = 0; this.frame = undefined; this.taskFrame = undefined; }
+  stop() { this.enabled = false; this.generation++; this.frame = undefined; this.taskFrame = undefined; this.pendingFrame = undefined; if (!this.liveEnabled) this.resetFrameTiming(); }
+  clear() { this.generation++; this.lifecycleGeneration++; this.entries.clear(); this.tasks.clear(); this.moduleStats.clear(); this.frameStats.clear(); this.frames = 0; this.frame = undefined; this.taskFrame = undefined; this.frameSamples = []; this.pendingFrame = undefined; }
+  setLiveEnabled(enabled: boolean) { this.liveEnabled = enabled; if (!enabled && !this.enabled) this.resetFrameTiming(); }
+  setStallThreshold(ms: number) { if (Number.isFinite(ms) && ms > 0) this.thresholdMs = ms; }
+  resetFrameTiming() { this.lastFrameTime = undefined; this.pendingFrame = undefined; this.liveIntervals = []; }
+  /** Interval until this frame belongs to the previous completed frame, not this one. */
+  frameStarted() {
+    if (!this.enabled && !this.liveEnabled) return;
+    const timeMs = this.now(), previous = this.lastFrameTime;
+    this.lastFrameTime = timeMs;
+    if (previous === undefined || timeMs <= previous || timeMs - previous > 1000) { this.pendingFrame = undefined; this.liveIntervals = []; return; }
+    const intervalMs = timeMs - previous;
+    this.liveIntervals.push({ timeMs, intervalMs });
+    if (this.liveIntervals.length > 1024) this.liveIntervals.shift();
+    if (this.enabled && this.pendingFrame) {
+      this.frameSamples.push({ ...this.pendingFrame, timeMs, intervalMs });
+      if (this.frameSamples.length > 1024) this.frameSamples.shift();
+    }
+    this.pendingFrame = undefined;
+  }
+  liveFrame() {
+    const now = this.now(), recent = this.liveIntervals.filter(sample => now - sample.timeMs <= 1000);
+    const sum = recent.reduce((total, sample) => total + sample.intervalMs, 0);
+    return { fps: sum ? recent.length * 1000 / sum : 0, intervalMs: recent.at(-1)?.intervalMs ?? 0,
+      maxMs: recent.reduce((max, sample) => Math.max(max, sample.intervalMs), 0) };
+  }
   beginFrame() { if (this.enabled) { this.frame = new Map(); this.taskFrame = new Map(); } }
   endFrame() {
     if (!this.enabled || !this.frame) return;
@@ -39,6 +70,9 @@ export class LabPerformance {
       const stats = this.frameStats.get(id) ?? counter(); add(stats, this.frame.get(id) ?? 0); this.frameStats.set(id, stats);
     }
     for (const [key, task] of this.tasks) add(task.frame, this.taskFrame?.get(key) ?? 0);
+    this.pendingFrame = { frame: this.frames + 1,
+      modules: [...this.frame].map(([moduleId, ms]) => ({ moduleId, ms })).sort((a, b) => b.ms - a.ms),
+      tasks: [...(this.taskFrame ?? [])].flatMap(([key, ms]) => { const task = this.tasks.get(key); return task ? [{ moduleId: task.moduleId, taskId: task.taskId, phase: task.phase, ms }] : []; }).sort((a, b) => b.ms - a.ms) };
     this.frames++; this.frame = undefined; this.taskFrame = undefined;
   }
   measure<T>(moduleId: string, kind: PerformanceKind, callback: () => T, task?: TaskIdentity, operation: 'enabled' | 'run' = 'run'): T {
@@ -112,6 +146,7 @@ export class LabPerformance {
         })) };
     });
     return { version: 1, enabled: this.enabled, frames: this.frames, sampleLimit: 1024, modules, lifecycle: entries.filter(entry => lifecycle(entry.kind)),
+      frameTiming: { thresholdMs: this.thresholdMs, samples: this.frameSamples.map(sample => ({ ...sample, modules: sample.modules.map(m => ({ ...m })), tasks: sample.tasks.map(t => ({ ...t })) })) },
       coverage: '调度任务（按任务 ID/阶段区分运行与启用判断）、通信监听/请求处理、Host 调度/相机/渲染。任务明细已包含在模块总计中，不可重复相加。同步入口计时不含 await 后续执行；直接 DOM 回调、定时器、Babylon Observable 和 GPU 耗时未独立归属。P95 为最近最多 1024 个样本。' };
   }
   dispose() { this.stop(); this.clear(); }

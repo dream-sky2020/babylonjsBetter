@@ -53,6 +53,13 @@ test('module workspace controls capture, separates lifecycle/wait time, searches
     let resolve; const pending = stats.measure('b', 'event', () => new Promise(done => { resolve = done; })); clock += 20; resolve(); await pending; await Promise.resolve();
     mode.value = 'async'; mode.dispatchEvent(new dom.window.Event('change')); assert.match(layer.root.querySelector('tbody').textContent, /事件监听.*20.000/);
     action('stop'); assert.equal(stats.enabled, false); action('clear'); assert.equal(stats.inspect().frames, 0);
+    action('toggle-fps'); assert.equal(document.querySelector('.lab-performance-hud').hidden, false);
+    action('start'); stats.frameStarted(); stats.beginFrame(); stats.measure('a', 'task', () => { clock += 4; }); stats.endFrame(); clock += 36; stats.frameStarted(); tick();
+    assert.match(document.querySelector('.lab-performance-hud').textContent, /FPS 25/);
+    assert.equal(layer.root.querySelectorAll('.lab-performance-chart button').length, 1);
+    layer.root.querySelector('.lab-performance-chart button').click(); assert.match(layer.root.querySelector('.lab-performance-timing').textContent, /a 4.00 ms/);
+    action('toggle-fps'); assert.equal(document.querySelector('.lab-performance-hud').hidden, true);
+    action('stop'); action('clear');
     const createUrl = URL.createObjectURL, revokeUrl = URL.revokeObjectURL, click = dom.window.HTMLAnchorElement.prototype.click;
     let exported, filename;
     URL.createObjectURL = blob => { exported = blob; return 'blob:performance-test'; };

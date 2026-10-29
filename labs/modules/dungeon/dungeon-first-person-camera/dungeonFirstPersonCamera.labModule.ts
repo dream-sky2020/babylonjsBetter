@@ -1,8 +1,9 @@
 import { DUNGEON_SESSION_INFO_MEMORY } from '../dungeon-map-loader/dungeonSession.memory';
 import { DUNGEON_PLAYER_STATE_MEMORY, type DungeonPlayerStateData } from '../dungeon-runtime/dungeonRuntime.memory';
 import { DUNGEON_PLAYER_SPAWN_MEMORY } from '../player-spawn/playerSpawn.memory';
-import { Vector3 } from '@babylonjs/core';
+import { Color3, Constants, MeshBuilder, Vector3, type LinesMesh } from '@babylonjs/core';
 import { createDungeonViewConsumer, mapDungeonDisplayPosition, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
+import { DEFAULT_CAMERA_DEAD_ZONE, resolveCameraDeadZoneTarget, smoothCameraFollow, validateCameraDeadZone } from '@/core/dungeon-view/dungeonCameraDeadZone.ts';
 import { DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY } from '../dungeon-player-camera/dungeonPlayerCamera.view';
 import type { CameraProjection } from '@/core/camera/cameraLabController.ts';
 import { validatePlayerCameraProjection, type DungeonPlayerCameraProjectionSettings } from '../dungeon-player-camera/dungeonPlayerCamera.projection';
@@ -100,6 +101,11 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const overheadYawInput = createNumberInput(0, -180, 180, 1);
     const overheadTargetHeightInput = createNumberInput(0.8, -10, 20, 0.1);
     const overheadFollowInput = createNumberInput(14, 0, 60, 1);
+    const deadZone = { ...DEFAULT_CAMERA_DEAD_ZONE };
+    const deadZoneToggle = createLabSwitch('启用俯视跟随区域', deadZone.enabled);
+    const deadZoneWidthInput = createNumberInput(deadZone.width, 0, 1000, 0.5);
+    const deadZoneDepthInput = createNumberInput(deadZone.depth, 0, 1000, 0.5);
+    const deadZoneDebugToggle = createLabSwitch('显示跟随区域 Debug', deadZone.debug);
     const projectionSettings: DungeonPlayerCameraProjectionSettings = { projection: 'perspective', orthographicSize: null };
     let projectionDirty = true;
     const projectionSelect = document.createElement('select');
@@ -140,6 +146,10 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       createLabField('俯视水平朝向（度，0=北朝上）', overheadYawInput),
       createLabField('俯视目标高度', overheadTargetHeightInput),
       createLabField('俯视跟随响应（0=立即）', overheadFollowInput),
+      deadZoneToggle.row,
+      createLabField('跟随区域宽度 X（世界单位）', deadZoneWidthInput),
+      createLabField('跟随区域深度 Z（世界单位）', deadZoneDepthInput),
+      deadZoneDebugToggle.row,
       status,
       externalViewNote,
       debug,
@@ -169,7 +179,26 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const pose = { position: eyePosition, yaw: 0, pitch: 0 };
     const overheadTarget = Vector3.Zero();
     const desiredOverheadTarget = Vector3.Zero();
+    const overheadVelocity = Vector3.Zero();
     let overheadTargetInitialized = false;
+    let deadZoneMarker: LinesMesh | null = null;
+    const syncDeadZoneMarker = (groundY: number): void => {
+      const visible = deadZone.enabled && deadZone.debug && activeMode === 'overhead' && enabledToggle.input.checked && overheadTargetInitialized;
+      if (!visible) { deadZoneMarker?.setEnabled(false); return; }
+      if (!deadZoneMarker) {
+        deadZoneMarker = MeshBuilder.CreateLines('dungeon-camera-dead-zone', { points: [
+          new Vector3(-.5, 0, -.5), new Vector3(.5, 0, -.5), new Vector3(.5, 0, .5),
+          new Vector3(-.5, 0, .5), new Vector3(-.5, 0, -.5),
+        ] }, context.scene);
+        deadZoneMarker.color = Color3.FromHexString('#38f5ae'); deadZoneMarker.isPickable = false;
+        deadZoneMarker.alwaysSelectAsActiveMesh = true;
+        deadZoneMarker.renderingGroupId = 3;
+        if (deadZoneMarker.material) { deadZoneMarker.material.depthFunction = Constants.ALWAYS; deadZoneMarker.material.disableDepthWrite = true; }
+      }
+      deadZoneMarker.setEnabled(true);
+      deadZoneMarker.scaling.set(deadZone.width, 1, deadZone.depth);
+      deadZoneMarker.position.set(overheadTarget.x, groundY + tileTopOffset + .08, overheadTarget.z);
+    };
     const syncProjectionControls = (): void => {
       for (const input of [projectionSelect, orthographicSizeInput, overheadPitchInput, overheadYawInput]) input.parentElement!.hidden = externalView !== null;
       externalViewNote.hidden = !externalView;
@@ -286,12 +315,21 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       );
       if (snap || !overheadTargetInitialized) {
         overheadTarget.copyFrom(desiredOverheadTarget);
+        overheadVelocity.setAll(0);
         overheadTargetInitialized = true;
       } else {
+        if (deadZone.enabled) {
+          desiredOverheadTarget.x = resolveCameraDeadZoneTarget(overheadTarget.x, x, deadZone.width);
+          desiredOverheadTarget.z = resolveCameraDeadZoneTarget(overheadTarget.z, z, deadZone.depth);
+        }
         const response = readClampedNumber(overheadFollowInput, 14);
-        const alpha = response <= 0 ? 1 : 1 - Math.exp(-response * deltaSeconds);
-        Vector3.LerpToRef(overheadTarget, desiredOverheadTarget, alpha, overheadTarget);
+        const nextX = smoothCameraFollow(overheadTarget.x, desiredOverheadTarget.x, overheadVelocity.x, response, deltaSeconds);
+        const nextY = smoothCameraFollow(overheadTarget.y, desiredOverheadTarget.y, overheadVelocity.y, response, deltaSeconds);
+        const nextZ = smoothCameraFollow(overheadTarget.z, desiredOverheadTarget.z, overheadVelocity.z, response, deltaSeconds);
+        overheadTarget.set(nextX.position, nextY.position, nextZ.position);
+        overheadVelocity.set(nextX.velocity, nextY.velocity, nextZ.velocity);
       }
+      syncDeadZoneMarker(y);
       const cameraState = context.cameraController.state;
       cameraState.orbitCenter.copyFrom(overheadTarget);
       cameraState.orbitYaw = degToRad(externalView?.config.yawDeg ?? readClampedNumber(overheadYawInput, 0));
@@ -311,6 +349,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     };
 
     const syncBinding = (snapOverhead = false): void => {
+      if (activeMode !== 'overhead' || !enabledToggle.input.checked) deadZoneMarker?.setEnabled(false);
       projectionDirty = true;
       syncProjectionControls();
       if (enabledToggle.input.checked && activeMode === 'first-person') {
@@ -412,6 +451,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
         targetYawOffsetDeg: radToDeg(targetYawOffset),
         targetPitchOffsetDeg: radToDeg(targetPitchOffset),
         overheadTarget: overheadTargetInitialized ? overheadTarget.asArray() : null,
+        overheadFollowArea: { ...deadZone },
         cameraPosition: [camera.position.x, camera.position.y, camera.position.z],
         cameraYawDeg: radToDeg(camera.rotation.y),
         cameraPitchDeg: radToDeg(-camera.rotation.x),
@@ -429,6 +469,29 @@ export const dungeonPlayerCameraLabModule: LabModule = {
         afterRestore: () => { syncBinding(); refreshDebug(true); },
       },
     });
+    const deadZoneRegistration = context.labState.registerReference({
+      moduleId: 'dungeon-player-camera', key: 'follow-area', version: 1, value: deadZone,
+      inspect: value => ({ ...value }),
+      save: { serialize: value => ({ ...value }), validate: validateCameraDeadZone,
+        restore: (value, saved) => { Object.assign(value, saved); },
+        afterRestore: () => {
+          deadZoneToggle.input.checked = deadZone.enabled; deadZoneDebugToggle.input.checked = deadZone.debug;
+          deadZoneWidthInput.value = String(deadZone.width); deadZoneDepthInput.value = String(deadZone.depth);
+          if (activeMode === 'overhead') applyOverheadPose(0); refreshDebug(true);
+        } },
+    });
+    const updateDeadZone = () => {
+      deadZone.enabled = deadZoneToggle.input.checked; deadZone.debug = deadZoneDebugToggle.input.checked;
+      deadZone.width = readClampedNumber(deadZoneWidthInput, 8); deadZone.depth = readClampedNumber(deadZoneDepthInput, 8);
+      deadZoneRegistration.markChanged();
+      if (activeMode === 'overhead') applyOverheadPose(0);
+      if (!deadZone.enabled || !deadZone.debug) deadZoneMarker?.setEnabled(false);
+      refreshDebug(true);
+    };
+    deadZoneToggle.input.addEventListener('change', updateDeadZone);
+    deadZoneDebugToggle.input.addEventListener('change', updateDeadZone);
+    deadZoneWidthInput.addEventListener('input', updateDeadZone);
+    deadZoneDepthInput.addEventListener('input', updateDeadZone);
     projectionSelect.addEventListener('change', () => {
       if (projectionSelect.disabled) return;
       readSharedProjection();
@@ -604,6 +667,8 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       context.services.delete(DUNGEON_PLAYER_CAMERA_SERVICE_KEY);
       offMapChanged();
       projectionRegistration.unregister();
+      deadZoneRegistration.unregister();
+      deadZoneMarker?.dispose();
       keyboardRegistration.dispose();
       offKeyboardChanged();
       stopFrameTask();

@@ -1,10 +1,12 @@
 import {
   getDungeonMovementDirectionsForMode,
   getDungeonMovementDirectionCost,
+  getDungeonMovementDirectionVector,
   resolveDungeonMovementProfile,
   type DungeonMovementDirection,
 } from '../dungeon-movement/index.ts';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
+import { dungeonMapWrapsX, dungeonMapWrapsY } from '../map/dungeonMap.topology.ts';
 import { findDungeonPath, type DungeonPathResult } from '../dungeon-navigation/index.ts';
 import {
   inspectDungeonAgentStepTraversal,
@@ -43,6 +45,8 @@ export type DungeonAgentControllerExecutionOptions = Readonly<{
   reservationPenalty?: number;
   /** 单次 Controller 更新允许发起的寻路次数，避免多个 Agent 同帧集中搜索。 */
   maxPathSearchesPerUpdate?: number;
+  onDecision?: (entityId: string, elapsedMs: number) => void;
+  onPathSearch?: (entityId: string, elapsedMs: number, visited: number) => void;
 }>;
 
 type RandomControllerState = {
@@ -59,6 +63,8 @@ type RandomControllerState = {
   pathRetryRemainingSeconds?: number;
   satisfiedTargetTileIndex?: number;
   satisfiedAtTileIndex?: number;
+  wallFollow?: { heading: DungeonMovementDirection; entryTile: number; target: number; visited: string[]; retry: number;
+    route?: { tiles: readonly number[]; directions: readonly DungeonMovementDirection[]; index: number }; fallback?: boolean };
   lockedSegments?: Record<string, Readonly<{
     tileIndices: readonly number[];
     directions: readonly DungeonMovementDirection[];
@@ -77,6 +83,24 @@ type DungeonAgentPathPlanningOptions = Readonly<{
 
 type DungeonAgentPathSearchBudget = { remaining: number };
 
+export type DungeonChaseStrategy = 'path' | 'direct' | 'wall-follow';
+export const resolveDungeonChaseStrategy = (value: unknown): DungeonChaseStrategy => value === 'direct' || value === 'wall-follow' ? value : 'path';
+export const DUNGEON_CHASE_DEBUG_COLORS: Readonly<Record<DungeonChaseStrategy, string>> = { path: '#ef4444', direct: '#22c55e', 'wall-follow': '#38bdf8' };
+
+/** Grid-coordinate heuristic is valid only when every topology edge is local. */
+const regularTopology = new WeakMap<DungeonRuntimeMap, boolean>();
+const distance = (map: DungeonRuntimeMap, from: number, to: number, eight: boolean): number => {
+  let dx = Math.abs(from % map.width - to % map.width), dy = Math.abs(Math.floor(from / map.width) - Math.floor(to / map.width));
+  if (dungeonMapWrapsX(map.document.grid.topologyMode)) dx = Math.min(dx, map.width - dx);
+  if (dungeonMapWrapsY(map.document.grid.topologyMode)) dy = Math.min(dy, map.height - dy);
+  return eight ? Math.max(dx, dy) + (Math.SQRT2 - 1) * Math.min(dx, dy) : dx + dy;
+};
+const hasRegularTopology = (map: DungeonRuntimeMap): boolean => {
+  const cached = regularTopology.get(map); if (cached !== undefined) return cached;
+  const valid = [...map.topology.neighborTileIndices].every((to, slot) => to < 0 || distance(map, Math.floor(slot / 4), to, false) === 1);
+  regularTopology.set(map, valid); return valid;
+};
+
 type DungeonAgentControllerContext = Readonly<{
   state: DungeonAgentRuntimeState;
   map: DungeonRuntimeMap;
@@ -85,6 +109,7 @@ type DungeonAgentControllerContext = Readonly<{
   playerTileIndex?: number;
   random(): number;
   findPathTo(toTileIndex: number, options?: DungeonAgentPathPlanningOptions): DungeonPathResult;
+  findLocalEscape(target: number, entryTile: number, visited: readonly string[]): { status: 'ready' | 'unreachable' | 'deferred'; tiles?: number[]; directions?: DungeonMovementDirection[] };
   tryMove(direction: DungeonMovementDirection, durationSeconds: number): DungeonAgentControllerAction;
   tryRandomMove(durationSeconds: number): DungeonAgentControllerAction;
   idle(): DungeonAgentControllerAction;
@@ -357,6 +382,42 @@ const createContext = (
     trigger,
     playerTileIndex: options.playerTileIndex,
     random,
+    findLocalEscape: (target, entryTile, visited) => {
+      if (pathSearchBudget.remaining <= 0) return { status: 'deferred' };
+      pathSearchBudget.remaining--;
+      const started = options.onPathSearch ? performance.now() : 0;
+      const mode = resolveDungeonMovementProfile(state.traversal.actors.get(agent.binding.entity.id)?.movementProfileId ?? 'ground').directionMode;
+      const directions = getDungeonMovementDirectionsForMode(mode);
+      const metric = (tile: number) => distance(map, tile, target, mode === 'eight-way');
+      const initialDistance = metric(entryTile);
+      const previous = new Map<number, { tile: number; direction: DungeonMovementDirection }>();
+      const depths = new Map<number, number>([[agent.tileIndex, 0]]);
+      const queue = [agent.tileIndex]; let cursor = 0, goal: number | undefined;
+      const oldTiles = new Set(visited.map(key => Number(key.split(':')[0])));
+      const stopDistance = Math.trunc(numberParameter(agent, 'stopDistance', 1));
+      while (cursor < queue.length && cursor < 64) {
+        const tile = queue[cursor++], depth = depths.get(tile)!;
+        if (tile !== agent.tileIndex && !oldTiles.has(tile) && metric(tile) < initialDistance) {
+          const canContinue = metric(tile) <= stopDistance || directions.some(direction => {
+            const step = inspectDungeonAgentStepTraversal(state, map, agent, tile, direction);
+            return step.toTileIndex !== undefined && !step.blockedReason && metric(step.toTileIndex) < metric(tile);
+          });
+          if (canContinue) { goal = tile; break; }
+        }
+        if (depth >= 8) continue;
+        for (const direction of directions) {
+          const step = inspectDungeonAgentStepTraversal(state, map, agent, tile, direction);
+          const next = step.toTileIndex;
+          if (step.blockedReason || next === undefined || depths.has(next)) continue;
+          depths.set(next, depth + 1); previous.set(next, { tile, direction }); queue.push(next);
+        }
+      }
+      options.onPathSearch?.(agent.binding.entity.id, performance.now() - started, cursor);
+      if (goal === undefined) return { status: 'unreachable' };
+      const tiles = [goal], route: DungeonMovementDirection[] = []; let tile = goal;
+      while (tile !== agent.tileIndex) { const link = previous.get(tile)!; route.push(link.direction); tile = link.tile; tiles.push(tile); }
+      return { status: 'ready', tiles: tiles.reverse(), directions: route.reverse() };
+    },
     findPathTo: (toTileIndex, planningOptions = {}) => {
       if (pathSearchBudget.remaining <= 0) {
         return {
@@ -369,14 +430,15 @@ const createContext = (
         };
       }
       pathSearchBudget.remaining -= 1;
-      return findDungeonPath({
+      const mode = resolveDungeonMovementProfile(state.traversal.actors.get(agent.binding.entity.id)?.movementProfileId ?? 'ground').directionMode;
+      const started = options.onPathSearch ? performance.now() : 0;
+      const result = findDungeonPath({
       map,
       fromTileIndex: agent.tileIndex,
       toTileIndex,
       seed: Math.floor(random() * 0x1_0000_0000),
-      directionMode: resolveDungeonMovementProfile(
-        state.traversal.actors.get(agent.binding.entity.id)?.movementProfileId ?? 'ground',
-      ).directionMode,
+      directionMode: mode,
+      ...(hasRegularTopology(map) ? { getHeuristicCost: (from: number, to: number) => distance(map, from, to, mode === 'eight-way') } : {}),
       maxVisited: planningOptions.maxVisited,
       canTraverse: (fromTileIndex, _nextTileIndex, direction) => !inspectDungeonAgentStepTraversal(
         state,
@@ -399,6 +461,8 @@ const createContext = (
         return baseCost + otherReservations * penalty;
       },
       });
+      options.onPathSearch?.(agent.binding.entity.id, performance.now() - started, result.visitedCount);
+      return result;
     },
     idle: () => remember({ ...base, outcome: 'idle' }),
     tryMove,
@@ -945,17 +1009,120 @@ const patrolRouteController: DungeonAgentController = {
   },
 };
 
+const followLightweightChase = (context: DungeonAgentControllerContext, target: number, strategy: DungeonChaseStrategy, delta: number): DungeonAgentControllerAction | null => {
+  const { agent, state, map } = context;
+  const runtime = controllerState(agent);
+  const mode = resolveDungeonMovementProfile(state.traversal.actors.get(agent.binding.entity.id)?.movementProfileId ?? 'ground').directionMode;
+  const directions = getDungeonMovementDirectionsForMode(mode);
+  const metric = (index: number) => distance(map, index, target, mode === 'eight-way');
+  const currentDistance = metric(agent.tileIndex);
+  const xDistance = Math.abs(agent.tileIndex % map.width - target % map.width), yDistance = Math.abs(Math.floor(agent.tileIndex / map.width) - Math.floor(target / map.width));
+  const dx = dungeonMapWrapsX(map.document.grid.topologyMode) ? Math.min(xDistance, map.width - xDistance) : xDistance;
+  const dy = dungeonMapWrapsY(map.document.grid.topologyMode) ? Math.min(yDistance, map.height - yDistance) : yDistance;
+  const steps = mode === 'eight-way' ? Math.max(dx, dy) : dx + dy;
+  if (steps <= Math.trunc(numberParameter(agent, 'stopDistance', 1))) {
+    if (runtime.wallFollow?.fallback && agent.navigationPlan) { agent.navigationPlan = undefined; syncDungeonAgentPathReservation(state, agent); }
+    runtime.wallFollow = undefined; return null;
+  }
+  const candidates = directions.map(direction => {
+    const inspection = inspectDungeonAgentStepTraversal(state, map, agent, agent.tileIndex, direction);
+    // Determine the intended neighbor even when it is occupied or blocked.
+    const vector = getDungeonMovementDirectionVector(direction);
+    const x = agent.tileIndex % map.width + vector.x, y = Math.floor(agent.tileIndex / map.width) + vector.y;
+    const nx = dungeonMapWrapsX(map.document.grid.topologyMode) ? (x + map.width) % map.width : x;
+    const ny = dungeonMapWrapsY(map.document.grid.topologyMode) ? (y + map.height) % map.height : y;
+    const destination = inspection.toTileIndex ?? (nx >= 0 && nx < map.width && ny >= 0 && ny < map.height ? ny * map.width + nx : undefined);
+    return { direction, inspection, score: destination === undefined ? Infinity : metric(destination) };
+  });
+  const improving = candidates.filter(item => item.score < currentDistance).sort((a, b) => a.score - b.score);
+  const direct = improving.find(item => !item.inspection.blockedReason);
+  if (strategy === 'direct') return direct ? context.tryMove(direct.direction, numberParameter(agent, 'moveDurationSeconds', 0.3)) : context.idle();
+  let wall = runtime.wallFollow;
+  if (wall && wall.target !== target) {
+    if (wall.fallback && agent.navigationPlan) { agent.navigationPlan = undefined; syncDungeonAgentPathReservation(state, agent); }
+    wall.target = target; wall.route = undefined; wall.fallback = false;
+  }
+  if (wall?.retry) { wall.retry = Math.max(0, wall.retry - delta); if (wall.retry > 0) return null; }
+  if (wall?.fallback) return followNavigationPlan(context, target, numberParameter(agent, 'moveDurationSeconds', 0.3), { allowOccupiedTarget: true }, delta);
+  if (wall?.route) {
+    const route = wall.route;
+    if (route.tiles[route.index + 1] === agent.tileIndex) route.index++;
+    if (route.index >= route.directions.length) { runtime.wallFollow = undefined; return null; }
+    if (route.tiles[route.index] !== agent.tileIndex) { wall.route = undefined; wall.retry = FAILED_PATH_RETRY_SECONDS; return context.idle(); }
+    const step = inspectDungeonAgentStepTraversal(state, map, agent, agent.tileIndex, route.directions[route.index]);
+    if (step.blockedReason || step.toTileIndex !== route.tiles[route.index + 1]) {
+      if (!isDynamicBlock(step.blockedReason)) wall.route = undefined;
+      wall.retry = DYNAMIC_BLOCK_RETRY_SECONDS; return context.idle();
+    }
+    const action = context.tryMove(route.directions[route.index], numberParameter(agent, 'moveDurationSeconds', 0.3));
+    if (action.outcome !== 'move-started') wall.retry = DYNAMIC_BLOCK_RETRY_SECONDS;
+    return action;
+  }
+  const canLeaveWall = direct && (!wall || (currentDistance < metric(wall.entryTile) && direct.inspection.toTileIndex !== undefined
+    && (metric(direct.inspection.toTileIndex) <= Math.trunc(numberParameter(agent, 'stopDistance', 1))
+      || directions.some(direction => {
+        const step = inspectDungeonAgentStepTraversal(state, map, agent, direct.inspection.toTileIndex!, direction);
+        return step.toTileIndex !== undefined && !step.blockedReason && metric(step.toTileIndex) < metric(direct.inspection.toTileIndex!);
+      }))));
+  if (direct && canLeaveWall) {
+    const action = context.tryMove(direct.direction, numberParameter(agent, 'moveDurationSeconds', 0.3));
+    if (action.outcome === 'move-started') runtime.wallFollow = undefined;
+    else if (isRepairableStaticBlock(action.movementResult?.blockedReason)) runtime.wallFollow ??= {
+      heading: direct.direction, entryTile: agent.tileIndex, target, visited: [], retry: 0,
+    };
+    else if (wall && isDynamicBlock(action.movementResult?.blockedReason)) wall.retry = DYNAMIC_BLOCK_RETRY_SECONDS;
+    return action;
+  }
+  if (!wall) {
+    const desired = improving[0];
+    if (!desired || isDynamicBlock(desired.inspection.blockedReason)) return context.idle();
+    wall = runtime.wallFollow = { heading: desired.direction, entryTile: agent.tileIndex, target, visited: [], retry: 0 };
+  }
+  const key = `${agent.tileIndex}:${wall.heading}`;
+  const searchEscape = (currentWall: NonNullable<RandomControllerState['wallFollow']>): DungeonAgentControllerAction | null => {
+    const escape = context.findLocalEscape(target, currentWall.entryTile, currentWall.visited);
+    if (escape.status === 'deferred') return null;
+    if (escape.status === 'ready') { currentWall.route = { tiles: escape.tiles!, directions: escape.directions!, index: 0 }; return null; }
+    if (resolveDungeonAgentControllerConfig(agent).parameters.wallFallbackToPath === true) {
+      currentWall.fallback = true;
+      return followNavigationPlan(context, target, numberParameter(agent, 'moveDurationSeconds', 0.3), { allowOccupiedTarget: true }, delta);
+    }
+    currentWall.retry = FAILED_PATH_RETRY_SECONDS; return context.idle();
+  };
+  if (wall.visited.includes(key) || wall.visited.length >= 32) return searchEscape(wall);
+  const start = directions.indexOf(wall.heading);
+  const left = mode === 'eight-way' ? 2 : 1;
+  let dynamicBlocked = false;
+  for (let i = 0; i < directions.length; i++) {
+    const item = candidates[(start - left + i + directions.length) % directions.length];
+    if (isDynamicBlock(item.inspection.blockedReason)) { dynamicBlocked = true; continue; }
+    if (item.inspection.blockedReason) continue;
+    const action = context.tryMove(item.direction, numberParameter(agent, 'moveDurationSeconds', 0.3));
+    if (action.outcome === 'move-started') { wall.visited.push(key); wall.heading = item.direction; }
+    else if (isDynamicBlock(action.movementResult?.blockedReason)) wall.retry = DYNAMIC_BLOCK_RETRY_SECONDS;
+    return action;
+  }
+  if (!dynamicBlocked) return searchEscape(wall);
+  wall.retry = DYNAMIC_BLOCK_RETRY_SECONDS; return context.idle();
+};
+
 const chasePlayerController: DungeonAgentController = {
   id: CHASE_PLAYER_CONTROLLER_ID,
   label: '追踪玩家',
   description: '持续追踪玩家当前格；玩家换格或路径受阻时自动重新规划。',
   parameters: [
+    { key: 'navigationStrategy', label: '寻路策略', type: 'select', defaultValue: 'path', options: [
+      { value: 'path', label: '完整路径规划' }, { value: 'direct', label: '直接靠近' }, { value: 'wall-follow', label: '靠近并沿墙绕行' },
+    ] },
+    { key: 'wallFallbackToPath', label: '绕行失败后回退完整寻路', type: 'boolean', defaultValue: false },
     { key: 'stopDistance', label: '停止距离（格）', type: 'number', defaultValue: 1, min: 0, step: 1, integer: true },
     { key: 'moveDurationSeconds', label: '每格移动耗时（秒）', type: 'number', defaultValue: 0.3, min: 0, step: 0.05 },
     { key: 'seed', label: '随机种子', description: '留空时根据 Agent ID 自动生成。', type: 'number', step: 1, integer: true },
   ],
   update(context, deltaSeconds) {
     if (context.agent.movement || context.playerTileIndex === undefined) return null;
+    const strategy = resolveDungeonChaseStrategy(resolveDungeonAgentControllerConfig(context.agent).parameters.navigationStrategy);
+    if (strategy !== 'path') return followLightweightChase(context, context.playerTileIndex, strategy, deltaSeconds);
     const state = controllerState(context.agent);
     if (state.satisfiedTargetTileIndex === context.playerTileIndex
       && state.satisfiedAtTileIndex === context.agent.tileIndex) return null;
@@ -1022,9 +1189,11 @@ export const runDungeonAgentControllersAfterPlayerStep = (
     agent.actionClock += 1;
     if (agent.actionClock < agent.binding.gridAgent.actionPeriod) return;
     agent.actionClock = 0;
+    const started = options.onDecision ? performance.now() : 0;
     const action = controller.onPlayerStep(createContext(
       state, map, agent, 'player-step', options, pathSearchBudget,
     ));
+    options.onDecision?.(agent.binding.entity.id, performance.now() - started);
     if (action) actions.push(action);
   });
   return actions;
@@ -1047,9 +1216,11 @@ export const updateDungeonAgentControllers = (
   agentsByPriority(state).forEach((agent) => {
     const controller = registry.get(resolveDungeonAgentControllerConfig(agent).controllerId);
     if (!agent.enabled || !controller?.update) return;
+    const started = options.onDecision ? performance.now() : 0;
     const action = controller.update(createContext(
       state, map, agent, 'continuous', options, pathSearchBudget,
     ), deltaSeconds);
+    options.onDecision?.(agent.binding.entity.id, performance.now() - started);
     if (action) actions.push(action);
   });
   return actions;

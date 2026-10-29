@@ -1,3 +1,7 @@
+## 2026-10-29：Dungeon 俯视相机跟随区域
+
+`dungeon-player-camera` 增加可配置的显示坐标 X/Z 跟随区域与非拾取 Debug 线框，区域内不移动相机，越界只跟随超出部分；切图或切换俯视重置中心。设置以 `follow-area` 注册到 LabState；Dungeon Agent Lab 初始启用 8×8，其他 Lab 默认关闭。空间计算位于 `core/dungeon-view/dungeonCameraDeadZone.ts`，不改变玩家模拟。
+
 ## 2026-10-27：Monster Dissolve 组合式测试页
 
 新增 `labs/composable/monster-dissolve-lab/`，选择 dungeon-config 场景加载链、monster-visual-objects 与 monster-dissolve-preview；保留原 Monster Visual 和独立怪物消散 Lab。首页、Vite 与怪物专项构建登记新入口，无战场、编队、玩家、AI 或其他动作模块。
@@ -1995,3 +1999,6 @@ DialogueNodeDisplay.whitespace 为每个节点保存 header/content/outputs/top/
 dialogueGraphEditing.ts 提供节点深拷贝快照、选区内部连线复制及全 ID 重建粘贴、批量删除、矩形相交与对齐／分布。dialoguePropertyEditing.ts 按面板范围捕获和应用属性，保证节点身份、位置与已有端口连接不变；选项集合替换数量必须匹配，追加创建新端口。DialoguePropertyClipboard.tsx 通过 InspectorGroup 的显式 property 描述为所有可编辑面板接入复制／粘贴，固定判断出口和诊断保持只读。DialogueMultiSelectionInspector.tsx 提供多选摘要、混合值批量字段及整理布局。
 
 DialogueMapCanvasLab 的节点多选独立于属性选择；画布空白拖动框选，Ctrl／⌘ 追加、Alt 减选、Shift 反选，中键／空格平移。节点移动以临时位置渲染，松手一次写入 history，Esc／失焦／丢失捕获取消。复用 core/ui/menu 通用菜单，右键不再改变检查入口，节点和空白菜单分别处理选区操作和世界坐标新建／粘贴。节点剪贴板和属性剪贴板互相独立，支持页面内跨预设复用，不保存到文档；纯数据操作测试与界面回归覆盖剪切撤销、粘贴、框选、拖动事务、属性连接不变和快捷键边界，页面操作说明已更新。
+## 2026-10-29：Dungeon Agent 寻路策略和 Debug 颜色
+
+Agent 的 `agent-controller` 组件可选 `debugColor`；追踪 Controller 的 `parameters.navigationStrategy` 支持 `path`、`direct`、`wall-follow`，旧地图默认 `path`。地图编辑器通过组件字段保存，组合式 Lab 可在本次运行覆盖策略和颜色；颜色优先级为运行时覆盖、地图颜色、追踪策略颜色、阵营颜色。广场地图使用沿墙追踪与完整路径作为对照，长廊地图使用直接靠近。轻量追踪只选择方向，实际移动仍由空间动作系统仲裁；沿墙状态保留历史、识别循环后使用预算内的局部搜索，可选 `wallFallbackToPath` 回退完整寻路。完整路径在规则网格启用支持环绕的 A* 启发式，非局部拓扑回退现有搜索。Lab 的 Controller 内存提供逐 Agent 决策和寻路搜索统计，可在面板清空对比；搜索时间包含于决策时间。

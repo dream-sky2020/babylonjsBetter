@@ -10,7 +10,7 @@ export type DungeonAgentControllerState = {
   parameters: Readonly<Record<string, unknown>>; source: 'map' | 'runtime-override'; controllerState: unknown;
   controllerOverride?: DungeonAgentControllerConfig;
 };
-export type DungeonAgentControllerData = Identity & { turnNumber: number; decisionElapsed?: number; agents: Map<string, DungeonAgentControllerState> };
+export type DungeonAgentControllerData = Identity & { turnNumber: number; decisionElapsed?: number; agents: Map<string, DungeonAgentControllerState>; metrics?: Map<string, import('../../../../core/dungeon-agent/dungeonAgentSystem').DungeonAgentMetrics> };
 const record = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === 'object' && !Array.isArray(value);
 const identity = (value: unknown): value is Record<string, unknown> => record(value)
   && Number.isSafeInteger(value.loadId) && (value.loadId as number) > 0 && typeof value.presetKey === 'string';
@@ -33,7 +33,7 @@ export const DUNGEON_AGENT_CONTROLLER_MEMORY = defineLabSharedData({
   key: 'dungeon.agent-controller-state', label: 'Agent Controller 状态', type: controllerType, create: () => null,
   inspect: (value: DungeonAgentControllerData | null) => value ? {
     loadId: value.loadId, presetKey: value.presetKey, turnNumber: value.turnNumber, agentCount: value.agents.size, agents: value.agents,
-    decisionElapsed: value.decisionElapsed,
+    decisionElapsed: value.decisionElapsed, metrics: value.metrics,
   } : { loaded: false },
 });
 const EMPTY_PARAMETERS = Object.freeze({});

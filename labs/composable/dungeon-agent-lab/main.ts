@@ -15,6 +15,7 @@ const host = await createLab({
   catalog: dungeonLabModuleCatalog,
   initialState: { format: 'lab-state', version: 1, createdAt: '', modules: {
     'dungeon-overhead-view': { settings: { version: 1, data: { enabled: true, draft: { ...DEFAULT_OVERHEAD_VIEW } } } },
+    'dungeon-player-camera': { 'follow-area': { version: 1, data: { enabled: true, width: 8, depth: 8, debug: false } } },
   } },
 });
 

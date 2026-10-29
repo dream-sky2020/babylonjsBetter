@@ -75,6 +75,12 @@ test('Agent module publishes shallow live memories, moves through Core and repla
     const firstController = controllers.current.agents.get('guard');
     assert.equal(firstController.source, 'map');
     const controllerSelect = [...document.querySelectorAll('select')].find(select => [...select.options].some(option => option.value === 'stationary'));
+    controllerSelect.value = 'chase-player'; controllerSelect.dispatchEvent(new dom.window.Event('change'));
+    assert.match(document.querySelector('aside').textContent, /追踪玩家：Guard/);
+    const toggle = [...document.querySelectorAll('label')].find(label => label.textContent === '启用 Agent Controller').querySelector('input');
+    toggle.checked = false; toggle.dispatchEvent(new dom.window.Event('change'));
+    assert.match(document.querySelector('aside').textContent, /Agent Controller 已关闭/);
+    toggle.checked = true; toggle.dispatchEvent(new dom.window.Event('change'));
     controllerSelect.value = 'stationary'; controllerSelect.dispatchEvent(new dom.window.Event('change'));
     assert.equal(firstController.source, 'runtime-override'); assert.equal(first.agents[0].controllerOverride.controllerId, 'stationary');
     [...document.querySelectorAll('button')].find(button => button.textContent === '恢复地图 Controller 配置').click();

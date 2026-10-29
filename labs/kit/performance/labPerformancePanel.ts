@@ -17,16 +17,38 @@ export function createLabPerformancePanel(ui: LabUi, viewport: LabViewportManage
   const sort = el('select'); sort.setAttribute('aria-label', '性能排序');
   for (const [value, label] of [['total', '累计耗时'], ['mean', '平均每帧'], ['p95', '每帧 P95'], ['max', '最大单帧']]) { const option = el('option', label); option.value = value; sort.append(option); }
   const table = el('table'), head = el('thead'), body = el('tbody'); table.append(head, body);
+  const hud = el('div', 'FPS — · 帧耗时 —'); hud.className = 'lab-performance-hud'; hud.hidden = true;
+  (viewport.root ?? panel.root).append(hud);
+  const timing = el('section'), timingSummary = el('p'), chart = el('div'), spikeList = el('div'), detail = el('p');
+  timing.className = 'lab-performance-timing'; chart.className = 'lab-performance-chart';
+  spikeList.className = 'lab-performance-spikes';
+  chart.setAttribute('aria-label', '最近帧耗时曲线');
+  const thresholdLabel = el('label', '卡顿阈值（毫秒） '), threshold = el('input');
+  threshold.type = 'number'; threshold.min = '1'; threshold.max = '1000'; threshold.value = '33'; threshold.setAttribute('aria-label', '卡顿阈值（毫秒）'); thresholdLabel.append(threshold);
+  timing.append(el('strong', '帧耗时与卡顿记录'), thresholdLabel, timingSummary, chart, spikeList, detail);
+  let selectedFrame: number | undefined;
   const rows = new Map<string, HTMLTableRowElement>();
   const updateRow = (key: string, values: string[]) => {
     let row = rows.get(key);
     if (!row) { row = el('tr'); row.dataset.performanceRow = key; values.forEach(() => row!.append(el('td'))); rows.set(key, row); }
     values.forEach((value, index) => { if (row!.cells[index].textContent !== value) row!.cells[index].textContent = value; }); return row;
   };
-  let timer: ReturnType<typeof setInterval> | undefined, disposed = false, headerKey = '';
+  let timer: ReturnType<typeof setInterval> | undefined, hudTimer: ReturnType<typeof setInterval> | undefined, disposed = false, headerKey = '';
   const render = () => {
     if (disposed || !layer.visible) return;
     const snapshot = stats.inspect(), query = search.value.trim().toLowerCase();
+    const samples = snapshot.frameTiming.samples, spikes = samples.filter(sample => sample.intervalMs >= snapshot.frameTiming.thresholdMs);
+    timingSummary.textContent = `最近保留 ${samples.length} 帧 · 超过 ${snapshot.frameTiming.thresholdMs} ms：${spikes.length} 帧 · 点击柱状图查看对应帧的同步耗时`;
+    const recent = samples.slice(-120), scale = Math.max(snapshot.frameTiming.thresholdMs, ...recent.map(sample => sample.intervalMs), 1);
+    chart.replaceChildren(...recent.map(sample => {
+      const bar = el('button'); bar.type = 'button'; bar.className = sample.intervalMs >= snapshot.frameTiming.thresholdMs ? 'is-stall' : '';
+      bar.style.height = `${Math.max(3, sample.intervalMs / scale * 100)}%`;
+      bar.title = `第 ${sample.frame} 帧：${sample.intervalMs.toFixed(1)} ms`;
+      bar.setAttribute('aria-label', bar.title); bar.addEventListener('click', () => { selectedFrame = sample.frame; render(); }); return bar;
+    }));
+    spikeList.replaceChildren(...spikes.slice(-30).reverse().map(sample => { const item = el('button', `第 ${sample.frame} 帧 · ${sample.intervalMs.toFixed(1)} ms`); item.type = 'button'; item.addEventListener('click', () => { selectedFrame = sample.frame; render(); }); return item; }));
+    const selected = samples.find(sample => sample.frame === selectedFrame) ?? spikes.at(-1);
+    detail.textContent = selected ? `第 ${selected.frame} 帧 · 页面运行 ${(selected.timeMs / 1000).toFixed(2)} 秒 · ${selected.intervalMs.toFixed(1)} ms · 模块：${selected.modules.slice(0, 5).map(item => `${item.moduleId} ${item.ms.toFixed(2)} ms`).join('、') || '无'} · 任务：${selected.tasks.slice(0, 5).map(item => `${item.moduleId}/${item.taskId} ${item.ms.toFixed(2)} ms`).join('、') || '无'}。这些是同帧已覆盖的同步耗时，不代表卡顿原因。` : '暂无超过阈值的帧；可点击柱状图查看其他帧。';
     status.textContent = `${snapshot.enabled ? '正在采集' : '采集已停止'} · 已采集 ${snapshot.frames} 帧 · 数值单位：毫秒`;
     notice.textContent = snapshot.coverage + ' 初始化与释放始终独立记录。运行累计为去重后的同步入口时间；异步完成时间不可相加作为 CPU 时间。每帧指标不包含帧间通信回调。';
     const headers = mode.value === 'runtime'
@@ -74,9 +96,16 @@ export function createLabPerformancePanel(ui: LabUi, viewport: LabViewportManage
       const url = URL.createObjectURL(new Blob([JSON.stringify(stats.inspect(), null, 2)], { type: 'application/json' }));
       const link = el('a'); link.href = url; link.download = 'lab-performance.json'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 0);
     }, 'export'), search, mode, sort);
-  layer.content.append(toolbar, status, notice, table);
-  panel.content.append(el('p', '按模块统计耗时，可分别查看模拟与 Debug 任务。运行采集默认关闭。'), button('打开性能工作台', () => { layer.show(); syncTimer(); }, 'open'));
+  layer.content.append(toolbar, status, timing, notice, table);
+  const toggleHud = button('显示实时 FPS', () => {
+    hud.hidden = !hud.hidden; stats.setLiveEnabled(!hud.hidden);
+    toggleHud.textContent = hud.hidden ? '显示实时 FPS' : '隐藏实时 FPS';
+    if (hudTimer) clearInterval(hudTimer); hudTimer = undefined;
+    if (!hud.hidden) { const update = () => { const live = stats.liveFrame(); hud.textContent = live.fps ? `FPS ${live.fps.toFixed(0)} · 帧 ${live.intervalMs.toFixed(1)} ms · 峰值 ${live.maxMs.toFixed(1)} ms` : 'FPS — · 帧耗时 —'; }; update(); hudTimer = setInterval(update, 250); }
+  }, 'toggle-fps');
+  threshold.addEventListener('change', () => { const value = Number(threshold.value); if (Number.isFinite(value) && value >= 1 && value <= 1000) stats.setStallThreshold(value); else threshold.value = String(stats.inspect().frameTiming.thresholdMs); render(); });
+  panel.content.append(el('p', '按模块统计耗时，可分别查看模拟与 Debug 任务。运行采集默认关闭。'), toggleHud, button('打开性能工作台', () => { layer.show(); syncTimer(); }, 'open'));
   search.addEventListener('input', render); mode.addEventListener('change', render); sort.addEventListener('change', render);
   const observer = new MutationObserver(syncTimer); observer.observe(layer.root, { attributes: true, attributeFilter: ['hidden'] });
-  return () => { disposed = true; if (timer) clearInterval(timer); observer.disconnect(); layer.dispose(); panel.root.remove(); };
+  return () => { disposed = true; if (timer) clearInterval(timer); if (hudTimer) clearInterval(hudTimer); stats.setLiveEnabled(false); hud.remove(); observer.disconnect(); layer.dispose(); panel.root.remove(); };
 }

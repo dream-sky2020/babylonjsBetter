@@ -6,8 +6,8 @@
     "presetKey": "dungeon_map_2"
   },
   "grid": {
-    "width": 20,
-    "height": 20,
+    "width": 28,
+    "height": 28,
     "topologyMode": "bounded"
   },
   "entities": [
@@ -220,6 +220,7 @@
         "id": "agent:plaza:hunter:controller",
         "parameters": {
           "moveDurationSeconds": 0.28,
+          "navigationStrategy": "wall-follow",
           "seed": 202,
           "stopDistance": 1
         },
@@ -372,6 +373,7 @@
         "parameters": {
           "detectionRange": 10,
           "moveDurationSeconds": 0.3,
+          "navigationStrategy": "path",
           "returnToOrigin": true,
           "seed": 707,
           "stopDistance": 1
@@ -654,7 +656,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:1,9"
+            "tileId": "tile:1,17"
           }
         ],
         "type": "spatial-attachment",
@@ -666,7 +668,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,11"
+            "tileId": "tile:8,19"
           }
         ],
         "type": "spatial-attachment",
@@ -678,7 +680,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,12"
+            "tileId": "tile:8,20"
           }
         ],
         "type": "spatial-attachment",
@@ -690,7 +692,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:19,12:east"
+            "sideId": "tile:27,20:east"
           }
         ],
         "type": "spatial-attachment",
@@ -702,7 +704,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:11,16:east"
+            "edgeId": "shared:11,24:east"
           }
         ],
         "type": "spatial-attachment",
@@ -726,7 +728,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,12"
+            "tileId": "tile:5,20"
           }
         ],
         "type": "spatial-attachment",
@@ -738,7 +740,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:10,10"
+            "tileId": "tile:10,18"
           }
         ],
         "type": "spatial-attachment",
@@ -750,7 +752,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:11,14"
+            "tileId": "tile:11,22"
           }
         ],
         "type": "spatial-attachment",
@@ -762,7 +764,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,15"
+            "tileId": "tile:5,23"
           }
         ],
         "type": "spatial-attachment",
@@ -774,7 +776,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,12"
+            "tileId": "tile:9,20"
           }
         ],
         "type": "spatial-attachment",
@@ -786,7 +788,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:12,17"
+            "tileId": "tile:12,25"
           }
         ],
         "type": "spatial-attachment",
@@ -798,7 +800,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:4,9"
+            "tileId": "tile:4,17"
           }
         ],
         "type": "spatial-attachment",
@@ -810,7 +812,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:4,16"
+            "tileId": "tile:4,24"
           }
         ],
         "type": "spatial-attachment",
@@ -822,7 +824,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:11,16"
+            "tileId": "tile:11,24"
           }
         ],
         "type": "spatial-attachment",
@@ -834,7 +836,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,9"
+            "tileId": "tile:7,17"
           }
         ],
         "type": "spatial-attachment",
@@ -846,7 +848,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,15"
+            "tileId": "tile:7,23"
           }
         ],
         "type": "spatial-attachment",
@@ -858,7 +860,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,15"
+            "tileId": "tile:8,23"
           }
         ],
         "type": "spatial-attachment",
@@ -870,7 +872,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,14"
+            "tileId": "tile:9,22"
           }
         ],
         "type": "spatial-attachment",
@@ -882,7 +884,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,12"
+            "tileId": "tile:7,20"
           }
         ],
         "type": "spatial-attachment",
@@ -894,7 +896,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:10,13"
+            "tileId": "tile:10,21"
           }
         ],
         "type": "spatial-attachment",
@@ -906,7 +908,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:18,18"
+            "tileId": "tile:26,26"
           }
         ],
         "type": "spatial-attachment",

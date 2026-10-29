@@ -5,6 +5,25 @@ import { SystemRunner, SystemTaskFailure } from '../../../core/system-runtime/Sy
 import { LabCommunication } from '../labCommunication.ts';
 import { createLabEvent, createLabRequest } from '../labCommunication.types.ts';
 
+test('frame intervals are attributed to the previous frame, reset across suspension, and remain bounded', () => {
+  let clock = 0;
+  const stats = new LabPerformance(['a'], () => clock);
+  stats.start(); stats.frameStarted(); stats.beginFrame();
+  stats.measure('a', 'task', () => { clock += 8; }); stats.endFrame();
+  clock = 40; stats.frameStarted(); stats.beginFrame();
+  stats.measure('a', 'task', () => { clock += 2; }); stats.endFrame();
+  let sample = stats.inspect().frameTiming.samples[0];
+  assert.equal(sample.frame, 1); assert.equal(sample.intervalMs, 40); assert.equal(sample.modules[0].ms, 8);
+  stats.resetFrameTiming(); clock = 3000; stats.frameStarted();
+  assert.equal(stats.inspect().frameTiming.samples.length, 1);
+  stats.beginFrame(); stats.endFrame();
+  for (let i = 0; i < 1100; i++) { clock += 16; stats.frameStarted(); stats.beginFrame(); stats.endFrame(); }
+  assert.equal(stats.inspect().frameTiming.samples.length, 1024);
+  stats.stop(); stats.clear(); assert.equal(stats.inspect().frameTiming.samples.length, 0);
+  stats.setLiveEnabled(true); stats.frameStarted(); clock += 20; stats.frameStarted();
+  assert.equal(stats.liveFrame().fps, 50); stats.setLiveEnabled(false); assert.equal(stats.liveFrame().fps, 0);
+});
+
 test('disabled capture has no clock work; nesting charges self time once and frames include inactive modules', () => {
   let clock = 0, reads = 0;
   const stats = new LabPerformance(['a', 'b', 'idle'], () => { reads++; return clock; });

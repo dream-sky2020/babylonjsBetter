@@ -6,6 +6,7 @@ export type DungeonAgentDescription = {
   entityId: string; name: string; factionId: string; initialTileIndex: number;
   blocksMovement: boolean; actionPeriod: number; initialPriority: number;
   movementProfileId: string; spatialFootprint: string;
+  debugColor?: string;
 };
 export type DungeonAgentState = {
   entityId: string; tileIndex: number; facing: DungeonMovementDirection; enabled: boolean;
@@ -62,6 +63,7 @@ export const createDungeonAgentMemoryData = (loadId: number, presetKey: string, 
       entityId,
       get name() { return agent.binding.entity.name ?? entityId; },
       get factionId() { return agent.binding.faction?.factionId ?? 'neutral'; },
+      get debugColor() { return agent.binding.controller?.debugColor; },
       get initialTileIndex() { return agent.binding.initialTileIndex; },
       get blocksMovement() { return agent.binding.gridAgent.blocksMovement; },
       get actionPeriod() { return agent.binding.gridAgent.actionPeriod; },
