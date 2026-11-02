@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { AttributeId } from '../../../core/combat/attributes.ts';
+import type { AttributeId } from '../../../core/combat_v1/attributes/attributes.ts';
 import { catalog, clearEnchantments, discard, enchantEquipped, equip, equippedId, inventoryCount, itemKind, optimize, sample, slots, unequipAll, useEquipped, type Game } from './model.ts';
 
 type State = { game: Game; actorId: string; slotId: string; itemId: string | null; instanceId: string | null; attributeId: AttributeId | null; filter: string; message: string; actor: (id: string) => void; slot: (id: string) => void; select: (id: string | null, instanceId?: string) => void; selectAttribute: (id: AttributeId) => void; setFilter: (value: string) => void; run: (action: string) => void; inventory: (action: 'equip' | 'remove', itemId: string, instanceId?: string) => void };

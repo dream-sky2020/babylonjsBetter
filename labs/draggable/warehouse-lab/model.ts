@@ -1,7 +1,7 @@
 import { skillDefinitions } from '../../data/skills.ts';
-import type { SkillItemDefinition } from '../../../core/items/types.ts';
-import type { ItemInventory, UniqueItem } from '../../../core/items/types.ts';
-import type { EffectSets, EffectTargetState, ItemEffect, ItemStock, ItemUseAction, UsableItemDefinition } from '../../../core/items/usage.ts';
+import type { SkillItemDefinition } from '../../../core/combat_v1/items/types.ts';
+import type { ItemInventory, UniqueItem } from '../../../core/combat_v1/items/types.ts';
+import type { EffectSets, EffectTargetState, ItemEffect, ItemStock, ItemUseAction, UsableItemDefinition } from '../../../core/combat_v1/effects/usage.ts';
 
 export type WarehouseItem = UsableItemDefinition & { name: string; category: '材料' | '消耗品' | '装备' | '任务物品' | '技能'; description: string; stackable: boolean; skill?: SkillItemDefinition; maxDurability?: number };
 const fixed = (value: number) => ({ kind: 'fixed' as const, value });

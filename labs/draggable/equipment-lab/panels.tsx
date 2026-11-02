@@ -1,6 +1,6 @@
-import { skillKind } from '../../../core/items/skills.ts';
+import { skillKind } from '../../../core/combat_v1/skills/skills.ts';
 import type { PanelDirection, CharacterView } from './panelSettings.ts';
-import { attributeById, attributeGroups, attributes, type AttributeId } from '../../../core/combat/attributes.ts';
+import { attributeById, attributeGroups, attributes, type AttributeId } from '../../../core/combat_v1/attributes/attributes.ts';
 import { formatAttribute } from './sampleAttributes.ts';
 import { actorSkills, catalog, equipmentSkillDescription, equipmentSkillName, equippedItem, inventoryCount, itemKind, items, labels, previewStats, slots, stats } from './model.ts';
 import { canEquip, useEquipment } from './store.ts';
@@ -71,7 +71,7 @@ export function Panel({ id, editing = false, columns = 1, direction, statsColumn
     <p>{attribute.description}</p><div className="eq-context">{actor.name} · 当前 {formatAttribute(value[attribute.id], attribute.unit)} · 单位：{attribute.unit}</div>
   </div> : <div>
     <div className="eq-info-heading"><strong>{selected?.name ?? '卸下装备'}</strong><span>{selected?.kind === 'skill' ? skillKind(selected) : selected ? labels[itemKind(selected)] : '空装备'}</span></div>
-    {selected?.kind === 'skill' && <>{(['battle', 'field'] as const).map(context => <p key={context}>{context === 'battle' ? '战斗中' : '战斗外'}：{selected.active?.[context] ? `可发动 · ${selected.active[context].cost.mp ?? 0} MP · ${selected.active[context].cost.sp ?? 0} SP` : '不可发动'}</p>)}</>}
+    {selected?.kind === 'skill' && <>{(['battle', 'field'] as const).map(context => <p key={context}>{context === 'battle' ? '战斗中' : '战斗外'}：{selected.active?.[context] ? `可发动 · ${selected.active[context].usageLimits.cost.mp ?? 0} MP · ${selected.active[context].usageLimits.cost.sp ?? 0} SP` : '不可发动'}</p>)}</>}
     <p>{selected?.description ?? '空置当前装备位置，原装备将放回仓库。'}</p>
     {selected && selected.modifiers.length > 0 && <p>属性修正：{selected.modifiers.map(modifier => `${attributeById[modifier.attribute].name} ${stageName[modifier.stage]} ${modifier.value >= 0 ? '+' : ''}${['first', 'second', 'independent'].includes(modifier.stage) ? `${Math.round(modifier.value * 100)}%` : modifier.value}`).join('；')}</p>}
     {selected?.kind === 'equipment' && selected.skills.length > 0 && <p>这件物品的技能：{selected.skills.map(equipmentSkillDescription).join('；')}</p>}

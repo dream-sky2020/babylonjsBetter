@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "strict": true, "allowJs": false },
+  "include": ["core/combat_v1/**/*.ts", "labs/standalone/combat-v1-lab/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { catalog, discard, equip, equippedId, items, optimize, sample, slots, stats, unequipAll } from './model.ts';
 import { defaultGrid, defaultPuck, parseGrid, parsePuck } from './layouts.ts';
-import { attributes, calculateAttributes } from '../../../core/combat/index.ts';
+import { attributes, calculateAttributes } from '../../../core/combat_v1/attributes/index.ts';
 import { equipmentPanelSettings } from './panelSettings.ts';
 import { resolvedPanelSettings, updatePanelSetting } from '../../kit/draggable/panelSettings.ts';
 function totals(game) { return Object.fromEntries(items.map(item => [item.id, (item.kind === 'skill' ? game.actors.reduce((n, actor) => n + (actor.skillStock[item.id] ?? 0), 0) : (game.stock[item.id] ?? 0) + game.uniques.filter(unit => unit.definitionId === item.id).length) + game.actors.reduce((n, actor) => n + Object.values(actor.gear).filter(unit => unit?.definitionId === item.id).length, 0)])); }

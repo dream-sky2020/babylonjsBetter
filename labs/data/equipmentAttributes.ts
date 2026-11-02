@@ -1,4 +1,4 @@
-import { attributes, type AttributeUnit, type CharacterStats } from '../../core/combat/attributes.ts';
+import { attributes, type AttributeUnit, type CharacterStats } from '../../core/combat_v1/attributes/attributes.ts';
 
 export function startingAttributes(index: number): CharacterStats {
   const values = Object.fromEntries(attributes.map(attribute => [attribute.id, 0])) as CharacterStats;

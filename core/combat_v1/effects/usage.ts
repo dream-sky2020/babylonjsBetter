@@ -1,4 +1,4 @@
-import type { ItemInventory, UniqueItem, WearRule } from './types.ts';
+import type { ItemInventory, UniqueItem, WearRule } from '../items/types.ts';
 
 export type UseContext = 'battle' | 'field';
 export type UseTarget = 'self' | 'oneAlly' | 'oneEnemy' | 'allAllies' | 'allEnemies';

@@ -6,6 +6,6 @@
 
 样例包含材料、消耗品、装备和任务物品。药草在两种场景共用同一个效果组；治疗药剂在战斗中恢复 50 HP，战斗外恢复 80 HP。战斗使用只消耗背包库存，战斗外使用只消耗仓库库存。战斗整备从仓库补满所选物品的背包上限，成功补货消耗一回合。螺丝刀按使用后损耗概率处理，传承之刃只有触发损耗时才减少耐久。
 
-物品定义和样例状态在 `model.ts`，库存转移、整备与效果结算来自 `core/items/usage.ts`。Lab 当前用单个我方和敌方目标、回合计数演示结算；正式战斗行动队列和事件分派尚未接入。
+物品定义和样例状态在 `model.ts`，库存转移、整备与效果结算来自 `core/combat_v1/effects/usage.ts`。Lab 当前用单个我方和敌方目标、回合计数演示结算；正式战斗行动队列和事件分派尚未接入。
 
 验证：`npm run typecheck:warehouse`、`npm run test:warehouse`、`npm run test:lab-entries`、`npm run build:draggable`。

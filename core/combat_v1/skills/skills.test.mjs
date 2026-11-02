@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { resolveSkillUse, skillKind } from './skills.ts';
-import { skillDefinitions } from '../../labs/data/skills.ts';
+import { skillDefinitions } from '../../../labs/data/skills.ts';
 const heal = skillDefinitions.find(skill => skill.id === 'heal');
 const hero = { id: 'hero', hp: 10, maxHp: 100, mp: 10, maxMp: 20, sp: 5, maxSp: 10, statuses: {} };
 test('混合技能保留被动，场景分别扣费治疗，输入不变', () => {
@@ -20,7 +20,7 @@ test('未启用、资源不足、纯被动及缺少场景拒绝发动', () => {
 });
 test('敌方效果保留施法者扣费，支持 SP、自身目标与效果组', () => {
   const enemy = { ...hero, id: 'enemy' };
-  const skill = { ...heal, active: { battle: { target: 'oneEnemy', cost: { sp: 3 }, effectSetId: 'hit', turnCost: 0 } } };
+  const skill = { ...heal, active: { battle: { target: 'oneEnemy', usageLimits: { cost: { sp: 3 }, actionCost: 0 }, effectSetId: 'hit' } } };
   const result = resolveSkillUse(skill, 'battle', hero, [enemy], true, { hit: [{ type: 'damage', amount: { kind: 'fixed', value: 5 } }] });
   assert.equal(result.caster.sp, 2); assert.equal(result.targets[0].hp, 5); assert.equal(result.turnCost, 0);
   assert.equal(enemy.hp, 10);

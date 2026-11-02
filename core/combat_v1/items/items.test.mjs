@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { enchantItem, makeItem, putItem, takeItem } from './inventory.ts';
 import { useItem } from './wear.ts';
-import { effectiveSkillLevels, itemSkills } from './skills.ts';
-import { attributes } from '../combat/attributes.ts';
-import { resolveAttributes } from '../combat/modifiers.ts';
+import { effectiveSkillLevels, itemSkills } from '../skills/skills.ts';
+import { attributes } from '../attributes/attributes.ts';
+import { resolveAttributes } from '../attributes/modifiers.ts';
 
 const plain = { id: 'screwdriver', name: '螺丝刀', description: '', kind: 'equipment', slot: 'weapon', wear: { kind: 'chanceOnly', breakChance: 0.25 }, modifiers: [], skills: [{ skillId: 'screwdriver', level: 2, mode: 'grant' }, { skillId: 'long-handle', level: 3, mode: 'levelBonus' }] };
 const durable = { ...plain, id: 'important-tool', wear: { kind: 'durability', breakChance: 0.5, maxDurability: 3, durabilityLoss: 1 } };

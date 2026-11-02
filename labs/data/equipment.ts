@@ -1,6 +1,6 @@
 import { skillDefinitions } from './skills.ts';
-import { resolveAttributes, type AttributeModifier, type CharacterStats } from '../../core/combat/index.ts';
-import { canStack, enchantItem, itemSkills, makeItem, putItem, takeItem, useItem, effectiveSkillLevels, type Enchantment, type EquipmentDefinition, type EquipmentSkill, type ItemUnit, type SkillItemDefinition, type UniqueItem, type WearRule } from '../../core/items/index.ts';
+import { resolveAttributes, type AttributeModifier, type CharacterStats } from '../../core/combat_v1/index.ts';
+import { canStack, enchantItem, itemSkills, makeItem, putItem, takeItem, useItem, effectiveSkillLevels, type Enchantment, type EquipmentDefinition, type EquipmentSkill, type ItemUnit, type SkillItemDefinition, type UniqueItem, type WearRule } from '../../core/combat_v1/index.ts';
 import { startingAttributes } from './equipmentAttributes.ts';
 
 export type Kind = 'weapon' | 'shield' | 'head' | 'body' | 'accessory' | 'skill';

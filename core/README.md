@@ -10,6 +10,7 @@
 
 ## 推荐子目录
 
+- `combat_v1/`：第一版战斗属性、物品、技能与共享效果规则，见 [combat_v1/README.md](./combat_v1/README.md)
 - `sprite/`：精灵 feature —— 使用说明见 [sprite/README.md](./sprite/README.md)
 - `model/`：3D 模型 feature —— 使用说明见 [model/README.md](./model/README.md)
 - `particle/`：粒子 feature —— 使用说明见 [particle/README.md](./particle/README.md)

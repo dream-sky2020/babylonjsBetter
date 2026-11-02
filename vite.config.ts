@@ -358,6 +358,7 @@ export default defineConfig({
         dialogueMapCanvasLab: path.resolve(__dirname, 'labs/standalone/dialogue-map-canvas-lab/index.html'),
         uiPreviewCanvasLab: path.resolve(__dirname, 'labs/standalone/ui-preview-canvas-lab/index.html'),
         jrpgTerminalDialogueLab: path.resolve(__dirname, 'labs/standalone/jrpg-terminal-dialogue-lab/index.html'),
+        combatV1Lab: path.resolve(__dirname, 'labs/standalone/combat-v1-lab/index.html'),
         sceneEnvironmentLab: path.resolve(__dirname, 'labs/standalone/scene-environment-lab/index.html'),
         dbGameSelfstatusLab: path.resolve(__dirname, 'labs/standalone/db-game-selfstatus-lab/index.html'),
         battleSkillSlotsLab: path.resolve(__dirname, 'labs/standalone/battle-skill-slots-lab/index.html'),

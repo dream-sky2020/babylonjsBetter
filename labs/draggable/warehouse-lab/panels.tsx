@@ -1,7 +1,7 @@
-import { skillKind } from '../../../core/items/skills.ts';
-import { resolveAttributes } from '../../../core/combat/modifiers.ts';
-import { attributes } from '../../../core/combat/attributes.ts';
-import { effectsFor, type ItemEffect, type ItemUseAction } from '../../../core/items/usage.ts';
+import { skillKind } from '../../../core/combat_v1/skills/skills.ts';
+import { resolveAttributes } from '../../../core/combat_v1/attributes/modifiers.ts';
+import { attributes } from '../../../core/combat_v1/attributes/attributes.ts';
+import { effectsFor, type ItemEffect, type ItemUseAction } from '../../../core/combat_v1/effects/usage.ts';
 import { catalog, categories, count, effectSets, items, selectedUnit, type CategoryFilter } from './model.ts';
 import { availableFor, spaceFor, useWarehouse } from './store.ts';
 import type { PanelId } from './layouts.ts';
@@ -28,7 +28,7 @@ export function Panel({ id, editing = false, columns = 1 }: { id: PanelId; editi
   const unit = warehouseUnit ?? backpackUnit;
   const warehouseAvailable = availableFor(state, 'field', selection);
   const backpackAvailable = availableFor(state, 'battle', selection);
-  const passiveStats = resolveAttributes(Object.fromEntries(attributes.map(attribute => [attribute.id, 0])) as import('../../../core/combat/attributes.ts').CharacterStats, state.enabledSkills.flatMap(id => catalog[id]?.skill?.modifiers ?? []));
+  const passiveStats = resolveAttributes(Object.fromEntries(attributes.map(attribute => [attribute.id, 0])) as import('../../../core/combat_v1/attributes/attributes.ts').CharacterStats, state.enabledSkills.flatMap(id => catalog[id]?.skill?.modifiers ?? []));
   const enabled = !!selected && state.enabledSkills.includes(selected.id);
   const room = selected ? spaceFor(state, selected.id, 'backpack') : 0;
   if (id === 'commands') return <div className="wh-commands">
@@ -46,7 +46,7 @@ export function Panel({ id, editing = false, columns = 1 }: { id: PanelId; editi
   </div>;
   if (id === 'information') return <div className="wh-information"><div className="wh-info-heading"><strong>{selected?.name ?? '未选择物品'}</strong><span>{selected?.category ?? '仓库'}</span></div>
     <p>{selected?.description ?? '从仓库面板选择一件物品查看详情。'}</p>
-    {selected && <><p>仓库 {count(state.warehouse, selected.id)}/{selected.storage.warehouseLimit} · 战斗背包 {count(state.backpack, selected.id)}/{selected.storage.backpackLimit}</p><p>存放方式：{selected.stackable ? '普通物品合并计数；有独立状态时单独保存' : '每件独立保存'}</p>{selected.skill ? <><p>{skillKind(selected.skill)} · {enabled ? '已启用' : '未启用'}；被动：{selected.skill.modifiers.map(m => `${m.attribute} +${m.value}`).join('；') || '无'}</p>{(['battle', 'field'] as const).map(context => { const action = selected.skill?.active?.[context]; return <p key={context}>{context === 'battle' ? '战斗中' : '战斗外'}：{action ? `目标：${targetNames[action.target]}；${effectsFor(action).map(effectText).join('；')}；${action.cost.mp ?? 0} MP / ${action.cost.sp ?? 0} SP` : '不可发动'}</p>; })}</> : <><p>战斗中：{profileText(selected.use?.battle)}</p><p>战斗外：{profileText(selected.use?.field)}</p></>}</>}
+    {selected && <><p>仓库 {count(state.warehouse, selected.id)}/{selected.storage.warehouseLimit} · 战斗背包 {count(state.backpack, selected.id)}/{selected.storage.backpackLimit}</p><p>存放方式：{selected.stackable ? '普通物品合并计数；有独立状态时单独保存' : '每件独立保存'}</p>{selected.skill ? <><p>{skillKind(selected.skill)} · {enabled ? '已启用' : '未启用'}；被动：{selected.skill.modifiers.map(m => `${m.attribute} +${m.value}`).join('；') || '无'}</p>{(['battle', 'field'] as const).map(context => { const action = selected.skill?.active?.[context]; return <p key={context}>{context === 'battle' ? '战斗中' : '战斗外'}：{action ? `目标：${targetNames[action.target]}；${effectsFor(action).map(effectText).join('；')}；${action.usageLimits.cost.mp ?? 0} MP / ${action.usageLimits.cost.sp ?? 0} SP` : '不可发动'}</p>; })}</> : <><p>战斗中：{profileText(selected.use?.battle)}</p><p>战斗外：{profileText(selected.use?.field)}</p></>}</>}
     {unit && <p>独立物品 ✦ 位置：{warehouseUnit ? '仓库' : '战斗背包'} 编号：{unit.instanceId} {unit.durability !== undefined ? `耐久：${unit.durability}/${selected?.maxDurability ?? unit.durability} ` : ''}附魔：{unit.enchantments.map(enchantment => enchantment.id).join('、') || '无'}</p>}
     <p>效果演示：我方 HP {state.hero.hp}/{state.hero.maxHp} · MP {state.hero.mp}/{state.hero.maxMp} · SP {state.hero.sp}/{state.hero.maxSp} · 被动加成 攻击 {passiveStats.attack} / 防御 {passiveStats.defense} / 魔力 {passiveStats.magic} / 敏捷 {passiveStats.speed} · 敌方 HP {state.enemy.hp}/{state.enemy.maxHp} · 已消耗战斗回合 {state.battleTurns}</p>
     <p className="wh-message" role="status">{state.message}</p>

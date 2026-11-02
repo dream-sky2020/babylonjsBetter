@@ -1,3 +1,35 @@
+## 2026-11-01：XP 独立战斗 Lab 与行动数据简化
+
+新增 `labs/standalone/combat-v1-lab/`，采用 XP 桌面/窗口风格，复用 v1 状态、阶段、角色、技能限制与技能结算，Lab 持有样例、接口适配、扣行动、简单非我方决策和伤害/治疗来源记录生成。提供普通攻击、火焰、治疗、一次性振奋额外行动、Boss 两次行动、中立自疗、手动阶段结束、非我方单步、战斗结果与统计。根首页和 Vite 登记独立入口，不修改旧 Press Turn。
+
+按用户要求移除 `core/combat_v1/actions/`；角色内联 `actions: { normal, extra }` 和 `actionDefinition: { normalActionsPerTurn }`，由 battleFlow 直接校验并分配行动，不再保留 ActionBudget 或独立操作函数。本条取代旧行动目录记录。test:combat-v1 包含 Lab 结算测试；typecheck:combat-v1 与 build:combat-v1 提供专项检查，verifyCombatV1Lab.cjs 在隐藏隔离 Electron 中验证构建产物交互与响应布局。
+
+## 2026-11-01：简易战斗状态与阶段流程
+
+`core/combat_v1/battleState.ts` 保存参战角色、轮数、阶段、生命周期、结果和结算记录，创建时校验角色 ID，记录提交整批校验战斗/阶段/目标和重复 ID。`battleFlow.ts` 显式开始、结束阶段、查询可行动角色和检查/提交结果，当前阶段按角色配置分配正常行动、清空额外行动；敌人与中立同属非我方。默认歼灭胜负忽略中立，可注入行动条件和胜负规则；阶段尚有行动时须显式提前结束。所有写入返回独立状态，不自动推进冷却或状态、选择技能、生成记录或接入 Press Turn。test:combat-v1 覆盖循环、Boss、额外行动、胜负、记录隔离与规则替换。
+
+## 2026-11-01：伤害与治疗来源记录定义
+
+`core/combat_v1/records/` 新增效果来源快照、伤害/治疗记录及可按 type 区分的联合类型，由 v1 统一入口导出。记录区分直接角色、战绩归属角色和用户，包含战斗、轮数、阶段、行动及父记录关联，并分别保存护盾伤害、实际生命伤害、过量伤害、有效治疗与过量治疗。仅增加数据定义和统计约定，不接入结算算法、Press Turn 或自动战绩汇总。
+
+## 2026-11-01：v1 两阶段回合与角色定义
+
+`core/combat_v1/turns/` 定义我方 ally → 非我方 nonAlly → 下一轮我方的显式阶段切换；enemy 与 neutral 均归非我方阶段，内部排序仍由用户控制。`characters/` 新增 CombatCharacter、CharacterDefinition 与隔离实例工厂，集中记录阵营、当前属性、状态、正常/额外行动、技能限制和装备。创建不自动发放行动，阶段切换不自动递减冷却/状态。整备的 Actor 和旧 Press Turn 的 Unit 保留，尚未迁移其流程与效果适配。test:combat-v1 新增阶段和角色隔离检查。
+
+## 2026-11-01：技能可变使用限制
+
+`SkillAction.usageLimits` 统一资源消耗、行动消耗、冷却时长/剩余冷却及次数上限/剩余次数，替代技能原顶层 `cost` 和 `turnCost`。`skills/usageLimits.ts` 提供校验、深拷贝、成功使用结算、显式冷却推进和次数恢复。限制实例由角色＋技能＋使用场景分别持有，可直接修改；`resolveSkillUse` 接受当前实例并返回更新数据，失败不修改输入。仓库演示按技能和场景保存当前角色的限制，重置时清除；样例、展示和旧测试迁移。冷却边界、次数恢复条件及 Press Turn 流程仍由用户控制。
+
+## 2026-11-01：角色正常行动与额外行动定义
+
+`core/combat_v1/actions/` 提供角色独立的正常/额外行动预算。普通角色默认每回合 1 次正常行动，Boss 可配置多次；调用方显式开始角色回合、授予额外行动和选择扣减池。开始角色回合时额外行动归零，获取条件、执行顺序、回合结束及旧 `turnCost` 的适配仍由用户战斗流程决定，不接入 Press Turn。`test:combat-v1` 覆盖新行动规则与原 Core 回归。
+
+## 2026-11-01：第一版战斗规则目录归并
+
+原 `core/combat/` 与 `core/items/` 合并到 `core/combat_v1/`，内部按 `attributes/`、`items/`、`skills/`、`effects/` 分类，根 `index.ts` 提供统一入口。原 `items/skills.ts` 和 `items/usage.ts` 分别迁入技能与共享效果目录；保持原有数据定义和计算行为，更新整备、仓库、共享样例数据与测试命令的引用。
+
+样例数据仍由 `labs/data/` 持有。Press Turn 与 Clash 的战斗流程保持原样，Press Turn 后续逻辑由用户手写。本条取代下方历史记录中的旧目录位置。
+
 ## 2026-10-29：地牢切图模型实例源清理
 
 `core/model/prefab/modelPrefabCache.ts` 在预制体最后一个活动实例释放后销毁该预制体的硬件实例批次，从当前 Scene 移除隐藏源 Mesh 与独立材质；脱离 Scene 的原始资源容器继续缓存以便返回地图时复用。`modelInstanceBatch.ts` 同时释放批次 AssetContainer 的上下文恢复监听，并显式移除 Babylon 9.11 构造时添加、dispose 未移除的 Scene 销毁监听，避免容器闭包残留。并存的新旧地图仍通过活动引用计数共享批次。
