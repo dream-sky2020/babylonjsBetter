@@ -1,3 +1,11 @@
+## 2026-11-03：模块面板逐项记住设置
+
+`labs/kit/settings/` 提供按页面 pathname 隔离的本机设置存储与公共面板管理器。模块通过 `LabUi.registerSettings` 显式登记稳定字段标识、读写、校验及推荐保存规则；不扫描控件或按标签文字存档。第一版接入 `player-movement` 与 `dungeon-player-camera`，标题右键和「⋯」提供逐项清单、全部记住/不记住、推荐规则及单步撤销；字段标签右键提供单项规则与默认值恢复，输入框保留原生编辑菜单。清单使用顶层 Popover，打开时借用 Host 键盘锁，关闭或销毁时释放。
+
+存储键为 `babylonjsBetter:lab-settings:${pathname}` v1；规则与有效值一起保存，关闭记住删除该字段值但不改变当前值。仅既有自动保存的开关默认记住，并兼容读取旧 `lab-ui` 开关记录；其余由用户选择。Host 在 initial LabState 恢复后、模块 start 前批量应用本机覆盖；随后显式导入 Snapshot 仍优先。移动计时模式与两种单位各自的值分别登记，数值按单位成组校验恢复；按钮、运行状态、玩家坐标及对象属性不接入。不改变地图、预设及 LabState 导入导出的所有权。
+
+`test:lab-settings` 验证存储隔离、无效值、迁移、关闭保存、批量撤销与清理；`typecheck:lab-settings` 检查公共机制和两个接入模块；`codex-tools/verifyLabSettings.cjs` 在隔离隐藏 Electron 中验证实际 Dungeon Agent 页面、刷新、计时模式、顶层弹窗与右键入口，报告/截图位于 `node_modules/.cache/lab-settings.json` / `.png`。
+
 ## 2026-11-03：切图安全落点与角色重叠脱离
 
 `core/dungeon-player-spawn/dungeonPlayerArrival.ts` 在 Loader 恢复存档、应用入口及完成所有系统准备后、发布目标场景前决定玩家落点。原位安全则保持；否则按入口朝向优先、固定顺序在三步范围内搜索静态可达的安全空格，遵守地形、墙体、空间碰撞和地图循环拓扑，回退候选避开格子传送出口。无附近空位时保留静态合法的入口；静态落点完全不合法则拒绝提交候选场景。

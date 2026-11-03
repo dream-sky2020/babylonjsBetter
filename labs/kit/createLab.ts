@@ -169,6 +169,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   const services = new LabServiceRegistry();
   const memory = new LabMemoryRegistry();
   const ui = new LabUi(panels, status, { diagnostics: workbench.diagnostics,
+    lockSettingsInput: () => { const lock = keyboard.acquireLock({ ownerId: 'lab:settings', label: '管理需要记住的设置' }); return () => lock.release(); },
     reveal: category => category === 'diagnostics' ? workbench.showDiagnostics() : workbench.showModules() });
   const objects = new LabObjects(error => ui.setStatus(error instanceof Error ? error.message : String(error), true));
   const disposeExecutionPlanPanel = createLabExecutionPlanPanel(ui, executionMonitor, runner, services, communication);
@@ -310,6 +311,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
 
     services.setPhase('restore');
     if (options.initialState !== undefined) await labState.restore(options.initialState);
+    ui.restoreRememberedSettings();
 
     services.setPhase('start');
     for (const active of activeModules) {

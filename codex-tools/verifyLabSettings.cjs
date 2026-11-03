@@ -1,0 +1,85 @@
+const { resolveRepoPath } = require('./electronWorkspace.cjs');
+const { app, BrowserWindow } = require('electron');
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+app.commandLine.appendSwitch('use-angle', 'swiftshader');
+app.commandLine.appendSwitch('enable-unsafe-swiftshader');
+app.whenReady().then(async () => {
+  const win = new BrowserWindow({ show: false, width: 1440, height: 1000, webPreferences: { offscreen: true, backgroundThrottling: false } });
+  const errors = [], writes = [], checks = [];
+  win.webContents.on('console-message', details => { if (details.level === 'error') errors.push(details.message); });
+  win.webContents.session.webRequest.onBeforeRequest({ urls: ['http://127.0.0.1/*'] }, (details, callback) => {
+    const write = !['GET', 'HEAD', 'OPTIONS'].includes(details.method);
+    if (write) writes.push(details.url); callback({ cancel: write });
+  });
+  const page = code => win.webContents.executeJavaScript(code);
+  const wait = async code => {
+    const end = Date.now() + 90000;
+    while (!await page(code)) { if (Date.now() > end) throw Error(`Timed out: ${code}`); await new Promise(resolve => setTimeout(resolve, 100)); }
+  };
+  const reload = async () => {
+    await new Promise(resolve => { win.webContents.once('did-finish-load', resolve); win.reload(); });
+    await wait(`document.querySelectorAll('.lab-settings-trigger').length === 2 && document.querySelector('.lab-global-status')?.textContent.startsWith('已组合')`);
+  };
+  const menu = (panel, action) => page(`(()=>{document.querySelector('[data-lab-panel="${panel}"] .lab-settings-trigger').click();document.querySelector('[data-command-menu-item="${action}"]').click();})()`);
+  let report;
+  try {
+    await win.loadURL('http://127.0.0.1:1184/labs/composable/dungeon-agent-lab/index.html');
+    await wait(`document.querySelectorAll('.lab-settings-trigger').length === 2 && document.querySelector('.lab-global-status')?.textContent.startsWith('已组合')`);
+    await page(`localStorage.removeItem('babylonjsBetter:lab-settings:'+location.pathname);void 0;`); await reload();
+    assert.equal(await page(`Array.from(document.querySelectorAll('.lab-card-header:has(.lab-settings-trigger)')).every(header=>{const button=header.querySelector('.lab-settings-trigger').getBoundingClientRect();return Array.from(header.children).every(child=>child.getBoundingClientRect().right<=button.right+1);})`), true);
+    await menu('dungeon-player-camera', 'manage-settings');
+    await wait(`!!document.querySelector('.lab-settings-popup:popover-open')`);
+    assert.equal(await page(`document.querySelectorAll('[data-lab-panel="dungeon-player-camera"] [data-remember-setting]').length`), 27);
+    assert.equal(await page(`document.querySelector('[data-lab-panel="dungeon-player-camera"]').classList.contains('is-collapsed')`), false);
+    const modeBefore = await page(`document.querySelector('[data-lab-setting="mode"]').value`);
+    win.webContents.sendInputEvent({ type: 'keyDown', keyCode: 'V' }); win.webContents.sendInputEvent({ type: 'keyUp', keyCode: 'V' });
+    await page(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))`);
+    assert.equal(await page(`document.querySelector('[data-lab-setting="mode"]').value`), modeBefore);
+    await page(`(()=>{const search=document.querySelector('.lab-settings-popup:popover-open .lab-settings-search');search.value='跟随';search.dispatchEvent(new Event('input'));})()`);
+    assert.equal(await page(`document.querySelectorAll('.lab-settings-popup:popover-open .lab-settings-list label:not([hidden])').length`), 5);
+    await page(`(()=>{const search=document.querySelector('.lab-settings-popup:popover-open .lab-settings-search');search.value='';search.dispatchEvent(new Event('input'));})()`);
+    await page(`(()=>{const root=document.querySelector('[data-lab-panel="dungeon-player-camera"]');const check=root.querySelector('[data-remember-setting="overhead-response"]');check.click();const input=root.querySelector('[data-lab-setting="overhead-response"]');input.value='35';input.dispatchEvent(new Event('input',{bubbles:true}));})()`);
+    const popup = await page(`(()=>{const p=document.querySelector('.lab-settings-popup:popover-open'),r=p.getBoundingClientRect();return{width:r.width,left:r.left,right:r.right,top:r.top,bottom:r.bottom,hit:p.contains(document.elementFromPoint(r.left+20,r.top+20))};})()`);
+    assert.ok(popup.left >= 0 && popup.right <= 1440 && popup.top >= 0 && popup.bottom <= 1000 && popup.hit);
+    await page(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))`);
+    fs.writeFileSync(resolveRepoPath('node_modules/.cache/lab-settings.png'), (await win.webContents.capturePage()).toPNG());
+    checks.push('27 camera settings, persistent checklist, non-collapsing title menu and unclipped top-layer popup');
+    await page(`document.querySelector('.lab-settings-popup:popover-open').hidePopover();void 0;`);
+    const rememberedStyle = await page(`(()=>{const input=document.querySelector('[data-lab-setting="overhead-response"]'),header=input.closest('.lab-card').querySelector('.lab-card-header'),label=input.closest('label').querySelector('span');input.scrollIntoView({block:'center'});return {badge:getComputedStyle(label,'::after').content,border:getComputedStyle(input).borderColor,labelColor:getComputedStyle(label).color,titleColor:getComputedStyle(header.querySelector('h2')).color,count:header.querySelector('.lab-settings-count').textContent};})()`);
+    assert.equal(rememberedStyle.badge, 'none');
+    assert.equal(rememberedStyle.border, 'rgb(104, 205, 176)');
+    assert.notEqual(rememberedStyle.labelColor, rememberedStyle.titleColor);
+    assert.equal(rememberedStyle.count, '记住 3/27');
+    assert.equal(await page(`getComputedStyle(document.querySelector('[data-lab-setting="overhead-response"]').closest('label').querySelector('span')).fontWeight`), '400');
+    assert.equal(await page(`getComputedStyle(document.querySelector('[data-lab-panel="dungeon-player-camera"] .lab-card-header')).boxShadow`), 'none');
+    await page(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))`);
+    fs.writeFileSync(resolveRepoPath('node_modules/.cache/lab-settings-indicators.png'), (await win.webContents.capturePage()).toPNG());
+    checks.push('overflow menu is rightmost; remembered inputs stand out with subtle normal-weight labels, no badges or module-title highlighting');
+    await menu('player-movement', 'remember-all');
+    await page(`(()=>{const root=document.querySelector('[data-lab-panel="player-movement"]');const mode=root.querySelector('[data-lab-setting="movement-timing-mode"]');mode.value='seconds-per-tile';mode.dispatchEvent(new Event('change',{bubbles:true}));const input=root.querySelector('[data-lab-setting="movement-timing-values"]');input.value='0.75';input.dispatchEvent(new Event('input',{bubbles:true}));root.querySelector('[data-lab-setting="eight-way"]').click();})()`);
+    await reload();
+    assert.equal(await page(`document.querySelector('[data-lab-setting="overhead-response"]').value`), '35');
+    assert.equal(await page(`document.querySelector('[data-lab-setting="movement-timing-mode"]').value`), 'seconds-per-tile');
+    assert.equal(await page(`document.querySelector('[data-lab-setting="movement-timing-values"]').value`), '0.75');
+    assert.equal(await page(`document.querySelector('[data-lab-setting="eight-way"]').checked`), true);
+    await page(`(()=>{const mode=document.querySelector('[data-lab-setting="movement-timing-mode"]');mode.value='world-units-per-second';mode.dispatchEvent(new Event('change',{bubbles:true}));})()`);
+    assert.equal(await page(`document.querySelector('[data-lab-setting="movement-timing-values"]').value`), '60');
+    checks.push('reload restores camera response, checkbox, selected timing mode and both unit-specific movement values');
+    await menu('dungeon-player-camera', 'forget-all');
+    assert.equal(await page(`document.querySelector('[data-lab-setting="overhead-response"]').value`), '35');
+    assert.equal(await page(`getComputedStyle(document.querySelector('[data-lab-setting="overhead-response"]').closest('label').querySelector('span'),'::after').content`), 'none');
+    await menu('dungeon-player-camera', 'undo-settings'); await reload();
+    assert.equal(await page(`document.querySelector('[data-lab-setting="overhead-response"]').value`), '35');
+    await menu('dungeon-player-camera', 'forget-all'); await reload();
+    assert.equal(await page(`document.querySelector('[data-lab-setting="overhead-response"]').value`), '50');
+    checks.push('forget preserves current values, undo restores policies and values, subsequent reload falls back to module defaults');
+    await page(`(()=>{const input=document.querySelector('[data-lab-setting="overhead-response"]');const e=new MouseEvent('contextmenu',{bubbles:true,cancelable:true});input.dispatchEvent(e);window.nativeContextPreserved=!e.defaultPrevented;input.closest('label').querySelector('span').dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,cancelable:true,clientX:900,clientY:200}));})()`);
+    assert.equal(await page(`window.nativeContextPreserved`), true);
+    assert.equal(await page(`!!document.querySelector('[data-command-menu-item="remember-setting"]')`), true);
+    assert.deepEqual(writes, []); assert.deepEqual(errors, []);
+    report = { passed: true, checks, errors, writes, popup };
+  } catch (error) { report = { passed: false, checks, error: error.stack, errors, writes }; }
+  fs.writeFileSync(resolveRepoPath('node_modules/.cache/lab-settings.json'), JSON.stringify(report, null, 2));
+  console.log(JSON.stringify(report, null, 2)); win.destroy(); app.exit(report.passed ? 0 : 1);
+});

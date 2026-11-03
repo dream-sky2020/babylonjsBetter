@@ -5,6 +5,8 @@
   "main": "electron/main.cjs",
   "type": "module",
   "scripts": {
+    "test:lab-settings": "node --experimental-strip-types --test labs/kit/settings/*.test.mjs",
+    "typecheck:lab-settings": "tsc --noEmit -p tsconfig.lab-settings.json",
     "build:dungeon-ui-overlay": "node codex-tools/buildDungeonUiOverlay.mjs",
     "test:ui-bindings-webgl": "node codex-tools/runElectronVerification.mjs codex-tools/verifyUiBindings.cjs",
     "test:dungeon-ui-overlay-webgl": "node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonUiOverlay.cjs",

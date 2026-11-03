@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "types": ["vite/client", "node"] },
+  "include": ["labs/kit/settings/**/*.ts", "labs/kit/labUi.ts", "labs/modules/dungeon/player-movement/playerMovement.labModule.ts", "labs/modules/dungeon/dungeon-first-person-camera/dungeonFirstPersonCamera.labModule.ts"],
+  "exclude": ["node_modules"]
+}

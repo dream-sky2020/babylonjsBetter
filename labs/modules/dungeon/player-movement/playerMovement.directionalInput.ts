@@ -115,10 +115,10 @@ export class DungeonPlayerDirectionalInput {
     }
     const minimumHeldMilliseconds = Math.max(0, minimumHeldSeconds) * 1000;
     let latest: HeldDirection | null = null;
-    this.heldDirections.forEach((entry) => {
-      if (nowMilliseconds - entry.pressedAtMilliseconds < minimumHeldMilliseconds) return;
+    for (const entry of this.heldDirections.values()) {
+      if (nowMilliseconds - entry.pressedAtMilliseconds < minimumHeldMilliseconds) continue;
       if (!latest || entry.sequence > latest.sequence) latest = entry;
-    });
+    }
     if (directionMode === 'eight-way') {
       return this.resolveHeldEightWayDirection(nowMilliseconds - minimumHeldMilliseconds);
     }

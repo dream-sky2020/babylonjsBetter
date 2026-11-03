@@ -1,6 +1,10 @@
 import { openCommandMenuFromElement, type CommandMenuEntry } from '@/core/ui/menu';
 import { createSystemDescription } from './systemManifest';
 import type { LabModule } from './labKit.types';
+import { LabSettingsStore, type SettingDefinition } from './settings/LabSettingsStore';
+import { LabPanelSettings } from './settings/LabPanelSettings';
+export { controlSetting } from './settings/LabSettingsStore';
+export type { SettingDefinition, SettingValue } from './settings/LabSettingsStore';
 
 export type LabPanel = {
   root: HTMLElement;
@@ -16,6 +20,11 @@ type LabUiPreferences = {
   version: 1;
   panels: Record<string, { collapsed: boolean }>;
   switches: Record<string, boolean>;
+};
+type LabUiWorkspace = {
+  diagnostics: HTMLElement;
+  reveal(category: 'modules' | 'diagnostics'): void;
+  lockSettingsInput?(): () => void;
 };
 
 export type LabSwitchOptions = {
@@ -53,6 +62,11 @@ export class LabUi {
           const body = document.createElement('div'); body.className = 'lab-panel-help-body'; body.popover = 'auto';
           body.id = `lab-panel-help-${id}`; body.setAttribute('aria-label', trigger.title);
           trigger.setAttribute('aria-controls', body.id);
+          for (const [label, value] of [['面板名称', title], ['模块名称', module.id]]) {
+            const line = document.createElement('p');
+            line.textContent = `${label}：${value}`;
+            body.append(line);
+          }
           body.append(...Array.from(description.children).filter(child => child.tagName !== 'SUMMARY'));
           trigger.addEventListener('click', () => {
             if (body.matches(':popover-open')) { body.hidePopover(); return; }
@@ -76,13 +90,15 @@ export class LabUi {
   private readonly boundBooleanPreferenceKeys = new Set<string>();
   private readonly storageKey: string;
   private preferences: LabUiPreferences;
-  private readonly workspace?: { diagnostics: HTMLElement; reveal(category: 'modules' | 'diagnostics'): void };
+  private settingsStore?: LabSettingsStore;
+  private readonly panelSettings = new Map<string, LabPanelSettings>();
+  private readonly workspace?: LabUiWorkspace;
 
   readonly sidebar: HTMLElement;
   readonly status: HTMLDivElement;
 
   constructor(sidebar: HTMLElement, status: HTMLDivElement,
-    workspace?: { diagnostics: HTMLElement; reveal(category: 'modules' | 'diagnostics'): void }) {
+    workspace?: LabUiWorkspace) {
     this.workspace = workspace;
     this.sidebar = sidebar;
     this.status = status;
@@ -145,6 +161,23 @@ export class LabUi {
     this.status.textContent = message;
     this.status.dataset.error = String(error);
   }
+
+  registerSettings(panelId: string, definitions: readonly SettingDefinition[], apply: () => void): { dispose(): void } {
+    const panel = this.panels.get(panelId);
+    if (!panel || this.panelSettings.has(panelId)) throw new Error(`设置面板不存在或重复注册：${panelId}`);
+    if (!this.settingsStore) {
+      let storage: Storage | undefined;
+      try { storage = localStorage; } catch { /* Some browser contexts disallow storage. */ }
+      this.settingsStore = new LabSettingsStore(storage, `babylonjsBetter:lab-settings:${typeof location === 'undefined' ? 'unknown' : location.pathname}`,
+        () => this.setStatus('无法在本机记住设置，请检查浏览器存储空间或权限。当前设置仍然有效。', true));
+    }
+    const handle = new LabPanelSettings(panelId, panel.root, definitions, this.settingsStore, apply, this.preferences.switches, this.workspace?.lockSettingsInput);
+    this.panelSettings.set(panelId, handle);
+    return { dispose: () => { handle.dispose(); this.panelSettings.delete(panelId); } };
+  }
+
+  /** Apply local overrides once, after initial LabState and before scene start. */
+  restoreRememberedSettings(): void { this.panelSettings.forEach(handle => handle.restore()); }
 
   /** Public navigation for the system graph; modules never inspect another module's DOM. */
   hasModulePanels(moduleId: string): boolean {

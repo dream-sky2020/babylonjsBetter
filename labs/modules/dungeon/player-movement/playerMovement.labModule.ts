@@ -24,6 +24,9 @@ import {
   createLabJson,
   createLabStatus,
   createLabSwitch,
+  controlSetting,
+  type SettingDefinition,
+  type SettingValue,
   type LabModule,
 } from '@/labs/kit';
 import {
@@ -120,18 +123,10 @@ export const playerMovementLabModule: LabModule = {
     const boundsToggle = createLabSwitch('限制玩家不能移出地图', true);
     const obstacleToggle = createLabSwitch('限制玩家不能跨越障碍', true);
     const teleportToggle = createLabSwitch('瞬移（跳过逐帧过渡）');
-    const debugMarkerToggle = createLabSwitch('显示玩家 Debug 模型', true, {
-      preference: { ui: context.ui, key: 'player-movement/debug-marker' },
-    });
-    const keyboardToggle = createLabSwitch('启用玩家键盘输入', true, {
-      preference: { ui: context.ui, key: 'player-movement/keyboard-enabled' },
-    });
-    const continuousMovementToggle = createLabSwitch('按住方向连续移动', true, {
-      preference: { ui: context.ui, key: 'player-movement/continuous-movement' },
-    });
-    const eightWayToggle = createLabSwitch('启用玩家八方向移动', false, {
-      preference: { ui: context.ui, key: 'player-movement/eight-way' },
-    });
+    const debugMarkerToggle = createLabSwitch('显示玩家 Debug 模型', true);
+    const keyboardToggle = createLabSwitch('启用玩家键盘输入', true);
+    const continuousMovementToggle = createLabSwitch('按住方向连续移动', true);
+    const eightWayToggle = createLabSwitch('启用玩家八方向移动', false);
     const continuousHoldMultiplierInput = createNumberInput(0.8, 0, 0.05);
     const continuousHoldOffsetInput = createNumberInput(0, undefined, 0.05);
     const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
@@ -809,7 +804,48 @@ export const playerMovementLabModule: LabModule = {
       status.textContent = `玩家已在出生格 (${event.player.playerPosition.tileX}, ${event.player.playerPosition.tileY}) 创建，朝向 ${event.player.playerFacing}。`;
     });
     const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => refreshRuntimeJson());
+    // Each timing value control owns both unit-specific values, so changing modes cannot reinterpret a saved number.
+    movementTimingValues[activeMovementTimingMode] = movementTimingInput.value;
+    turnTimingValues[activeTurnTimingMode] = turnTimingInput.value;
+    const timingSetting = (key: string, label: string, input: HTMLInputElement,
+      values: Record<string, string>, active: () => string): SettingDefinition => ({
+      key, label, elements: [input],
+      read: () => ({ ...values, [active()]: input.value }),
+      write: saved => { for (const mode of Object.keys(values)) values[mode] = (saved as Record<string, string>)[mode]; },
+      valid: saved => !!saved && typeof saved === 'object' && !Array.isArray(saved)
+        && Object.keys(values).every(mode => typeof (saved as Record<string, SettingValue>)[mode] === 'string'
+          && Number((saved as Record<string, SettingValue>)[mode]) > 0
+          && Number.isFinite(Number((saved as Record<string, SettingValue>)[mode]))),
+    });
+    const rememberedSettings = context.ui.registerSettings('player-movement', [
+      controlSetting('bounds', '限制玩家不能移出地图', boundsToggle.input),
+      controlSetting('obstacles', '限制玩家不能跨越障碍', obstacleToggle.input),
+      controlSetting('teleport', '瞬移（跳过逐帧过渡）', teleportToggle.input),
+      controlSetting('debug-marker', '显示玩家 Debug 模型', debugMarkerToggle.input, { defaultRemember: true, legacyKey: 'player-movement/debug-marker' }),
+      controlSetting('keyboard-enabled', '启用玩家键盘输入', keyboardToggle.input, { defaultRemember: true, legacyKey: 'player-movement/keyboard-enabled' }),
+      controlSetting('continuous-movement', '按住方向连续移动', continuousMovementToggle.input, { defaultRemember: true, legacyKey: 'player-movement/continuous-movement' }),
+      controlSetting('eight-way', '启用玩家八方向移动', eightWayToggle.input, { defaultRemember: true, legacyKey: 'player-movement/eight-way' }),
+      controlSetting('hold-multiplier', '长按阈值倍率 X', continuousHoldMultiplierInput),
+      controlSetting('hold-offset', '长按阈值偏移', continuousHoldOffsetInput),
+      controlSetting('keyboard-priority', '键盘输入优先级', keyboardPriorityInput),
+      controlSetting('keyboard-intercept', '处理后拦截低优先级输入', keyboardInterceptToggle.input),
+      controlSetting('keyboard-prevent-default', '阻止浏览器默认行为', keyboardPreventDefaultToggle.input),
+      controlSetting('movement-timing-mode', '移动计时模式', movementTimingSelect),
+      timingSetting('movement-timing-values', '移动速度 / 每格耗时（分别记住）', movementTimingInput, movementTimingValues, () => activeMovementTimingMode),
+      controlSetting('swap-duration', '换位最短耗时', swapDurationInput),
+      controlSetting('swap-ignore-presentation', '换位计时忽略错身距离', swapIgnorePresentationDistanceToggle.input),
+      controlSetting('turn-timing-mode', '转向计时模式', turnTimingSelect),
+      timingSetting('turn-timing-values', '转向速度 / 每次耗时（分别记住）', turnTimingInput, turnTimingValues, () => activeTurnTimingMode),
+    ], () => {
+      const keyboard = { enabled: keyboardToggle.input.checked, priority: Number(keyboardPriorityInput.value),
+        intercept: keyboardInterceptToggle.input.checked, preventDefault: keyboardPreventDefaultToggle.input.checked };
+      syncTimingInputs(); syncInputPolicy(); syncMovementProfile(); renderDebugMarker();
+      keyboardRegistration.setEnabled(keyboard.enabled); keyboardRegistration.setPriority(keyboard.priority);
+      keyboardRegistration.setIntercept(keyboard.intercept); keyboardRegistration.setPreventDefault(keyboard.preventDefault);
+      if (!keyboard.enabled) clearDirectionalInput();
+    });
     return () => {
+      rememberedSettings.dispose();
       offPreparation();
       steps.dispose();
       context.services.delete(DUNGEON_PLAYER_STEP_SERVICE_KEY);

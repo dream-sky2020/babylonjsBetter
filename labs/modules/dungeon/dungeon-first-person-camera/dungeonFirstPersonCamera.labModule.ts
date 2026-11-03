@@ -12,6 +12,7 @@ import {
   createLabJson,
   createLabStatus,
   createLabSwitch,
+  controlSetting,
   type LabModule,
 } from '@/labs/kit';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
@@ -63,16 +64,12 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const spawnMemory = context.memory.acquire(DUNGEON_PLAYER_SPAWN_MEMORY);
     const sessionMemory = context.memory.acquire(DUNGEON_SESSION_INFO_MEMORY);
     const panel = context.ui.addPanel('dungeon-player-camera', 'Dungeon 玩家相机');
-    const enabledToggle = createLabSwitch('绑定相机到玩家', true, {
-      preference: { ui: context.ui, key: 'dungeon-player-camera/enabled' },
-    });
+    const enabledToggle = createLabSwitch('绑定相机到玩家', true);
     const modeSelect = createModeSelect();
     const switchModeButton = document.createElement('button');
     switchModeButton.type = 'button';
     switchModeButton.textContent = '切换视角（V）';
-    const keyboardToggle = createLabSwitch('启用 V 键切换视角', true, {
-      preference: { ui: context.ui, key: 'dungeon-player-camera/keyboard-enabled' },
-    });
+    const keyboardToggle = createLabSwitch('启用 V 键切换视角', true);
     const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
     const keyboardPreventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
     const keyboardPriorityInput = createNumberInput(90, -1000, 1000, 1);
@@ -661,7 +658,48 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     updateTileTopOffset();
     syncBinding();
     refreshDebug(true);
+    const rememberedSettings = context.ui.registerSettings('dungeon-player-camera', [
+      controlSetting('enabled', '绑定相机到玩家', enabledToggle.input, { defaultRemember: true, legacyKey: 'dungeon-player-camera/enabled' }),
+      controlSetting('mode', '当前玩家视角', modeSelect),
+      controlSetting('keyboard-enabled', '启用 V 键切换视角', keyboardToggle.input, { defaultRemember: true, legacyKey: 'dungeon-player-camera/keyboard-enabled' }),
+      controlSetting('keyboard-priority', 'V 键输入优先级', keyboardPriorityInput),
+      controlSetting('keyboard-intercept', '处理后拦截低优先级输入', keyboardInterceptToggle.input),
+      controlSetting('keyboard-prevent-default', '阻止浏览器默认行为', keyboardPreventDefaultToggle.input),
+      controlSetting('eye-height', '玩家脚底以上眼高', eyeHeightInput),
+      controlSetting('pitch', '基础俯仰角', pitchInput),
+      controlSetting('free-look', '启用拖拽自由观察', freeLookToggle.input),
+      controlSetting('horizontal-limit', '水平观察范围', horizontalLimitInput),
+      controlSetting('look-up-limit', '向上观察范围', lookUpLimitInput),
+      controlSetting('look-down-limit', '向下观察范围', lookDownLimitInput),
+      controlSetting('sensitivity', '拖拽灵敏度倍率', sensitivityInput),
+      controlSetting('look-response', '观察平滑响应', smoothingInput),
+      controlSetting('auto-recenter', '松开拖拽后自动回正', autoRecenterToggle.input),
+      controlSetting('recenter-duration', '回正耗时', recenterDurationInput),
+      controlSetting('projection', '俯视投影', projectionSelect),
+      controlSetting('orthographic-size', '正交垂直可见半范围', orthographicSizeInput),
+      controlSetting('overhead-distance', '俯视镜头距离', overheadDistanceInput),
+      controlSetting('overhead-pitch', '俯视仰角', overheadPitchInput),
+      controlSetting('overhead-yaw', '俯视水平朝向', overheadYawInput),
+      controlSetting('overhead-target-height', '俯视目标高度', overheadTargetHeightInput),
+      controlSetting('overhead-response', '俯视跟随响应', overheadFollowInput),
+      controlSetting('follow-area-enabled', '启用俯视跟随区域', deadZoneToggle.input),
+      controlSetting('follow-area-width', '跟随区域宽度 X', deadZoneWidthInput),
+      controlSetting('follow-area-depth', '跟随区域深度 Z', deadZoneDepthInput),
+      controlSetting('follow-area-debug', '显示跟随区域 Debug', deadZoneDebugToggle.input),
+    ], () => {
+      const mode = modeSelect.value as DungeonPlayerCameraMode;
+      const keyboard = { enabled: keyboardToggle.input.checked, priority: Number(keyboardPriorityInput.value),
+        intercept: keyboardInterceptToggle.input.checked, preventDefault: keyboardPreventDefaultToggle.input.checked };
+      projectionSettings.projection = projectionSelect.value as CameraProjection;
+      projectionSettings.orthographicSize = Number(orthographicSizeInput.value);
+      projectionDirty = true;
+      keyboardRegistration.setEnabled(keyboard.enabled); keyboardRegistration.setPriority(keyboard.priority);
+      keyboardRegistration.setIntercept(keyboard.intercept); keyboardRegistration.setPreventDefault(keyboard.preventDefault);
+      updateDeadZone();
+      setPlayerCameraMode(mode, 'ui'); syncBinding(true); refreshDebug(true);
+    });
     return () => {
+      rememberedSettings.dispose();
       viewConsumer.dispose();
       modeListeners.clear();
       context.services.delete(DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY);

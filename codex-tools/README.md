@@ -42,6 +42,8 @@
 - `migrateDungeonSpatial.ts`：`npm run migrate:dungeon-spatial -- INPUT --dry-run` 审查 v2/v3 地图的空间组件转换；显式 `--output=NEW_FILE --report=NEW_FILE` 生成候选和报告，拒绝覆盖。Runtime 已支持规范化后的新组件；不批量改写正式预设或运行存档。
 - `coreBoundaryAudit.ts`：边界测试的 TypeScript 语法与作用域检查，区分地图局部变量 `document` 与真实 DOM，检查相对/别名/动态 Lab 导入。
 
+`verifyLabSettings.cjs` 经 `node codex-tools/runElectronVerification.mjs codex-tools/verifyLabSettings.cjs` 在隔离隐藏浏览器验证 Dungeon Agent Lab 的相机/移动设置：标题菜单、连续勾选清单、顶层弹窗布局、刷新恢复、两种计时单位、全部关闭与撤销、原生输入框右键。只写隔离会话的本机偏好，拦截网络写请求；报告/截图位于 `node_modules/.cache/lab-settings.json` / `.png`。
+
 本目录集中保存 Codex 编写或维护的项目辅助工具，以及模型导入、贴图迁移的清单与验证记录。原目录名为 scripts。
 
 - 根目录：仍由 package.json 或项目代码使用的构建、迁移与验证工具。
