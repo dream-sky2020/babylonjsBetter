@@ -28,15 +28,24 @@ test('loader warms after view publication, keeps loading paused and fails closed
     const { dungeonMapSwitchRequest } = await server.ssrLoadModule('/labs/modules/dungeon/dungeon-map-loader/dungeonMapLoader.protocol.ts');
     const mapEntity = { id: 'map', entityType: 'map', components: [{ id: 'scene', type: 'scene-environment', version: 3,
       presetKey: 'environment', mapAnchorMode: 'first-tile', mapOffset: [0, 0, 0], tileSize: [1, 1, 1], tileSpacing: [1, 1] }] };
-    const spawn = { id: 'spawn', entityType: 'spawn-point', components: [{ id: 'actor', type: 'actor-spawn', version: 1, tileX: 0, tileY: 0 }] };
+    const spawn = { id: 'spawn', entityType: 'spawn-point', components: [{ id: 'actor', type: 'actor-spawn', version: 1, tileX: 1, tileY: 0 }] };
+    const guard = { id: 'guard', entityType: 'dungeon-agent', components: [
+      { id: 'guard:grid', type: 'grid-agent', version: 1, initialFacing: 'east', blocksMovement: true,
+        actionPeriod: 1, priority: 0, movementProfileId: 'ground' },
+      { id: 'guard:controller', type: 'agent-controller', version: 1, controllerId: 'stationary', parameters: {} },
+    ] };
+    const entrance = { id: 'entrance', entityType: 'dungeon-entrance', components: [
+      { id: 'entrance:component', type: 'dungeon-entrance', version: 1, entranceId: 'main', facing: 'east' },
+    ] };
     const doc = migrateDungeonMapToDocumentV2({ presetKey: 'map', name: 'Map', map: createDungeonMapData({ id: 'map', width: 2, height: 2,
-      createMapData: () => createEntityContainer(mapEntity, spawn) }) }).document;
+      createMapData: () => createEntityContainer(mapEntity, spawn),
+      createTileData: ({ x, y }) => x === 0 && y === 0 ? createEntityContainer(guard, entrance) : undefined }) }).document;
     const preset = { presetKey: 'environment', name: 'Environment', clearColor: '#000000', renderWarmup: { enabled: true },
       models: [], lights: [], objects: [{ id: 'box', name: 'Box', position: [1000, 0, 0], color: '#ffffff', geometry: { primitive: 'box', width: 1, height: 1, depth: 1 } }] };
     const memory = new LabMemoryRegistry(), services = new Map(), handlers = new Map(), layers = [];
     memory.scope('libraries').acquire(DUNGEON_LIBRARIES_MEMORY).replace({ maps: { map: doc }, environments: { environment: preset }, shadows: {} });
     const session = memory.scope('observer').acquire(DUNGEON_SESSION_INFO_MEMORY);
-    let published = 0, frames = 0, fail = false;
+    let published = 0, frames = 0, fail = false, candidate;
     const assembly = () => services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
     cleanup = dungeonMapLoaderLabModule.setup({ scene, services, memory: memory.scope('dungeon-map-loader'), scheduler: { isPaused: false, register: () => () => {} },
       ui: new LabUi(document.querySelector('aside'), document.querySelector('#status')),
@@ -48,6 +57,9 @@ test('loader warms after view publication, keeps loading paused and fails closed
       } },
       communication: { handle(protocol, callback) { handlers.set(protocol, callback); }, async publish() {
         published++; assert.equal(assembly().isPaused, true); assert.equal(session.current.status, 'loading');
+        assert.deepEqual(candidate.playerPosition, { tileX: 1, tileY: 0 });
+        assert.equal(candidate.traversal.body('guard').tileIndex, 0);
+        assert.deepEqual(candidate.traversal.body('$dungeon-player').pose, { x: 1, y: 0 });
         for (const mesh of scene.meshes) mesh.isReady = () => true;
       } },
     });
@@ -58,7 +70,16 @@ test('loader warms after view publication, keeps loading paused and fails closed
       if (fail) throw new Error('test warmup failure');
     };
     engine.readPixels = async () => new Uint8Array(4);
-    const switchMap = () => handlers.get(dungeonMapSwitchRequest)({ presetKey: 'map' });
+    const { createDungeonTraversalWorld } = await server.ssrLoadModule('/core/dungeon-traversal/index.ts');
+    const { createDungeonMovementResolver } = await server.ssrLoadModule('/core/dungeon-movement/index.ts');
+    const { createDungeonAgentRuntimeState } = await server.ssrLoadModule('/core/dungeon-agent/dungeonAgent.runtime.ts');
+    assembly().install('traversal', createDungeonTraversalWorld);
+    assembly().install('movement', createDungeonMovementResolver);
+    assembly().registerPreparation('test-agent', runtime => {
+      candidate = runtime;
+      return createDungeonAgentRuntimeState(runtime.map, runtime.traversal, runtime.movementResolver);
+    });
+    const switchMap = () => handlers.get(dungeonMapSwitchRequest)({ presetKey: 'map', entranceId: 'main' });
     assert.equal((await switchMap()).loaded, true); assert.equal(frames, 2);
     assert.equal(session.current.status, 'ready'); assert.equal(assembly().isPaused, false); assert.equal(layers.at(-1).disposed, true);
     fail = true;

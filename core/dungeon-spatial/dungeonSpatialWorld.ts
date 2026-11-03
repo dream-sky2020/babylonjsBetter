@@ -1,6 +1,6 @@
 import type { DungeonObstacleBinding } from '../dungeon-obstacle/dungeonObstacle.ts';
 import { installSpatialDefinitions, spatialBodyFor, type SpatialState, type SpatialBody } from '../dungeon-spatial/dungeonSpatialState.ts';
-import { indexSpatialBody } from '../dungeon-spatial/dungeonSpatialGeometry.ts';
+import { indexSpatialBody, sweepSpatialBody, type SpatialPoint } from '../dungeon-spatial/dungeonSpatialGeometry.ts';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import { getDungeonMapTerrainProperties, DUNGEON_MAP_DIRECTION_ORDER } from '../map-document/index.ts';
 import type { DungeonMapDirection } from '../map/index.ts';
@@ -98,6 +98,62 @@ export class DungeonSpatialWorld {
   /** Legacy descriptor view backed by the unified index, not another obstacle world. */
   readonly obstacleIndex: { findTile(x: number, y: number): DungeonObstacleBinding[]; findStep(from: {tileX:number;tileY:number}, to: {tileX:number;tileY:number}, direction: DungeonMapDirection): DungeonObstacleBinding[] };
   body(entityId: string) { return spatialBodyFor(this.spatial, entityId); }
+  /** Session-local escape permissions, never saved or applied to walls/props. */
+  private readonly overlapEscapePairs = new Map<string, Set<string>>();
+  private readonly characterEntityIds: ReadonlySet<string>;
+
+  isCharacter(entityId: string): boolean {
+    const body = this.body(entityId);
+    return !!body && (body.kind === 'player' || body.kind === 'agent'
+      || this.characterEntityIds.has(entityId));
+  }
+
+  private charactersOverlap(a: SpatialBody, b: SpatialBody): boolean {
+    return a.enabled && b.enabled && sweepSpatialBody(this.spatial, a, a.pose, a.pose).includes(b.id);
+  }
+
+  /** Capture existing invalid overlaps only; ordinary destination admission stays strict. */
+  captureCharacterOverlaps(actorId: string): void {
+    const body = this.body(actorId);
+    if (!body || !this.isCharacter(actorId) || !body.enabled) return;
+    for (const id of sweepSpatialBody(this.spatial, body, body.pose, body.pose)) {
+      if (!this.isCharacter(id) || this.body(id)?.tileIndex !== body.tileIndex) continue;
+      const own = this.overlapEscapePairs.get(actorId) ?? new Set<string>();
+      const other = this.overlapEscapePairs.get(id) ?? new Set<string>();
+      own.add(id); other.add(actorId);
+      this.overlapEscapePairs.set(actorId, own); this.overlapEscapePairs.set(id, other);
+    }
+  }
+
+  refreshOverlapEscapes(): void {
+    for (const [id, partners] of this.overlapEscapePairs) {
+      const a = this.body(id);
+      for (const otherId of partners) {
+        const b = this.body(otherId);
+        // A pre-commit move may still roll back to its original (overlapping) tile.
+        if (!a || !b || !a.enabled || !b.enabled
+          || (a.tileIndex !== b.tileIndex && !this.charactersOverlap(a, b))) {
+          partners.delete(otherId); this.overlapEscapePairs.get(otherId)?.delete(id);
+        }
+      }
+      if (!partners.size) this.overlapEscapePairs.delete(id);
+    }
+  }
+
+  /** Only movement away from an already overlapping partner may ignore its swept collision. */
+  overlapEscapeIgnoreIds(actorId: string, from: SpatialPoint, to: SpatialPoint, recovering = false): Set<string> {
+    this.refreshOverlapEscapes();
+    const result = new Set<string>();
+    for (const id of this.overlapEscapePairs.get(actorId) ?? []) {
+      const other = this.body(id)!;
+      let x = from.x - other.pose.x, y = from.y - other.pose.y;
+      if (this.spatial.wrapX) x -= Math.round(x / this.map.width) * this.map.width;
+      if (this.spatial.wrapY) y -= Math.round(y / this.map.height) * this.map.height;
+      const dx = to.x - from.x, dy = to.y - from.y;
+      if (recovering || x * dx + y * dy >= -1e-8) result.add(id);
+    }
+    return result;
+  }
   commitGroup(members: readonly { actorId: string; to: number }[]): void {
     const ids = new Set(members.map(member => member.actorId));
     for (const member of members) {
@@ -161,6 +217,8 @@ export class DungeonSpatialWorld {
     storage?: DungeonTraversalStorage,
   ) {
     this.map = map;
+    this.characterEntityIds = new Set(map.document.entities
+      .filter(entity => entity.entityType === 'dungeon-agent').map(entity => entity.id));
     this.obstacles = obstacles;
     this.obstacleBindingByEntity = new Map(obstacles.map(binding => [binding.entity.id, binding]));
     this.obstacleStates = obstacleStates;
@@ -252,6 +310,7 @@ export class DungeonSpatialWorld {
       for(const key of this.spatial.cellsByBody?.get(body.bodyId)??[])this.spatial.bodyIdsByCell?.get(key)?.delete(body.bodyId);
       this.spatial.cellsByBody?.delete(body.bodyId);
       this.spatial.bodies.delete(body.bodyId); this.spatial.bodyIdByEntity.delete(actorId); }
+    this.refreshOverlapEscapes();
     this.changed({ kind: 'actor-unregistered', actorId, fromTileIndex: actor.tileIndex });
   }
 

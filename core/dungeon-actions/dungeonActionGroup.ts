@@ -1,7 +1,7 @@
 import type { DungeonActionEngine } from './dungeonActionEngine.ts';
 import type { DungeonMovementDirection } from '../dungeon-movement/dungeonMovement.direction.ts';
 import { getDungeonMovementDirectionVector } from '../dungeon-movement/dungeonMovement.direction.ts';
-import { indexSpatialBody, sweepSpatialBody, bodySupport, sweepSpatialPair, type SpatialPoint } from '../dungeon-spatial/dungeonSpatialGeometry.ts';
+import { indexSpatialBody, bodySupport, sweepSpatialPair, type SpatialPoint } from '../dungeon-spatial/dungeonSpatialGeometry.ts';
 
 export type SpatialActionGroup = {
   id: string; kind: 'push' | 'swap'; elapsed: number; duration: number; committed: boolean;
@@ -156,7 +156,7 @@ export function requestSpatialGroup(engine: DungeonActionEngine, kind: 'push'|'s
   for(const m of members) for(let i=1;i<m.path.length;i++) {
     const p=m.path[i],prev=m.path[i-1];
     if(p.x<-.25||p.y<-.25||p.x>world.map.width-.75||p.y>world.map.height-.75)return reject('no-space-for-trajectory');
-    const hits=sweepSpatialBody(world.spatial,world.body(m.actorId)!,prev,p,groupIds);if(hits.length)return reject('trajectory-blocked',hits);
+    const hits=engine.sweepBlockingIds(world.body(m.actorId)!,prev,p,groupIds);if(hits.length)return reject('trajectory-blocked',hits);
     for(let x=Math.floor(Math.min(p.x,prev.x)+.25);x<=Math.floor(Math.max(p.x,prev.x)+.75);x++)
       for(let y=Math.floor(Math.min(p.y,prev.y)+.25);y<=Math.floor(Math.max(p.y,prev.y)+.75);y++)
         if(x>=0&&x<world.map.width&&y>=0&&y<world.map.height)cells.add(y*world.map.width+x);
@@ -173,7 +173,7 @@ export function requestSpatialGroup(engine: DungeonActionEngine, kind: 'push'|'s
           const point={x:m.path[0].x+(m.path[1].x-m.path[0].x)*s+offsets[i].x*arc,
             y:m.path[0].y+(m.path[1].y-m.path[0].y)*s+offsets[i].y*arc};
           if(point.x<-.25||point.y<-.25||point.x>world.map.width-.75||point.y>world.map.height-.75
-            ||sweepSpatialBody(world.spatial,world.body(m.actorId)!,previous,point,groupIds).length)return false;
+            ||engine.sweepBlockingIds(world.body(m.actorId)!,previous,point,groupIds).length)return false;
           previous=point;
         }
         return true;
@@ -204,7 +204,7 @@ export function advanceSpatialGroups(engine:DungeonActionEngine,delta:number,rea
     const ignore=new Set(group.members.map(m=>m.actorId));
     for(let i=0;i<group.members.length;i++) {
       const body=engine.traversal.body(group.members[i].actorId)!;
-      const hits=sweepSpatialBody(engine.traversal.spatial,body,body.pose,poses[i],ignore);
+      const hits=engine.sweepBlockingIds(body,body.pose,poses[i],ignore,group.recovering);
       if(hits.length) {group.blockedBy=hits;if(!group.recovering)engine.cancelGroup(group.id);continue groups;}
     }
     group.elapsed=nextElapsed;

@@ -69,13 +69,23 @@ export class DungeonActionEngine {
   worldPositionFor?: (x: number, y: number) => [number, number, number];
   /** Cosmetic distance in tile units; zero gives a plain 2D crossing. */
   swapPresentationOffset = .12;
+  sweepBlockingIds(body: SpatialBody, from: { x: number; y: number }, to: { x: number; y: number },
+    ignore: ReadonlySet<string> = new Set(), recovering = false): string[] {
+    const ids = new Set(ignore);
+    for (const id of this.traversal.overlapEscapeIgnoreIds(body.id, from, to, recovering)) ids.add(id);
+    return sweepSpatialBody(this.traversal.spatial, body, from, to, ids);
+  }
   projectBody(body: SpatialBody) { if (this.worldPositionFor) { const pose=spatialPresentationPose(body);body.worldPosition = this.worldPositionFor(pose.x, pose.y); } }
   /** The duration of walking one tile; contact distance adds time instead of accelerating the push. */
-  requestPush(actorId: string, direction: DungeonMovementDirection, secondsPerTile = .6) { return requestSpatialGroup(this, 'push', actorId, direction, secondsPerTile); }
+  requestPush(actorId: string, direction: DungeonMovementDirection, secondsPerTile = .6) {
+    if (!this.isBusy(actorId)) this.traversal.captureCharacterOverlaps(actorId);
+    return requestSpatialGroup(this, 'push', actorId, direction, secondsPerTile);
+  }
   /** Presented path follows initiator speed by default; tile timing can ignore the cosmetic detour. */
   requestSwap(actorId: string, otherId: string, minimumDuration = DEFAULT_SWAP_DURATION_SECONDS,
     secondsPerTile = .6, includePresentationDistance = true,
     priority?: {basePriority?:number;progressWeight?:number}) {
+    if (!this.isBusy(actorId)) this.traversal.captureCharacterOverlaps(actorId);
     return requestSpatialGroup(this, 'swap', actorId, otherId, minimumDuration, secondsPerTile, includePresentationDistance,priority);
   }
   private advanceGroups(delta: number, ready: () => boolean) { advanceSpatialGroups(this, delta, ready); }
@@ -159,7 +169,7 @@ export class DungeonActionEngine {
             ? (request.rollbackStartProgress??0)*(1-Math.min(1,((request.rollbackElapsedSeconds??0)+slice)/Math.max(1e-9,request.rollbackDurationSeconds??0)))
             : Math.min(1,(request.elapsedSeconds+slice)/Math.max(1e-9,request.durationSeconds));
           const target={x:request.fromTileIndex%this.traversal.map.width+vector.x*progress,y:Math.floor(request.fromTileIndex/this.traversal.map.width)+vector.y*progress};
-          const hits=sweepSpatialBody(this.traversal.spatial,body,body.pose,target,this.releasedTileHandoffIds(request));
+          const hits=this.sweepBlockingIds(body,body.pose,target,this.releasedTileHandoffIds(request),request.state==='rollback');
           if(hits.length){
             if(request.state==='forward-before-commit')this.beginRollback(request);
             else waiting=true;
@@ -169,6 +179,7 @@ export class DungeonActionEngine {
         this.updatePose(request);
       }
       this.advanceGroups(slice, ready);
+      this.traversal.refreshOverlapEscapes();
       this.storage.simulationSeconds! += slice;
       consumed+=slice;
       const nextRemaining=Math.max(0,remaining-slice);
@@ -222,6 +233,7 @@ export class DungeonActionEngine {
     body.pose = { x: x + vector.x * p, y: y + vector.y * p };
     if(sample?.completed&&!sample.rolledBack&&request.toTileIndex>=0)body.pose={x:body.logicalPosition.tileX,y:body.logicalPosition.tileY};
     indexSpatialBody(this.traversal.spatial, body); this.projectBody(body);
+    this.traversal.refreshOverlapEscapes();
   }
   advanceActor(actorId: string, deltaSeconds: number): DungeonMoveAdvanceResult {
     if (!this.externallyDriven || (deltaSeconds === 0 && this.getActiveRequest(actorId)?.durationSeconds === 0)) {
@@ -393,6 +405,7 @@ export class DungeonActionEngine {
     }
     const actor = this.traversal.actors.get(options.actorId);
     if (!actor) throw new Error(`不存在通行 Actor“${options.actorId}”。`);
+    this.traversal.captureCharacterOverlaps(options.actorId);
     if(!actor.enabled||this.traversal.body(options.actorId)?.mobility==='fixed')return this.rejected(options.actorId,
       {accepted:false,blockedReason:'movement-obstacle',blockingEntityIds:[actor.id]});
     const outsideTarget = options.outsideMapStep?.toTileIndex;

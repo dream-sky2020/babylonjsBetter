@@ -1,3 +1,11 @@
+## 2026-11-03：切图安全落点与角色重叠脱离
+
+`core/dungeon-player-spawn/dungeonPlayerArrival.ts` 在 Loader 恢复存档、应用入口及完成所有系统准备后、发布目标场景前决定玩家落点。原位安全则保持；否则按入口朝向优先、固定顺序在三步范围内搜索静态可达的安全空格，遵守地形、墙体、空间碰撞和地图循环拓扑，回退候选避开格子传送出口。无附近空位时保留静态合法的入口；静态落点完全不合法则拒绝提交候选场景。
+
+`DungeonSpatialWorld` 持有仅当前 Session 有效的角色对重叠豁免；只捕获同格且实际碰撞的玩家/Agent，对墙体和其他对象不生效。`DungeonActionEngine` 的普通移动、推移和换位轨迹共用脱离检查，目标占位和预约仍严格执行；双方逻辑占位和实际形状分离后清理，取消动作允许回退到原重叠位置，删除角色时清理。不写入地图、预设或运行时存档。
+
+验证位于 `core/dungeon-spatial/dungeonPlayerArrival.test.ts`，Loader 的 `dungeonMapLoaderWarmup.test.mjs` 同时验证入口被 Agent 占据时在发布/预热前完成落点修正。
+
 ## 2026-11-01：XP 独立战斗 Lab 与行动数据简化
 
 新增 `labs/standalone/combat-v1-lab/`，采用 XP 桌面/窗口风格，复用 v1 状态、阶段、角色、技能限制与技能结算，Lab 持有样例、接口适配、扣行动、简单非我方决策和伤害/治疗来源记录生成。提供普通攻击、火焰、治疗、一次性振奋额外行动、Boss 两次行动、中立自疗、手动阶段结束、非我方单步、战斗结果与统计。根首页和 Vite 登记独立入口，不修改旧 Press Turn。

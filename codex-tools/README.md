@@ -1,5 +1,7 @@
 # Codex 工具与资源处理档案
 
+`verifyDungeonDataLifecycle.cjs` 经 `node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonDataLifecycle.cjs` 在隔离隐藏 Electron 中运行 `dungeonDataLifecycleVerification.html`，复用 Dungeon Agent Lab 的正式模块组合，对三张正式地图进行四轮、共十二次进入；每次推进 AI/移动后切图，检查 Agent ID、四份 Agent 领域数据、共享内存 loadId、空间占位/碰撞体、任务/业务订阅和存档条目，确认新地图无旧动作及预约。用 WeakRef 和显式 GC 检查旧 Runtime 回收，并验证 Host 销毁后的任务、内存及订阅归零。只读正式资源，拦截网络写入；报告位于 `node_modules/.cache/dungeon-data-lifecycle.json`。首次访问新资源产生的素材缓存/关联监听及有界通信日志单独记录，不与实际运行数据重复相混淆。
+
 `buildCombatV1Lab.mjs` 通过 `npm run build:combat-v1` 构建 XP 风格独立战斗 Lab 到 `node_modules/.cache/combat-v1-build`，不复制 public。构建后通过 `runElectronVerification.mjs verifyCombatV1Lab.cjs`（完整参数为 `codex-tools/verifyCombatV1Lab.cjs`）检查真实页面攻击、治疗、额外行动、Boss/中立单步、冷却、重置与窄屏布局，报告和截图为 `node_modules/.cache/combat-v1-lab.json` / `.png`。
 
 `verifyDungeonLifecycle.cjs` 经 `node codex-tools/runElectronVerification.mjs codex-tools/verifyDungeonLifecycle.cjs` 在真实 Dungeon Agent Lab 连续往返三张地图，比较同图多次加载后的模型、节点、材质、纹理、动画、变形登记与 Scene/显卡上下文监听数量，并断言没有已无活动模型实例的批次留在渲染场景。`dungeonLifecycleProbe.ts` 仅读取运行资源；拒绝写请求，报告为 `node_modules/.cache/dungeon-lifecycle.json`。资源数量用于排查清理遗漏，不等同于帧率基准。

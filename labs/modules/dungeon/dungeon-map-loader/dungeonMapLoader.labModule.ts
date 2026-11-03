@@ -5,6 +5,7 @@ import {
   validateDungeonTransitionDocument,
 } from '@/core/dungeon-transition';
 import { resolveDungeonDocumentPlayerSpawn } from '@/core/dungeon-player-spawn';
+import { resolveDungeonPlayerArrival } from '@/core/dungeon-player-spawn/dungeonPlayerArrival';
 import { DungeonRuntimeAssembly, DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import {
   applyDungeonRuntimeSaveState,
@@ -471,6 +472,9 @@ export const dungeonMapLoaderLabModule: LabModule = {
               applyDungeonEntranceToRuntime(runtime, entrance, spawn.sceneEnvironmentComponent);
             }
             assembly.prepare(runtime, loadId);
+            resolveDungeonPlayerArrival(runtime, { resolveWorldPosition: (x, y) => resolveDungeonMapTileWorldLayout(
+              spawn.sceneEnvironmentComponent, liveDocument.grid.width, liveDocument.grid.height, x, y,
+            ).center });
             const obstacles = runtime.obstacles;
             const previousPresetKey = activePresetKey;
             const previousInstance = activeInstance;
