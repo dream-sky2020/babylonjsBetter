@@ -1,6 +1,6 @@
 import type { DungeonActionEngine } from './dungeonActionEngine.ts';
 import type { DungeonMovementDirection } from '../dungeon-movement/dungeonMovement.direction.ts';
-import { getDungeonMovementDirectionVector } from '../dungeon-movement/dungeonMovement.direction.ts';
+import { DUNGEON_EIGHT_WAY_MOVEMENT_DIRECTIONS, getDungeonMovementDirectionVector } from '../dungeon-movement/dungeonMovement.direction.ts';
 import { indexSpatialBody, bodySupport, sweepSpatialPair, type SpatialPoint } from '../dungeon-spatial/dungeonSpatialGeometry.ts';
 
 export type SpatialActionGroup = {
@@ -117,8 +117,10 @@ export function requestSpatialGroup(engine: DungeonActionEngine, kind: 'push'|'s
   } else {
     other=world.body(target);if(!other?.enabled||other.mobility!=='movable')return reject('target-not-movable');
     const dx=other.logicalPosition.tileX-actor.logicalPosition.tileX,dy=other.logicalPosition.tileY-actor.logicalPosition.tileY;
-    if(Math.abs(dx)+Math.abs(dy)!==1)return reject('swap-needs-neighbours');
-    direction=dx>0?'east':dx<0?'west':dy>0?'south':'north';
+    if(Math.max(Math.abs(dx),Math.abs(dy))!==1)return reject('swap-needs-neighbours');
+    direction=DUNGEON_EIGHT_WAY_MOVEMENT_DIRECTIONS.find(dir=>{
+      const vector=getDungeonMovementDirectionVector(dir);return vector.x===dx&&vector.y===dy;
+    })!;
   }
   const groupIds=new Set([actor.id,other.id]);
   const initiatorAction=engine.actionStateOf(actor.id),targetAction=engine.actionStateOf(other.id);
@@ -133,9 +135,11 @@ export function requestSpatialGroup(engine: DungeonActionEngine, kind: 'push'|'s
   }
   const vector=getDungeonMovementDirectionVector(direction),from=actor.tileIndex;
   if(kind==='swap') {
-    const reverse=direction==='east'?'west':direction==='west'?'east':direction==='north'?'south':'north';
+    const reverse=DUNGEON_EIGHT_WAY_MOVEMENT_DIRECTIONS.find(dir=>{
+      const opposite=getDungeonMovementDirectionVector(dir);return opposite.x===-vector.x&&opposite.y===-vector.y;
+    })!;
     for(const [body,dir] of [[actor,direction],[other,reverse]] as const) {
-      const step=world.inspectStep(body.id,body.tileIndex,dir,{ignoreBodyIds:[...groupIds]});
+      const step=world.inspectStep(body.id,body.tileIndex,dir,{ignoreBodyIds:[...groupIds],ignoreDirectionMode:body===other});
       if(step.blockedReason)return reject(step.blockedReason,[...step.blockingEntityIds]);
     }
   }
@@ -165,7 +169,8 @@ export function requestSpatialGroup(engine: DungeonActionEngine, kind: 'push'|'s
     // Cosmetic sidestep never decides whether a logical swap is legal. Reduce it
     // near third-party geometry/edges, down to a straight crossing when necessary.
     for(const amplitude of [engine.swapPresentationOffset,engine.swapPresentationOffset/2,0]) {
-      const offsets=members.map((_,i)=>({x:-vector.y*amplitude*(i?-1:1),y:vector.x*amplitude*(i?-1:1)}));
+      const length=Math.hypot(vector.x,vector.y);
+      const offsets=members.map((_,i)=>({x:-vector.y/length*amplitude*(i?-1:1),y:vector.x/length*amplitude*(i?-1:1)}));
       const clear=members.every((m,i)=>{
         let previous=m.path[0];
         for(let sample=1;sample<=16;sample++) {

@@ -58,6 +58,8 @@ export type DungeonTraversalInspection = Readonly<{
 }>;
 
 export type DungeonTraversalInspectionOptions = Readonly<{
+  /** Passive displacement may use a direction unavailable to voluntary movement; collision rules still apply. */
+  ignoreDirectionMode?: boolean;
   ignoreBodyIds?: readonly string[];
   ignoreDynamicOccupancy?: boolean;
   allowOccupiedTileIndex?: number;
@@ -383,6 +385,7 @@ export class DungeonSpatialWorld {
       && options.diagonalTargetTileIndex !== undefined
       && toTileIndex !== options.diagonalTargetTileIndex) {
       const occupants = this.blockingOccupants(toTileIndex, actorId).filter((occupantId) => {
+        if (options.ignoreBodyIds?.includes(occupantId)) return false;
         const occupant = this.actors.get(occupantId);
         return blocksDungeonDiagonalCorner(resolveDungeonSpatialFootprint(
           occupant?.spatialFootprint,
@@ -411,7 +414,7 @@ export class DungeonSpatialWorld {
     if (!this.occupantIdsByTile[fromTileIndex]) return { blockedReason: 'map-boundary', blockingEntityIds: [] };
     const actor = this.actors.get(actorId);
     const profile = resolveDungeonMovementProfile(actor?.movementProfileId ?? 'ground');
-    if (isDungeonDiagonalDirection(direction) && profile.directionMode !== 'eight-way') {
+    if (isDungeonDiagonalDirection(direction) && profile.directionMode !== 'eight-way' && !options.ignoreDirectionMode) {
       return { blockedReason: 'direction-not-supported', blockingEntityIds: [] };
     }
     if (!isDungeonDiagonalDirection(direction)) {
@@ -496,7 +499,7 @@ export class DungeonSpatialWorld {
       };
     }
     if (!options.ignoreDynamicOccupancy && options.allowOccupiedTileIndex !== toTileIndex) {
-      const occupants = this.blockingOccupants(toTileIndex, actorId);
+      const occupants = this.blockingOccupants(toTileIndex, actorId).filter(id => !options.ignoreBodyIds?.includes(id));
       if (occupants.length) {
         return { toTileIndex, blockedReason: 'occupied', blockingEntityIds: occupants };
       }

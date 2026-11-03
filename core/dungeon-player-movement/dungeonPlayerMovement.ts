@@ -256,13 +256,13 @@ export const startDungeonPlayerMovement = (
   if (inspection.blockedReason === 'movement-in-progress') return inspection;
   if ((inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle')
     && options.onBlockedAttempt?.(inspection)) return { ...inspection, handled: true };
-  if (inspection.blockedReason === 'movement-obstacle' && !options.teleport && !isDungeonDiagonalDirection(direction)) {
+  if (inspection.blockedReason === 'movement-obstacle' && !options.teleport) {
     const world = runtime.traversal;
     const targets = [...(world.occupantIdsByTile[positionIndex(runtime, to)] ?? [])]
       .map(id => world.body(id)).filter(body => body?.enabled && body.blocksMovement);
     const target = targets.length === 1 ? targets[0] : undefined;
     const actionKind = target?.onPlayerPush;
-    if (target && (actionKind === 'push' || actionKind === 'swap')) {
+    if (target && (actionKind === 'swap' || actionKind === 'push' && !isDungeonDiagonalDirection(direction))) {
       // Ignoring only the selected body must leave a legal step: walls, terrain and
       // other blockers cannot be bypassed by choosing a push/swap response.
       const step = world.inspectStep(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, positionIndex(runtime, from), direction,

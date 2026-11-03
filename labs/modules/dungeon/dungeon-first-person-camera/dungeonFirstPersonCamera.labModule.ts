@@ -28,6 +28,7 @@ const degToRad = (value: number): number => value * Math.PI / 180;
 const radToDeg = (value: number): number => value * 180 / Math.PI;
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));
 const DEFAULT_OVERHEAD_DISTANCE = 240;
+const DEFAULT_OVERHEAD_FOLLOW_RESPONSE = 50;
 
 const createNumberInput = (value: number, min: number, max: number, step: number): HTMLInputElement => {
   const input = document.createElement('input');
@@ -100,7 +101,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const overheadPitchInput = createNumberInput(55, 15, 85, 1);
     const overheadYawInput = createNumberInput(0, -180, 180, 1);
     const overheadTargetHeightInput = createNumberInput(0.8, -10, 20, 0.1);
-    const overheadFollowInput = createNumberInput(14, 0, 60, 1);
+    const overheadFollowInput = createNumberInput(DEFAULT_OVERHEAD_FOLLOW_RESPONSE, 0, 60, 1);
     const deadZone = { ...DEFAULT_CAMERA_DEAD_ZONE };
     const deadZoneToggle = createLabSwitch('启用俯视跟随区域', deadZone.enabled);
     const deadZoneWidthInput = createNumberInput(deadZone.width, 0, 1000, 0.5);
@@ -322,7 +323,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
           desiredOverheadTarget.x = resolveCameraDeadZoneTarget(overheadTarget.x, x, deadZone.width);
           desiredOverheadTarget.z = resolveCameraDeadZoneTarget(overheadTarget.z, z, deadZone.depth);
         }
-        const response = readClampedNumber(overheadFollowInput, 14);
+        const response = readClampedNumber(overheadFollowInput, DEFAULT_OVERHEAD_FOLLOW_RESPONSE);
         const nextX = smoothCameraFollow(overheadTarget.x, desiredOverheadTarget.x, overheadVelocity.x, response, deltaSeconds);
         const nextY = smoothCameraFollow(overheadTarget.y, desiredOverheadTarget.y, overheadVelocity.y, response, deltaSeconds);
         const nextZ = smoothCameraFollow(overheadTarget.z, desiredOverheadTarget.z, overheadVelocity.z, response, deltaSeconds);

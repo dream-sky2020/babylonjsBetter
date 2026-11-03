@@ -8,11 +8,14 @@ import { createDungeonMapDocumentDelta, applyDungeonMapDocumentDelta } from '../
 import { componentDefinition as interaction } from '../entity/components/spatial-interaction.component.ts';
 import { createSpatialExampleDocument } from './dungeonSpatialExample.ts';
 import { compileSpatialDefinitions } from './dungeonSpatialDefinition.ts';
-import { createDungeonRuntime } from '../dungeon-runtime/dungeonRuntime.ts';
+import { createDungeonRuntime, setDungeonRuntimePlayerPosition } from '../dungeon-runtime/dungeonRuntime.ts';
+import { DUNGEON_DIAGONAL_MOVEMENT_DIRECTIONS, getDungeonMovementDirectionVector, type DungeonDiagonalDirection } from '../dungeon-movement/dungeonMovement.direction.ts';
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
 import { startDungeonPlayerMovement } from '../dungeon-player-movement/dungeonPlayerMovement.ts';
 import { DungeonPlayerSystem } from '../dungeon-player-movement/dungeonPlayerSystem.ts';
 import { DungeonPlayerStepEvents } from '../dungeon-player-movement/dungeonPlayerStepEvents.ts';
+import { componentDefinition as bodyComponent } from '../entity/components/spatial-body.component.ts';
+import { componentDefinition as colliderComponent } from '../entity/components/spatial-collider.component.ts';
 
 const options = { movementTimingMode: 'seconds-per-tile' as const, movementSecondsPerTile: 1,
   resolveWorldPosition: (p: { tileX: number; tileY: number }) => [p.tileX, 0, p.tileY] as const };
@@ -26,6 +29,91 @@ function fixture(response?: 'block' | 'push' | 'swap', disabled = false) {
   runtime.movementResolver.externallyDriven = true;
   return { doc, runtime, engine: runtime.movementResolver };
 }
+
+function diagonalFixture(direction: DungeonDiagonalDirection) {
+  const setup = fixture('swap');
+  const world = setup.runtime.traversal, vector = getDungeonMovementDirectionVector(direction);
+  world.body('peer')!.enabled = false;
+  world.setActorMovementProfile('$dungeon-player', 'ground-eight-way');
+  const from = { tileX: 2 - vector.x, tileY: 2 - vector.y };
+  setDungeonRuntimePlayerPosition(setup.runtime, from);
+  setup.runtime.playerWorldPosition = [from.tileX, 0, from.tileY];
+  return { ...setup, world, from };
+}
+
+for (const direction of DUNGEON_DIAGONAL_MOVEMENT_DIRECTIONS) {
+  test(`eight-way player swaps ${direction} with a four-way target and commits both anchors together`, () => {
+    const { runtime, engine, world, from } = diagonalFixture(direction);
+    const originalIndex = from.tileY * runtime.map.width + from.tileX;
+    let steps = 0;
+    const events = new DungeonPlayerStepEvents(), system = new DungeonPlayerSystem(runtime, 1, events);
+    events.subscribe('diagonal-swap', 100, () => { steps++; });
+    const result = system.move(direction, options);
+    assert.equal(result.actionKind, 'swap');
+    assert.equal(runtime.playerMovement, null);
+    assert.ok(Math.abs(result.actionDurationSeconds! - Math.SQRT2) < 1e-9);
+    engine.tick(result.actionDurationSeconds! / 2);
+    assert.equal(world.body('$dungeon-player')!.tileIndex, originalIndex);
+    assert.equal(world.body('box')!.tileIndex, 16);
+    engine.tick(result.actionDurationSeconds! / 2);
+    assert.deepEqual(runtime.playerPosition, { tileX: 2, tileY: 2 });
+    assert.equal(world.body('box')!.tileIndex, originalIndex);
+    assert.equal(world.body('box')!.movementProfileId, 'ground');
+    assert.equal(steps, 1);
+  });
+}
+
+test('diagonal swap still rejects four-way initiators, distant targets, corner blockers and third occupants', () => {
+  const fourWay = diagonalFixture('south-east');
+  fourWay.world.setActorMovementProfile('$dungeon-player', 'ground');
+  assert.equal(fourWay.engine.requestSwap('$dungeon-player', 'box').reason, 'direction-not-supported');
+  const distant = fixture('swap');
+  distant.runtime.traversal.moveActor('box', 18);
+  assert.equal(distant.engine.requestSwap('$dungeon-player', 'box').reason, 'swap-needs-neighbours');
+  for (const tileIndex of [9, 16]) {
+    const setup = diagonalFixture('south-east');
+    setup.world.registerActor({ id: 'blocker', kind: 'agent', tileIndex, enabled: true,
+      blocksMovement: true, spatialFootprint: 'full-tile', movementProfileId: 'ground' });
+    assert.equal(setup.engine.requestSwap('$dungeon-player', 'box').accepted, false);
+    assert.equal(startDungeonPlayerMovement(setup.runtime, 'south-east', options).actionKind, undefined);
+    assert.equal(setup.engine.storage.groups!.size, 0);
+  }
+});
+
+test('diagonal swaps cannot cross a wall at the corner', () => {
+  const setup = diagonalFixture('south-east'), store = new DungeonMapDocumentStore(setup.doc);
+  const side = setup.doc.grid.sides.find(row => row.tileId === setup.doc.grid.tileIds[8] && row.direction === 'east')!;
+  store.addEntityAt({ kind: 'side', sideId: side.id }, { id: 'corner-wall', entityType: 'obstacle',
+    components: [bodyComponent.createDefault(), colliderComponent.createDefault()] });
+  const spawn = { tilePosition: { x: 1, y: 1 }, worldPosition: [1, 0, 1] } as unknown as DungeonPlayerSpawnBinding;
+  const runtime = createDungeonRuntime(store.getDocument(), spawn);
+  runtime.traversal.setActorMovementProfile('$dungeon-player', 'ground-eight-way');
+  const result = runtime.movementResolver.requestSwap('$dungeon-player', 'box');
+  assert.equal(result.accepted, false);
+  assert.ok(result.blockingEntityIds.includes('corner-wall'));
+  assert.equal(runtime.movementResolver.storage.groups!.size, 0);
+});
+
+test('diagonal swaps retain priority takeover and cancellation recovery', () => {
+  for (const cancel of [false, true]) {
+    const { runtime, world, engine, from } = diagonalFixture('south-east');
+    const old = engine.requestMove({ actorId: 'box', direction: 'east', durationSeconds: 1, basePriority: 2 });
+    assert.equal(old.accepted, true);
+    engine.tick(.2);
+    const pose = { ...world.body('box')!.pose };
+    const result = startDungeonPlayerMovement(runtime, 'south-east', options);
+    assert.equal(result.actionKind, 'swap');
+    assert.deepEqual(world.body('box')!.pose, pose);
+    assert.equal(engine.getActiveRequest('box'), undefined);
+    engine.tick(result.actionDurationSeconds! / 3);
+    if (cancel) engine.cancelGroup(result.actionId!);
+    engine.tick(engine.storage.groups!.get(result.actionId!)!.duration);
+    assert.deepEqual(runtime.playerPosition, cancel ? from : { tileX: 2, tileY: 2 });
+    assert.deepEqual(world.body('box')!.logicalPosition, cancel ? { tileX: 2, tileY: 2 } : from);
+    assert.equal(world.body('box')!.presentationOffset, undefined);
+    assert.equal(engine.isBusy('$dungeon-player'), false);
+  }
+});
 
 test('interaction component is optional, unique, validated and editable through map history, delta and v3', () => {
   assert.equal(interaction.createDefault().onPlayerPush, 'block');

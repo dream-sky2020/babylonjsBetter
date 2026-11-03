@@ -73,6 +73,8 @@ test('player camera module applies/saves orthographic overhead without changing 
     service.setMode('overhead'); assert.equal(c.state.projection, 'perspective'); assert.equal(projection.disabled, false); assert.equal(distance.disabled, false);
     const control = text => [...document.querySelectorAll('label')].find(label => label.textContent.includes(text)).querySelector('input');
     const area = control('启用俯视跟随区域'), areaDebug = control('显示跟随区域 Debug'), follow = control('俯视跟随响应');
+    assert.equal(follow.value, '50');
+    follow.value = '14'; follow.dispatchEvent(new dom.window.Event('input'));
     area.checked = true; area.dispatchEvent(new dom.window.Event('change'));
     areaDebug.checked = true; areaDebug.dispatchEvent(new dom.window.Event('change'));
     runtime.playerWorldPosition = [10, 0, 8]; scene.onBeforeRenderObservable.notifyObservers(scene);

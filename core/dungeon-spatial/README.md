@@ -20,6 +20,8 @@
 
 动作准入由 `DungeonActionEngine.actionStateOf` 统一判断。共享动作存储中 Agent 的 `move` 表现轨道若与活动移动请求 ID 匹配，视为同一个动作，高优先级换位可接管；独立转向、失配轨道、回退和协同动作仍忙碌。玩家遇到忙碌或优先级不足的换位目标时直接显示拒绝原因，不播放受阻回弹；地形和真实碰撞仍沿原行为处理。
 
+八方向玩家也可与四个斜邻格的对象换位；主动方必须允许八方向，被动方只需可移动，不要求其自主移动配置支持斜向。双方仍检查墙角、地形、第三方碰撞与预约，仅忽略换位双方；不修改被动方的移动配置。斜向自动换位按普通斜走距离计时，错身幅度沿垂直方向归一化。推动仍只支持四个正方向。验证位于 `dungeonSpatialInteraction.test.ts`。
+
 装配层通过 `context.memory.acquire(DUNGEON_TRAVERSAL_STATE_MEMORY)` 和 `context.memory.acquire(DUNGEON_MOVEMENT_STATE_MEMORY)` 申请同一导出定义；候选由对应 `allocate...StateData` 分配，通过 Runtime 的 storage 参数注入，准备成功后 `handle.replace(candidate)`。Core 不申请 Lab 内存。
 
 运行 `npm run test:dungeon-spatial`、`npm run typecheck:dungeon-spatial`。完整范围与缺项见 `docs/dungeon-spatial-world-upgrade-validation-2026-10-17.md`。
